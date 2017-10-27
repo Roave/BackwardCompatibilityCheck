@@ -2,6 +2,7 @@
     "name": "roave/api-compare",
     "description": "Tool to compare two revisions of a public API to check for BC breaks",
     "require": {
+        "php": "^7.1",
         "roave/security-advisories": "dev-master",
         "roave/better-reflection": "^2.0"
     },
