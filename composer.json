@@ -1,0 +1,28 @@
+{
+    "name": "roave/api-compare",
+    "description": "Tool to compare two revisions of a public API to check for BC breaks",
+    "require": {
+        "roave/security-advisories": "dev-master",
+        "roave/better-reflection": "^2.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "James Titcumb",
+            "email": "james@asgrim.com"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^6.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Roave\\ApiCompare\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Roave\\ApiCompareTest\\": "test/unit"
+        }
+    }
+}
