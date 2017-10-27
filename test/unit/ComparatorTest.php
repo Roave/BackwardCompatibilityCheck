@@ -15,7 +15,7 @@ final class ComparatorTest extends TestCase
     public function testCompare(): void
     {
         $reflectorFactory = new DirectoryReflectorFactory();
-        self::assertSame(
+        self::assertEquals(
             [
                 '[BC] Parameter something in Thing::__construct has been deleted',
                 '[BC] Method methodGone in class Thing has been deleted',
