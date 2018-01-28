@@ -47,6 +47,17 @@ final class ComparatorTest extends TestCase
         );
     }
 
+    public function testRemovingAPrivateMethodDoesNotCauseBreak(): void
+    {
+        self::assertEqualsIgnoringOrder(
+            [],
+            (new Comparator())->compare(
+                self::$stringReflectorFactory->__invoke('<?php class A { private function foo() {} }'),
+                self::$stringReflectorFactory->__invoke('<?php class A { }')
+            )
+        );
+    }
+
     public function testRenamingParametersDoesNotCauseBcBreak(): void
     {
         self::assertEqualsIgnoringOrder(

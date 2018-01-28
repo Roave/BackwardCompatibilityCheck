@@ -44,7 +44,10 @@ final class Comparator
         ReflectionMethod $oldMethod,
         ReflectionClass $newClass
     ): array {
-        // @todo ignore private methods
+        if ($oldMethod->isPrivate()) {
+            return $changelog;
+        }
+
         try {
             $newMethod = $newClass->getMethod($oldMethod->getName());
         } catch (\OutOfBoundsException $exception) {
