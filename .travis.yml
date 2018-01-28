@@ -17,6 +17,7 @@ jobs:
       php: 7.1
       before_script:
         - wget https://scrutinizer-ci.com/ocular.phar
+        - composer install
       script:
         - vendor/bin/phpunit --coverage-text --coverage-clover=clover.xml
         - php ocular.phar code-coverage:upload --format=php-clover clover.xml
