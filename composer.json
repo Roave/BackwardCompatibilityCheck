@@ -23,7 +23,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Roave\\ApiCompareTest\\": "test/unit"
+            "RoaveTest\\ApiCompare\\": "test/unit"
         }
     }
 }
