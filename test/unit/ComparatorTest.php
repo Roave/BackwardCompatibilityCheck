@@ -18,10 +18,19 @@ use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
  */
 final class ComparatorTest extends TestCase
 {
+    /**
+     * @param mixed $expected
+     * @param mixed $actual
+     */
+    private static function assertEqualsIgnoringOrder($expected, $actual): void
+    {
+        self::assertEquals($expected, $actual, '', 0.0, 10, true);
+    }
+
     public function testCompare(): void
     {
         $reflectorFactory = new DirectoryReflectorFactory();
-        self::assertEquals(
+        self::assertEqualsIgnoringOrder(
             [
                 '[BC] Parameter something (position 0) in Thing::__construct has been deleted',
                 '[BC] Method methodGone in class Thing has been deleted',
@@ -34,7 +43,7 @@ final class ComparatorTest extends TestCase
         );
     }
 
-    public function testRenamingParametersDoesNotCauseBCBreak()
+    public function testRenamingParametersDoesNotCauseBcBreak(): void
     {
         $reflectorFactory = function (string $sourceCode): ClassReflector {
             $astLocator = (new BetterReflection())->astLocator();
@@ -47,7 +56,7 @@ final class ComparatorTest extends TestCase
             );
         };
 
-        self::assertEquals(
+        self::assertEqualsIgnoringOrder(
             [],
             (new Comparator())->compare(
                 $reflectorFactory('<?php class A { function foo(int $a, string $b) {} }'),
