@@ -56,8 +56,15 @@ final class Comparator
             return $changelog;
         }
 
-        foreach ($oldMethod->getParameters() as $oldParameter) {
-            $changelog = $this->examineParameter($changelog, $oldClass, $oldMethod, $oldParameter, $newMethod);
+        foreach ($oldMethod->getParameters() as $parameterPosition => $oldParameter) {
+            $changelog = $this->examineParameter(
+                $changelog,
+                $parameterPosition,
+                $oldClass,
+                $oldMethod,
+                $oldParameter,
+                $newMethod
+            );
         }
 
         return $changelog;
@@ -65,23 +72,26 @@ final class Comparator
 
     private function examineParameter(
         array $changelog,
+        int $parameterPosition,
         ReflectionClass $oldClass,
         ReflectionMethod $oldMethod,
         ReflectionParameter $oldParameter,
         ReflectionMethod $newMethod
     ): array {
-        $newParameter = $newMethod->getParameter($oldParameter->getName());
-
-        if (null === $newParameter) {
+        $newParameters = $newMethod->getParameters();
+        if (!array_key_exists($parameterPosition, $newParameters)) {
             $changelog[] = sprintf(
-                '[BC] Parameter %s in %s%s%s has been deleted',
+                '[BC] Parameter %s (position %d) in %s%s%s has been deleted',
                 $oldParameter->getName(),
+                $parameterPosition,
                 $oldClass->getName(),
                 $oldMethod->isStatic() ? '#' : '::',
                 $oldMethod->getName()
             );
             return $changelog;
         }
+
+        $newParameter = $newParameters[$parameterPosition];
 
         // @todo check if types changed, or becoming default
         // @todo check if a new param (without a default) was added
