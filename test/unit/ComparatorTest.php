@@ -68,4 +68,17 @@ final class ComparatorTest extends TestCase
             )
         );
     }
+
+    public function testMakingAClassFinal(): void
+    {
+        self::assertEqualsIgnoringOrder(
+            [
+                '[BC] Class A is now final',
+            ],
+            (new Comparator())->compare(
+                self::$stringReflectorFactory->__invoke('<?php class A { }'),
+                self::$stringReflectorFactory->__invoke('<?php final class A { }')
+            )
+        );
+    }
 }

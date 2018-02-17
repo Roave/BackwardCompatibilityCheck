@@ -31,6 +31,10 @@ final class Comparator
             return $changelog;
         }
 
+        if ($newClass->isFinal() && !$oldClass->isFinal()) {
+            $changelog[] = sprintf('[BC] Class %s is now final', $oldClass->getName());
+        }
+
         foreach ($oldClass->getMethods() as $oldMethod) {
             $changelog = $this->examineMethod($changelog, $oldClass, $oldMethod, $newClass);
         }
