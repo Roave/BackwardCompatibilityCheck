@@ -1,0 +1,27 @@
+language: php
+
+before_script:
+  - composer install
+
+jobs:
+  include:
+    - stage: Test
+      php: 7.1
+      script: vendor/bin/phpunit
+
+    - stage: Test
+      php: 7.2
+      script: vendor/bin/phpunit
+
+    - stage: Code Coverage
+      php: 7.1
+      before_script:
+        - wget https://scrutinizer-ci.com/ocular.phar
+        - composer install
+      script:
+        - vendor/bin/phpunit --coverage-text --coverage-clover=clover.xml
+        - php ocular.phar code-coverage:upload --format=php-clover clover.xml
+
+cache:
+  directories:
+    - $HOME/.composer/cache
