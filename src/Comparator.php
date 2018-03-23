@@ -11,9 +11,9 @@ use Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
 
 final class Comparator
 {
-    public function compare(ClassReflector $oldApi, ClassReflector $newApi): array
+    public function compare(ClassReflector $oldApi, ClassReflector $newApi): Changes
     {
-        $changelog = [];
+        $changelog = Changes::new();
 
         foreach ($oldApi->getAllClasses() as $oldClass) {
             $changelog = $this->examineClass($changelog, $oldClass, $newApi);
@@ -22,17 +22,21 @@ final class Comparator
         return $changelog;
     }
 
-    private function examineClass(array $changelog, ReflectionClass $oldClass, ClassReflector $newApi): array
+    private function examineClass(Changes $changelog, ReflectionClass $oldClass, ClassReflector $newApi): Changes
     {
         try {
             $newClass = $newApi->reflect($oldClass->getName());
         } catch (IdentifierNotFound $exception) {
-            $changelog[] = sprintf('[BC] Class %s has been deleted', $oldClass->getName());
+            $changelog = $changelog->withAddedChange(
+                Change::removed(sprintf('Class %s has been deleted', $oldClass->getName()), true)
+            );
             return $changelog;
         }
 
         if ($newClass->isFinal() && !$oldClass->isFinal()) {
-            $changelog[] = sprintf('[BC] Class %s is now final', $oldClass->getName());
+            $changelog = $changelog->withAddedChange(
+                Change::changed(sprintf('Class %s is now final', $oldClass->getName()), true)
+            );
         }
 
         foreach ($oldClass->getMethods() as $oldMethod) {
@@ -43,11 +47,11 @@ final class Comparator
     }
 
     private function examineMethod(
-        array $changelog,
+        Changes $changelog,
         ReflectionClass $oldClass,
         ReflectionMethod $oldMethod,
         ReflectionClass $newClass
-    ): array {
+    ): Changes {
         if ($oldMethod->isPrivate()) {
             return $changelog;
         }
@@ -55,12 +59,16 @@ final class Comparator
         try {
             $newMethod = $newClass->getMethod($oldMethod->getName());
         } catch (\OutOfBoundsException $exception) {
-            $changelog[] = sprintf(
-                '[BC] Method %s in class %s has been deleted',
-                $oldMethod->getName(),
-                $oldClass->getName()
+            return $changelog->withAddedChange(
+                Change::removed(
+                    sprintf(
+                        'Method %s in class %s has been deleted',
+                        $oldMethod->getName(),
+                        $oldClass->getName()
+                    ),
+                    true
+                )
             );
-            return $changelog;
         }
 
         foreach ($oldMethod->getParameters() as $parameterPosition => $oldParameter) {
@@ -78,24 +86,28 @@ final class Comparator
     }
 
     private function examineParameter(
-        array $changelog,
+        Changes $changelog,
         int $parameterPosition,
         ReflectionClass $oldClass,
         ReflectionMethod $oldMethod,
         ReflectionParameter $oldParameter,
         ReflectionMethod $newMethod
-    ): array {
+    ): Changes {
         $newParameters = $newMethod->getParameters();
         if (!array_key_exists($parameterPosition, $newParameters)) {
-            $changelog[] = sprintf(
-                '[BC] Parameter %s (position %d) in %s%s%s has been deleted',
-                $oldParameter->getName(),
-                $parameterPosition,
-                $oldClass->getName(),
-                $oldMethod->isStatic() ? '#' : '::',
-                $oldMethod->getName()
+            return $changelog->withAddedChange(
+                Change::removed(
+                    sprintf(
+                        'Parameter %s (position %d) in %s%s%s has been deleted',
+                        $oldParameter->getName(),
+                        $parameterPosition,
+                        $oldClass->getName(),
+                        $oldMethod->isStatic() ? '#' : '::',
+                        $oldMethod->getName()
+                    ),
+                    true
+                )
             );
-            return $changelog;
         }
 
         $newParameter = $newParameters[$parameterPosition];

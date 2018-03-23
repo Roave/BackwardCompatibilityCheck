@@ -4,7 +4,9 @@
     "require": {
         "php": "^7.1",
         "roave/security-advisories": "dev-master",
-        "roave/better-reflection": "^2.0"
+        "roave/better-reflection": "^2.0",
+        "symfony/console": "^4.0",
+        "beberlei/assert": "^2.9"
     },
     "license": "MIT",
     "authors": [
