@@ -9,7 +9,8 @@ use IteratorAggregate;
 
 final class Changes implements IteratorAggregate
 {
-    private $changes;
+    /** @var Change[] */
+    private $changes = [];
 
     private function __construct()
     {

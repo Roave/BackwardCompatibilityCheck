@@ -6,7 +6,8 @@
         "roave/security-advisories": "dev-master",
         "roave/better-reflection": "^2.0",
         "symfony/console": "^4.0",
-        "beberlei/assert": "^2.9"
+        "beberlei/assert": "^2.9",
+        "symfony/process": "^4.0"
     },
     "license": "MIT",
     "authors": [

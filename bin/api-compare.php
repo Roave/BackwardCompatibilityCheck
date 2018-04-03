@@ -5,6 +5,9 @@ use Assert\Assert;
 use Roave\ApiCompare\Comparator;
 use Roave\ApiCompare\Factory\DirectoryReflectorFactory;
 use Roave\ApiCompare\Formatter\SymfonyConsoleTextFormatter;
+use Roave\ApiCompare\Git\CheckedOutRepository;
+use Roave\ApiCompare\Git\GitCheckoutRevisionToTemporaryPath;
+use Roave\ApiCompare\Git\Revision;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -44,6 +47,7 @@ $application->add(new class extends Command {
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
+     * @throws \Symfony\Component\Process\Exception\RuntimeException
      * @throws \Symfony\Component\Console\Exception\InvalidArgumentException
      * @throws \Roave\BetterReflection\SourceLocator\Exception\InvalidFileInfo
      * @throws \Roave\BetterReflection\SourceLocator\Exception\InvalidDirectory
@@ -51,24 +55,26 @@ $application->add(new class extends Command {
     protected function execute(InputInterface $input, OutputInterface $output) : void
     {
         $reflectorFactory = new DirectoryReflectorFactory();
+        $git = new GitCheckoutRevisionToTemporaryPath();
 
-        (new SymfonyConsoleTextFormatter($output))->write(
-            (new Comparator())->compare(
-                $reflectorFactory->__invoke($this->validatePath($input->getArgument('from'))),
-                $reflectorFactory->__invoke($this->validatePath($input->getArgument('to')))
-            )
-        );
-    }
+        // @todo fix flaky assumption about the path of the source repo...
+        $sourceRepo = CheckedOutRepository::fromPath(getcwd());
 
-    /**
-     * @param string $path
-     * @return string
-     * @throws InvalidArgumentException
-     */
-    private function validatePath(string $path) : string
-    {
-        Assert::that($path)->directory();
-        return realpath($path);
+        $fromPath = $git->checkout($sourceRepo, Revision::fromSha1($input->getArgument('from')));
+        $toPath = $git->checkout($sourceRepo, Revision::fromSha1($input->getArgument('to')));
+
+        // @todo fix hard-coded /src/ addition...
+        try {
+            (new SymfonyConsoleTextFormatter($output))->write(
+                (new Comparator())->compare(
+                    $reflectorFactory->__invoke((string)$fromPath . '/src/'),
+                    $reflectorFactory->__invoke((string)$toPath . '/src/')
+                )
+            );
+        } finally {
+            $git->remove($fromPath);
+            $git->remove($toPath);
+        }
     }
 });
 $application->setDefaultCommand('api-compare:compare');
