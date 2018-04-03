@@ -58,7 +58,7 @@ final class Change
     {
         return sprintf(
             '%s%s: %s',
-            $this->isBcBreak ? '[BC] ' : '',
+            $this->isBcBreak ? '[BC] ' : '     ',
             strtoupper($this->modificationType),
             $this->description
         );
