@@ -18,12 +18,14 @@ if (!$foundAutoload) {
     throw new \RuntimeException('Could not find Composer autoload.php');
 }
 
-$application = new Application();
-$application->add(new Command\ApiCompare(
+$apiCompareCommand = new Command\ApiCompare(
     new \Roave\ApiCompare\Git\GitCheckoutRevisionToTemporaryPath(),
     new \Roave\ApiCompare\Factory\DirectoryReflectorFactory()
-));
-$application->setDefaultCommand('api-compare:compare');
+);
+
+$application = new Application();
+$application->add($apiCompareCommand);
+$application->setDefaultCommand($apiCompareCommand->getName());
 
 /** @noinspection PhpUnhandledExceptionInspection */
 $application->run();
