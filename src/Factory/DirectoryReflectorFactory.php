@@ -15,6 +15,12 @@ use Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
  */
 final class DirectoryReflectorFactory
 {
+    /**
+     * @param string $directory
+     * @return ClassReflector
+     * @throws \Roave\BetterReflection\SourceLocator\Exception\InvalidFileInfo
+     * @throws \Roave\BetterReflection\SourceLocator\Exception\InvalidDirectory
+     */
     public function __invoke(string $directory): ClassReflector
     {
         $astLocator = (new BetterReflection())->astLocator();
