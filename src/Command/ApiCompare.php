@@ -59,7 +59,7 @@ final class ApiCompare extends Command
      * @throws \Roave\BetterReflection\SourceLocator\Exception\InvalidFileInfo
      * @throws \Roave\BetterReflection\SourceLocator\Exception\InvalidDirectory
      */
-    protected function execute(InputInterface $input, OutputInterface $output) : void
+    public function execute(InputInterface $input, OutputInterface $output) : void
     {
         // @todo fix flaky assumption about the path of the source repo...
         $sourceRepo = CheckedOutRepository::fromPath(getcwd());

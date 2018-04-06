@@ -6,6 +6,7 @@ namespace Roave\ApiCompare\Factory;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
+use Roave\BetterReflection\SourceLocator\Type\AutoloadSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\DirectoriesSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\EvaledCodeSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
@@ -29,6 +30,7 @@ final class DirectoryReflectorFactory
                 new PhpInternalSourceLocator($astLocator),
                 new EvaledCodeSourceLocator($astLocator),
                 new DirectoriesSourceLocator([$directory], $astLocator),
+                new AutoloadSourceLocator(),
             ])
         );
     }
