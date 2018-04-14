@@ -6,6 +6,7 @@ namespace Roave\ApiCompareCli;
 
 use Roave\ApiCompare\Command;
 use Roave\ApiCompare\Factory\DirectoryReflectorFactory;
+use Roave\ApiCompare\Git\GetVersionCollectionFromGitRepository;
 use Roave\ApiCompare\Git\GitCheckoutRevisionToTemporaryPath;
 use Roave\ApiCompare\Git\GitParseRevision;
 use Roave\ApiCompare\Git\PickLastMinorVersionFromCollection;
@@ -26,6 +27,7 @@ use function file_exists;
             new GitCheckoutRevisionToTemporaryPath(),
             new DirectoryReflectorFactory(),
             new GitParseRevision(),
+            new GetVersionCollectionFromGitRepository(),
             new PickLastMinorVersionFromCollection()
         );
 
