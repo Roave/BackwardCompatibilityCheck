@@ -2,9 +2,12 @@
     "name": "roave/api-compare",
     "description": "Tool to compare two revisions of a public API to check for BC breaks",
     "require": {
-        "php": "^7.1",
+        "php": "^7.2",
         "roave/security-advisories": "dev-master",
-        "roave/better-reflection": "^2.0"
+        "roave/better-reflection": "^2.0",
+        "symfony/console": "^4.0",
+        "beberlei/assert": "^2.9",
+        "symfony/process": "^4.0"
     },
     "license": "MIT",
     "authors": [
@@ -14,7 +17,7 @@
         }
     ],
     "require-dev": {
-        "phpunit/phpunit": "^6.4"
+        "phpunit/phpunit": "^7.0"
     },
     "autoload": {
         "psr-4": {
