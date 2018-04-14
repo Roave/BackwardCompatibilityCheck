@@ -8,6 +8,7 @@ use Roave\ApiCompare\Comparator;
 use Roave\ApiCompare\Factory\DirectoryReflectorFactory;
 use Roave\ApiCompare\Formatter\SymfonyConsoleTextFormatter;
 use Roave\ApiCompare\Git\CheckedOutRepository;
+use Roave\ApiCompare\Git\GetVersionCollection;
 use Roave\ApiCompare\Git\ParseRevision;
 use Roave\ApiCompare\Git\PerformCheckoutOfRevision;
 use Roave\ApiCompare\Git\PickVersionFromVersionCollection;
@@ -36,6 +37,11 @@ final class ApiCompare extends Command
     private $parseRevision;
 
     /**
+     * @var GetVersionCollection
+     */
+    private $getVersions;
+
+    /**
      * @var PickVersionFromVersionCollection
      */
     private $pickFromVersion;
@@ -51,12 +57,14 @@ final class ApiCompare extends Command
         PerformCheckoutOfRevision $git,
         DirectoryReflectorFactory $reflectorFactory,
         ParseRevision $parseRevision,
+        GetVersionCollection $getVersions,
         PickVersionFromVersionCollection $pickFromVersion
     ) {
         parent::__construct();
         $this->git = $git;
         $this->reflectorFactory = $reflectorFactory;
         $this->parseRevision = $parseRevision;
+        $this->getVersions = $getVersions;
         $this->pickFromVersion = $pickFromVersion;
     }
 
@@ -147,32 +155,12 @@ final class ApiCompare extends Command
     private function determineFromRevisionFromRepository(CheckedOutRepository $repository, OutputInterface $output) : Revision
     {
         $versionString = $this->pickFromVersion->forVersions(
-            $this->grabListOfTagsFromRepository($repository)
+            $this->getVersions->fromRepository($repository)
         )->getVersionString();
         $output->writeln(sprintf('Detected last minor version: %s', $versionString));
         return $this->parseRevision->fromStringForRepository(
             $versionString,
             $repository
         );
-    }
-
-    /**
-     * {@inheritDoc}
-     * @throws \Symfony\Component\Process\Exception\LogicException
-     * @throws \Symfony\Component\Process\Exception\RuntimeException
-     */
-    private function grabListOfTagsFromRepository(CheckedOutRepository $checkedOutRepository) : VersionsCollection
-    {
-        $output = (new Process(['git', 'tag', '-l']))
-            ->setWorkingDirectory((string)$checkedOutRepository)
-            ->mustRun()
-            ->getOutput();
-
-        return VersionsCollection::fromArray(array_filter(
-            explode("\n", $output),
-            function (string $maybeVersion) {
-                return trim($maybeVersion) !== '';
-            }
-        ));
     }
 }
