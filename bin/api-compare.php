@@ -5,6 +5,10 @@ declare(strict_types=1);
 namespace Roave\ApiCompareCli;
 
 use Roave\ApiCompare\Command;
+use Roave\ApiCompare\Factory\DirectoryReflectorFactory;
+use Roave\ApiCompare\Git\GitCheckoutRevisionToTemporaryPath;
+use Roave\ApiCompare\Git\GitParseRevision;
+use Roave\ApiCompare\Git\PickLastMinorVersionFromCollection;
 use RuntimeException;
 use Symfony\Component\Console\Application;
 use function file_exists;
@@ -19,8 +23,10 @@ use function file_exists;
         require $autoload;
 
         $apiCompareCommand = new Command\ApiCompare(
-            new \Roave\ApiCompare\Git\GitCheckoutRevisionToTemporaryPath(),
-            new \Roave\ApiCompare\Factory\DirectoryReflectorFactory()
+            new GitCheckoutRevisionToTemporaryPath(),
+            new DirectoryReflectorFactory(),
+            new GitParseRevision(),
+            new PickLastMinorVersionFromCollection()
         );
 
         $application = new Application();
