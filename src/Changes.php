@@ -5,9 +5,11 @@ namespace Roave\ApiCompare;
 
 use ArrayIterator;
 use Assert\Assert;
+use Countable;
 use IteratorAggregate;
+use function count;
 
-final class Changes implements IteratorAggregate
+final class Changes implements IteratorAggregate, Countable
 {
     /** @var Change[] */
     private $changes = [];
@@ -53,5 +55,13 @@ final class Changes implements IteratorAggregate
     public function getIterator() : ArrayIterator
     {
         return new ArrayIterator($this->changes);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function count() : int
+    {
+        return count($this->changes);
     }
 }

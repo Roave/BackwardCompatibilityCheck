@@ -10,7 +10,7 @@ use Roave\BetterReflection\Reflection\ReflectionParameter;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
 
-final class Comparator
+class Comparator
 {
     /** @var ClassBased */
     private $classBasedComparisons;
