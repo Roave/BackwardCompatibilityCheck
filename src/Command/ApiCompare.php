@@ -18,8 +18,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Process\Process;
-use Version\VersionsCollection;
+use function count;
 
 final class ApiCompare extends Command
 {
@@ -47,10 +46,17 @@ final class ApiCompare extends Command
     private $pickFromVersion;
 
     /**
+     * @var Comparator
+     */
+    private $comparator;
+
+    /**
      * @param PerformCheckoutOfRevision $git
      * @param DirectoryReflectorFactory $reflectorFactory
      * @param ParseRevision $parseRevision
+     * @param GetVersionCollection $getVersions
      * @param PickVersionFromVersionCollection $pickFromVersion
+     * @param Comparator $comparator
      * @throws \Symfony\Component\Console\Exception\LogicException
      */
     public function __construct(
@@ -58,7 +64,8 @@ final class ApiCompare extends Command
         DirectoryReflectorFactory $reflectorFactory,
         ParseRevision $parseRevision,
         GetVersionCollection $getVersions,
-        PickVersionFromVersionCollection $pickFromVersion
+        PickVersionFromVersionCollection $pickFromVersion,
+        Comparator $comparator
     ) {
         parent::__construct();
         $this->git = $git;
@@ -66,6 +73,7 @@ final class ApiCompare extends Command
         $this->parseRevision = $parseRevision;
         $this->getVersions = $getVersions;
         $this->pickFromVersion = $pickFromVersion;
+        $this->comparator = $comparator;
     }
 
     /**
@@ -90,13 +98,14 @@ final class ApiCompare extends Command
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
+     * @return int
      * @throws \Symfony\Component\Process\Exception\LogicException
      * @throws \Symfony\Component\Process\Exception\RuntimeException
      * @throws \Symfony\Component\Console\Exception\InvalidArgumentException
      * @throws \Roave\BetterReflection\SourceLocator\Exception\InvalidFileInfo
      * @throws \Roave\BetterReflection\SourceLocator\Exception\InvalidDirectory
      */
-    public function execute(InputInterface $input, OutputInterface $output) : void
+    public function execute(InputInterface $input, OutputInterface $output) : int
     {
         // @todo fix flaky assumption about the path of the source repo...
         $sourceRepo = CheckedOutRepository::fromPath(getcwd());
@@ -120,18 +129,18 @@ final class ApiCompare extends Command
             Assert::that($fromSources)->directory();
             Assert::that($toSources)->directory();
 
-            (new SymfonyConsoleTextFormatter($output))->write(
-                (new Comparator(
-                    new Comparator\BackwardsCompatibility\ClassBased\PropertyRemoved()
-                ))->compare(
-                    $this->reflectorFactory->__invoke((string)$fromPath . '/' . $sourcesPath),
-                    $this->reflectorFactory->__invoke((string)$toPath . '/' . $sourcesPath)
-                )
+            $changes = $this->comparator->compare(
+                $this->reflectorFactory->__invoke((string)$fromPath . '/' . $sourcesPath),
+                $this->reflectorFactory->__invoke((string)$toPath . '/' . $sourcesPath)
             );
+
+            (new SymfonyConsoleTextFormatter($output))->write($changes);
         } finally {
             $this->git->remove($fromPath);
             $this->git->remove($toPath);
         }
+
+        return count($changes) > 0 ? 2 : 0;
     }
 
     /**

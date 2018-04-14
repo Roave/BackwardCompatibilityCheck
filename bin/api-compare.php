@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Roave\ApiCompareCli;
 
 use Roave\ApiCompare\Command;
+use Roave\ApiCompare\Comparator;
 use Roave\ApiCompare\Factory\DirectoryReflectorFactory;
 use Roave\ApiCompare\Git\GetVersionCollectionFromGitRepository;
 use Roave\ApiCompare\Git\GitCheckoutRevisionToTemporaryPath;
@@ -28,7 +29,10 @@ use function file_exists;
             new DirectoryReflectorFactory(),
             new GitParseRevision(),
             new GetVersionCollectionFromGitRepository(),
-            new PickLastMinorVersionFromCollection()
+            new PickLastMinorVersionFromCollection(),
+            new Comparator(
+                new Comparator\BackwardsCompatibility\ClassBased\PropertyRemoved()
+            )
         );
 
         $application = new Application();

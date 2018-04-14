@@ -5,8 +5,11 @@ namespace RoaveTest\ApiCompare\Command;
 
 use Assert\InvalidArgumentException;
 use PHPUnit\Framework\MockObject\MockObject;
+use Roave\ApiCompare\Change;
+use Roave\ApiCompare\Changes;
 use Roave\ApiCompare\Command\ApiCompare;
 use PHPUnit\Framework\TestCase;
+use Roave\ApiCompare\Comparator;
 use Roave\ApiCompare\Factory\DirectoryReflectorFactory;
 use Roave\ApiCompare\Git\CheckedOutRepository;
 use Roave\ApiCompare\Git\GetVersionCollection;
@@ -45,24 +48,31 @@ final class ApiCompareTest extends TestCase
     /** @var PickVersionFromVersionCollection|MockObject */
     private $pickVersion;
 
+    /** @var Comparator|MockObject */
+    private $comparator;
+
     /** @var ApiCompare */
     private $compare;
 
     public function setUp() : void
     {
         $this->sourceRepository = CheckedOutRepository::fromPath(realpath(__DIR__ . '/../../../'));
+        chdir((string)$this->sourceRepository);
+
         $this->input = $this->createMock(InputInterface::class);
         $this->output = $this->createMock(OutputInterface::class);
         $this->performCheckout = $this->createMock(PerformCheckoutOfRevision::class);
         $this->parseRevision = $this->createMock(ParseRevision::class);
         $this->getVersions = $this->createMock(GetVersionCollection::class);
         $this->pickVersion = $this->createMock(PickVersionFromVersionCollection::class);
+        $this->comparator = $this->createMock(Comparator::class);
         $this->compare = new ApiCompare(
             $this->performCheckout,
             new DirectoryReflectorFactory(),
             $this->parseRevision,
             $this->getVersions,
-            $this->pickVersion
+            $this->pickVersion,
+            $this->comparator
         );
     }
 
@@ -104,9 +114,55 @@ final class ApiCompareTest extends TestCase
             ->with($toSha)
             ->willReturn(Revision::fromSha1($toSha));
 
-        chdir((string)$this->sourceRepository);
+        $this->comparator->expects(self::once())->method('compare')->willReturn(Changes::new());
 
-        $this->compare->execute($this->input, $this->output);
+        self::assertSame(0, $this->compare->execute($this->input, $this->output));
+    }
+
+    public function testExecuteReturnsNonZeroExitCodeWhenChangesAreDetected() : void
+    {
+        $fromSha = sha1('fromRevision', false);
+        $toSha = sha1('toRevision', false);
+
+        $this->input->expects(self::any())->method('hasOption')->willReturn(true);
+        $this->input->expects(self::any())->method('getOption')->willReturnMap([
+            ['from', $fromSha],
+            ['to', $toSha],
+        ]);
+        $this->input->expects(self::any())->method('getArgument')->willReturnMap([
+            ['sources-path', 'src'],
+        ]);
+
+        $this->performCheckout->expects(self::at(0))
+            ->method('checkout')
+            ->with($this->sourceRepository, $fromSha)
+            ->willReturn($this->sourceRepository);
+        $this->performCheckout->expects(self::at(1))
+            ->method('checkout')
+            ->with($this->sourceRepository, $toSha)
+            ->willReturn($this->sourceRepository);
+        $this->performCheckout->expects(self::at(2))
+            ->method('remove')
+            ->with($this->sourceRepository);
+        $this->performCheckout->expects(self::at(3))
+            ->method('remove')
+            ->with($this->sourceRepository);
+
+        $this->parseRevision->expects(self::at(0))
+            ->method('fromStringForRepository')
+            ->with($fromSha)
+            ->willReturn(Revision::fromSha1($fromSha));
+        $this->parseRevision->expects(self::at(1))
+            ->method('fromStringForRepository')
+            ->with($toSha)
+            ->willReturn(Revision::fromSha1($toSha));
+
+        $this->comparator->expects(self::once())->method('compare')->willReturn(Changes::fromArray([
+            Change::added(uniqid('added', true), true),
+            Change::removed(uniqid('removed', true), true)
+        ]));
+
+        self::assertSame(2, $this->compare->execute($this->input, $this->output));
     }
 
     public function testExecuteWithDefaultRevisionsNotProvided() : void
@@ -161,9 +217,9 @@ final class ApiCompareTest extends TestCase
             ->with($versions)
             ->willReturn($pickedVersion);
 
-        chdir((string)$this->sourceRepository);
+        $this->comparator->expects(self::once())->method('compare')->willReturn(Changes::new());
 
-        $this->compare->execute($this->input, $this->output);
+        self::assertSame(0, $this->compare->execute($this->input, $this->output));
     }
 
     public function testExecuteFailsIfCheckedOutRepositoryDoesNotExist() : void
@@ -204,7 +260,7 @@ final class ApiCompareTest extends TestCase
             ->with($toSha)
             ->willReturn(Revision::fromSha1($toSha));
 
-        chdir((string)$this->sourceRepository);
+        $this->comparator->expects(self::never())->method('compare');
 
         $this->expectException(InvalidArgumentException::class);
         $this->compare->execute($this->input, $this->output);
