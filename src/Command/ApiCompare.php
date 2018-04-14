@@ -13,6 +13,7 @@ use Roave\ApiCompare\Git\PerformCheckoutOfRevision;
 use Roave\ApiCompare\Git\PickVersionFromVersionCollection;
 use Roave\ApiCompare\Git\Revision;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -92,16 +93,18 @@ final class ApiCompare extends Command
         // @todo fix flaky assumption about the path of the source repo...
         $sourceRepo = CheckedOutRepository::fromPath(getcwd());
 
-        $fromPath = $this->git->checkout(
-            $sourceRepo,
-            $input->hasOption('from') && null !== $input->getOption('from')
-                ? $this->parseRevisionFromInput($input, $sourceRepo)
-                : $this->determineFromRevisionFromRepository($sourceRepo)
-        );
-        $toPath = $this->git->checkout($sourceRepo, Revision::fromSha1($input->getOption('to')));
+        $fromRevision = $input->hasOption('from') && null !== $input->getOption('from')
+            ? $this->parseRevisionFromInput($input, $sourceRepo)
+            : $this->determineFromRevisionFromRepository($sourceRepo);
+
+        $toRevision = $this->parseRevision->fromStringForRepository($input->getOption('to'), $sourceRepo);
         $sourcesPath = $input->getArgument('sources-path');
 
-        // @todo fix hard-coded /src/ addition...
+        $output->writeln(sprintf('Comparing from %s to %s...', (string)$fromRevision, (string)$toRevision));
+
+        $fromPath = $this->git->checkout($sourceRepo, $fromRevision);
+        $toPath = $this->git->checkout($sourceRepo, $toRevision);
+
         try {
             $fromSources = $fromPath . '/' . $sourcesPath;
             $toSources   = $toPath . '/' . $sourcesPath;
