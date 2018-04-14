@@ -95,7 +95,7 @@ final class ApiCompare extends Command
 
         $fromRevision = $input->hasOption('from') && null !== $input->getOption('from')
             ? $this->parseRevisionFromInput($input, $sourceRepo)
-            : $this->determineFromRevisionFromRepository($sourceRepo);
+            : $this->determineFromRevisionFromRepository($sourceRepo, $output);
 
         $toRevision = $this->parseRevision->fromStringForRepository($input->getOption('to'), $sourceRepo);
         $sourcesPath = $input->getArgument('sources-path');
@@ -144,12 +144,14 @@ final class ApiCompare extends Command
      * @throws \Symfony\Component\Process\Exception\RuntimeException
      * @throws \Symfony\Component\Process\Exception\LogicException
      */
-    private function determineFromRevisionFromRepository(CheckedOutRepository $repository) : Revision
+    private function determineFromRevisionFromRepository(CheckedOutRepository $repository, OutputInterface $output) : Revision
     {
+        $versionString = $this->pickFromVersion->forVersions(
+            $this->grabListOfTagsFromRepository($repository)
+        )->getVersionString();
+        $output->writeln(sprintf('Detected last minor version: %s', $versionString));
         return $this->parseRevision->fromStringForRepository(
-            $this->pickFromVersion->forVersions(
-                $this->grabListOfTagsFromRepository($repository)
-            )->getVersionString(),
+            $versionString,
             $repository
         );
     }
