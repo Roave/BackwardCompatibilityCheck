@@ -45,7 +45,7 @@ final class PropertyVisibilityReduced implements ClassBased
         return Changes::fromArray(array_values(array_map(function (string $propertyName, array $visibilities) use (
             $fromClass
         ) : Change {
-            return Change::removed(
+            return Change::changed(
                 sprintf(
                     'Property %s#%s changed visibility from %s to %s',
                     $fromClass->getName(),
