@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Roave\ApiCompare;
 
+use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassBased\ClassBased;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflection\ReflectionParameter;
@@ -11,6 +12,14 @@ use Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
 
 final class Comparator
 {
+    /** @var ClassBased */
+    private $classBasedComparisons;
+
+    public function __construct(ClassBased $classBasedComparisons)
+    {
+        $this->classBasedComparisons = $classBasedComparisons;
+    }
+
     public function compare(ClassReflector $oldApi, ClassReflector $newApi): Changes
     {
         $changelog = Changes::new();
@@ -26,6 +35,8 @@ final class Comparator
     {
         try {
             $newClass = $newApi->reflect($oldClass->getName());
+
+            $changelog->mergeWith($this->classBasedComparisons->compare($oldClass, $newClass));
         } catch (IdentifierNotFound $exception) {
             $changelog = $changelog->withAddedChange(
                 Change::removed(sprintf('Class %s has been deleted', $oldClass->getName()), true)

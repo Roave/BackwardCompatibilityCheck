@@ -29,6 +29,15 @@ final class Changes implements IteratorAggregate
         return $instance;
     }
 
+    public function mergeWith(self $other) : self
+    {
+        $instance = new self();
+
+        $instance->changes = array_merge($this->changes, $other->changes);
+
+        return $instance;
+    }
+
     public function withAddedChange(Change $change): self
     {
         $new = clone $this;
