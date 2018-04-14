@@ -38,6 +38,8 @@ final class Changes implements IteratorAggregate
 
     /**
      * {@inheritDoc}
+     *
+     * @return Change[]
      */
     public function getIterator() : ArrayIterator
     {

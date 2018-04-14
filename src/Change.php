@@ -5,6 +5,9 @@ namespace Roave\ApiCompare;
 
 use Assert\Assert;
 
+/**
+ * @todo this class probably needs subclassing or being turned into an interface
+ */
 final class Change
 {
     private const ADDED = 'added';

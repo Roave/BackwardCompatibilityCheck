@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Roave\ApiCompare\Command;
 
+use Assert\Assert;
 use Roave\ApiCompare\Comparator;
 use Roave\ApiCompare\Factory\DirectoryReflectorFactory;
 use Roave\ApiCompare\Formatter\SymfonyConsoleTextFormatter;
@@ -48,6 +49,12 @@ final class ApiCompare extends Command
             ->setDescription('List comparisons between class APIs')
             ->addArgument('from', InputArgument::REQUIRED)
             ->addArgument('to', InputArgument::REQUIRED)
+            ->addArgument(
+                'sources-path',
+                InputArgument::OPTIONAL,
+                'Path to the sources, relative to the repository root',
+                'src'
+            )
         ;
     }
 
@@ -64,15 +71,22 @@ final class ApiCompare extends Command
         // @todo fix flaky assumption about the path of the source repo...
         $sourceRepo = CheckedOutRepository::fromPath(getcwd());
 
-        $fromPath = $this->git->checkout($sourceRepo, Revision::fromSha1($input->getArgument('from')));
-        $toPath = $this->git->checkout($sourceRepo, Revision::fromSha1($input->getArgument('to')));
+        $fromPath    = $this->git->checkout($sourceRepo, Revision::fromSha1($input->getArgument('from')));
+        $toPath      = $this->git->checkout($sourceRepo, Revision::fromSha1($input->getArgument('to')));
+        $sourcesPath = $input->getArgument('sources-path');
 
         // @todo fix hard-coded /src/ addition...
         try {
+            $fromSources = $fromPath . '/' . $sourcesPath;
+            $toSources   = $toPath . '/' . $sourcesPath;
+
+            Assert::that($fromSources)->directory();
+            Assert::that($toSources)->directory();
+
             (new SymfonyConsoleTextFormatter($output))->write(
                 (new Comparator())->compare(
-                    $this->reflectorFactory->__invoke((string)$fromPath . '/src/'),
-                    $this->reflectorFactory->__invoke((string)$toPath . '/src/')
+                    $this->reflectorFactory->__invoke((string)$fromPath . '/' . $sourcesPath),
+                    $this->reflectorFactory->__invoke((string)$toPath . '/' . $sourcesPath)
                 )
             );
         } finally {
