@@ -148,9 +148,8 @@ final class ApiCompare extends Command
 
     /**
      * @param CheckedOutRepository $repository
+     * @param OutputInterface $output
      * @return Revision
-     * @throws \Symfony\Component\Process\Exception\RuntimeException
-     * @throws \Symfony\Component\Process\Exception\LogicException
      */
     private function determineFromRevisionFromRepository(CheckedOutRepository $repository, OutputInterface $output) : Revision
     {
