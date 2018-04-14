@@ -18,7 +18,7 @@ final class Revision
     {
         Assert::that($sha1)->regex('/^[a-zA-Z0-9]{40}$/');
         $instance = new self();
-        $instance->sha1 = $sha1;
+        $instance->sha1 = trim($sha1);
         return $instance;
     }
 
