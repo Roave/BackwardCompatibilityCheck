@@ -146,9 +146,10 @@ final class ApiCompare extends Command
      */
     private function determineFromRevisionFromRepository(CheckedOutRepository $repository) : Revision
     {
-        $tags = $this->grabListOfTagsFromRepository($repository);
         return $this->parseRevision->fromStringForRepository(
-            $this->pickFromVersion->forVersions($tags)->getVersionString(),
+            $this->pickFromVersion->forVersions(
+                $this->grabListOfTagsFromRepository($repository)
+            )->getVersionString(),
             $repository
         );
     }
