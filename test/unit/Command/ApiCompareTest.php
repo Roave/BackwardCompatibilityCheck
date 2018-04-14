@@ -16,6 +16,8 @@ use Roave\ApiCompare\Git\PickVersionFromVersionCollection;
 use Roave\ApiCompare\Git\Revision;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Version\Version;
+use Version\VersionsCollection;
 
 /**
  * @covers \Roave\ApiCompare\Command\ApiCompare
@@ -101,6 +103,63 @@ final class ApiCompareTest extends TestCase
             ->method('fromStringForRepository')
             ->with($toSha)
             ->willReturn(Revision::fromSha1($toSha));
+
+        chdir((string)$this->sourceRepository);
+
+        $this->compare->execute($this->input, $this->output);
+    }
+
+    public function testExecuteWithDefaultRevisionsNotProvided() : void
+    {
+        $fromSha = sha1('fromRevision', false);
+        $toSha = sha1('toRevision', false);
+        $versions = VersionsCollection::fromArray(['1.0.0', '1.0.1']);
+        $pickedVersion = Version::fromString('1.0.0');
+
+        $this->input->expects(self::any())->method('hasOption')->willReturn(false);
+        $this->input->expects(self::any())->method('getOption')->willReturnMap([
+            ['from', null],
+            ['to', 'HEAD'],
+        ]);
+        $this->input->expects(self::any())->method('getArgument')->willReturnMap([
+            ['sources-path', 'src'],
+        ]);
+
+        $this->performCheckout->expects(self::at(0))
+            ->method('checkout')
+            ->with($this->sourceRepository, $fromSha)
+            ->willReturn($this->sourceRepository);
+        $this->performCheckout->expects(self::at(1))
+            ->method('checkout')
+            ->with($this->sourceRepository, $toSha)
+            ->willReturn($this->sourceRepository);
+        $this->performCheckout->expects(self::at(2))
+            ->method('remove')
+            ->with($this->sourceRepository);
+        $this->performCheckout->expects(self::at(3))
+            ->method('remove')
+            ->with($this->sourceRepository);
+
+        $this->parseRevision->expects(self::at(0))
+            ->method('fromStringForRepository')
+            ->with((string)$pickedVersion)
+            ->willReturn(Revision::fromSha1($fromSha));
+        $this->parseRevision->expects(self::at(1))
+            ->method('fromStringForRepository')
+            ->with('HEAD')
+            ->willReturn(Revision::fromSha1($toSha));
+
+        $this->getVersions->expects(self::once())
+            ->method('fromRepository')
+            ->with(self::callback(function (CheckedOutRepository $checkedOutRepository) : bool {
+                self::assertEquals($this->sourceRepository, $checkedOutRepository);
+                return true;
+            }))
+            ->willReturn($versions);
+        $this->pickVersion->expects(self::once())
+            ->method('forVersions')
+            ->with($versions)
+            ->willReturn($pickedVersion);
 
         chdir((string)$this->sourceRepository);
 
