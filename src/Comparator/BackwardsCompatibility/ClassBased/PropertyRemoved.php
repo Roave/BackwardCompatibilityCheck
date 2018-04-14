@@ -10,7 +10,7 @@ use Roave\ApiCompare\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
 
-final class PropertyRemoved
+final class PropertyRemoved implements ClassBased
 {
     public function compare(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
     {

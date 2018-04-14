@@ -84,7 +84,9 @@ final class ApiCompare extends Command
             Assert::that($toSources)->directory();
 
             (new SymfonyConsoleTextFormatter($output))->write(
-                (new Comparator())->compare(
+                (new Comparator(
+                    new Comparator\BackwardsCompatibility\ClassBased\PropertyRemoved()
+                ))->compare(
                     $this->reflectorFactory->__invoke((string)$fromPath . '/' . $sourcesPath),
                     $this->reflectorFactory->__invoke((string)$toPath . '/' . $sourcesPath)
                 )
