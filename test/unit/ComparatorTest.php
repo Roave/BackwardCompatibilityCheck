@@ -47,24 +47,6 @@ final class ComparatorTest extends TestCase
         self::assertEquals($expected, $actual, '', 0.0, 10, true);
     }
 
-    public function testCompare(): void
-    {
-        $this->classBasedComparatorWillBeCalled();
-
-        $reflectorFactory = new DirectoryReflectorFactory();
-        self::assertEqualsIgnoringOrder(
-            Changes::fromArray([
-                Change::removed('Parameter something (position 0) in Thing::__construct has been deleted', true),
-                Change::removed('Method methodGone in class Thing has been deleted', true),
-                Change::removed('Class ClassGone has been deleted', true),
-            ]),
-            $this->comparator->compare(
-                $reflectorFactory->__invoke(__DIR__ . '/../asset/api/old'),
-                $reflectorFactory->__invoke(__DIR__ . '/../asset/api/new')
-            )
-        );
-    }
-
     public function testRemovingAClassCausesABreak(): void
     {
         $this->classBasedComparatorWillNotBeCalled();
