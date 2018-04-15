@@ -33,7 +33,7 @@ final class ConstantValueChanged implements ClassBased
         }, $changedConstants)));
     }
 
-    /** @return ReflectionClassConstant[] */
+    /** @return mixed[] indexed by constant name */
     private function accessibleConstantValues(ReflectionClass $class) : array
     {
         $accessibleConstants = array_filter(
