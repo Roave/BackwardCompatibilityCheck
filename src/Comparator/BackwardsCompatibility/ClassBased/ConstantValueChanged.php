@@ -19,7 +19,10 @@ final class ConstantValueChanged implements ClassBased
         $fromValues = $this->accessibleConstantValues($fromClass);
         $toValues   = $this->accessibleConstantValues($toClass);
 
-        $changedConstants = array_keys(array_filter($fromValues, function ($constantValue, string $constantName) use (
+        $changedConstants = array_keys(array_filter($fromValues, function (
+            $constantValue,
+            string $constantName
+        ) use (
             $toValues
         ) : bool {
             return array_key_exists($constantName, $toValues) && $constantValue !== $toValues[$constantName];
