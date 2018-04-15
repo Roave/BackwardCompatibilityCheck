@@ -223,7 +223,6 @@ final class ApiCompareTest extends TestCase
 
         $this->compare->execute($this->input, $this->output);
 
-
         $this->output->expects(self::any())
             ->method('writeln')
             ->willReturnCallback(function (string $output) use ($changeToExpect) {
