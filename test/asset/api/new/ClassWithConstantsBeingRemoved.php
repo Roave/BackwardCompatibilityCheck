@@ -11,4 +11,6 @@ class ClassWithConstantsBeingRemoved
     protected const keptProtectedConstant = 'value';
     private const NameCaseChangePrivateConstant = 'value';
     private const keptPrivateConstant = 'value';
+    private const changedOrder2 = 'value';
+    public const changedOrder1 = 'value';
 }
