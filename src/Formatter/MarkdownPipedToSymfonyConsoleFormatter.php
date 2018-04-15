@@ -5,13 +5,12 @@ namespace Roave\ApiCompare\Formatter;
 
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
-use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 final class MarkdownPipedToSymfonyConsoleFormatter implements OutputFormatter
 {
     /**
-     * @var ConsoleOutputInterface
+     * @var OutputInterface
      */
     private $output;
 
