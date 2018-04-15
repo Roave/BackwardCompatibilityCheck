@@ -18,6 +18,10 @@ jobs:
         - vendor/bin/phpunit --coverage-text --coverage-clover=clover.xml
         - php ocular.phar code-coverage:upload --format=php-clover clover.xml
 
+    - stage: Coding Standards
+      php: 7.2
+      script: vendor/bin/phpcs
+
 cache:
   directories:
     - $HOME/.composer/cache
