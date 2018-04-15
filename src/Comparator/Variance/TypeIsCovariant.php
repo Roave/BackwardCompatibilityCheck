@@ -56,6 +56,7 @@ final class TypeIsCovariant
         }
 
         if (strtolower($typeAsString) === 'iterable' && ! $comparedType->isBuiltin()) {
+            /** @var ReflectionClass $comparedTypeReflectionClass */
             $comparedTypeReflectionClass = $reflector->reflect($comparedTypeAsString);
 
             if ($comparedTypeReflectionClass->implementsInterface(\Traversable::class)) {
