@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Roave\ApiCompare\Formatter;
@@ -9,9 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class SymfonyConsoleTextFormatter implements OutputFormatter
 {
-    /**
-     * @var OutputInterface
-     */
+    /** @var OutputInterface */
     private $output;
 
     public function __construct(OutputInterface $output)
@@ -23,7 +22,7 @@ final class SymfonyConsoleTextFormatter implements OutputFormatter
     {
         /** @var Change $change */
         foreach ($changes as $change) {
-            $this->output->writeln((string)$change);
+            $this->output->writeln((string) $change);
         }
     }
 }

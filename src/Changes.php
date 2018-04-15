@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Roave\ApiCompare;
@@ -7,6 +8,7 @@ use ArrayIterator;
 use Assert\Assert;
 use Countable;
 use IteratorAggregate;
+use function array_merge;
 use function count;
 
 final class Changes implements IteratorAggregate, Countable
@@ -18,15 +20,19 @@ final class Changes implements IteratorAggregate, Countable
     {
     }
 
-    public static function new(): self
+    public static function new() : self
     {
         return new self();
     }
 
-    public static function fromArray(array $changes): self
+    /**
+     * @param Change[] $changes
+     * @return Changes
+     */
+    public static function fromArray(array $changes) : self
     {
         Assert::that($changes)->all()->isInstanceOf(Change::class);
-        $instance = self::new();
+        $instance          = self::new();
         $instance->changes = $changes;
         return $instance;
     }
@@ -40,9 +46,9 @@ final class Changes implements IteratorAggregate, Countable
         return $instance;
     }
 
-    public function withAddedChange(Change $change): self
+    public function withAddedChange(Change $change) : self
     {
-        $new = clone $this;
+        $new            = clone $this;
         $new->changes[] = $change;
         return $new;
     }
@@ -50,7 +56,7 @@ final class Changes implements IteratorAggregate, Countable
     /**
      * {@inheritDoc}
      *
-     * @return Change[]
+     * @return ArrayIterator|Change[]
      */
     public function getIterator() : ArrayIterator
     {

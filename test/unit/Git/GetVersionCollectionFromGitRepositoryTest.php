@@ -1,13 +1,20 @@
 <?php
+
 declare(strict_types=1);
 
 namespace RoaveTest\ApiCompare\Git;
 
+use PHPUnit\Framework\TestCase;
 use Roave\ApiCompare\Git\CheckedOutRepository;
 use Roave\ApiCompare\Git\GetVersionCollectionFromGitRepository;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Process\Process;
 use Version\Version;
+use function array_map;
+use function file_put_contents;
+use function iterator_to_array;
+use function mkdir;
+use function sys_get_temp_dir;
+use function uniqid;
 
 /**
  * @covers \Roave\ApiCompare\Git\GetVersionCollectionFromGitRepository
@@ -30,12 +37,12 @@ final class GetVersionCollectionFromGitRepositoryTest extends TestCase
 
     public function tearDown() : void
     {
-        (new Process(['rm', '-Rf', (string)$this->repoPath]))->mustRun();
+        (new Process(['rm', '-Rf', (string) $this->repoPath]))->mustRun();
     }
 
     private function makeTag(string $tagName) : void
     {
-        (new Process(['git', 'tag', $tagName]))->setWorkingDirectory((string)$this->repoPath)->mustRun();
+        (new Process(['git', 'tag', $tagName]))->setWorkingDirectory((string) $this->repoPath)->mustRun();
     }
 
     public function testFromRepository() : void
@@ -43,9 +50,7 @@ final class GetVersionCollectionFromGitRepositoryTest extends TestCase
         $this->makeTag('1.0.0');
 
         self::assertSame(
-            [
-                '1.0.0',
-            ],
+            ['1.0.0'],
             array_map(
                 function (Version $version) {
                     return $version->getVersionString();

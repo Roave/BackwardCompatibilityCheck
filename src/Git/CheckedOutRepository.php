@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Roave\ApiCompare\Git;
@@ -18,7 +19,7 @@ final class CheckedOutRepository
     {
         Assert::that($path)->directory();
         Assert::that($path . '/.git')->directory();
-        $instance = new self();
+        $instance       = new self();
         $instance->path = $path;
         return $instance;
     }

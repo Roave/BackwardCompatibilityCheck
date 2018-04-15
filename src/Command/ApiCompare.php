@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Roave\ApiCompare\Command;
@@ -13,51 +14,42 @@ use Roave\ApiCompare\Git\ParseRevision;
 use Roave\ApiCompare\Git\PerformCheckoutOfRevision;
 use Roave\ApiCompare\Git\PickVersionFromVersionCollection;
 use Roave\ApiCompare\Git\Revision;
+use Roave\BetterReflection\SourceLocator\Exception\InvalidDirectory;
+use Roave\BetterReflection\SourceLocator\Exception\InvalidFileInfo;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Exception\InvalidArgumentException;
+use Symfony\Component\Console\Exception\LogicException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Process\Exception\RuntimeException;
 use function count;
+use function getcwd;
+use function sprintf;
 
 final class ApiCompare extends Command
 {
     /** @var PerformCheckoutOfRevision */
     private $git;
 
-    /**
-     * @var DirectoryReflectorFactory
-     */
+    /** @var DirectoryReflectorFactory */
     private $reflectorFactory;
 
-    /**
-     * @var ParseRevision
-     */
+    /** @var ParseRevision */
     private $parseRevision;
 
-    /**
-     * @var GetVersionCollection
-     */
+    /** @var GetVersionCollection */
     private $getVersions;
 
-    /**
-     * @var PickVersionFromVersionCollection
-     */
+    /** @var PickVersionFromVersionCollection */
     private $pickFromVersion;
 
-    /**
-     * @var Comparator
-     */
+    /** @var Comparator */
     private $comparator;
 
     /**
-     * @param PerformCheckoutOfRevision $git
-     * @param DirectoryReflectorFactory $reflectorFactory
-     * @param ParseRevision $parseRevision
-     * @param GetVersionCollection $getVersions
-     * @param PickVersionFromVersionCollection $pickFromVersion
-     * @param Comparator $comparator
-     * @throws \Symfony\Component\Console\Exception\LogicException
+     * @throws LogicException
      */
     public function __construct(
         PerformCheckoutOfRevision $git,
@@ -68,16 +60,16 @@ final class ApiCompare extends Command
         Comparator $comparator
     ) {
         parent::__construct();
-        $this->git = $git;
+        $this->git              = $git;
         $this->reflectorFactory = $reflectorFactory;
-        $this->parseRevision = $parseRevision;
-        $this->getVersions = $getVersions;
-        $this->pickFromVersion = $pickFromVersion;
-        $this->comparator = $comparator;
+        $this->parseRevision    = $parseRevision;
+        $this->getVersions      = $getVersions;
+        $this->pickFromVersion  = $pickFromVersion;
+        $this->comparator       = $comparator;
     }
 
     /**
-     * @throws \Symfony\Component\Console\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     protected function configure() : void
     {
@@ -96,31 +88,27 @@ final class ApiCompare extends Command
     }
 
     /**
-     * @param InputInterface $input
-     * @param OutputInterface $output
-     * @return int
-     * @throws \Symfony\Component\Process\Exception\LogicException
-     * @throws \Symfony\Component\Process\Exception\RuntimeException
-     * @throws \Symfony\Component\Console\Exception\InvalidArgumentException
-     * @throws \Roave\BetterReflection\SourceLocator\Exception\InvalidFileInfo
-     * @throws \Roave\BetterReflection\SourceLocator\Exception\InvalidDirectory
+     * @throws RuntimeException
+     * @throws InvalidArgumentException
+     * @throws InvalidFileInfo
+     * @throws InvalidDirectory
      */
     public function execute(InputInterface $input, OutputInterface $output) : int
     {
         // @todo fix flaky assumption about the path of the source repo...
         $sourceRepo = CheckedOutRepository::fromPath(getcwd());
 
-        $fromRevision = $input->hasOption('from') && null !== $input->getOption('from')
+        $fromRevision = $input->hasOption('from') && $input->getOption('from') !== null
             ? $this->parseRevisionFromInput($input, $sourceRepo)
             : $this->determineFromRevisionFromRepository($sourceRepo, $output);
 
-        $toRevision = $this->parseRevision->fromStringForRepository($input->getOption('to'), $sourceRepo);
+        $toRevision  = $this->parseRevision->fromStringForRepository($input->getOption('to'), $sourceRepo);
         $sourcesPath = $input->getArgument('sources-path');
 
-        $output->writeln(sprintf('Comparing from %s to %s...', (string)$fromRevision, (string)$toRevision));
+        $output->writeln(sprintf('Comparing from %s to %s...', (string) $fromRevision, (string) $toRevision));
 
         $fromPath = $this->git->checkout($sourceRepo, $fromRevision);
-        $toPath = $this->git->checkout($sourceRepo, $toRevision);
+        $toPath   = $this->git->checkout($sourceRepo, $toRevision);
 
         try {
             $fromSources = $fromPath . '/' . $sourcesPath;
@@ -130,8 +118,8 @@ final class ApiCompare extends Command
             Assert::that($toSources)->directory();
 
             $changes = $this->comparator->compare(
-                $this->reflectorFactory->__invoke((string)$fromPath . '/' . $sourcesPath),
-                $this->reflectorFactory->__invoke((string)$toPath . '/' . $sourcesPath)
+                $this->reflectorFactory->__invoke((string) $fromPath . '/' . $sourcesPath),
+                $this->reflectorFactory->__invoke((string) $toPath . '/' . $sourcesPath)
             );
 
             (new SymfonyConsoleTextFormatter($output))->write($changes);
@@ -144,24 +132,16 @@ final class ApiCompare extends Command
     }
 
     /**
-     * @param InputInterface $input
-     * @param CheckedOutRepository $repository
-     * @return Revision
-     * @throws \Symfony\Component\Console\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     private function parseRevisionFromInput(InputInterface $input, CheckedOutRepository $repository) : Revision
     {
         return $this->parseRevision->fromStringForRepository(
-            (string)$input->getOption('from'),
+            (string) $input->getOption('from'),
             $repository
         );
     }
 
-    /**
-     * @param CheckedOutRepository $repository
-     * @param OutputInterface $output
-     * @return Revision
-     */
     private function determineFromRevisionFromRepository(CheckedOutRepository $repository, OutputInterface $output) : Revision
     {
         $versionString = $this->pickFromVersion->forVersions(

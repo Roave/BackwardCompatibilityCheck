@@ -42,7 +42,10 @@ final class ConstantVisibilityReduced implements ClassBased
             }
         );
 
-        return Changes::fromArray(array_values(array_map(function (string $propertyName, array $visibilities) use (
+        return Changes::fromArray(array_values(array_map(function (
+            string $propertyName,
+            array $visibilities
+        ) use (
             $fromClass
         ) : Change {
             return Change::changed(

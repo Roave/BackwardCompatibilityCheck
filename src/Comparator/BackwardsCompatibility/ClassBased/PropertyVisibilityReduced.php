@@ -9,6 +9,13 @@ use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
+use function array_combine;
+use function array_filter;
+use function array_intersect_key;
+use function array_keys;
+use function array_map;
+use function array_values;
+use function sprintf;
 
 final class PropertyVisibilityReduced implements ClassBased
 {
@@ -42,7 +49,10 @@ final class PropertyVisibilityReduced implements ClassBased
             }
         );
 
-        return Changes::fromArray(array_values(array_map(function (string $propertyName, array $visibilities) use (
+        return Changes::fromArray(array_values(array_map(function (
+            string $propertyName,
+            array $visibilities
+        ) use (
             $fromClass
         ) : Change {
             return Change::changed(

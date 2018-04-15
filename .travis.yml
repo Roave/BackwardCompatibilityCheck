@@ -5,6 +5,10 @@ before_script:
 
 jobs:
   include:
+    - stage: Static analysis (src) with phpstan
+      php: 7.2
+      script: vendor/bin/phpstan analyse --level=7 src
+
     - stage: Test
       php: 7.2
       script: vendor/bin/phpunit
@@ -17,6 +21,10 @@ jobs:
       script:
         - vendor/bin/phpunit --coverage-text --coverage-clover=clover.xml
         - php ocular.phar code-coverage:upload --format=php-clover clover.xml
+
+    - stage: Coding Standards
+      php: 7.2
+      script: vendor/bin/phpcs
 
 cache:
   directories:

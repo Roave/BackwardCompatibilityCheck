@@ -7,11 +7,12 @@ namespace RoaveTest\ApiCompare\Comparator\BackwardsCompatibility\ClassBased;
 use PHPUnit\Framework\TestCase;
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassBased\MethodVisibilityReduced;
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassBased\PropertyVisibilityReduced;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\SingleFileSourceLocator;
+use function array_map;
+use function iterator_to_array;
 
 final class MethodVisibilityReducedTest extends TestCase
 {

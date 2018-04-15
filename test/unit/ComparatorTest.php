@@ -1,15 +1,15 @@
 <?php
+
 declare(strict_types=1);
 
 namespace RoaveTest\ApiCompare;
 
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
 use Roave\ApiCompare\Comparator;
-use PHPUnit\Framework\TestCase;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassBased\ClassBased;
-use Roave\ApiCompare\Factory\DirectoryReflectorFactory;
 
 /**
  * @covers \Roave\ApiCompare\Comparator
@@ -42,12 +42,12 @@ final class ComparatorTest extends TestCase
      * @param mixed $expected
      * @param mixed $actual
      */
-    private static function assertEqualsIgnoringOrder($expected, $actual): void
+    private static function assertEqualsIgnoringOrder($expected, $actual) : void
     {
         self::assertEquals($expected, $actual, '', 0.0, 10, true);
     }
 
-    public function testRemovingAClassCausesABreak(): void
+    public function testRemovingAClassCausesABreak() : void
     {
         $this->classBasedComparatorWillNotBeCalled();
 
@@ -62,7 +62,7 @@ final class ComparatorTest extends TestCase
         );
     }
 
-    public function testRemovingAPrivateMethodDoesNotCauseBreak(): void
+    public function testRemovingAPrivateMethodDoesNotCauseBreak() : void
     {
         $this->classBasedComparatorWillBeCalled();
 
@@ -75,7 +75,7 @@ final class ComparatorTest extends TestCase
         );
     }
 
-    public function testRenamingParametersDoesNotCauseBcBreak(): void
+    public function testRenamingParametersDoesNotCauseBcBreak() : void
     {
         $this->classBasedComparatorWillBeCalled();
 
@@ -88,7 +88,7 @@ final class ComparatorTest extends TestCase
         );
     }
 
-    public function testMakingAClassFinal(): void
+    public function testMakingAClassFinal() : void
     {
         $this->classBasedComparatorWillBeCalled();
 

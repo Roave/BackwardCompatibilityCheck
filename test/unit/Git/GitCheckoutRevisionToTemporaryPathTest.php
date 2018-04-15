@@ -1,12 +1,14 @@
 <?php
+
 declare(strict_types=1);
 
 namespace RoaveTest\ApiCompare\Git;
 
+use PHPUnit\Framework\TestCase;
 use Roave\ApiCompare\Git\CheckedOutRepository;
 use Roave\ApiCompare\Git\GitCheckoutRevisionToTemporaryPath;
-use PHPUnit\Framework\TestCase;
 use Roave\ApiCompare\Git\Revision;
+use function realpath;
 
 /**
  * @covers \Roave\ApiCompare\Git\GitCheckoutRevisionToTemporaryPath

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Roave\ApiCompare;
@@ -9,6 +10,8 @@ use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflection\ReflectionParameter;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use function array_key_exists;
+use function sprintf;
 
 class Comparator
 {
@@ -20,7 +23,7 @@ class Comparator
         $this->classBasedComparisons = $classBasedComparisons;
     }
 
-    public function compare(ClassReflector $oldApi, ClassReflector $newApi): Changes
+    public function compare(ClassReflector $oldApi, ClassReflector $newApi) : Changes
     {
         $changelog = Changes::new();
 
@@ -31,9 +34,10 @@ class Comparator
         return $changelog;
     }
 
-    private function examineClass(Changes $changelog, ReflectionClass $oldClass, ClassReflector $newApi): Changes
+    private function examineClass(Changes $changelog, ReflectionClass $oldClass, ClassReflector $newApi) : Changes
     {
         try {
+            /** @var ReflectionClass $newClass */
             $newClass = $newApi->reflect($oldClass->getName());
 
             $changelog->mergeWith($this->classBasedComparisons->compare($oldClass, $newClass));
@@ -44,7 +48,7 @@ class Comparator
             return $changelog;
         }
 
-        if ($newClass->isFinal() && !$oldClass->isFinal()) {
+        if ($newClass->isFinal() && ! $oldClass->isFinal()) {
             $changelog = $changelog->withAddedChange(
                 Change::changed(sprintf('Class %s is now final', $oldClass->getName()), true)
             );
@@ -62,7 +66,7 @@ class Comparator
         ReflectionClass $oldClass,
         ReflectionMethod $oldMethod,
         ReflectionClass $newClass
-    ): Changes {
+    ) : Changes {
         if ($oldMethod->isPrivate()) {
             return $changelog;
         }
@@ -103,9 +107,9 @@ class Comparator
         ReflectionMethod $oldMethod,
         ReflectionParameter $oldParameter,
         ReflectionMethod $newMethod
-    ): Changes {
+    ) : Changes {
         $newParameters = $newMethod->getParameters();
-        if (!array_key_exists($parameterPosition, $newParameters)) {
+        if (! array_key_exists($parameterPosition, $newParameters)) {
             return $changelog->withAddedChange(
                 Change::removed(
                     sprintf(
