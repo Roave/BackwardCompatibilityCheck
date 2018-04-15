@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Roave\ApiCompare\Comparator\Variance;
 
+use Roave\ApiCompare\Comparator\Support\ReflectionType;
 use Roave\BetterReflection\Reflection\ReflectionClass;
-use Roave\BetterReflection\Reflection\ReflectionType;
-use Roave\BetterReflection\Reflector\ClassReflector;
-use function strtolower;
 use function in_array;
+use function strtolower;
 
 /**
  * This is a simplistic covariant type check. A more appropriate approach would be to
@@ -19,7 +18,6 @@ use function in_array;
 final class TypeIsCovariant
 {
     public function __invoke(
-        ClassReflector $reflector,
         ?ReflectionType $type,
         ?ReflectionType $comparedType
     ) : bool {
@@ -61,7 +59,7 @@ final class TypeIsCovariant
 
         if (strtolower($typeAsString) === 'iterable' && ! $comparedType->isBuiltin()) {
             /** @var ReflectionClass $comparedTypeReflectionClass */
-            $comparedTypeReflectionClass = $reflector->reflect($comparedTypeAsString);
+            $comparedTypeReflectionClass = $comparedType->targetClass();
 
             if ($comparedTypeReflectionClass->implementsInterface(\Traversable::class)) {
                 // `iterable` can be restricted via any `Iterator` implementation
@@ -79,10 +77,8 @@ final class TypeIsCovariant
             return false;
         }
 
-        /** @var ReflectionClass $typeReflectionClass */
-        $typeReflectionClass = $reflector->reflect($typeAsString);
-        /** @var ReflectionClass $comparedTypeReflectionClass */
-        $comparedTypeReflectionClass = $reflector->reflect($comparedTypeAsString);
+        $typeReflectionClass         = $type->targetClass();
+        $comparedTypeReflectionClass = $comparedType->targetClass();
 
         if ($typeReflectionClass->isInterface()) {
             return $comparedTypeReflectionClass->implementsInterface($typeAsString);
