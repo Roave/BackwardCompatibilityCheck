@@ -52,6 +52,21 @@ final class Change
         return new self(self::REMOVED, $description, $isBcBreak);
     }
 
+    public function isAdded() : bool
+    {
+        return $this->modificationType === self::ADDED;
+    }
+
+    public function isRemoved() : bool
+    {
+        return $this->modificationType === self::REMOVED;
+    }
+
+    public function isChanged() : bool
+    {
+        return $this->modificationType === self::CHANGED;
+    }
+
     public function __toString() : string
     {
         return sprintf(

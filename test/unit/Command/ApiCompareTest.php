@@ -170,6 +170,58 @@ final class ApiCompareTest extends TestCase
         self::assertSame(2, $this->compare->execute($this->input, $this->output));
     }
 
+    public function testProvidingMarkdownOptionWritesMarkdownOutput() : void
+    {
+        $fromSha = sha1('fromRevision', false);
+        $toSha = sha1('toRevision', false);
+
+        $markdownFilename = tempnam(sys_get_temp_dir(), uniqid('api-compare-', true)) . '.md';
+
+        $this->input->expects(self::any())->method('hasOption')->willReturn(true);
+        $this->input->expects(self::any())->method('getOption')->willReturnMap([
+            ['from', $fromSha],
+            ['to', $toSha],
+            ['markdown', $markdownFilename]
+        ]);
+        $this->input->expects(self::any())->method('getArgument')->willReturnMap([
+            ['sources-path', 'src'],
+        ]);
+
+        $this->performCheckout->expects(self::at(0))
+            ->method('checkout')
+            ->with($this->sourceRepository, $fromSha)
+            ->willReturn($this->sourceRepository);
+        $this->performCheckout->expects(self::at(1))
+            ->method('checkout')
+            ->with($this->sourceRepository, $toSha)
+            ->willReturn($this->sourceRepository);
+        $this->performCheckout->expects(self::at(2))
+            ->method('remove')
+            ->with($this->sourceRepository);
+        $this->performCheckout->expects(self::at(3))
+            ->method('remove')
+            ->with($this->sourceRepository);
+
+        $this->parseRevision->expects(self::at(0))
+            ->method('fromStringForRepository')
+            ->with($fromSha)
+            ->willReturn(Revision::fromSha1($fromSha));
+        $this->parseRevision->expects(self::at(1))
+            ->method('fromStringForRepository')
+            ->with($toSha)
+            ->willReturn(Revision::fromSha1($toSha));
+
+        $changeToExpect = uniqid('changeToExpect', true);
+        $this->comparator->expects(self::once())->method('compare')->willReturn(Changes::fromArray([
+            Change::removed($changeToExpect, true),
+        ]));
+
+        $this->compare->execute($this->input, $this->output);
+
+        self::assertContains($changeToExpect, file_get_contents($markdownFilename));
+        unlink($markdownFilename);
+    }
+
     public function testExecuteWithDefaultRevisionsNotProvided() : void
     {
         $fromSha       = sha1('fromRevision', false);

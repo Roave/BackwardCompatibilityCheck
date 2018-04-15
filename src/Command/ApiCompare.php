@@ -7,6 +7,7 @@ namespace Roave\ApiCompare\Command;
 use Assert\Assert;
 use Roave\ApiCompare\Comparator;
 use Roave\ApiCompare\Factory\DirectoryReflectorFactory;
+use Roave\ApiCompare\Formatter\MarkdownFormatter;
 use Roave\ApiCompare\Formatter\SymfonyConsoleTextFormatter;
 use Roave\ApiCompare\Git\CheckedOutRepository;
 use Roave\ApiCompare\Git\GetVersionCollection;
@@ -78,6 +79,7 @@ final class ApiCompare extends Command
             ->setDescription('List comparisons between class APIs')
             ->addOption('from', null, InputOption::VALUE_OPTIONAL)
             ->addOption('to', null, InputOption::VALUE_REQUIRED, '', 'HEAD')
+            ->addOption('markdown', null, InputOption::VALUE_OPTIONAL)
             ->addArgument(
                 'sources-path',
                 InputArgument::OPTIONAL,
@@ -123,6 +125,13 @@ final class ApiCompare extends Command
             );
 
             (new SymfonyConsoleTextFormatter($output))->write($changes);
+
+            $markdownFile = trim((string)$input->getOption('markdown'));
+            if ($markdownFile !== '') {
+                $output->write(sprintf('Generating markdown in %s...', $markdownFile));
+                (new MarkdownFormatter($markdownFile))->write($changes);
+                $output->writeln('done');
+            }
         } finally {
             $this->git->remove($fromPath);
             $this->git->remove($toPath);
