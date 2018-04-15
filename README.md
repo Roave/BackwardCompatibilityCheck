@@ -38,7 +38,7 @@ You can also run the tool by hand, for example to generate additional
 documentation for changelogs:
 
 ```bash
-$ vendor/bin/api-compare --markdown=bc-breaks.md
+$ vendor/bin/api-compare --format=markdown > results.md
 ```
 
 ### CLI options
