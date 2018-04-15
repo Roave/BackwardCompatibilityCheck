@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace RoaveTest\ApiCompare\Comparator\BackwardsCompatibility\ClassBased;
 
 use PHPUnit\Framework\TestCase;
-use Roave\ApiCompare\Comparator\Variance\TypeIsContravariant;
+use Roave\ApiCompare\Comparator\Variance\TypeIsCovariant;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionType;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 
-final class TypeIsContravariantTest extends TestCase
+final class TypeIsCovariantTest extends TestCase
 {
     /** @dataProvider checkedTypes */
     public function testContravariance(
@@ -39,7 +39,7 @@ PHP
 
         self::assertSame(
             $expectedToBeContravariant,
-            (new TypeIsContravariant())
+            (new TypeIsCovariant())
                 ->__invoke($reflector, $type, $newType)
         );
     }
@@ -47,107 +47,93 @@ PHP
     public function checkedTypes() : array
     {
         return [
-            'no type to no type is contravariant with itself'                          => [
-                null,
-                null,
-                true,
-            ],
-            'no type to void type is not contravariant'                                => [
+            'no type to void type is covariant'                                        => [
                 null,
                 ReflectionType::createFromType('void', false),
+                true,
+            ],
+            'void type to no type is not covariant'                                    => [
+                ReflectionType::createFromType('void', false),
+                null,
                 false,
             ],
-            'void type to no type is contravariant'                                    => [
+            'void type to scalar type is not covariant'                                => [
                 ReflectionType::createFromType('void', false),
-                null,
-                true,
-            ],
-            'void type to scalar type is contravariant'                                => [
-                ReflectionType::createFromType('void', false),
-                ReflectionType::createFromType('string', false),
-                true,
-            ],
-            'void type to class type is contravariant'                                 => [
-                ReflectionType::createFromType('void', false),
-                ReflectionType::createFromType('AClass', false),
-                true,
-            ],
-            'scalar type to no type is contravariant'                                  => [
-                ReflectionType::createFromType('string', false),
-                null,
-                true,
-            ],
-            'no type to scalar type is not contravariant'                              => [
-                null,
                 ReflectionType::createFromType('string', false),
                 false,
             ],
-            'class type to no type is contravariant'                                   => [
+            'void type to class type is covariant'                                 => [
+                ReflectionType::createFromType('void', false),
+                ReflectionType::createFromType('AClass', false),
+                false,
+            ],
+            'scalar type to no type is not covariant'                                  => [
+                ReflectionType::createFromType('string', false),
+                null,
+                false,
+            ],
+            'no type to scalar type is covariant'                              => [
+                null,
+                ReflectionType::createFromType('string', false),
+                true,
+            ],
+            'class type to no type is not covariant'                                   => [
                 ReflectionType::createFromType('AClass', false),
                 null,
-                true,
+                false,
             ],
             'no type to class type is not contravariant'                               => [
                 ReflectionType::createFromType('AClass', false),
                 null,
-                true,
-            ],
-            'iterable to array is not contravariant'                 => [
-                ReflectionType::createFromType('iterable', false),
-                ReflectionType::createFromType('array', false),
                 false,
             ],
-            'array to iterable is contravariant'                 => [
-                ReflectionType::createFromType('array', false),
-                ReflectionType::createFromType('iterable', false),
-                true,
-            ],
-            'iterable to non-iterable class type is not contravariant'                 => [
+            'iterable to non-iterable class type is not covariant'                 => [
                 ReflectionType::createFromType('iterable', false),
                 ReflectionType::createFromType('AnotherClassWithMultipleInterfaces', false),
                 false,
             ],
-            'iterable to iterable class type is not contravariant'                         => [
+            'iterable to iterable class type is covariant'                         => [
                 ReflectionType::createFromType('iterable', false),
                 ReflectionType::createFromType('Iterator', false),
-                false,
+                true,
             ],
-            'non-iterable class to iterable type is not contravariant'                 => [
+            'non-iterable class to iterable type is not covariant'                 => [
                 ReflectionType::createFromType('iterable', false),
                 ReflectionType::createFromType('AnotherClassWithMultipleInterfaces', false),
                 false,
             ],
-            'iterable class type to iterable is not contravariant'                     => [
+            'iterable class type to iterable is not covariant'                     => [
                 ReflectionType::createFromType('Iterator', false),
                 ReflectionType::createFromType('iterable', false),
                 false,
             ],
-            'object to class type is not contravariant'                                => [
+            'object to class type is covariant'                                => [
                 ReflectionType::createFromType('object', false),
                 ReflectionType::createFromType('AClass', false),
-                false,
-            ],
-            'class type to object is contravariant'                                    => [
-                ReflectionType::createFromType('AClass', false),
-                ReflectionType::createFromType('object', false),
                 true,
             ],
-            'class type to scalar type is not contravariant'                           => [
+            'class type to object is not covariant'                                    => [
+                ReflectionType::createFromType('AClass', false),
+                ReflectionType::createFromType('object', false),
+                false,
+            ],
+
+            'class type to scalar type is not covariant'                           => [
                 ReflectionType::createFromType('AClass', false),
                 ReflectionType::createFromType('string', false),
                 false,
             ],
-            'scalar type to class type is not contravariant'                           => [
+            'scalar type to class type is not covariant'                           => [
                 ReflectionType::createFromType('string', false),
                 ReflectionType::createFromType('AClass', false),
                 false,
             ],
-            'scalar type (string) to different scalar type (int) is not contravariant' => [
+            'scalar type (string) to different scalar type (int) is not covariant' => [
                 ReflectionType::createFromType('string', false),
                 ReflectionType::createFromType('int', false),
                 false,
             ],
-            'scalar type (int) to different scalar type (float) is not contravariant'  => [
+            'scalar type (int) to different scalar type (float) is not covariant'  => [
                 ReflectionType::createFromType('int', false),
                 ReflectionType::createFromType('float', false),
                 false,
@@ -157,40 +143,45 @@ PHP
                 ReflectionType::createFromType('string', false),
                 false,
             ],
-            'scalar type to object type is not contravariant'                          => [
+            'scalar type to object type is not covariant'                          => [
                 ReflectionType::createFromType('string', false),
                 ReflectionType::createFromType('object', false),
                 false,
             ],
-            'class to superclass is contravariant'                                     => [
+            'class to superclass is not covariant'                                     => [
                 ReflectionType::createFromType('BClass', false),
                 ReflectionType::createFromType('AClass', false),
-                true,
+                false,
             ],
-            'class to subclass is not contravariant'                                   => [
+            'class to subclass is covariant'                                   => [
                 ReflectionType::createFromType('BClass', false),
                 ReflectionType::createFromType('CClass', false),
-                false,
+                true,
             ],
-            'class to implemented interface is contravariant'                          => [
+            'class to implemented interface is not covariant'                          => [
                 ReflectionType::createFromType('AnotherClassWithMultipleInterfaces', false),
                 ReflectionType::createFromType('AnInterface', false),
+                false,
+            ],
+            'interface to implementing class is covariant'                          => [
+                ReflectionType::createFromType('AnInterface', false),
+                ReflectionType::createFromType('AnotherClassWithMultipleInterfaces', false),
                 true,
             ],
-            'class to not implemented interface is not contravariant'                  => [
+            'class to not implemented interface is not covariant'                  => [
                 ReflectionType::createFromType('AnotherClassWithMultipleInterfaces', false),
                 ReflectionType::createFromType('Traversable', false),
                 false,
             ],
-            'interface to parent interface is contravariant'                           => [
+            'interface to parent interface is not covariant'                           => [
                 ReflectionType::createFromType('Iterator', false),
                 ReflectionType::createFromType('Traversable', false),
-                true,
-            ],
-            'interface to child interface is contravariant'                            => [
-                ReflectionType::createFromType('Traversable', false),
-                ReflectionType::createFromType('Iterator', false),
                 false,
+            ],
+            'interface to child interface is covariant'                            => [
+                ReflectionType::createFromType('Traversable', false),
+                ReflectionType::createFromType('Iterator', false),
+                true,
             ],
         ];
     }
@@ -210,7 +201,7 @@ PHP
         ));
 
         self::assertTrue(
-            (new TypeIsContravariant())
+            (new TypeIsCovariant())
                 ->__invoke($reflector, $type, $type)
         );
     }
