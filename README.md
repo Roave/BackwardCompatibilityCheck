@@ -30,7 +30,7 @@ $ vendor/bin/api-compare
 This will automatically detect the last minor version tagged, and
 compare the API against the current `HEAD`. If any BC breaks are found,
 the tool returns a non-zero status, which on most CI systems will cause
-the build to fail.
+the build to fail. The failure exit code is currently hard-coded as `2`.
 
 ### Running manually
 
