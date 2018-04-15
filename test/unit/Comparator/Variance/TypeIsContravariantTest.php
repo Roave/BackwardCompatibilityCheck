@@ -240,4 +240,42 @@ PHP
             ))
         );
     }
+
+    /** @dataProvider existingNullableTypeStrings */
+    public function testContravarianceConsidersNullability(string $type) : void
+    {
+        $nullable = ReflectionType::createFromType($type, true);
+        $notNullable = ReflectionType::createFromType($type, false);
+        $reflector = new ClassReflector(new StringSourceLocator(
+            <<<'PHP'
+<?php
+
+interface Traversable {}
+class AClass {}
+PHP
+            ,
+            (new BetterReflection())->astLocator()
+        ));
+
+        $isContravariant = new TypeIsContravariant();
+
+        self::assertFalse($isContravariant->__invoke($reflector, $nullable, $notNullable));
+        self::assertTrue($isContravariant->__invoke($reflector, $notNullable, $nullable));
+    }
+
+    /** @return string[][] */
+    public function existingNullableTypeStrings() : array
+    {
+        return [
+            ['int'],
+            ['string'],
+            ['float'],
+            ['bool'],
+            ['array'],
+            ['iterable'],
+            ['callable'],
+            ['Traversable'],
+            ['AClass'],
+        ];
+    }
 }

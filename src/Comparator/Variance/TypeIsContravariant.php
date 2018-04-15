@@ -32,6 +32,10 @@ final class TypeIsContravariant
             return false;
         }
 
+        if ($type->allowsNull() && ! $comparedType->allowsNull()) {
+            return false;
+        }
+
         $typeAsString         = $type->__toString();
         $comparedTypeAsString = $comparedType->__toString();
 

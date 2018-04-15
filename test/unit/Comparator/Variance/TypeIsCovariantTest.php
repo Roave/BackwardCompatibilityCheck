@@ -14,7 +14,7 @@ use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 final class TypeIsCovariantTest extends TestCase
 {
     /** @dataProvider checkedTypes */
-    public function testContravariance(
+    public function testCovariance(
         ?ReflectionType $type,
         ?ReflectionType $newType,
         bool $expectedToBeContravariant
@@ -47,72 +47,72 @@ PHP
     public function checkedTypes() : array
     {
         return [
-            'no type to void type is covariant'                                        => [
+            'no type to void type is covariant'                    => [
                 null,
                 ReflectionType::createFromType('void', false),
                 true,
             ],
-            'void type to no type is not covariant'                                    => [
+            'void type to no type is not covariant'                => [
                 ReflectionType::createFromType('void', false),
                 null,
                 false,
             ],
-            'void type to scalar type is not covariant'                                => [
+            'void type to scalar type is not covariant'            => [
                 ReflectionType::createFromType('void', false),
                 ReflectionType::createFromType('string', false),
                 false,
             ],
-            'void type to class type is covariant'                                 => [
+            'void type to class type is covariant'                 => [
                 ReflectionType::createFromType('void', false),
                 ReflectionType::createFromType('AClass', false),
                 false,
             ],
-            'scalar type to no type is not covariant'                                  => [
+            'scalar type to no type is not covariant'              => [
                 ReflectionType::createFromType('string', false),
                 null,
                 false,
             ],
-            'no type to scalar type is covariant'                              => [
+            'no type to scalar type is covariant'                  => [
                 null,
                 ReflectionType::createFromType('string', false),
                 true,
             ],
-            'class type to no type is not covariant'                                   => [
+            'class type to no type is not covariant'               => [
                 ReflectionType::createFromType('AClass', false),
                 null,
                 false,
             ],
-            'no type to class type is not contravariant'                               => [
+            'no type to class type is not contravariant'           => [
                 ReflectionType::createFromType('AClass', false),
                 null,
                 false,
             ],
-            'iterable to non-iterable class type is not covariant'                 => [
+            'iterable to non-iterable class type is not covariant' => [
                 ReflectionType::createFromType('iterable', false),
                 ReflectionType::createFromType('AnotherClassWithMultipleInterfaces', false),
                 false,
             ],
-            'iterable to iterable class type is covariant'                         => [
+            'iterable to iterable class type is covariant'         => [
                 ReflectionType::createFromType('iterable', false),
                 ReflectionType::createFromType('Iterator', false),
                 true,
             ],
-            'non-iterable class to iterable type is not covariant'                 => [
+            'non-iterable class to iterable type is not covariant' => [
                 ReflectionType::createFromType('iterable', false),
                 ReflectionType::createFromType('AnotherClassWithMultipleInterfaces', false),
                 false,
             ],
-            'iterable class type to iterable is not covariant'                     => [
+            'iterable class type to iterable is not covariant'     => [
                 ReflectionType::createFromType('Iterator', false),
                 ReflectionType::createFromType('iterable', false),
                 false,
             ],
-            'object to class type is covariant'                                => [
+            'object to class type is covariant'                    => [
                 ReflectionType::createFromType('object', false),
                 ReflectionType::createFromType('AClass', false),
                 true,
             ],
-            'class type to object is not covariant'                                    => [
+            'class type to object is not covariant'                => [
                 ReflectionType::createFromType('AClass', false),
                 ReflectionType::createFromType('object', false),
                 false,
@@ -138,7 +138,7 @@ PHP
                 ReflectionType::createFromType('float', false),
                 false,
             ],
-            'object type to scalar type is not contravariant'                          => [
+            'object type to scalar type is not contravariant'                      => [
                 ReflectionType::createFromType('object', false),
                 ReflectionType::createFromType('string', false),
                 false,
@@ -148,22 +148,22 @@ PHP
                 ReflectionType::createFromType('object', false),
                 false,
             ],
-            'class to superclass is not covariant'                                     => [
+            'class to superclass is not covariant'                                 => [
                 ReflectionType::createFromType('BClass', false),
                 ReflectionType::createFromType('AClass', false),
                 false,
             ],
-            'class to subclass is covariant'                                   => [
+            'class to subclass is covariant'                                       => [
                 ReflectionType::createFromType('BClass', false),
                 ReflectionType::createFromType('CClass', false),
                 true,
             ],
-            'class to implemented interface is not covariant'                          => [
+            'class to implemented interface is not covariant'                      => [
                 ReflectionType::createFromType('AnotherClassWithMultipleInterfaces', false),
                 ReflectionType::createFromType('AnInterface', false),
                 false,
             ],
-            'interface to implementing class is covariant'                          => [
+            'interface to implementing class is covariant'                         => [
                 ReflectionType::createFromType('AnInterface', false),
                 ReflectionType::createFromType('AnotherClassWithMultipleInterfaces', false),
                 true,
@@ -173,7 +173,7 @@ PHP
                 ReflectionType::createFromType('Traversable', false),
                 false,
             ],
-            'interface to parent interface is not covariant'                           => [
+            'interface to parent interface is not covariant'                       => [
                 ReflectionType::createFromType('Iterator', false),
                 ReflectionType::createFromType('Traversable', false),
                 false,
@@ -187,7 +187,7 @@ PHP
     }
 
     /** @dataProvider existingTypes */
-    public function testContravarianceConsidersSameTypeAlwaysContravariant(?ReflectionType $type) : void
+    public function testCovarianceConsidersSameTypeAlwaysCovariant(?ReflectionType $type) : void
     {
         $reflector = new ClassReflector(new StringSourceLocator(
             <<<'PHP'
@@ -230,5 +230,43 @@ PHP
                 ]
             ))
         );
+    }
+
+    /** @dataProvider existingNullableTypeStrings */
+    public function testCovarianceConsidersNullability(string $type) : void
+    {
+        $nullable = ReflectionType::createFromType($type, true);
+        $notNullable = ReflectionType::createFromType($type, false);
+        $reflector = new ClassReflector(new StringSourceLocator(
+            <<<'PHP'
+<?php
+
+interface Traversable {}
+class AClass {}
+PHP
+            ,
+            (new BetterReflection())->astLocator()
+        ));
+
+        $isCovariant = new TypeIsCovariant();
+
+        self::assertTrue($isCovariant->__invoke($reflector, $nullable, $notNullable));
+        self::assertFalse($isCovariant->__invoke($reflector, $notNullable, $nullable));
+    }
+
+    /** @return string[][] */
+    public function existingNullableTypeStrings() : array
+    {
+        return [
+            ['int'],
+            ['string'],
+            ['float'],
+            ['bool'],
+            ['array'],
+            ['iterable'],
+            ['callable'],
+            ['Traversable'],
+            ['AClass'],
+        ];
     }
 }

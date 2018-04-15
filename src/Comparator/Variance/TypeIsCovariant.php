@@ -33,6 +33,10 @@ final class TypeIsCovariant
             return false;
         }
 
+        if ($comparedType->allowsNull() && ! $type->allowsNull()) {
+            return false;
+        }
+
         $typeAsString         = $type->__toString();
         $comparedTypeAsString = $comparedType->__toString();
 
