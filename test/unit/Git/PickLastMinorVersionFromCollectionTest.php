@@ -14,6 +14,9 @@ use Version\VersionsCollection;
  */
 final class PickLastMinorVersionFromCollectionTest extends TestCase
 {
+    /**
+     * @return string[][]|string[][][]
+     */
     public function lastStableMinorVersionForCollectionProvider() : array
     {
         return [
@@ -25,6 +28,7 @@ final class PickLastMinorVersionFromCollectionTest extends TestCase
     }
 
     /**
+     * @param string[] $collectionOfVersions
      * @dataProvider lastStableMinorVersionForCollectionProvider
      */
     public function testForRepository(string $expectedVersion, array $collectionOfVersions) : void

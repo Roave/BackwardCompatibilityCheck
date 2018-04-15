@@ -88,7 +88,6 @@ final class ApiCompare extends Command
     }
 
     /**
-     * @throws \Symfony\Component\Process\Exception\LogicException
      * @throws RuntimeException
      * @throws InvalidArgumentException
      * @throws InvalidFileInfo

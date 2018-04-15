@@ -13,6 +13,9 @@ use Roave\ApiCompare\Git\GitParseRevision;
  */
 final class GitParseRevisionTest extends TestCase
 {
+    /**
+     * @return string[][]
+     */
     public function revisionProvider() : array
     {
         return [

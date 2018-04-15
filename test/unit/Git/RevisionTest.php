@@ -23,6 +23,9 @@ final class RevisionTest extends TestCase
         self::assertSame($sha1, (string) Revision::fromSha1($sha1));
     }
 
+    /**
+     * @return string[][]
+     */
     public function invalidRevisionProvider() : array
     {
         return [

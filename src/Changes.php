@@ -25,6 +25,10 @@ final class Changes implements IteratorAggregate, Countable
         return new self();
     }
 
+    /**
+     * @param Change[] $changes
+     * @return Changes
+     */
     public static function fromArray(array $changes) : self
     {
         Assert::that($changes)->all()->isInstanceOf(Change::class);
