@@ -6,6 +6,7 @@ namespace Roave\ApiCompare\Comparator\Variance;
 
 use Roave\BetterReflection\Reflection\ReflectionType;
 use Roave\BetterReflection\Reflector\ClassReflector;
+use function strtolower;
 
 /**
  * This is a simplistic contravariant type check. A more appropriate approach would be to
@@ -46,10 +47,8 @@ final class TypeIsContravariant
             return true;
         }
 
-        if (strtolower($comparedTypeAsString) === 'iterable') {
-            if (strtolower($typeAsString) === 'array') {
-                return true;
-            }
+        if (strtolower($comparedTypeAsString) === 'iterable' && strtolower($typeAsString) === 'array') {
+            return true;
         }
 
         if (strtolower($typeAsString) === 'iterable') {
