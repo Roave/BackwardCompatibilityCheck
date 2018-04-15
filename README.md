@@ -13,7 +13,7 @@ code.
 You must currently install the tool using:
 
 ```bash
-$ composer require roave/api-compare
+$ composer require --dev roave/api-compare
 ```
 
 ## Usage
