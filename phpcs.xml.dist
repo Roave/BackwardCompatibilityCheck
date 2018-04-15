@@ -12,11 +12,6 @@
     <file>./src</file>
     <file>./test/unit</file>
 
-    <rule ref="Doctrine">
-        <exclude name="SlevomatCodingStandard.Classes.SuperfluousAbstractClassNaming"/>
-        <exclude name="SlevomatCodingStandard.Classes.SuperfluousInterfaceNaming"/>
-        <exclude name="SlevomatCodingStandard.Classes.SuperfluousExceptionNaming"/>
-    </rule>
     <rule ref="PSR2">
         <exclude name="Generic.Files.LineLength"/>
     </rule>
