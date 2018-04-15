@@ -1,10 +1,12 @@
 <?php
+
 declare(strict_types=1);
 
 namespace RoaveTest\ApiCompare;
 
-use Roave\ApiCompare\Change;
 use PHPUnit\Framework\TestCase;
+use Roave\ApiCompare\Change;
+use function uniqid;
 
 /**
  * @covers \Roave\ApiCompare\Change
@@ -16,7 +18,7 @@ final class ChangeTest extends TestCase
         $changeText = uniqid('changeText', true);
         self::assertSame(
             '     ADDED: ' . $changeText,
-            (string)Change::added($changeText, false)
+            (string) Change::added($changeText, false)
         );
     }
 
@@ -25,7 +27,7 @@ final class ChangeTest extends TestCase
         $changeText = uniqid('changeText', true);
         self::assertSame(
             '[BC] ADDED: ' . $changeText,
-            (string)Change::added($changeText, true)
+            (string) Change::added($changeText, true)
         );
     }
 
@@ -34,7 +36,7 @@ final class ChangeTest extends TestCase
         $changeText = uniqid('changeText', true);
         self::assertSame(
             '     CHANGED: ' . $changeText,
-            (string)Change::changed($changeText, false)
+            (string) Change::changed($changeText, false)
         );
     }
 
@@ -43,7 +45,7 @@ final class ChangeTest extends TestCase
         $changeText = uniqid('changeText', true);
         self::assertSame(
             '[BC] CHANGED: ' . $changeText,
-            (string)Change::changed($changeText, true)
+            (string) Change::changed($changeText, true)
         );
     }
 
@@ -52,7 +54,7 @@ final class ChangeTest extends TestCase
         $changeText = uniqid('changeText', true);
         self::assertSame(
             '     REMOVED: ' . $changeText,
-            (string)Change::removed($changeText, false)
+            (string) Change::removed($changeText, false)
         );
     }
 
@@ -61,7 +63,7 @@ final class ChangeTest extends TestCase
         $changeText = uniqid('changeText', true);
         self::assertSame(
             '[BC] REMOVED: ' . $changeText,
-            (string)Change::removed($changeText, true)
+            (string) Change::removed($changeText, true)
         );
     }
 }

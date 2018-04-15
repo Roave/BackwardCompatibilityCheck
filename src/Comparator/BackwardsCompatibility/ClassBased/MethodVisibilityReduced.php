@@ -9,6 +9,13 @@ use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
+use function array_combine;
+use function array_filter;
+use function array_intersect_key;
+use function array_keys;
+use function array_map;
+use function array_values;
+use function sprintf;
 
 final class MethodVisibilityReduced implements ClassBased
 {
@@ -42,7 +49,10 @@ final class MethodVisibilityReduced implements ClassBased
             }
         );
 
-        return Changes::fromArray(array_values(array_map(function (string $methodName, array $visibilities) use (
+        return Changes::fromArray(array_values(array_map(function (
+            string $methodName,
+            array $visibilities
+        ) use (
             $fromClass
         ) : Change {
             return Change::changed(

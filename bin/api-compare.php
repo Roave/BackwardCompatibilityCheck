@@ -15,7 +15,7 @@ use RuntimeException;
 use Symfony\Component\Console\Application;
 use function file_exists;
 
-(function () {
+(function () : void {
     foreach ([__DIR__ . '/../vendor/autoload.php', __DIR__ . '/../autoload.php'] as $autoload) {
         if (! file_exists($autoload)) {
             continue;

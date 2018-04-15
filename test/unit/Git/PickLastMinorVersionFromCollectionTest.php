@@ -1,11 +1,12 @@
 <?php
+
 declare(strict_types=1);
 
 namespace RoaveTest\ApiCompare\Git;
 
 use InvalidArgumentException;
-use Roave\ApiCompare\Git\PickLastMinorVersionFromCollection;
 use PHPUnit\Framework\TestCase;
+use Roave\ApiCompare\Git\PickLastMinorVersionFromCollection;
 use Version\VersionsCollection;
 
 /**
@@ -38,7 +39,7 @@ final class PickLastMinorVersionFromCollectionTest extends TestCase
 
     public function testEmptyVersionCollectionResultsInException() : void
     {
-        $versions = VersionsCollection::fromArray([]);
+        $versions   = VersionsCollection::fromArray([]);
         $determiner = new PickLastMinorVersionFromCollection();
 
         $this->expectException(InvalidArgumentException::class);

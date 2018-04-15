@@ -63,5 +63,4 @@ final class MultiClassBasedTest extends TestCase
             $multiCheck->compare($from, $to)
         );
     }
-
 }

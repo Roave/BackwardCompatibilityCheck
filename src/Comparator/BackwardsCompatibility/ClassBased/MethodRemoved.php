@@ -9,6 +9,14 @@ use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
+use const CASE_UPPER;
+use function array_change_key_case;
+use function array_combine;
+use function array_diff_key;
+use function array_filter;
+use function array_map;
+use function array_values;
+use function sprintf;
 
 final class MethodRemoved implements ClassBased
 {
@@ -17,8 +25,8 @@ final class MethodRemoved implements ClassBased
         Assert::that($fromClass->getName())->same($toClass->getName());
 
         $removedMethods = array_diff_key(
-            array_change_key_case($this->accessibleMethods($fromClass), \CASE_UPPER),
-            array_change_key_case($this->accessibleMethods($toClass), \CASE_UPPER)
+            array_change_key_case($this->accessibleMethods($fromClass), CASE_UPPER),
+            array_change_key_case($this->accessibleMethods($toClass), CASE_UPPER)
         );
 
         return Changes::fromArray(array_values(array_map(function (ReflectionMethod $method) use ($fromClass) : Change {

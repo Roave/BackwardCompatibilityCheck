@@ -1,10 +1,13 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Roave\ApiCompare\Factory;
 
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflector\ClassReflector;
+use Roave\BetterReflection\SourceLocator\Exception\InvalidDirectory;
+use Roave\BetterReflection\SourceLocator\Exception\InvalidFileInfo;
 use Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\AutoloadSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\DirectoriesSourceLocator;
@@ -17,12 +20,10 @@ use Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
 final class DirectoryReflectorFactory
 {
     /**
-     * @param string $directory
-     * @return ClassReflector
-     * @throws \Roave\BetterReflection\SourceLocator\Exception\InvalidFileInfo
-     * @throws \Roave\BetterReflection\SourceLocator\Exception\InvalidDirectory
+     * @throws InvalidFileInfo
+     * @throws InvalidDirectory
      */
-    public function __invoke(string $directory): ClassReflector
+    public function __invoke(string $directory) : ClassReflector
     {
         $astLocator = (new BetterReflection())->astLocator();
         return new ClassReflector(

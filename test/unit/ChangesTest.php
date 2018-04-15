@@ -1,12 +1,17 @@
 <?php
+
 declare(strict_types=1);
 
 namespace RoaveTest\ApiCompare;
 
 use InvalidArgumentException;
+use PHPUnit\Framework\TestCase;
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
-use PHPUnit\Framework\TestCase;
+use function iterator_to_array;
+use function random_bytes;
+use function random_int;
+use function uniqid;
 
 /**
  * @covers \Roave\ApiCompare\Changes

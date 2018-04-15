@@ -1,11 +1,12 @@
 <?php
+
 declare(strict_types=1);
 
 namespace RoaveTest\ApiCompare\Git;
 
+use PHPUnit\Framework\TestCase;
 use Roave\ApiCompare\Git\CheckedOutRepository;
 use Roave\ApiCompare\Git\GitParseRevision;
-use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Roave\ApiCompare\Git\GitParseRevision
@@ -20,8 +21,6 @@ final class GitParseRevisionTest extends TestCase
     }
 
     /**
-     * @param string $revisionToBeParsed
-     * @param string $expectedRevision
      * @dataProvider revisionProvider
      */
     public function testFromStringForRepository(string $revisionToBeParsed, string $expectedRevision) : void

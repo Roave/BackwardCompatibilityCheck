@@ -9,6 +9,12 @@ use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
+use function array_diff;
+use function array_filter;
+use function array_keys;
+use function array_map;
+use function array_values;
+use function sprintf;
 
 final class PropertyRemoved implements ClassBased
 {
