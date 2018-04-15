@@ -5,25 +5,26 @@ namespace Roave\ApiCompare\Formatter;
 
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
+use Symfony\Component\Console\Output\ConsoleOutputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
-final class MarkdownFormatter implements OutputFormatter
+final class MarkdownPipedToSymfonyConsoleFormatter implements OutputFormatter
 {
     /**
-     * @var string
+     * @var ConsoleOutputInterface
      */
-    private $outputFilename;
+    private $output;
 
-    public function __construct(string $outputFilename)
+    public function __construct(OutputInterface $output)
     {
-        $this->outputFilename = $outputFilename;
+        $this->output = $output;
     }
 
     public function write(Changes $changes) : void
     {
         $arrayOfChanges = $changes->getIterator()->getArrayCopy();
 
-        file_put_contents(
-            $this->outputFilename,
+        $this->output->writeln(
             "# Added\n"
             . implode('', $this->convertFilteredChangesToMarkdownBulletList(
                 function (Change $change) : bool {

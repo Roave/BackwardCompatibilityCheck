@@ -5,11 +5,11 @@ namespace RoaveTest\ApiCompare\Formatter;
 
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
-use Roave\ApiCompare\Formatter\MarkdownFormatter;
+use Roave\ApiCompare\Formatter\MarkdownPipedToSymfonyConsoleFormatter;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \Roave\ApiCompare\Formatter\MarkdownFormatter
+ * @covers \Roave\ApiCompare\Formatter\MarkdownPipedToSymfonyConsoleFormatter
  */
 final class MarkdownFormatterTest extends TestCase
 {
@@ -17,7 +17,7 @@ final class MarkdownFormatterTest extends TestCase
     {
         $markdownFilename = tempnam(sys_get_temp_dir(), uniqid('api-compare-', true)) . '.md';
 
-        (new MarkdownFormatter($markdownFilename))->write(Changes::fromArray([
+        (new MarkdownPipedToSymfonyConsoleFormatter($markdownFilename))->write(Changes::fromArray([
             Change::added('Something added', true),
             Change::added('Something added', false),
             Change::changed('Something changed', true),

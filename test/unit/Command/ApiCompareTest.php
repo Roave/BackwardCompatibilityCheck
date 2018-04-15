@@ -19,6 +19,7 @@ use Roave\ApiCompare\Git\PerformCheckoutOfRevision;
 use Roave\ApiCompare\Git\PickVersionFromVersionCollection;
 use Roave\ApiCompare\Git\Revision;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Version\Version;
 use Version\VersionsCollection;
@@ -38,8 +39,11 @@ final class ApiCompareTest extends TestCase
     /** @var InputInterface|MockObject */
     private $input;
 
-    /** @var OutputInterface|MockObject */
+    /** @var ConsoleOutputInterface|MockObject */
     private $output;
+
+    /** @var OutputInterface|MockObject */
+    private $stdErr;
 
     /** @var PerformCheckoutOfRevision|MockObject */
     private $performCheckout;
@@ -64,8 +68,11 @@ final class ApiCompareTest extends TestCase
         $this->sourceRepository = CheckedOutRepository::fromPath(realpath(__DIR__ . '/../../../'));
         chdir((string) $this->sourceRepository);
 
-        $this->input           = $this->createMock(InputInterface::class);
-        $this->output          = $this->createMock(OutputInterface::class);
+        $this->input   = $this->createMock(InputInterface::class);
+        $this->output  = $this->createMock(ConsoleOutputInterface::class);
+        $this->stdErr  = $this->createMock(OutputInterface::class);
+        $this->output->expects(self::any())->method('getErrorOutput')->willReturn($this->stdErr);
+
         $this->performCheckout = $this->createMock(PerformCheckoutOfRevision::class);
         $this->parseRevision   = $this->createMock(ParseRevision::class);
         $this->getVersions     = $this->createMock(GetVersionCollection::class);
@@ -175,13 +182,11 @@ final class ApiCompareTest extends TestCase
         $fromSha = sha1('fromRevision', false);
         $toSha = sha1('toRevision', false);
 
-        $markdownFilename = tempnam(sys_get_temp_dir(), uniqid('api-compare-', true)) . '.md';
-
         $this->input->expects(self::any())->method('hasOption')->willReturn(true);
         $this->input->expects(self::any())->method('getOption')->willReturnMap([
             ['from', $fromSha],
             ['to', $toSha],
-            ['markdown', $markdownFilename]
+            ['format', ['markdown']]
         ]);
         $this->input->expects(self::any())->method('getArgument')->willReturnMap([
             ['sources-path', 'src'],
@@ -218,8 +223,12 @@ final class ApiCompareTest extends TestCase
 
         $this->compare->execute($this->input, $this->output);
 
-        self::assertContains($changeToExpect, file_get_contents($markdownFilename));
-        unlink($markdownFilename);
+
+        $this->output->expects(self::any())
+            ->method('writeln')
+            ->willReturnCallback(function (string $output) use ($changeToExpect) {
+                self::assertContains($changeToExpect, $output);
+            });
     }
 
     public function testExecuteWithDefaultRevisionsNotProvided() : void
