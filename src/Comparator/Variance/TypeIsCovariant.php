@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Roave\ApiCompare\Comparator\Variance;
 
+use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionType;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use function strtolower;
@@ -73,7 +74,9 @@ final class TypeIsCovariant
             return false;
         }
 
+        /** @var ReflectionClass $typeReflectionClass */
         $typeReflectionClass = $reflector->reflect($typeAsString);
+        /** @var ReflectionClass $comparedTypeReflectionClass */
         $comparedTypeReflectionClass = $reflector->reflect($comparedTypeAsString);
 
         if ($typeReflectionClass->isInterface()) {

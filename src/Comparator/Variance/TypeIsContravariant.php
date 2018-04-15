@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Roave\ApiCompare\Comparator\Variance;
 
+use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionType;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use function in_array;
@@ -61,7 +62,9 @@ final class TypeIsContravariant
             return false;
         }
 
+        /** @var ReflectionClass $typeReflectionClass */
         $typeReflectionClass = $reflector->reflect($typeAsString);
+        /** @var ReflectionClass $comparedTypeReflectionClass */
         $comparedTypeReflectionClass = $reflector->reflect($comparedTypeAsString);
 
         if ($comparedTypeReflectionClass->isInterface()) {
