@@ -32,4 +32,10 @@ class ClassWithMethodVisibilitiesBeingChanged
     public function privateIncreasedToPublic()
     {
     }
+    public function changedOrder1()
+    {
+    }
+    private function changedOrder2()
+    {
+    }
 }

@@ -14,4 +14,6 @@ class ClassWithPropertyVisibilitiesBeingChanged
     private $privateMaintainedPrivate;
     protected $privateIncreasedToProtected;
     public $privateIncreasedToPublic;
+    private $changedOrder2;
+    public $changedOrder1;
 }

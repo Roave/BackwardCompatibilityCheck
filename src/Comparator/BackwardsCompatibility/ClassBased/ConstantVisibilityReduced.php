@@ -8,9 +8,9 @@ use Assert\Assert;
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClass;
-use Roave\BetterReflection\Reflection\ReflectionProperty;
+use Roave\BetterReflection\Reflection\ReflectionClassConstant;
 
-final class PropertyVisibilityReduced implements ClassBased
+final class ConstantVisibilityReduced implements ClassBased
 {
     private const VISIBILITY_PRIVATE = 'private';
 
@@ -22,8 +22,8 @@ final class PropertyVisibilityReduced implements ClassBased
     {
         Assert::that($fromClass->getName())->same($toClass->getName());
 
-        $visibilitiesFrom = $this->propertyVisibilities($fromClass);
-        $visibilitiesTo   = $this->propertyVisibilities($toClass);
+        $visibilitiesFrom = $this->constantVisibilities($fromClass);
+        $visibilitiesTo   = $this->constantVisibilities($toClass);
         $sharedKeys       = array_keys(array_intersect_key($visibilitiesFrom, $visibilitiesTo));
 
         $affectedVisibilities = array_filter(
@@ -47,7 +47,7 @@ final class PropertyVisibilityReduced implements ClassBased
         ) : Change {
             return Change::changed(
                 sprintf(
-                    'Property %s#%s changed visibility from %s to %s',
+                    'Constant %s::%s changed visibility from %s to %s',
                     $fromClass->getName(),
                     $propertyName,
                     $visibilities[0],
@@ -58,19 +58,19 @@ final class PropertyVisibilityReduced implements ClassBased
         }, array_keys($affectedVisibilities), $affectedVisibilities)));
     }
 
-    /** @return string[] */
-    private function propertyVisibilities(ReflectionClass $class) : array
+    /** @return string[] indexed by constant name */
+    private function constantVisibilities(ReflectionClass $class) : array
     {
-        return array_map(function (ReflectionProperty $property) : string {
-            if ($property->isPublic()) {
+        return array_map(function (ReflectionClassConstant $constant) : string {
+            if ($constant->isPublic()) {
                 return self::VISIBILITY_PUBLIC;
             }
 
-            if ($property->isProtected()) {
+            if ($constant->isProtected()) {
                 return self::VISIBILITY_PROTECTED;
             }
 
             return self::VISIBILITY_PRIVATE;
-        }, $class->getProperties());
+        }, $class->getReflectionConstants());
     }
 }

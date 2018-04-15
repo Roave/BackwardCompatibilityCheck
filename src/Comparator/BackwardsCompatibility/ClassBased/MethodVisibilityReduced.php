@@ -24,16 +24,16 @@ final class MethodVisibilityReduced implements ClassBased
 
         $visibilitiesFrom = $this->methodVisibilities($fromClass);
         $visibilitiesTo   = $this->methodVisibilities($toClass);
+        $sharedKeys       = array_keys(array_intersect_key($visibilitiesFrom, $visibilitiesTo));
 
         $affectedVisibilities = array_filter(
             array_combine(
-                array_keys(array_intersect_key($visibilitiesFrom, $visibilitiesTo)),
+                $sharedKeys,
                 array_map(
-                    function (string $visibilityFrom, string $visibilityTo) : array {
-                        return [$visibilityFrom, $visibilityTo];
+                    function (string $propertyName) use ($visibilitiesFrom, $visibilitiesTo) : array {
+                        return [$visibilitiesFrom[$propertyName], $visibilitiesTo[$propertyName]];
                     },
-                    array_intersect_key($visibilitiesFrom, $visibilitiesTo),
-                    array_intersect_key($visibilitiesTo, $visibilitiesFrom)
+                    $sharedKeys
                 )
             ),
             function (array $visibilities) : bool {
