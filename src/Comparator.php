@@ -37,6 +37,7 @@ class Comparator
     private function examineClass(Changes $changelog, ReflectionClass $oldClass, ClassReflector $newApi) : Changes
     {
         try {
+            /** @var ReflectionClass $newClass */
             $newClass = $newApi->reflect($oldClass->getName());
 
             $changelog->mergeWith($this->classBasedComparisons->compare($oldClass, $newClass));

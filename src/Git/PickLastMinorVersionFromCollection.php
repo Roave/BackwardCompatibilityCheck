@@ -34,6 +34,6 @@ final class PickLastMinorVersionFromCollection implements PickVersionFromVersion
             $previousVersionInIteration = $version;
         }
 
-        return $version;
+        return $previousVersionInIteration;
     }
 }

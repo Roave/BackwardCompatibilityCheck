@@ -56,7 +56,7 @@ final class Changes implements IteratorAggregate, Countable
     /**
      * {@inheritDoc}
      *
-     * @return Change[]
+     * @return ArrayIterator|Change[]
      */
     public function getIterator() : ArrayIterator
     {
