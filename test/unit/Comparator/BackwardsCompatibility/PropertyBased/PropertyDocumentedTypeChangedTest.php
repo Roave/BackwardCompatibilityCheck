@@ -87,6 +87,11 @@ class TheClass {
      * @var int|float
      */
     public $publicCompositeTypeDocblockToDifferentCompositeTypeDocblock;
+    
+    /**
+     * @var int
+     */
+    private $privateDocblockToDifferentDocblock;
 }
 PHP
             ,
@@ -136,6 +141,11 @@ class TheClass {
      * @var int|float|string
      */
     public $publicCompositeTypeDocblockToDifferentCompositeTypeDocblock;
+    
+    /**
+     * @var float
+     */
+    private $privateDocblockToDifferentDocblock;
 }
 PHP
             ,
@@ -150,14 +160,14 @@ PHP
         $properties = [
             'publicNoDocblockToNoDocblock'                                      => [],
             'publicNoDocblockToDocblock'                                        => [],
-            'publicNoTypeDocblockToDocblock'                                        => [
+            'publicNoTypeDocblockToDocblock'                                    => [
                 '[BC] CHANGED: Type documentation for property TheClass::$publicNoTypeDocblockToDocblock changed from having no type to int',
             ],
             'publicDocblockToSameDocblock'                                      => [],
             'publicDocblockToDifferentDocblock'                                 => [
                 '[BC] CHANGED: Type documentation for property TheClass::$publicDocblockToDifferentDocblock changed from int to float',
             ],
-            'publicDocblockToNoDocblock' => [
+            'publicDocblockToNoDocblock'                                        => [
                 '[BC] CHANGED: Type documentation for property TheClass::$publicDocblockToNoDocblock changed from int to having no type',
             ],
             'publicCompositeTypeDocblockToSameTypeDocblock'                     => [],
@@ -165,6 +175,7 @@ PHP
             'publicCompositeTypeDocblockToDifferentCompositeTypeDocblock'       => [
                 '[BC] CHANGED: Type documentation for property TheClass::$publicCompositeTypeDocblockToDifferentCompositeTypeDocblock changed from float|int to float|int|string',
             ],
+            'privateDocblockToDifferentDocblock'                                => [],
         ];
 
         return array_combine(
