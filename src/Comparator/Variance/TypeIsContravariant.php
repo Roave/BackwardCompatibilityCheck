@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Roave\ApiCompare\Comparator\Variance;
 
-use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionType;
-use Roave\BetterReflection\Reflector\ClassReflector;
 use function in_array;
 use function strtolower;
 
@@ -19,7 +17,6 @@ use function strtolower;
 final class TypeIsContravariant
 {
     public function __invoke(
-        ClassReflector $reflector,
         ?ReflectionType $type,
         ?ReflectionType $comparedType
     ) : bool {
@@ -66,12 +63,9 @@ final class TypeIsContravariant
             return false;
         }
 
-        /** @var ReflectionClass $typeReflectionClass */
-        $typeReflectionClass = $reflector->reflect($typeAsString);
-        /** @var ReflectionClass $comparedTypeReflectionClass */
-        $comparedTypeReflectionClass = $reflector->reflect($comparedTypeAsString);
+        $typeReflectionClass = $type->targetReflectionClass();
 
-        if ($comparedTypeReflectionClass->isInterface()) {
+        if ($comparedType->targetReflectionClass()->isInterface()) {
             return $typeReflectionClass->implementsInterface($comparedTypeAsString);
         }
 

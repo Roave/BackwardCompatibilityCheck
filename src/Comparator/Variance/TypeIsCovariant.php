@@ -19,7 +19,6 @@ use function in_array;
 final class TypeIsCovariant
 {
     public function __invoke(
-        ClassReflector $reflector,
         ?ReflectionType $type,
         ?ReflectionType $comparedType
     ) : bool {
@@ -60,10 +59,7 @@ final class TypeIsCovariant
         }
 
         if (strtolower($typeAsString) === 'iterable' && ! $comparedType->isBuiltin()) {
-            /** @var ReflectionClass $comparedTypeReflectionClass */
-            $comparedTypeReflectionClass = $reflector->reflect($comparedTypeAsString);
-
-            if ($comparedTypeReflectionClass->implementsInterface(\Traversable::class)) {
+            if ($comparedType->targetReflectionClass()->implementsInterface(\Traversable::class)) {
                 // `iterable` can be restricted via any `Iterator` implementation
                 return true;
             }
@@ -79,12 +75,9 @@ final class TypeIsCovariant
             return false;
         }
 
-        /** @var ReflectionClass $typeReflectionClass */
-        $typeReflectionClass = $reflector->reflect($typeAsString);
-        /** @var ReflectionClass $comparedTypeReflectionClass */
-        $comparedTypeReflectionClass = $reflector->reflect($comparedTypeAsString);
+        $comparedTypeReflectionClass = $comparedType->targetReflectionClass();
 
-        if ($typeReflectionClass->isInterface()) {
+        if ($type->targetReflectionClass()->isInterface()) {
             return $comparedTypeReflectionClass->implementsInterface($typeAsString);
         }
 
