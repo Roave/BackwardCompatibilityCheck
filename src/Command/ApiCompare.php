@@ -15,8 +15,6 @@ use Roave\ApiCompare\Git\ParseRevision;
 use Roave\ApiCompare\Git\PerformCheckoutOfRevision;
 use Roave\ApiCompare\Git\PickVersionFromVersionCollection;
 use Roave\ApiCompare\Git\Revision;
-use Roave\BetterReflection\SourceLocator\Exception\InvalidDirectory;
-use Roave\BetterReflection\SourceLocator\Exception\InvalidFileInfo;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Exception\LogicException;
@@ -25,11 +23,10 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Process\Exception\RuntimeException;
 use function count;
 use function in_array;
-use function getcwd;
 use function sprintf;
+use function assert;
 
 final class ApiCompare extends Command
 {
@@ -99,8 +96,7 @@ final class ApiCompare extends Command
      */
     public function execute(InputInterface $input, OutputInterface $output) : int
     {
-        /** @var ConsoleOutputInterface $output */
-        Assert::that($output)->isInstanceOf(ConsoleOutputInterface::class);
+        assert($output instanceof ConsoleOutputInterface, '');
         $stdErr = $output->getErrorOutput();
 
         // @todo fix flaky assumption about the path of the source repo...
