@@ -28,15 +28,15 @@ final class ConstantValueChanged implements ClassBased
             return array_key_exists($constantName, $toValues) && $constantValue !== $toValues[$constantName];
         }, \ARRAY_FILTER_USE_BOTH));
 
-        return Changes::fromArray(array_values(array_map(function (string $constantName) use ($fromClass) : Change {
+        return Changes::fromArray(array_map(function (string $constantName) use ($fromClass) : Change {
             return Change::changed(
                 sprintf('Value of constant %s::%s changed', $fromClass->getName(), $constantName),
                 true
             );
-        }, $changedConstants)));
+        }, $changedConstants));
     }
 
-    /** @return ReflectionClassConstant[] */
+    /** @return mixed[] indexed by constant name */
     private function accessibleConstantValues(ReflectionClass $class) : array
     {
         $accessibleConstants = array_filter(

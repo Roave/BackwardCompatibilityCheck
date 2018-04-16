@@ -16,7 +16,7 @@ final class ConstantRemoved implements ClassBased
     {
         Assert::that($fromClass->getName())->same($toClass->getName());
 
-        $removedMethods = array_diff_key(
+        $removedConstants = array_diff_key(
             $this->accessibleConstants($fromClass),
             $this->accessibleConstants($toClass)
         );
@@ -26,7 +26,7 @@ final class ConstantRemoved implements ClassBased
                 sprintf('Constant %s::%s was removed', $fromClass->getName(), $constant->getName()),
                 true
             );
-        }, $removedMethods)));
+        }, $removedConstants)));
     }
 
     /** @return ReflectionClassConstant[] */

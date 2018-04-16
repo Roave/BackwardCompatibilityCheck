@@ -44,7 +44,7 @@ final class PropertyVisibilityReduced implements ClassBased
                 )
             ),
             function (array $visibilities) : bool {
-                // Note: works because public, protected and private are (luckily) sortable
+                // Note: works because the strings "public", "protected" and "private" can be compared directly as they sort correctly for our purposes
                 return $visibilities[0] > $visibilities[1];
             }
         );
