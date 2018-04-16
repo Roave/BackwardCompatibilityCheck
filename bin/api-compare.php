@@ -31,7 +31,8 @@ use function file_exists;
             new GetVersionCollectionFromGitRepository(),
             new PickLastMinorVersionFromCollection(),
             new Comparator(
-                new Comparator\BackwardsCompatibility\ClassBased\PropertyRemoved()
+                new Comparator\BackwardsCompatibility\ClassBased\PropertyRemoved(),
+                new Comparator\BackwardsCompatibility\FunctionBased\ParameterDefaultValueChanged()
             )
         );
 
