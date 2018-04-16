@@ -19,10 +19,10 @@ final class PropertyVisibilityReduced implements PropertyBased
 
     public function compare(ReflectionProperty $fromProperty, ReflectionProperty $toProperty) : Changes
     {
-        $visibilitiesFrom = $this->propertyVisibility($fromProperty);
-        $visibilitiesTo   = $this->propertyVisibility($toProperty);
+        $visibilityFrom = $this->propertyVisibility($fromProperty);
+        $visibilityTo   = $this->propertyVisibility($toProperty);
 
-        if ($visibilitiesFrom <= $visibilitiesTo) {
+        if ($visibilityFrom <= $visibilityTo) {
             return Changes::new();
         }
 
@@ -31,8 +31,8 @@ final class PropertyVisibilityReduced implements PropertyBased
                 'Property %s#$%s visibility reduced from %s to %s',
                 $fromProperty->getDeclaringClass()->getName(),
                 $fromProperty->getName(),
-                $visibilitiesFrom,
-                $visibilitiesTo
+                $visibilityFrom,
+                $visibilityTo
             ),
             true
         )]);
