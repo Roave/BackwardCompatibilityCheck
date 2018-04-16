@@ -1,0 +1,150 @@
+<?php
+
+declare(strict_types=1);
+
+namespace RoaveTest\ApiCompare\Comparator\BackwardsCompatibility\FunctionBased;
+
+use PHPUnit\Framework\TestCase;
+use Roave\ApiCompare\Change;
+use Roave\ApiCompare\Comparator\BackwardsCompatibility\FunctionBased\RequiredParameterAmountIncreased;
+use Roave\BetterReflection\BetterReflection;
+use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
+use Roave\BetterReflection\Reflector\ClassReflector;
+use Roave\BetterReflection\Reflector\FunctionReflector;
+use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
+use function array_map;
+use function iterator_to_array;
+
+/**
+ * @covers \Roave\ApiCompare\Comparator\BackwardsCompatibility\FunctionBased\RequiredParameterAmountIncreased
+ */
+final class RequiredParameterAmountIncreasedTest extends TestCase
+{
+    /**
+     * @dataProvider functionsToBeTested
+     *
+     * @param string[] $expectedMessages
+     */
+    public function testDiffs(
+        ReflectionFunctionAbstract $fromFunction,
+        ReflectionFunctionAbstract $toFunction,
+        array $expectedMessages
+    ) : void {
+        $changes = (new RequiredParameterAmountIncreased())
+            ->compare($fromFunction, $toFunction);
+
+        self::assertSame(
+            $expectedMessages,
+            array_map(function (Change $change) : string {
+                return $change->__toString();
+            }, iterator_to_array($changes))
+        );
+    }
+
+    /** @return (string[]|ReflectionFunctionAbstract)[][] */
+    public function functionsToBeTested() : array
+    {
+        $astLocator = (new BetterReflection())->astLocator();
+
+        $fromLocator = new StringSourceLocator(
+            <<<'PHP'
+<?php
+
+namespace {
+   function parametersIncreased($a, $b, $c) {}
+   function parametersReduced($a, $b, $c) {}
+   function parameterNamesChanged($a, $b, $c) {}
+   function optionalParameterAdded($a, $b, $c) {}
+   function noParametersToOneParameter() {}
+   function variadicParameterAdded($a, $b) {}
+   function variadicParameterMoved($a, ...$b) {}
+   function untouched($a, $b, $c) {}
+}
+
+namespace N1 {
+   class C {
+       static function changed1($a, $b, $c) {}
+       function changed2($a, $b, $c) {}
+   }
+}
+PHP
+            ,
+            $astLocator
+        );
+
+        $toLocator = new StringSourceLocator(
+            <<<'PHP'
+<?php
+
+namespace {
+   function parametersIncreased($a, $b, $c, $d) {}
+   function parametersReduced($a, $b) {}
+   function parameterNamesChanged($d, $e, $f) {}
+   function optionalParameterAdded($a, $b, $c, $d = null) {}
+   function noParametersToOneParameter($a) {}
+   function variadicParameterAdded($a, $b, ...$c) {}
+   function variadicParameterMoved($a, $b, ...$b) {}
+   function untouched($a, $b, $c) {}
+}
+
+namespace N1 {
+   class C {
+       static function changed1($a, $b, $c, $d) {}
+       function changed2($a, $b, $c, $d) {}
+   }
+}
+PHP
+            ,
+            $astLocator
+        );
+
+        $fromClassReflector = new ClassReflector($fromLocator);
+        $toClassReflector   = new ClassReflector($toLocator);
+        $fromReflector      = new FunctionReflector($fromLocator, $fromClassReflector);
+        $toReflector        = new FunctionReflector($toLocator, $toClassReflector);
+
+        $functions = [
+            'parametersIncreased'        => [''],
+            'parametersReduced'          => [],
+            'parameterNamesChanged'      => [],
+            'optionalParameterAdded'     => [],
+            'noParametersToOneParameter' => [''],
+            'variadicParameterAdded'     => [],
+            'variadicParameterMoved'     => [''],
+            'untouched'                  => [],
+        ];
+
+        return array_merge(
+            array_combine(
+                array_keys($functions),
+                array_map(
+                    function (string $function, array $errorMessages) use ($fromReflector, $toReflector) : array {
+                        return [
+                            $fromReflector->reflect($function),
+                            $toReflector->reflect($function),
+                            $errorMessages,
+                        ];
+                    },
+                    array_keys($functions),
+                    $functions
+                )
+            ),
+            [
+                'N1\C::changed1' => [
+                    $fromClassReflector->reflect('N1\C')->getMethod('changed1'),
+                    $toClassReflector->reflect('N1\C')->getMethod('changed1'),
+                    [
+                        '',
+                    ],
+                ],
+                'N1\C#changed2'  => [
+                    $fromClassReflector->reflect('N1\C')->getMethod('changed2'),
+                    $toClassReflector->reflect('N1\C')->getMethod('changed2'),
+                    [
+                        '',
+                    ],
+                ],
+            ]
+        );
+    }
+}
