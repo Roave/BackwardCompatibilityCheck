@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace RoaveTest\ApiCompare\Comparator\BackwardsCompatibility\ClassBased;
 
 use PHPUnit\Framework\TestCase;
-use Roave\ApiCompare\Comparator\Support\ReflectionType as InternalReflectionType;
 use Roave\ApiCompare\Comparator\Variance\TypeIsContravariant;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionType;
@@ -41,10 +40,7 @@ PHP
         self::assertSame(
             $expectedToBeContravariant,
             (new TypeIsContravariant())
-                ->__invoke(
-                    InternalReflectionType::fromBetterReflectionTypeAndReflector($type, $reflector),
-                    InternalReflectionType::fromBetterReflectionTypeAndReflector($newType, $reflector)
-                )
+                ->__invoke($reflector, $type, $newType)
         );
     }
 
@@ -96,12 +92,12 @@ PHP
                 null,
                 true,
             ],
-            'iterable to array is not contravariant'                                   => [
+            'iterable to array is not contravariant'                 => [
                 ReflectionType::createFromType('iterable', false),
                 ReflectionType::createFromType('array', false),
                 false,
             ],
-            'array to iterable is contravariant'                                       => [
+            'array to iterable is contravariant'                 => [
                 ReflectionType::createFromType('array', false),
                 ReflectionType::createFromType('iterable', false),
                 true,
@@ -111,7 +107,7 @@ PHP
                 ReflectionType::createFromType('AnotherClassWithMultipleInterfaces', false),
                 false,
             ],
-            'iterable to iterable class type is not contravariant'                     => [
+            'iterable to iterable class type is not contravariant'                         => [
                 ReflectionType::createFromType('iterable', false),
                 ReflectionType::createFromType('Iterator', false),
                 false,
@@ -215,10 +211,7 @@ PHP
 
         self::assertTrue(
             (new TypeIsContravariant())
-                ->__invoke(
-                    InternalReflectionType::fromBetterReflectionTypeAndReflector($type, $reflector),
-                    InternalReflectionType::fromBetterReflectionTypeAndReflector($type, $reflector)
-                )
+                ->__invoke($reflector, $type, $type)
         );
     }
 
@@ -251,7 +244,9 @@ PHP
     /** @dataProvider existingNullableTypeStrings */
     public function testContravarianceConsidersNullability(string $type) : void
     {
-        $reflector   = new ClassReflector(new StringSourceLocator(
+        $nullable = ReflectionType::createFromType($type, true);
+        $notNullable = ReflectionType::createFromType($type, false);
+        $reflector = new ClassReflector(new StringSourceLocator(
             <<<'PHP'
 <?php
 
@@ -261,19 +256,11 @@ PHP
             ,
             (new BetterReflection())->astLocator()
         ));
-        $nullable    = InternalReflectionType::fromBetterReflectionTypeAndReflector(
-            ReflectionType::createFromType($type, true),
-            $reflector
-        );
-        $notNullable = InternalReflectionType::fromBetterReflectionTypeAndReflector(
-            ReflectionType::createFromType($type, false),
-            $reflector
-        );
 
         $isContravariant = new TypeIsContravariant();
 
-        self::assertFalse($isContravariant->__invoke($nullable, $notNullable));
-        self::assertTrue($isContravariant->__invoke($notNullable, $nullable));
+        self::assertFalse($isContravariant->__invoke($reflector, $nullable, $notNullable));
+        self::assertTrue($isContravariant->__invoke($reflector, $notNullable, $nullable));
     }
 
     /** @return string[][] */

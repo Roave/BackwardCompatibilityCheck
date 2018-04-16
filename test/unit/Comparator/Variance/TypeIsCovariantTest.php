@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace RoaveTest\ApiCompare\Comparator\BackwardsCompatibility\ClassBased;
 
 use PHPUnit\Framework\TestCase;
-use Roave\ApiCompare\Comparator\Support\ReflectionType as InternalReflectionType;
 use Roave\ApiCompare\Comparator\Variance\TypeIsCovariant;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionType;
@@ -41,10 +40,7 @@ PHP
         self::assertSame(
             $expectedToBeContravariant,
             (new TypeIsCovariant())
-                ->__invoke(
-                    InternalReflectionType::fromBetterReflectionTypeAndReflector($type, $reflector),
-                    InternalReflectionType::fromBetterReflectionTypeAndReflector($newType, $reflector)
-                )
+                ->__invoke($reflector, $type, $newType)
         );
     }
 
@@ -206,10 +202,7 @@ PHP
 
         self::assertTrue(
             (new TypeIsCovariant())
-                ->__invoke(
-                    InternalReflectionType::fromBetterReflectionTypeAndReflector($type, $reflector),
-                    InternalReflectionType::fromBetterReflectionTypeAndReflector($type, $reflector)
-                )
+                ->__invoke($reflector, $type, $type)
         );
     }
 
@@ -242,6 +235,8 @@ PHP
     /** @dataProvider existingNullableTypeStrings */
     public function testCovarianceConsidersNullability(string $type) : void
     {
+        $nullable = ReflectionType::createFromType($type, true);
+        $notNullable = ReflectionType::createFromType($type, false);
         $reflector = new ClassReflector(new StringSourceLocator(
             <<<'PHP'
 <?php
@@ -253,19 +248,10 @@ PHP
             (new BetterReflection())->astLocator()
         ));
 
-        $nullable    = InternalReflectionType::fromBetterReflectionTypeAndReflector(
-            ReflectionType::createFromType($type, true),
-            $reflector
-        );
-        $notNullable = InternalReflectionType::fromBetterReflectionTypeAndReflector(
-            ReflectionType::createFromType($type, false),
-            $reflector
-        );
-
         $isCovariant = new TypeIsCovariant();
 
-        self::assertTrue($isCovariant->__invoke($nullable, $notNullable));
-        self::assertFalse($isCovariant->__invoke($notNullable, $nullable));
+        self::assertTrue($isCovariant->__invoke($reflector, $nullable, $notNullable));
+        self::assertFalse($isCovariant->__invoke($reflector, $notNullable, $nullable));
     }
 
     /** @return string[][] */
