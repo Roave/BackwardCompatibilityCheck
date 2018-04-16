@@ -14,7 +14,7 @@ use Roave\BetterReflection\Reflection\ReflectionClass;
 
 final class MultiClassBasedTest extends TestCase
 {
-    public function testFoo() : void
+    public function testChecksAllGivenCheckers() : void
     {
         /** @var ClassBased|MockObject $checker1 */
         $checker1 = $this->createMock(ClassBased::class);
