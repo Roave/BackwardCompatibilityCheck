@@ -8,7 +8,6 @@ use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
-use Roave\BetterReflection\Reflection\ReflectionParameter;
 
 /**
  * When new parameters are added, they must be optional, or else the callers will provide an insufficient
@@ -18,8 +17,8 @@ final class RequiredParameterAmountIncreased implements FunctionBased
 {
     public function compare(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction) : Changes
     {
-        $fromRequiredParameters = $this->lastRequiredParameterPosition($fromFunction);
-        $toRequiredParameters   = $this->lastRequiredParameterPosition($toFunction);
+        $fromRequiredParameters = $fromFunction->getNumberOfRequiredParameters();
+        $toRequiredParameters   = $toFunction->getNumberOfRequiredParameters();
 
         if ($fromRequiredParameters >= $toRequiredParameters) {
             return Changes::new();
@@ -36,22 +35,6 @@ final class RequiredParameterAmountIncreased implements FunctionBased
                 true
             ),
         ]);
-    }
-
-    public function lastRequiredParameterPosition(ReflectionFunctionAbstract $function) : int
-    {
-        return max(
-            0,
-            0,
-            ...array_values(array_map(
-                function (ReflectionParameter $parameter) : int {
-                    return $parameter->getPosition();
-                },
-                array_filter($function->getParameters(), function (ReflectionParameter $parameter) : bool {
-                    return ! $parameter->isOptional();
-                })
-            ))
-        );
     }
 
     private function functionOrMethodName(ReflectionFunctionAbstract $function) : string

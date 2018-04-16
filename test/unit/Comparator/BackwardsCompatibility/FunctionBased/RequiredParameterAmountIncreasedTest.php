@@ -58,6 +58,7 @@ namespace {
    function noParametersToOneParameter() {}
    function variadicParameterAdded($a, $b) {}
    function variadicParameterMoved($a, ...$b) {}
+   function optionalParameterAddedInBetween($a, $b, $c) {}
    function untouched($a, $b, $c) {}
 }
 
@@ -84,6 +85,7 @@ namespace {
    function noParametersToOneParameter($a) {}
    function variadicParameterAdded($a, $b, ...$c) {}
    function variadicParameterMoved($a, $b, ...$b) {}
+   function optionalParameterAddedInBetween($a, $b = null, $c, $d) {}
    function untouched($a, $b, $c) {}
 }
 
@@ -104,14 +106,15 @@ PHP
         $toReflector        = new FunctionReflector($toLocator, $toClassReflector);
 
         $functions = [
-            'parametersIncreased'        => [''],
-            'parametersReduced'          => [],
-            'parameterNamesChanged'      => [],
-            'optionalParameterAdded'     => [],
-            'noParametersToOneParameter' => [''],
-            'variadicParameterAdded'     => [],
-            'variadicParameterMoved'     => [''],
-            'untouched'                  => [],
+            'parametersIncreased'             => ['[BC] CHANGED: The number of required arguments for parametersIncreased increased from 3 to 4'],
+            'parametersReduced'               => [],
+            'parameterNamesChanged'           => [],
+            'optionalParameterAdded'          => [],
+            'noParametersToOneParameter'      => ['[BC] CHANGED: The number of required arguments for noParametersToOneParameter increased from 0 to 1'],
+            'variadicParameterAdded'          => [],
+            'variadicParameterMoved'          => ['[BC] CHANGED: The number of required arguments for variadicParameterMoved increased from 1 to 2'],
+            'optionalParameterAddedInBetween' => ['[BC] CHANGED: The number of required arguments for optionalParameterAddedInBetween increased from 3 to 4'],
+            'untouched'                       => [],
         ];
 
         return array_merge(
@@ -134,14 +137,14 @@ PHP
                     $fromClassReflector->reflect('N1\C')->getMethod('changed1'),
                     $toClassReflector->reflect('N1\C')->getMethod('changed1'),
                     [
-                        '',
+                        '[BC] CHANGED: The number of required arguments for N1\C::changed1 increased from 3 to 4',
                     ],
                 ],
                 'N1\C#changed2'  => [
                     $fromClassReflector->reflect('N1\C')->getMethod('changed2'),
                     $toClassReflector->reflect('N1\C')->getMethod('changed2'),
                     [
-                        '',
+                        '[BC] CHANGED: The number of required arguments for N1\C#changed2 increased from 3 to 4',
                     ],
                 ],
             ]
