@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RoaveTest\ApiCompare\Comparator\BackwardsCompatibility\ClassBased;
+namespace RoaveTest\ApiCompare\Comparator\BackwardsCompatibility\FunctionBased;
 
 use PHPUnit\Framework\TestCase;
 use Roave\ApiCompare\Change;
@@ -16,6 +16,9 @@ use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 use function array_map;
 use function iterator_to_array;
 
+/**
+ * @covers \Roave\ApiCompare\Comparator\BackwardsCompatibility\FunctionBased\ReturnTypeCovarianceChanged
+ */
 final class ReturnTypeCovarianceChangedTest extends TestCase
 {
     /**
