@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace RoaveTest\ApiCompare\Comparator\BackwardsCompatibility\PropertyBased;
+namespace RoaveTest\ApiCompare\Comparator\BackwardsCompatibility\ClassConstantBased;
 
 use PHPUnit\Framework\TestCase;
 use Roave\ApiCompare\Change;
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\ConstantBased\ConstantValueChanged;
+use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassConstantBased\ConstantValueChanged;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionClassConstant;
@@ -17,7 +17,7 @@ use function array_map;
 use function iterator_to_array;
 
 /**
- * @covers \Roave\ApiCompare\Comparator\BackwardsCompatibility\ConstantBased\ConstantValueChanged
+ * @covers \Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassConstantBased\ConstantValueChanged
  */
 final class ConstantValueChangedTest extends TestCase
 {

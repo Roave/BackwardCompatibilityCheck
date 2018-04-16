@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace RoaveTest\ApiCompare\Comparator\BackwardsCompatibility\ConstantBased;
+namespace RoaveTest\ApiCompare\Comparator\BackwardsCompatibility\ClassConstantBased;
 
 use PHPUnit\Framework\TestCase;
 use Roave\ApiCompare\Change;
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\ConstantBased\ConstantVisibilityReduced;
+use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassConstantBased\ConstantVisibilityReduced;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionClassConstant;
 use Roave\BetterReflection\Reflector\ClassReflector;
@@ -15,7 +15,7 @@ use function array_map;
 use function iterator_to_array;
 
 /**
- * @covers \Roave\ApiCompare\Comparator\BackwardsCompatibility\ConstantBased\ConstantVisibilityReduced
+ * @covers \Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassConstantBased\ConstantVisibilityReduced
  */
 final class ConstantVisibilityReducedTest extends TestCase
 {

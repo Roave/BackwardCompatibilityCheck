@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace RoaveTest\ApiCompare\Comparator\BackwardsCompatibility\ConstantBased;
+namespace RoaveTest\ApiCompare\Comparator\BackwardsCompatibility\ClassConstantBased;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\ConstantBased\ConstantBased;
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\ConstantBased\MultiConstantBased;
+use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassConstantBased\ConstantBased;
+use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassConstantBased\MultiConstantBased;
 use Roave\BetterReflection\Reflection\ReflectionClassConstant;
 
 final class MultiConstantBasedTest extends TestCase

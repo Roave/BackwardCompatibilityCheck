@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Roave\ApiCompare\Comparator\BackwardsCompatibility\ConstantBased;
+namespace Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassConstantBased;
 
 use Roave\ApiCompare\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClassConstant;
