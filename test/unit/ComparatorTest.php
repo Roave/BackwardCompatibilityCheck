@@ -10,7 +10,10 @@ use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
 use Roave\ApiCompare\Comparator;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassBased\ClassBased;
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\FunctionBased\FunctionBased;
+use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassConstantBased\ConstantBased;
+use Roave\ApiCompare\Comparator\BackwardsCompatibility\InterfaceBased\InterfaceBased;
+use Roave\ApiCompare\Comparator\BackwardsCompatibility\MethodBased\MethodBased;
+use Roave\ApiCompare\Comparator\BackwardsCompatibility\PropertyBased\PropertyBased;
 
 /**
  * @covers \Roave\ApiCompare\Comparator
@@ -23,8 +26,17 @@ final class ComparatorTest extends TestCase
     /** @var ClassBased|MockObject */
     private $classBasedComparison;
 
-    /** @var FunctionBased|MockObject */
-    private $functionBasedComparison;
+    /** @var InterfaceBased|MockObject */
+    private $interfaceBasedComparison;
+
+    /** @var MethodBased|MockObject */
+    private $methodBasedComparison;
+
+    /** @var PropertyBased|MockObject */
+    private $propertyBasedComparison;
+
+    /** @var ConstantBased|MockObject */
+    private $constantBasedComparison;
 
     /** @var Comparator */
     private $comparator;
@@ -38,9 +50,80 @@ final class ComparatorTest extends TestCase
     {
         parent::setUp();
 
-        $this->classBasedComparison    = $this->createMock(ClassBased::class);
-        $this->functionBasedComparison = $this->createMock(FunctionBased::class);
-        $this->comparator              = new Comparator($this->classBasedComparison, $this->functionBasedComparison);
+        $this->classBasedComparison     = $this->createMock(ClassBased::class);
+        $this->interfaceBasedComparison = $this->createMock(InterfaceBased::class);
+        $this->methodBasedComparison    = $this->createMock(MethodBased::class);
+        $this->propertyBasedComparison  = $this->createMock(PropertyBased::class);
+        $this->constantBasedComparison  = $this->createMock(ConstantBased::class);
+        $this->comparator               = new Comparator(
+            $this->classBasedComparison,
+            $this->interfaceBasedComparison,
+            $this->methodBasedComparison,
+            $this->propertyBasedComparison,
+            $this->constantBasedComparison
+        );
+    }
+
+    public function testWillRunSubComparators() : void
+    {
+        $this->classBasedComparatorWillBeCalled();
+        $this->methodBasedComparatorWillBeCalled();
+        $this->propertyBasedComparatorWillBeCalled();
+        $this->constantBasedComparatorWillBeCalled();
+        $this->interfaceBasedComparatorWillNotBeCalled();
+
+        self::assertEqualsIgnoringOrder(
+            Changes::fromArray([
+                Change::changed('class change', true),
+                Change::changed('constant change', true),
+                Change::changed('property change', true),
+                Change::changed('method change', true),
+            ]),
+            $this->comparator->compare(
+                self::$stringReflectorFactory->__invoke(
+                    <<<'PHP'
+<?php
+
+class A {
+    const A_CONSTANT = 'foo';
+    public $aProperty;
+    public function aMethod() {}
+}
+PHP
+                ),
+                self::$stringReflectorFactory->__invoke(
+                    <<<'PHP'
+<?php
+
+class A {
+    const A_CONSTANT = 'foo';
+    public $aProperty;
+    public function aMethod() {}
+}
+PHP
+                )
+            )
+        );
+    }
+
+    public function testWillRunInterfaceComparators() : void
+    {
+        $this->classBasedComparatorWillBeCalled();
+        $this->methodBasedComparatorWillNotBeCalled();
+        $this->propertyBasedComparatorWillNotBeCalled();
+        $this->constantBasedComparatorWillNotBeCalled();
+        $this->interfaceBasedComparatorWillBeCalled();
+
+        self::assertEqualsIgnoringOrder(
+            Changes::fromArray([
+                Change::changed('class change', true),
+                Change::changed('interface change', true),
+            ]),
+            $this->comparator->compare(
+                self::$stringReflectorFactory->__invoke('<?php interface A {}'),
+                self::$stringReflectorFactory->__invoke('<?php interface A {}')
+            )
+        );
     }
 
     /**
@@ -55,7 +138,7 @@ final class ComparatorTest extends TestCase
     public function testRemovingAClassCausesABreak() : void
     {
         $this->classBasedComparatorWillNotBeCalled();
-        $this->functionBasedComparatorWillNotBeCalled();
+        $this->methodBasedComparatorWillNotBeCalled();
 
         self::assertEqualsIgnoringOrder(
             Changes::fromArray([
@@ -68,39 +151,6 @@ final class ComparatorTest extends TestCase
         );
     }
 
-    public function testRemovingAPrivateMethodDoesNotCauseBreak() : void
-    {
-        $this->classBasedComparatorWillBeCalled();
-        $this->functionBasedComparatorWillNotBeCalled();
-
-        self::assertEqualsIgnoringOrder(
-            Changes::fromArray([
-                Change::changed('class change', true),
-            ]),
-            $this->comparator->compare(
-                self::$stringReflectorFactory->__invoke('<?php class A { private function foo() {} }'),
-                self::$stringReflectorFactory->__invoke('<?php class A { }')
-            )
-        );
-    }
-
-    public function testRenamingParametersDoesNotCauseBcBreak() : void
-    {
-        $this->classBasedComparatorWillBeCalled();
-        $this->functionBasedComparatorWillBeCalled();
-
-        self::assertEqualsIgnoringOrder(
-            Changes::fromArray([
-                Change::changed('class change', true),
-                Change::changed('function change', true),
-            ]),
-            $this->comparator->compare(
-                self::$stringReflectorFactory->__invoke('<?php class A { function foo(int $a, string $b) {} }'),
-                self::$stringReflectorFactory->__invoke('<?php class A { function foo(int $b, string $a) {} }')
-            )
-        );
-    }
-
     private function classBasedComparatorWillBeCalled() : void
     {
         $this
@@ -108,7 +158,7 @@ final class ComparatorTest extends TestCase
             ->expects(self::atLeastOnce())
             ->method('compare')
             ->willReturn(Changes::fromArray([
-                Change::changed('class change', true)
+                Change::changed('class change', true),
             ]));
     }
 
@@ -120,21 +170,78 @@ final class ComparatorTest extends TestCase
             ->method('compare');
     }
 
-    private function functionBasedComparatorWillBeCalled() : void
+    private function methodBasedComparatorWillBeCalled() : void
     {
         $this
-            ->functionBasedComparison
+            ->methodBasedComparison
             ->expects(self::atLeastOnce())
             ->method('compare')
             ->willReturn(Changes::fromArray([
-                Change::changed('function change', true)
+                Change::changed('method change', true),
             ]));
     }
 
-    private function functionBasedComparatorWillNotBeCalled() : void
+    private function methodBasedComparatorWillNotBeCalled() : void
     {
         $this
-            ->functionBasedComparison
+            ->methodBasedComparison
+            ->expects(self::never())
+            ->method('compare');
+    }
+
+    private function propertyBasedComparatorWillBeCalled() : void
+    {
+        $this
+            ->propertyBasedComparison
+            ->expects(self::atLeastOnce())
+            ->method('compare')
+            ->willReturn(Changes::fromArray([
+                Change::changed('property change', true),
+            ]));
+    }
+
+    private function propertyBasedComparatorWillNotBeCalled() : void
+    {
+        $this
+            ->propertyBasedComparison
+            ->expects(self::never())
+            ->method('compare');
+    }
+
+    private function constantBasedComparatorWillBeCalled() : void
+    {
+        $this
+            ->constantBasedComparison
+            ->expects(self::atLeastOnce())
+            ->method('compare')
+            ->willReturn(Changes::fromArray([
+                Change::changed('constant change', true),
+            ]));
+    }
+
+    private function constantBasedComparatorWillNotBeCalled() : void
+    {
+        $this
+            ->constantBasedComparison
+            ->expects(self::never())
+            ->method('compare');
+    }
+
+    private function interfaceBasedComparatorWillBeCalled() : void
+    {
+        $this
+            ->interfaceBasedComparison
+            ->expects(self::atLeastOnce())
+            ->method('compare')
+            ->willReturn(Changes::fromArray([
+                Change::changed('interface change', true),
+            ]));
+    }
+
+    private function interfaceBasedComparatorWillNotBeCalled() : void
+    {
+        $this
+            ->interfaceBasedComparison
             ->expects(self::never())
             ->method('compare');
     }
