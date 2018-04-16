@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Roave\ApiCompare;
 
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassBased\ClassBased;
+use Roave\ApiCompare\Comparator\BackwardsCompatibility\FunctionBased\FunctionBased;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflection\ReflectionParameter;
@@ -18,9 +19,17 @@ class Comparator
     /** @var ClassBased */
     private $classBasedComparisons;
 
-    public function __construct(ClassBased $classBasedComparisons)
-    {
-        $this->classBasedComparisons = $classBasedComparisons;
+    /**
+     * @var FunctionBased
+     */
+    private $functionBasedComparisons;
+
+    public function __construct(
+        ClassBased $classBasedComparisons,
+        FunctionBased $functionBasedComparisons
+    ) {
+        $this->classBasedComparisons    = $classBasedComparisons;
+        $this->functionBasedComparisons = $functionBasedComparisons;
     }
 
     public function compare(ClassReflector $oldApi, ClassReflector $newApi) : Changes
@@ -40,7 +49,7 @@ class Comparator
             /** @var ReflectionClass $newClass */
             $newClass = $newApi->reflect($oldClass->getName());
 
-            $changelog->mergeWith($this->classBasedComparisons->compare($oldClass, $newClass));
+            $changelog = $changelog->mergeWith($this->classBasedComparisons->compare($oldClass, $newClass));
         } catch (IdentifierNotFound $exception) {
             $changelog = $changelog->withAddedChange(
                 Change::removed(sprintf('Class %s has been deleted', $oldClass->getName()), true)
@@ -55,81 +64,36 @@ class Comparator
         }
 
         foreach ($oldClass->getMethods() as $oldMethod) {
-            $changelog = $this->examineMethod($changelog, $oldClass, $oldMethod, $newClass);
+            $changelog = $changelog->mergeWith($this->examineMethod($oldMethod, $newClass));
         }
 
         return $changelog;
     }
 
     private function examineMethod(
-        Changes $changelog,
-        ReflectionClass $oldClass,
         ReflectionMethod $oldMethod,
         ReflectionClass $newClass
     ) : Changes {
         if ($oldMethod->isPrivate()) {
-            return $changelog;
+            return Changes::new();
         }
 
         try {
-            $newMethod = $newClass->getMethod($oldMethod->getName());
+            return $this->functionBasedComparisons->compare(
+                $oldMethod,
+                $newClass->getMethod($oldMethod->getName())
+            );
         } catch (\OutOfBoundsException $exception) {
-            return $changelog->withAddedChange(
+            return Changes::fromArray([
                 Change::removed(
                     sprintf(
                         'Method %s in class %s has been deleted',
                         $oldMethod->getName(),
-                        $oldClass->getName()
+                        $oldMethod->getDeclaringClass()->getName()
                     ),
                     true
                 )
-            );
+            ]);
         }
-
-        foreach ($oldMethod->getParameters() as $parameterPosition => $oldParameter) {
-            $changelog = $this->examineParameter(
-                $changelog,
-                $parameterPosition,
-                $oldClass,
-                $oldMethod,
-                $oldParameter,
-                $newMethod
-            );
-        }
-
-        return $changelog;
-    }
-
-    private function examineParameter(
-        Changes $changelog,
-        int $parameterPosition,
-        ReflectionClass $oldClass,
-        ReflectionMethod $oldMethod,
-        ReflectionParameter $oldParameter,
-        ReflectionMethod $newMethod
-    ) : Changes {
-        $newParameters = $newMethod->getParameters();
-        if (! array_key_exists($parameterPosition, $newParameters)) {
-            return $changelog->withAddedChange(
-                Change::removed(
-                    sprintf(
-                        'Parameter %s (position %d) in %s%s%s has been deleted',
-                        $oldParameter->getName(),
-                        $parameterPosition,
-                        $oldClass->getName(),
-                        $oldMethod->isStatic() ? '#' : '::',
-                        $oldMethod->getName()
-                    ),
-                    true
-                )
-            );
-        }
-
-        $newParameter = $newParameters[$parameterPosition];
-
-        // @todo check if types changed, or becoming default
-        // @todo check if a new param (without a default) was added
-
-        return $changelog;
     }
 }
