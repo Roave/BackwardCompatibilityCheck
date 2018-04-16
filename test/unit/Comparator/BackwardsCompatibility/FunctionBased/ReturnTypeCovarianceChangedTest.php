@@ -9,7 +9,7 @@ use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\FunctionBased\ReturnTypeCovarianceChanged;
 use Roave\ApiCompare\Comparator\Variance\TypeIsCovariant;
 use Roave\BetterReflection\BetterReflection;
-use Roave\BetterReflection\Reflection\ReflectionFunction;
+use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\Reflector\FunctionReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
@@ -27,8 +27,8 @@ final class ReturnTypeCovarianceChangedTest extends TestCase
      * @param string[] $expectedMessages
      */
     public function testDiffs(
-        ReflectionFunction $fromFunction,
-        ReflectionFunction $toFunction,
+        ReflectionFunctionAbstract $fromFunction,
+        ReflectionFunctionAbstract $toFunction,
         array $expectedMessages
     ) : void {
         $changes = (new ReturnTypeCovarianceChanged(new TypeIsCovariant()))
@@ -42,7 +42,7 @@ final class ReturnTypeCovarianceChangedTest extends TestCase
         );
     }
 
-    /** @return (string[]|ReflectionFunction)[][] */
+    /** @return (string[]|ReflectionFunctionAbstract)[][] */
     public function functionsToBeTested() : array
     {
         $astLocator = (new BetterReflection())->astLocator();
@@ -71,6 +71,13 @@ namespace N2 {
 namespace N3 {
    function changed() : int {}
    function untouched() : int {}
+}
+
+namespace N4 {
+   class C {
+       static function changed1() : int {}
+       function changed2() : int {}
+   }
 }
 PHP
             ,
@@ -102,13 +109,22 @@ namespace N3 {
    function changed() {}
    function untouched() : int {}
 }
+
+namespace N4 {
+   class C {
+       static function changed1() {}
+       function changed2() {}
+   }
+}
 PHP
             ,
             $astLocator
         );
 
-        $fromReflector = new FunctionReflector($fromLocator, new ClassReflector($fromLocator));
-        $toReflector   = new FunctionReflector($toLocator, new ClassReflector($toLocator));
+        $fromClassReflector = new ClassReflector($fromLocator);
+        $toClassReflector   = new ClassReflector($toLocator);
+        $fromReflector      = new FunctionReflector($fromLocator, $fromClassReflector);
+        $toReflector        = new FunctionReflector($toLocator, $toClassReflector);
 
         $functions = [
             'changed'      => [
@@ -129,16 +145,33 @@ PHP
             'N3\untouched' => [],
         ];
 
-        return array_map(
-            function (string $function, array $errorMessages) use ($fromReflector, $toReflector) : array {
-                return [
-                    $fromReflector->reflect($function),
-                    $toReflector->reflect($function),
-                    $errorMessages,
-                ];
-            },
-            array_keys($functions),
-            $functions
+        return array_merge(
+            array_combine(
+                array_keys($functions),
+                array_map(
+                    function (string $function, array $errorMessages) use ($fromReflector, $toReflector) : array {
+                        return [
+                            $fromReflector->reflect($function),
+                            $toReflector->reflect($function),
+                            $errorMessages,
+                        ];
+                    },
+                    array_keys($functions),
+                    $functions
+                )
+            ),
+            [
+                'N4\C::changed1' => [
+                    $fromClassReflector->reflect('N4\C')->getMethod('changed1'),
+                    $toClassReflector->reflect('N4\C')->getMethod('changed1'),
+                    ['[BC] CHANGED: The return type of function N4\C::changed1 changed from int to the non-covariant no type'],
+                ],
+                'N4\C#changed2'  => [
+                    $fromClassReflector->reflect('N4\C')->getMethod('changed2'),
+                    $toClassReflector->reflect('N4\C')->getMethod('changed2'),
+                    ['[BC] CHANGED: The return type of function N4\C#changed2 changed from int to the non-covariant no type'],
+                ],
+            ]
         );
     }
 }
