@@ -11,7 +11,7 @@ use IteratorAggregate;
 use function array_merge;
 use function count;
 
-final class Changes implements IteratorAggregate, Countable
+final class Changes implements IteratorAggregate
 {
     /** @var Change[] */
     private $changes = [];
@@ -61,13 +61,5 @@ final class Changes implements IteratorAggregate, Countable
     public function getIterator() : ArrayIterator
     {
         return new ArrayIterator($this->changes);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function count() : int
-    {
-        return count($this->changes);
     }
 }
