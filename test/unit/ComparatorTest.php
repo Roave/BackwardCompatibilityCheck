@@ -101,23 +101,6 @@ final class ComparatorTest extends TestCase
         );
     }
 
-    public function testMakingAClassFinal() : void
-    {
-        $this->classBasedComparatorWillBeCalled();
-        $this->functionBasedComparatorWillNotBeCalled();
-
-        self::assertEqualsIgnoringOrder(
-            Changes::fromArray([
-                Change::changed('class change', true),
-                Change::changed('Class A is now final', true),
-            ]),
-            $this->comparator->compare(
-                self::$stringReflectorFactory->__invoke('<?php class A { }'),
-                self::$stringReflectorFactory->__invoke('<?php final class A { }')
-            )
-        );
-    }
-
     private function classBasedComparatorWillBeCalled() : void
     {
         $this

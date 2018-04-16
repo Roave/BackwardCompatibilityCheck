@@ -8,10 +8,8 @@ use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassBased\ClassBased;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\FunctionBased\FunctionBased;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
-use Roave\BetterReflection\Reflection\ReflectionParameter;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
-use function array_key_exists;
 use function sprintf;
 
 class Comparator
@@ -55,12 +53,6 @@ class Comparator
                 Change::removed(sprintf('Class %s has been deleted', $oldClass->getName()), true)
             );
             return $changelog;
-        }
-
-        if ($newClass->isFinal() && ! $oldClass->isFinal()) {
-            $changelog = $changelog->withAddedChange(
-                Change::changed(sprintf('Class %s is now final', $oldClass->getName()), true)
-            );
         }
 
         foreach ($oldClass->getMethods() as $oldMethod) {
