@@ -106,6 +106,41 @@ PHP
         );
     }
 
+    public function testWillNotRunSubComparatorsIfSymbolsWereDeleted() : void
+    {
+        $this->classBasedComparatorWillBeCalled();
+        $this->methodBasedComparatorWillNotBeCalled();
+        $this->propertyBasedComparatorWillNotBeCalled();
+        $this->constantBasedComparatorWillNotBeCalled();
+        $this->interfaceBasedComparatorWillNotBeCalled();
+
+        self::assertEqualsIgnoringOrder(
+            Changes::fromArray([
+                Change::changed('class change', true),
+            ]),
+            $this->comparator->compare(
+                self::$stringReflectorFactory->__invoke(
+                    <<<'PHP'
+<?php
+
+class A {
+    const A_CONSTANT = 'foo';
+    public $aProperty;
+    public function aMethod() {}
+}
+PHP
+                ),
+                self::$stringReflectorFactory->__invoke(
+                    <<<'PHP'
+<?php
+
+class A {}
+PHP
+                )
+            )
+        );
+    }
+
     public function testWillRunInterfaceComparators() : void
     {
         $this->classBasedComparatorWillBeCalled();
