@@ -62,7 +62,7 @@ final class AccessibleMethodFunctionBasedChangeTest extends TestCase
             ->willReturn(false);
 
         $result = Changes::fromArray([
-            Change::changed(uniqid('foo', true), true)
+            Change::changed(uniqid('foo', true), true),
         ]);
 
         $this
