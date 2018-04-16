@@ -28,9 +28,9 @@ final class ParameterTypeContravarianceChanged implements FunctionBased
 
     public function compare(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction) : Changes
     {
-        /** @var $fromParameters ReflectionParameter[] */
+        /** @var ReflectionParameter[] $fromParameters */
         $fromParameters = array_values($fromFunction->getParameters());
-        /** @var $toParameters ReflectionParameter[] */
+        /** @var ReflectionParameter[] $toParameters */
         $toParameters = array_values($toFunction->getParameters());
 
         $changes = Changes::new();
