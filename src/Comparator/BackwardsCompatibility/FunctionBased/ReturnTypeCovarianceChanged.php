@@ -38,7 +38,7 @@ final class ReturnTypeCovarianceChanged implements FunctionBased
         return Changes::fromArray([
             Change::changed(
                 sprintf(
-                    'The return type of function %s changed from %s to the non-covariant %s',
+                    'The return type of %s changed from %s to the non-covariant %s',
                     $this->functionOrMethodName($fromFunction),
                     $this->typeToString($fromReturnType),
                     $this->typeToString($toReturnType)
