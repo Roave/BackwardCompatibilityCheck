@@ -47,7 +47,10 @@ use function file_exists;
                     new ClassBased\PropertyRemoved(),
                     new ClassBased\MethodRemoved()
                 ),
-                new InterfaceBased\MethodAdded(),
+                new InterfaceBased\MultiInterfaceBased(
+                    new InterfaceBased\InterfaceBecameClass(),
+                    new InterfaceBased\MethodAdded()
+                ),
                 new MethodBased\MultiMethodBased(
                     new MethodBased\MethodConcretenessChanged(),
                     new MethodBased\MethodScopeChanged(),
