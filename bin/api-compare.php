@@ -41,6 +41,7 @@ use function file_exists;
             new Comparator(
                 new ClassBased\MultiClassBased(
                     new ClassBased\ClassBecameAbstract(),
+                    new ClassBased\ClassBecameInterface(),
                     new ClassBased\ClassBecameFinal(),
                     new ClassBased\ConstantRemoved(),
                     new ClassBased\PropertyRemoved(),

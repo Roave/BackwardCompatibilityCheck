@@ -10,27 +10,23 @@ use Roave\ApiCompare\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 
 /**
- * A class cannot become abstract without introducing an explicit BC break, since
- * all child classes or implementors need to be changed to implement its abstract API,
- * and all instantiations start to fail.
+ * A class cannot become an interface without introducing an explicit BC break, since
+ * all child classes or implementors need to be changed from `extends` to `implements`,
+ * and all instantiations start failing
  */
-final class ClassBecameAbstract implements ClassBased
+final class ClassBecameInterface implements ClassBased
 {
     public function compare(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
     {
         Assert::that($fromClass->getName())->same($toClass->getName());
 
-        if ($fromClass->isInterface() !== $toClass->isInterface()) {
+        if ($fromClass->isInterface() || ! $toClass->isInterface()) {
             // checking whether a class became an interface is done in `ClassBecameInterface`
             return Changes::new();
         }
 
-        if ($fromClass->isAbstract() || ! $toClass->isAbstract()) {
-            return Changes::new();
-        }
-
         return Changes::fromArray([Change::changed(
-            sprintf('Class %s became abstract', $fromClass->getName()),
+            sprintf('Class %s became an interface', $fromClass->getName()),
             true
         )]);
     }
