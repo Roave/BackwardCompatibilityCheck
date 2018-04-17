@@ -52,6 +52,7 @@ use function file_exists;
                     new InterfaceBased\MethodAdded()
                 ),
                 new MethodBased\MultiMethodBased(
+                    new MethodBased\MethodBecameFinal(),
                     new MethodBased\MethodConcretenessChanged(),
                     new MethodBased\MethodScopeChanged(),
                     new MethodBased\MethodVisibilityReduced(),
