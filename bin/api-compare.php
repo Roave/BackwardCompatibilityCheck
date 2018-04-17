@@ -40,6 +40,7 @@ use function file_exists;
             new PickLastMinorVersionFromCollection(),
             new Comparator(
                 new ClassBased\MultiClassBased(
+                    new ClassBased\ClassBecameAbstract(),
                     new ClassBased\ClassBecameFinal(),
                     new ClassBased\ConstantRemoved(),
                     new ClassBased\PropertyRemoved(),
