@@ -22,6 +22,7 @@ final class MethodVisibilityReduced implements MethodBased
         $visibilityFrom = $this->methodVisibility($fromMethod);
         $visibilityTo   = $this->methodVisibility($toMethod);
 
+        // Works because private, protected and public are sortable:
         if ($visibilityFrom <= $visibilityTo) {
             return Changes::new();
         }

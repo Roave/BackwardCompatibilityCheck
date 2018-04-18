@@ -31,6 +31,7 @@ final class PropertyVisibilityReduced implements PropertyBased
         $visibilityFrom = $this->propertyVisibility($fromProperty);
         $visibilityTo   = $this->propertyVisibility($toProperty);
 
+        // Works because private, protected and public are sortable:
         if ($visibilityFrom <= $visibilityTo) {
             return Changes::new();
         }
