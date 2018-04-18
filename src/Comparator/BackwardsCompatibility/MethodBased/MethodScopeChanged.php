@@ -17,10 +17,6 @@ final class MethodScopeChanged implements MethodBased
 {
     public function compare(ReflectionMethod $fromMethod, ReflectionMethod $toMethod) : Changes
     {
-        if ($fromMethod->isPrivate()) {
-            return Changes::new();
-        }
-
         $scopeFrom = $this->methodScope($fromMethod);
         $scopeTo   = $this->methodScope($toMethod);
 

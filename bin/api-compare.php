@@ -52,18 +52,24 @@ use function file_exists;
                     new InterfaceBased\MethodAdded()
                 ),
                 new MethodBased\MultiMethodBased(
-                    new MethodBased\MethodBecameFinal(),
-                    new MethodBased\MethodConcretenessChanged(),
-                    new MethodBased\MethodScopeChanged(),
-                    new MethodBased\MethodVisibilityReduced(),
-                    new MethodBased\AccessibleMethodFunctionBasedChange(
-                        new FunctionBased\MultiFunctionBased(
-                            new FunctionBased\ParameterByReferenceChanged(),
-                            new FunctionBased\ReturnTypeByReferenceChanged(),
-                            new FunctionBased\RequiredParameterAmountIncreased(),
-                            new FunctionBased\ParameterDefaultValueChanged(),
-                            new FunctionBased\ReturnTypeCovarianceChanged(new TypeIsCovariant()),
-                            new FunctionBased\ParameterTypeContravarianceChanged(new TypeIsContravariant())
+                    new MethodBased\AccessibleMethodChange(
+                        new MethodBased\MultiMethodBased(
+                            new MethodBased\MethodBecameFinal(),
+                            new MethodBased\MethodConcretenessChanged(),
+                            new MethodBased\MethodScopeChanged(),
+                            new MethodBased\MethodVisibilityReduced()
+                        )
+                    ),
+                    new MethodBased\AccessibleMethodChange(
+                        new MethodBased\MethodFunctionDefinitionChanged(
+                            new FunctionBased\MultiFunctionBased(
+                                new FunctionBased\ParameterByReferenceChanged(),
+                                new FunctionBased\ReturnTypeByReferenceChanged(),
+                                new FunctionBased\RequiredParameterAmountIncreased(),
+                                new FunctionBased\ParameterDefaultValueChanged(),
+                                new FunctionBased\ReturnTypeCovarianceChanged(new TypeIsCovariant()),
+                                new FunctionBased\ParameterTypeContravarianceChanged(new TypeIsContravariant())
+                            )
                         )
                     )
                 ),

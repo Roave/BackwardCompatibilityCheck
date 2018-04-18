@@ -9,11 +9,14 @@ use PHPUnit\Framework\TestCase;
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\FunctionBased\FunctionBased;
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\MethodBased\AccessibleMethodFunctionBasedChange;
+use Roave\ApiCompare\Comparator\BackwardsCompatibility\MethodBased\MethodFunctionDefinitionChanged;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\MethodBased\MethodBased;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
 
-final class AccessibleMethodFunctionBasedChangeTest extends TestCase
+/**
+ * @covers \Roave\ApiCompare\Comparator\BackwardsCompatibility\MethodBased\MethodFunctionDefinitionChanged
+ */
+final class MethodFunctionDefinitionChangedTest extends TestCase
 {
     /** @var FunctionBased|MockObject */
     private $functionCheck;
@@ -26,27 +29,7 @@ final class AccessibleMethodFunctionBasedChangeTest extends TestCase
         parent::setUp();
 
         $this->functionCheck = $this->createMock(FunctionBased::class);
-        $this->methodCheck   = new AccessibleMethodFunctionBasedChange($this->functionCheck);
-    }
-
-    public function testWillSkipCheckingPrivateMethods() : void
-    {
-        /** @var ReflectionMethod|MockObject $to */
-        $from = $this->createMock(ReflectionMethod::class);
-        /** @var ReflectionMethod|MockObject $from */
-        $to = $this->createMock(ReflectionMethod::class);
-
-        $from
-            ->expects(self::any())
-            ->method('isPrivate')
-            ->willReturn(true);
-
-        $this
-            ->functionCheck
-            ->expects(self::never())
-            ->method('compare');
-
-        self::assertEquals(Changes::new(), $this->methodCheck->compare($from, $to));
+        $this->methodCheck   = new MethodFunctionDefinitionChanged($this->functionCheck);
     }
 
     public function testWillCheckVisibleMethods() : void
@@ -55,11 +38,6 @@ final class AccessibleMethodFunctionBasedChangeTest extends TestCase
         $from = $this->createMock(ReflectionMethod::class);
         /** @var ReflectionMethod|MockObject $from */
         $to = $this->createMock(ReflectionMethod::class);
-
-        $from
-            ->expects(self::any())
-            ->method('isPrivate')
-            ->willReturn(false);
 
         $result = Changes::fromArray([
             Change::changed(uniqid('foo', true), true),

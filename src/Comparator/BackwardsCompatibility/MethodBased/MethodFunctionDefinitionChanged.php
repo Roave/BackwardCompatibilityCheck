@@ -9,9 +9,9 @@ use Roave\ApiCompare\Comparator\BackwardsCompatibility\FunctionBased\FunctionBas
 use Roave\BetterReflection\Reflection\ReflectionMethod;
 
 /**
- * Performs a function BC compliance check on methods that are visible
+ * Performs a function BC compliance check on a method
  */
-final class AccessibleMethodFunctionBasedChange implements MethodBased
+final class MethodFunctionDefinitionChanged implements MethodBased
 {
     /** @var FunctionBased */
     private $functionCheck;
@@ -23,10 +23,6 @@ final class AccessibleMethodFunctionBasedChange implements MethodBased
 
     public function compare(ReflectionMethod $fromMethod, ReflectionMethod $toMethod) : Changes
     {
-        if ($fromMethod->isPrivate()) {
-            return Changes::new();
-        }
-
         return $this->functionCheck->compare($fromMethod, $toMethod);
     }
 }
