@@ -21,6 +21,7 @@ final class ConstantVisibilityReduced implements ConstantBased
         $visibilityFrom = $this->propertyVisibility($fromConstant);
         $visibilityTo   = $this->propertyVisibility($toConstant);
 
+        // Works because private, protected and public are sortable:
         if ($visibilityFrom <= $visibilityTo) {
             return Changes::new();
         }
