@@ -28,11 +28,6 @@ class Comparator
     private $interfaceBasedComparisons;
 
     /**
-     * @var MethodBased
-     */
-    private $methodBasedComparisons;
-
-    /**
      * @var ConstantBased
      */
     private $constantBasedComparisons;
@@ -40,12 +35,10 @@ class Comparator
     public function __construct(
         ClassBased $classBasedComparisons,
         InterfaceBased $interfaceBasedComparisons,
-        MethodBased $methodBasedComparisons,
         ConstantBased $constantBasedComparisons
     ) {
         $this->classBasedComparisons     = $classBasedComparisons;
         $this->interfaceBasedComparisons = $interfaceBasedComparisons;
-        $this->methodBasedComparisons    = $methodBasedComparisons;
         $this->constantBasedComparisons  = $constantBasedComparisons;
     }
 
@@ -78,26 +71,11 @@ class Comparator
             return $changelog;
         }
 
-        foreach ($oldClass->getMethods() as $oldMethod) {
-            $changelog = $changelog->mergeWith($this->examineMethod($oldMethod, $newClass));
-        }
-
         foreach ($oldClass->getReflectionConstants() as $oldConstant) {
             $changelog = $changelog->mergeWith($this->examineConstant($oldConstant, $newClass));
         }
 
         return $changelog;
-    }
-
-    private function examineMethod(ReflectionMethod $oldMethod, ReflectionClass $newClass) : Changes
-    {
-        $methodName = $oldMethod->getName();
-
-        if (! $newClass->hasMethod($methodName)) {
-            return Changes::new();
-        }
-
-        return $this->methodBasedComparisons->compare($oldMethod, $newClass->getMethod($methodName));
     }
 
     private function examineConstant(ReflectionClassConstant $oldConstant, ReflectionClass $newClass) : Changes

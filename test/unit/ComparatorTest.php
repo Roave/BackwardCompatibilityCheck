@@ -29,9 +29,6 @@ final class ComparatorTest extends TestCase
     /** @var InterfaceBased|MockObject */
     private $interfaceBasedComparison;
 
-    /** @var MethodBased|MockObject */
-    private $methodBasedComparison;
-
     /** @var ConstantBased|MockObject */
     private $constantBasedComparison;
 
@@ -49,12 +46,10 @@ final class ComparatorTest extends TestCase
 
         $this->classBasedComparison     = $this->createMock(ClassBased::class);
         $this->interfaceBasedComparison = $this->createMock(InterfaceBased::class);
-        $this->methodBasedComparison    = $this->createMock(MethodBased::class);
         $this->constantBasedComparison  = $this->createMock(ConstantBased::class);
         $this->comparator               = new Comparator(
             $this->classBasedComparison,
             $this->interfaceBasedComparison,
-            $this->methodBasedComparison,
             $this->constantBasedComparison
         );
     }
@@ -62,7 +57,6 @@ final class ComparatorTest extends TestCase
     public function testWillRunSubComparators() : void
     {
         $this->classBasedComparatorWillBeCalled();
-        $this->methodBasedComparatorWillBeCalled();
         $this->constantBasedComparatorWillBeCalled();
         $this->interfaceBasedComparatorWillNotBeCalled();
 
@@ -70,7 +64,6 @@ final class ComparatorTest extends TestCase
             Changes::fromArray([
                 Change::changed('class change', true),
                 Change::changed('constant change', true),
-                Change::changed('method change', true),
             ]),
             $this->comparator->compare(
                 self::$stringReflectorFactory->__invoke(
@@ -102,7 +95,6 @@ PHP
     public function testWillNotRunSubComparatorsIfSymbolsWereDeleted() : void
     {
         $this->classBasedComparatorWillBeCalled();
-        $this->methodBasedComparatorWillNotBeCalled();
         $this->constantBasedComparatorWillNotBeCalled();
         $this->interfaceBasedComparatorWillNotBeCalled();
 
@@ -136,7 +128,6 @@ PHP
     public function testWillRunInterfaceComparators() : void
     {
         $this->classBasedComparatorWillBeCalled();
-        $this->methodBasedComparatorWillNotBeCalled();
         $this->constantBasedComparatorWillNotBeCalled();
         $this->interfaceBasedComparatorWillBeCalled();
 
@@ -164,7 +155,6 @@ PHP
     public function testRemovingAClassCausesABreak() : void
     {
         $this->classBasedComparatorWillNotBeCalled();
-        $this->methodBasedComparatorWillNotBeCalled();
 
         self::assertEqualsIgnoringOrder(
             Changes::fromArray([
@@ -192,25 +182,6 @@ PHP
     {
         $this
             ->classBasedComparison
-            ->expects(self::never())
-            ->method('compare');
-    }
-
-    private function methodBasedComparatorWillBeCalled() : void
-    {
-        $this
-            ->methodBasedComparison
-            ->expects(self::atLeastOnce())
-            ->method('compare')
-            ->willReturn(Changes::fromArray([
-                Change::changed('method change', true),
-            ]));
-    }
-
-    private function methodBasedComparatorWillNotBeCalled() : void
-    {
-        $this
-            ->methodBasedComparison
             ->expects(self::never())
             ->method('compare');
     }

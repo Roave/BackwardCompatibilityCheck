@@ -55,33 +55,35 @@ use function file_exists;
                                 new PropertyBased\PropertyScopeChanged()
                             )
                         )
+                    ),
+                    new ClassBased\MethodChanged(
+                        new MethodBased\MultiMethodBased(
+                            new MethodBased\AccessibleMethodChange(
+                                new MethodBased\MultiMethodBased(
+                                    new MethodBased\MethodBecameFinal(),
+                                    new MethodBased\MethodConcretenessChanged(),
+                                    new MethodBased\MethodScopeChanged(),
+                                    new MethodBased\MethodVisibilityReduced()
+                                )
+                            ),
+                            new MethodBased\AccessibleMethodChange(
+                                new MethodBased\MethodFunctionDefinitionChanged(
+                                    new FunctionBased\MultiFunctionBased(
+                                        new FunctionBased\ParameterByReferenceChanged(),
+                                        new FunctionBased\ReturnTypeByReferenceChanged(),
+                                        new FunctionBased\RequiredParameterAmountIncreased(),
+                                        new FunctionBased\ParameterDefaultValueChanged(),
+                                        new FunctionBased\ReturnTypeCovarianceChanged(new TypeIsCovariant()),
+                                        new FunctionBased\ParameterTypeContravarianceChanged(new TypeIsContravariant())
+                                    )
+                                )
+                            )
+                        )
                     )
                 ),
                 new InterfaceBased\MultiInterfaceBased(
                     new InterfaceBased\InterfaceBecameClass(),
                     new InterfaceBased\MethodAdded()
-                ),
-                new MethodBased\MultiMethodBased(
-                    new MethodBased\AccessibleMethodChange(
-                        new MethodBased\MultiMethodBased(
-                            new MethodBased\MethodBecameFinal(),
-                            new MethodBased\MethodConcretenessChanged(),
-                            new MethodBased\MethodScopeChanged(),
-                            new MethodBased\MethodVisibilityReduced()
-                        )
-                    ),
-                    new MethodBased\AccessibleMethodChange(
-                        new MethodBased\MethodFunctionDefinitionChanged(
-                            new FunctionBased\MultiFunctionBased(
-                                new FunctionBased\ParameterByReferenceChanged(),
-                                new FunctionBased\ReturnTypeByReferenceChanged(),
-                                new FunctionBased\RequiredParameterAmountIncreased(),
-                                new FunctionBased\ParameterDefaultValueChanged(),
-                                new FunctionBased\ReturnTypeCovarianceChanged(new TypeIsCovariant()),
-                                new FunctionBased\ParameterTypeContravarianceChanged(new TypeIsContravariant())
-                            )
-                        )
-                    )
                 ),
                 new ClassConstantBased\MultiConstantBased(
                     new ClassConstantBased\ConstantVisibilityReduced(),
