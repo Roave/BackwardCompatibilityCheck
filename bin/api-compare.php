@@ -46,41 +46,91 @@ use function file_exists;
                     new ClassBased\ConstantRemoved(),
                     new ClassBased\PropertyRemoved(),
                     new ClassBased\MethodRemoved(),
-                    new ClassBased\ConstantChanged(
-                        new ClassConstantBased\MultiConstantBased(
-                            new ClassConstantBased\ConstantVisibilityReduced(),
-                            new ClassConstantBased\ConstantValueChanged()
-                        )
-                    ),
-                    new ClassBased\PropertyChanged(
-                        new PropertyBased\AccessiblePropertyChanged(
-                            new PropertyBased\MultiPropertyBased(
-                                new PropertyBased\PropertyDocumentedTypeChanged(),
-                                new PropertyBased\PropertyDefaultValueChanged(),
-                                new PropertyBased\PropertyVisibilityReduced(),
-                                new PropertyBased\PropertyScopeChanged()
+                    new ClassBased\OpenClassChanged(
+                        new ClassBased\MultiClassBased(
+                            new ClassBased\ConstantChanged(
+                                new ClassConstantBased\MultiConstantBased(
+                                    new ClassConstantBased\ConstantVisibilityReduced(),
+                                    new ClassConstantBased\ConstantValueChanged()
+                                )
+                            ),
+                            new ClassBased\PropertyChanged(
+                                new PropertyBased\AccessiblePropertyChanged(
+                                    new PropertyBased\MultiPropertyBased(
+                                        new PropertyBased\PropertyDocumentedTypeChanged(),
+                                        new PropertyBased\PropertyDefaultValueChanged(),
+                                        new PropertyBased\PropertyVisibilityReduced(),
+                                        new PropertyBased\PropertyScopeChanged()
+                                    )
+                                )
+                            ),
+                            new ClassBased\MethodChanged(
+                                new MethodBased\MultiMethodBased(
+                                    new MethodBased\AccessibleMethodChange(
+                                        new MethodBased\MultiMethodBased(
+                                            new MethodBased\MethodBecameFinal(),
+                                            new MethodBased\MethodConcretenessChanged(),
+                                            new MethodBased\MethodScopeChanged(),
+                                            new MethodBased\MethodVisibilityReduced()
+                                        )
+                                    ),
+                                    new MethodBased\AccessibleMethodChange(
+                                        new MethodBased\MethodFunctionDefinitionChanged(
+                                            new FunctionBased\MultiFunctionBased(
+                                                new FunctionBased\ParameterByReferenceChanged(),
+                                                new FunctionBased\ReturnTypeByReferenceChanged(),
+                                                new FunctionBased\RequiredParameterAmountIncreased(),
+                                                new FunctionBased\ParameterDefaultValueChanged(),
+                                                new FunctionBased\ReturnTypeCovarianceChanged(new TypeIsCovariant()),
+                                                new FunctionBased\ReturnTypeChanged(),
+                                                new FunctionBased\ParameterTypeContravarianceChanged(new TypeIsContravariant()),
+                                                new FunctionBased\ParameterTypeChanged()
+                                            )
+                                        )
+                                    )
+                                )
                             )
                         )
                     ),
-                    new ClassBased\MethodChanged(
-                        new MethodBased\MultiMethodBased(
-                            new MethodBased\AccessibleMethodChange(
-                                new MethodBased\MultiMethodBased(
-                                    new MethodBased\MethodBecameFinal(),
-                                    new MethodBased\MethodConcretenessChanged(),
-                                    new MethodBased\MethodScopeChanged(),
-                                    new MethodBased\MethodVisibilityReduced()
+                    new ClassBased\FinalClassChanged(
+                        new ClassBased\MultiClassBased(
+                            new ClassBased\ConstantChanged(
+                                new ClassConstantBased\MultiConstantBased(
+                                    new ClassConstantBased\ConstantVisibilityReduced(),
+                                    new ClassConstantBased\ConstantValueChanged()
                                 )
                             ),
-                            new MethodBased\AccessibleMethodChange(
-                                new MethodBased\MethodFunctionDefinitionChanged(
-                                    new FunctionBased\MultiFunctionBased(
-                                        new FunctionBased\ParameterByReferenceChanged(),
-                                        new FunctionBased\ReturnTypeByReferenceChanged(),
-                                        new FunctionBased\RequiredParameterAmountIncreased(),
-                                        new FunctionBased\ParameterDefaultValueChanged(),
-                                        new FunctionBased\ReturnTypeCovarianceChanged(new TypeIsCovariant()),
-                                        new FunctionBased\ParameterTypeContravarianceChanged(new TypeIsContravariant())
+                            new ClassBased\PropertyChanged(
+                                new PropertyBased\AccessiblePropertyChanged(
+                                    new PropertyBased\MultiPropertyBased(
+                                        new PropertyBased\PropertyDocumentedTypeChanged(),
+                                        new PropertyBased\PropertyDefaultValueChanged(),
+                                        new PropertyBased\PropertyVisibilityReduced(),
+                                        new PropertyBased\PropertyScopeChanged()
+                                    )
+                                )
+                            ),
+                            new ClassBased\MethodChanged(
+                                new MethodBased\MultiMethodBased(
+                                    new MethodBased\AccessibleMethodChange(
+                                        new MethodBased\MultiMethodBased(
+                                            new MethodBased\MethodBecameFinal(),
+                                            new MethodBased\MethodConcretenessChanged(),
+                                            new MethodBased\MethodScopeChanged(),
+                                            new MethodBased\MethodVisibilityReduced()
+                                        )
+                                    ),
+                                    new MethodBased\AccessibleMethodChange(
+                                        new MethodBased\MethodFunctionDefinitionChanged(
+                                            new FunctionBased\MultiFunctionBased(
+                                                new FunctionBased\ParameterByReferenceChanged(),
+                                                new FunctionBased\ReturnTypeByReferenceChanged(),
+                                                new FunctionBased\RequiredParameterAmountIncreased(),
+                                                new FunctionBased\ParameterDefaultValueChanged(),
+                                                new FunctionBased\ReturnTypeCovarianceChanged(new TypeIsCovariant()),
+                                                new FunctionBased\ParameterTypeContravarianceChanged(new TypeIsContravariant())
+                                            )
+                                        )
                                     )
                                 )
                             )
