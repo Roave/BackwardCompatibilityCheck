@@ -87,6 +87,16 @@ PHP
                 null,
                 false,
             ],
+            'iterable to array is covariant' => [
+                ReflectionType::createFromTypeAndReflector('iterable', false, $reflector),
+                ReflectionType::createFromTypeAndReflector('array', false, $reflector),
+                true,
+            ],
+            'array to iterable is not covariant'         => [
+                ReflectionType::createFromTypeAndReflector('array', false, $reflector),
+                ReflectionType::createFromTypeAndReflector('iterable', false, $reflector),
+                false,
+            ],
             'iterable to non-iterable class type is not covariant' => [
                 ReflectionType::createFromTypeAndReflector('iterable', false, $reflector),
                 ReflectionType::createFromTypeAndReflector('AnotherClassWithMultipleInterfaces', false, $reflector),
