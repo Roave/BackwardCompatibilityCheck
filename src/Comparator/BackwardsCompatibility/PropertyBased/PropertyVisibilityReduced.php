@@ -6,11 +6,20 @@ namespace Roave\ApiCompare\Comparator\BackwardsCompatibility\PropertyBased;
 
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
+use Roave\ApiCompare\Formatter\ReflectionPropertyName;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
 use function sprintf;
 
 final class PropertyVisibilityReduced implements PropertyBased
 {
+    /** @var ReflectionPropertyName */
+    private $formatProperty;
+
+    public function __construct()
+    {
+        $this->formatProperty = new ReflectionPropertyName();
+    }
+
     private const VISIBILITY_PRIVATE = 'private';
 
     private const VISIBILITY_PROTECTED = 'protected';
@@ -28,9 +37,8 @@ final class PropertyVisibilityReduced implements PropertyBased
 
         return Changes::fromArray([Change::changed(
             sprintf(
-                'Property %s#$%s visibility reduced from %s to %s',
-                $fromProperty->getDeclaringClass()->getName(),
-                $fromProperty->getName(),
+                'Property %s visibility reduced from %s to %s',
+                $this->formatProperty->__invoke($fromProperty),
                 $visibilityFrom,
                 $visibilityTo
             ),

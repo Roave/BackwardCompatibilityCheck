@@ -6,6 +6,7 @@ namespace Roave\ApiCompare\Comparator\BackwardsCompatibility\PropertyBased;
 
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
+use Roave\ApiCompare\Formatter\ReflectionPropertyName;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
 
 /**
@@ -15,6 +16,14 @@ use Roave\BetterReflection\Reflection\ReflectionProperty;
  */
 final class PropertyDocumentedTypeChanged implements PropertyBased
 {
+    /** @var ReflectionPropertyName */
+    private $formatProperty;
+
+    public function __construct()
+    {
+        $this->formatProperty = new ReflectionPropertyName();
+    }
+
     public function compare(ReflectionProperty $fromProperty, ReflectionProperty $toProperty) : Changes
     {
         if ($fromProperty->isPrivate()) {
@@ -38,9 +47,8 @@ final class PropertyDocumentedTypeChanged implements PropertyBased
         return Changes::fromArray([
             Change::changed(
                 sprintf(
-                    'Type documentation for property %s::$%s changed from %s to %s',
-                    $fromProperty->getDeclaringClass()->getName(),
-                    $fromProperty->getName(),
+                    'Type documentation for property %s changed from %s to %s',
+                    $this->formatProperty->__invoke($fromProperty),
                     implode('|', $fromTypes) ?: 'having no type',
                     implode('|', $toTypes) ?: 'having no type'
                 ),

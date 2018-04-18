@@ -128,19 +128,19 @@ PHP
 
         $functions = [
             'changed'      => [
-                '[BC] CHANGED: The return type of changed changed from A to the non-covariant N1\B',
+                '[BC] CHANGED: The return type of changed() changed from A to the non-covariant N1\B',
             ],
             'untouched'    => [],
             'N1\changed'   => [
-                '[BC] CHANGED: The return type of N1\changed changed from int to the non-covariant float',
+                '[BC] CHANGED: The return type of N1\changed() changed from int to the non-covariant float',
             ],
             'N1\untouched' => [],
             'N2\changed'   => [
-                '[BC] CHANGED: The return type of N2\changed changed from int to the non-covariant ?int',
+                '[BC] CHANGED: The return type of N2\changed() changed from int to the non-covariant ?int',
             ],
             'N2\untouched' => [],
             'N3\changed'   => [
-                '[BC] CHANGED: The return type of N3\changed changed from int to the non-covariant no type',
+                '[BC] CHANGED: The return type of N3\changed() changed from int to the non-covariant no type',
             ],
             'N3\untouched' => [],
         ];
@@ -164,12 +164,12 @@ PHP
                 'N4\C::changed1' => [
                     $fromClassReflector->reflect('N4\C')->getMethod('changed1'),
                     $toClassReflector->reflect('N4\C')->getMethod('changed1'),
-                    ['[BC] CHANGED: The return type of N4\C::changed1 changed from int to the non-covariant no type'],
+                    ['[BC] CHANGED: The return type of N4\C::changed1() changed from int to the non-covariant no type'],
                 ],
                 'N4\C#changed2'  => [
                     $fromClassReflector->reflect('N4\C')->getMethod('changed2'),
                     $toClassReflector->reflect('N4\C')->getMethod('changed2'),
-                    ['[BC] CHANGED: The return type of N4\C#changed2 changed from int to the non-covariant no type'],
+                    ['[BC] CHANGED: The return type of N4\C#changed2() changed from int to the non-covariant no type'],
                 ],
             ]
         );

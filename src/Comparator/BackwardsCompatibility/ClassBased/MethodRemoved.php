@@ -7,6 +7,7 @@ namespace Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassBased;
 use Assert\Assert;
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
+use Roave\ApiCompare\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
 use const CASE_UPPER;
@@ -20,6 +21,14 @@ use function sprintf;
 
 final class MethodRemoved implements ClassBased
 {
+    /** @var ReflectionFunctionAbstractName */
+    private $formatFunction;
+
+    public function __construct()
+    {
+        $this->formatFunction = new ReflectionFunctionAbstractName();
+    }
+
     public function compare(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
     {
         Assert::that($fromClass->getName())->same($toClass->getName());
@@ -29,9 +38,9 @@ final class MethodRemoved implements ClassBased
             array_change_key_case($this->accessibleMethods($toClass), CASE_UPPER)
         );
 
-        return Changes::fromArray(array_values(array_map(function (ReflectionMethod $method) use ($fromClass) : Change {
+        return Changes::fromArray(array_values(array_map(function (ReflectionMethod $method) : Change {
             return Change::removed(
-                sprintf('Method %s#%s() was removed', $fromClass->getName(), $method->getName()),
+                sprintf('Method %s was removed', $this->formatFunction->__invoke($method)),
                 true
             );
         }, $removedMethods)));

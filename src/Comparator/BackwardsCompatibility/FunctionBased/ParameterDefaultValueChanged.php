@@ -6,6 +6,7 @@ namespace Roave\ApiCompare\Comparator\BackwardsCompatibility\FunctionBased;
 
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
+use Roave\ApiCompare\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflection\ReflectionParameter;
@@ -17,6 +18,14 @@ use function assert;
  */
 final class ParameterDefaultValueChanged implements FunctionBased
 {
+    /** @var ReflectionFunctionAbstractName */
+    private $formatFunction;
+
+    public function __construct()
+    {
+        $this->formatFunction = new ReflectionFunctionAbstractName();
+    }
+
     public function compare(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction) : Changes
     {
         $fromParametersWithDefaults = $this->defaultParameterValues($fromFunction);
@@ -37,9 +46,9 @@ final class ParameterDefaultValueChanged implements FunctionBased
             $changes = $changes->mergeWith(Changes::fromArray([
                 Change::changed(
                     sprintf(
-                        'Default parameter value for for parameter $%s of %s() changed from %s to %s',
+                        'Default parameter value for for parameter $%s of %s changed from %s to %s',
                         $parameter->getName(),
-                        $this->functionOrMethodName($fromFunction),
+                        $this->formatFunction->__invoke($fromFunction),
                         var_export($defaultValueFrom, true),
                         var_export($defaultValueTo, true)
                     ),
@@ -67,16 +76,5 @@ final class ParameterDefaultValueChanged implements FunctionBased
             }, $optionalParameters),
             $optionalParameters
         );
-    }
-
-    private function functionOrMethodName(ReflectionFunctionAbstract $function) : string
-    {
-        if ($function instanceof ReflectionMethod) {
-            return $function->getDeclaringClass()->getName()
-                . ($function->isStatic() ? '::' : '#')
-                . $function->getName();
-        }
-
-        return $function->getName();
     }
 }

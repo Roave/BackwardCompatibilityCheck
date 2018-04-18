@@ -161,19 +161,19 @@ PHP
             'publicNoDocblockToNoDocblock'                                      => [],
             'publicNoDocblockToDocblock'                                        => [],
             'publicNoTypeDocblockToDocblock'                                    => [
-                '[BC] CHANGED: Type documentation for property TheClass::$publicNoTypeDocblockToDocblock changed from having no type to int',
+                '[BC] CHANGED: Type documentation for property TheClass#$publicNoTypeDocblockToDocblock changed from having no type to int',
             ],
             'publicDocblockToSameDocblock'                                      => [],
             'publicDocblockToDifferentDocblock'                                 => [
-                '[BC] CHANGED: Type documentation for property TheClass::$publicDocblockToDifferentDocblock changed from int to float',
+                '[BC] CHANGED: Type documentation for property TheClass#$publicDocblockToDifferentDocblock changed from int to float',
             ],
             'publicDocblockToNoDocblock'                                        => [
-                '[BC] CHANGED: Type documentation for property TheClass::$publicDocblockToNoDocblock changed from int to having no type',
+                '[BC] CHANGED: Type documentation for property TheClass#$publicDocblockToNoDocblock changed from int to having no type',
             ],
             'publicCompositeTypeDocblockToSameTypeDocblock'                     => [],
             'publicCompositeTypeDocblockToSameTypeDocblockWithDifferentSorting' => [],
             'publicCompositeTypeDocblockToDifferentCompositeTypeDocblock'       => [
-                '[BC] CHANGED: Type documentation for property TheClass::$publicCompositeTypeDocblockToDifferentCompositeTypeDocblock changed from float|int to float|int|string',
+                '[BC] CHANGED: Type documentation for property TheClass#$publicCompositeTypeDocblockToDifferentCompositeTypeDocblock changed from float|int to float|int|string',
             ],
             'privateDocblockToDifferentDocblock'                                => [],
         ];

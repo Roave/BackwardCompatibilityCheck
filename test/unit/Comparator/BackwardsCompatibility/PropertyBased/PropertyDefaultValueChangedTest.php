@@ -117,20 +117,20 @@ PHP
             'publicNothingToNull'               => [],
             'publicNullToNull'                  => [],
             'publicValueChanged'                => [
-                '[BC] CHANGED: Property TheClass::$publicValueChanged changed default value from 1 to 2',
+                '[BC] CHANGED: Property TheClass#$publicValueChanged changed default value from 1 to 2',
             ],
             'publicValueToSimilarValue'         => [
-                '[BC] CHANGED: Property TheClass::$publicValueToSimilarValue changed default value from \'1\' to 1',
+                '[BC] CHANGED: Property TheClass#$publicValueToSimilarValue changed default value from \'1\' to 1',
             ],
             'publicExpressionToExpressionValue' => [],
             'protectedNothingToNothing'            => [],
             'protectedNothingToNull'               => [],
             'protectedNullToNull'                  => [],
             'protectedValueChanged'                => [
-                '[BC] CHANGED: Property TheClass::$protectedValueChanged changed default value from 1 to 2',
+                '[BC] CHANGED: Property TheClass#$protectedValueChanged changed default value from 1 to 2',
             ],
             'protectedValueToSimilarValue'         => [
-                '[BC] CHANGED: Property TheClass::$protectedValueToSimilarValue changed default value from \'1\' to 1',
+                '[BC] CHANGED: Property TheClass#$protectedValueToSimilarValue changed default value from \'1\' to 1',
             ],
             'protectedExpressionToExpressionValue' => [],
             'privateNothingToNothing'            => [],

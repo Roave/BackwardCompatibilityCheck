@@ -7,6 +7,7 @@ namespace Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassBased;
 use Assert\Assert;
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
+use Roave\ApiCompare\Formatter\ReflectionPropertyName;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
 use function array_diff;
@@ -18,6 +19,14 @@ use function sprintf;
 
 final class PropertyRemoved implements ClassBased
 {
+    /** @var ReflectionPropertyName */
+    private $formatProperty;
+
+    public function __construct()
+    {
+        $this->formatProperty = new ReflectionPropertyName();
+    }
+
     public function compare(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
     {
         Assert::that($fromClass->getName())->same($toClass->getName());
@@ -29,7 +38,7 @@ final class PropertyRemoved implements ClassBased
 
         return Changes::fromArray(array_values(array_map(function (string $property) use ($fromClass) : Change {
             return Change::removed(
-                sprintf('Property %s#%s was removed', $fromClass->getName(), $property),
+                sprintf('Property %s was removed', $this->formatProperty->__invoke($fromClass->getProperty($property))),
                 true
             );
         }, $removedProperties)));

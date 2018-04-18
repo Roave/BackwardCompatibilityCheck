@@ -6,6 +6,7 @@ namespace Roave\ApiCompare\Comparator\BackwardsCompatibility\FunctionBased;
 
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
+use Roave\ApiCompare\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflection\ReflectionParameter;
@@ -17,6 +18,14 @@ use Roave\BetterReflection\Reflection\ReflectionParameter;
  */
 final class ParameterByReferenceChanged implements FunctionBased
 {
+    /** @var ReflectionFunctionAbstractName */
+    private $formatFunction;
+
+    public function __construct()
+    {
+        $this->formatFunction = new ReflectionFunctionAbstractName();
+    }
+
     public function compare(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction) : Changes
     {
         /** @var ReflectionParameter[] $fromParameters */
@@ -45,26 +54,15 @@ final class ParameterByReferenceChanged implements FunctionBased
         return Changes::fromArray([
             Change::changed(
                 sprintf(
-                    'The parameter $%s of %s() changed from %s to %s',
+                    'The parameter $%s of %s changed from %s to %s',
                     $fromParameter->getName(),
-                    $this->functionOrMethodName($fromParameter->getDeclaringFunction()),
+                    $this->formatFunction->__invoke($fromParameter->getDeclaringFunction()),
                     $this->referenceToString($fromByReference),
                     $this->referenceToString($toByReference)
                 ),
                 true
             ),
         ]);
-    }
-
-    private function functionOrMethodName(ReflectionFunctionAbstract $function) : string
-    {
-        if ($function instanceof ReflectionMethod) {
-            return $function->getDeclaringClass()->getName()
-                . ($function->isStatic() ? '::' : '#')
-                . $function->getName();
-        }
-
-        return $function->getName();
     }
 
     private function referenceToString(bool $reference) : string

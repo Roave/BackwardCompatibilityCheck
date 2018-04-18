@@ -7,8 +7,8 @@ namespace Roave\ApiCompare\Comparator\BackwardsCompatibility\FunctionBased;
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
 use Roave\ApiCompare\Comparator\Variance\TypeIsCovariant;
+use Roave\ApiCompare\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
-use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflection\ReflectionType;
 
 /**
@@ -21,9 +21,13 @@ final class ReturnTypeCovarianceChanged implements FunctionBased
     /** @var TypeIsCovariant */
     private $typeIsCovariant;
 
+    /** @var ReflectionFunctionAbstractName */
+    private $formatFunction;
+
     public function __construct(TypeIsCovariant $typeIsCovariant)
     {
         $this->typeIsCovariant = $typeIsCovariant;
+        $this->formatFunction = new ReflectionFunctionAbstractName();
     }
 
     public function compare(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction) : Changes
@@ -39,24 +43,13 @@ final class ReturnTypeCovarianceChanged implements FunctionBased
             Change::changed(
                 sprintf(
                     'The return type of %s changed from %s to the non-covariant %s',
-                    $this->functionOrMethodName($fromFunction),
+                    $this->formatFunction->__invoke($fromFunction),
                     $this->typeToString($fromReturnType),
                     $this->typeToString($toReturnType)
                 ),
                 true
             ),
         ]);
-    }
-
-    private function functionOrMethodName(ReflectionFunctionAbstract $function) : string
-    {
-        if ($function instanceof ReflectionMethod) {
-            return $function->getDeclaringClass()->getName()
-                . ($function->isStatic() ? '::' : '#')
-                . $function->getName();
-        }
-
-        return $function->getName();
     }
 
     private function typeToString(?ReflectionType $type) : string

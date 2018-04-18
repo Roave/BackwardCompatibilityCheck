@@ -6,6 +6,7 @@ namespace Roave\ApiCompare\Comparator\BackwardsCompatibility\FunctionBased;
 
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
+use Roave\ApiCompare\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
 
@@ -15,6 +16,14 @@ use Roave\BetterReflection\Reflection\ReflectionMethod;
  */
 final class RequiredParameterAmountIncreased implements FunctionBased
 {
+    /** @var ReflectionFunctionAbstractName */
+    private $formatFunction;
+
+    public function __construct()
+    {
+        $this->formatFunction = new ReflectionFunctionAbstractName();
+    }
+
     public function compare(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction) : Changes
     {
         $fromRequiredParameters = $fromFunction->getNumberOfRequiredParameters();
@@ -28,23 +37,12 @@ final class RequiredParameterAmountIncreased implements FunctionBased
             Change::changed(
                 sprintf(
                     'The number of required arguments for %s increased from %d to %d',
-                    $this->functionOrMethodName($fromFunction),
+                    $this->formatFunction->__invoke($fromFunction),
                     $fromRequiredParameters,
                     $toRequiredParameters
                 ),
                 true
             ),
         ]);
-    }
-
-    private function functionOrMethodName(ReflectionFunctionAbstract $function) : string
-    {
-        if ($function instanceof ReflectionMethod) {
-            return $function->getDeclaringClass()->getName()
-                . ($function->isStatic() ? '::' : '#')
-                . $function->getName();
-        }
-
-        return $function->getName();
     }
 }
