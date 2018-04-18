@@ -31,14 +31,15 @@ final class PropertyRemoved implements ClassBased
     {
         Assert::that($fromClass->getName())->same($toClass->getName());
 
+        $fromProperties    = $this->accessibleProperties($fromClass);
         $removedProperties = array_diff(
-            array_keys($this->accessibleProperties($fromClass)),
+            array_keys($fromProperties),
             array_keys($this->accessibleProperties($toClass))
         );
 
-        return Changes::fromArray(array_values(array_map(function (string $property) use ($fromClass) : Change {
+        return Changes::fromArray(array_values(array_map(function (string $property) use ($fromProperties) : Change {
             return Change::removed(
-                sprintf('Property %s was removed', $this->formatProperty->__invoke($fromClass->getProperty($property))),
+                sprintf('Property %s was removed', $this->formatProperty->__invoke($fromProperties[$property])),
                 true
             );
         }, $removedProperties)));

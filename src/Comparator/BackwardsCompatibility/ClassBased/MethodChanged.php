@@ -6,14 +6,13 @@ namespace Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassBased;
 
 use Roave\ApiCompare\Changes;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\MethodBased\MethodBased;
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\PropertyBased\PropertyBased;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
 
 final class MethodChanged implements ClassBased
 {
     /**
-     * @var PropertyBased
+     * @var MethodBased
      */
     private $checkMethod;
 
