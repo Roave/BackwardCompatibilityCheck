@@ -10,10 +10,7 @@ use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
 use Roave\ApiCompare\Comparator;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassBased\ClassBased;
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassConstantBased\ConstantBased;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\InterfaceBased\InterfaceBased;
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\MethodBased\MethodBased;
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\PropertyBased\PropertyBased;
 
 /**
  * @covers \Roave\ApiCompare\Comparator
@@ -29,9 +26,6 @@ final class ComparatorTest extends TestCase
     /** @var InterfaceBased|MockObject */
     private $interfaceBasedComparison;
 
-    /** @var ConstantBased|MockObject */
-    private $constantBasedComparison;
-
     /** @var Comparator */
     private $comparator;
 
@@ -46,24 +40,20 @@ final class ComparatorTest extends TestCase
 
         $this->classBasedComparison     = $this->createMock(ClassBased::class);
         $this->interfaceBasedComparison = $this->createMock(InterfaceBased::class);
-        $this->constantBasedComparison  = $this->createMock(ConstantBased::class);
         $this->comparator               = new Comparator(
             $this->classBasedComparison,
-            $this->interfaceBasedComparison,
-            $this->constantBasedComparison
+            $this->interfaceBasedComparison
         );
     }
 
     public function testWillRunSubComparators() : void
     {
         $this->classBasedComparatorWillBeCalled();
-        $this->constantBasedComparatorWillBeCalled();
         $this->interfaceBasedComparatorWillNotBeCalled();
 
         self::assertEqualsIgnoringOrder(
             Changes::fromArray([
                 Change::changed('class change', true),
-                Change::changed('constant change', true),
             ]),
             $this->comparator->compare(
                 self::$stringReflectorFactory->__invoke(
@@ -95,7 +85,6 @@ PHP
     public function testWillNotRunSubComparatorsIfSymbolsWereDeleted() : void
     {
         $this->classBasedComparatorWillBeCalled();
-        $this->constantBasedComparatorWillNotBeCalled();
         $this->interfaceBasedComparatorWillNotBeCalled();
 
         self::assertEqualsIgnoringOrder(
@@ -128,7 +117,6 @@ PHP
     public function testWillRunInterfaceComparators() : void
     {
         $this->classBasedComparatorWillBeCalled();
-        $this->constantBasedComparatorWillNotBeCalled();
         $this->interfaceBasedComparatorWillBeCalled();
 
         self::assertEqualsIgnoringOrder(
@@ -182,25 +170,6 @@ PHP
     {
         $this
             ->classBasedComparison
-            ->expects(self::never())
-            ->method('compare');
-    }
-
-    private function constantBasedComparatorWillBeCalled() : void
-    {
-        $this
-            ->constantBasedComparison
-            ->expects(self::atLeastOnce())
-            ->method('compare')
-            ->willReturn(Changes::fromArray([
-                Change::changed('constant change', true),
-            ]));
-    }
-
-    private function constantBasedComparatorWillNotBeCalled() : void
-    {
-        $this
-            ->constantBasedComparison
             ->expects(self::never())
             ->method('compare');
     }

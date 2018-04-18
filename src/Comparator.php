@@ -7,12 +7,7 @@ namespace Roave\ApiCompare;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassBased\ClassBased;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassConstantBased\ConstantBased;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\InterfaceBased\InterfaceBased;
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\MethodBased\MethodBased;
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\PropertyBased\PropertyBased;
 use Roave\BetterReflection\Reflection\ReflectionClass;
-use Roave\BetterReflection\Reflection\ReflectionClassConstant;
-use Roave\BetterReflection\Reflection\ReflectionMethod;
-use Roave\BetterReflection\Reflection\ReflectionProperty;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
 use function sprintf;
@@ -27,19 +22,12 @@ class Comparator
      */
     private $interfaceBasedComparisons;
 
-    /**
-     * @var ConstantBased
-     */
-    private $constantBasedComparisons;
-
     public function __construct(
         ClassBased $classBasedComparisons,
-        InterfaceBased $interfaceBasedComparisons,
-        ConstantBased $constantBasedComparisons
+        InterfaceBased $interfaceBasedComparisons
     ) {
         $this->classBasedComparisons     = $classBasedComparisons;
         $this->interfaceBasedComparisons = $interfaceBasedComparisons;
-        $this->constantBasedComparisons  = $constantBasedComparisons;
     }
 
     public function compare(ClassReflector $oldApi, ClassReflector $newApi) : Changes
@@ -63,29 +51,11 @@ class Comparator
                 $changelog = $changelog->mergeWith($this->interfaceBasedComparisons->compare($oldClass, $newClass));
             }
 
-            $changelog = $changelog->mergeWith($this->classBasedComparisons->compare($oldClass, $newClass));
+            return $changelog->mergeWith($this->classBasedComparisons->compare($oldClass, $newClass));
         } catch (IdentifierNotFound $exception) {
-            $changelog = $changelog->withAddedChange(
+            return $changelog->withAddedChange(
                 Change::removed(sprintf('Class %s has been deleted', $oldClass->getName()), true)
             );
-            return $changelog;
         }
-
-        foreach ($oldClass->getReflectionConstants() as $oldConstant) {
-            $changelog = $changelog->mergeWith($this->examineConstant($oldConstant, $newClass));
-        }
-
-        return $changelog;
-    }
-
-    private function examineConstant(ReflectionClassConstant $oldConstant, ReflectionClass $newClass) : Changes
-    {
-        $newConstant = $newClass->getReflectionConstant($oldConstant->getName());
-
-        if (! $newConstant) {
-            return Changes::new();
-        }
-
-        return $this->constantBasedComparisons->compare($oldConstant, $newConstant);
     }
 }

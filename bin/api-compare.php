@@ -46,6 +46,12 @@ use function file_exists;
                     new ClassBased\ConstantRemoved(),
                     new ClassBased\PropertyRemoved(),
                     new ClassBased\MethodRemoved(),
+                    new ClassBased\ConstantChanged(
+                        new ClassConstantBased\MultiConstantBased(
+                            new ClassConstantBased\ConstantVisibilityReduced(),
+                            new ClassConstantBased\ConstantValueChanged()
+                        )
+                    ),
                     new ClassBased\PropertyChanged(
                         new PropertyBased\AccessiblePropertyChanged(
                             new PropertyBased\MultiPropertyBased(
@@ -84,10 +90,6 @@ use function file_exists;
                 new InterfaceBased\MultiInterfaceBased(
                     new InterfaceBased\InterfaceBecameClass(),
                     new InterfaceBased\MethodAdded()
-                ),
-                new ClassConstantBased\MultiConstantBased(
-                    new ClassConstantBased\ConstantVisibilityReduced(),
-                    new ClassConstantBased\ConstantValueChanged()
                 )
             )
         );
