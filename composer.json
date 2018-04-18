@@ -4,7 +4,7 @@
     "require": {
         "php": "^7.2",
         "roave/security-advisories": "dev-master",
-        "roave/better-reflection": "dev-master#583ce1321dc7d5987fcd535230edcb0960c2d6c6",
+        "roave/better-reflection": "dev-master",
         "symfony/console": "^4.0",
         "beberlei/assert": "^2.9",
         "symfony/process": "^4.0",
