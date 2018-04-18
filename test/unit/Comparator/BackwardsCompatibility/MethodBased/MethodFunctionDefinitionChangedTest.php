@@ -9,9 +9,10 @@ use PHPUnit\Framework\TestCase;
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\FunctionBased\FunctionBased;
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\MethodBased\MethodFunctionDefinitionChanged;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\MethodBased\MethodBased;
+use Roave\ApiCompare\Comparator\BackwardsCompatibility\MethodBased\MethodFunctionDefinitionChanged;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
+use function uniqid;
 
 /**
  * @covers \Roave\ApiCompare\Comparator\BackwardsCompatibility\MethodBased\MethodFunctionDefinitionChanged
@@ -24,7 +25,7 @@ final class MethodFunctionDefinitionChangedTest extends TestCase
     /** @var MethodBased */
     private $methodCheck;
 
-    protected function setUp()
+    protected function setUp() : void
     {
         parent::setUp();
 

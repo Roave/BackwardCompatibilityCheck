@@ -13,6 +13,7 @@ use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
+use function strtolower;
 
 /**
  * @covers \Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassBased\MethodChanged

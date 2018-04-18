@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Roave\ApiCompare;
 
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassBased\ClassBased;
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassConstantBased\ConstantBased;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\InterfaceBased\InterfaceBased;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflector\ClassReflector;
@@ -17,9 +16,7 @@ class Comparator
     /** @var ClassBased */
     private $classBasedComparisons;
 
-    /**
-     * @var InterfaceBased
-     */
+    /** @var InterfaceBased */
     private $interfaceBasedComparisons;
 
     public function __construct(

@@ -44,7 +44,8 @@ final class PropertyVisibilityReduced implements PropertyBased
                 $visibilityTo
             ),
             true
-        )]);
+        ),
+        ]);
     }
 
     private function propertyVisibility(ReflectionProperty $property) : string

@@ -11,6 +11,8 @@ use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
+use function array_combine;
+use function array_keys;
 use function array_map;
 use function iterator_to_array;
 
@@ -101,23 +103,17 @@ PHP
         $toClass            = $toClassReflector->reflect('TheClass');
 
         $properties = [
-            'publicConcreteToAbstract' => [
-                '[BC] CHANGED: Method publicConcreteToAbstract() of class TheClass changed from concrete to abstract',
-            ],
+            'publicConcreteToAbstract' => ['[BC] CHANGED: Method publicConcreteToAbstract() of class TheClass changed from concrete to abstract'],
             'publicAbstractToConcrete' => [],
             'publicConcreteToConcrete' => [],
             'publicAbstractToAbstract' => [],
 
-            'protectedConcreteToAbstract' => [
-                '[BC] CHANGED: Method protectedConcreteToAbstract() of class TheClass changed from concrete to abstract',
-            ],
+            'protectedConcreteToAbstract' => ['[BC] CHANGED: Method protectedConcreteToAbstract() of class TheClass changed from concrete to abstract'],
             'protectedAbstractToConcrete' => [],
             'protectedConcreteToConcrete' => [],
             'protectedAbstractToAbstract' => [],
 
-            'privateConcreteToAbstract' => [
-                '[BC] CHANGED: Method privateConcreteToAbstract() of class TheClass changed from concrete to abstract',
-            ],
+            'privateConcreteToAbstract' => ['[BC] CHANGED: Method privateConcreteToAbstract() of class TheClass changed from concrete to abstract'],
             'privateAbstractToConcrete' => [],
             'privateConcreteToConcrete' => [],
             'privateAbstractToAbstract' => [],

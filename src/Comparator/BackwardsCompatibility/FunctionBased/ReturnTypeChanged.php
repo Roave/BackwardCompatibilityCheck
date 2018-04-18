@@ -9,6 +9,7 @@ use Roave\ApiCompare\Changes;
 use Roave\ApiCompare\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
 use Roave\BetterReflection\Reflection\ReflectionType;
+use function sprintf;
 
 /**
  * Verifies if the return type of a function changed at all

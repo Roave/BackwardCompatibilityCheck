@@ -8,7 +8,7 @@ use Assert\Assert;
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClass;
-use Roave\BetterReflection\Reflection\ReflectionClassConstant;
+use function sprintf;
 
 final class ClassBecameFinal implements ClassBased
 {
@@ -27,6 +27,7 @@ final class ClassBecameFinal implements ClassBased
         return Changes::fromArray([Change::changed(
             sprintf('Class %s became final', $fromClass->getName()),
             true
-        )]);
+        ),
+        ]);
     }
 }

@@ -28,6 +28,7 @@ final class MethodConcretenessChanged implements MethodBased
                 $fromMethod->getDeclaringClass()->getName()
             ),
             true
-        )]);
+        ),
+        ]);
     }
 }

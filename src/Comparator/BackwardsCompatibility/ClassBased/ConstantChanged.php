@@ -7,6 +7,9 @@ namespace Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassBased;
 use Roave\ApiCompare\Changes;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassConstantBased\ConstantBased;
 use Roave\BetterReflection\Reflection\ReflectionClass;
+use function array_intersect_key;
+use function array_keys;
+use function array_reduce;
 
 final class ConstantChanged implements ClassBased
 {

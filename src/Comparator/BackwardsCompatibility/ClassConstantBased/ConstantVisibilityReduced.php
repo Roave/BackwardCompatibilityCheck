@@ -7,6 +7,7 @@ namespace Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassConstantBased;
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClassConstant;
+use function sprintf;
 
 final class ConstantVisibilityReduced implements ConstantBased
 {
@@ -35,7 +36,8 @@ final class ConstantVisibilityReduced implements ConstantBased
                 $visibilityTo
             ),
             true
-        )]);
+        ),
+        ]);
     }
 
     private function propertyVisibility(ReflectionClassConstant $property) : string

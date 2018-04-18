@@ -6,7 +6,7 @@ namespace Roave\ApiCompare\Comparator\BackwardsCompatibility\MethodBased;
 
 use Roave\ApiCompare\Changes;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
-use Roave\BetterReflection\Reflection\ReflectionProperty;
+use function array_reduce;
 
 final class MultiMethodBased implements MethodBased
 {

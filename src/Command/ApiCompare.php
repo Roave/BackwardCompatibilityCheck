@@ -23,10 +23,11 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use function assert;
 use function count;
+use function getcwd;
 use function in_array;
 use function sprintf;
-use function assert;
 
 final class ApiCompare extends Command
 {
@@ -109,7 +110,7 @@ final class ApiCompare extends Command
         $toRevision  = $this->parseRevision->fromStringForRepository($input->getOption('to'), $sourceRepo);
         $sourcesPath = $input->getArgument('sources-path');
 
-        $stdErr->writeln(sprintf('Comparing from %s to %s...', (string)$fromRevision, (string)$toRevision));
+        $stdErr->writeln(sprintf('Comparing from %s to %s...', (string) $fromRevision, (string) $toRevision));
 
         $fromPath = $this->git->checkout($sourceRepo, $fromRevision);
         $toPath   = $this->git->checkout($sourceRepo, $toRevision);

@@ -7,6 +7,8 @@ namespace Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassConstantBased;
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClassConstant;
+use function sprintf;
+use function var_export;
 
 final class ConstantValueChanged implements ConstantBased
 {

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Roave\ApiCompare\Formatter;
@@ -6,12 +7,15 @@ namespace Roave\ApiCompare\Formatter;
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
 use Symfony\Component\Console\Output\OutputInterface;
+use function array_filter;
+use function array_map;
+use function implode;
+use function str_replace;
+use function trim;
 
 final class MarkdownPipedToSymfonyConsoleFormatter implements OutputFormatter
 {
-    /**
-     * @var OutputInterface
-     */
+    /** @var OutputInterface */
     private $output;
 
     public function __construct(OutputInterface $output)
@@ -48,11 +52,12 @@ final class MarkdownPipedToSymfonyConsoleFormatter implements OutputFormatter
         );
     }
 
+    /** @return string[] */
     private function convertFilteredChangesToMarkdownBulletList(callable $filterFunction, Change ...$changes) : array
     {
         return array_map(
             function (Change $change) : string {
-                return ' - ' . str_replace(['ADDED: ', 'CHANGED: ', 'REMOVED: '], '', trim((string)$change)) . "\n";
+                return ' - ' . str_replace(['ADDED: ', 'CHANGED: ', 'REMOVED: '], '', trim((string) $change)) . "\n";
             },
             array_filter($changes, $filterFunction)
         );

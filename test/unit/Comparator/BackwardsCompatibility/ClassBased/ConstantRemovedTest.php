@@ -11,6 +11,8 @@ use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\SingleFileSourceLocator;
+use function array_map;
+use function iterator_to_array;
 
 final class ConstantRemovedTest extends TestCase
 {

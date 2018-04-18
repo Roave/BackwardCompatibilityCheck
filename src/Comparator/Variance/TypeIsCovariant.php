@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace Roave\ApiCompare\Comparator\Variance;
 
-use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionType;
-use Roave\BetterReflection\Reflector\ClassReflector;
-use function strtolower;
 use function in_array;
+use function strtolower;
 
 /**
  * This is a simplistic covariant type check. A more appropriate approach would be to

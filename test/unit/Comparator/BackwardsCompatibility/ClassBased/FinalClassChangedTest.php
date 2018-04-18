@@ -11,6 +11,7 @@ use Roave\ApiCompare\Changes;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassBased\ClassBased;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassBased\FinalClassChanged;
 use Roave\BetterReflection\Reflection\ReflectionClass;
+use function uniqid;
 
 /**
  * @covers \Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassBased\FinalClassChanged

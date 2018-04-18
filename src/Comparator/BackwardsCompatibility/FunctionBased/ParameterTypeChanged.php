@@ -10,6 +10,9 @@ use Roave\ApiCompare\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
 use Roave\BetterReflection\Reflection\ReflectionParameter;
 use Roave\BetterReflection\Reflection\ReflectionType;
+use function array_intersect_key;
+use function array_values;
+use function sprintf;
 
 /**
  * Detects a change in a parameter type

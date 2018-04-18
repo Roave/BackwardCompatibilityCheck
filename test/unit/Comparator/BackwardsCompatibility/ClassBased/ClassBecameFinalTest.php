@@ -11,6 +11,8 @@ use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
+use function array_map;
+use function iterator_to_array;
 
 final class ClassBecameFinalTest extends TestCase
 {
@@ -38,7 +40,7 @@ final class ClassBecameFinalTest extends TestCase
     /** @return (string[]|ReflectionClass)[][] */
     public function classesToBeTested() : array
     {
-        $locator = (new BetterReflection())->astLocator();
+        $locator       = (new BetterReflection())->astLocator();
         $fromReflector = new ClassReflector(new StringSourceLocator(
             <<<'PHP'
 <?php
@@ -51,7 +53,7 @@ PHP
             ,
             $locator
         ));
-        $toReflector = new ClassReflector(new StringSourceLocator(
+        $toReflector   = new ClassReflector(new StringSourceLocator(
             <<<'PHP'
 <?php
 

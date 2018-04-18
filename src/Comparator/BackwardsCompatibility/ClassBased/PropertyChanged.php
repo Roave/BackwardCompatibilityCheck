@@ -7,12 +7,13 @@ namespace Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassBased;
 use Roave\ApiCompare\Changes;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\PropertyBased\PropertyBased;
 use Roave\BetterReflection\Reflection\ReflectionClass;
+use function array_intersect_key;
+use function array_keys;
+use function array_reduce;
 
 final class PropertyChanged implements ClassBased
 {
-    /**
-     * @var PropertyBased
-     */
+    /** @var PropertyBased */
     private $checkProperty;
 
     public function __construct(PropertyBased $checkProperty)

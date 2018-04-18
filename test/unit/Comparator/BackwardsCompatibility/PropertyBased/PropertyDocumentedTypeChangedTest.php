@@ -11,6 +11,8 @@ use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
+use function array_combine;
+use function array_keys;
 use function array_map;
 use function iterator_to_array;
 
@@ -160,24 +162,14 @@ PHP
         $properties = [
             'publicNoDocblockToNoDocblock'                                      => [],
             'publicNoDocblockToDocblock'                                        => [],
-            'publicNoTypeDocblockToDocblock'                                    => [
-                '[BC] CHANGED: Type documentation for property TheClass#$publicNoTypeDocblockToDocblock changed from having no type to int',
-            ],
+            'publicNoTypeDocblockToDocblock'                                    => ['[BC] CHANGED: Type documentation for property TheClass#$publicNoTypeDocblockToDocblock changed from having no type to int'],
             'publicDocblockToSameDocblock'                                      => [],
-            'publicDocblockToDifferentDocblock'                                 => [
-                '[BC] CHANGED: Type documentation for property TheClass#$publicDocblockToDifferentDocblock changed from int to float',
-            ],
-            'publicDocblockToNoDocblock'                                        => [
-                '[BC] CHANGED: Type documentation for property TheClass#$publicDocblockToNoDocblock changed from int to having no type',
-            ],
+            'publicDocblockToDifferentDocblock'                                 => ['[BC] CHANGED: Type documentation for property TheClass#$publicDocblockToDifferentDocblock changed from int to float'],
+            'publicDocblockToNoDocblock'                                        => ['[BC] CHANGED: Type documentation for property TheClass#$publicDocblockToNoDocblock changed from int to having no type'],
             'publicCompositeTypeDocblockToSameTypeDocblock'                     => [],
             'publicCompositeTypeDocblockToSameTypeDocblockWithDifferentSorting' => [],
-            'publicCompositeTypeDocblockToDifferentCompositeTypeDocblock'       => [
-                '[BC] CHANGED: Type documentation for property TheClass#$publicCompositeTypeDocblockToDifferentCompositeTypeDocblock changed from float|int to float|int|string',
-            ],
-            'privateDocblockToDifferentDocblock'                                => [
-                '[BC] CHANGED: Type documentation for property TheClass#$privateDocblockToDifferentDocblock changed from int to float',
-            ],
+            'publicCompositeTypeDocblockToDifferentCompositeTypeDocblock'       => ['[BC] CHANGED: Type documentation for property TheClass#$publicCompositeTypeDocblockToDifferentCompositeTypeDocblock changed from float|int to float|int|string'],
+            'privateDocblockToDifferentDocblock'                                => ['[BC] CHANGED: Type documentation for property TheClass#$privateDocblockToDifferentDocblock changed from int to float'],
         ];
 
         return array_combine(

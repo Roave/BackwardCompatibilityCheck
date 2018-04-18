@@ -9,6 +9,11 @@ use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionClassConstant;
+use function array_diff_key;
+use function array_filter;
+use function array_map;
+use function array_values;
+use function sprintf;
 
 final class ConstantRemoved implements ClassBased
 {

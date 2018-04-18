@@ -8,6 +8,8 @@ use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
 use Roave\ApiCompare\Formatter\ReflectionPropertyName;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
+use function sprintf;
+use function var_export;
 
 final class PropertyDefaultValueChanged implements PropertyBased
 {
@@ -28,16 +30,15 @@ final class PropertyDefaultValueChanged implements PropertyBased
             return Changes::new();
         }
 
-        return Changes::fromArray([
-            Change::changed(
-                sprintf(
-                    'Property %s changed default value from %s to %s',
-                    $this->formatProperty->__invoke($fromProperty),
-                    var_export($fromPropertyDefaultValue, true),
-                    var_export($toPropertyDefaultValue, true)
-                ),
-                true
-            )
+        return Changes::fromArray([Change::changed(
+            sprintf(
+                'Property %s changed default value from %s to %s',
+                $this->formatProperty->__invoke($fromProperty),
+                var_export($fromPropertyDefaultValue, true),
+                var_export($toPropertyDefaultValue, true)
+            ),
+            true
+        ),
         ]);
     }
 }

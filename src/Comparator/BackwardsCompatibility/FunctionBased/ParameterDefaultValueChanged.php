@@ -8,9 +8,15 @@ use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
 use Roave\ApiCompare\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
-use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflection\ReflectionParameter;
+use function array_combine;
+use function array_filter;
+use function array_intersect_key;
+use function array_map;
+use function array_values;
 use function assert;
+use function sprintf;
+use function var_export;
 
 /**
  * A default value for a parameter should not change, as that can lead to change in expected execution

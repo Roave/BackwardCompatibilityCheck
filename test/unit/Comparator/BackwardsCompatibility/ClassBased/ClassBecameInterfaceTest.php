@@ -6,12 +6,15 @@ namespace RoaveTest\ApiCompare\Comparator\BackwardsCompatibility\ClassBased;
 
 use PHPUnit\Framework\TestCase;
 use Roave\ApiCompare\Change;
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassBased\ClassBecameAbstract;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassBased\ClassBecameInterface;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
+use function array_combine;
+use function array_keys;
+use function array_map;
+use function iterator_to_array;
 
 final class ClassBecameInterfaceTest extends TestCase
 {

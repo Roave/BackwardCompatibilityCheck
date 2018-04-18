@@ -7,6 +7,7 @@ namespace Roave\ApiCompare\Comparator\BackwardsCompatibility\PropertyBased;
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
+use function sprintf;
 
 /**
  * A property that changes from instance to static or the opposite has to be accessed differently,

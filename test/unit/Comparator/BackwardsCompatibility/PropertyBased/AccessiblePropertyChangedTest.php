@@ -11,30 +11,23 @@ use Roave\ApiCompare\Changes;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\PropertyBased\AccessiblePropertyChanged;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\PropertyBased\PropertyBased;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
+use function uniqid;
 
 /**
  * @covers \Roave\ApiCompare\Comparator\BackwardsCompatibility\PropertyBased\AccessiblePropertyChanged
  */
 final class AccessiblePropertyChangedTest extends TestCase
 {
-    /**
-     * @var PropertyBased|MockObject
-     */
+    /** @var PropertyBased|MockObject */
     private $check;
 
-    /**
-     * @var ReflectionProperty|MockObject
-     */
+    /** @var ReflectionProperty|MockObject */
     private $fromProperty;
 
-    /**
-     * @var ReflectionProperty|MockObject
-     */
+    /** @var ReflectionProperty|MockObject */
     private $toProperty;
 
-    /**
-     * @var AccessiblePropertyChanged
-     */
+    /** @var AccessiblePropertyChanged */
     private $accessiblePropertyChanged;
 
     protected function setUp() : void

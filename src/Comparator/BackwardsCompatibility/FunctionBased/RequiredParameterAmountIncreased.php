@@ -8,7 +8,7 @@ use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
 use Roave\ApiCompare\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
-use Roave\BetterReflection\Reflection\ReflectionMethod;
+use function sprintf;
 
 /**
  * When new parameters are added, they must be optional, or else the callers will provide an insufficient

@@ -11,6 +11,8 @@ use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
+use function array_combine;
+use function array_keys;
 use function array_map;
 use function iterator_to_array;
 
@@ -101,23 +103,17 @@ PHP
         $toClass            = $toClassReflector->reflect('TheClass');
 
         $properties = [
-            'publicOverrideableToFinal' => [
-                '[BC] CHANGED: Method publicOverrideableToFinal() of class TheClass became final',
-            ],
+            'publicOverrideableToFinal' => ['[BC] CHANGED: Method publicOverrideableToFinal() of class TheClass became final'],
             'publicFinalToOverrideable' => [],
             'publicOverrideableToOverrideable' => [],
             'publicFinalToFinal' => [],
 
-            'protectedOverrideableToFinal' => [
-                '[BC] CHANGED: Method protectedOverrideableToFinal() of class TheClass became final',
-            ],
+            'protectedOverrideableToFinal' => ['[BC] CHANGED: Method protectedOverrideableToFinal() of class TheClass became final'],
             'protectedFinalToOverrideable' => [],
             'protectedOverrideableToOverrideable' => [],
             'protectedFinalToFinal' => [],
 
-            'privateOverrideableToFinal' => [
-                '[BC] CHANGED: Method privateOverrideableToFinal() of class TheClass became final',
-            ],
+            'privateOverrideableToFinal' => ['[BC] CHANGED: Method privateOverrideableToFinal() of class TheClass became final'],
             'privateFinalToOverrideable' => [],
             'privateOverrideableToOverrideable' => [],
             'privateFinalToFinal' => [],

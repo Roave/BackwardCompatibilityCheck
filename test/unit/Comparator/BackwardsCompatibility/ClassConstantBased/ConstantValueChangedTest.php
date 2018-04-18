@@ -8,11 +8,11 @@ use PHPUnit\Framework\TestCase;
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassConstantBased\ConstantValueChanged;
 use Roave\BetterReflection\BetterReflection;
-use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionClassConstant;
-use Roave\BetterReflection\Reflection\ReflectionProperty;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
+use function array_combine;
+use function array_keys;
 use function array_map;
 use function iterator_to_array;
 
@@ -104,20 +104,12 @@ PHP
 
         $properties = [
             'publicNullToNull'                  => [],
-            'publicValueChanged'                => [
-                '[BC] CHANGED: Value of constant TheClass::publicValueChanged changed from 1 to 2',
-            ],
-            'publicValueToSimilarValue'         => [
-                '[BC] CHANGED: Value of constant TheClass::publicValueToSimilarValue changed from \'1\' to 1',
-            ],
+            'publicValueChanged'                => ['[BC] CHANGED: Value of constant TheClass::publicValueChanged changed from 1 to 2'],
+            'publicValueToSimilarValue'         => ['[BC] CHANGED: Value of constant TheClass::publicValueToSimilarValue changed from \'1\' to 1'],
             'publicExpressionToExpressionValue' => [],
             'protectedNullToNull'                  => [],
-            'protectedValueChanged'                => [
-                '[BC] CHANGED: Value of constant TheClass::protectedValueChanged changed from 1 to 2',
-            ],
-            'protectedValueToSimilarValue'         => [
-                '[BC] CHANGED: Value of constant TheClass::protectedValueToSimilarValue changed from \'1\' to 1',
-            ],
+            'protectedValueChanged'                => ['[BC] CHANGED: Value of constant TheClass::protectedValueChanged changed from 1 to 2'],
+            'protectedValueToSimilarValue'         => ['[BC] CHANGED: Value of constant TheClass::protectedValueToSimilarValue changed from \'1\' to 1'],
             'protectedExpressionToExpressionValue' => [],
             'privateNullToNull'                  => [],
             'privateValueChanged'                => [],

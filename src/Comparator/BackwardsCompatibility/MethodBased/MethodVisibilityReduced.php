@@ -6,8 +6,8 @@ namespace Roave\ApiCompare\Comparator\BackwardsCompatibility\MethodBased;
 
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
-use Roave\BetterReflection\Reflection\ReflectionClassConstant;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
+use function sprintf;
 
 final class MethodVisibilityReduced implements MethodBased
 {
@@ -36,7 +36,8 @@ final class MethodVisibilityReduced implements MethodBased
                 $visibilityTo
             ),
             true
-        )]);
+        ),
+        ]);
     }
 
     private function methodVisibility(ReflectionMethod $method) : string

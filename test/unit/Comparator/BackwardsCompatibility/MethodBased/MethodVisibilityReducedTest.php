@@ -11,6 +11,8 @@ use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
+use function array_combine;
+use function array_keys;
 use function array_map;
 use function iterator_to_array;
 
@@ -93,16 +95,10 @@ PHP
         $properties = [
 
             'publicMaintainedPublic'       => [],
-            'publicReducedToProtected'     => [
-                '[BC] CHANGED: Method publicReducedToProtected() of class TheClass visibility reduced from public to protected',
-            ],
-            'publicReducedToPrivate'       => [
-                '[BC] CHANGED: Method publicReducedToPrivate() of class TheClass visibility reduced from public to private',
-            ],
+            'publicReducedToProtected'     => ['[BC] CHANGED: Method publicReducedToProtected() of class TheClass visibility reduced from public to protected'],
+            'publicReducedToPrivate'       => ['[BC] CHANGED: Method publicReducedToPrivate() of class TheClass visibility reduced from public to private'],
             'protectedMaintainedProtected' => [],
-            'protectedReducedToPrivate'    => [
-                '[BC] CHANGED: Method protectedReducedToPrivate() of class TheClass visibility reduced from protected to private',
-            ],
+            'protectedReducedToPrivate'    => ['[BC] CHANGED: Method protectedReducedToPrivate() of class TheClass visibility reduced from protected to private'],
             'protectedIncreasedToPublic'   => [],
             'privateMaintainedPrivate'     => [],
             'privateIncreasedToProtected'  => [],

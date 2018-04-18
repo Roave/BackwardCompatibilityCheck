@@ -8,12 +8,16 @@ use Roave\ApiCompare\Changes;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\MethodBased\MethodBased;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
+use function array_combine;
+use function array_intersect_key;
+use function array_keys;
+use function array_map;
+use function array_reduce;
+use function strtolower;
 
 final class MethodChanged implements ClassBased
 {
-    /**
-     * @var MethodBased
-     */
+    /** @var MethodBased */
     private $checkMethod;
 
     public function __construct(MethodBased $checkMethod)

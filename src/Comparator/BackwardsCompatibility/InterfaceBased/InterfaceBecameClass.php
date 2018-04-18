@@ -8,6 +8,7 @@ use Assert\Assert;
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClass;
+use function sprintf;
 
 /**
  * An interface cannot become abstract without introducing an explicit BC break, since
@@ -27,6 +28,7 @@ final class InterfaceBecameClass implements InterfaceBased
         return Changes::fromArray([Change::changed(
             sprintf('Interface %s became a class', $fromClass->getName()),
             true
-        )]);
+        ),
+        ]);
     }
 }

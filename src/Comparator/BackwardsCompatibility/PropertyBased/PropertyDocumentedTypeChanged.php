@@ -8,6 +8,10 @@ use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
 use Roave\ApiCompare\Formatter\ReflectionPropertyName;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
+use function array_unique;
+use function implode;
+use function sort;
+use function sprintf;
 
 /**
  * Type declarations for properties are invariant: you can't restrict the type because the consumer may
@@ -26,7 +30,7 @@ final class PropertyDocumentedTypeChanged implements PropertyBased
 
     public function compare(ReflectionProperty $fromProperty, ReflectionProperty $toProperty) : Changes
     {
-        if ('' === $fromProperty->getDocComment()) {
+        if ($fromProperty->getDocComment() === '') {
             return Changes::new();
         }
 

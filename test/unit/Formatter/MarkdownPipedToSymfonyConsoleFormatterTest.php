@@ -1,12 +1,13 @@
 <?php
+
 declare(strict_types=1);
 
 namespace RoaveTest\ApiCompare\Formatter;
 
+use PHPUnit\Framework\TestCase;
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
 use Roave\ApiCompare\Formatter\MarkdownPipedToSymfonyConsoleFormatter;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -35,7 +36,7 @@ EOF;
 
         $output->expects(self::any())
             ->method('writeln')
-            ->willReturnCallback(function (string $output) use ($changeToExpect) {
+            ->willReturnCallback(function (string $output) use ($changeToExpect) : void {
                 self::assertContains($changeToExpect, $output);
             });
 

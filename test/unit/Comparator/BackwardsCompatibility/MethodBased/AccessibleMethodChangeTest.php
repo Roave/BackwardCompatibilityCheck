@@ -11,6 +11,7 @@ use Roave\ApiCompare\Changes;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\MethodBased\AccessibleMethodChange;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\MethodBased\MethodBased;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
+use function uniqid;
 
 /**
  * @covers \Roave\ApiCompare\Comparator\BackwardsCompatibility\MethodBased\AccessibleMethodChange
@@ -23,7 +24,7 @@ final class AccessibleMethodChangeTest extends TestCase
     /** @var MethodBased */
     private $methodCheck;
 
-    protected function setUp()
+    protected function setUp() : void
     {
         parent::setUp();
 

@@ -33,7 +33,8 @@ final class MethodScopeChanged implements MethodBased
                 $scopeTo
             ),
             true
-        )]);
+        ),
+        ]);
     }
 
     private function methodScope(ReflectionMethod $method) : string

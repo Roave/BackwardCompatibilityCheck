@@ -11,6 +11,8 @@ use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
+use function array_combine;
+use function array_keys;
 use function array_map;
 use function iterator_to_array;
 
@@ -101,30 +103,18 @@ PHP
         $toClass            = $toClassReflector->reflect('TheClass');
 
         $properties = [
-            'publicInstanceToStatic'   => [
-                '[BC] CHANGED: Method publicInstanceToStatic() of class TheClass changed scope from instance to static',
-            ],
-            'publicStaticToInstance'   => [
-                '[BC] CHANGED: Method publicStaticToInstance() of class TheClass changed scope from static to instance',
-            ],
+            'publicInstanceToStatic'   => ['[BC] CHANGED: Method publicInstanceToStatic() of class TheClass changed scope from instance to static'],
+            'publicStaticToInstance'   => ['[BC] CHANGED: Method publicStaticToInstance() of class TheClass changed scope from static to instance'],
             'publicInstanceToInstance' => [],
             'publicStaticToStatic'     => [],
 
-            'protectedInstanceToStatic'   => [
-                '[BC] CHANGED: Method protectedInstanceToStatic() of class TheClass changed scope from instance to static',
-            ],
-            'protectedStaticToInstance'   => [
-                '[BC] CHANGED: Method protectedStaticToInstance() of class TheClass changed scope from static to instance',
-            ],
+            'protectedInstanceToStatic'   => ['[BC] CHANGED: Method protectedInstanceToStatic() of class TheClass changed scope from instance to static'],
+            'protectedStaticToInstance'   => ['[BC] CHANGED: Method protectedStaticToInstance() of class TheClass changed scope from static to instance'],
             'protectedInstanceToInstance' => [],
             'protectedStaticToStatic'     => [],
 
-            'privateInstanceToStatic'   => [
-                '[BC] CHANGED: Method privateInstanceToStatic() of class TheClass changed scope from instance to static',
-            ],
-            'privateStaticToInstance'   => [
-                '[BC] CHANGED: Method privateStaticToInstance() of class TheClass changed scope from static to instance',
-            ],
+            'privateInstanceToStatic'   => ['[BC] CHANGED: Method privateInstanceToStatic() of class TheClass changed scope from instance to static'],
+            'privateStaticToInstance'   => ['[BC] CHANGED: Method privateStaticToInstance() of class TheClass changed scope from static to instance'],
             'privateInstanceToInstance' => [],
             'privateStaticToStatic'     => [],
         ];

@@ -10,6 +10,8 @@ use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionType;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
+use function array_map;
+use function array_merge;
 
 final class TypeIsCovariantTest extends TestCase
 {
@@ -245,7 +247,7 @@ PHP
     /** @dataProvider existingNullableTypeStrings */
     public function testCovarianceConsidersNullability(string $type) : void
     {
-        $reflector = new ClassReflector(new StringSourceLocator(
+        $reflector   = new ClassReflector(new StringSourceLocator(
             <<<'PHP'
 <?php
 
@@ -255,7 +257,7 @@ PHP
             ,
             (new BetterReflection())->astLocator()
         ));
-        $nullable = ReflectionType::createFromTypeAndReflector($type, true, $reflector);
+        $nullable    = ReflectionType::createFromTypeAndReflector($type, true, $reflector);
         $notNullable = ReflectionType::createFromTypeAndReflector($type, false, $reflector);
 
         $isCovariant = new TypeIsCovariant();

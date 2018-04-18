@@ -8,6 +8,12 @@ use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
+use function array_combine;
+use function array_diff_key;
+use function array_map;
+use function array_values;
+use function sprintf;
+use function strtolower;
 
 final class MethodAdded implements InterfaceBased
 {

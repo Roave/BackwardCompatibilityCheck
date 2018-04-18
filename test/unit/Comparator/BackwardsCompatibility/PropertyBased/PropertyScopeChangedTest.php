@@ -6,12 +6,13 @@ namespace RoaveTest\ApiCompare\Comparator\BackwardsCompatibility\PropertyBased;
 
 use PHPUnit\Framework\TestCase;
 use Roave\ApiCompare\Change;
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\PropertyBased\PropertyDefaultValueChanged;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\PropertyBased\PropertyScopeChanged;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
+use function array_combine;
+use function array_keys;
 use function array_map;
 use function iterator_to_array;
 
@@ -102,30 +103,18 @@ PHP
         $toClass            = $toClassReflector->reflect('TheClass');
 
         $properties = [
-            'publicInstanceToStatic'   => [
-                '[BC] CHANGED: Property $publicInstanceToStatic of TheClass changed scope from instance to static',
-            ],
-            'publicStaticToInstance'   => [
-                '[BC] CHANGED: Property $publicStaticToInstance of TheClass changed scope from static to instance',
-            ],
+            'publicInstanceToStatic'   => ['[BC] CHANGED: Property $publicInstanceToStatic of TheClass changed scope from instance to static'],
+            'publicStaticToInstance'   => ['[BC] CHANGED: Property $publicStaticToInstance of TheClass changed scope from static to instance'],
             'publicInstanceToInstance' => [],
             'publicStaticToStatic'     => [],
 
-            'protectedInstanceToStatic'    => [
-                '[BC] CHANGED: Property $protectedInstanceToStatic of TheClass changed scope from instance to static',
-            ],
-            'protectedStaticToInstance'    => [
-                '[BC] CHANGED: Property $protectedStaticToInstance of TheClass changed scope from static to instance',
-            ],
+            'protectedInstanceToStatic'    => ['[BC] CHANGED: Property $protectedInstanceToStatic of TheClass changed scope from instance to static'],
+            'protectedStaticToInstance'    => ['[BC] CHANGED: Property $protectedStaticToInstance of TheClass changed scope from static to instance'],
             'protectedInstanceToInstance' => [],
             'protectedStaticToStatic'      => [],
 
-            'privateInstanceToStatic'    => [
-                '[BC] CHANGED: Property $privateInstanceToStatic of TheClass changed scope from instance to static'
-            ],
-            'privateStaticToInstance'   => [
-                '[BC] CHANGED: Property $privateStaticToInstance of TheClass changed scope from static to instance'
-            ],
+            'privateInstanceToStatic'    => ['[BC] CHANGED: Property $privateInstanceToStatic of TheClass changed scope from instance to static'],
+            'privateStaticToInstance'   => ['[BC] CHANGED: Property $privateStaticToInstance of TheClass changed scope from static to instance'],
             'privateInstanceToInstance' => [],
             'privateStaticToStatic'     => [],
         ];

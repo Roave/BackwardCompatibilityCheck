@@ -8,7 +8,7 @@ use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
 use Roave\ApiCompare\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
-use Roave\BetterReflection\Reflection\ReflectionMethod;
+use function sprintf;
 
 /**
  * PHP still (sadly) supports by-ref return types, so the type is wildly different between by-ref and by-val, and

@@ -11,7 +11,9 @@ use Roave\ApiCompare\Changes;
 use function iterator_to_array;
 use function random_bytes;
 use function random_int;
+use function serialize;
 use function uniqid;
+use function unserialize;
 
 /**
  * @covers \Roave\ApiCompare\Changes

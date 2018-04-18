@@ -11,6 +11,9 @@ use Roave\ApiCompare\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
 use Roave\BetterReflection\Reflection\ReflectionParameter;
 use Roave\BetterReflection\Reflection\ReflectionType;
+use function array_intersect_key;
+use function array_values;
+use function sprintf;
 
 /**
  * When a parameter type changes, the new type should be wider than the previous type, or else

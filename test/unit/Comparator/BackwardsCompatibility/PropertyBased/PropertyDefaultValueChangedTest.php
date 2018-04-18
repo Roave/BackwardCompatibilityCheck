@@ -11,6 +11,8 @@ use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
+use function array_combine;
+use function array_keys;
 use function array_map;
 use function iterator_to_array;
 
@@ -116,32 +118,20 @@ PHP
             'publicNothingToNothing'               => [],
             'publicNothingToNull'                  => [],
             'publicNullToNull'                     => [],
-            'publicValueChanged'                   => [
-                '[BC] CHANGED: Property TheClass#$publicValueChanged changed default value from 1 to 2',
-            ],
-            'publicValueToSimilarValue'            => [
-                '[BC] CHANGED: Property TheClass#$publicValueToSimilarValue changed default value from \'1\' to 1',
-            ],
+            'publicValueChanged'                   => ['[BC] CHANGED: Property TheClass#$publicValueChanged changed default value from 1 to 2'],
+            'publicValueToSimilarValue'            => ['[BC] CHANGED: Property TheClass#$publicValueToSimilarValue changed default value from \'1\' to 1'],
             'publicExpressionToExpressionValue'    => [],
             'protectedNothingToNothing'            => [],
             'protectedNothingToNull'               => [],
             'protectedNullToNull'                  => [],
-            'protectedValueChanged'                => [
-                '[BC] CHANGED: Property TheClass#$protectedValueChanged changed default value from 1 to 2',
-            ],
-            'protectedValueToSimilarValue'         => [
-                '[BC] CHANGED: Property TheClass#$protectedValueToSimilarValue changed default value from \'1\' to 1',
-            ],
+            'protectedValueChanged'                => ['[BC] CHANGED: Property TheClass#$protectedValueChanged changed default value from 1 to 2'],
+            'protectedValueToSimilarValue'         => ['[BC] CHANGED: Property TheClass#$protectedValueToSimilarValue changed default value from \'1\' to 1'],
             'protectedExpressionToExpressionValue' => [],
             'privateNothingToNothing'              => [],
             'privateNothingToNull'                 => [],
             'privateNullToNull'                    => [],
-            'privateValueChanged'                  => [
-                '[BC] CHANGED: Property TheClass#$privateValueChanged changed default value from 1 to 2',
-            ],
-            'privateValueToSimilarValue'           => [
-                '[BC] CHANGED: Property TheClass#$privateValueToSimilarValue changed default value from \'1\' to 1',
-            ],
+            'privateValueChanged'                  => ['[BC] CHANGED: Property TheClass#$privateValueChanged changed default value from 1 to 2'],
+            'privateValueToSimilarValue'           => ['[BC] CHANGED: Property TheClass#$privateValueToSimilarValue changed default value from \'1\' to 1'],
             'privateExpressionToExpressionValue'   => [],
         ];
 

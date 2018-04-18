@@ -28,6 +28,7 @@ final class MethodBecameFinal implements MethodBased
                 $fromMethod->getDeclaringClass()->getName()
             ),
             true
-        )]);
+        ),
+        ]);
     }
 }

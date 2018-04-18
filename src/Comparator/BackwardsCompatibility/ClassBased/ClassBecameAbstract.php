@@ -8,6 +8,7 @@ use Assert\Assert;
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClass;
+use function sprintf;
 
 /**
  * A class cannot become abstract without introducing an explicit BC break, since
@@ -32,6 +33,7 @@ final class ClassBecameAbstract implements ClassBased
         return Changes::fromArray([Change::changed(
             sprintf('Class %s became abstract', $fromClass->getName()),
             true
-        )]);
+        ),
+        ]);
     }
 }

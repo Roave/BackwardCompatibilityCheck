@@ -10,6 +10,7 @@ use Roave\ApiCompare\Comparator\Variance\TypeIsCovariant;
 use Roave\ApiCompare\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
 use Roave\BetterReflection\Reflection\ReflectionType;
+use function sprintf;
 
 /**
  * When the return type of a function changes, the new return type must be covariant to the current type.
@@ -27,7 +28,7 @@ final class ReturnTypeCovarianceChanged implements FunctionBased
     public function __construct(TypeIsCovariant $typeIsCovariant)
     {
         $this->typeIsCovariant = $typeIsCovariant;
-        $this->formatFunction = new ReflectionFunctionAbstractName();
+        $this->formatFunction  = new ReflectionFunctionAbstractName();
     }
 
     public function compare(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction) : Changes

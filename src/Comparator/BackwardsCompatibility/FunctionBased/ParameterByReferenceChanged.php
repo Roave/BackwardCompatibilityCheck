@@ -8,8 +8,10 @@ use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
 use Roave\ApiCompare\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
-use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflection\ReflectionParameter;
+use function array_intersect_key;
+use function array_values;
+use function sprintf;
 
 /**
  * A parameter passed by-value and a parameter passed by-reference are wildly different, so changing
