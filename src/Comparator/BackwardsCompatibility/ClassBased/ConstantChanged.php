@@ -29,8 +29,8 @@ final class ConstantChanged implements ClassBased
             function (Changes $accumulator, string $constantName) use ($constantsFrom, $constantsTo) : Changes {
                 return $accumulator->mergeWith($this->checkConstant->compare(
                     $constantsFrom[$constantName],
-                    $constantsTo[$constantName])
-                );
+                    $constantsTo[$constantName]
+                ));
             },
             Changes::new()
         );

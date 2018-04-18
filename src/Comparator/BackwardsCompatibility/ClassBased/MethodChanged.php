@@ -32,8 +32,8 @@ final class MethodChanged implements ClassBased
             function (Changes $accumulator, string $methodName) use ($methodsFrom, $methodsTo) : Changes {
                 return $accumulator->mergeWith($this->checkMethod->compare(
                     $methodsFrom[$methodName],
-                    $methodsTo[$methodName])
-                );
+                    $methodsTo[$methodName]
+                ));
             },
             Changes::new()
         );

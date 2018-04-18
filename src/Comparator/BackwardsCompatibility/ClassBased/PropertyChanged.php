@@ -31,8 +31,8 @@ final class PropertyChanged implements ClassBased
             function (Changes $accumulator, string $propertyName) use ($propertiesFrom, $propertiesTo) : Changes {
                 return $accumulator->mergeWith($this->checkProperty->compare(
                     $propertiesFrom[$propertyName],
-                    $propertiesTo[$propertyName])
-                );
+                    $propertiesTo[$propertyName]
+                ));
             },
             Changes::new()
         );
