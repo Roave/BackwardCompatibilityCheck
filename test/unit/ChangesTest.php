@@ -18,6 +18,38 @@ use function uniqid;
  */
 final class ChangesTest extends TestCase
 {
+    public function testMergeWith() : void
+    {
+        $changes1 = Changes::fromArray([
+            Change::changed('a', true),
+        ]);
+
+        $changes2 = Changes::fromArray([
+            Change::removed('b', false),
+        ]);
+
+        $frozen1 = unserialize(serialize($changes1));
+        $frozen2 = unserialize(serialize($changes2));
+
+        self::assertEquals(
+            Changes::fromArray([
+                Change::changed('a', true),
+                Change::removed('b', false),
+            ]),
+            $changes1->mergeWith($changes2)
+        );
+        self::assertEquals(
+            Changes::fromArray([
+                Change::removed('b', false),
+                Change::changed('a', true),
+            ]),
+            $changes2->mergeWith($changes1)
+        );
+
+        self::assertEquals($frozen1, $changes1, 'Original Changes instance not mutated');
+        self::assertEquals($frozen2, $changes2, 'Original Changes instance not mutated');
+    }
+
     public function testFromArray() : void
     {
         $change = Change::added('added', true);
