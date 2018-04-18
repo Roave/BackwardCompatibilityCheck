@@ -19,15 +19,13 @@ final class ReflectionFunctionAbstractNameTest extends TestCase
 {
     /**
      * @dataProvider functionsToBeTested
-     *
-     * @param string[] $expectedMessages
      */
-    public function testDiffs(ReflectionFunctionAbstract $function, string $expectedName) : void
+    public function testName(ReflectionFunctionAbstract $function, string $expectedName) : void
     {
         self::assertSame($expectedName, (new ReflectionFunctionAbstractName())->__invoke($function));
     }
 
-    /** @return (string[]|ReflectionFunctionAbstract)[][] */
+    /** @return (string|ReflectionFunctionAbstract)[][] */
     public function functionsToBeTested() : array
     {
         $locator = new StringSourceLocator(
