@@ -120,8 +120,12 @@ PHP
             'protectedInstanceToInstance' => [],
             'protectedStaticToStatic'      => [],
 
-            'privateInstanceToStatic'    => [],
-            'privateStaticToInstance'   => [],
+            'privateInstanceToStatic'    => [
+                '[BC] CHANGED: Property $privateInstanceToStatic of TheClass changed scope from instance to static'
+            ],
+            'privateStaticToInstance'   => [
+                '[BC] CHANGED: Property $privateStaticToInstance of TheClass changed scope from static to instance'
+            ],
             'privateInstanceToInstance' => [],
             'privateStaticToStatic'     => [],
         ];

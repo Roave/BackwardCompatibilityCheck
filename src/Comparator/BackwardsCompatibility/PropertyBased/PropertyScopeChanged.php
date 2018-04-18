@@ -16,10 +16,6 @@ final class PropertyScopeChanged implements PropertyBased
 {
     public function compare(ReflectionProperty $fromProperty, ReflectionProperty $toProperty) : Changes
     {
-        if ($fromProperty->isPrivate()) {
-            return Changes::new();
-        }
-
         $fromScope = $this->scopeAsString($fromProperty);
         $toScope   = $this->scopeAsString($toProperty);
 

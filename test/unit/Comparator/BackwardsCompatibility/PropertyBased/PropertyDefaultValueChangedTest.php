@@ -113,16 +113,16 @@ PHP
         $toClass            = $toClassReflector->reflect('TheClass');
 
         $properties = [
-            'publicNothingToNothing'            => [],
-            'publicNothingToNull'               => [],
-            'publicNullToNull'                  => [],
-            'publicValueChanged'                => [
+            'publicNothingToNothing'               => [],
+            'publicNothingToNull'                  => [],
+            'publicNullToNull'                     => [],
+            'publicValueChanged'                   => [
                 '[BC] CHANGED: Property TheClass#$publicValueChanged changed default value from 1 to 2',
             ],
-            'publicValueToSimilarValue'         => [
+            'publicValueToSimilarValue'            => [
                 '[BC] CHANGED: Property TheClass#$publicValueToSimilarValue changed default value from \'1\' to 1',
             ],
-            'publicExpressionToExpressionValue' => [],
+            'publicExpressionToExpressionValue'    => [],
             'protectedNothingToNothing'            => [],
             'protectedNothingToNull'               => [],
             'protectedNullToNull'                  => [],
@@ -133,12 +133,16 @@ PHP
                 '[BC] CHANGED: Property TheClass#$protectedValueToSimilarValue changed default value from \'1\' to 1',
             ],
             'protectedExpressionToExpressionValue' => [],
-            'privateNothingToNothing'            => [],
-            'privateNothingToNull'               => [],
-            'privateNullToNull'                  => [],
-            'privateValueChanged'                => [],
-            'privateValueToSimilarValue'         => [],
-            'privateExpressionToExpressionValue' => [],
+            'privateNothingToNothing'              => [],
+            'privateNothingToNull'                 => [],
+            'privateNullToNull'                    => [],
+            'privateValueChanged'                  => [
+                '[BC] CHANGED: Property TheClass#$privateValueChanged changed default value from 1 to 2',
+            ],
+            'privateValueToSimilarValue'           => [
+                '[BC] CHANGED: Property TheClass#$privateValueToSimilarValue changed default value from \'1\' to 1',
+            ],
+            'privateExpressionToExpressionValue'   => [],
         ];
 
         return array_combine(

@@ -21,10 +21,6 @@ final class PropertyDefaultValueChanged implements PropertyBased
 
     public function compare(ReflectionProperty $fromProperty, ReflectionProperty $toProperty) : Changes
     {
-        if ($fromProperty->isPrivate()) {
-            return Changes::new();
-        }
-
         $fromPropertyDefaultValue = $fromProperty->getDefaultValue();
         $toPropertyDefaultValue   = $toProperty->getDefaultValue();
 

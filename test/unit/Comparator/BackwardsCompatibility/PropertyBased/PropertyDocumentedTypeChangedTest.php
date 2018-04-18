@@ -175,7 +175,9 @@ PHP
             'publicCompositeTypeDocblockToDifferentCompositeTypeDocblock'       => [
                 '[BC] CHANGED: Type documentation for property TheClass#$publicCompositeTypeDocblockToDifferentCompositeTypeDocblock changed from float|int to float|int|string',
             ],
-            'privateDocblockToDifferentDocblock'                                => [],
+            'privateDocblockToDifferentDocblock'                                => [
+                '[BC] CHANGED: Type documentation for property TheClass#$privateDocblockToDifferentDocblock changed from int to float',
+            ],
         ];
 
         return array_combine(

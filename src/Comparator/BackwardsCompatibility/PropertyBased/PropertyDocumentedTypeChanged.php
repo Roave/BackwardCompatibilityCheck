@@ -26,10 +26,6 @@ final class PropertyDocumentedTypeChanged implements PropertyBased
 
     public function compare(ReflectionProperty $fromProperty, ReflectionProperty $toProperty) : Changes
     {
-        if ($fromProperty->isPrivate()) {
-            return Changes::new();
-        }
-
         if ('' === $fromProperty->getDocComment()) {
             return Changes::new();
         }

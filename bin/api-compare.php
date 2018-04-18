@@ -67,11 +67,13 @@ use function file_exists;
                         )
                     )
                 ),
-                new PropertyBased\MultiPropertyBased(
-                    new PropertyBased\PropertyDocumentedTypeChanged(),
-                    new PropertyBased\PropertyDefaultValueChanged(),
-                    new PropertyBased\PropertyVisibilityReduced(),
-                    new PropertyBased\PropertyScopeChanged()
+                new PropertyBased\AccessiblePropertyChanged(
+                    new PropertyBased\MultiPropertyBased(
+                        new PropertyBased\PropertyDocumentedTypeChanged(),
+                        new PropertyBased\PropertyDefaultValueChanged(),
+                        new PropertyBased\PropertyVisibilityReduced(),
+                        new PropertyBased\PropertyScopeChanged()
+                    )
                 ),
                 new ClassConstantBased\MultiConstantBased(
                     new ClassConstantBased\ConstantVisibilityReduced(),
