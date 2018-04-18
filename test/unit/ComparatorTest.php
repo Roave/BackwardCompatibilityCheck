@@ -32,9 +32,6 @@ final class ComparatorTest extends TestCase
     /** @var MethodBased|MockObject */
     private $methodBasedComparison;
 
-    /** @var PropertyBased|MockObject */
-    private $propertyBasedComparison;
-
     /** @var ConstantBased|MockObject */
     private $constantBasedComparison;
 
@@ -53,13 +50,11 @@ final class ComparatorTest extends TestCase
         $this->classBasedComparison     = $this->createMock(ClassBased::class);
         $this->interfaceBasedComparison = $this->createMock(InterfaceBased::class);
         $this->methodBasedComparison    = $this->createMock(MethodBased::class);
-        $this->propertyBasedComparison  = $this->createMock(PropertyBased::class);
         $this->constantBasedComparison  = $this->createMock(ConstantBased::class);
         $this->comparator               = new Comparator(
             $this->classBasedComparison,
             $this->interfaceBasedComparison,
             $this->methodBasedComparison,
-            $this->propertyBasedComparison,
             $this->constantBasedComparison
         );
     }
@@ -68,7 +63,6 @@ final class ComparatorTest extends TestCase
     {
         $this->classBasedComparatorWillBeCalled();
         $this->methodBasedComparatorWillBeCalled();
-        $this->propertyBasedComparatorWillBeCalled();
         $this->constantBasedComparatorWillBeCalled();
         $this->interfaceBasedComparatorWillNotBeCalled();
 
@@ -76,7 +70,6 @@ final class ComparatorTest extends TestCase
             Changes::fromArray([
                 Change::changed('class change', true),
                 Change::changed('constant change', true),
-                Change::changed('property change', true),
                 Change::changed('method change', true),
             ]),
             $this->comparator->compare(
@@ -110,7 +103,6 @@ PHP
     {
         $this->classBasedComparatorWillBeCalled();
         $this->methodBasedComparatorWillNotBeCalled();
-        $this->propertyBasedComparatorWillNotBeCalled();
         $this->constantBasedComparatorWillNotBeCalled();
         $this->interfaceBasedComparatorWillNotBeCalled();
 
@@ -145,7 +137,6 @@ PHP
     {
         $this->classBasedComparatorWillBeCalled();
         $this->methodBasedComparatorWillNotBeCalled();
-        $this->propertyBasedComparatorWillNotBeCalled();
         $this->constantBasedComparatorWillNotBeCalled();
         $this->interfaceBasedComparatorWillBeCalled();
 
@@ -220,25 +211,6 @@ PHP
     {
         $this
             ->methodBasedComparison
-            ->expects(self::never())
-            ->method('compare');
-    }
-
-    private function propertyBasedComparatorWillBeCalled() : void
-    {
-        $this
-            ->propertyBasedComparison
-            ->expects(self::atLeastOnce())
-            ->method('compare')
-            ->willReturn(Changes::fromArray([
-                Change::changed('property change', true),
-            ]));
-    }
-
-    private function propertyBasedComparatorWillNotBeCalled() : void
-    {
-        $this
-            ->propertyBasedComparison
             ->expects(self::never())
             ->method('compare');
     }

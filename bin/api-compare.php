@@ -45,7 +45,17 @@ use function file_exists;
                     new ClassBased\ClassBecameFinal(),
                     new ClassBased\ConstantRemoved(),
                     new ClassBased\PropertyRemoved(),
-                    new ClassBased\MethodRemoved()
+                    new ClassBased\MethodRemoved(),
+                    new ClassBased\PropertyChanged(
+                        new PropertyBased\AccessiblePropertyChanged(
+                            new PropertyBased\MultiPropertyBased(
+                                new PropertyBased\PropertyDocumentedTypeChanged(),
+                                new PropertyBased\PropertyDefaultValueChanged(),
+                                new PropertyBased\PropertyVisibilityReduced(),
+                                new PropertyBased\PropertyScopeChanged()
+                            )
+                        )
+                    )
                 ),
                 new InterfaceBased\MultiInterfaceBased(
                     new InterfaceBased\InterfaceBecameClass(),
@@ -71,14 +81,6 @@ use function file_exists;
                                 new FunctionBased\ParameterTypeContravarianceChanged(new TypeIsContravariant())
                             )
                         )
-                    )
-                ),
-                new PropertyBased\AccessiblePropertyChanged(
-                    new PropertyBased\MultiPropertyBased(
-                        new PropertyBased\PropertyDocumentedTypeChanged(),
-                        new PropertyBased\PropertyDefaultValueChanged(),
-                        new PropertyBased\PropertyVisibilityReduced(),
-                        new PropertyBased\PropertyScopeChanged()
                     )
                 ),
                 new ClassConstantBased\MultiConstantBased(

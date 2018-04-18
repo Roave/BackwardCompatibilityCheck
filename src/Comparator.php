@@ -33,11 +33,6 @@ class Comparator
     private $methodBasedComparisons;
 
     /**
-     * @var PropertyBased
-     */
-    private $propertyBasedComparisons;
-
-    /**
      * @var ConstantBased
      */
     private $constantBasedComparisons;
@@ -46,13 +41,11 @@ class Comparator
         ClassBased $classBasedComparisons,
         InterfaceBased $interfaceBasedComparisons,
         MethodBased $methodBasedComparisons,
-        PropertyBased $propertyBasedComparisons,
         ConstantBased $constantBasedComparisons
     ) {
         $this->classBasedComparisons     = $classBasedComparisons;
         $this->interfaceBasedComparisons = $interfaceBasedComparisons;
         $this->methodBasedComparisons    = $methodBasedComparisons;
-        $this->propertyBasedComparisons  = $propertyBasedComparisons;
         $this->constantBasedComparisons  = $constantBasedComparisons;
     }
 
@@ -89,10 +82,6 @@ class Comparator
             $changelog = $changelog->mergeWith($this->examineMethod($oldMethod, $newClass));
         }
 
-        foreach ($oldClass->getProperties() as $oldProperty) {
-            $changelog = $changelog->mergeWith($this->examineProperty($oldProperty, $newClass));
-        }
-
         foreach ($oldClass->getReflectionConstants() as $oldConstant) {
             $changelog = $changelog->mergeWith($this->examineConstant($oldConstant, $newClass));
         }
@@ -109,17 +98,6 @@ class Comparator
         }
 
         return $this->methodBasedComparisons->compare($oldMethod, $newClass->getMethod($methodName));
-    }
-
-    private function examineProperty(ReflectionProperty $oldProperty, ReflectionClass $newClass) : Changes
-    {
-        $newProperty = $newClass->getProperty($oldProperty->getName());
-
-        if (! $newProperty) {
-            return Changes::new();
-        }
-
-        return $this->propertyBasedComparisons->compare($oldProperty, $newProperty);
     }
 
     private function examineConstant(ReflectionClassConstant $oldConstant, ReflectionClass $newClass) : Changes
