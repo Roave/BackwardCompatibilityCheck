@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 class Thing
@@ -7,7 +8,7 @@ class Thing
     {
     }
 
-    public function methodGone()
+    public function methodGone() : void
     {
     }
 }

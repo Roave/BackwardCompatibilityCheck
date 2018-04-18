@@ -14,9 +14,20 @@
 
     <file>./bin</file>
     <file>./src</file>
+    <file>./test/unit</file>
 
     <rule ref="Doctrine">
-        <exclude name="SlevomatCodingStandard.Classes.SuperfluousInterfaceNaming"/>
+        <exclude-pattern>src/Comparator/BackwardsCompatibility/InterfaceBased/InterfaceBased.php</exclude-pattern>
+        <exclude-pattern>test/unit/Formatter/ReflectionFunctionAbstractNameTest.php</exclude-pattern>
+        <exclude-pattern>test/unit/Comparator/BackwardsCompatibility/FunctionBased/ParameterByReferenceChangedTest.php</exclude-pattern>
+        <exclude-pattern>test/unit/Comparator/BackwardsCompatibility/FunctionBased/RequiredParameterAmountIncreasedTest.php</exclude-pattern>
+        <exclude-pattern>test/unit/Comparator/BackwardsCompatibility/FunctionBased/ParameterTypeChangedTest.php</exclude-pattern>
+        <exclude-pattern>test/unit/Comparator/BackwardsCompatibility/FunctionBased/ReturnTypeChangedTest.php</exclude-pattern>
+        <exclude-pattern>test/unit/Comparator/BackwardsCompatibility/FunctionBased/ReturnTypeByReferenceChangedTest.php</exclude-pattern>
+        <exclude-pattern>test/unit/Comparator/BackwardsCompatibility/FunctionBased/ReturnTypeCovarianceChangedTest.php</exclude-pattern>
+        <exclude-pattern>test/unit/Comparator/BackwardsCompatibility/FunctionBased/ParameterDefaultValueChangedTest.php</exclude-pattern>
+        <exclude-pattern>test/unit/Comparator/BackwardsCompatibility/ClassConstantBased/ConstantVisibilityReducedTest.php</exclude-pattern>
+        <exclude-pattern>test/unit/Comparator/BackwardsCompatibility/FunctionBased/ParameterTypeContravarianceChangedTest.php</exclude-pattern>
     </rule>
     <rule ref="PSR2">
         <exclude name="Generic.Files.LineLength"/>
