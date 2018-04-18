@@ -19,7 +19,7 @@ use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
  */
 final class MethodChangedTest extends TestCase
 {
-    public function testWillDetectChangesInProperties() : void
+    public function testWillDetectChangesInMethods() : void
     {
         $astLocator = (new BetterReflection())->astLocator();
 

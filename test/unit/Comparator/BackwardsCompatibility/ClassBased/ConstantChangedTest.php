@@ -7,19 +7,19 @@ namespace RoaveTest\ApiCompare\Comparator\BackwardsCompatibility\ClassBased;
 use PHPUnit\Framework\TestCase;
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassBased\PropertyChanged;
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\PropertyBased\PropertyBased;
+use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassBased\ConstantChanged;
+use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassConstantBased\ConstantBased;
 use Roave\BetterReflection\BetterReflection;
-use Roave\BetterReflection\Reflection\ReflectionProperty;
+use Roave\BetterReflection\Reflection\ReflectionClassConstant;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 
 /**
- * @covers \Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassBased\PropertyChanged
+ * @covers \Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassBased\ConstantChanged
  */
-final class PropertyChangedTest extends TestCase
+final class ConstantChangedTest extends TestCase
 {
-    public function testWillDetectChangesInProperties() : void
+    public function testWillDetectChangesInConstants() : void
     {
         $astLocator = (new BetterReflection())->astLocator();
 
@@ -28,11 +28,11 @@ final class PropertyChangedTest extends TestCase
 <?php
 
 class TheClass {
-    public $a;
-    protected $b;
-    private $c;
-    public static $d;
-    public $G;
+    public const a = 'value';
+    protected const b = 'value';
+    private const c = 'value';
+    public const d = 'value';
+    public const G = 'value';
 }
 PHP
             ,
@@ -44,23 +44,23 @@ PHP
 <?php
 
 class TheClass {
-    protected $b;
-    public static $d;
-    public $e;
-    public $f;
-    public $g;
+    protected const b = 'value';
+    public const d = 'value';
+    public const e = 'value';
+    public const f = 'value';
+    public const g = 'value';
 }
 PHP
             ,
             $astLocator
         );
 
-        $comparator = $this->createMock(PropertyBased::class);
+        $comparator = $this->createMock(ConstantBased::class);
 
         $comparator
             ->expects(self::exactly(2))
             ->method('compare')
-            ->willReturnCallback(function (ReflectionProperty $from, ReflectionProperty $to) : Changes {
+            ->willReturnCallback(function (ReflectionClassConstant $from, ReflectionClassConstant $to) : Changes {
                 $propertyName = $from->getName();
 
                 self::assertSame($propertyName, $to->getName());
@@ -73,7 +73,7 @@ PHP
                 Change::added('b', true),
                 Change::added('d', true),
             ]),
-            (new PropertyChanged($comparator))->compare(
+            (new ConstantChanged($comparator))->compare(
                 (new ClassReflector($fromLocator))->reflect('TheClass'),
                 (new ClassReflector($toLocator))->reflect('TheClass')
             )
