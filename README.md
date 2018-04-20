@@ -1,5 +1,7 @@
 # API Compare Tool
 
+**WARNING** THIS LIBRARY IS NOT YET READY, OR RELEASED YET; IT'S WORK IN PROGRESS ........
+
 A tool that can be used to compare two versions of a class API in PHP
 code.
 
