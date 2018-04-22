@@ -8,7 +8,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\PropertyBased\AccessiblePropertyChanged;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\PropertyBased\OnlyPublicPropertyChanged;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\PropertyBased\PropertyBased;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
@@ -28,7 +27,7 @@ final class OnlyPublicPropertyChangedTest extends TestCase
     /** @var ReflectionProperty|MockObject */
     private $toProperty;
 
-    /** @var AccessiblePropertyChanged */
+    /** @var OnlyPublicPropertyChanged */
     private $changed;
 
     protected function setUp() : void

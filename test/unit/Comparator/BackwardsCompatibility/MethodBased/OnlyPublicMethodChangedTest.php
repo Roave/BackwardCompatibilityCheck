@@ -21,7 +21,7 @@ final class OnlyPublicMethodChangedTest extends TestCase
     /** @var MethodBased|MockObject */
     private $check;
 
-    /** @var MethodBased */
+    /** @var OnlyPublicMethodChanged */
     private $methodCheck;
 
     protected function setUp() : void
