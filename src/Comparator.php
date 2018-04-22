@@ -49,7 +49,7 @@ class Comparator
             );
         }
 
-        if ($oldClass->isInterface() && $newClass->isInterface()) {
+        if ($oldClass->isInterface()) {
             $changelog = $changelog->mergeWith($this->interfaceBasedComparisons->compare($oldClass, $newClass));
         }
 
