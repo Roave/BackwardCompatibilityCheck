@@ -9,15 +9,15 @@ use PHPUnit\Framework\TestCase;
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\PropertyBased\AccessiblePropertyChanged;
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\PropertyBased\OnlyProtectedPropertyChange;
+use Roave\ApiCompare\Comparator\BackwardsCompatibility\PropertyBased\OnlyPublicPropertyChanged;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\PropertyBased\PropertyBased;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
 use function uniqid;
 
 /**
- * @covers \Roave\ApiCompare\Comparator\BackwardsCompatibility\PropertyBased\OnlyProtectedPropertyChange
+ * @covers \Roave\ApiCompare\Comparator\BackwardsCompatibility\PropertyBased\OnlyPublicPropertyChanged
  */
-final class OnlyProtectedPropertyChangeTest extends TestCase
+final class OnlyPublicPropertyChangedTest extends TestCase
 {
     /** @var PropertyBased|MockObject */
     private $check;
@@ -36,12 +36,12 @@ final class OnlyProtectedPropertyChangeTest extends TestCase
         parent::setUp();
 
         $this->check        = $this->createMock(PropertyBased::class);
-        $this->changed      = new OnlyProtectedPropertyChange($this->check);
+        $this->changed      = new OnlyPublicPropertyChanged($this->check);
         $this->fromProperty = $this->createMock(ReflectionProperty::class);
         $this->toProperty   = $this->createMock(ReflectionProperty::class);
     }
 
-    public function testSkipsNonProtectedProperty() : void
+    public function testSkipsNonPublicProperty() : void
     {
         $this
             ->check
@@ -51,7 +51,7 @@ final class OnlyProtectedPropertyChangeTest extends TestCase
         $this
             ->fromProperty
             ->expects(self::any())
-            ->method('isProtected')
+            ->method('isPublic')
             ->willReturn(false);
 
         self::assertEquals(
@@ -60,7 +60,7 @@ final class OnlyProtectedPropertyChangeTest extends TestCase
         );
     }
 
-    public function testChecksProtectedProperty() : void
+    public function testChecksPublicProperty() : void
     {
         $changes = Changes::fromArray([Change::changed(uniqid('potato', true), true)]);
 
@@ -74,7 +74,7 @@ final class OnlyProtectedPropertyChangeTest extends TestCase
         $this
             ->fromProperty
             ->expects(self::any())
-            ->method('isProtected')
+            ->method('isPublic')
             ->willReturn(true);
 
         self::assertEquals(

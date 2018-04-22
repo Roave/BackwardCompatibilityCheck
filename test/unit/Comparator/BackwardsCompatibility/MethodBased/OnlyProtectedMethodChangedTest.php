@@ -9,14 +9,15 @@ use PHPUnit\Framework\TestCase;
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\MethodBased\MethodBased;
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\MethodBased\OnlyPublicMethodChange;
+use Roave\ApiCompare\Comparator\BackwardsCompatibility\MethodBased\OnlyProtectedMethodChanged;
+use Roave\ApiCompare\Comparator\BackwardsCompatibility\MethodBased\OnlyPublicMethodChanged;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
 use function uniqid;
 
 /**
- * @covers \Roave\ApiCompare\Comparator\BackwardsCompatibility\MethodBased\OnlyPublicMethodChange
+ * @covers \Roave\ApiCompare\Comparator\BackwardsCompatibility\MethodBased\OnlyProtectedMethodChanged
  */
-final class OnlyPublicMethodChangeTest extends TestCase
+final class OnlyProtectedMethodChangedTest extends TestCase
 {
     /** @var MethodBased|MockObject */
     private $check;
@@ -29,10 +30,10 @@ final class OnlyPublicMethodChangeTest extends TestCase
         parent::setUp();
 
         $this->check       = $this->createMock(MethodBased::class);
-        $this->methodCheck = new OnlyPublicMethodChange($this->check);
+        $this->methodCheck = new OnlyProtectedMethodChanged($this->check);
     }
 
-    public function testWillSkipCheckingNonPublicMethods() : void
+    public function testWillSkipCheckingNonProtectedMethods() : void
     {
         /** @var ReflectionMethod|MockObject $to */
         $from = $this->createMock(ReflectionMethod::class);
@@ -41,7 +42,7 @@ final class OnlyPublicMethodChangeTest extends TestCase
 
         $from
             ->expects(self::any())
-            ->method('isPublic')
+            ->method('isProtected')
             ->willReturn(false);
 
         $this
@@ -52,7 +53,7 @@ final class OnlyPublicMethodChangeTest extends TestCase
         self::assertEquals(Changes::new(), $this->methodCheck->compare($from, $to));
     }
 
-    public function testWillCheckPublicMethods() : void
+    public function testWillCheckProtectedMethods() : void
     {
         /** @var ReflectionMethod|MockObject $to */
         $from = $this->createMock(ReflectionMethod::class);
@@ -61,7 +62,7 @@ final class OnlyPublicMethodChangeTest extends TestCase
 
         $from
             ->expects(self::any())
-            ->method('isPublic')
+            ->method('isProtected')
             ->willReturn(true);
 
         $result = Changes::fromArray([

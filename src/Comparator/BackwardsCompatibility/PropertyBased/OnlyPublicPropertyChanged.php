@@ -7,7 +7,7 @@ namespace Roave\ApiCompare\Comparator\BackwardsCompatibility\PropertyBased;
 use Roave\ApiCompare\Changes;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
 
-final class OnlyPublicPropertyChange implements PropertyBased
+final class OnlyPublicPropertyChanged implements PropertyBased
 {
     /** @var PropertyBased */
     private $propertyBased;

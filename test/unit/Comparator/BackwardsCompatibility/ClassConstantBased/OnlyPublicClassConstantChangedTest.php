@@ -9,14 +9,14 @@ use PHPUnit\Framework\TestCase;
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassConstantBased\ClassConstantBased;
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassConstantBased\OnlyProtectedClassConstantChange;
+use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassConstantBased\OnlyPublicClassConstantChanged;
 use Roave\BetterReflection\Reflection\ReflectionClassConstant;
 use function uniqid;
 
 /**
- * @covers \Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassConstantBased\OnlyProtectedClassConstantChange
+ * @covers \Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassConstantBased\OnlyPublicClassConstantChanged
  */
-final class OnlyProtectedClassConstantChangeTest extends TestCase
+final class OnlyPublicClassConstantChangedTest extends TestCase
 {
     /** @var ClassConstantBased|MockObject */
     private $check;
@@ -27,7 +27,7 @@ final class OnlyProtectedClassConstantChangeTest extends TestCase
     /** @var ReflectionClassConstant|MockObject */
     private $toConstant;
 
-    /** @var OnlyProtectedClassConstantChange */
+    /** @var OnlyPublicClassConstantChanged */
     private $changed;
 
     protected function setUp() : void
@@ -35,12 +35,12 @@ final class OnlyProtectedClassConstantChangeTest extends TestCase
         parent::setUp();
 
         $this->check        = $this->createMock(ClassConstantBased::class);
-        $this->changed      = new OnlyProtectedClassConstantChange($this->check);
+        $this->changed      = new OnlyPublicClassConstantChanged($this->check);
         $this->fromConstant = $this->createMock(ReflectionClassConstant::class);
         $this->toConstant   = $this->createMock(ReflectionClassConstant::class);
     }
 
-    public function testSkipsNonProtectedConstant() : void
+    public function testSkipsNonPublicConstant() : void
     {
         $this
             ->check
@@ -50,7 +50,7 @@ final class OnlyProtectedClassConstantChangeTest extends TestCase
         $this
             ->fromConstant
             ->expects(self::any())
-            ->method('isProtected')
+            ->method('isPublic')
             ->willReturn(false);
 
         self::assertEquals(
@@ -59,7 +59,7 @@ final class OnlyProtectedClassConstantChangeTest extends TestCase
         );
     }
 
-    public function testChecksProtectedConstant() : void
+    public function testChecksPublicConstant() : void
     {
         $changes = Changes::fromArray([Change::changed(uniqid('potato', true), true)]);
 
@@ -73,7 +73,7 @@ final class OnlyProtectedClassConstantChangeTest extends TestCase
         $this
             ->fromConstant
             ->expects(self::any())
-            ->method('isProtected')
+            ->method('isPublic')
             ->willReturn(true);
 
         self::assertEquals(

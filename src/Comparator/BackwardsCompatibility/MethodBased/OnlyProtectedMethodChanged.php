@@ -10,7 +10,7 @@ use Roave\BetterReflection\Reflection\ReflectionMethod;
 /**
  * Performs a method BC compliance check on methods that are protected
  */
-final class OnlyProtectedMethodChange implements MethodBased
+final class OnlyProtectedMethodChanged implements MethodBased
 {
     /** @var MethodBased */
     private $check;

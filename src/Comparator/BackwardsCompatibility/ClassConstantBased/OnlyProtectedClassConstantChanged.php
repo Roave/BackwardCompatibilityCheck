@@ -7,7 +7,7 @@ namespace Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassConstantBased;
 use Roave\ApiCompare\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClassConstant;
 
-final class OnlyProtectedClassConstantChange implements ClassConstantBased
+final class OnlyProtectedClassConstantChanged implements ClassConstantBased
 {
     /**
      * @var ClassConstantBased
