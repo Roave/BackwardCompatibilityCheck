@@ -15,6 +15,7 @@ use Roave\ApiCompare\Git\ParseRevision;
 use Roave\ApiCompare\Git\PerformCheckoutOfRevision;
 use Roave\ApiCompare\Git\PickVersionFromVersionCollection;
 use Roave\ApiCompare\Git\Revision;
+use Roave\ApiCompare\Support\ArrayHelpers;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Exception\LogicException;
@@ -26,7 +27,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 use function assert;
 use function count;
 use function getcwd;
-use function in_array;
 use function sprintf;
 
 final class ApiCompare extends Command
@@ -132,7 +132,7 @@ final class ApiCompare extends Command
             $outputFormats = $input->getOption('format') ?: [];
             Assert::that($outputFormats)->isArray();
 
-            if (in_array('markdown', $outputFormats, true)) {
+            if (ArrayHelpers::stringArrayContainsString('markdown', $outputFormats)) {
                 (new MarkdownPipedToSymfonyConsoleFormatter($output))->write($changes);
             }
         } finally {

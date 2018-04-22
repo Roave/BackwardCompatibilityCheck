@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Roave\ApiCompare\Comparator\Variance;
 
+use Roave\ApiCompare\Support\ArrayHelpers;
 use Roave\BetterReflection\Reflection\ReflectionType;
-use function in_array;
 use function strtolower;
 
 /**
@@ -69,6 +69,9 @@ final class TypeIsContravariant
             return $typeReflectionClass->implementsInterface($comparedTypeAsString);
         }
 
-        return in_array($comparedTypeAsString, $typeReflectionClass->getParentClassNames(), true);
+        return ArrayHelpers::stringArrayContainsString(
+            $comparedTypeAsString,
+            $typeReflectionClass->getParentClassNames()
+        );
     }
 }
