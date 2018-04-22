@@ -13,7 +13,7 @@ use function array_reduce;
 
 final class ConstantChanged implements ClassBased
 {
-    /** @var ConstantBased */
+    /** @var ClassConstantBased */
     private $checkConstant;
 
     public function __construct(ClassConstantBased $checkConstant)
