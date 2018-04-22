@@ -20,9 +20,7 @@ class Comparator
     /** @var InterfaceBased */
     private $interfaceBasedComparisons;
 
-    /**
-     * @var TraitBased
-     */
+    /** @var TraitBased */
     private $traitBasedComparisons;
 
     public function __construct(

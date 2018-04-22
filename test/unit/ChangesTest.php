@@ -8,6 +8,7 @@ use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
+use function array_fill;
 use function iterator_to_array;
 use function random_bytes;
 use function random_int;

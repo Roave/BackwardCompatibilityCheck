@@ -11,6 +11,7 @@ use Roave\ApiCompare\Changes;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassBased\ClassBased;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\InterfaceBased\UseClassBasedChecksOnAnInterface;
 use Roave\BetterReflection\Reflection\ReflectionClass;
+use function uniqid;
 
 /**
  * @covers \Roave\ApiCompare\Comparator\BackwardsCompatibility\InterfaceBased\UseClassBasedChecksOnAnInterface
@@ -21,11 +22,11 @@ final class UseClassBasedChecksOnAnInterfaceTest extends TestCase
     {
         $changes = Changes::fromArray([Change::added(uniqid('foo', true), true)]);
 
-        /** @var $classBased ClassBased|MockObject */
+        /** @var ClassBased|MockObject $classBased */
         $classBased = $this->createMock(ClassBased::class);
-        /** @var $fromInterface ReflectionClass|MockObject */
+        /** @var ReflectionClass|MockObject $fromInterface */
         $fromInterface = $this->createMock(ReflectionClass::class);
-        /** @var $toInterface ReflectionClass|MockObject */
+        /** @var ReflectionClass|MockObject $toInterface */
         $toInterface = $this->createMock(ReflectionClass::class);
 
         $classBased

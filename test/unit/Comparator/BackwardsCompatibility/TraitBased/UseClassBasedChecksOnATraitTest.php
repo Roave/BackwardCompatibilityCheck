@@ -11,6 +11,7 @@ use Roave\ApiCompare\Changes;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassBased\ClassBased;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\TraitBased\UseClassBasedChecksOnATrait;
 use Roave\BetterReflection\Reflection\ReflectionClass;
+use function uniqid;
 
 /**
  * @covers \Roave\ApiCompare\Comparator\BackwardsCompatibility\TraitBased\UseClassBasedChecksOnATrait
@@ -21,11 +22,11 @@ final class UseClassBasedChecksOnATraitTest extends TestCase
     {
         $changes = Changes::fromArray([Change::added(uniqid('foo', true), true)]);
 
-        /** @var $classBased ClassBased|MockObject */
+        /** @var ClassBased|MockObject $classBased */
         $classBased = $this->createMock(ClassBased::class);
-        /** @var $fromTrait ReflectionClass|MockObject */
+        /** @var ReflectionClass|MockObject $fromTrait */
         $fromTrait = $this->createMock(ReflectionClass::class);
-        /** @var $toTrait ReflectionClass|MockObject */
+        /** @var ReflectionClass|MockObject $toTrait */
         $toTrait = $this->createMock(ReflectionClass::class);
 
         $classBased

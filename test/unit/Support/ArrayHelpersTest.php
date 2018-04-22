@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace RoaveTest\ApiCompare\Support;
 
 use PHPStan\Testing\TestCase;
