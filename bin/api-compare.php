@@ -12,6 +12,7 @@ use Roave\ApiCompare\Comparator\BackwardsCompatibility\FunctionBased;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\InterfaceBased;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\MethodBased;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\PropertyBased;
+use Roave\ApiCompare\Comparator\BackwardsCompatibility\TraitBased;
 use Roave\ApiCompare\Comparator\Variance\TypeIsContravariant;
 use Roave\ApiCompare\Comparator\Variance\TypeIsCovariant;
 use Roave\ApiCompare\Factory\DirectoryReflectorFactory;
@@ -42,6 +43,7 @@ use function file_exists;
                 new ClassBased\MultipleChecksOnAClass(
                     new ClassBased\ClassBecameAbstract(),
                     new ClassBased\ClassBecameInterface(),
+                    new ClassBased\ClassBecameTrait(),
                     new ClassBased\ClassBecameFinal(),
                     new ClassBased\ConstantRemoved(),
                     new ClassBased\PropertyRemoved(),
@@ -175,7 +177,72 @@ use function file_exists;
                 ),
                 new InterfaceBased\MultipleChecksOnAnInterface(
                     new InterfaceBased\InterfaceBecameClass(),
-                    new InterfaceBased\MethodAdded()
+                    new InterfaceBased\InterfaceBecameTrait(),
+                    new InterfaceBased\MethodAdded(),
+                    new InterfaceBased\UseClassBasedChecksOnAnInterface(
+                        new ClassBased\MultipleChecksOnAClass(
+                            new ClassBased\ConstantRemoved(),
+                            new ClassBased\MethodRemoved(),
+                            new ClassBased\ConstantChanged(
+                                new ClassConstantBased\ClassConstantValueChanged()
+                            ),
+                            new ClassBased\MethodChanged(
+                                new MethodBased\MultipleChecksOnAMethod(
+                                    new MethodBased\MethodScopeChanged(),
+                                    new MethodBased\MethodFunctionDefinitionChanged(
+                                        new FunctionBased\MultipleChecksOnAFunction(
+                                            new FunctionBased\ParameterByReferenceChanged(),
+                                            new FunctionBased\ReturnTypeByReferenceChanged(),
+                                            new FunctionBased\RequiredParameterAmountIncreased(),
+                                            new FunctionBased\ParameterDefaultValueChanged(),
+                                            new FunctionBased\ReturnTypeCovarianceChanged(new TypeIsCovariant()),
+                                            new FunctionBased\ReturnTypeChanged(),
+                                            new FunctionBased\ParameterTypeContravarianceChanged(new TypeIsContravariant()),
+                                            new FunctionBased\ParameterTypeChanged()
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    )
+                ),
+                new TraitBased\MultipleChecksOnATrait(
+                    new TraitBased\TraitBecameInterface(),
+                    new TraitBased\TraitBecameClass(),
+                    new TraitBased\UseClassBasedChecksOnATrait(
+                        new ClassBased\MultipleChecksOnAClass(
+                            new ClassBased\PropertyChanged(
+                                new PropertyBased\MultipleChecksOnAProperty(
+                                    new PropertyBased\PropertyDocumentedTypeChanged(),
+                                    new PropertyBased\PropertyDefaultValueChanged(),
+                                    new PropertyBased\PropertyVisibilityReduced(),
+                                    new PropertyBased\PropertyScopeChanged()
+                                )
+                            ),
+                            new ClassBased\MethodChanged(
+                                new MethodBased\MultipleChecksOnAMethod(
+                                    new MethodBased\MultipleChecksOnAMethod(
+                                        new MethodBased\MethodBecameFinal(),
+                                        new MethodBased\MethodConcretenessChanged(),
+                                        new MethodBased\MethodScopeChanged(),
+                                        new MethodBased\MethodVisibilityReduced(),
+                                        new MethodBased\MethodFunctionDefinitionChanged(
+                                            new FunctionBased\MultipleChecksOnAFunction(
+                                                new FunctionBased\ParameterByReferenceChanged(),
+                                                new FunctionBased\ReturnTypeByReferenceChanged(),
+                                                new FunctionBased\RequiredParameterAmountIncreased(),
+                                                new FunctionBased\ParameterDefaultValueChanged(),
+                                                new FunctionBased\ReturnTypeCovarianceChanged(new TypeIsCovariant()),
+                                                new FunctionBased\ReturnTypeChanged(),
+                                                new FunctionBased\ParameterTypeContravarianceChanged(new TypeIsContravariant()),
+                                                new FunctionBased\ParameterTypeChanged()
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    )
                 )
             )
         );

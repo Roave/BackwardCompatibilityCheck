@@ -6,6 +6,7 @@ namespace Roave\ApiCompare;
 
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassBased\ClassBased;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\InterfaceBased\InterfaceBased;
+use Roave\ApiCompare\Comparator\BackwardsCompatibility\TraitBased\TraitBased;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
@@ -19,12 +20,19 @@ class Comparator
     /** @var InterfaceBased */
     private $interfaceBasedComparisons;
 
+    /**
+     * @var TraitBased
+     */
+    private $traitBasedComparisons;
+
     public function __construct(
         ClassBased $classBasedComparisons,
-        InterfaceBased $interfaceBasedComparisons
+        InterfaceBased $interfaceBasedComparisons,
+        TraitBased $traitBasedComparisons
     ) {
         $this->classBasedComparisons     = $classBasedComparisons;
         $this->interfaceBasedComparisons = $interfaceBasedComparisons;
+        $this->traitBasedComparisons     = $traitBasedComparisons;
     }
 
     public function compare(ClassReflector $oldApi, ClassReflector $newApi) : Changes
@@ -50,7 +58,11 @@ class Comparator
         }
 
         if ($oldClass->isInterface()) {
-            $changelog = $changelog->mergeWith($this->interfaceBasedComparisons->compare($oldClass, $newClass));
+            return $changelog->mergeWith($this->interfaceBasedComparisons->compare($oldClass, $newClass));
+        }
+
+        if ($oldClass->isTrait()) {
+            return $changelog->mergeWith($this->traitBasedComparisons->compare($oldClass, $newClass));
         }
 
         return $changelog->mergeWith($this->classBasedComparisons->compare($oldClass, $newClass));

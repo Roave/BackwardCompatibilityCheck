@@ -11,6 +11,7 @@ use Roave\ApiCompare\Changes;
 use Roave\ApiCompare\Comparator;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassBased\ClassBased;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\InterfaceBased\InterfaceBased;
+use Roave\ApiCompare\Comparator\BackwardsCompatibility\TraitBased\TraitBased;
 
 /**
  * @covers \Roave\ApiCompare\Comparator
@@ -26,6 +27,9 @@ final class ComparatorTest extends TestCase
     /** @var InterfaceBased|MockObject */
     private $interfaceBasedComparison;
 
+    /** @var TraitBased|MockObject */
+    private $traitBasedComparison;
+
     /** @var Comparator */
     private $comparator;
 
@@ -40,9 +44,11 @@ final class ComparatorTest extends TestCase
 
         $this->classBasedComparison     = $this->createMock(ClassBased::class);
         $this->interfaceBasedComparison = $this->createMock(InterfaceBased::class);
+        $this->traitBasedComparison     = $this->createMock(TraitBased::class);
         $this->comparator               = new Comparator(
             $this->classBasedComparison,
-            $this->interfaceBasedComparison
+            $this->interfaceBasedComparison,
+            $this->traitBasedComparison
         );
     }
 
@@ -50,6 +56,7 @@ final class ComparatorTest extends TestCase
     {
         $this->classBasedComparatorWillBeCalled();
         $this->interfaceBasedComparatorWillNotBeCalled();
+        $this->traitBasedComparatorWillNotBeCalled();
 
         self::assertEqualsIgnoringOrder(
             Changes::fromArray([
@@ -86,6 +93,7 @@ PHP
     {
         $this->classBasedComparatorWillBeCalled();
         $this->interfaceBasedComparatorWillNotBeCalled();
+        $this->traitBasedComparatorWillNotBeCalled();
 
         self::assertEqualsIgnoringOrder(
             Changes::fromArray([
@@ -116,17 +124,34 @@ PHP
 
     public function testWillRunInterfaceComparators() : void
     {
-        $this->classBasedComparatorWillBeCalled();
+        $this->classBasedComparatorWillNotBeCalled();
         $this->interfaceBasedComparatorWillBeCalled();
+        $this->traitBasedComparatorWillNotBeCalled();
 
         self::assertEqualsIgnoringOrder(
             Changes::fromArray([
-                Change::changed('class change', true),
                 Change::changed('interface change', true),
             ]),
             $this->comparator->compare(
                 self::$stringReflectorFactory->__invoke('<?php interface A {}'),
                 self::$stringReflectorFactory->__invoke('<?php interface A {}')
+            )
+        );
+    }
+
+    public function testWillRunTraitComparators() : void
+    {
+        $this->classBasedComparatorWillNotBeCalled();
+        $this->interfaceBasedComparatorWillNotBeCalled();
+        $this->traitBasedComparatorWillBeCalled();
+
+        self::assertEqualsIgnoringOrder(
+            Changes::fromArray([
+                Change::changed('trait change', true),
+            ]),
+            $this->comparator->compare(
+                self::$stringReflectorFactory->__invoke('<?php trait A {}'),
+                self::$stringReflectorFactory->__invoke('<?php trait A {}')
             )
         );
     }
@@ -143,6 +168,8 @@ PHP
     public function testRemovingAClassCausesABreak() : void
     {
         $this->classBasedComparatorWillNotBeCalled();
+        $this->interfaceBasedComparatorWillNotBeCalled();
+        $this->traitBasedComparatorWillNotBeCalled();
 
         self::assertEqualsIgnoringOrder(
             Changes::fromArray([
@@ -189,6 +216,25 @@ PHP
     {
         $this
             ->interfaceBasedComparison
+            ->expects(self::never())
+            ->method('compare');
+    }
+
+    private function traitBasedComparatorWillBeCalled() : void
+    {
+        $this
+            ->traitBasedComparison
+            ->expects(self::atLeastOnce())
+            ->method('compare')
+            ->willReturn(Changes::fromArray([
+                Change::changed('trait change', true),
+            ]));
+    }
+
+    private function traitBasedComparatorWillNotBeCalled() : void
+    {
+        $this
+            ->traitBasedComparison
             ->expects(self::never())
             ->method('compare');
     }
