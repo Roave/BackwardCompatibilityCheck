@@ -7,6 +7,9 @@ namespace Roave\ApiCompare\Support;
 use Assert\Assert;
 use function in_array;
 
+/**
+ * @internal this is a support class of this library, and should NOT be used outside of it
+ */
 final class ArrayHelpers
 {
     /**
