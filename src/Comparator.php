@@ -43,16 +43,16 @@ class Comparator
         try {
             /** @var ReflectionClass $newClass */
             $newClass = $newApi->reflect($oldClass->getName());
-
-            if ($oldClass->isInterface() && $newClass->isInterface()) {
-                $changelog = $changelog->mergeWith($this->interfaceBasedComparisons->compare($oldClass, $newClass));
-            }
-
-            return $changelog->mergeWith($this->classBasedComparisons->compare($oldClass, $newClass));
         } catch (IdentifierNotFound $exception) {
             return $changelog->withAddedChange(
                 Change::removed(sprintf('Class %s has been deleted', $oldClass->getName()), true)
             );
         }
+
+        if ($oldClass->isInterface() && $newClass->isInterface()) {
+            $changelog = $changelog->mergeWith($this->interfaceBasedComparisons->compare($oldClass, $newClass));
+        }
+
+        return $changelog->mergeWith($this->classBasedComparisons->compare($oldClass, $newClass));
     }
 }
