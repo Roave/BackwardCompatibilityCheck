@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace Roave\ApiCompare\Support;
 
 use Assert\Assert;
-use function array_flip;
-use function array_key_exists;
+use function in_array;
 
 final class ArrayHelpers
 {
@@ -22,6 +21,6 @@ final class ArrayHelpers
     {
         Assert::that($arrayOfStrings)->all()->string();
 
-        return array_key_exists($value, array_flip($arrayOfStrings));
+        return in_array($value, $arrayOfStrings);
     }
 }
