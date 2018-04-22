@@ -171,7 +171,6 @@ final class ApiCompareTest extends TestCase
 
         $this->comparator->expects(self::once())->method('compare')->willReturn(Changes::fromArray([
             Change::added(uniqid('added', true), true),
-            Change::removed(uniqid('removed', true), true),
         ]));
 
         self::assertSame(2, $this->compare->execute($this->input, $this->output));
