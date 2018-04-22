@@ -10,7 +10,6 @@ use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\MethodBased\MethodBased;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\MethodBased\OnlyProtectedMethodChanged;
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\MethodBased\OnlyPublicMethodChanged;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
 use function uniqid;
 

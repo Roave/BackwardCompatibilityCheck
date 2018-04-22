@@ -26,7 +26,7 @@
         <exclude-pattern>test/unit/Comparator/BackwardsCompatibility/FunctionBased/ReturnTypeByReferenceChangedTest.php</exclude-pattern>
         <exclude-pattern>test/unit/Comparator/BackwardsCompatibility/FunctionBased/ReturnTypeCovarianceChangedTest.php</exclude-pattern>
         <exclude-pattern>test/unit/Comparator/BackwardsCompatibility/FunctionBased/ParameterDefaultValueChangedTest.php</exclude-pattern>
-        <exclude-pattern>test/unit/Comparator/BackwardsCompatibility/ClassConstantBased/ConstantVisibilityReducedTest.php</exclude-pattern>
+        <exclude-pattern>test/unit/Comparator/BackwardsCompatibility/ClassConstantBased/ClassConstantVisibilityReducedTest.php</exclude-pattern>
         <exclude-pattern>test/unit/Comparator/BackwardsCompatibility/FunctionBased/ParameterTypeContravarianceChangedTest.php</exclude-pattern>
     </rule>
     <rule ref="PSR2">
