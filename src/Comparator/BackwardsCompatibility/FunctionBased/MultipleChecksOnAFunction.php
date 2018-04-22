@@ -8,7 +8,7 @@ use Roave\ApiCompare\Changes;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
 use function array_reduce;
 
-final class MultiFunctionBased implements FunctionBased
+final class MultipleChecksOnAFunction implements FunctionBased
 {
     /** @var FunctionBased[] */
     private $checks;

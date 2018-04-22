@@ -8,7 +8,7 @@ use Roave\ApiCompare\Changes;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
 use function array_reduce;
 
-final class MultiPropertyBased implements PropertyBased
+final class MultipleChecksOnAProperty implements PropertyBased
 {
     /** @var PropertyBased[] */
     private $checks;

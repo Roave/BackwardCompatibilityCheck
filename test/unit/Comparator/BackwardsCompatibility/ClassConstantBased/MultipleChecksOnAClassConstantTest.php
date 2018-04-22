@@ -9,10 +9,13 @@ use PHPUnit\Framework\TestCase;
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassConstantBased\ConstantBased;
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassConstantBased\MultiConstantBased;
+use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassConstantBased\MultipleChecksOnAClassConstant;
 use Roave\BetterReflection\Reflection\ReflectionClassConstant;
 
-final class MultiConstantBasedTest extends TestCase
+/**
+ * @covers \Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassConstantBased\MultipleChecksOnAClassConstant
+ */
+final class MultipleChecksOnAClassConstantTest extends TestCase
 {
     public function testChecksAllGivenCheckers() : void
     {
@@ -23,7 +26,7 @@ final class MultiConstantBasedTest extends TestCase
         /** @var ConstantBased|MockObject $checker3 */
         $checker3 = $this->createMock(ConstantBased::class);
 
-        $multiCheck = new MultiConstantBased($checker1, $checker2, $checker3);
+        $multiCheck = new MultipleChecksOnAClassConstant($checker1, $checker2, $checker3);
 
         /** @var ReflectionClassConstant|MockObject $from */
         $from = $this->createMock(ReflectionClassConstant::class);

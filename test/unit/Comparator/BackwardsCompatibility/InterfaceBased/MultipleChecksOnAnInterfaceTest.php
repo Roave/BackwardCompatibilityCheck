@@ -2,33 +2,36 @@
 
 declare(strict_types=1);
 
-namespace RoaveTest\ApiCompare\Comparator\BackwardsCompatibility\PropertyBased;
+namespace RoaveTest\ApiCompare\Comparator\BackwardsCompatibility\InterfaceBased;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\PropertyBased\MultiPropertyBased;
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\PropertyBased\PropertyBased;
-use Roave\BetterReflection\Reflection\ReflectionProperty;
+use Roave\ApiCompare\Comparator\BackwardsCompatibility\InterfaceBased\InterfaceBased;
+use Roave\ApiCompare\Comparator\BackwardsCompatibility\InterfaceBased\MultipleChecksOnAnInterface;
+use Roave\BetterReflection\Reflection\ReflectionClass;
 
-final class MultiPropertyBasedTest extends TestCase
+/**
+ * @covers \Roave\ApiCompare\Comparator\BackwardsCompatibility\InterfaceBased\MultipleChecksOnAnInterface
+ */
+final class MultipleChecksOnAnInterfaceTest extends TestCase
 {
     public function testChecksAllGivenCheckers() : void
     {
-        /** @var PropertyBased|MockObject $checker1 */
-        $checker1 = $this->createMock(PropertyBased::class);
-        /** @var PropertyBased|MockObject $checker2 */
-        $checker2 = $this->createMock(PropertyBased::class);
-        /** @var PropertyBased|MockObject $checker3 */
-        $checker3 = $this->createMock(PropertyBased::class);
+        /** @var InterfaceBased|MockObject $checker1 */
+        $checker1 = $this->createMock(InterfaceBased::class);
+        /** @var InterfaceBased|MockObject $checker2 */
+        $checker2 = $this->createMock(InterfaceBased::class);
+        /** @var InterfaceBased|MockObject $checker3 */
+        $checker3 = $this->createMock(InterfaceBased::class);
 
-        $multiCheck = new MultiPropertyBased($checker1, $checker2, $checker3);
+        $multiCheck = new MultipleChecksOnAnInterface($checker1, $checker2, $checker3);
 
-        /** @var ReflectionProperty|MockObject $from */
-        $from = $this->createMock(ReflectionProperty::class);
-        /** @var ReflectionProperty|MockObject $to */
-        $to = $this->createMock(ReflectionProperty::class);
+        /** @var ReflectionClass|MockObject $from */
+        $from = $this->createMock(ReflectionClass::class);
+        /** @var ReflectionClass|MockObject $to */
+        $to = $this->createMock(ReflectionClass::class);
 
         $checker1
             ->expects(self::once())

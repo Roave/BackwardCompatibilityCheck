@@ -39,7 +39,7 @@ use function file_exists;
             new GetVersionCollectionFromGitRepository(),
             new PickLastMinorVersionFromCollection(),
             new Comparator(
-                new ClassBased\MultiClassBased(
+                new ClassBased\MultipleChecksOnAClass(
                     new ClassBased\ClassBecameAbstract(),
                     new ClassBased\ClassBecameInterface(),
                     new ClassBased\ClassBecameFinal(),
@@ -47,16 +47,16 @@ use function file_exists;
                     new ClassBased\PropertyRemoved(),
                     new ClassBased\MethodRemoved(),
                     new ClassBased\OpenClassChanged(
-                        new ClassBased\MultiClassBased(
+                        new ClassBased\MultipleChecksOnAClass(
                             new ClassBased\ConstantChanged(
-                                new ClassConstantBased\MultiConstantBased(
+                                new ClassConstantBased\MultipleChecksOnAClassConstant(
                                     new ClassConstantBased\ConstantVisibilityReduced(),
                                     new ClassConstantBased\ConstantValueChanged()
                                 )
                             ),
                             new ClassBased\PropertyChanged(
                                 new PropertyBased\AccessiblePropertyChanged(
-                                    new PropertyBased\MultiPropertyBased(
+                                    new PropertyBased\MultipleChecksOnAProperty(
                                         new PropertyBased\PropertyDocumentedTypeChanged(),
                                         new PropertyBased\PropertyDefaultValueChanged(),
                                         new PropertyBased\PropertyVisibilityReduced(),
@@ -65,9 +65,9 @@ use function file_exists;
                                 )
                             ),
                             new ClassBased\MethodChanged(
-                                new MethodBased\MultiMethodBased(
+                                new MethodBased\MultipleChecksOnAMethod(
                                     new MethodBased\AccessibleMethodChange(
-                                        new MethodBased\MultiMethodBased(
+                                        new MethodBased\MultipleChecksOnAMethod(
                                             new MethodBased\MethodBecameFinal(),
                                             new MethodBased\MethodConcretenessChanged(),
                                             new MethodBased\MethodScopeChanged(),
@@ -76,7 +76,7 @@ use function file_exists;
                                     ),
                                     new MethodBased\AccessibleMethodChange(
                                         new MethodBased\MethodFunctionDefinitionChanged(
-                                            new FunctionBased\MultiFunctionBased(
+                                            new FunctionBased\MultipleChecksOnAFunction(
                                                 new FunctionBased\ParameterByReferenceChanged(),
                                                 new FunctionBased\ReturnTypeByReferenceChanged(),
                                                 new FunctionBased\RequiredParameterAmountIncreased(),
@@ -93,16 +93,16 @@ use function file_exists;
                         )
                     ),
                     new ClassBased\FinalClassChanged(
-                        new ClassBased\MultiClassBased(
+                        new ClassBased\MultipleChecksOnAClass(
                             new ClassBased\ConstantChanged(
-                                new ClassConstantBased\MultiConstantBased(
+                                new ClassConstantBased\MultipleChecksOnAClassConstant(
                                     new ClassConstantBased\ConstantVisibilityReduced(),
                                     new ClassConstantBased\ConstantValueChanged()
                                 )
                             ),
                             new ClassBased\PropertyChanged(
                                 new PropertyBased\AccessiblePropertyChanged(
-                                    new PropertyBased\MultiPropertyBased(
+                                    new PropertyBased\MultipleChecksOnAProperty(
                                         new PropertyBased\PropertyDocumentedTypeChanged(),
                                         new PropertyBased\PropertyDefaultValueChanged(),
                                         new PropertyBased\PropertyVisibilityReduced(),
@@ -111,9 +111,9 @@ use function file_exists;
                                 )
                             ),
                             new ClassBased\MethodChanged(
-                                new MethodBased\MultiMethodBased(
+                                new MethodBased\MultipleChecksOnAMethod(
                                     new MethodBased\AccessibleMethodChange(
-                                        new MethodBased\MultiMethodBased(
+                                        new MethodBased\MultipleChecksOnAMethod(
                                             new MethodBased\MethodBecameFinal(),
                                             new MethodBased\MethodConcretenessChanged(),
                                             new MethodBased\MethodScopeChanged(),
@@ -122,7 +122,7 @@ use function file_exists;
                                     ),
                                     new MethodBased\AccessibleMethodChange(
                                         new MethodBased\MethodFunctionDefinitionChanged(
-                                            new FunctionBased\MultiFunctionBased(
+                                            new FunctionBased\MultipleChecksOnAFunction(
                                                 new FunctionBased\ParameterByReferenceChanged(),
                                                 new FunctionBased\ReturnTypeByReferenceChanged(),
                                                 new FunctionBased\RequiredParameterAmountIncreased(),
@@ -137,7 +137,7 @@ use function file_exists;
                         )
                     )
                 ),
-                new InterfaceBased\MultiInterfaceBased(
+                new InterfaceBased\MultipleChecksOnAnInterface(
                     new InterfaceBased\InterfaceBecameClass(),
                     new InterfaceBased\MethodAdded()
                 )

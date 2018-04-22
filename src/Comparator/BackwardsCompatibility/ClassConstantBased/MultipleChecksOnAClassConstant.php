@@ -8,7 +8,7 @@ use Roave\ApiCompare\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClassConstant;
 use function array_reduce;
 
-final class MultiConstantBased implements ConstantBased
+final class MultipleChecksOnAClassConstant implements ConstantBased
 {
     /** @var ConstantBased[] */
     private $checks;

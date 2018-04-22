@@ -9,10 +9,13 @@ use PHPUnit\Framework\TestCase;
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\MethodBased\MethodBased;
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\MethodBased\MultiMethodBased;
+use Roave\ApiCompare\Comparator\BackwardsCompatibility\MethodBased\MultipleChecksOnAMethod;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
 
-final class MultiMethodBasedTest extends TestCase
+/**
+ * @covers \Roave\ApiCompare\Comparator\BackwardsCompatibility\MethodBased\MultipleChecksOnAMethod
+ */
+final class MultipleChecksOnAMethodTest extends TestCase
 {
     public function testChecksAllGivenCheckers() : void
     {
@@ -23,7 +26,7 @@ final class MultiMethodBasedTest extends TestCase
         /** @var MethodBased|MockObject $checker3 */
         $checker3 = $this->createMock(MethodBased::class);
 
-        $multiCheck = new MultiMethodBased($checker1, $checker2, $checker3);
+        $multiCheck = new MultipleChecksOnAMethod($checker1, $checker2, $checker3);
 
         /** @var ReflectionMethod|MockObject $from */
         $from = $this->createMock(ReflectionMethod::class);

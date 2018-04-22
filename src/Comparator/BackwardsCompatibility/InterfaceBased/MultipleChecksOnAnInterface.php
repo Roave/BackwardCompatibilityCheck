@@ -8,7 +8,7 @@ use Roave\ApiCompare\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use function array_reduce;
 
-final class MultiInterfaceBased implements InterfaceBased
+final class MultipleChecksOnAnInterface implements InterfaceBased
 {
     /** @var InterfaceBased[] */
     private $checks;
