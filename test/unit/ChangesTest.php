@@ -100,4 +100,14 @@ final class ChangesTest extends TestCase
             iterator_to_array(Changes::new()->withAddedChange($change))
         );
     }
+
+    public function testCount() : void
+    {
+        $count = random_int(1, 10);
+
+        self::assertCount(
+            $count,
+            Changes::fromArray(array_fill(0, $count, Change::added('foo', true)))
+        );
+    }
 }
