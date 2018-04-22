@@ -50,8 +50,8 @@ use function file_exists;
                         new ClassBased\MultipleChecksOnAClass(
                             new ClassBased\ConstantChanged(
                                 new ClassConstantBased\MultipleChecksOnAClassConstant(
-                                    new ClassConstantBased\ConstantVisibilityReduced(),
-                                    new ClassConstantBased\ConstantValueChanged()
+                                    new ClassConstantBased\ClassConstantVisibilityReduced(),
+                                    new ClassConstantBased\ClassConstantValueChanged()
                                 )
                             ),
                             new ClassBased\PropertyChanged(
@@ -96,8 +96,8 @@ use function file_exists;
                         new ClassBased\MultipleChecksOnAClass(
                             new ClassBased\ConstantChanged(
                                 new ClassConstantBased\MultipleChecksOnAClassConstant(
-                                    new ClassConstantBased\ConstantVisibilityReduced(),
-                                    new ClassConstantBased\ConstantValueChanged()
+                                    new ClassConstantBased\ClassConstantVisibilityReduced(),
+                                    new ClassConstantBased\ClassConstantValueChanged()
                                 )
                             ),
                             new ClassBased\PropertyChanged(

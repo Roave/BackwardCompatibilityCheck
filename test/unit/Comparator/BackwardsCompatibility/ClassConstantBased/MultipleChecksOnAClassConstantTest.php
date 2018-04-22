@@ -8,7 +8,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassConstantBased\ConstantBased;
+use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassConstantBased\ClassConstantBased;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassConstantBased\MultipleChecksOnAClassConstant;
 use Roave\BetterReflection\Reflection\ReflectionClassConstant;
 
@@ -20,11 +20,11 @@ final class MultipleChecksOnAClassConstantTest extends TestCase
     public function testChecksAllGivenCheckers() : void
     {
         /** @var ConstantBased|MockObject $checker1 */
-        $checker1 = $this->createMock(ConstantBased::class);
+        $checker1 = $this->createMock(ClassConstantBased::class);
         /** @var ConstantBased|MockObject $checker2 */
-        $checker2 = $this->createMock(ConstantBased::class);
+        $checker2 = $this->createMock(ClassConstantBased::class);
         /** @var ConstantBased|MockObject $checker3 */
-        $checker3 = $this->createMock(ConstantBased::class);
+        $checker3 = $this->createMock(ClassConstantBased::class);
 
         $multiCheck = new MultipleChecksOnAClassConstant($checker1, $checker2, $checker3);
 

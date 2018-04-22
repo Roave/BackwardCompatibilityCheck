@@ -6,7 +6,7 @@ namespace RoaveTest\ApiCompare\Comparator\BackwardsCompatibility\ClassConstantBa
 
 use PHPUnit\Framework\TestCase;
 use Roave\ApiCompare\Change;
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassConstantBased\ConstantValueChanged;
+use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassConstantBased\ClassConstantValueChanged;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionClassConstant;
 use Roave\BetterReflection\Reflector\ClassReflector;
@@ -17,9 +17,9 @@ use function array_map;
 use function iterator_to_array;
 
 /**
- * @covers \Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassConstantBased\ConstantValueChanged
+ * @covers \Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassConstantBased\ClassConstantValueChanged
  */
-final class ConstantValueChangedTest extends TestCase
+final class ClassConstantValueChangedTest extends TestCase
 {
     /**
      * @dataProvider propertiesToBeTested
@@ -31,7 +31,7 @@ final class ConstantValueChangedTest extends TestCase
         ReflectionClassConstant $toConstant,
         array $expectedMessages
     ) : void {
-        $changes = (new ConstantValueChanged())
+        $changes = (new ClassConstantValueChanged())
             ->compare($fromConstant, $toConstant);
 
         self::assertSame(

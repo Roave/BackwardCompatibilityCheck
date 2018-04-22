@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassBased\ConstantChanged;
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassConstantBased\ConstantBased;
+use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassConstantBased\ClassConstantBased;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionClassConstant;
 use Roave\BetterReflection\Reflector\ClassReflector;
@@ -55,7 +55,7 @@ PHP
             $astLocator
         );
 
-        $comparator = $this->createMock(ConstantBased::class);
+        $comparator = $this->createMock(ClassConstantBased::class);
 
         $comparator
             ->expects(self::exactly(2))

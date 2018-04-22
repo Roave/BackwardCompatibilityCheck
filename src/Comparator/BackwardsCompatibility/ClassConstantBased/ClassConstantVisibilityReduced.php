@@ -9,7 +9,7 @@ use Roave\ApiCompare\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClassConstant;
 use function sprintf;
 
-final class ConstantVisibilityReduced implements ConstantBased
+final class ClassConstantVisibilityReduced implements ClassConstantBased
 {
     private const VISIBILITY_PRIVATE = 'private';
 

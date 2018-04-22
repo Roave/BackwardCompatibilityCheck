@@ -10,7 +10,7 @@ use Roave\BetterReflection\Reflection\ReflectionClassConstant;
 use function sprintf;
 use function var_export;
 
-final class ConstantValueChanged implements ConstantBased
+final class ClassConstantValueChanged implements ClassConstantBased
 {
     public function compare(ReflectionClassConstant $fromConstant, ReflectionClassConstant $toConstant) : Changes
     {

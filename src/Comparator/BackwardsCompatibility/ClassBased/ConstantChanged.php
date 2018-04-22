@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassBased;
 
 use Roave\ApiCompare\Changes;
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassConstantBased\ConstantBased;
+use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassConstantBased\ClassConstantBased;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use function array_intersect_key;
 use function array_keys;
@@ -16,7 +16,7 @@ final class ConstantChanged implements ClassBased
     /** @var ConstantBased */
     private $checkConstant;
 
-    public function __construct(ConstantBased $checkConstant)
+    public function __construct(ClassConstantBased $checkConstant)
     {
         $this->checkConstant = $checkConstant;
     }
