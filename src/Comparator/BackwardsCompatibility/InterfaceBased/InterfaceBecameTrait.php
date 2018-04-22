@@ -11,32 +11,24 @@ use Roave\BetterReflection\Reflection\ReflectionClass;
 use function sprintf;
 
 /**
- * An interface cannot become concrete without introducing an explicit BC break, since
+ * An interface cannot become a trait without introducing an explicit BC break, since
  * all implementors need to be changed to implement it instead of extending it.
  */
-final class InterfaceBecameClass implements InterfaceBased
+final class InterfaceBecameTrait implements InterfaceBased
 {
     public function compare(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
     {
         Assert::that($fromClass->getName())->same($toClass->getName());
 
-        if (! $this->isClass($toClass) || ! $fromClass->isInterface()) {
-            // checking whether a class became an interface is done in `ClassBecameInterface`
+        if (! $toClass->isTrait() || ! $fromClass->isInterface()) {
+            // checking whether an interface became an class is done in `InterfaceBecameClass`
             return Changes::new();
         }
 
         return Changes::fromArray([Change::changed(
-            sprintf('Interface %s became a class', $fromClass->getName()),
+            sprintf('Interface %s became a trait', $fromClass->getName()),
             true
         ),
         ]);
-    }
-
-    /**
-     * According to the current state of the PHP ecosystem, we only have traits, interfaces and classes
-     */
-    private function isClass(ReflectionClass $class) : bool
-    {
-        return ! ($class->isTrait() || $class->isInterface());
     }
 }

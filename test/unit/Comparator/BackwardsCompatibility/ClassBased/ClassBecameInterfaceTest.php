@@ -56,6 +56,9 @@ interface InterfaceToConcrete {}
 interface InterfaceToInterface {}
 interface InterfaceToAbstract {}
 abstract class AbstractToInterface {}
+class ClassToTrait {}
+trait TraitToClass {}
+trait TraitToTrait {}
 PHP
             ,
             $locator
@@ -73,6 +76,9 @@ class InterfaceToConcrete {}
 interface InterfaceToInterface {}
 abstract class InterfaceToAbstract {}
 interface AbstractToInterface {}
+trait ClassToTrait {}
+class TraitToClass {}
+trait TraitToTrait {}
 PHP
             ,
             $locator
@@ -88,6 +94,9 @@ PHP
             'InterfaceToInterface' => [],
             'InterfaceToAbstract'  => [],
             'AbstractToInterface'  => ['[BC] CHANGED: Class AbstractToInterface became an interface'],
+            'ClassToTrait'         => [],
+            'TraitToClass'         => [],
+            'TraitToTrait'         => [],
         ];
 
         return array_combine(

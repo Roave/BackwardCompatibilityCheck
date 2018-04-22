@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace RoaveTest\ApiCompare\Comparator\BackwardsCompatibility\InterfaceBased;
+namespace RoaveTest\ApiCompare\Comparator\BackwardsCompatibility\ClassBased;
 
 use PHPUnit\Framework\TestCase;
 use Roave\ApiCompare\Change;
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\InterfaceBased\InterfaceBecameClass;
+use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassBased\ClassBecameTrait;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflector\ClassReflector;
@@ -16,7 +16,10 @@ use function array_keys;
 use function array_map;
 use function iterator_to_array;
 
-final class InterfaceBecameClassTest extends TestCase
+/**
+ * @covers \Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassBased\ClassBecameTrait
+ */
+final class ClassBecameTraitTest extends TestCase
 {
     /**
      * @dataProvider classesToBeTested
@@ -28,7 +31,7 @@ final class InterfaceBecameClassTest extends TestCase
         ReflectionClass $toClass,
         array $expectedMessages
     ) : void {
-        $changes = (new InterfaceBecameClass())
+        $changes = (new ClassBecameTrait())
             ->compare($fromClass, $toClass);
 
         self::assertSame(
@@ -56,8 +59,8 @@ interface InterfaceToConcrete {}
 interface InterfaceToInterface {}
 interface InterfaceToAbstract {}
 abstract class AbstractToInterface {}
-interface InterfaceToTrait {}
-trait TraitToInterface {}
+class ClassToTrait {}
+trait TraitToClass {}
 trait TraitToTrait {}
 PHP
             ,
@@ -76,8 +79,8 @@ class InterfaceToConcrete {}
 interface InterfaceToInterface {}
 abstract class InterfaceToAbstract {}
 interface AbstractToInterface {}
-trait InterfaceToTrait {}
-interface TraitToInterface {}
+trait ClassToTrait {}
+class TraitToClass {}
 trait TraitToTrait {}
 PHP
             ,
@@ -90,12 +93,12 @@ PHP
             'ConcreteToConcrete'   => [],
             'AbstractToAbstract'   => [],
             'ConcreteToInterface'  => [],
-            'InterfaceToConcrete'  => ['[BC] CHANGED: Interface InterfaceToConcrete became a class'],
+            'InterfaceToConcrete'  => [],
             'InterfaceToInterface' => [],
-            'InterfaceToAbstract'  => ['[BC] CHANGED: Interface InterfaceToAbstract became a class'],
+            'InterfaceToAbstract'  => [],
             'AbstractToInterface'  => [],
-            'InterfaceToTrait'     => [],
-            'TraitToInterface'     => [],
+            'ClassToTrait'         => ['[BC] CHANGED: Class ClassToTrait became a trait'],
+            'TraitToClass'         => [],
             'TraitToTrait'         => [],
         ];
 

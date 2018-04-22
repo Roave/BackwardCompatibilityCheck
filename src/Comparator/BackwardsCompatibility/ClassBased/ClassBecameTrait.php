@@ -11,23 +11,22 @@ use Roave\BetterReflection\Reflection\ReflectionClass;
 use function sprintf;
 
 /**
- * A class cannot become an interface without introducing an explicit BC break, since
- * all child classes or implementors need to be changed from `extends` to `implements`,
+ * A class cannot become a trait without introducing an explicit BC break, since
+ * all child classes or implementors need to be changed from `extends` to `use`,
  * and all instantiations start failing
  */
-final class ClassBecameInterface implements ClassBased
+final class ClassBecameTrait implements ClassBased
 {
     public function compare(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
     {
         Assert::that($fromClass->getName())->same($toClass->getName());
 
-        if ($fromClass->isInterface() || ! $toClass->isInterface()) {
-            // checking whether a class became an interface is done in `InterfaceBecameClass`
+        if ($fromClass->isTrait() || ! $toClass->isTrait()) {
             return Changes::new();
         }
 
         return Changes::fromArray([Change::changed(
-            sprintf('Class %s became an interface', $fromClass->getName()),
+            sprintf('Class %s became a trait', $fromClass->getName()),
             true
         ),
         ]);

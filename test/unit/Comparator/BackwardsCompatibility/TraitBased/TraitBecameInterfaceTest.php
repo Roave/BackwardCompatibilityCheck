@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace RoaveTest\ApiCompare\Comparator\BackwardsCompatibility\InterfaceBased;
+namespace RoaveTest\ApiCompare\Comparator\BackwardsCompatibility\TraitBased;
 
 use PHPUnit\Framework\TestCase;
 use Roave\ApiCompare\Change;
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\InterfaceBased\InterfaceBecameClass;
+use Roave\ApiCompare\Comparator\BackwardsCompatibility\TraitBased\TraitBecameInterface;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflector\ClassReflector;
@@ -16,7 +16,10 @@ use function array_keys;
 use function array_map;
 use function iterator_to_array;
 
-final class InterfaceBecameClassTest extends TestCase
+/**
+ * @covers \Roave\ApiCompare\Comparator\BackwardsCompatibility\TraitBased\TraitBecameInterface
+ */
+final class TraitBecameInterfaceTest extends TestCase
 {
     /**
      * @dataProvider classesToBeTested
@@ -28,7 +31,7 @@ final class InterfaceBecameClassTest extends TestCase
         ReflectionClass $toClass,
         array $expectedMessages
     ) : void {
-        $changes = (new InterfaceBecameClass())
+        $changes = (new TraitBecameInterface())
             ->compare($fromClass, $toClass);
 
         self::assertSame(
@@ -47,18 +50,13 @@ final class InterfaceBecameClassTest extends TestCase
             <<<'PHP'
 <?php
 
-class ConcreteToAbstract {}
-abstract class AbstractToConcrete {}
-class ConcreteToConcrete {}
-abstract class AbstractToAbstract {}
-class ConcreteToInterface {}
-interface InterfaceToConcrete {}
-interface InterfaceToInterface {}
-interface InterfaceToAbstract {}
-abstract class AbstractToInterface {}
-interface InterfaceToTrait {}
+trait TraitToClass {}
 trait TraitToInterface {}
+class ClassToTrait {}
 trait TraitToTrait {}
+class ClassToClass {}
+interface InterfaceToTrait {}
+interface InterfaceToInterface {}
 PHP
             ,
             $locator
@@ -67,36 +65,26 @@ PHP
             <<<'PHP'
 <?php
 
-abstract class ConcreteToAbstract {}
-class AbstractToConcrete {}
-class ConcreteToConcrete {}
-abstract class AbstractToAbstract {}
-interface ConcreteToInterface {}
-class InterfaceToConcrete {}
-interface InterfaceToInterface {}
-abstract class InterfaceToAbstract {}
-interface AbstractToInterface {}
-trait InterfaceToTrait {}
+class TraitToClass {}
 interface TraitToInterface {}
+trait ClassToTrait {}
 trait TraitToTrait {}
+class ClassToClass {}
+trait InterfaceToTrait {}
+interface InterfaceToInterface {}
 PHP
             ,
             $locator
         ));
 
         $classes = [
-            'ConcreteToAbstract'   => [],
-            'AbstractToConcrete'   => [],
-            'ConcreteToConcrete'   => [],
-            'AbstractToAbstract'   => [],
-            'ConcreteToInterface'  => [],
-            'InterfaceToConcrete'  => ['[BC] CHANGED: Interface InterfaceToConcrete became a class'],
-            'InterfaceToInterface' => [],
-            'InterfaceToAbstract'  => ['[BC] CHANGED: Interface InterfaceToAbstract became a class'],
-            'AbstractToInterface'  => [],
-            'InterfaceToTrait'     => [],
-            'TraitToInterface'     => [],
+            'TraitToClass'         => [],
+            'TraitToInterface'     => ['[BC] CHANGED: Interface TraitToInterface became an interface'],
+            'ClassToTrait'         => [],
             'TraitToTrait'         => [],
+            'ClassToClass'         => [],
+            'InterfaceToTrait'     => [],
+            'InterfaceToInterface' => [],
         ];
 
         return array_combine(

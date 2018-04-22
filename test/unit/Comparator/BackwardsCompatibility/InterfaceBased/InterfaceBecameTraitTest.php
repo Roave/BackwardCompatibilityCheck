@@ -6,7 +6,7 @@ namespace RoaveTest\ApiCompare\Comparator\BackwardsCompatibility\InterfaceBased;
 
 use PHPUnit\Framework\TestCase;
 use Roave\ApiCompare\Change;
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\InterfaceBased\InterfaceBecameClass;
+use Roave\ApiCompare\Comparator\BackwardsCompatibility\InterfaceBased\InterfaceBecameTrait;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflector\ClassReflector;
@@ -16,7 +16,7 @@ use function array_keys;
 use function array_map;
 use function iterator_to_array;
 
-final class InterfaceBecameClassTest extends TestCase
+final class InterfaceBecameTraitTest extends TestCase
 {
     /**
      * @dataProvider classesToBeTested
@@ -28,7 +28,7 @@ final class InterfaceBecameClassTest extends TestCase
         ReflectionClass $toClass,
         array $expectedMessages
     ) : void {
-        $changes = (new InterfaceBecameClass())
+        $changes = (new InterfaceBecameTrait())
             ->compare($fromClass, $toClass);
 
         self::assertSame(
@@ -90,11 +90,11 @@ PHP
             'ConcreteToConcrete'   => [],
             'AbstractToAbstract'   => [],
             'ConcreteToInterface'  => [],
-            'InterfaceToConcrete'  => ['[BC] CHANGED: Interface InterfaceToConcrete became a class'],
+            'InterfaceToConcrete'  => [],
             'InterfaceToInterface' => [],
-            'InterfaceToAbstract'  => ['[BC] CHANGED: Interface InterfaceToAbstract became a class'],
+            'InterfaceToAbstract'  => [],
             'AbstractToInterface'  => [],
-            'InterfaceToTrait'     => [],
+            'InterfaceToTrait'     => ['[BC] CHANGED: Interface InterfaceToTrait became a trait'],
             'TraitToInterface'     => [],
             'TraitToTrait'         => [],
         ];

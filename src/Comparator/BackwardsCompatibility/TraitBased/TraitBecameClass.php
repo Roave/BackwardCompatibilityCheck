@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Roave\ApiCompare\Comparator\BackwardsCompatibility\InterfaceBased;
+namespace Roave\ApiCompare\Comparator\BackwardsCompatibility\TraitBased;
 
 use Assert\Assert;
 use Roave\ApiCompare\Change;
@@ -11,17 +11,16 @@ use Roave\BetterReflection\Reflection\ReflectionClass;
 use function sprintf;
 
 /**
- * An interface cannot become concrete without introducing an explicit BC break, since
- * all implementors need to be changed to implement it instead of extending it.
+ * A trait cannot change to become a class, as that forces all implementations
+ * that use it to change from `use` to inheritance (if even possible)
  */
-final class InterfaceBecameClass implements InterfaceBased
+final class TraitBecameClass implements TraitBased
 {
     public function compare(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
     {
         Assert::that($fromClass->getName())->same($toClass->getName());
 
-        if (! $this->isClass($toClass) || ! $fromClass->isInterface()) {
-            // checking whether a class became an interface is done in `ClassBecameInterface`
+        if ($this->isClass($fromClass) || ! $this->isClass($toClass)) {
             return Changes::new();
         }
 
