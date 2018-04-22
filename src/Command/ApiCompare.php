@@ -90,10 +90,7 @@ final class ApiCompare extends Command
     }
 
     /**
-     * @throws RuntimeException
      * @throws InvalidArgumentException
-     * @throws InvalidFileInfo
-     * @throws InvalidDirectory
      */
     public function execute(InputInterface $input, OutputInterface $output) : int
     {
@@ -103,7 +100,7 @@ final class ApiCompare extends Command
         // @todo fix flaky assumption about the path of the source repo...
         $sourceRepo = CheckedOutRepository::fromPath(getcwd());
 
-        $fromRevision = $input->hasOption('from') && $input->getOption('from') !== null
+        $fromRevision = $input->hasOption('from')
             ? $this->parseRevisionFromInput($input, $sourceRepo)
             : $this->determineFromRevisionFromRepository($sourceRepo, $stdErr);
 
