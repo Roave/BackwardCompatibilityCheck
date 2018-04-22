@@ -9,5 +9,5 @@ use Roave\BetterReflection\Reflection\ReflectionClass;
 
 interface TraitBased
 {
-    public function compare(ReflectionClass $fromInterface, ReflectionClass $toInterface) : Changes;
+    public function compare(ReflectionClass $fromTrait, ReflectionClass $toTrait) : Changes;
 }

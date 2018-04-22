@@ -16,16 +16,16 @@ use function sprintf;
  */
 final class TraitBecameInterface implements TraitBased
 {
-    public function compare(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
+    public function compare(ReflectionClass $fromTrait, ReflectionClass $toTrait) : Changes
     {
-        Assert::that($fromClass->getName())->same($toClass->getName());
+        Assert::that($fromTrait->getName())->same($toTrait->getName());
 
-        if ($toClass->isTrait() || ! $toClass->isInterface() || ! $fromClass->isTrait()) {
+        if ($toTrait->isTrait() || ! $toTrait->isInterface() || ! $fromTrait->isTrait()) {
             return Changes::new();
         }
 
         return Changes::fromArray([Change::changed(
-            sprintf('Interface %s became an interface', $fromClass->getName()),
+            sprintf('Interface %s became an interface', $fromTrait->getName()),
             true
         ),
         ]);
