@@ -8,7 +8,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\TraitBased\MultipleChecksOnAnInterface;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\TraitBased\MultipleChecksOnATrait;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\TraitBased\TraitBased;
 use Roave\BetterReflection\Reflection\ReflectionClass;
