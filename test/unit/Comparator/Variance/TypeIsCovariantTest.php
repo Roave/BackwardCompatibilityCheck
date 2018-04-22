@@ -95,6 +95,16 @@ PHP
                 ReflectionType::createFromTypeAndReflector('array', false, $reflector),
                 true,
             ],
+            'iterable to scalar is not covariant' => [
+                ReflectionType::createFromTypeAndReflector('iterable', false, $reflector),
+                ReflectionType::createFromTypeAndReflector('int', false, $reflector),
+                false,
+            ],
+            'scalar to iterable is not covariant' => [
+                ReflectionType::createFromTypeAndReflector('iterable', false, $reflector),
+                ReflectionType::createFromTypeAndReflector('int', false, $reflector),
+                false,
+            ],
             'array to iterable is not covariant'         => [
                 ReflectionType::createFromTypeAndReflector('array', false, $reflector),
                 ReflectionType::createFromTypeAndReflector('iterable', false, $reflector),
