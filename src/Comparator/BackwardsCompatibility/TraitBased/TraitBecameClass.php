@@ -22,7 +22,7 @@ final class TraitBecameClass implements TraitBased
         }
 
         return Changes::fromArray([Change::changed(
-            sprintf('Interface %s became a class', $fromTrait->getName()),
+            sprintf('Trait %s became a class', $fromTrait->getName()),
             true
         ),
         ]);

@@ -78,7 +78,7 @@ PHP
         ));
 
         $classes = [
-            'TraitToClass'         => ['[BC] CHANGED: Interface TraitToClass became a class'],
+            'TraitToClass'         => ['[BC] CHANGED: Trait TraitToClass became a class'],
             'TraitToInterface'     => [],
             'ClassToTrait'         => [],
             'TraitToTrait'         => [],
