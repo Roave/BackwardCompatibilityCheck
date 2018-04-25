@@ -87,4 +87,34 @@ final class StaticClassMapSourceLocatorTest extends TestCase
             new Identifier(self::class, new IdentifierType(IdentifierType::IDENTIFIER_CLASS))
         ));
     }
+
+    public function testWillNotLocateUnknownClass() : void
+    {
+        $locator = new StaticClassMapSourceLocator([self::class => __FILE__], $this->astLocator);
+
+        $this
+            ->astLocator
+            ->expects(self::never())
+            ->method('findReflection');
+
+        self::assertNull($locator->locateIdentifier(
+            $this->reflector,
+            new Identifier('Unknown\\ClassName', new IdentifierType(IdentifierType::IDENTIFIER_CLASS))
+        ));
+    }
+
+    public function testWillNotLocateFunctions() : void
+    {
+        $locator = new StaticClassMapSourceLocator([self::class => __FILE__], $this->astLocator);
+
+        $this
+            ->astLocator
+            ->expects(self::never())
+            ->method('findReflection');
+
+        self::assertNull($locator->locateIdentifier(
+            $this->reflector,
+            new Identifier(self::class, new IdentifierType(IdentifierType::IDENTIFIER_FUNCTION))
+        ));
+    }
 }
