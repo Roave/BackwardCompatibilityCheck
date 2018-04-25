@@ -170,7 +170,9 @@ final class ApiCompare extends Command
         );
     }
 
-    private function determineFromRevisionFromRepository(CheckedOutRepository $repository, OutputInterface $output
+    private function determineFromRevisionFromRepository(
+        CheckedOutRepository $repository,
+        OutputInterface $output
     ) : Revision {
         $versionString = $this->pickFromVersion->forVersions(
             $this->getVersions->fromRepository($repository)
