@@ -74,7 +74,7 @@ final class LocateDependenciesViaComposer implements LocateDependencies
 
         Assert::that($classMapProperty)->notNull();
 
-        /** @var ReflectionProperty $classMap */
+        /** @var ReflectionProperty $classMapProperty */
         $classMap = $classMapProperty->getDefaultValue();
 
         Assert::that($classMap)
@@ -91,7 +91,7 @@ final class LocateDependenciesViaComposer implements LocateDependencies
 
         Assert::that($filesMapProperty)->notNull();
 
-        /** @var ReflectionProperty $filesMap */
+        /** @var ReflectionProperty $filesMapProperty */
         $filesMap = $filesMapProperty->getDefaultValue();
 
         Assert::that($filesMap)
