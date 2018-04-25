@@ -33,12 +33,19 @@ class Comparator
         $this->traitBasedComparisons     = $traitBasedComparisons;
     }
 
-    public function compare(ClassReflector $oldApi, ClassReflector $newApi) : Changes
-    {
+    public function compare(
+        ClassReflector $definedApi,
+        ClassReflector $oldApi,
+        ClassReflector $newApi
+    ) : Changes {
         $changelog = Changes::new();
 
-        foreach ($oldApi->getAllClasses() as $oldClass) {
-            $changelog = $this->examineClass($changelog, $oldClass, $newApi);
+        $definedApiClassNames = array_map(function (ReflectionClass $class) : string {
+            return $class->getName();
+        }, $definedApi->getAllClasses());
+
+        foreach ($definedApiClassNames as $apiClassName) {
+            $changelog = $this->examineClass($changelog, $oldApi->reflect($apiClassName), $newApi);
         }
 
         return $changelog;

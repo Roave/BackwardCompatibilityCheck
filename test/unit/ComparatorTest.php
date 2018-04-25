@@ -63,6 +63,7 @@ final class ComparatorTest extends TestCase
                 Change::changed('class change', true),
             ]),
             $this->comparator->compare(
+                self::$stringReflectorFactory->__invoke('<?php class A {}'),
                 self::$stringReflectorFactory->__invoke(
                     <<<'PHP'
 <?php
@@ -100,6 +101,7 @@ PHP
                 Change::changed('class change', true),
             ]),
             $this->comparator->compare(
+                self::$stringReflectorFactory->__invoke('<?php class A {}'),
                 self::$stringReflectorFactory->__invoke(
                     <<<'PHP'
 <?php
@@ -134,6 +136,7 @@ PHP
             ]),
             $this->comparator->compare(
                 self::$stringReflectorFactory->__invoke('<?php interface A {}'),
+                self::$stringReflectorFactory->__invoke('<?php interface A {}'),
                 self::$stringReflectorFactory->__invoke('<?php interface A {}')
             )
         );
@@ -151,6 +154,7 @@ PHP
             ]),
             $this->comparator->compare(
                 self::$stringReflectorFactory->__invoke('<?php trait A {}'),
+                self::$stringReflectorFactory->__invoke('<?php trait A {}'),
                 self::$stringReflectorFactory->__invoke('<?php trait A {}')
             )
         );
@@ -165,6 +169,20 @@ PHP
         self::assertEquals($expected, $actual, '', 0.0, 10, true);
     }
 
+    public function testSkipsReflectingUndefinedApi() : void
+    {
+        $this->classBasedComparatorWillNotBeCalled();
+
+        self::assertEqualsIgnoringOrder(
+            Changes::new(),
+            $this->comparator->compare(
+                self::$stringReflectorFactory->__invoke('<?php '),
+                self::$stringReflectorFactory->__invoke('<?php class A { private function foo() {} }'),
+                self::$stringReflectorFactory->__invoke('<?php ')
+            )
+        );
+    }
+
     public function testRemovingAClassCausesABreak() : void
     {
         $this->classBasedComparatorWillNotBeCalled();
@@ -176,6 +194,7 @@ PHP
                 Change::removed('Class A has been deleted', true),
             ]),
             $this->comparator->compare(
+                self::$stringReflectorFactory->__invoke('<?php class A { private function foo() {} }'),
                 self::$stringReflectorFactory->__invoke('<?php class A { private function foo() {} }'),
                 self::$stringReflectorFactory->__invoke('<?php ')
             )
