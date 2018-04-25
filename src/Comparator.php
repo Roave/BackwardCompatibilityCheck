@@ -46,7 +46,7 @@ class Comparator
 
         foreach ($definedApiClassNames as $apiClassName) {
             /** @var ReflectionClass $oldClass */
-            $oldClass  = $newApi->reflect($apiClassName);
+            $oldClass  = $oldApi->reflect($apiClassName);
             $changelog = $this->examineClass($changelog, $oldClass, $newApi);
         }
 
