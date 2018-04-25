@@ -8,6 +8,7 @@ use Assert\Assert;
 use Composer\Installer;
 use Roave\ApiCompare\SourceLocator\StaticClassMapSourceLocator;
 use Roave\BetterReflection\Reflection\ReflectionClass;
+use Roave\BetterReflection\Reflection\ReflectionProperty;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Ast\Locator;
 use Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
@@ -73,6 +74,7 @@ final class LocateDependenciesViaComposer implements LocateDependencies
 
         Assert::that($classMapProperty)->notNull();
 
+        /** @var ReflectionProperty $classMap */
         $classMap = $classMapProperty->getDefaultValue();
 
         Assert::that($classMap)
@@ -89,6 +91,7 @@ final class LocateDependenciesViaComposer implements LocateDependencies
 
         Assert::that($filesMapProperty)->notNull();
 
+        /** @var ReflectionProperty $filesMap */
         $filesMap = $filesMapProperty->getDefaultValue();
 
         Assert::that($filesMap)
