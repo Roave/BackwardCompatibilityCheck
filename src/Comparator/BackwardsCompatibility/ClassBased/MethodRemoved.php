@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassBased;
 
-use Assert\Assert;
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
 use Roave\ApiCompare\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
-use const CASE_UPPER;
 use function array_change_key_case;
 use function array_combine;
 use function array_diff_key;
@@ -18,6 +16,7 @@ use function array_filter;
 use function array_map;
 use function array_values;
 use function sprintf;
+use const CASE_UPPER;
 
 final class MethodRemoved implements ClassBased
 {
@@ -31,8 +30,6 @@ final class MethodRemoved implements ClassBased
 
     public function compare(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
     {
-        Assert::that($fromClass->getName())->same($toClass->getName());
-
         $removedMethods = array_diff_key(
             array_change_key_case($this->accessibleMethods($fromClass), CASE_UPPER),
             array_change_key_case($this->accessibleMethods($toClass), CASE_UPPER)

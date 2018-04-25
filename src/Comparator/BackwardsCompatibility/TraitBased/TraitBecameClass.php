@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Roave\ApiCompare\Comparator\BackwardsCompatibility\TraitBased;
 
-use Assert\Assert;
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClass;
@@ -18,8 +17,6 @@ final class TraitBecameClass implements TraitBased
 {
     public function compare(ReflectionClass $fromTrait, ReflectionClass $toTrait) : Changes
     {
-        Assert::that($fromTrait->getName())->same($toTrait->getName());
-
         if ($this->isClass($fromTrait) || ! $this->isClass($toTrait)) {
             return Changes::new();
         }

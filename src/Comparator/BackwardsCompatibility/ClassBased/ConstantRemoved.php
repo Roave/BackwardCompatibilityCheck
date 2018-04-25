@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassBased;
 
-use Assert\Assert;
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClass;
@@ -19,8 +18,6 @@ final class ConstantRemoved implements ClassBased
 {
     public function compare(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
     {
-        Assert::that($fromClass->getName())->same($toClass->getName());
-
         $removedConstants = array_diff_key(
             $this->accessibleConstants($fromClass),
             $this->accessibleConstants($toClass)

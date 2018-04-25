@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassBased;
 
-use Assert\Assert;
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
 use Roave\ApiCompare\Formatter\ReflectionPropertyName;
@@ -29,8 +28,6 @@ final class PropertyRemoved implements ClassBased
 
     public function compare(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
     {
-        Assert::that($fromClass->getName())->same($toClass->getName());
-
         $fromProperties    = $this->accessibleProperties($fromClass);
         $removedProperties = array_diff(
             array_keys($fromProperties),

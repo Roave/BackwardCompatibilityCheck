@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassBased;
 
-use Assert\Assert;
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClass;
@@ -14,8 +13,6 @@ final class ClassBecameFinal implements ClassBased
 {
     public function compare(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
     {
-        Assert::that($fromClass->getName())->same($toClass->getName());
-
         if ($fromClass->isFinal()) {
             return Changes::new();
         }

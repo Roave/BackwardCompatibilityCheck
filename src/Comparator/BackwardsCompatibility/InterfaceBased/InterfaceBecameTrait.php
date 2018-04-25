@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Roave\ApiCompare\Comparator\BackwardsCompatibility\InterfaceBased;
 
-use Assert\Assert;
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClass;
@@ -18,8 +17,6 @@ final class InterfaceBecameTrait implements InterfaceBased
 {
     public function compare(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
     {
-        Assert::that($fromClass->getName())->same($toClass->getName());
-
         if (! $toClass->isTrait() || ! $fromClass->isInterface()) {
             // checking whether an interface became an class is done in `InterfaceBecameClass`
             return Changes::new();
