@@ -16,6 +16,10 @@ use Roave\ApiCompare\Git\PerformCheckoutOfRevision;
 use Roave\ApiCompare\Git\PickVersionFromVersionCollection;
 use Roave\ApiCompare\Git\Revision;
 use Roave\ApiCompare\Support\ArrayHelpers;
+use Roave\ApiCompare\LocateDependencies\LocateDependencies;
+use Roave\ApiCompare\LocateDependencies\LocateDependenciesViaComposerInstallation;
+use Roave\BetterReflection\BetterReflection;
+use Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Exception\LogicException;
@@ -46,6 +50,9 @@ final class ApiCompare extends Command
     /** @var PickVersionFromVersionCollection */
     private $pickFromVersion;
 
+    /** @var LocateDependencies */
+    private $locateDependencies;
+
     /** @var Comparator */
     private $comparator;
 
@@ -58,15 +65,18 @@ final class ApiCompare extends Command
         ParseRevision $parseRevision,
         GetVersionCollection $getVersions,
         PickVersionFromVersionCollection $pickFromVersion,
+        LocateDependencies $locateDependencies,
         Comparator $comparator
     ) {
         parent::__construct();
-        $this->git              = $git;
-        $this->reflectorFactory = $reflectorFactory;
-        $this->parseRevision    = $parseRevision;
-        $this->getVersions      = $getVersions;
-        $this->pickFromVersion  = $pickFromVersion;
-        $this->comparator       = $comparator;
+
+        $this->git                = $git;
+        $this->reflectorFactory   = $reflectorFactory;
+        $this->parseRevision      = $parseRevision;
+        $this->getVersions        = $getVersions;
+        $this->pickFromVersion    = $pickFromVersion;
+        $this->locateDependencies = $locateDependencies;
+        $this->comparator         = $comparator;
     }
 
     /**
@@ -85,8 +95,7 @@ final class ApiCompare extends Command
                 InputArgument::OPTIONAL,
                 'Path to the sources, relative to the repository root',
                 'src'
-            )
-        ;
+            );
     }
 
     /**
@@ -120,8 +129,18 @@ final class ApiCompare extends Command
             Assert::that($toSources)->directory();
 
             $changes = $this->comparator->compare(
-                $this->reflectorFactory->__invoke((string) $fromPath . '/' . $sourcesPath),
-                $this->reflectorFactory->__invoke((string) $toPath . '/' . $sourcesPath)
+                $this->reflectorFactory->__invoke(
+                    $fromPath . '/' . $sourcesPath,
+                    new AggregateSourceLocator() // no dependencies
+                ),
+                $this->reflectorFactory->__invoke(
+                    $fromPath . '/' . $sourcesPath,
+                    $this->locateDependencies->__invoke((string) $fromPath)
+                ),
+                $this->reflectorFactory->__invoke(
+                    $toPath . '/' . $sourcesPath,
+                    $this->locateDependencies->__invoke((string) $toPath)
+                )
             );
 
             (new SymfonyConsoleTextFormatter($stdErr))->write($changes);
@@ -151,8 +170,8 @@ final class ApiCompare extends Command
         );
     }
 
-    private function determineFromRevisionFromRepository(CheckedOutRepository $repository, OutputInterface $output) : Revision
-    {
+    private function determineFromRevisionFromRepository(CheckedOutRepository $repository, OutputInterface $output
+    ) : Revision {
         $versionString = $this->pickFromVersion->forVersions(
             $this->getVersions->fromRepository($repository)
         )->getVersionString();

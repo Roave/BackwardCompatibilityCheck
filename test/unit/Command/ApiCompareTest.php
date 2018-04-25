@@ -18,6 +18,9 @@ use Roave\ApiCompare\Git\ParseRevision;
 use Roave\ApiCompare\Git\PerformCheckoutOfRevision;
 use Roave\ApiCompare\Git\PickVersionFromVersionCollection;
 use Roave\ApiCompare\Git\Revision;
+use Roave\ApiCompare\LocateDependencies\LocateDependencies;
+use Roave\BetterReflection\BetterReflection;
+use Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -57,8 +60,14 @@ final class ApiCompareTest extends TestCase
     /** @var PickVersionFromVersionCollection|MockObject */
     private $pickVersion;
 
+    /** @var LocateDependencies|MockObject */
+    private $locateDependencies;
+
     /** @var Comparator|MockObject */
     private $comparator;
+
+    /** @var AggregateSourceLocator */
+    private $dependencies;
 
     /** @var ApiCompare */
     private $compare;
@@ -68,24 +77,31 @@ final class ApiCompareTest extends TestCase
         $this->sourceRepository = CheckedOutRepository::fromPath(realpath(__DIR__ . '/../../../'));
         chdir((string) $this->sourceRepository);
 
-        $this->input  = $this->createMock(InputInterface::class);
-        $this->output = $this->createMock(ConsoleOutputInterface::class);
-        $this->stdErr = $this->createMock(OutputInterface::class);
-        $this->output->expects(self::any())->method('getErrorOutput')->willReturn($this->stdErr);
-
-        $this->performCheckout = $this->createMock(PerformCheckoutOfRevision::class);
-        $this->parseRevision   = $this->createMock(ParseRevision::class);
-        $this->getVersions     = $this->createMock(GetVersionCollection::class);
-        $this->pickVersion     = $this->createMock(PickVersionFromVersionCollection::class);
-        $this->comparator      = $this->createMock(Comparator::class);
-        $this->compare         = new ApiCompare(
+        $this->input              = $this->createMock(InputInterface::class);
+        $this->output             = $this->createMock(ConsoleOutputInterface::class);
+        $this->stdErr             = $this->createMock(OutputInterface::class);
+        $this->performCheckout    = $this->createMock(PerformCheckoutOfRevision::class);
+        $this->parseRevision      = $this->createMock(ParseRevision::class);
+        $this->getVersions        = $this->createMock(GetVersionCollection::class);
+        $this->pickVersion        = $this->createMock(PickVersionFromVersionCollection::class);
+        $this->locateDependencies = $this->createMock(LocateDependencies::class);
+        $this->dependencies       = new AggregateSourceLocator();
+        $this->comparator         = $this->createMock(Comparator::class);
+        $this->compare            = new ApiCompare(
             $this->performCheckout,
-            new DirectoryReflectorFactory(),
+            new DirectoryReflectorFactory((new BetterReflection())->astLocator()),
             $this->parseRevision,
             $this->getVersions,
             $this->pickVersion,
+            $this->locateDependencies,
             $this->comparator
         );
+
+        $this
+            ->output
+            ->expects(self::any())
+            ->method('getErrorOutput')
+            ->willReturn($this->stdErr);
     }
 
     public function testExecuteWhenRevisionsAreProvidedAsOptions() : void
@@ -125,6 +141,13 @@ final class ApiCompareTest extends TestCase
             ->method('fromStringForRepository')
             ->with($toSha)
             ->willReturn(Revision::fromSha1($toSha));
+
+        $this
+            ->locateDependencies
+            ->expects(self::any())
+            ->method('__invoke')
+            ->with((string) $this->sourceRepository)
+            ->willReturn($this->dependencies);
 
         $this->comparator->expects(self::once())->method('compare')->willReturn(Changes::new());
 
@@ -168,6 +191,13 @@ final class ApiCompareTest extends TestCase
             ->method('fromStringForRepository')
             ->with($toSha)
             ->willReturn(Revision::fromSha1($toSha));
+
+        $this
+            ->locateDependencies
+            ->expects(self::any())
+            ->method('__invoke')
+            ->with((string) $this->sourceRepository)
+            ->willReturn($this->dependencies);
 
         $this->comparator->expects(self::once())->method('compare')->willReturn(Changes::fromArray([
             Change::added(uniqid('added', true), true),
@@ -214,6 +244,13 @@ final class ApiCompareTest extends TestCase
             ->method('fromStringForRepository')
             ->with($toSha)
             ->willReturn(Revision::fromSha1($toSha));
+
+        $this
+            ->locateDependencies
+            ->expects(self::any())
+            ->method('__invoke')
+            ->with((string) $this->sourceRepository)
+            ->willReturn($this->dependencies);
 
         $changeToExpect = uniqid('changeToExpect', true);
         $this->comparator->expects(self::once())->method('compare')->willReturn(Changes::fromArray([
