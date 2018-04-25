@@ -15,8 +15,6 @@ use Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\SingleFileSourceLocator;
 
-require_once 'phar://../../../composer.phar/vendor/autoload.php';
-
 /**
  * @covers \Roave\ApiCompare\LocateDependencies\LocateDependenciesViaComposer
  */

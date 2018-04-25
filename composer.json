@@ -3,12 +3,13 @@
     "description": "Tool to compare two revisions of a public API to check for BC breaks",
     "require": {
         "php": "^7.2",
-        "roave/security-advisories": "dev-master",
-        "roave/better-reflection": "dev-master",
-        "symfony/console": "^4.0",
         "beberlei/assert": "^2.9",
-        "symfony/process": "^4.0",
-        "nikolaposa/version": "^2.2"
+        "composer/composer": "^1.6",
+        "nikolaposa/version": "^2.2",
+        "roave/better-reflection": "dev-master",
+        "roave/security-advisories": "dev-master",
+        "symfony/console": "^4.0",
+        "symfony/process": "^4.0"
     },
     "license": "MIT",
     "authors": [
