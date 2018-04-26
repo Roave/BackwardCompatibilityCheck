@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Roave\ApiCompareCli;
 
+use Composer\Factory;
+use Composer\Installer;
+use Composer\IO\NullIO;
 use Roave\ApiCompare\Command;
 use Roave\ApiCompare\Comparator;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassBased;
@@ -20,6 +23,8 @@ use Roave\ApiCompare\Git\GetVersionCollectionFromGitRepository;
 use Roave\ApiCompare\Git\GitCheckoutRevisionToTemporaryPath;
 use Roave\ApiCompare\Git\GitParseRevision;
 use Roave\ApiCompare\Git\PickLastMinorVersionFromCollection;
+use Roave\ApiCompare\LocateDependencies\LocateDependenciesViaComposer;
+use Roave\BetterReflection\BetterReflection;
 use RuntimeException;
 use Symfony\Component\Console\Application;
 use function file_exists;
@@ -33,12 +38,18 @@ use function file_exists;
         /** @noinspection PhpIncludeInspection */
         require $autoload;
 
+        $astLocator = (new BetterReflection())->astLocator();
+
         $apiCompareCommand = new Command\ApiCompare(
             new GitCheckoutRevisionToTemporaryPath(),
-            new DirectoryReflectorFactory(),
+            new DirectoryReflectorFactory($astLocator),
             new GitParseRevision(),
             new GetVersionCollectionFromGitRepository(),
             new PickLastMinorVersionFromCollection(),
+            new LocateDependenciesViaComposer(
+                Installer::create(new NullIO(), Factory::create(new NullIO(), null, true)),
+                $astLocator
+            ),
             new Comparator(
                 new ClassBased\MultipleChecksOnAClass(
                     new ClassBased\ClassBecameAbstract(),

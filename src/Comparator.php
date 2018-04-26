@@ -10,6 +10,7 @@ use Roave\ApiCompare\Comparator\BackwardsCompatibility\TraitBased\TraitBased;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use function array_map;
 use function sprintf;
 
 class Comparator
@@ -33,36 +34,55 @@ class Comparator
         $this->traitBasedComparisons     = $traitBasedComparisons;
     }
 
-    public function compare(ClassReflector $oldApi, ClassReflector $newApi) : Changes
-    {
+    /**
+     * @param ClassReflector $definedSymbols              containing only defined symbols in the compared API
+     * @param ClassReflector $pastSourcesWithDependencies capable of giving us symbols with their dependencies from the
+     *                                                    old version of the sources
+     * @param ClassReflector $newSourcesWithDependencies  capable of giving us symbols with their dependencies from the
+     *                                                    old version of the sources
+     */
+    public function compare(
+        ClassReflector $definedSymbols,
+        ClassReflector $pastSourcesWithDependencies,
+        ClassReflector $newSourcesWithDependencies
+    ) : Changes {
         $changelog = Changes::new();
 
-        foreach ($oldApi->getAllClasses() as $oldClass) {
-            $changelog = $this->examineClass($changelog, $oldClass, $newApi);
+        $definedApiClassNames = array_map(function (ReflectionClass $class) : string {
+            return $class->getName();
+        }, $definedSymbols->getAllClasses());
+
+        foreach ($definedApiClassNames as $apiClassName) {
+            /** @var ReflectionClass $oldSymbol */
+            $oldSymbol = $pastSourcesWithDependencies->reflect($apiClassName);
+            $changelog = $this->examineSymbol($changelog, $oldSymbol, $newSourcesWithDependencies);
         }
 
         return $changelog;
     }
 
-    private function examineClass(Changes $changelog, ReflectionClass $oldClass, ClassReflector $newApi) : Changes
-    {
+    private function examineSymbol(
+        Changes $changelog,
+        ReflectionClass $oldSymbol,
+        ClassReflector $newSourcesWithDependencies
+    ) : Changes {
         try {
             /** @var ReflectionClass $newClass */
-            $newClass = $newApi->reflect($oldClass->getName());
+            $newClass = $newSourcesWithDependencies->reflect($oldSymbol->getName());
         } catch (IdentifierNotFound $exception) {
             return $changelog->withAddedChange(
-                Change::removed(sprintf('Class %s has been deleted', $oldClass->getName()), true)
+                Change::removed(sprintf('Class %s has been deleted', $oldSymbol->getName()), true)
             );
         }
 
-        if ($oldClass->isInterface()) {
-            return $changelog->mergeWith($this->interfaceBasedComparisons->compare($oldClass, $newClass));
+        if ($oldSymbol->isInterface()) {
+            return $changelog->mergeWith($this->interfaceBasedComparisons->compare($oldSymbol, $newClass));
         }
 
-        if ($oldClass->isTrait()) {
-            return $changelog->mergeWith($this->traitBasedComparisons->compare($oldClass, $newClass));
+        if ($oldSymbol->isTrait()) {
+            return $changelog->mergeWith($this->traitBasedComparisons->compare($oldSymbol, $newClass));
         }
 
-        return $changelog->mergeWith($this->classBasedComparisons->compare($oldClass, $newClass));
+        return $changelog->mergeWith($this->classBasedComparisons->compare($oldSymbol, $newClass));
     }
 }
