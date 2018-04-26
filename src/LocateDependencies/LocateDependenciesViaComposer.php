@@ -104,6 +104,10 @@ final class LocateDependenciesViaComposer implements LocateDependencies
     {
         $filesMapProperty = $autoloadStatic->getProperty('files');
 
+        if (! $filesMapProperty) {
+            return new AggregateSourceLocator();
+        }
+
         Assert::that($filesMapProperty)->notNull();
 
         assert($filesMapProperty instanceof ReflectionProperty);
