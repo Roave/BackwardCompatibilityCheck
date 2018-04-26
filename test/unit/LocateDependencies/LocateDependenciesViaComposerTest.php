@@ -14,6 +14,7 @@ use Roave\BetterReflection\SourceLocator\Ast\Locator;
 use Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\SingleFileSourceLocator;
+use stdClass;
 use function getcwd;
 use function realpath;
 
@@ -24,6 +25,9 @@ final class LocateDependenciesViaComposerTest extends TestCase
 {
     /** @var string */
     private $originalCwd;
+
+    /** @var callable|MockObject */
+    private $makeInstaller;
 
     /** @var Installer|MockObject */
     private $composerInstaller;
@@ -41,6 +45,10 @@ final class LocateDependenciesViaComposerTest extends TestCase
         $this->originalCwd       = getcwd();
         $this->composerInstaller = $this->createMock(Installer::class);
         $this->astLocator        = (new BetterReflection())->astLocator();
+        $this->makeInstaller     = $this
+            ->getMockBuilder(stdClass::class)
+            ->setMethods(['__invoke'])
+            ->getMock();
 
         $this
             ->composerInstaller
@@ -73,7 +81,7 @@ final class LocateDependenciesViaComposerTest extends TestCase
             ->method('setIgnorePlatformRequirements')
             ->with(true);
 
-        $this->locateDependencies = new LocateDependenciesViaComposer($this->composerInstaller, $this->astLocator);
+        $this->locateDependencies = new LocateDependenciesViaComposer($this->makeInstaller, $this->astLocator);
     }
 
     protected function tearDown() : void
@@ -86,6 +94,13 @@ final class LocateDependenciesViaComposerTest extends TestCase
     public function testWillLocateDependencies() : void
     {
         $composerInstallationStructure = realpath(__DIR__ . '/../../asset/composer-installation-structure');
+
+        $this
+            ->makeInstaller
+            ->expects(self::any())
+            ->method('__invoke')
+            ->with($composerInstallationStructure)
+            ->willReturn($this->composerInstaller);
 
         $this
             ->composerInstaller
