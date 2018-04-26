@@ -10,6 +10,7 @@ use Roave\ApiCompare\Comparator\BackwardsCompatibility\TraitBased\TraitBased;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use function array_map;
 use function sprintf;
 
 class Comparator

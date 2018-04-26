@@ -36,7 +36,7 @@ final class DirectoryReflectorFactory
         return new ClassReflector(
             new AggregateSourceLocator([
                 new DirectoriesSourceLocator([$directory], $this->astLocator),
-                $dependencies
+                $dependencies,
             ])
         );
     }

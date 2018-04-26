@@ -15,6 +15,13 @@ use Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\SingleFileSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\SourceLocator;
+use function array_map;
+use function array_values;
+use function assert;
+use function chdir;
+use function getcwd;
+use function realpath;
+use function reset;
 
 final class LocateDependenciesViaComposer implements LocateDependencies
 {
@@ -43,7 +50,7 @@ final class LocateDependenciesViaComposer implements LocateDependencies
         Assert::that($installationPath)->directory();
         Assert::that($installationPath . '/composer.json')->file();
 
-        $this->runInDirectory(function () {
+        $this->runInDirectory(function () : void {
             $this->installer->run();
         }, $installationPath);
 
