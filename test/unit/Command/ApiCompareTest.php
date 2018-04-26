@@ -68,9 +68,9 @@ final class ApiCompareTest extends TestCase
         $this->sourceRepository = CheckedOutRepository::fromPath(realpath(__DIR__ . '/../../../'));
         chdir((string) $this->sourceRepository);
 
-        $this->input   = $this->createMock(InputInterface::class);
-        $this->output  = $this->createMock(ConsoleOutputInterface::class);
-        $this->stdErr  = $this->createMock(OutputInterface::class);
+        $this->input  = $this->createMock(InputInterface::class);
+        $this->output = $this->createMock(ConsoleOutputInterface::class);
+        $this->stdErr = $this->createMock(OutputInterface::class);
         $this->output->expects(self::any())->method('getErrorOutput')->willReturn($this->stdErr);
 
         $this->performCheckout = $this->createMock(PerformCheckoutOfRevision::class);
@@ -171,7 +171,6 @@ final class ApiCompareTest extends TestCase
 
         $this->comparator->expects(self::once())->method('compare')->willReturn(Changes::fromArray([
             Change::added(uniqid('added', true), true),
-            Change::removed(uniqid('removed', true), true),
         ]));
 
         self::assertSame(2, $this->compare->execute($this->input, $this->output));
@@ -180,13 +179,13 @@ final class ApiCompareTest extends TestCase
     public function testProvidingMarkdownOptionWritesMarkdownOutput() : void
     {
         $fromSha = sha1('fromRevision', false);
-        $toSha = sha1('toRevision', false);
+        $toSha   = sha1('toRevision', false);
 
         $this->input->expects(self::any())->method('hasOption')->willReturn(true);
         $this->input->expects(self::any())->method('getOption')->willReturnMap([
             ['from', $fromSha],
             ['to', $toSha],
-            ['format', ['markdown']]
+            ['format', ['markdown']],
         ]);
         $this->input->expects(self::any())->method('getArgument')->willReturnMap([
             ['sources-path', 'src'],
@@ -225,7 +224,7 @@ final class ApiCompareTest extends TestCase
 
         $this->output->expects(self::any())
             ->method('writeln')
-            ->willReturnCallback(function (string $output) use ($changeToExpect) {
+            ->willReturnCallback(function (string $output) use ($changeToExpect) : void {
                 self::assertContains($changeToExpect, $output);
             });
     }

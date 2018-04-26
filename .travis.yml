@@ -3,6 +3,10 @@ language: php
 before_script:
   - composer install
 
+# see https://github.com/travis-ci/travis-ci/issues/4942#issuecomment-159132444
+git:
+  depth: 99999
+
 jobs:
   include:
     - stage: Static analysis (src) with phpstan
@@ -25,6 +29,10 @@ jobs:
     - stage: Coding Standards
       php: 7.2
       script: vendor/bin/phpcs
+
+    - stage: Mutation Tests
+      php: 7.2
+      script: vendor/bin/infection
 
 cache:
   directories:

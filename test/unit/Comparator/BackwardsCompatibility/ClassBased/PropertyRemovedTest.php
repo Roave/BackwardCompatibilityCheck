@@ -53,10 +53,10 @@ final class PropertyRemovedTest extends TestCase
                     $locator
                 )))->reflect('RoaveTestAsset\\ClassWithPropertiesBeingRemoved'),
                 [
-                    '[BC] REMOVED: Property RoaveTestAsset\ClassWithPropertiesBeingRemoved#removedPublicProperty was removed',
-                    '[BC] REMOVED: Property RoaveTestAsset\ClassWithPropertiesBeingRemoved#nameCaseChangePublicProperty was removed',
-                    '[BC] REMOVED: Property RoaveTestAsset\ClassWithPropertiesBeingRemoved#removedProtectedProperty was removed',
-                    '[BC] REMOVED: Property RoaveTestAsset\ClassWithPropertiesBeingRemoved#nameCaseChangeProtectedProperty was removed',
+                    '[BC] REMOVED: Property RoaveTestAsset\ClassWithPropertiesBeingRemoved#$removedPublicProperty was removed',
+                    '[BC] REMOVED: Property RoaveTestAsset\ClassWithPropertiesBeingRemoved#$nameCaseChangePublicProperty was removed',
+                    '[BC] REMOVED: Property RoaveTestAsset\ClassWithPropertiesBeingRemoved#$removedProtectedProperty was removed',
+                    '[BC] REMOVED: Property RoaveTestAsset\ClassWithPropertiesBeingRemoved#$nameCaseChangeProtectedProperty was removed',
                 ],
             ],
         ];

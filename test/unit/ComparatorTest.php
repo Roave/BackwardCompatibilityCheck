@@ -10,6 +10,8 @@ use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
 use Roave\ApiCompare\Comparator;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassBased\ClassBased;
+use Roave\ApiCompare\Comparator\BackwardsCompatibility\InterfaceBased\InterfaceBased;
+use Roave\ApiCompare\Comparator\BackwardsCompatibility\TraitBased\TraitBased;
 
 /**
  * @covers \Roave\ApiCompare\Comparator
@@ -21,6 +23,12 @@ final class ComparatorTest extends TestCase
 
     /** @var ClassBased|MockObject */
     private $classBasedComparison;
+
+    /** @var InterfaceBased|MockObject */
+    private $interfaceBasedComparison;
+
+    /** @var TraitBased|MockObject */
+    private $traitBasedComparison;
 
     /** @var Comparator */
     private $comparator;
@@ -34,8 +42,118 @@ final class ComparatorTest extends TestCase
     {
         parent::setUp();
 
-        $this->classBasedComparison = $this->createMock(ClassBased::class);
-        $this->comparator           = new Comparator($this->classBasedComparison);
+        $this->classBasedComparison     = $this->createMock(ClassBased::class);
+        $this->interfaceBasedComparison = $this->createMock(InterfaceBased::class);
+        $this->traitBasedComparison     = $this->createMock(TraitBased::class);
+        $this->comparator               = new Comparator(
+            $this->classBasedComparison,
+            $this->interfaceBasedComparison,
+            $this->traitBasedComparison
+        );
+    }
+
+    public function testWillRunSubComparators() : void
+    {
+        $this->classBasedComparatorWillBeCalled();
+        $this->interfaceBasedComparatorWillNotBeCalled();
+        $this->traitBasedComparatorWillNotBeCalled();
+
+        self::assertEqualsIgnoringOrder(
+            Changes::fromArray([
+                Change::changed('class change', true),
+            ]),
+            $this->comparator->compare(
+                self::$stringReflectorFactory->__invoke(
+                    <<<'PHP'
+<?php
+
+class A {
+    const A_CONSTANT = 'foo';
+    public $aProperty;
+    public function aMethod() {}
+}
+PHP
+                ),
+                self::$stringReflectorFactory->__invoke(
+                    <<<'PHP'
+<?php
+
+class A {
+    const A_CONSTANT = 'foo';
+    public $aProperty;
+    public function aMethod() {}
+}
+PHP
+                )
+            )
+        );
+    }
+
+    public function testWillNotRunSubComparatorsIfSymbolsWereDeleted() : void
+    {
+        $this->classBasedComparatorWillBeCalled();
+        $this->interfaceBasedComparatorWillNotBeCalled();
+        $this->traitBasedComparatorWillNotBeCalled();
+
+        self::assertEqualsIgnoringOrder(
+            Changes::fromArray([
+                Change::changed('class change', true),
+            ]),
+            $this->comparator->compare(
+                self::$stringReflectorFactory->__invoke(
+                    <<<'PHP'
+<?php
+
+class A {
+    const A_CONSTANT = 'foo';
+    public $aProperty;
+    public function aMethod() {}
+}
+PHP
+                ),
+                self::$stringReflectorFactory->__invoke(
+                    <<<'PHP'
+<?php
+
+class A {}
+PHP
+                )
+            )
+        );
+    }
+
+    public function testWillRunInterfaceComparators() : void
+    {
+        $this->classBasedComparatorWillNotBeCalled();
+        $this->interfaceBasedComparatorWillBeCalled();
+        $this->traitBasedComparatorWillNotBeCalled();
+
+        self::assertEqualsIgnoringOrder(
+            Changes::fromArray([
+                Change::changed('interface change', true),
+            ]),
+            $this->comparator->compare(
+                self::$stringReflectorFactory->__invoke('<?php interface A {}'),
+                self::$stringReflectorFactory->__invoke('<?php interface A {}')
+            )
+        );
+    }
+
+    public function testWillRunTraitComparators() : void
+    {
+        $this->classBasedComparatorWillNotBeCalled();
+        $this->interfaceBasedComparatorWillNotBeCalled();
+        $this->traitBasedComparatorWillBeCalled();
+
+        self::assertEqualsIgnoringOrder(
+            Changes::fromArray([
+                Change::changed('trait change', true),
+            ]),
+            $this->comparator->compare(
+                self::$stringReflectorFactory->__invoke('<?php trait A {}'),
+                self::$stringReflectorFactory->__invoke('<?php trait A {}')
+            )
+        );
     }
 
     /**
@@ -50,6 +168,8 @@ final class ComparatorTest extends TestCase
     public function testRemovingAClassCausesABreak() : void
     {
         $this->classBasedComparatorWillNotBeCalled();
+        $this->interfaceBasedComparatorWillNotBeCalled();
+        $this->traitBasedComparatorWillNotBeCalled();
 
         self::assertEqualsIgnoringOrder(
             Changes::fromArray([
@@ -62,60 +182,59 @@ final class ComparatorTest extends TestCase
         );
     }
 
-    public function testRemovingAPrivateMethodDoesNotCauseBreak() : void
-    {
-        $this->classBasedComparatorWillBeCalled();
-
-        self::assertEqualsIgnoringOrder(
-            Changes::new(),
-            $this->comparator->compare(
-                self::$stringReflectorFactory->__invoke('<?php class A { private function foo() {} }'),
-                self::$stringReflectorFactory->__invoke('<?php class A { }')
-            )
-        );
-    }
-
-    public function testRenamingParametersDoesNotCauseBcBreak() : void
-    {
-        $this->classBasedComparatorWillBeCalled();
-
-        self::assertEqualsIgnoringOrder(
-            Changes::new(),
-            $this->comparator->compare(
-                self::$stringReflectorFactory->__invoke('<?php class A { function foo(int $a, string $b) {} }'),
-                self::$stringReflectorFactory->__invoke('<?php class A { function foo(int $b, string $a) {} }')
-            )
-        );
-    }
-
-    public function testMakingAClassFinal() : void
-    {
-        $this->classBasedComparatorWillBeCalled();
-
-        self::assertEqualsIgnoringOrder(
-            Changes::fromArray([
-                Change::changed('Class A is now final', true),
-            ]),
-            $this->comparator->compare(
-                self::$stringReflectorFactory->__invoke('<?php class A { }'),
-                self::$stringReflectorFactory->__invoke('<?php final class A { }')
-            )
-        );
-    }
-
     private function classBasedComparatorWillBeCalled() : void
     {
         $this
             ->classBasedComparison
             ->expects(self::atLeastOnce())
             ->method('compare')
-            ->willReturn(Changes::new());
+            ->willReturn(Changes::fromArray([
+                Change::changed('class change', true),
+            ]));
     }
 
     private function classBasedComparatorWillNotBeCalled() : void
     {
         $this
             ->classBasedComparison
+            ->expects(self::never())
+            ->method('compare');
+    }
+
+    private function interfaceBasedComparatorWillBeCalled() : void
+    {
+        $this
+            ->interfaceBasedComparison
+            ->expects(self::atLeastOnce())
+            ->method('compare')
+            ->willReturn(Changes::fromArray([
+                Change::changed('interface change', true),
+            ]));
+    }
+
+    private function interfaceBasedComparatorWillNotBeCalled() : void
+    {
+        $this
+            ->interfaceBasedComparison
+            ->expects(self::never())
+            ->method('compare');
+    }
+
+    private function traitBasedComparatorWillBeCalled() : void
+    {
+        $this
+            ->traitBasedComparison
+            ->expects(self::atLeastOnce())
+            ->method('compare')
+            ->willReturn(Changes::fromArray([
+                Change::changed('trait change', true),
+            ]));
+    }
+
+    private function traitBasedComparatorWillNotBeCalled() : void
+    {
+        $this
+            ->traitBasedComparison
             ->expects(self::never())
             ->method('compare');
     }

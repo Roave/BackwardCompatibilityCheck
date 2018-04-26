@@ -15,6 +15,7 @@ use Roave\ApiCompare\Git\ParseRevision;
 use Roave\ApiCompare\Git\PerformCheckoutOfRevision;
 use Roave\ApiCompare\Git\PickVersionFromVersionCollection;
 use Roave\ApiCompare\Git\Revision;
+use Roave\ApiCompare\Support\ArrayHelpers;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Exception\LogicException;
@@ -23,10 +24,10 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use function count;
-use function in_array;
-use function sprintf;
 use function assert;
+use function count;
+use function getcwd;
+use function sprintf;
 
 final class ApiCompare extends Command
 {
@@ -89,10 +90,7 @@ final class ApiCompare extends Command
     }
 
     /**
-     * @throws RuntimeException
      * @throws InvalidArgumentException
-     * @throws InvalidFileInfo
-     * @throws InvalidDirectory
      */
     public function execute(InputInterface $input, OutputInterface $output) : int
     {
@@ -102,14 +100,14 @@ final class ApiCompare extends Command
         // @todo fix flaky assumption about the path of the source repo...
         $sourceRepo = CheckedOutRepository::fromPath(getcwd());
 
-        $fromRevision = $input->hasOption('from') && $input->getOption('from') !== null
+        $fromRevision = $input->hasOption('from')
             ? $this->parseRevisionFromInput($input, $sourceRepo)
             : $this->determineFromRevisionFromRepository($sourceRepo, $stdErr);
 
         $toRevision  = $this->parseRevision->fromStringForRepository($input->getOption('to'), $sourceRepo);
         $sourcesPath = $input->getArgument('sources-path');
 
-        $stdErr->writeln(sprintf('Comparing from %s to %s...', (string)$fromRevision, (string)$toRevision));
+        $stdErr->writeln(sprintf('Comparing from %s to %s...', (string) $fromRevision, (string) $toRevision));
 
         $fromPath = $this->git->checkout($sourceRepo, $fromRevision);
         $toPath   = $this->git->checkout($sourceRepo, $toRevision);
@@ -131,7 +129,7 @@ final class ApiCompare extends Command
             $outputFormats = $input->getOption('format') ?: [];
             Assert::that($outputFormats)->isArray();
 
-            if (in_array('markdown', $outputFormats, true)) {
+            if (ArrayHelpers::stringArrayContainsString('markdown', $outputFormats)) {
                 (new MarkdownPipedToSymfonyConsoleFormatter($output))->write($changes);
             }
         } finally {

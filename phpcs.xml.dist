@@ -1,5 +1,9 @@
 <?xml version="1.0"?>
-<ruleset name="RoaveApiCompare">
+<ruleset
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="vendor/squizlabs/php_codesniffer/phpcs.xsd"
+    name="RoaveApiCompare"
+>
     <arg name="basepath" value="."/>
     <arg name="extensions" value="php"/>
     <arg name="parallel" value="80"/>
@@ -12,6 +16,19 @@
     <file>./src</file>
     <file>./test/unit</file>
 
+    <rule ref="Doctrine">
+        <exclude-pattern>src/Comparator/BackwardsCompatibility/InterfaceBased/InterfaceBased.php</exclude-pattern>
+        <exclude-pattern>test/unit/Formatter/ReflectionFunctionAbstractNameTest.php</exclude-pattern>
+        <exclude-pattern>test/unit/Comparator/BackwardsCompatibility/FunctionBased/ParameterByReferenceChangedTest.php</exclude-pattern>
+        <exclude-pattern>test/unit/Comparator/BackwardsCompatibility/FunctionBased/RequiredParameterAmountIncreasedTest.php</exclude-pattern>
+        <exclude-pattern>test/unit/Comparator/BackwardsCompatibility/FunctionBased/ParameterTypeChangedTest.php</exclude-pattern>
+        <exclude-pattern>test/unit/Comparator/BackwardsCompatibility/FunctionBased/ReturnTypeChangedTest.php</exclude-pattern>
+        <exclude-pattern>test/unit/Comparator/BackwardsCompatibility/FunctionBased/ReturnTypeByReferenceChangedTest.php</exclude-pattern>
+        <exclude-pattern>test/unit/Comparator/BackwardsCompatibility/FunctionBased/ReturnTypeCovarianceChangedTest.php</exclude-pattern>
+        <exclude-pattern>test/unit/Comparator/BackwardsCompatibility/FunctionBased/ParameterDefaultValueChangedTest.php</exclude-pattern>
+        <exclude-pattern>test/unit/Comparator/BackwardsCompatibility/ClassConstantBased/ClassConstantVisibilityReducedTest.php</exclude-pattern>
+        <exclude-pattern>test/unit/Comparator/BackwardsCompatibility/FunctionBased/ParameterTypeContravarianceChangedTest.php</exclude-pattern>
+    </rule>
     <rule ref="PSR2">
         <exclude name="Generic.Files.LineLength"/>
     </rule>
