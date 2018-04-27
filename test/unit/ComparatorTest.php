@@ -174,7 +174,7 @@ PHP
         $this->classBasedComparatorWillNotBeCalled();
 
         self::assertEqualsIgnoringOrder(
-            Changes::new(),
+            Changes::empty(),
             $this->comparator->compare(
                 self::$stringReflectorFactory->__invoke('<?php '),
                 self::$stringReflectorFactory->__invoke('<?php class A { private function foo() {} }'),

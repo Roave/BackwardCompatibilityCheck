@@ -25,7 +25,7 @@ final class MultipleChecksOnAClassConstant implements ClassConstantBased
             function (Changes $changes, ClassConstantBased $check) use ($fromConstant, $toConstant) : Changes {
                 return $changes->mergeWith($check->__invoke($fromConstant, $toConstant));
             },
-            Changes::new()
+            Changes::empty()
         );
     }
 }

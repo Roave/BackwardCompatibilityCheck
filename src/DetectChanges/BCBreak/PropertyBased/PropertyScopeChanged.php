@@ -21,7 +21,7 @@ final class PropertyScopeChanged implements PropertyBased
         $toScope   = $this->scopeAsString($toProperty);
 
         if ($fromScope === $toScope) {
-            return Changes::new();
+            return Changes::empty();
         }
 
         return Changes::fromArray([

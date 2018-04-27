@@ -20,7 +20,7 @@ final class OnlyProtectedPropertyChanged implements PropertyBased
     public function __invoke(ReflectionProperty $fromProperty, ReflectionProperty $toProperty) : Changes
     {
         if (! $fromProperty->isProtected()) {
-            return Changes::new();
+            return Changes::empty();
         }
 
         return $this->propertyBased->__invoke($fromProperty, $toProperty);

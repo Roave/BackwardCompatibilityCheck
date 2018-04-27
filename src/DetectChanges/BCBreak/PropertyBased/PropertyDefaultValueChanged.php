@@ -27,7 +27,7 @@ final class PropertyDefaultValueChanged implements PropertyBased
         $toPropertyDefaultValue   = $toProperty->getDefaultValue();
 
         if ($fromPropertyDefaultValue === $toPropertyDefaultValue) {
-            return Changes::new();
+            return Changes::empty();
         }
 
         return Changes::fromArray([Change::changed(

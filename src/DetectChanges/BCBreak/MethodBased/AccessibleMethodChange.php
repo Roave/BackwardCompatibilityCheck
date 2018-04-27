@@ -23,7 +23,7 @@ final class AccessibleMethodChange implements MethodBased
     public function __invoke(ReflectionMethod $fromMethod, ReflectionMethod $toMethod) : Changes
     {
         if ($fromMethod->isPrivate()) {
-            return Changes::new();
+            return Changes::empty();
         }
 
         return $this->check->__invoke($fromMethod, $toMethod);

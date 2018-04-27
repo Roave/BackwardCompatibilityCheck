@@ -31,7 +31,7 @@ final class PropertyDocumentedTypeChanged implements PropertyBased
     public function __invoke(ReflectionProperty $fromProperty, ReflectionProperty $toProperty) : Changes
     {
         if ($fromProperty->getDocComment() === '') {
-            return Changes::new();
+            return Changes::empty();
         }
 
         $fromTypes = array_unique($fromProperty->getDocBlockTypeStrings());
@@ -41,7 +41,7 @@ final class PropertyDocumentedTypeChanged implements PropertyBased
         sort($toTypes);
 
         if ($fromTypes === $toTypes) {
-            return Changes::new();
+            return Changes::empty();
         }
 
         return Changes::fromArray([

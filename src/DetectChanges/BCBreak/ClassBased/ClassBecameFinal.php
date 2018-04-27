@@ -14,11 +14,11 @@ final class ClassBecameFinal implements ClassBased
     public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
     {
         if ($fromClass->isFinal()) {
-            return Changes::new();
+            return Changes::empty();
         }
 
         if (! $toClass->isFinal()) {
-            return Changes::new();
+            return Changes::empty();
         }
 
         return Changes::fromArray([Change::changed(

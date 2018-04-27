@@ -54,7 +54,7 @@ final class AccessiblePropertyChangedTest extends TestCase
             ->willReturn(true);
 
         self::assertEquals(
-            Changes::new(),
+            Changes::empty(),
             $this->accessiblePropertyChanged->__invoke($this->fromProperty, $this->toProperty)
         );
     }

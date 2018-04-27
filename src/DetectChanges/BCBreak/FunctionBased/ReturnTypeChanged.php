@@ -32,7 +32,7 @@ final class ReturnTypeChanged implements FunctionBased
         $toReturnType   = $this->typeToString($toFunction->getReturnType());
 
         if ($fromReturnType === $toReturnType) {
-            return Changes::new();
+            return Changes::empty();
         }
 
         return Changes::fromArray([

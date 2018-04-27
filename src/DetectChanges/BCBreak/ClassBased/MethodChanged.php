@@ -39,7 +39,7 @@ final class MethodChanged implements ClassBased
                     $methodsTo[$methodName]
                 ));
             },
-            Changes::new()
+            Changes::empty()
         );
     }
 

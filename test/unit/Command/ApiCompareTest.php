@@ -149,7 +149,7 @@ final class ApiCompareTest extends TestCase
             ->with((string) $this->sourceRepository)
             ->willReturn($this->dependencies);
 
-        $this->comparator->expects(self::once())->method('compare')->willReturn(Changes::new());
+        $this->comparator->expects(self::once())->method('compare')->willReturn(Changes::empty());
 
         self::assertSame(0, $this->compare->execute($this->input, $this->output));
     }
@@ -318,7 +318,7 @@ final class ApiCompareTest extends TestCase
             ->with($versions)
             ->willReturn($pickedVersion);
 
-        $this->comparator->expects(self::once())->method('compare')->willReturn(Changes::new());
+        $this->comparator->expects(self::once())->method('compare')->willReturn(Changes::empty());
 
         self::assertSame(0, $this->compare->execute($this->input, $this->output));
     }

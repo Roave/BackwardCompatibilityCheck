@@ -18,7 +18,7 @@ final class MethodConcretenessChanged implements MethodBased
     public function __invoke(ReflectionMethod $fromMethod, ReflectionMethod $toMethod) : Changes
     {
         if ($fromMethod->isAbstract() || ! $toMethod->isAbstract()) {
-            return Changes::new();
+            return Changes::empty();
         }
 
         return Changes::fromArray([Change::changed(

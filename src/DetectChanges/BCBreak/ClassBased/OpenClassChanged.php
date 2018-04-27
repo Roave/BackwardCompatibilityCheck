@@ -20,7 +20,7 @@ final class OpenClassChanged implements ClassBased
     public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
     {
         if ($fromClass->isFinal()) {
-            return Changes::new();
+            return Changes::empty();
         }
 
         return $this->checkClass->__invoke($fromClass, $toClass);

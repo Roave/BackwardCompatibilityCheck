@@ -30,7 +30,7 @@ final class RequiredParameterAmountIncreased implements FunctionBased
         $toRequiredParameters   = $toFunction->getNumberOfRequiredParameters();
 
         if ($fromRequiredParameters >= $toRequiredParameters) {
-            return Changes::new();
+            return Changes::empty();
         }
 
         return Changes::fromArray([

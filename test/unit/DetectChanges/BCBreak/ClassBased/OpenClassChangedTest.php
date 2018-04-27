@@ -74,6 +74,6 @@ final class OpenClassChangedTest extends TestCase
             ->expects(self::never())
             ->method('__invoke');
 
-        self::assertEquals(Changes::new(), $this->openClassChanged->__invoke($this->fromClass, $this->toClass));
+        self::assertEquals(Changes::empty(), $this->openClassChanged->__invoke($this->fromClass, $this->toClass));
     }
 }

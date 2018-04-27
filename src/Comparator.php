@@ -46,7 +46,7 @@ class Comparator
         ClassReflector $pastSourcesWithDependencies,
         ClassReflector $newSourcesWithDependencies
     ) : Changes {
-        $changelog = Changes::new();
+        $changelog = Changes::empty();
 
         $definedApiClassNames = array_map(function (ReflectionClass $class) : string {
             return $class->getName();

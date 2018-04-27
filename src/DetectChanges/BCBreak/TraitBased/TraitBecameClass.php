@@ -18,7 +18,7 @@ final class TraitBecameClass implements TraitBased
     public function __invoke(ReflectionClass $fromTrait, ReflectionClass $toTrait) : Changes
     {
         if ($this->isClass($fromTrait) || ! $this->isClass($toTrait)) {
-            return Changes::new();
+            return Changes::empty();
         }
 
         return Changes::fromArray([Change::changed(

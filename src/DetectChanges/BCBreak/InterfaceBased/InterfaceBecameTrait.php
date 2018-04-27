@@ -19,7 +19,7 @@ final class InterfaceBecameTrait implements InterfaceBased
     {
         if (! $toClass->isTrait() || ! $fromClass->isInterface()) {
             // checking whether an interface became an class is done in `InterfaceBecameClass`
-            return Changes::new();
+            return Changes::empty();
         }
 
         return Changes::fromArray([Change::changed(

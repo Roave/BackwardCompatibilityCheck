@@ -98,7 +98,7 @@ final class ChangesTest extends TestCase
 
         self::assertSame(
             [$change],
-            iterator_to_array(Changes::new()->withAddedChange($change))
+            iterator_to_array(Changes::empty()->withAddedChange($change))
         );
     }
 

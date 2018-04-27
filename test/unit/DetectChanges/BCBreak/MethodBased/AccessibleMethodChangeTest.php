@@ -49,7 +49,7 @@ final class AccessibleMethodChangeTest extends TestCase
             ->expects(self::never())
             ->method('__invoke');
 
-        self::assertEquals(Changes::new(), $this->methodCheck->__invoke($from, $to));
+        self::assertEquals(Changes::empty(), $this->methodCheck->__invoke($from, $to));
     }
 
     public function testWillCheckVisibleMethods() : void

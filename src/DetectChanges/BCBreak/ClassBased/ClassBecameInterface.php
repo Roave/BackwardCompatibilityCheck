@@ -20,7 +20,7 @@ final class ClassBecameInterface implements ClassBased
     {
         if ($fromClass->isInterface() || ! $toClass->isInterface()) {
             // checking whether a class became an interface is done in `InterfaceBecameClass`
-            return Changes::new();
+            return Changes::empty();
         }
 
         return Changes::fromArray([Change::changed(

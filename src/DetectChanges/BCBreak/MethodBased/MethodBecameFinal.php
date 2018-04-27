@@ -18,7 +18,7 @@ final class MethodBecameFinal implements MethodBased
     public function __invoke(ReflectionMethod $fromMethod, ReflectionMethod $toMethod) : Changes
     {
         if ($fromMethod->isFinal() || ! $toMethod->isFinal()) {
-            return Changes::new();
+            return Changes::empty();
         }
 
         return Changes::fromArray([Change::changed(

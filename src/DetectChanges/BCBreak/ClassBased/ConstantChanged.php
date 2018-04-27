@@ -35,7 +35,7 @@ final class ConstantChanged implements ClassBased
                     $constantsTo[$constantName]
                 ));
             },
-            Changes::new()
+            Changes::empty()
         );
     }
 }

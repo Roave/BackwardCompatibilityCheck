@@ -35,7 +35,7 @@ final class PropertyChanged implements ClassBased
                     $propertiesTo[$propertyName]
                 ));
             },
-            Changes::new()
+            Changes::empty()
         );
     }
 }

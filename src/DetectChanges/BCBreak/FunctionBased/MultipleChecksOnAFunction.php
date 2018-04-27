@@ -25,7 +25,7 @@ final class MultipleChecksOnAFunction implements FunctionBased
             function (Changes $changes, FunctionBased $check) use ($fromFunction, $toClass) : Changes {
                 return $changes->mergeWith($check->__invoke($fromFunction, $toClass));
             },
-            Changes::new()
+            Changes::empty()
         );
     }
 }

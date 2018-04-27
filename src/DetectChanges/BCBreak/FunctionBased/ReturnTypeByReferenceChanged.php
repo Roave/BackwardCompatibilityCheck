@@ -30,7 +30,7 @@ final class ReturnTypeByReferenceChanged implements FunctionBased
         $toReturnsReference   = $toFunction->returnsReference();
 
         if ($fromReturnsReference === $toReturnsReference) {
-            return Changes::new();
+            return Changes::empty();
         }
 
         return Changes::fromArray([

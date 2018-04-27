@@ -54,7 +54,7 @@ final class OnlyPublicClassConstantChangedTest extends TestCase
             ->willReturn(false);
 
         self::assertEquals(
-            Changes::new(),
+            Changes::empty(),
             $this->changed->__invoke($this->fromConstant, $this->toConstant)
         );
     }

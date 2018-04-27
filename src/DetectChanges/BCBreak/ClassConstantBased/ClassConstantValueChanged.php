@@ -15,14 +15,14 @@ final class ClassConstantValueChanged implements ClassConstantBased
     public function __invoke(ReflectionClassConstant $fromConstant, ReflectionClassConstant $toConstant) : Changes
     {
         if ($fromConstant->isPrivate()) {
-            return Changes::new();
+            return Changes::empty();
         }
 
         $fromValue = $fromConstant->getValue();
         $toValue   = $toConstant->getValue();
 
         if ($fromValue === $toValue) {
-            return Changes::new();
+            return Changes::empty();
         }
 
         return Changes::fromArray([

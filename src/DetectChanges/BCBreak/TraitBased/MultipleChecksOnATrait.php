@@ -25,7 +25,7 @@ final class MultipleChecksOnATrait implements TraitBased
             function (Changes $changes, TraitBased $check) use ($fromTrait, $toTrait) : Changes {
                 return $changes->mergeWith($check->__invoke($fromTrait, $toTrait));
             },
-            Changes::new()
+            Changes::empty()
         );
     }
 }

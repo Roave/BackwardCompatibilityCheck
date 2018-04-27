@@ -73,6 +73,6 @@ final class FinalClassChangedTest extends TestCase
             ->expects(self::never())
             ->method('__invoke');
 
-        self::assertEquals(Changes::new(), $this->finalClassChanged->__invoke($this->fromClass, $this->toClass));
+        self::assertEquals(Changes::empty(), $this->finalClassChanged->__invoke($this->fromClass, $this->toClass));
     }
 }

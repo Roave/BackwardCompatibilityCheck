@@ -20,7 +20,7 @@ final class Changes implements IteratorAggregate, Countable
     {
     }
 
-    public static function new() : self
+    public static function empty() : self
     {
         return new self();
     }
@@ -32,7 +32,7 @@ final class Changes implements IteratorAggregate, Countable
     public static function fromArray(array $changes) : self
     {
         Assert::that($changes)->all()->isInstanceOf(Change::class);
-        $instance          = self::new();
+        $instance          = self::empty();
         $instance->changes = $changes;
         return $instance;
     }

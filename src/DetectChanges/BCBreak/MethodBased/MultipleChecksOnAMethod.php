@@ -25,7 +25,7 @@ final class MultipleChecksOnAMethod implements MethodBased
             function (Changes $changes, MethodBased $check) use ($fromMethod, $toMethod) : Changes {
                 return $changes->mergeWith($check->__invoke($fromMethod, $toMethod));
             },
-            Changes::new()
+            Changes::empty()
         );
     }
 }

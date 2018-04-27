@@ -20,7 +20,7 @@ final class OnlyPublicClassConstantChanged implements ClassConstantBased
     public function __invoke(ReflectionClassConstant $fromConstant, ReflectionClassConstant $toConstant) : Changes
     {
         if (! $fromConstant->isPublic()) {
-            return Changes::new();
+            return Changes::empty();
         }
 
         return $this->constantCheck->__invoke($fromConstant, $toConstant);

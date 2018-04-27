@@ -24,7 +24,7 @@ final class MethodAdded implements InterfaceBased
         $newMethods  = array_diff_key($toMethods, $fromMethods);
 
         if (! $newMethods) {
-            return Changes::new();
+            return Changes::empty();
         }
 
         return Changes::fromArray(array_values(array_map(function (ReflectionMethod $method) use (

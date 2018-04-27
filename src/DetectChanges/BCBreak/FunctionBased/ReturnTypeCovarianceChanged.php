@@ -37,7 +37,7 @@ final class ReturnTypeCovarianceChanged implements FunctionBased
         $toReturnType   = $toFunction->getReturnType();
 
         if ($this->typeIsCovariant->__invoke($fromReturnType, $toReturnType)) {
-            return Changes::new();
+            return Changes::empty();
         }
 
         return Changes::fromArray([

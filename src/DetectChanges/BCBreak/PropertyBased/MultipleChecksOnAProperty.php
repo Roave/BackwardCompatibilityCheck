@@ -25,7 +25,7 @@ final class MultipleChecksOnAProperty implements PropertyBased
             function (Changes $changes, PropertyBased $check) use ($fromProperty, $toProperty) : Changes {
                 return $changes->mergeWith($check->__invoke($fromProperty, $toProperty));
             },
-            Changes::new()
+            Changes::empty()
         );
     }
 }

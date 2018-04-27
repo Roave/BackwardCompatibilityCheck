@@ -37,7 +37,7 @@ final class ParameterDefaultValueChanged implements FunctionBased
         $fromParametersWithDefaults = $this->defaultParameterValues($fromFunction);
         $toParametersWithDefaults   = $this->defaultParameterValues($toFunction);
 
-        $changes = Changes::new();
+        $changes = Changes::empty();
 
         foreach (array_intersect_key($fromParametersWithDefaults, $toParametersWithDefaults) as $parameterIndex => $parameter) {
             assert($parameter instanceof ReflectionParameter);

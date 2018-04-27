@@ -33,7 +33,7 @@ final class PropertyVisibilityReduced implements PropertyBased
 
         // Works because private, protected and public are sortable:
         if ($visibilityFrom <= $visibilityTo) {
-            return Changes::new();
+            return Changes::empty();
         }
 
         return Changes::fromArray([Change::changed(

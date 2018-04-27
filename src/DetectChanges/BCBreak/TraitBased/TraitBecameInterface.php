@@ -18,7 +18,7 @@ final class TraitBecameInterface implements TraitBased
     public function __invoke(ReflectionClass $fromTrait, ReflectionClass $toTrait) : Changes
     {
         if ($toTrait->isTrait() || ! $toTrait->isInterface() || ! $fromTrait->isTrait()) {
-            return Changes::new();
+            return Changes::empty();
         }
 
         return Changes::fromArray([Change::changed(

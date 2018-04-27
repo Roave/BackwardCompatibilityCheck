@@ -21,7 +21,7 @@ final class MethodScopeChanged implements MethodBased
         $scopeTo   = $this->methodScope($toMethod);
 
         if ($scopeFrom === $scopeTo) {
-            return Changes::new();
+            return Changes::empty();
         }
 
         return Changes::fromArray([Change::changed(

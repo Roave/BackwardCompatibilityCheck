@@ -40,7 +40,7 @@ final class ParameterTypeContravarianceChanged implements FunctionBased
         /** @var ReflectionParameter[] $toParameters */
         $toParameters = array_values($toFunction->getParameters());
 
-        $changes = Changes::new();
+        $changes = Changes::empty();
 
         foreach (array_intersect_key($fromParameters, $toParameters) as $parameterIndex => $commonParameter) {
             $changes = $changes->mergeWith($this->compareParameter($commonParameter, $toParameters[$parameterIndex]));
@@ -55,7 +55,7 @@ final class ParameterTypeContravarianceChanged implements FunctionBased
         $toType   = $toParameter->getType();
 
         if ($this->typeIsContravariant->__invoke($fromType, $toType)) {
-            return Changes::new();
+            return Changes::empty();
         }
 
         return Changes::fromArray([

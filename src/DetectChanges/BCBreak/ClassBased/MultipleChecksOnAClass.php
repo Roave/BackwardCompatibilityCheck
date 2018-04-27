@@ -25,7 +25,7 @@ final class MultipleChecksOnAClass implements ClassBased
             function (Changes $changes, ClassBased $check) use ($fromClass, $toClass) : Changes {
                 return $changes->mergeWith($check->__invoke($fromClass, $toClass));
             },
-            Changes::new()
+            Changes::empty()
         );
     }
 }

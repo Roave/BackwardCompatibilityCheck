@@ -20,7 +20,7 @@ final class AccessiblePropertyChanged implements PropertyBased
     public function __invoke(ReflectionProperty $fromProperty, ReflectionProperty $toProperty) : Changes
     {
         if ($fromProperty->isPrivate()) {
-            return Changes::new();
+            return Changes::empty();
         }
 
         return $this->propertyBased->__invoke($fromProperty, $toProperty);

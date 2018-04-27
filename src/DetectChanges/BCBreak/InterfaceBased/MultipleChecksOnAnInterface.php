@@ -25,7 +25,7 @@ final class MultipleChecksOnAnInterface implements InterfaceBased
             function (Changes $changes, InterfaceBased $check) use ($fromClass, $toClass) : Changes {
                 return $changes->mergeWith($check->__invoke($fromClass, $toClass));
             },
-            Changes::new()
+            Changes::empty()
         );
     }
 }
