@@ -110,6 +110,30 @@ final class AssertBackwardsCompatible extends Command
                 InputArgument::OPTIONAL,
                 'Path to the sources, relative to the repository root',
                 'src'
+            )
+            ->addUsage(
+                <<<'USAGE'
+
+
+Without arguments, this command will attempt to detect the 
+latest stable git tag ("release", according to this tool)
+of the repository in your CWD (current working directory),
+and will use it as baseline for the defined API.
+
+It will then create two clones of the repository: one at
+the "release" version, and one at the version specified
+via `--to` ("HEAD" by default).
+
+It will then install all required dependencies in both copies
+and compare the APIs, looking for breaking changes in the
+given `<sources-path>` ("src" by default).
+
+Once completed, it will print out the results to `STDERR`
+and terminate with `1` if breaking changes were detected.
+
+If you want to produce `STDOUT` output, then please use the
+`--format` flag.
+USAGE
             );
     }
 
