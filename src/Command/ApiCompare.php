@@ -83,8 +83,8 @@ final class ApiCompare extends Command
     protected function configure() : void
     {
         $this
-            ->setName('api-compare:compare')
-            ->setDescription('List comparisons between class APIs')
+            ->setName('roave-backwards-compatibility-check:assert-backwards-compatible')
+            ->setDescription('Verifies that the revision being compared with "from" does not introduce any BC (backwards-incompatible) changes')
             ->addOption('from', null, InputOption::VALUE_OPTIONAL)
             ->addOption('to', null, InputOption::VALUE_REQUIRED, '', 'HEAD')
             ->addOption('format', null, InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY)
