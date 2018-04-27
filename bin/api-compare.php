@@ -6,7 +6,7 @@ namespace Roave\ApiCompareCli;
 
 use Composer\Factory;
 use Composer\Installer;
-use Composer\IO\NullIO;
+use Composer\IO\ConsoleIO;
 use Roave\ApiCompare\Command;
 use Roave\ApiCompare\Comparator;
 use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassBased;
@@ -27,6 +27,8 @@ use Roave\ApiCompare\LocateDependencies\LocateDependenciesViaComposer;
 use Roave\BetterReflection\BetterReflection;
 use RuntimeException;
 use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Console\Output\ConsoleOutput;
 use function file_exists;
 
 (function () : void {
@@ -38,7 +40,12 @@ use function file_exists;
         /** @noinspection PhpIncludeInspection */
         require $autoload;
 
-        $astLocator = (new BetterReflection())->astLocator();
+        $application = new Application();
+        $helperSet   = $application->getHelperSet();
+        $input       = new ArgvInput();
+        $output      = new ConsoleOutput();
+        $astLocator  = (new BetterReflection())->astLocator();
+        $composerIo  = new ConsoleIO($input, $output, $helperSet);
 
         $apiCompareCommand = new Command\ApiCompare(
             new GitCheckoutRevisionToTemporaryPath(),
@@ -47,7 +54,17 @@ use function file_exists;
             new GetVersionCollectionFromGitRepository(),
             new PickLastMinorVersionFromCollection(),
             new LocateDependenciesViaComposer(
-                Installer::create(new NullIO(), Factory::create(new NullIO(), null, true)),
+                function (string $installationPath) use ($composerIo) : Installer {
+                    return Installer::create(
+                        $composerIo,
+                        (new Factory())->createComposer(
+                            $composerIo,
+                            null,
+                            true,
+                            $installationPath
+                        )
+                    );
+                },
                 $astLocator
             ),
             new Comparator(
@@ -258,12 +275,11 @@ use function file_exists;
             )
         );
 
-        $application = new Application();
         $application->add($apiCompareCommand);
         $application->setDefaultCommand($apiCompareCommand->getName());
 
         /** @noinspection PhpUnhandledExceptionInspection */
-        $application->run();
+        $application->run($input, $output);
 
         return;
     }

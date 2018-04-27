@@ -10,6 +10,7 @@ use Roave\BetterReflection\SourceLocator\Exception\InvalidDirectory;
 use Roave\BetterReflection\SourceLocator\Exception\InvalidFileInfo;
 use Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\DirectoriesSourceLocator;
+use Roave\BetterReflection\SourceLocator\Type\MemoizingSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\SourceLocator;
 
 /**
@@ -34,10 +35,10 @@ final class DirectoryReflectorFactory
         SourceLocator $dependencies
     ) : ClassReflector {
         return new ClassReflector(
-            new AggregateSourceLocator([
+            new MemoizingSourceLocator(new AggregateSourceLocator([
                 new DirectoriesSourceLocator([$directory], $this->astLocator),
                 $dependencies,
-            ])
+            ]))
         );
     }
 }

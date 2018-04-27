@@ -25,24 +25,19 @@ use function reset;
 
 final class LocateDependenciesViaComposer implements LocateDependencies
 {
-    /** @var Installer */
-    private $installer;
-
     /** @var Locator */
     private $astLocator;
 
-    public function __construct(Installer $installer, Locator $astLocator)
-    {
-        $this->installer  = $installer;
-        $this->astLocator = $astLocator;
+    /** @var callable */
+    private $makeComposerInstaller;
 
-        // Some defaults needed for this specific implementation:
-        $this->installer->setDevMode(false);
-        $this->installer->setDumpAutoloader(true);
-        $this->installer->setRunScripts(false);
-        $this->installer->setOptimizeAutoloader(true);
-        $this->installer->setClassMapAuthoritative(true);
-        $this->installer->setIgnorePlatformRequirements(true);
+    public function __construct(
+        callable $makeComposerInstaller,
+        Locator $astLocator
+    ) {
+        // This is needed because the CWD of composer cannot be changed at runtime, but only at startup
+        $this->makeComposerInstaller = $makeComposerInstaller;
+        $this->astLocator            = $astLocator;
     }
 
     public function __invoke(string $installationPath) : SourceLocator
@@ -50,8 +45,21 @@ final class LocateDependenciesViaComposer implements LocateDependencies
         Assert::that($installationPath)->directory();
         Assert::that($installationPath . '/composer.json')->file();
 
-        $this->runInDirectory(function () : void {
-            $this->installer->run();
+        $this->runInDirectory(function () use ($installationPath) : void {
+            $installer = ($this->makeComposerInstaller)($installationPath);
+
+            Assert::that($installer)->isInstanceOf(Installer::class);
+            assert($installer instanceof Installer);
+
+            // Some defaults needed for this specific implementation:
+            $installer->setDevMode(false);
+            $installer->setDumpAutoloader(true);
+            $installer->setRunScripts(false);
+            $installer->setOptimizeAutoloader(true);
+            $installer->setClassMapAuthoritative(true);
+            $installer->setIgnorePlatformRequirements(true);
+
+            $installer->run();
         }, $installationPath);
 
         $autoloadStatic = $installationPath . '/vendor/composer/autoload_static.php';
@@ -95,6 +103,10 @@ final class LocateDependenciesViaComposer implements LocateDependencies
     private function sourceLocatorFromAutoloadFiles(ReflectionClass $autoloadStatic) : SourceLocator
     {
         $filesMapProperty = $autoloadStatic->getProperty('files');
+
+        if (! $filesMapProperty) {
+            return new AggregateSourceLocator();
+        }
 
         Assert::that($filesMapProperty)->notNull();
 
