@@ -1,5 +1,5 @@
 {
-    "name": "roave/api-compare",
+    "name": "roave/backward-compatibility-check",
     "description": "Tool to compare two revisions of a public API to check for BC breaks",
     "require": {
         "php": "^7.2",
