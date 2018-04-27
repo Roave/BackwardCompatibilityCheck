@@ -39,6 +39,10 @@ final class Changes implements IteratorAggregate, Countable
 
     public function mergeWith(self $other) : self
     {
+        if (empty($other->changes)) {
+            return $this;
+        }
+
         $instance = new self();
 
         $instance->changes = array_merge($this->changes, $other->changes);
