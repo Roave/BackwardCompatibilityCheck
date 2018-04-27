@@ -24,18 +24,16 @@ final class PropertyScopeChanged implements PropertyBased
             return Changes::empty();
         }
 
-        return Changes::fromArray([
-            Change::changed(
-                sprintf(
-                    'Property $%s of %s changed scope from %s to %s',
-                    $fromProperty->getName(),
-                    $fromProperty->getDeclaringClass()->getName(),
-                    $fromScope,
-                    $toScope
-                ),
-                true
+        return Changes::fromList(Change::changed(
+            sprintf(
+                'Property $%s of %s changed scope from %s to %s',
+                $fromProperty->getName(),
+                $fromProperty->getDeclaringClass()->getName(),
+                $fromScope,
+                $toScope
             ),
-        ]);
+            true
+        ));
     }
 
     private function scopeAsString(ReflectionProperty $property) : string

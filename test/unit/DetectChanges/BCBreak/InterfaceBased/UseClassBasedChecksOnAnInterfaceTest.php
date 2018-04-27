@@ -20,7 +20,7 @@ final class UseClassBasedChecksOnAnInterfaceTest extends TestCase
 {
     public function testCompare() : void
     {
-        $changes = Changes::fromArray([Change::added(uniqid('foo', true), true)]);
+        $changes = Changes::fromList(Change::added(uniqid('foo', true), true));
 
         /** @var ClassBased|MockObject $classBased */
         $classBased = $this->createMock(ClassBased::class);

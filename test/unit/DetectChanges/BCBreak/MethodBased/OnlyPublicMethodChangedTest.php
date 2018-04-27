@@ -64,9 +64,7 @@ final class OnlyPublicMethodChangedTest extends TestCase
             ->method('isPublic')
             ->willReturn(true);
 
-        $result = Changes::fromArray([
-            Change::changed(uniqid('foo', true), true),
-        ]);
+        $result = Changes::fromList(Change::changed(uniqid('foo', true), true));
 
         $this
             ->check

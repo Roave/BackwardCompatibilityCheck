@@ -40,17 +40,15 @@ final class ReturnTypeCovarianceChanged implements FunctionBased
             return Changes::empty();
         }
 
-        return Changes::fromArray([
-            Change::changed(
-                sprintf(
-                    'The return type of %s changed from %s to the non-covariant %s',
-                    $this->formatFunction->__invoke($fromFunction),
-                    $this->typeToString($fromReturnType),
-                    $this->typeToString($toReturnType)
-                ),
-                true
+        return Changes::fromList(Change::changed(
+            sprintf(
+                'The return type of %s changed from %s to the non-covariant %s',
+                $this->formatFunction->__invoke($fromFunction),
+                $this->typeToString($fromReturnType),
+                $this->typeToString($toReturnType)
             ),
-        ]);
+            true
+        ));
     }
 
     private function typeToString(?ReflectionType $type) : string

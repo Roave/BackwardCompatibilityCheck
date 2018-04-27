@@ -21,14 +21,13 @@ final class MethodConcretenessChanged implements MethodBased
             return Changes::empty();
         }
 
-        return Changes::fromArray([Change::changed(
+        return Changes::fromList(Change::changed(
             sprintf(
                 'Method %s() of class %s changed from concrete to abstract',
                 $fromMethod->getName(),
                 $fromMethod->getDeclaringClass()->getName()
             ),
             true
-        ),
-        ]);
+        ));
     }
 }

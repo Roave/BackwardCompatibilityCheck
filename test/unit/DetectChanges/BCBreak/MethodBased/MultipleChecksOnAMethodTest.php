@@ -37,32 +37,26 @@ final class MultipleChecksOnAMethodTest extends TestCase
             ->expects(self::once())
             ->method('__invoke')
             ->with($from, $to)
-            ->willReturn(Changes::fromArray([
-                Change::added('1', true),
-            ]));
+            ->willReturn(Changes::fromList(Change::added('1', true)));
 
         $checker2
             ->expects(self::once())
             ->method('__invoke')
             ->with($from, $to)
-            ->willReturn(Changes::fromArray([
-                Change::added('2', true),
-            ]));
+            ->willReturn(Changes::fromList(Change::added('2', true)));
 
         $checker3
             ->expects(self::once())
             ->method('__invoke')
             ->with($from, $to)
-            ->willReturn(Changes::fromArray([
-                Change::added('3', true),
-            ]));
+            ->willReturn(Changes::fromList(Change::added('3', true)));
 
         $this->assertEquals(
-            Changes::fromArray([
+            Changes::fromList(
                 Change::added('1', true),
                 Change::added('2', true),
-                Change::added('3', true),
-            ]),
+                Change::added('3', true)
+            ),
             $multiCheck->__invoke($from, $to)
         );
     }

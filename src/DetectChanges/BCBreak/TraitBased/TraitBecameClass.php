@@ -21,11 +21,10 @@ final class TraitBecameClass implements TraitBased
             return Changes::empty();
         }
 
-        return Changes::fromArray([Change::changed(
+        return Changes::fromList(Change::changed(
             sprintf('Trait %s became a class', $fromTrait->getName()),
             true
-        ),
-        ]);
+        ));
     }
 
     /**

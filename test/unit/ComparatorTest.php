@@ -59,9 +59,7 @@ final class ComparatorTest extends TestCase
         $this->traitBasedComparatorWillNotBeCalled();
 
         self::assertEqualsIgnoringOrder(
-            Changes::fromArray([
-                Change::changed('class change', true),
-            ]),
+            Changes::fromList(Change::changed('class change', true)),
             $this->comparator->compare(
                 self::$stringReflectorFactory->__invoke('<?php class A {}'),
                 self::$stringReflectorFactory->__invoke(
@@ -97,9 +95,7 @@ PHP
         $this->traitBasedComparatorWillNotBeCalled();
 
         self::assertEqualsIgnoringOrder(
-            Changes::fromArray([
-                Change::changed('class change', true),
-            ]),
+            Changes::fromList(Change::changed('class change', true)),
             $this->comparator->compare(
                 self::$stringReflectorFactory->__invoke('<?php class A {}'),
                 self::$stringReflectorFactory->__invoke(
@@ -131,9 +127,7 @@ PHP
         $this->traitBasedComparatorWillNotBeCalled();
 
         self::assertEqualsIgnoringOrder(
-            Changes::fromArray([
-                Change::changed('interface change', true),
-            ]),
+            Changes::fromList(Change::changed('interface change', true)),
             $this->comparator->compare(
                 self::$stringReflectorFactory->__invoke('<?php interface A {}'),
                 self::$stringReflectorFactory->__invoke('<?php interface A {}'),
@@ -149,9 +143,7 @@ PHP
         $this->traitBasedComparatorWillBeCalled();
 
         self::assertEqualsIgnoringOrder(
-            Changes::fromArray([
-                Change::changed('trait change', true),
-            ]),
+            Changes::fromList(Change::changed('trait change', true)),
             $this->comparator->compare(
                 self::$stringReflectorFactory->__invoke('<?php trait A {}'),
                 self::$stringReflectorFactory->__invoke('<?php trait A {}'),
@@ -190,9 +182,7 @@ PHP
         $this->traitBasedComparatorWillNotBeCalled();
 
         self::assertEqualsIgnoringOrder(
-            Changes::fromArray([
-                Change::removed('Class A has been deleted', true),
-            ]),
+            Changes::fromList(Change::removed('Class A has been deleted', true)),
             $this->comparator->compare(
                 self::$stringReflectorFactory->__invoke('<?php class A { private function foo() {} }'),
                 self::$stringReflectorFactory->__invoke('<?php class A { private function foo() {} }'),
@@ -207,9 +197,7 @@ PHP
             ->classBasedComparison
             ->expects(self::atLeastOnce())
             ->method('__invoke')
-            ->willReturn(Changes::fromArray([
-                Change::changed('class change', true),
-            ]));
+            ->willReturn(Changes::fromList(Change::changed('class change', true)));
     }
 
     private function classBasedComparatorWillNotBeCalled() : void
@@ -226,9 +214,7 @@ PHP
             ->interfaceBasedComparison
             ->expects(self::atLeastOnce())
             ->method('__invoke')
-            ->willReturn(Changes::fromArray([
-                Change::changed('interface change', true),
-            ]));
+            ->willReturn(Changes::fromList(Change::changed('interface change', true)));
     }
 
     private function interfaceBasedComparatorWillNotBeCalled() : void
@@ -245,9 +231,7 @@ PHP
             ->traitBasedComparison
             ->expects(self::atLeastOnce())
             ->method('__invoke')
-            ->willReturn(Changes::fromArray([
-                Change::changed('trait change', true),
-            ]));
+            ->willReturn(Changes::fromList(Change::changed('trait change', true)));
     }
 
     private function traitBasedComparatorWillNotBeCalled() : void

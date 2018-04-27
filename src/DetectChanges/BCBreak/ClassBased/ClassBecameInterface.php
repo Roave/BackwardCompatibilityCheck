@@ -23,10 +23,9 @@ final class ClassBecameInterface implements ClassBased
             return Changes::empty();
         }
 
-        return Changes::fromArray([Change::changed(
+        return Changes::fromList(Change::changed(
             sprintf('Class %s became an interface', $fromClass->getName()),
             true
-        ),
-        ]);
+        ));
     }
 }

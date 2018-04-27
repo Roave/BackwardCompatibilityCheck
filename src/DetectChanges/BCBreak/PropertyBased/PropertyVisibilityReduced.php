@@ -36,7 +36,7 @@ final class PropertyVisibilityReduced implements PropertyBased
             return Changes::empty();
         }
 
-        return Changes::fromArray([Change::changed(
+        return Changes::fromList(Change::changed(
             sprintf(
                 'Property %s visibility reduced from %s to %s',
                 $this->formatProperty->__invoke($fromProperty),
@@ -44,8 +44,7 @@ final class PropertyVisibilityReduced implements PropertyBased
                 $visibilityTo
             ),
             true
-        ),
-        ]);
+        ));
     }
 
     private function propertyVisibility(ReflectionProperty $property) : string

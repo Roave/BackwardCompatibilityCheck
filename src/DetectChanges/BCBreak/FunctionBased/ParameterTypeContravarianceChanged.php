@@ -58,18 +58,16 @@ final class ParameterTypeContravarianceChanged implements FunctionBased
             return Changes::empty();
         }
 
-        return Changes::fromArray([
-            Change::changed(
-                sprintf(
-                    'The parameter $%s of %s changed from %s to a non-contravariant %s',
-                    $fromParameter->getName(),
-                    $this->formatFunction->__invoke($fromParameter->getDeclaringFunction()),
-                    $this->typeToString($fromType),
-                    $this->typeToString($toType)
-                ),
-                true
+        return Changes::fromList(Change::changed(
+            sprintf(
+                'The parameter $%s of %s changed from %s to a non-contravariant %s',
+                $fromParameter->getName(),
+                $this->formatFunction->__invoke($fromParameter->getDeclaringFunction()),
+                $this->typeToString($fromType),
+                $this->typeToString($toType)
             ),
-        ]);
+            true
+        ));
     }
 
     private function typeToString(?ReflectionType $type) : string

@@ -22,10 +22,9 @@ final class InterfaceBecameTrait implements InterfaceBased
             return Changes::empty();
         }
 
-        return Changes::fromArray([Change::changed(
+        return Changes::fromList(Change::changed(
             sprintf('Interface %s became a trait', $fromClass->getName()),
             true
-        ),
-        ]);
+        ));
     }
 }

@@ -22,10 +22,9 @@ final class ClassBecameTrait implements ClassBased
             return Changes::empty();
         }
 
-        return Changes::fromArray([Change::changed(
+        return Changes::fromList(Change::changed(
             sprintf('Class %s became a trait', $fromClass->getName()),
             true
-        ),
-        ]);
+        ));
     }
 }

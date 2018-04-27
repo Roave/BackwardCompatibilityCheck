@@ -65,14 +65,14 @@ PHP
 
                 self::assertSame($propertyName, $to->getName());
 
-                return Changes::fromArray([Change::added($propertyName, true)]);
+                return Changes::fromList(Change::added($propertyName, true));
             });
 
         self::assertEquals(
-            Changes::fromArray([
+            Changes::fromList(
                 Change::added('b', true),
-                Change::added('d', true),
-            ]),
+                Change::added('d', true)
+            ),
             (new PropertyChanged($comparator))->__invoke(
                 (new ClassReflector($fromLocator))->reflect('TheClass'),
                 (new ClassReflector($toLocator))->reflect('TheClass')

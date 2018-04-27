@@ -35,7 +35,7 @@ final class MethodRemoved implements ClassBased
             array_change_key_case($this->accessibleMethods($toClass), CASE_UPPER)
         );
 
-        return Changes::fromArray(array_values(array_map(function (ReflectionMethod $method) : Change {
+        return Changes::fromList(...array_values(array_map(function (ReflectionMethod $method) : Change {
             return Change::removed(
                 sprintf('Method %s was removed', $this->formatFunction->__invoke($method)),
                 true

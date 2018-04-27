@@ -33,16 +33,14 @@ final class RequiredParameterAmountIncreased implements FunctionBased
             return Changes::empty();
         }
 
-        return Changes::fromArray([
-            Change::changed(
-                sprintf(
-                    'The number of required arguments for %s increased from %d to %d',
-                    $this->formatFunction->__invoke($fromFunction),
-                    $fromRequiredParameters,
-                    $toRequiredParameters
-                ),
-                true
+        return Changes::fromList(Change::changed(
+            sprintf(
+                'The number of required arguments for %s increased from %d to %d',
+                $this->formatFunction->__invoke($fromFunction),
+                $fromRequiredParameters,
+                $toRequiredParameters
             ),
-        ]);
+            true
+        ));
     }
 }

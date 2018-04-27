@@ -64,9 +64,7 @@ final class AccessibleMethodChangeTest extends TestCase
             ->method('isPrivate')
             ->willReturn(false);
 
-        $result = Changes::fromArray([
-            Change::changed(uniqid('foo', true), true),
-        ]);
+        $result = Changes::fromList(Change::changed(uniqid('foo', true), true));
 
         $this
             ->check

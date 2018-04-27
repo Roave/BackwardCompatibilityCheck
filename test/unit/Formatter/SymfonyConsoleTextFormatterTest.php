@@ -33,9 +33,9 @@ final class SymfonyConsoleTextFormatterTest extends TestCase
             ->method('writeln')
             ->with(sprintf('     ADDED: %s', $change2Text));
 
-        (new SymfonyConsoleTextFormatter($output))->write(Changes::fromArray([
+        (new SymfonyConsoleTextFormatter($output))->write(Changes::fromList(
             Change::removed($change1Text, true),
-            Change::added($change2Text, false),
-        ]));
+            Change::added($change2Text, false)
+        ));
     }
 }

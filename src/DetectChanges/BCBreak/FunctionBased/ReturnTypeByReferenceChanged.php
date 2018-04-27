@@ -33,17 +33,15 @@ final class ReturnTypeByReferenceChanged implements FunctionBased
             return Changes::empty();
         }
 
-        return Changes::fromArray([
-            Change::changed(
-                sprintf(
-                    'The return value of %s changed from %s to %s',
-                    $this->formatFunction->__invoke($fromFunction),
-                    $this->referenceToString($fromReturnsReference),
-                    $this->referenceToString($toReturnsReference)
-                ),
-                true
+        return Changes::fromList(Change::changed(
+            sprintf(
+                'The return value of %s changed from %s to %s',
+                $this->formatFunction->__invoke($fromFunction),
+                $this->referenceToString($fromReturnsReference),
+                $this->referenceToString($toReturnsReference)
             ),
-        ]);
+            true
+        ));
     }
 
     private function referenceToString(bool $reference) : string

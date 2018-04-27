@@ -21,10 +21,9 @@ final class ClassBecameFinal implements ClassBased
             return Changes::empty();
         }
 
-        return Changes::fromArray([Change::changed(
+        return Changes::fromList(Change::changed(
             sprintf('Class %s became final', $fromClass->getName()),
             true
-        ),
-        ]);
+        ));
     }
 }

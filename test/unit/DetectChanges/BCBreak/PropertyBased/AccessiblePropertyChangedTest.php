@@ -61,7 +61,7 @@ final class AccessiblePropertyChangedTest extends TestCase
 
     public function testChecksAccessibleProperty() : void
     {
-        $changes = Changes::fromArray([Change::changed(uniqid('potato', true), true)]);
+        $changes = Changes::fromList(Change::changed(uniqid('potato', true), true));
 
         $this
             ->check

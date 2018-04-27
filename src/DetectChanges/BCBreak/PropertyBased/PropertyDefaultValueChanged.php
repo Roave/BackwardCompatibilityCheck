@@ -30,7 +30,7 @@ final class PropertyDefaultValueChanged implements PropertyBased
             return Changes::empty();
         }
 
-        return Changes::fromArray([Change::changed(
+        return Changes::fromList(Change::changed(
             sprintf(
                 'Property %s changed default value from %s to %s',
                 $this->formatProperty->__invoke($fromProperty),
@@ -38,7 +38,6 @@ final class PropertyDefaultValueChanged implements PropertyBased
                 var_export($toPropertyDefaultValue, true)
             ),
             true
-        ),
-        ]);
+        ));
     }
 }

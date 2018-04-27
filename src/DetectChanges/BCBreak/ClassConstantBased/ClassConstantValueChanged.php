@@ -25,17 +25,15 @@ final class ClassConstantValueChanged implements ClassConstantBased
             return Changes::empty();
         }
 
-        return Changes::fromArray([
-            Change::changed(
-                sprintf(
-                    'Value of constant %s::%s changed from %s to %s',
-                    $fromConstant->getDeclaringClass()->getName(),
-                    $fromConstant->getName(),
-                    var_export($fromValue, true),
-                    var_export($toValue, true)
-                ),
-                true
+        return Changes::fromList(Change::changed(
+            sprintf(
+                'Value of constant %s::%s changed from %s to %s',
+                $fromConstant->getDeclaringClass()->getName(),
+                $fromConstant->getName(),
+                var_export($fromValue, true),
+                var_export($toValue, true)
             ),
-        ]);
+            true
+        ));
     }
 }

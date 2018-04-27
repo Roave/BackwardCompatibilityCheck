@@ -42,7 +42,7 @@ final class FinalClassChangedTest extends TestCase
 
     public function testWillCheckFinalClass() : void
     {
-        $changes = Changes::fromArray([Change::added(uniqid('carrot', true), true)]);
+        $changes = Changes::fromList(Change::added(uniqid('carrot', true), true));
 
         $this
             ->fromClass

@@ -25,15 +25,12 @@ final class Changes implements IteratorAggregate, Countable
         return new self();
     }
 
-    /**
-     * @param Change[] $changes
-     * @return Changes
-     */
-    public static function fromArray(array $changes) : self
+    public static function fromList(Change ...$changes) : self
     {
-        Assert::that($changes)->all()->isInstanceOf(Change::class);
-        $instance          = self::empty();
+        $instance = new self();
+
         $instance->changes = $changes;
+
         return $instance;
     }
 

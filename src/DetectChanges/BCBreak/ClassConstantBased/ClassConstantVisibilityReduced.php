@@ -27,7 +27,7 @@ final class ClassConstantVisibilityReduced implements ClassConstantBased
             return Changes::empty();
         }
 
-        return Changes::fromArray([Change::changed(
+        return Changes::fromList(Change::changed(
             sprintf(
                 'Constant %s::%s visibility reduced from %s to %s',
                 $fromConstant->getDeclaringClass()->getName(),
@@ -36,8 +36,7 @@ final class ClassConstantVisibilityReduced implements ClassConstantBased
                 $visibilityTo
             ),
             true
-        ),
-        ]);
+        ));
     }
 
     private function propertyVisibility(ReflectionClassConstant $property) : string

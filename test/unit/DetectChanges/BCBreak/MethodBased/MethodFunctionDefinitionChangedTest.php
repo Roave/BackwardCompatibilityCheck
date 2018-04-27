@@ -40,9 +40,7 @@ final class MethodFunctionDefinitionChangedTest extends TestCase
         /** @var ReflectionMethod|MockObject $from */
         $to = $this->createMock(ReflectionMethod::class);
 
-        $result = Changes::fromArray([
-            Change::changed(uniqid('foo', true), true),
-        ]);
+        $result = Changes::fromList(Change::changed(uniqid('foo', true), true));
 
         $this
             ->functionCheck

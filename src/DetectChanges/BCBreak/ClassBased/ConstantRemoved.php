@@ -23,7 +23,7 @@ final class ConstantRemoved implements ClassBased
             $this->accessibleConstants($toClass)
         );
 
-        return Changes::fromArray(array_values(array_map(function (ReflectionClassConstant $constant) use ($fromClass) : Change {
+        return Changes::fromList(...array_values(array_map(function (ReflectionClassConstant $constant) use ($fromClass) : Change {
             return Change::removed(
                 sprintf('Constant %s::%s was removed', $fromClass->getName(), $constant->getName()),
                 true

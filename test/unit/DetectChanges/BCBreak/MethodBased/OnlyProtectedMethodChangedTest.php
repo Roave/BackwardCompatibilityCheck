@@ -64,9 +64,7 @@ final class OnlyProtectedMethodChangedTest extends TestCase
             ->method('isProtected')
             ->willReturn(true);
 
-        $result = Changes::fromArray([
-            Change::changed(uniqid('foo', true), true),
-        ]);
+        $result = Changes::fromList(Change::changed(uniqid('foo', true), true));
 
         $this
             ->check

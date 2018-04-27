@@ -61,7 +61,7 @@ final class OnlyPublicClassConstantChangedTest extends TestCase
 
     public function testChecksPublicConstant() : void
     {
-        $changes = Changes::fromArray([Change::changed(uniqid('potato', true), true)]);
+        $changes = Changes::fromList(Change::changed(uniqid('potato', true), true));
 
         $this
             ->check

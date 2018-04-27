@@ -27,7 +27,7 @@ final class MethodVisibilityReduced implements MethodBased
             return Changes::empty();
         }
 
-        return Changes::fromArray([Change::changed(
+        return Changes::fromList(Change::changed(
             sprintf(
                 'Method %s() of class %s visibility reduced from %s to %s',
                 $fromMethod->getName(),
@@ -36,8 +36,7 @@ final class MethodVisibilityReduced implements MethodBased
                 $visibilityTo
             ),
             true
-        ),
-        ]);
+        ));
     }
 
     private function methodVisibility(ReflectionMethod $method) : string

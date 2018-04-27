@@ -55,18 +55,16 @@ final class ParameterTypeChanged implements FunctionBased
             return Changes::empty();
         }
 
-        return Changes::fromArray([
-            Change::changed(
-                sprintf(
-                    'The parameter $%s of %s changed from %s to %s',
-                    $fromParameter->getName(),
-                    $this->formatFunction->__invoke($fromParameter->getDeclaringFunction()),
-                    $fromType,
-                    $toType
-                ),
-                true
+        return Changes::fromList(Change::changed(
+            sprintf(
+                'The parameter $%s of %s changed from %s to %s',
+                $fromParameter->getName(),
+                $this->formatFunction->__invoke($fromParameter->getDeclaringFunction()),
+                $fromType,
+                $toType
             ),
-        ]);
+            true
+        ));
     }
 
     private function typeToString(?ReflectionType $type) : string

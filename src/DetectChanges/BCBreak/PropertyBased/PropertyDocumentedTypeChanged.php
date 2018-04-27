@@ -44,16 +44,14 @@ final class PropertyDocumentedTypeChanged implements PropertyBased
             return Changes::empty();
         }
 
-        return Changes::fromArray([
-            Change::changed(
-                sprintf(
-                    'Type documentation for property %s changed from %s to %s',
-                    $this->formatProperty->__invoke($fromProperty),
-                    implode('|', $fromTypes) ?: 'having no type',
-                    implode('|', $toTypes) ?: 'having no type'
-                ),
-                true
+        return Changes::fromList(Change::changed(
+            sprintf(
+                'Type documentation for property %s changed from %s to %s',
+                $this->formatProperty->__invoke($fromProperty),
+                implode('|', $fromTypes) ?: 'having no type',
+                implode('|', $toTypes) ?: 'having no type'
             ),
-        ]);
+            true
+        ));
     }
 }

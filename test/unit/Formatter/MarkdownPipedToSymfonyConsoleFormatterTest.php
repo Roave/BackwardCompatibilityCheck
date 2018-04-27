@@ -40,13 +40,13 @@ EOF;
                 self::assertContains($changeToExpect, $output);
             });
 
-        (new MarkdownPipedToSymfonyConsoleFormatter($output))->write(Changes::fromArray([
+        (new MarkdownPipedToSymfonyConsoleFormatter($output))->write(Changes::fromList(
             Change::added('Something added', true),
             Change::added('Something added', false),
             Change::changed('Something changed', true),
             Change::changed('Something changed', false),
             Change::removed('Something removed', true),
-            Change::removed('Something removed', false),
-        ]));
+            Change::removed('Something removed', false)
+        ));
     }
 }

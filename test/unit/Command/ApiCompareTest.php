@@ -199,9 +199,9 @@ final class ApiCompareTest extends TestCase
             ->with((string) $this->sourceRepository)
             ->willReturn($this->dependencies);
 
-        $this->comparator->expects(self::once())->method('compare')->willReturn(Changes::fromArray([
-            Change::added(uniqid('added', true), true),
-        ]));
+        $this->comparator->expects(self::once())->method('compare')->willReturn(Changes::fromList(
+            Change::added(uniqid('added', true), true)
+        ));
 
         self::assertSame(2, $this->compare->execute($this->input, $this->output));
     }
@@ -253,9 +253,9 @@ final class ApiCompareTest extends TestCase
             ->willReturn($this->dependencies);
 
         $changeToExpect = uniqid('changeToExpect', true);
-        $this->comparator->expects(self::once())->method('compare')->willReturn(Changes::fromArray([
-            Change::removed($changeToExpect, true),
-        ]));
+        $this->comparator->expects(self::once())->method('compare')->willReturn(Changes::fromList(
+            Change::removed($changeToExpect, true)
+        ));
 
         $this->compare->execute($this->input, $this->output);
 

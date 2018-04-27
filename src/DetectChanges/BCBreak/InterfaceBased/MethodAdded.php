@@ -27,7 +27,7 @@ final class MethodAdded implements InterfaceBased
             return Changes::empty();
         }
 
-        return Changes::fromArray(array_values(array_map(function (ReflectionMethod $method) use (
+        return Changes::fromList(...array_values(array_map(function (ReflectionMethod $method) use (
             $fromInterface
         ) : Change {
             return Change::added(

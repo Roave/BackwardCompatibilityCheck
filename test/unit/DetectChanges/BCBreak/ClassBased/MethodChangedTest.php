@@ -66,15 +66,15 @@ PHP
 
                 self::assertSame(strtolower($methodName), strtolower($to->getName()));
 
-                return Changes::fromArray([Change::added($methodName, true)]);
+                return Changes::fromList(Change::added($methodName, true));
             });
 
         self::assertEquals(
-            Changes::fromArray([
+            Changes::fromList(
                 Change::added('b', true),
                 Change::added('d', true),
-                Change::added('G', true),
-            ]),
+                Change::added('G', true)
+            ),
             (new MethodChanged($comparator))->__invoke(
                 (new ClassReflector($fromLocator))->reflect('TheClass'),
                 (new ClassReflector($toLocator))->reflect('TheClass')

@@ -24,7 +24,7 @@ final class MethodScopeChanged implements MethodBased
             return Changes::empty();
         }
 
-        return Changes::fromArray([Change::changed(
+        return Changes::fromList(Change::changed(
             sprintf(
                 'Method %s() of class %s changed scope from %s to %s',
                 $fromMethod->getName(),
@@ -33,8 +33,7 @@ final class MethodScopeChanged implements MethodBased
                 $scopeTo
             ),
             true
-        ),
-        ]);
+        ));
     }
 
     private function methodScope(ReflectionMethod $method) : string

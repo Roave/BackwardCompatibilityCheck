@@ -21,14 +21,13 @@ final class MethodBecameFinal implements MethodBased
             return Changes::empty();
         }
 
-        return Changes::fromArray([Change::changed(
+        return Changes::fromList(Change::changed(
             sprintf(
                 'Method %s() of class %s became final',
                 $fromMethod->getName(),
                 $fromMethod->getDeclaringClass()->getName()
             ),
             true
-        ),
-        ]);
+        ));
     }
 }

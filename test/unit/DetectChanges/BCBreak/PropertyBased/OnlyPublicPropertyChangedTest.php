@@ -61,7 +61,7 @@ final class OnlyPublicPropertyChangedTest extends TestCase
 
     public function testChecksPublicProperty() : void
     {
-        $changes = Changes::fromArray([Change::changed(uniqid('potato', true), true)]);
+        $changes = Changes::fromList(Change::changed(uniqid('potato', true), true));
 
         $this
             ->check
