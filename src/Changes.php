@@ -14,7 +14,7 @@ use function count;
 final class Changes implements IteratorAggregate, Countable
 {
     /** @var Change[] */
-    private $changes = [];
+    private $changes;
 
     private function __construct()
     {
@@ -22,7 +22,17 @@ final class Changes implements IteratorAggregate, Countable
 
     public static function empty() : self
     {
-        return new self();
+        static $empty;
+
+        if ($empty) {
+            return $empty;
+        }
+
+        $empty = new self();
+
+        $empty->changes = [];
+
+        return $empty;
     }
 
     public static function fromList(Change ...$changes) : self
@@ -36,7 +46,7 @@ final class Changes implements IteratorAggregate, Countable
 
     public function mergeWith(self $other) : self
     {
-        if (empty($other->changes)) {
+        if (! $other->changes) {
             return $this;
         }
 
