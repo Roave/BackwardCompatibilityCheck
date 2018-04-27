@@ -203,7 +203,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
             Change::added(uniqid('added', true), true)
         ));
 
-        self::assertSame(2, $this->compare->execute($this->input, $this->output));
+        self::assertSame(1, $this->compare->execute($this->input, $this->output));
     }
 
     public function testProvidingMarkdownOptionWritesMarkdownOutput() : void

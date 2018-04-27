@@ -154,7 +154,7 @@ final class AssertBackwardsCompatible extends Command
             $this->git->remove($toPath);
         }
 
-        return count($changes) > 0 ? 2 : 0;
+        return (int) (bool) count($changes);
     }
 
     /**
