@@ -40,11 +40,7 @@ final class Changes implements IteratorAggregate, Countable
             return $this;
         }
 
-        $instance = new self();
-
-        $instance->changes = array_merge($this->changes, $other->changes);
-
-        return $instance;
+        return self::fromList(...$this->changes, ...$other->changes);
     }
 
     /**
