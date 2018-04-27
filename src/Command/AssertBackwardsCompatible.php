@@ -86,9 +86,25 @@ final class AssertBackwardsCompatible extends Command
         $this
             ->setName('roave-backwards-compatibility-check:assert-backwards-compatible')
             ->setDescription('Verifies that the revision being compared with "from" does not introduce any BC (backwards-incompatible) changes')
-            ->addOption('from', null, InputOption::VALUE_OPTIONAL)
-            ->addOption('to', null, InputOption::VALUE_REQUIRED, '', 'HEAD')
-            ->addOption('format', null, InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY)
+            ->addOption(
+                'from',
+                null,
+                InputOption::VALUE_OPTIONAL,
+                'Git reference for the base version of the library, which is considered "stable"'
+            )
+            ->addOption(
+                'to',
+                null,
+                InputOption::VALUE_REQUIRED,
+                'Git reference for the new version of the library, which is verified against "from" for BC breaks',
+                'HEAD'
+            )
+            ->addOption(
+                'format',
+                null,
+                InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
+                'Currently only supports "markdown"'
+            )
             ->addArgument(
                 'sources-path',
                 InputArgument::OPTIONAL,
