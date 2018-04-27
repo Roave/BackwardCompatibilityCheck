@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Roave\BackwardCompatibility\Command;
 
 use Assert\Assert;
+use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Comparator;
 use Roave\BackwardCompatibility\Factory\DirectoryReflectorFactory;
 use Roave\BackwardCompatibility\Formatter\MarkdownPipedToSymfonyConsoleFormatter;
@@ -154,7 +155,20 @@ final class AssertBackwardsCompatible extends Command
             $this->git->remove($toPath);
         }
 
-        return (int) (bool) count($changes);
+        return $this->printOutcomeAndExit($changes, $stdErr);
+    }
+
+    private function printOutcomeAndExit(Changes $changes, OutputInterface $stdErr) : int
+    {
+        $hasBcBreaks = count($changes);
+
+        if ($hasBcBreaks) {
+            $stdErr->writeln(sprintf('<error>%s backwards-incompatible changes detected</error>', $hasBcBreaks));
+        } else {
+            $stdErr->writeln('<info>No backwards-incompatible changes detected</info>', $hasBcBreaks);
+        }
+
+        return (int) (bool) $hasBcBreaks;
     }
 
     /**

@@ -203,6 +203,16 @@ final class AssertBackwardsCompatibleTest extends TestCase
             Change::added(uniqid('added', true), true)
         ));
 
+        $this
+            ->stdErr
+            ->expects(self::exactly(3))
+            ->method('writeln')
+            ->with(self::logicalOr(
+                self::matches('Comparing from %a to %a...'),
+                self::matches('[BC] ADDED: added%a'),
+                self::matches('<error>1 backwards-incompatible changes detected</error>')
+            ));
+
         self::assertSame(1, $this->compare->execute($this->input, $this->output));
     }
 
@@ -317,6 +327,16 @@ final class AssertBackwardsCompatibleTest extends TestCase
             ->method('forVersions')
             ->with($versions)
             ->willReturn($pickedVersion);
+
+        $this
+            ->stdErr
+            ->expects(self::exactly(3))
+            ->method('writeln')
+            ->with(self::logicalOr(
+                'Detected last minor version: 1.0.0',
+                self::matches('Comparing from %a to %a...'),
+                self::matches('<info>No backwards-incompatible changes detected</info>')
+            ));
 
         $this->comparator->expects(self::once())->method('compare')->willReturn(Changes::empty());
 
