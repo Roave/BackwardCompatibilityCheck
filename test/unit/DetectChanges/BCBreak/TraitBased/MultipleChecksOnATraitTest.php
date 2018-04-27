@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace RoaveTest\ApiCompare\DetectChanges\BCBreak\TraitBased;
+namespace RoaveTest\BackwardCompatibility\DetectChanges\BCBreak\TraitBased;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Roave\ApiCompare\Change;
-use Roave\ApiCompare\Changes;
-use Roave\ApiCompare\DetectChanges\BCBreak\TraitBased\MultipleChecksOnATrait;
-use Roave\ApiCompare\DetectChanges\BCBreak\TraitBased\TraitBased;
+use Roave\BackwardCompatibility\Change;
+use Roave\BackwardCompatibility\Changes;
+use Roave\BackwardCompatibility\DetectChanges\BCBreak\TraitBased\MultipleChecksOnATrait;
+use Roave\BackwardCompatibility\DetectChanges\BCBreak\TraitBased\TraitBased;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 
 /**
- * @covers \Roave\ApiCompare\DetectChanges\BCBreak\TraitBased\MultipleChecksOnATrait
+ * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\TraitBased\MultipleChecksOnATrait
  */
 final class MultipleChecksOnATraitTest extends TestCase
 {

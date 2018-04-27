@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace RoaveTest\ApiCompare\DetectChanges\BCBreak\MethodBased;
+namespace RoaveTest\BackwardCompatibility\DetectChanges\BCBreak\MethodBased;
 
 use PHPUnit\Framework\TestCase;
-use Roave\ApiCompare\Change;
-use Roave\ApiCompare\DetectChanges\BCBreak\MethodBased\MethodConcretenessChanged;
+use Roave\BackwardCompatibility\Change;
+use Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased\MethodConcretenessChanged;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflector\ClassReflector;
@@ -17,7 +17,7 @@ use function array_map;
 use function iterator_to_array;
 
 /**
- * @covers \Roave\ApiCompare\DetectChanges\BCBreak\MethodBased\MethodConcretenessChanged
+ * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased\MethodConcretenessChanged
  */
 final class MethodConcretenessChangedTest extends TestCase
 {

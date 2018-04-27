@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Roave\ApiCompare\DetectChanges\BCBreak\ClassBased;
+namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased;
 
-use Roave\ApiCompare\Changes;
-use Roave\ApiCompare\DetectChanges\BCBreak\PropertyBased\PropertyBased;
+use Roave\BackwardCompatibility\Changes;
+use Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\PropertyBased;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use function array_intersect_key;
 use function array_keys;

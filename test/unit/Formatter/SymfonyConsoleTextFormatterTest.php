@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace RoaveTest\ApiCompare\Formatter;
+namespace RoaveTest\BackwardCompatibility\Formatter;
 
 use PHPUnit\Framework\TestCase;
-use Roave\ApiCompare\Change;
-use Roave\ApiCompare\Changes;
-use Roave\ApiCompare\Formatter\SymfonyConsoleTextFormatter;
+use Roave\BackwardCompatibility\Change;
+use Roave\BackwardCompatibility\Changes;
+use Roave\BackwardCompatibility\Formatter\SymfonyConsoleTextFormatter;
 use Symfony\Component\Console\Output\OutputInterface;
 use function sprintf;
 use function uniqid;
 
 /**
- * @covers \Roave\ApiCompare\Formatter\SymfonyConsoleTextFormatter
+ * @covers \Roave\BackwardCompatibility\Formatter\SymfonyConsoleTextFormatter
  */
 final class SymfonyConsoleTextFormatterTest extends TestCase
 {

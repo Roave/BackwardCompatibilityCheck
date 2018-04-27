@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Roave\ApiCompare;
+namespace Roave\BackwardCompatibility;
 
 use ArrayIterator;
 use Countable;

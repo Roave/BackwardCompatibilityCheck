@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace RoaveTest\ApiCompare\DetectChanges\BCBreak\InterfaceBased;
+namespace RoaveTest\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Roave\ApiCompare\Change;
-use Roave\ApiCompare\Changes;
-use Roave\ApiCompare\DetectChanges\BCBreak\InterfaceBased\InterfaceBased;
-use Roave\ApiCompare\DetectChanges\BCBreak\InterfaceBased\MultipleChecksOnAnInterface;
+use Roave\BackwardCompatibility\Change;
+use Roave\BackwardCompatibility\Changes;
+use Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased\InterfaceBased;
+use Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased\MultipleChecksOnAnInterface;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 
 /**
- * @covers \Roave\ApiCompare\DetectChanges\BCBreak\InterfaceBased\MultipleChecksOnAnInterface
+ * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased\MultipleChecksOnAnInterface
  */
 final class MultipleChecksOnAnInterfaceTest extends TestCase
 {

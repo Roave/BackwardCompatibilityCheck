@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Roave\ApiCompare\DetectChanges\BCBreak\PropertyBased;
+namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased;
 
-use Roave\ApiCompare\Change;
-use Roave\ApiCompare\Changes;
-use Roave\ApiCompare\Formatter\ReflectionPropertyName;
+use Roave\BackwardCompatibility\Change;
+use Roave\BackwardCompatibility\Changes;
+use Roave\BackwardCompatibility\Formatter\ReflectionPropertyName;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
 use function sprintf;
 use function var_export;

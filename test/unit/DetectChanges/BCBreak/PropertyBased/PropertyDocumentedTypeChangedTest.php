@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace RoaveTest\ApiCompare\DetectChanges\BCBreak\PropertyBased;
+namespace RoaveTest\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased;
 
 use PHPUnit\Framework\TestCase;
-use Roave\ApiCompare\Change;
-use Roave\ApiCompare\DetectChanges\BCBreak\PropertyBased\PropertyDocumentedTypeChanged;
+use Roave\BackwardCompatibility\Change;
+use Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\PropertyDocumentedTypeChanged;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
 use Roave\BetterReflection\Reflector\ClassReflector;
@@ -17,7 +17,7 @@ use function array_map;
 use function iterator_to_array;
 
 /**
- * @covers \Roave\ApiCompare\DetectChanges\BCBreak\PropertyBased\PropertyDocumentedTypeChanged
+ * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\PropertyDocumentedTypeChanged
  */
 final class PropertyDocumentedTypeChangedTest extends TestCase
 {

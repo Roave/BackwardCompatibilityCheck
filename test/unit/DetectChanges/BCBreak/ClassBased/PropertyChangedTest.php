@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace RoaveTest\ApiCompare\DetectChanges\BCBreak\ClassBased;
+namespace RoaveTest\BackwardCompatibility\DetectChanges\BCBreak\ClassBased;
 
 use PHPUnit\Framework\TestCase;
-use Roave\ApiCompare\Change;
-use Roave\ApiCompare\Changes;
-use Roave\ApiCompare\DetectChanges\BCBreak\ClassBased\PropertyChanged;
-use Roave\ApiCompare\DetectChanges\BCBreak\PropertyBased\PropertyBased;
+use Roave\BackwardCompatibility\Change;
+use Roave\BackwardCompatibility\Changes;
+use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\PropertyChanged;
+use Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\PropertyBased;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 
 /**
- * @covers \Roave\ApiCompare\DetectChanges\BCBreak\ClassBased\PropertyChanged
+ * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\PropertyChanged
  */
 final class PropertyChangedTest extends TestCase
 {

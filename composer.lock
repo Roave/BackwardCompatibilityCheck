@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a440f69f5acd58c56bd07b5e76e69a8c",
+    "content-hash": "80e7f7c2302252715849f4426c57d1f7",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -1852,12 +1852,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/php-generator.git",
-                "reference": "272fe05dffa6f4f9565121d4dad7dd8ff99c48dc"
+                "reference": "b381ecacbf5a0b5f99cc0b303d5b0578d409f446"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/php-generator/zipball/272fe05dffa6f4f9565121d4dad7dd8ff99c48dc",
-                "reference": "272fe05dffa6f4f9565121d4dad7dd8ff99c48dc",
+                "url": "https://api.github.com/repos/nette/php-generator/zipball/b381ecacbf5a0b5f99cc0b303d5b0578d409f446",
+                "reference": "b381ecacbf5a0b5f99cc0b303d5b0578d409f446",
                 "shasum": ""
             },
             "require": {
@@ -1906,7 +1906,7 @@
                 "php",
                 "scaffolding"
             ],
-            "time": "2018-04-26T09:15:00+00:00"
+            "time": "2018-04-26T16:48:20+00:00"
         },
         {
             "name": "nette/robot-loader",

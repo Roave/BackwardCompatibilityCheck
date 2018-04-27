@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Roave\ApiCompare\DetectChanges\BCBreak\ClassBased;
+namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased;
 
-use Roave\ApiCompare\Changes;
+use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 
 final class FinalClassChanged implements ClassBased

@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace RoaveTest\ApiCompare;
+namespace RoaveTest\BackwardCompatibility;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Roave\ApiCompare\Change;
-use Roave\ApiCompare\Changes;
-use Roave\ApiCompare\Comparator;
-use Roave\ApiCompare\DetectChanges\BCBreak\ClassBased\ClassBased;
-use Roave\ApiCompare\DetectChanges\BCBreak\InterfaceBased\InterfaceBased;
-use Roave\ApiCompare\DetectChanges\BCBreak\TraitBased\TraitBased;
+use Roave\BackwardCompatibility\Change;
+use Roave\BackwardCompatibility\Changes;
+use Roave\BackwardCompatibility\Comparator;
+use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\ClassBased;
+use Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased\InterfaceBased;
+use Roave\BackwardCompatibility\DetectChanges\BCBreak\TraitBased\TraitBased;
 
 /**
- * @covers \Roave\ApiCompare\Comparator
+ * @covers \Roave\BackwardCompatibility\Comparator
  */
 final class ComparatorTest extends TestCase
 {

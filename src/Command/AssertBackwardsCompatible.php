@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Roave\ApiCompare\Command;
+namespace Roave\BackwardCompatibility\Command;
 
 use Assert\Assert;
-use Roave\ApiCompare\Comparator;
-use Roave\ApiCompare\Factory\DirectoryReflectorFactory;
-use Roave\ApiCompare\Formatter\MarkdownPipedToSymfonyConsoleFormatter;
-use Roave\ApiCompare\Formatter\SymfonyConsoleTextFormatter;
-use Roave\ApiCompare\Git\CheckedOutRepository;
-use Roave\ApiCompare\Git\GetVersionCollection;
-use Roave\ApiCompare\Git\ParseRevision;
-use Roave\ApiCompare\Git\PerformCheckoutOfRevision;
-use Roave\ApiCompare\Git\PickVersionFromVersionCollection;
-use Roave\ApiCompare\Git\Revision;
-use Roave\ApiCompare\LocateDependencies\LocateDependencies;
-use Roave\ApiCompare\Support\ArrayHelpers;
+use Roave\BackwardCompatibility\Comparator;
+use Roave\BackwardCompatibility\Factory\DirectoryReflectorFactory;
+use Roave\BackwardCompatibility\Formatter\MarkdownPipedToSymfonyConsoleFormatter;
+use Roave\BackwardCompatibility\Formatter\SymfonyConsoleTextFormatter;
+use Roave\BackwardCompatibility\Git\CheckedOutRepository;
+use Roave\BackwardCompatibility\Git\GetVersionCollection;
+use Roave\BackwardCompatibility\Git\ParseRevision;
+use Roave\BackwardCompatibility\Git\PerformCheckoutOfRevision;
+use Roave\BackwardCompatibility\Git\PickVersionFromVersionCollection;
+use Roave\BackwardCompatibility\Git\Revision;
+use Roave\BackwardCompatibility\LocateDependencies\LocateDependencies;
+use Roave\BackwardCompatibility\Support\ArrayHelpers;
 use Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\InvalidArgumentException;

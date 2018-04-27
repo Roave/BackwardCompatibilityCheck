@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace RoaveTest\ApiCompare\Git;
+namespace RoaveTest\BackwardCompatibility\Git;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use Roave\ApiCompare\Git\Revision;
+use Roave\BackwardCompatibility\Git\Revision;
 use function sha1;
 use function str_repeat;
 use function uniqid;
 
 /**
- * @covers \Roave\ApiCompare\Git\Revision
+ * @covers \Roave\BackwardCompatibility\Git\Revision
  */
 final class RevisionTest extends TestCase
 {

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Roave\ApiCompare\DetectChanges\BCBreak\TraitBased;
+namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\TraitBased;
 
-use Roave\ApiCompare\Changes;
-use Roave\ApiCompare\DetectChanges\BCBreak\ClassBased\ClassBased;
+use Roave\BackwardCompatibility\Changes;
+use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\ClassBased;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 
 final class UseClassBasedChecksOnATrait implements TraitBased

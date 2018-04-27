@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Roave\ApiCompare\Formatter;
+namespace Roave\BackwardCompatibility\Formatter;
 
-use Roave\ApiCompare\Change;
-use Roave\ApiCompare\Changes;
+use Roave\BackwardCompatibility\Change;
+use Roave\BackwardCompatibility\Changes;
 use Symfony\Component\Console\Output\OutputInterface;
 
 final class SymfonyConsoleTextFormatter implements OutputFormatter

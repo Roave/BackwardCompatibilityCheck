@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace RoaveTest\ApiCompare\DetectChanges\BCBreak\ClassBased;
+namespace RoaveTest\BackwardCompatibility\DetectChanges\BCBreak\ClassBased;
 
 use PHPUnit\Framework\TestCase;
-use Roave\ApiCompare\Change;
-use Roave\ApiCompare\Changes;
-use Roave\ApiCompare\DetectChanges\BCBreak\ClassBased\MethodChanged;
-use Roave\ApiCompare\DetectChanges\BCBreak\MethodBased\MethodBased;
+use Roave\BackwardCompatibility\Change;
+use Roave\BackwardCompatibility\Changes;
+use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\MethodChanged;
+use Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased\MethodBased;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflector\ClassReflector;
@@ -16,7 +16,7 @@ use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 use function strtolower;
 
 /**
- * @covers \Roave\ApiCompare\DetectChanges\BCBreak\ClassBased\MethodChanged
+ * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\MethodChanged
  */
 final class MethodChangedTest extends TestCase
 {

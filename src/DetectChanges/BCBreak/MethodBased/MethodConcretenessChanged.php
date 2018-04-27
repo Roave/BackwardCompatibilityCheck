@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Roave\ApiCompare\DetectChanges\BCBreak\MethodBased;
+namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased;
 
-use Roave\ApiCompare\Change;
-use Roave\ApiCompare\Changes;
+use Roave\BackwardCompatibility\Change;
+use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
 use function sprintf;
 

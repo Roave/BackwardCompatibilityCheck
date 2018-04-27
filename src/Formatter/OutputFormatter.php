@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Roave\ApiCompare\Formatter;
+namespace Roave\BackwardCompatibility\Formatter;
 
-use Roave\ApiCompare\Changes;
+use Roave\BackwardCompatibility\Changes;
 
 interface OutputFormatter
 {

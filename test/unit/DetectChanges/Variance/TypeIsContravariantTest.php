@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace RoaveTest\ApiCompare\DetectChanges\BCBreak\ClassBased;
+namespace RoaveTest\BackwardCompatibility\DetectChanges\BCBreak\ClassBased;
 
 use PHPUnit\Framework\TestCase;
-use Roave\ApiCompare\DetectChanges\Variance\TypeIsContravariant;
+use Roave\BackwardCompatibility\DetectChanges\Variance\TypeIsContravariant;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionType;
 use Roave\BetterReflection\Reflector\ClassReflector;

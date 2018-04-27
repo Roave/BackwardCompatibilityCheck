@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace RoaveTest\ApiCompare\DetectChanges\BCBreak\ClassConstantBased;
+namespace RoaveTest\BackwardCompatibility\DetectChanges\BCBreak\ClassConstantBased;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Roave\ApiCompare\Change;
-use Roave\ApiCompare\Changes;
-use Roave\ApiCompare\DetectChanges\BCBreak\ClassConstantBased\ClassConstantBased;
-use Roave\ApiCompare\DetectChanges\BCBreak\ClassConstantBased\MultipleChecksOnAClassConstant;
+use Roave\BackwardCompatibility\Change;
+use Roave\BackwardCompatibility\Changes;
+use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassConstantBased\ClassConstantBased;
+use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassConstantBased\MultipleChecksOnAClassConstant;
 use Roave\BetterReflection\Reflection\ReflectionClassConstant;
 
 /**
- * @covers \Roave\ApiCompare\DetectChanges\BCBreak\ClassConstantBased\MultipleChecksOnAClassConstant
+ * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassConstantBased\MultipleChecksOnAClassConstant
  */
 final class MultipleChecksOnAClassConstantTest extends TestCase
 {

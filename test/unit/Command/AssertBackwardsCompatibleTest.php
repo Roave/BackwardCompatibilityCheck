@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace RoaveTest\ApiCompare\Command;
+namespace RoaveTest\BackwardCompatibility\Command;
 
 use Assert\InvalidArgumentException;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Roave\ApiCompare\Change;
-use Roave\ApiCompare\Changes;
-use Roave\ApiCompare\Command\AssertBackwardsCompatible;
-use Roave\ApiCompare\Comparator;
-use Roave\ApiCompare\Factory\DirectoryReflectorFactory;
-use Roave\ApiCompare\Git\CheckedOutRepository;
-use Roave\ApiCompare\Git\GetVersionCollection;
-use Roave\ApiCompare\Git\ParseRevision;
-use Roave\ApiCompare\Git\PerformCheckoutOfRevision;
-use Roave\ApiCompare\Git\PickVersionFromVersionCollection;
-use Roave\ApiCompare\Git\Revision;
-use Roave\ApiCompare\LocateDependencies\LocateDependencies;
+use Roave\BackwardCompatibility\Change;
+use Roave\BackwardCompatibility\Changes;
+use Roave\BackwardCompatibility\Command\AssertBackwardsCompatible;
+use Roave\BackwardCompatibility\Comparator;
+use Roave\BackwardCompatibility\Factory\DirectoryReflectorFactory;
+use Roave\BackwardCompatibility\Git\CheckedOutRepository;
+use Roave\BackwardCompatibility\Git\GetVersionCollection;
+use Roave\BackwardCompatibility\Git\ParseRevision;
+use Roave\BackwardCompatibility\Git\PerformCheckoutOfRevision;
+use Roave\BackwardCompatibility\Git\PickVersionFromVersionCollection;
+use Roave\BackwardCompatibility\Git\Revision;
+use Roave\BackwardCompatibility\LocateDependencies\LocateDependencies;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
 use Symfony\Component\Console\Input\InputInterface;
@@ -32,7 +32,7 @@ use function sha1;
 use function uniqid;
 
 /**
- * @covers \Roave\ApiCompare\Command\AssertBackwardsCompatible
+ * @covers \Roave\BackwardCompatibility\Command\AssertBackwardsCompatible
  */
 final class AssertBackwardsCompatibleTest extends TestCase
 {

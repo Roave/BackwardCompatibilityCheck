@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace RoaveTest\ApiCompare\DetectChanges\BCBreak\InterfaceBased;
+namespace RoaveTest\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased;
 
 use PHPUnit\Framework\TestCase;
-use Roave\ApiCompare\Change;
-use Roave\ApiCompare\DetectChanges\BCBreak\InterfaceBased\InterfaceBecameTrait;
+use Roave\BackwardCompatibility\Change;
+use Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased\InterfaceBecameTrait;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflector\ClassReflector;

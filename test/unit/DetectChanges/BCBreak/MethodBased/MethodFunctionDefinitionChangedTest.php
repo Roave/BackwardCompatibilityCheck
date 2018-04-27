@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace RoaveTest\ApiCompare\DetectChanges\BCBreak\MethodBased;
+namespace RoaveTest\BackwardCompatibility\DetectChanges\BCBreak\MethodBased;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Roave\ApiCompare\Change;
-use Roave\ApiCompare\Changes;
-use Roave\ApiCompare\DetectChanges\BCBreak\FunctionBased\FunctionBased;
-use Roave\ApiCompare\DetectChanges\BCBreak\MethodBased\MethodBased;
-use Roave\ApiCompare\DetectChanges\BCBreak\MethodBased\MethodFunctionDefinitionChanged;
+use Roave\BackwardCompatibility\Change;
+use Roave\BackwardCompatibility\Changes;
+use Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\FunctionBased;
+use Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased\MethodBased;
+use Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased\MethodFunctionDefinitionChanged;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
 use function uniqid;
 
 /**
- * @covers \Roave\ApiCompare\DetectChanges\BCBreak\MethodBased\MethodFunctionDefinitionChanged
+ * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased\MethodFunctionDefinitionChanged
  */
 final class MethodFunctionDefinitionChangedTest extends TestCase
 {

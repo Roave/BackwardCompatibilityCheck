@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace RoaveTest\ApiCompare\LocateDependencies;
+namespace RoaveTest\BackwardCompatibility\LocateDependencies;
 
 use Composer\Installer;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Roave\ApiCompare\LocateDependencies\LocateDependenciesViaComposer;
-use Roave\ApiCompare\SourceLocator\StaticClassMapSourceLocator;
+use Roave\BackwardCompatibility\LocateDependencies\LocateDependenciesViaComposer;
+use Roave\BackwardCompatibility\SourceLocator\StaticClassMapSourceLocator;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\SourceLocator\Ast\Locator;
 use Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
@@ -19,7 +19,7 @@ use function getcwd;
 use function realpath;
 
 /**
- * @covers \Roave\ApiCompare\LocateDependencies\LocateDependenciesViaComposer
+ * @covers \Roave\BackwardCompatibility\LocateDependencies\LocateDependenciesViaComposer
  */
 final class LocateDependenciesViaComposerTest extends TestCase
 {

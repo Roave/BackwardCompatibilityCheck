@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Roave\ApiCompare\SourceLocator;
+namespace Roave\BackwardCompatibility\SourceLocator;
 
 use Assert\Assert;
 use Roave\BetterReflection\Identifier\Identifier;

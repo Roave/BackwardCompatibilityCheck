@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace RoaveTest\ApiCompare\DetectChanges\BCBreak\PropertyBased;
+namespace RoaveTest\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Roave\ApiCompare\Change;
-use Roave\ApiCompare\Changes;
-use Roave\ApiCompare\DetectChanges\BCBreak\PropertyBased\MultipleChecksOnAProperty;
-use Roave\ApiCompare\DetectChanges\BCBreak\PropertyBased\PropertyBased;
+use Roave\BackwardCompatibility\Change;
+use Roave\BackwardCompatibility\Changes;
+use Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\MultipleChecksOnAProperty;
+use Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\PropertyBased;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
 
 /**
- * @covers \Roave\ApiCompare\DetectChanges\BCBreak\PropertyBased\MultipleChecksOnAProperty
+ * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\MultipleChecksOnAProperty
  */
 final class MultipleChecksOnAPropertyTest extends TestCase
 {

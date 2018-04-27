@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace RoaveTest\ApiCompare;
+namespace RoaveTest\BackwardCompatibility;
 
 use PHPUnit\Framework\TestCase;
-use Roave\ApiCompare\Change;
+use Roave\BackwardCompatibility\Change;
 use function uniqid;
 
 /**
- * @covers \Roave\ApiCompare\Change
+ * @covers \Roave\BackwardCompatibility\Change
  */
 final class ChangeTest extends TestCase
 {

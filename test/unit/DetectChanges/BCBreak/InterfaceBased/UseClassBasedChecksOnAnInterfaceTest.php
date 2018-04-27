@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace RoaveTest\ApiCompare\DetectChanges\BCBreak\InterfaceBased;
+namespace RoaveTest\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Roave\ApiCompare\Change;
-use Roave\ApiCompare\Changes;
-use Roave\ApiCompare\DetectChanges\BCBreak\ClassBased\ClassBased;
-use Roave\ApiCompare\DetectChanges\BCBreak\InterfaceBased\UseClassBasedChecksOnAnInterface;
+use Roave\BackwardCompatibility\Change;
+use Roave\BackwardCompatibility\Changes;
+use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\ClassBased;
+use Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased\UseClassBasedChecksOnAnInterface;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use function uniqid;
 
 /**
- * @covers \Roave\ApiCompare\DetectChanges\BCBreak\InterfaceBased\UseClassBasedChecksOnAnInterface
+ * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased\UseClassBasedChecksOnAnInterface
  */
 final class UseClassBasedChecksOnAnInterfaceTest extends TestCase
 {

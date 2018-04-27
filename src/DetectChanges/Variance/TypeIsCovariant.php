@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Roave\ApiCompare\DetectChanges\Variance;
+namespace Roave\BackwardCompatibility\DetectChanges\Variance;
 
-use Roave\ApiCompare\Support\ArrayHelpers;
+use Roave\BackwardCompatibility\Support\ArrayHelpers;
 use Roave\BetterReflection\Reflection\ReflectionType;
 use function strtolower;
 

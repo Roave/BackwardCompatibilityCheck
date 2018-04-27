@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace RoaveTest\ApiCompare\DetectChanges\BCBreak\PropertyBased;
+namespace RoaveTest\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Roave\ApiCompare\Change;
-use Roave\ApiCompare\Changes;
-use Roave\ApiCompare\DetectChanges\BCBreak\PropertyBased\AccessiblePropertyChanged;
-use Roave\ApiCompare\DetectChanges\BCBreak\PropertyBased\PropertyBased;
+use Roave\BackwardCompatibility\Change;
+use Roave\BackwardCompatibility\Changes;
+use Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\AccessiblePropertyChanged;
+use Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\PropertyBased;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
 use function uniqid;
 
 /**
- * @covers \Roave\ApiCompare\DetectChanges\BCBreak\PropertyBased\AccessiblePropertyChanged
+ * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\AccessiblePropertyChanged
  */
 final class AccessiblePropertyChangedTest extends TestCase
 {

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace RoaveTest\ApiCompare\Formatter;
+namespace RoaveTest\BackwardCompatibility\Formatter;
 
 use PHPUnit\Framework\TestCase;
-use Roave\ApiCompare\Formatter\ReflectionPropertyName;
+use Roave\BackwardCompatibility\Formatter\ReflectionPropertyName;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
 use Roave\BetterReflection\Reflector\ClassReflector;
@@ -15,7 +15,7 @@ use function array_keys;
 use function array_map;
 
 /**
- * @covers \Roave\ApiCompare\Formatter\ReflectionPropertyName
+ * @covers \Roave\BackwardCompatibility\Formatter\ReflectionPropertyName
  */
 final class ReflectionPropertyNameTest extends TestCase
 {

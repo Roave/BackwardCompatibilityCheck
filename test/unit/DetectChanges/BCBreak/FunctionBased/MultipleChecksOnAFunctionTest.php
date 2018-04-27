@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace RoaveTest\ApiCompare\DetectChanges\BCBreak\FunctionBased;
+namespace RoaveTest\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Roave\ApiCompare\Change;
-use Roave\ApiCompare\Changes;
-use Roave\ApiCompare\DetectChanges\BCBreak\FunctionBased\FunctionBased;
-use Roave\ApiCompare\DetectChanges\BCBreak\FunctionBased\MultipleChecksOnAFunction;
+use Roave\BackwardCompatibility\Change;
+use Roave\BackwardCompatibility\Changes;
+use Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\FunctionBased;
+use Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\MultipleChecksOnAFunction;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
 
 /**
- * @covers \Roave\ApiCompare\DetectChanges\BCBreak\FunctionBased\MultipleChecksOnAFunction
+ * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\MultipleChecksOnAFunction
  */
 final class MultipleChecksOnAFunctionTest extends TestCase
 {

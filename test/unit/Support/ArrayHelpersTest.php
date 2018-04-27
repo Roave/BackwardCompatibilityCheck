@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace RoaveTest\ApiCompare\Support;
+namespace RoaveTest\BackwardCompatibility\Support;
 
 use PHPStan\Testing\TestCase;
-use Roave\ApiCompare\Support\ArrayHelpers;
+use Roave\BackwardCompatibility\Support\ArrayHelpers;
 use stdClass;
 
 /**
- * @covers \Roave\ApiCompare\Support\ArrayHelpers
+ * @covers \Roave\BackwardCompatibility\Support\ArrayHelpers
  */
 final class ArrayHelpersTest extends TestCase
 {

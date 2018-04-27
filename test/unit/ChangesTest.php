@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace RoaveTest\ApiCompare;
+namespace RoaveTest\BackwardCompatibility;
 
 use PHPUnit\Framework\TestCase;
-use Roave\ApiCompare\Change;
-use Roave\ApiCompare\Changes;
+use Roave\BackwardCompatibility\Change;
+use Roave\BackwardCompatibility\Changes;
 use function array_fill;
 use function iterator_to_array;
 use function random_int;
@@ -14,7 +14,7 @@ use function serialize;
 use function unserialize;
 
 /**
- * @covers \Roave\ApiCompare\Changes
+ * @covers \Roave\BackwardCompatibility\Changes
  */
 final class ChangesTest extends TestCase
 {

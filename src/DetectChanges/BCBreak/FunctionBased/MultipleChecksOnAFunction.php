@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Roave\ApiCompare\DetectChanges\BCBreak\FunctionBased;
+namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased;
 
-use Roave\ApiCompare\Changes;
+use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
 use function array_reduce;
 

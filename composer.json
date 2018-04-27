@@ -27,12 +27,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Roave\\ApiCompare\\": "src"
+            "Roave\\BackwardCompatibility\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "RoaveTest\\ApiCompare\\": "test/unit"
+            "RoaveTest\\BackwardCompatibility\\": "test/unit"
         }
     }
 }

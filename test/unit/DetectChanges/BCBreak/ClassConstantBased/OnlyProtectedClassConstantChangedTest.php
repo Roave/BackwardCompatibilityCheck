@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace RoaveTest\ApiCompare\DetectChanges\BCBreak\ClassConstantBased;
+namespace RoaveTest\BackwardCompatibility\DetectChanges\BCBreak\ClassConstantBased;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Roave\ApiCompare\Change;
-use Roave\ApiCompare\Changes;
-use Roave\ApiCompare\DetectChanges\BCBreak\ClassConstantBased\ClassConstantBased;
-use Roave\ApiCompare\DetectChanges\BCBreak\ClassConstantBased\OnlyProtectedClassConstantChanged;
+use Roave\BackwardCompatibility\Change;
+use Roave\BackwardCompatibility\Changes;
+use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassConstantBased\ClassConstantBased;
+use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassConstantBased\OnlyProtectedClassConstantChanged;
 use Roave\BetterReflection\Reflection\ReflectionClassConstant;
 use function uniqid;
 
 /**
- * @covers \Roave\ApiCompare\DetectChanges\BCBreak\ClassConstantBased\OnlyProtectedClassConstantChanged
+ * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassConstantBased\OnlyProtectedClassConstantChanged
  */
 final class OnlyProtectedClassConstantChangedTest extends TestCase
 {

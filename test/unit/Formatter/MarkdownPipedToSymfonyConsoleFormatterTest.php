@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace RoaveTest\ApiCompare\Formatter;
+namespace RoaveTest\BackwardCompatibility\Formatter;
 
 use PHPUnit\Framework\TestCase;
-use Roave\ApiCompare\Change;
-use Roave\ApiCompare\Changes;
-use Roave\ApiCompare\Formatter\MarkdownPipedToSymfonyConsoleFormatter;
+use Roave\BackwardCompatibility\Change;
+use Roave\BackwardCompatibility\Changes;
+use Roave\BackwardCompatibility\Formatter\MarkdownPipedToSymfonyConsoleFormatter;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * @covers \Roave\ApiCompare\Formatter\MarkdownPipedToSymfonyConsoleFormatter
+ * @covers \Roave\BackwardCompatibility\Formatter\MarkdownPipedToSymfonyConsoleFormatter
  */
 final class MarkdownPipedToSymfonyConsoleFormatterTest extends TestCase
 {

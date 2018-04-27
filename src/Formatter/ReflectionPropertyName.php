@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Roave\ApiCompare\Formatter;
+namespace Roave\BackwardCompatibility\Formatter;
 
 use Roave\BetterReflection\Reflection\ReflectionProperty;
 

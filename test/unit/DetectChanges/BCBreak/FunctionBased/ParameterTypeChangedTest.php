@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace RoaveTest\ApiCompare\DetectChanges\BCBreak\FunctionBased;
+namespace RoaveTest\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased;
 
 use PHPUnit\Framework\TestCase;
-use Roave\ApiCompare\Change;
-use Roave\ApiCompare\DetectChanges\BCBreak\FunctionBased\ParameterTypeChanged;
+use Roave\BackwardCompatibility\Change;
+use Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\ParameterTypeChanged;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
 use Roave\BetterReflection\Reflector\ClassReflector;
@@ -16,7 +16,7 @@ use function array_map;
 use function iterator_to_array;
 
 /**
- * @covers \Roave\ApiCompare\DetectChanges\BCBreak\FunctionBased\ParameterTypeChanged
+ * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\ParameterTypeChanged
  */
 final class ParameterTypeChangedTest extends TestCase
 {

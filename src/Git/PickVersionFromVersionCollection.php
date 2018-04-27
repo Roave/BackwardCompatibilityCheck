@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Roave\ApiCompare\Git;
+namespace Roave\BackwardCompatibility\Git;
 
 use Version\Version;
 use Version\VersionsCollection;

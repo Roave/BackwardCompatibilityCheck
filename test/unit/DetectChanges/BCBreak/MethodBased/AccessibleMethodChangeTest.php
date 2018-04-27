@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace RoaveTest\ApiCompare\DetectChanges\BCBreak\MethodBased;
+namespace RoaveTest\BackwardCompatibility\DetectChanges\BCBreak\MethodBased;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Roave\ApiCompare\Change;
-use Roave\ApiCompare\Changes;
-use Roave\ApiCompare\DetectChanges\BCBreak\MethodBased\AccessibleMethodChange;
-use Roave\ApiCompare\DetectChanges\BCBreak\MethodBased\MethodBased;
+use Roave\BackwardCompatibility\Change;
+use Roave\BackwardCompatibility\Changes;
+use Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased\AccessibleMethodChange;
+use Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased\MethodBased;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
 use function uniqid;
 
 /**
- * @covers \Roave\ApiCompare\DetectChanges\BCBreak\MethodBased\AccessibleMethodChange
+ * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased\AccessibleMethodChange
  */
 final class AccessibleMethodChangeTest extends TestCase
 {

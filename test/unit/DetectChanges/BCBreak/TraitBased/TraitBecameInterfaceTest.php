@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace RoaveTest\ApiCompare\DetectChanges\BCBreak\TraitBased;
+namespace RoaveTest\BackwardCompatibility\DetectChanges\BCBreak\TraitBased;
 
 use PHPUnit\Framework\TestCase;
-use Roave\ApiCompare\Change;
-use Roave\ApiCompare\DetectChanges\BCBreak\TraitBased\TraitBecameInterface;
+use Roave\BackwardCompatibility\Change;
+use Roave\BackwardCompatibility\DetectChanges\BCBreak\TraitBased\TraitBecameInterface;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflector\ClassReflector;
@@ -17,7 +17,7 @@ use function array_map;
 use function iterator_to_array;
 
 /**
- * @covers \Roave\ApiCompare\DetectChanges\BCBreak\TraitBased\TraitBecameInterface
+ * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\TraitBased\TraitBecameInterface
  */
 final class TraitBecameInterfaceTest extends TestCase
 {

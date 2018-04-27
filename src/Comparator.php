@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Roave\ApiCompare;
+namespace Roave\BackwardCompatibility;
 
-use Roave\ApiCompare\DetectChanges\BCBreak\ClassBased\ClassBased;
-use Roave\ApiCompare\DetectChanges\BCBreak\InterfaceBased\InterfaceBased;
-use Roave\ApiCompare\DetectChanges\BCBreak\TraitBased\TraitBased;
+use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\ClassBased;
+use Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased\InterfaceBased;
+use Roave\BackwardCompatibility\DetectChanges\BCBreak\TraitBased\TraitBased;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Roave\ApiCompare\LocateDependencies;
+namespace Roave\BackwardCompatibility\LocateDependencies;
 
 use Assert\Assert;
 use Composer\Installer;
-use Roave\ApiCompare\SourceLocator\StaticClassMapSourceLocator;
+use Roave\BackwardCompatibility\SourceLocator\StaticClassMapSourceLocator;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
 use Roave\BetterReflection\Reflector\ClassReflector;
