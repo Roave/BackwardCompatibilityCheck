@@ -31,7 +31,7 @@ use function count;
 use function getcwd;
 use function sprintf;
 
-final class ApiCompare extends Command
+final class AssertBackwardsCompatible extends Command
 {
     /** @var PerformCheckoutOfRevision */
     private $git;

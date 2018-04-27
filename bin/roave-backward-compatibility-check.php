@@ -47,7 +47,7 @@ use function file_exists;
         $astLocator  = (new BetterReflection())->astLocator();
         $composerIo  = new ConsoleIO($input, $output, $helperSet);
 
-        $apiCompareCommand = new Command\ApiCompare(
+        $apiCompareCommand = new Command\AssertBackwardsCompatible(
             new GitCheckoutRevisionToTemporaryPath(),
             new DirectoryReflectorFactory($astLocator),
             new GitParseRevision(),

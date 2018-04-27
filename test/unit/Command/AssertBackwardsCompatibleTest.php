@@ -9,7 +9,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
-use Roave\ApiCompare\Command\ApiCompare;
+use Roave\ApiCompare\Command\AssertBackwardsCompatible;
 use Roave\ApiCompare\Comparator;
 use Roave\ApiCompare\Factory\DirectoryReflectorFactory;
 use Roave\ApiCompare\Git\CheckedOutRepository;
@@ -32,9 +32,9 @@ use function sha1;
 use function uniqid;
 
 /**
- * @covers \Roave\ApiCompare\Command\ApiCompare
+ * @covers \Roave\ApiCompare\Command\AssertBackwardsCompatible
  */
-final class ApiCompareTest extends TestCase
+final class AssertBackwardsCompatibleTest extends TestCase
 {
     /** @var CheckedOutRepository */
     private $sourceRepository;
@@ -69,7 +69,7 @@ final class ApiCompareTest extends TestCase
     /** @var AggregateSourceLocator */
     private $dependencies;
 
-    /** @var ApiCompare */
+    /** @var AssertBackwardsCompatible */
     private $compare;
 
     public function setUp() : void
@@ -87,7 +87,7 @@ final class ApiCompareTest extends TestCase
         $this->locateDependencies = $this->createMock(LocateDependencies::class);
         $this->dependencies       = new AggregateSourceLocator();
         $this->comparator         = $this->createMock(Comparator::class);
-        $this->compare            = new ApiCompare(
+        $this->compare            = new AssertBackwardsCompatible(
             $this->performCheckout,
             new DirectoryReflectorFactory((new BetterReflection())->astLocator()),
             $this->parseRevision,
