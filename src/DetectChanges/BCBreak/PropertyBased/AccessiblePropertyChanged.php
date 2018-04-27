@@ -17,12 +17,12 @@ final class AccessiblePropertyChanged implements PropertyBased
         $this->propertyBased = $propertyBased;
     }
 
-    public function compare(ReflectionProperty $fromProperty, ReflectionProperty $toProperty) : Changes
+    public function __invoke(ReflectionProperty $fromProperty, ReflectionProperty $toProperty) : Changes
     {
         if ($fromProperty->isPrivate()) {
             return Changes::new();
         }
 
-        return $this->propertyBased->compare($fromProperty, $toProperty);
+        return $this->propertyBased->__invoke($fromProperty, $toProperty);
     }
 }

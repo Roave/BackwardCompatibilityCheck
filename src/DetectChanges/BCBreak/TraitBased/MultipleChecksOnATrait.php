@@ -18,12 +18,12 @@ final class MultipleChecksOnATrait implements TraitBased
         $this->checks = $checks;
     }
 
-    public function compare(ReflectionClass $fromTrait, ReflectionClass $toTrait) : Changes
+    public function __invoke(ReflectionClass $fromTrait, ReflectionClass $toTrait) : Changes
     {
         return array_reduce(
             $this->checks,
             function (Changes $changes, TraitBased $check) use ($fromTrait, $toTrait) : Changes {
-                return $changes->mergeWith($check->compare($fromTrait, $toTrait));
+                return $changes->mergeWith($check->__invoke($fromTrait, $toTrait));
             },
             Changes::new()
         );

@@ -17,7 +17,7 @@ use function strtolower;
 
 final class MethodAdded implements InterfaceBased
 {
-    public function compare(ReflectionClass $fromInterface, ReflectionClass $toInterface) : Changes
+    public function __invoke(ReflectionClass $fromInterface, ReflectionClass $toInterface) : Changes
     {
         $fromMethods = $this->methods($fromInterface);
         $toMethods   = $this->methods($toInterface);

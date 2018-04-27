@@ -29,7 +29,7 @@ final class ClassBecameInterfaceTest extends TestCase
         array $expectedMessages
     ) : void {
         $changes = (new ClassBecameInterface())
-            ->compare($fromClass, $toClass);
+            ->__invoke($fromClass, $toClass);
 
         self::assertSame(
             $expectedMessages,

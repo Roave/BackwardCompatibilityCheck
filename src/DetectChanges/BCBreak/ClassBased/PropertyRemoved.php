@@ -26,7 +26,7 @@ final class PropertyRemoved implements ClassBased
         $this->formatProperty = new ReflectionPropertyName();
     }
 
-    public function compare(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
+    public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
     {
         $fromProperties    = $this->accessibleProperties($fromClass);
         $removedProperties = array_diff(

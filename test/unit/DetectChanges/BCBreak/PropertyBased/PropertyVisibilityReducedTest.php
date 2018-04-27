@@ -32,7 +32,7 @@ final class PropertyVisibilityReducedTest extends TestCase
         array $expectedMessages
     ) : void {
         $changes = (new PropertyVisibilityReduced())
-            ->compare($fromProperty, $toProperty);
+            ->__invoke($fromProperty, $toProperty);
 
         self::assertSame(
             $expectedMessages,

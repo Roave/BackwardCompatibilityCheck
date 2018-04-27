@@ -16,7 +16,7 @@ use function sprintf;
 
 final class ConstantRemoved implements ClassBased
 {
-    public function compare(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
+    public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
     {
         $removedConstants = array_diff_key(
             $this->accessibleConstants($fromClass),

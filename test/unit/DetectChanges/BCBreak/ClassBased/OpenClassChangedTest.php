@@ -54,11 +54,11 @@ final class OpenClassChangedTest extends TestCase
         $this
             ->check
             ->expects(self::atLeastOnce())
-            ->method('compare')
+            ->method('__invoke')
             ->with($this->fromClass, $this->toClass)
             ->willReturn($changes);
 
-        self::assertEquals($changes, $this->openClassChanged->compare($this->fromClass, $this->toClass));
+        self::assertEquals($changes, $this->openClassChanged->__invoke($this->fromClass, $this->toClass));
     }
 
     public function testWillNotCheckOpenClass() : void
@@ -72,8 +72,8 @@ final class OpenClassChangedTest extends TestCase
         $this
             ->check
             ->expects(self::never())
-            ->method('compare');
+            ->method('__invoke');
 
-        self::assertEquals(Changes::new(), $this->openClassChanged->compare($this->fromClass, $this->toClass));
+        self::assertEquals(Changes::new(), $this->openClassChanged->__invoke($this->fromClass, $this->toClass));
     }
 }

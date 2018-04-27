@@ -28,7 +28,7 @@ final class ParameterByReferenceChanged implements FunctionBased
         $this->formatFunction = new ReflectionFunctionAbstractName();
     }
 
-    public function compare(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction) : Changes
+    public function __invoke(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction) : Changes
     {
         /** @var ReflectionParameter[] $fromParameters */
         $fromParameters = array_values($fromFunction->getParameters());

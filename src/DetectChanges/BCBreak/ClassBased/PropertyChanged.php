@@ -21,7 +21,7 @@ final class PropertyChanged implements ClassBased
         $this->checkProperty = $checkProperty;
     }
 
-    public function compare(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
+    public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
     {
         $propertiesFrom   = $fromClass->getProperties();
         $propertiesTo     = $toClass->getProperties();
@@ -30,7 +30,7 @@ final class PropertyChanged implements ClassBased
         return array_reduce(
             array_keys($commonProperties),
             function (Changes $accumulator, string $propertyName) use ($propertiesFrom, $propertiesTo) : Changes {
-                return $accumulator->mergeWith($this->checkProperty->compare(
+                return $accumulator->mergeWith($this->checkProperty->__invoke(
                     $propertiesFrom[$propertyName],
                     $propertiesTo[$propertyName]
                 ));

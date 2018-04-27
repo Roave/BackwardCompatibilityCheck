@@ -21,7 +21,7 @@ final class PropertyDefaultValueChanged implements PropertyBased
         $this->formatProperty = new ReflectionPropertyName();
     }
 
-    public function compare(ReflectionProperty $fromProperty, ReflectionProperty $toProperty) : Changes
+    public function __invoke(ReflectionProperty $fromProperty, ReflectionProperty $toProperty) : Changes
     {
         $fromPropertyDefaultValue = $fromProperty->getDefaultValue();
         $toPropertyDefaultValue   = $toProperty->getDefaultValue();

@@ -32,7 +32,7 @@ final class ClassBecameTraitTest extends TestCase
         array $expectedMessages
     ) : void {
         $changes = (new ClassBecameTrait())
-            ->compare($fromClass, $toClass);
+            ->__invoke($fromClass, $toClass);
 
         self::assertSame(
             $expectedMessages,

@@ -27,7 +27,7 @@ final class MethodRemovedTest extends TestCase
         array $expectedMessages
     ) : void {
         $changes = (new MethodRemoved())
-            ->compare($fromClass, $toClass);
+            ->__invoke($fromClass, $toClass);
 
         self::assertSame(
             $expectedMessages,

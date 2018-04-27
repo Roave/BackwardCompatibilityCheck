@@ -32,7 +32,7 @@ final class PropertyDefaultValueChangedTest extends TestCase
         array $expectedMessages
     ) : void {
         $changes = (new PropertyDefaultValueChanged())
-            ->compare($fromFunction, $toFunction);
+            ->__invoke($fromFunction, $toFunction);
 
         self::assertSame(
             $expectedMessages,

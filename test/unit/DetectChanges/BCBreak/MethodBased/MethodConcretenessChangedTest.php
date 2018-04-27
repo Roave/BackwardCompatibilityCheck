@@ -32,7 +32,7 @@ final class MethodConcretenessChangedTest extends TestCase
         array $expectedMessages
     ) : void {
         $changes = (new MethodConcretenessChanged())
-            ->compare($fromMethod, $toMethod);
+            ->__invoke($fromMethod, $toMethod);
 
         self::assertSame(
             $expectedMessages,

@@ -31,7 +31,7 @@ final class ReturnTypeChangedTest extends TestCase
         array $expectedMessages
     ) : void {
         $changes = (new ReturnTypeChanged())
-            ->compare($fromFunction, $toFunction);
+            ->__invoke($fromFunction, $toFunction);
 
         self::assertSame(
             $expectedMessages,

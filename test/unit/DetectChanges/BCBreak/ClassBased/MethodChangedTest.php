@@ -60,7 +60,7 @@ PHP
 
         $comparator
             ->expects(self::exactly(3))
-            ->method('compare')
+            ->method('__invoke')
             ->willReturnCallback(function (ReflectionMethod $from, ReflectionMethod $to) : Changes {
                 $methodName = $from->getName();
 
@@ -75,7 +75,7 @@ PHP
                 Change::added('d', true),
                 Change::added('G', true),
             ]),
-            (new MethodChanged($comparator))->compare(
+            (new MethodChanged($comparator))->__invoke(
                 (new ClassReflector($fromLocator))->reflect('TheClass'),
                 (new ClassReflector($toLocator))->reflect('TheClass')
             )

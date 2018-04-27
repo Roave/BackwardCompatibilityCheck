@@ -31,10 +31,10 @@ final class UseClassBasedChecksOnATraitTest extends TestCase
 
         $classBased
             ->expects(self::once())
-            ->method('compare')
+            ->method('__invoke')
             ->with($fromTrait, $toTrait)
             ->willReturn($changes);
 
-        self::assertSame($changes, (new UseClassBasedChecksOnATrait($classBased))->compare($fromTrait, $toTrait));
+        self::assertSame($changes, (new UseClassBasedChecksOnATrait($classBased))->__invoke($fromTrait, $toTrait));
     }
 }

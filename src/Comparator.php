@@ -76,13 +76,13 @@ class Comparator
         }
 
         if ($oldSymbol->isInterface()) {
-            return $changelog->mergeWith($this->interfaceBasedComparisons->compare($oldSymbol, $newClass));
+            return $changelog->mergeWith($this->interfaceBasedComparisons->__invoke($oldSymbol, $newClass));
         }
 
         if ($oldSymbol->isTrait()) {
-            return $changelog->mergeWith($this->traitBasedComparisons->compare($oldSymbol, $newClass));
+            return $changelog->mergeWith($this->traitBasedComparisons->__invoke($oldSymbol, $newClass));
         }
 
-        return $changelog->mergeWith($this->classBasedComparisons->compare($oldSymbol, $newClass));
+        return $changelog->mergeWith($this->classBasedComparisons->__invoke($oldSymbol, $newClass));
     }
 }

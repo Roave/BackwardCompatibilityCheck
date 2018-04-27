@@ -32,7 +32,7 @@ final class MethodScopeChangedTest extends TestCase
         array $expectedMessages
     ) : void {
         $changes = (new MethodScopeChanged())
-            ->compare($fromMethod, $toMethod);
+            ->__invoke($fromMethod, $toMethod);
 
         self::assertSame(
             $expectedMessages,

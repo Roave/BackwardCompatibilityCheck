@@ -47,10 +47,10 @@ final class MethodFunctionDefinitionChangedTest extends TestCase
         $this
             ->functionCheck
             ->expects(self::any())
-            ->method('compare')
+            ->method('__invoke')
             ->with($from, $to)
             ->willReturn($result);
 
-        self::assertEquals($result, $this->methodCheck->compare($from, $to));
+        self::assertEquals($result, $this->methodCheck->__invoke($from, $to));
     }
 }

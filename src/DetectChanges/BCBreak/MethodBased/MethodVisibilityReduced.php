@@ -17,7 +17,7 @@ final class MethodVisibilityReduced implements MethodBased
 
     private const VISIBILITY_PUBLIC = 'public';
 
-    public function compare(ReflectionMethod $fromMethod, ReflectionMethod $toMethod) : Changes
+    public function __invoke(ReflectionMethod $fromMethod, ReflectionMethod $toMethod) : Changes
     {
         $visibilityFrom = $this->methodVisibility($fromMethod);
         $visibilityTo   = $this->methodVisibility($toMethod);

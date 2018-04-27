@@ -9,5 +9,5 @@ use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
 
 interface FunctionBased
 {
-    public function compare(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction) : Changes;
+    public function __invoke(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction) : Changes;
 }

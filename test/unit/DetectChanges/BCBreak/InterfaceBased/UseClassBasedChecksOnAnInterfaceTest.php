@@ -31,13 +31,13 @@ final class UseClassBasedChecksOnAnInterfaceTest extends TestCase
 
         $classBased
             ->expects(self::once())
-            ->method('compare')
+            ->method('__invoke')
             ->with($fromInterface, $toInterface)
             ->willReturn($changes);
 
         self::assertSame(
             $changes,
-            (new UseClassBasedChecksOnAnInterface($classBased))->compare($fromInterface, $toInterface)
+            (new UseClassBasedChecksOnAnInterface($classBased))->__invoke($fromInterface, $toInterface)
         );
     }
 }

@@ -18,12 +18,12 @@ final class MultipleChecksOnAClassConstant implements ClassConstantBased
         $this->checks = $checks;
     }
 
-    public function compare(ReflectionClassConstant $fromConstant, ReflectionClassConstant $toConstant) : Changes
+    public function __invoke(ReflectionClassConstant $fromConstant, ReflectionClassConstant $toConstant) : Changes
     {
         return array_reduce(
             $this->checks,
             function (Changes $changes, ClassConstantBased $check) use ($fromConstant, $toConstant) : Changes {
-                return $changes->mergeWith($check->compare($fromConstant, $toConstant));
+                return $changes->mergeWith($check->__invoke($fromConstant, $toConstant));
             },
             Changes::new()
         );

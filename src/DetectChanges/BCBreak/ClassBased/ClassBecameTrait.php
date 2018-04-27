@@ -16,7 +16,7 @@ use function sprintf;
  */
 final class ClassBecameTrait implements ClassBased
 {
-    public function compare(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
+    public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
     {
         if ($fromClass->isTrait() || ! $toClass->isTrait()) {
             return Changes::new();

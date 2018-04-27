@@ -25,7 +25,7 @@ final class MethodChanged implements ClassBased
         $this->checkMethod = $checkMethod;
     }
 
-    public function compare(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
+    public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
     {
         $methodsFrom   = $this->methods($fromClass);
         $methodsTo     = $this->methods($toClass);
@@ -34,7 +34,7 @@ final class MethodChanged implements ClassBased
         return array_reduce(
             array_keys($commonMethods),
             function (Changes $accumulator, string $methodName) use ($methodsFrom, $methodsTo) : Changes {
-                return $accumulator->mergeWith($this->checkMethod->compare(
+                return $accumulator->mergeWith($this->checkMethod->__invoke(
                     $methodsFrom[$methodName],
                     $methodsTo[$methodName]
                 ));

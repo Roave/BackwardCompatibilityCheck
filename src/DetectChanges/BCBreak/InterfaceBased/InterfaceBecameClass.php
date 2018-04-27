@@ -15,7 +15,7 @@ use function sprintf;
  */
 final class InterfaceBecameClass implements InterfaceBased
 {
-    public function compare(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
+    public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
     {
         if (! $this->isClass($toClass) || ! $fromClass->isInterface()) {
             // checking whether a class became an interface is done in `ClassBecameInterface`

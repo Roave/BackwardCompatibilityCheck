@@ -9,5 +9,5 @@ use Roave\BetterReflection\Reflection\ReflectionClassConstant;
 
 interface ClassConstantBased
 {
-    public function compare(ReflectionClassConstant $fromConstant, ReflectionClassConstant $toConstant) : Changes;
+    public function __invoke(ReflectionClassConstant $fromConstant, ReflectionClassConstant $toConstant) : Changes;
 }

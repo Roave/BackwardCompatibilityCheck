@@ -11,7 +11,7 @@ use function sprintf;
 
 final class ClassBecameFinal implements ClassBased
 {
-    public function compare(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
+    public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
     {
         if ($fromClass->isFinal()) {
             return Changes::new();

@@ -29,7 +29,7 @@ final class ClassBecameAbstractTest extends TestCase
         array $expectedMessages
     ) : void {
         $changes = (new ClassBecameAbstract())
-            ->compare($fromClass, $toClass);
+            ->__invoke($fromClass, $toClass);
 
         self::assertSame(
             $expectedMessages,

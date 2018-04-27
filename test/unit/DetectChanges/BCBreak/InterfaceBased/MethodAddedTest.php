@@ -29,7 +29,7 @@ final class MethodAddedTest extends TestCase
         array $expectedMessages
     ) : void {
         $changes = (new MethodAdded())
-            ->compare($fromInterface, $toInterface);
+            ->__invoke($fromInterface, $toInterface);
 
         self::assertSame(
             $expectedMessages,

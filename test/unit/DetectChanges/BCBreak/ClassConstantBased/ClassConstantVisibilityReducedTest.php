@@ -30,7 +30,7 @@ final class ClassConstantVisibilityReducedTest extends TestCase
         array $expectedMessages
     ) : void {
         $changes = (new ClassConstantVisibilityReduced())
-            ->compare($fromConstant, $toConstant);
+            ->__invoke($fromConstant, $toConstant);
 
         self::assertSame(
             $expectedMessages,

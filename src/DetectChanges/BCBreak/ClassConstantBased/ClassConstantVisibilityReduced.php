@@ -17,7 +17,7 @@ final class ClassConstantVisibilityReduced implements ClassConstantBased
 
     private const VISIBILITY_PUBLIC = 'public';
 
-    public function compare(ReflectionClassConstant $fromConstant, ReflectionClassConstant $toConstant) : Changes
+    public function __invoke(ReflectionClassConstant $fromConstant, ReflectionClassConstant $toConstant) : Changes
     {
         $visibilityFrom = $this->propertyVisibility($fromConstant);
         $visibilityTo   = $this->propertyVisibility($toConstant);

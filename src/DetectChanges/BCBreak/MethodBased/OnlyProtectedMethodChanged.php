@@ -20,12 +20,12 @@ final class OnlyProtectedMethodChanged implements MethodBased
         $this->check = $check;
     }
 
-    public function compare(ReflectionMethod $fromMethod, ReflectionMethod $toMethod) : Changes
+    public function __invoke(ReflectionMethod $fromMethod, ReflectionMethod $toMethod) : Changes
     {
         if (! $fromMethod->isProtected()) {
             return Changes::new();
         }
 
-        return $this->check->compare($fromMethod, $toMethod);
+        return $this->check->__invoke($fromMethod, $toMethod);
     }
 }

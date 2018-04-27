@@ -27,7 +27,7 @@ final class ConstantRemovedTest extends TestCase
         array $expectedMessages
     ) : void {
         $changes = (new ConstantRemoved())
-            ->compare($fromClass, $toClass);
+            ->__invoke($fromClass, $toClass);
 
         self::assertSame(
             $expectedMessages,

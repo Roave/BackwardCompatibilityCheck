@@ -15,7 +15,7 @@ use function sprintf;
  */
 final class TraitBecameInterface implements TraitBased
 {
-    public function compare(ReflectionClass $fromTrait, ReflectionClass $toTrait) : Changes
+    public function __invoke(ReflectionClass $fromTrait, ReflectionClass $toTrait) : Changes
     {
         if ($toTrait->isTrait() || ! $toTrait->isInterface() || ! $fromTrait->isTrait()) {
             return Changes::new();

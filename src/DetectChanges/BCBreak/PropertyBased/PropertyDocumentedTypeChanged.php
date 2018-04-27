@@ -28,7 +28,7 @@ final class PropertyDocumentedTypeChanged implements PropertyBased
         $this->formatProperty = new ReflectionPropertyName();
     }
 
-    public function compare(ReflectionProperty $fromProperty, ReflectionProperty $toProperty) : Changes
+    public function __invoke(ReflectionProperty $fromProperty, ReflectionProperty $toProperty) : Changes
     {
         if ($fromProperty->getDocComment() === '') {
             return Changes::new();

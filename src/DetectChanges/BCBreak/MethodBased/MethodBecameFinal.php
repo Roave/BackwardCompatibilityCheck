@@ -15,7 +15,7 @@ use function sprintf;
  */
 final class MethodBecameFinal implements MethodBased
 {
-    public function compare(ReflectionMethod $fromMethod, ReflectionMethod $toMethod) : Changes
+    public function __invoke(ReflectionMethod $fromMethod, ReflectionMethod $toMethod) : Changes
     {
         if ($fromMethod->isFinal() || ! $toMethod->isFinal()) {
             return Changes::new();

@@ -21,7 +21,7 @@ final class ConstantChanged implements ClassBased
         $this->checkConstant = $checkConstant;
     }
 
-    public function compare(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
+    public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
     {
         $constantsFrom   = $fromClass->getReflectionConstants();
         $constantsTo     = $toClass->getReflectionConstants();
@@ -30,7 +30,7 @@ final class ConstantChanged implements ClassBased
         return array_reduce(
             array_keys($commonConstants),
             function (Changes $accumulator, string $constantName) use ($constantsFrom, $constantsTo) : Changes {
-                return $accumulator->mergeWith($this->checkConstant->compare(
+                return $accumulator->mergeWith($this->checkConstant->__invoke(
                     $constantsFrom[$constantName],
                     $constantsTo[$constantName]
                 ));

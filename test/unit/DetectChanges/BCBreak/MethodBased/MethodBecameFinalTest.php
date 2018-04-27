@@ -32,7 +32,7 @@ final class MethodBecameFinalTest extends TestCase
         array $expectedMessages
     ) : void {
         $changes = (new MethodBecameFinal())
-            ->compare($fromMethod, $toMethod);
+            ->__invoke($fromMethod, $toMethod);
 
         self::assertSame(
             $expectedMessages,

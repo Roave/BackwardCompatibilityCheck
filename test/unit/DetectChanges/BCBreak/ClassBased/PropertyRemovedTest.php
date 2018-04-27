@@ -27,7 +27,7 @@ final class PropertyRemovedTest extends TestCase
         array $expectedMessages
     ) : void {
         $changes = (new PropertyRemoved())
-            ->compare($fromClass, $toClass);
+            ->__invoke($fromClass, $toClass);
 
         self::assertSame(
             $expectedMessages,

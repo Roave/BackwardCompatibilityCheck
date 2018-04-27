@@ -26,7 +26,7 @@ final class PropertyVisibilityReduced implements PropertyBased
 
     private const VISIBILITY_PUBLIC = 'public';
 
-    public function compare(ReflectionProperty $fromProperty, ReflectionProperty $toProperty) : Changes
+    public function __invoke(ReflectionProperty $fromProperty, ReflectionProperty $toProperty) : Changes
     {
         $visibilityFrom = $this->propertyVisibility($fromProperty);
         $visibilityTo   = $this->propertyVisibility($toProperty);

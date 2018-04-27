@@ -15,7 +15,7 @@ use function sprintf;
  */
 final class InterfaceBecameTrait implements InterfaceBased
 {
-    public function compare(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
+    public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
     {
         if (! $toClass->isTrait() || ! $fromClass->isInterface()) {
             // checking whether an interface became an class is done in `InterfaceBecameClass`

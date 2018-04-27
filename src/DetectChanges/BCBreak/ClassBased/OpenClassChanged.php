@@ -17,12 +17,12 @@ final class OpenClassChanged implements ClassBased
         $this->checkClass = $checkClass;
     }
 
-    public function compare(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
+    public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
     {
         if ($fromClass->isFinal()) {
             return Changes::new();
         }
 
-        return $this->checkClass->compare($fromClass, $toClass);
+        return $this->checkClass->__invoke($fromClass, $toClass);
     }
 }

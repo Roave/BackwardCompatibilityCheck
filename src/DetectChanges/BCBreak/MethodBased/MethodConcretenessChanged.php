@@ -15,7 +15,7 @@ use function sprintf;
  */
 final class MethodConcretenessChanged implements MethodBased
 {
-    public function compare(ReflectionMethod $fromMethod, ReflectionMethod $toMethod) : Changes
+    public function __invoke(ReflectionMethod $fromMethod, ReflectionMethod $toMethod) : Changes
     {
         if ($fromMethod->isAbstract() || ! $toMethod->isAbstract()) {
             return Changes::new();

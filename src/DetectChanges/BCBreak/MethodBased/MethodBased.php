@@ -9,5 +9,5 @@ use Roave\BetterReflection\Reflection\ReflectionMethod;
 
 interface MethodBased
 {
-    public function compare(ReflectionMethod $fromMethod, ReflectionMethod $toMethod) : Changes;
+    public function __invoke(ReflectionMethod $fromMethod, ReflectionMethod $toMethod) : Changes;
 }

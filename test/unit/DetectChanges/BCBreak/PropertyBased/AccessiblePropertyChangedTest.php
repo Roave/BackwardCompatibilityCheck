@@ -45,7 +45,7 @@ final class AccessiblePropertyChangedTest extends TestCase
         $this
             ->check
             ->expects(self::never())
-            ->method('compare');
+            ->method('__invoke');
 
         $this
             ->fromProperty
@@ -55,7 +55,7 @@ final class AccessiblePropertyChangedTest extends TestCase
 
         self::assertEquals(
             Changes::new(),
-            $this->accessiblePropertyChanged->compare($this->fromProperty, $this->toProperty)
+            $this->accessiblePropertyChanged->__invoke($this->fromProperty, $this->toProperty)
         );
     }
 
@@ -66,7 +66,7 @@ final class AccessiblePropertyChangedTest extends TestCase
         $this
             ->check
             ->expects(self::atLeastOnce())
-            ->method('compare')
+            ->method('__invoke')
             ->with($this->fromProperty, $this->toProperty)
             ->willReturn($changes);
 
@@ -78,7 +78,7 @@ final class AccessiblePropertyChangedTest extends TestCase
 
         self::assertEquals(
             $changes,
-            $this->accessiblePropertyChanged->compare($this->fromProperty, $this->toProperty)
+            $this->accessiblePropertyChanged->__invoke($this->fromProperty, $this->toProperty)
         );
     }
 }

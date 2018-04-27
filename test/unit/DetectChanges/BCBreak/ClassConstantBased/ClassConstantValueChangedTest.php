@@ -32,7 +32,7 @@ final class ClassConstantValueChangedTest extends TestCase
         array $expectedMessages
     ) : void {
         $changes = (new ClassConstantValueChanged())
-            ->compare($fromConstant, $toConstant);
+            ->__invoke($fromConstant, $toConstant);
 
         self::assertSame(
             $expectedMessages,

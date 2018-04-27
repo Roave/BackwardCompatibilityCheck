@@ -32,7 +32,7 @@ final class PropertyScopeChangedTest extends TestCase
         array $expectedMessages
     ) : void {
         $changes = (new PropertyScopeChanged())
-            ->compare($fromFunction, $toFunction);
+            ->__invoke($fromFunction, $toFunction);
 
         self::assertSame(
             $expectedMessages,

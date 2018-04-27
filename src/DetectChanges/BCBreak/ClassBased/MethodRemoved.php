@@ -28,7 +28,7 @@ final class MethodRemoved implements ClassBased
         $this->formatFunction = new ReflectionFunctionAbstractName();
     }
 
-    public function compare(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
+    public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
     {
         $removedMethods = array_diff_key(
             array_change_key_case($this->accessibleMethods($fromClass), CASE_UPPER),

@@ -45,7 +45,7 @@ final class OnlyPublicClassConstantChangedTest extends TestCase
         $this
             ->check
             ->expects(self::never())
-            ->method('compare');
+            ->method('__invoke');
 
         $this
             ->fromConstant
@@ -55,7 +55,7 @@ final class OnlyPublicClassConstantChangedTest extends TestCase
 
         self::assertEquals(
             Changes::new(),
-            $this->changed->compare($this->fromConstant, $this->toConstant)
+            $this->changed->__invoke($this->fromConstant, $this->toConstant)
         );
     }
 
@@ -66,7 +66,7 @@ final class OnlyPublicClassConstantChangedTest extends TestCase
         $this
             ->check
             ->expects(self::atLeastOnce())
-            ->method('compare')
+            ->method('__invoke')
             ->with($this->fromConstant, $this->toConstant)
             ->willReturn($changes);
 
@@ -78,7 +78,7 @@ final class OnlyPublicClassConstantChangedTest extends TestCase
 
         self::assertEquals(
             $changes,
-            $this->changed->compare($this->fromConstant, $this->toConstant)
+            $this->changed->__invoke($this->fromConstant, $this->toConstant)
         );
     }
 }

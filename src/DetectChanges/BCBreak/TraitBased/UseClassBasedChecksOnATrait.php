@@ -18,8 +18,8 @@ final class UseClassBasedChecksOnATrait implements TraitBased
         $this->check = $classBased;
     }
 
-    public function compare(ReflectionClass $fromTrait, ReflectionClass $toTrait) : Changes
+    public function __invoke(ReflectionClass $fromTrait, ReflectionClass $toTrait) : Changes
     {
-        return $this->check->compare($fromTrait, $toTrait);
+        return $this->check->__invoke($fromTrait, $toTrait);
     }
 }

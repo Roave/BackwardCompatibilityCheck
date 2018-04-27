@@ -9,5 +9,5 @@ use Roave\BetterReflection\Reflection\ReflectionProperty;
 
 interface PropertyBased
 {
-    public function compare(ReflectionProperty $fromProperty, ReflectionProperty $toProperty) : Changes;
+    public function __invoke(ReflectionProperty $fromProperty, ReflectionProperty $toProperty) : Changes;
 }

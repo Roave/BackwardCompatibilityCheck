@@ -15,7 +15,7 @@ use function sprintf;
  */
 final class PropertyScopeChanged implements PropertyBased
 {
-    public function compare(ReflectionProperty $fromProperty, ReflectionProperty $toProperty) : Changes
+    public function __invoke(ReflectionProperty $fromProperty, ReflectionProperty $toProperty) : Changes
     {
         $fromScope = $this->scopeAsString($fromProperty);
         $toScope   = $this->scopeAsString($toProperty);

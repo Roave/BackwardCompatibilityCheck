@@ -16,7 +16,7 @@ use function sprintf;
  */
 final class ClassBecameAbstract implements ClassBased
 {
-    public function compare(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
+    public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
     {
         if ($fromClass->isInterface() !== $toClass->isInterface()) {
             // checking whether a class became an interface is done in `ClassBecameInterface`

@@ -18,12 +18,12 @@ final class MultipleChecksOnAProperty implements PropertyBased
         $this->checks = $checks;
     }
 
-    public function compare(ReflectionProperty $fromProperty, ReflectionProperty $toProperty) : Changes
+    public function __invoke(ReflectionProperty $fromProperty, ReflectionProperty $toProperty) : Changes
     {
         return array_reduce(
             $this->checks,
             function (Changes $changes, PropertyBased $check) use ($fromProperty, $toProperty) : Changes {
-                return $changes->mergeWith($check->compare($fromProperty, $toProperty));
+                return $changes->mergeWith($check->__invoke($fromProperty, $toProperty));
             },
             Changes::new()
         );

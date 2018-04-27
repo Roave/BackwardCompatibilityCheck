@@ -15,7 +15,7 @@ use function sprintf;
  */
 final class MethodScopeChanged implements MethodBased
 {
-    public function compare(ReflectionMethod $fromMethod, ReflectionMethod $toMethod) : Changes
+    public function __invoke(ReflectionMethod $fromMethod, ReflectionMethod $toMethod) : Changes
     {
         $scopeFrom = $this->methodScope($fromMethod);
         $scopeTo   = $this->methodScope($toMethod);

@@ -59,7 +59,7 @@ PHP
 
         $comparator
             ->expects(self::exactly(2))
-            ->method('compare')
+            ->method('__invoke')
             ->willReturnCallback(function (ReflectionClassConstant $from, ReflectionClassConstant $to) : Changes {
                 $propertyName = $from->getName();
 
@@ -73,7 +73,7 @@ PHP
                 Change::added('b', true),
                 Change::added('d', true),
             ]),
-            (new ConstantChanged($comparator))->compare(
+            (new ConstantChanged($comparator))->__invoke(
                 (new ClassReflector($fromLocator))->reflect('TheClass'),
                 (new ClassReflector($toLocator))->reflect('TheClass')
             )

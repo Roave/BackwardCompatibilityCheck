@@ -206,7 +206,7 @@ PHP
         $this
             ->classBasedComparison
             ->expects(self::atLeastOnce())
-            ->method('compare')
+            ->method('__invoke')
             ->willReturn(Changes::fromArray([
                 Change::changed('class change', true),
             ]));
@@ -217,7 +217,7 @@ PHP
         $this
             ->classBasedComparison
             ->expects(self::never())
-            ->method('compare');
+            ->method('__invoke');
     }
 
     private function interfaceBasedComparatorWillBeCalled() : void
@@ -225,7 +225,7 @@ PHP
         $this
             ->interfaceBasedComparison
             ->expects(self::atLeastOnce())
-            ->method('compare')
+            ->method('__invoke')
             ->willReturn(Changes::fromArray([
                 Change::changed('interface change', true),
             ]));
@@ -236,7 +236,7 @@ PHP
         $this
             ->interfaceBasedComparison
             ->expects(self::never())
-            ->method('compare');
+            ->method('__invoke');
     }
 
     private function traitBasedComparatorWillBeCalled() : void
@@ -244,7 +244,7 @@ PHP
         $this
             ->traitBasedComparison
             ->expects(self::atLeastOnce())
-            ->method('compare')
+            ->method('__invoke')
             ->willReturn(Changes::fromArray([
                 Change::changed('trait change', true),
             ]));
@@ -255,6 +255,6 @@ PHP
         $this
             ->traitBasedComparison
             ->expects(self::never())
-            ->method('compare');
+            ->method('__invoke');
     }
 }

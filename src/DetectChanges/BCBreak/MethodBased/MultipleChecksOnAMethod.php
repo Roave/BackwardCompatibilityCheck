@@ -18,12 +18,12 @@ final class MultipleChecksOnAMethod implements MethodBased
         $this->checks = $checks;
     }
 
-    public function compare(ReflectionMethod $fromMethod, ReflectionMethod $toMethod) : Changes
+    public function __invoke(ReflectionMethod $fromMethod, ReflectionMethod $toMethod) : Changes
     {
         return array_reduce(
             $this->checks,
             function (Changes $changes, MethodBased $check) use ($fromMethod, $toMethod) : Changes {
-                return $changes->mergeWith($check->compare($fromMethod, $toMethod));
+                return $changes->mergeWith($check->__invoke($fromMethod, $toMethod));
             },
             Changes::new()
         );

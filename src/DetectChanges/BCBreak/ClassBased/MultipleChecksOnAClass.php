@@ -18,12 +18,12 @@ final class MultipleChecksOnAClass implements ClassBased
         $this->checks = $checks;
     }
 
-    public function compare(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
+    public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
     {
         return array_reduce(
             $this->checks,
             function (Changes $changes, ClassBased $check) use ($fromClass, $toClass) : Changes {
-                return $changes->mergeWith($check->compare($fromClass, $toClass));
+                return $changes->mergeWith($check->__invoke($fromClass, $toClass));
             },
             Changes::new()
         );

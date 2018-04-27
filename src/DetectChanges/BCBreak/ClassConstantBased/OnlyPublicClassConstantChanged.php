@@ -17,12 +17,12 @@ final class OnlyPublicClassConstantChanged implements ClassConstantBased
         $this->constantCheck = $constantCheck;
     }
 
-    public function compare(ReflectionClassConstant $fromConstant, ReflectionClassConstant $toConstant) : Changes
+    public function __invoke(ReflectionClassConstant $fromConstant, ReflectionClassConstant $toConstant) : Changes
     {
         if (! $fromConstant->isPublic()) {
             return Changes::new();
         }
 
-        return $this->constantCheck->compare($fromConstant, $toConstant);
+        return $this->constantCheck->__invoke($fromConstant, $toConstant);
     }
 }
