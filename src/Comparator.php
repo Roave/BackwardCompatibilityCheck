@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Roave\ApiCompare;
+namespace Roave\BackwardCompatibility;
 
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassBased\ClassBased;
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\InterfaceBased\InterfaceBased;
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\TraitBased\TraitBased;
+use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\ClassBased;
+use Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased\InterfaceBased;
+use Roave\BackwardCompatibility\DetectChanges\BCBreak\TraitBased\TraitBased;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
@@ -46,7 +46,7 @@ class Comparator
         ClassReflector $pastSourcesWithDependencies,
         ClassReflector $newSourcesWithDependencies
     ) : Changes {
-        $changelog = Changes::new();
+        $changelog = Changes::empty();
 
         $definedApiClassNames = array_map(function (ReflectionClass $class) : string {
             return $class->getName();
@@ -70,19 +70,19 @@ class Comparator
             /** @var ReflectionClass $newClass */
             $newClass = $newSourcesWithDependencies->reflect($oldSymbol->getName());
         } catch (IdentifierNotFound $exception) {
-            return $changelog->withAddedChange(
+            return $changelog->mergeWith(Changes::fromList(
                 Change::removed(sprintf('Class %s has been deleted', $oldSymbol->getName()), true)
-            );
+            ));
         }
 
         if ($oldSymbol->isInterface()) {
-            return $changelog->mergeWith($this->interfaceBasedComparisons->compare($oldSymbol, $newClass));
+            return $changelog->mergeWith($this->interfaceBasedComparisons->__invoke($oldSymbol, $newClass));
         }
 
         if ($oldSymbol->isTrait()) {
-            return $changelog->mergeWith($this->traitBasedComparisons->compare($oldSymbol, $newClass));
+            return $changelog->mergeWith($this->traitBasedComparisons->__invoke($oldSymbol, $newClass));
         }
 
-        return $changelog->mergeWith($this->classBasedComparisons->compare($oldSymbol, $newClass));
+        return $changelog->mergeWith($this->classBasedComparisons->__invoke($oldSymbol, $newClass));
     }
 }

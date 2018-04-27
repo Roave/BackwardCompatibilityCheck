@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace RoaveTest\ApiCompare\Git;
+namespace RoaveTest\BackwardCompatibility\Git;
 
 use PHPUnit\Framework\TestCase;
-use Roave\ApiCompare\Git\CheckedOutRepository;
+use Roave\BackwardCompatibility\Git\CheckedOutRepository;
 use function mkdir;
 use function rmdir;
 use function sys_get_temp_dir;
 use function uniqid;
 
 /**
- * @covers \Roave\ApiCompare\Git\CheckedOutRepository
+ * @covers \Roave\BackwardCompatibility\Git\CheckedOutRepository
  */
 final class CheckedOutRepositoryTest extends TestCase
 {

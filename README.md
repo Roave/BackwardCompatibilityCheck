@@ -1,65 +1,53 @@
-# API Compare Tool
+# Roave Backward Compatibility Check
 
-**WARNING** THIS LIBRARY IS NOT YET READY, OR RELEASED YET; IT'S WORK IN PROGRESS ........
-
-A tool that can be used to compare two versions of a class API in PHP
-code.
+A tool that can be used to verify BC breaks between two versions
+of a PHP library.
 
 ## Pre-requisites/assumptions
 
  * Your project uses `git`
- * You use semver formatted `git` tags like `1.2.3` to mark releases
+ * Your project uses `composer.json` to define its dependencies
 
 ## Installation
 
-You must currently install the tool using:
-
 ```bash
-$ composer require --dev roave/api-compare
+composer require --dev roave/backward-compatibility-check
 ```
 
 ## Usage
 
-### Adding to CI pipeline
+### Adding to a continuous integration pipeline
 
-The typical intended usage is to just add an execution of `api-compare`
-into your CI build, by running:
+The typical intended usage is to just add `roave-backward-compatibility-check`
+to your CI build:
 
 ```bash
-$ vendor/bin/api-compare
+vendor/bin/roave-backward-compatibility-check
 ```
 
 This will automatically detect the last minor version tagged, and
 compare the API against the current `HEAD`. If any BC breaks are found,
 the tool returns a non-zero status, which on most CI systems will cause
-the build to fail. The failure exit code is currently hard-coded as `2`.
+the build to fail.
+
+*NOTE:* detecting the base version only works if you have git tags in
+the SemVer-compliant `x.y.z` format, such as `1.2.3`.
 
 ### Running manually
 
-You can also run the tool by hand, for example to generate additional
-documentation for changelogs:
+To generate additional documentation for changelogs:
 
 ```bash
-$ vendor/bin/api-compare --format=markdown > results.md
+vendor/bin/roave-backward-compatibility-check --format=markdown > results.md
 ```
 
-### CLI options
+### Documentation
 
-Running the tool with options:
+If you need further guidance:
 
 ```bash
-$ vendor/bin/api-compare [--from=] [--to=] [--markdown=] [<sources-path>]
+vendor/bin/roave-backward-compatibility-check --help
 ```
-
- * `--from=<revision>` specify manually what the "old" version is (e.g.
-   `1.0.0` or a specific `git` hash). If not provided, the tool will
-   attempt to figure out the last minor version released.
- * `--to=<revision>` specify manually what the "new" version (e.g.
-   `1.1.0` or a specific `git` hash). The default value is `HEAD`.
- * `--markdown=<filename>` If provided, the tool will generate the list
-   of changes in markdown format.
- * `<sources-path>` if given, you can specify in which directory to
-   examine for classes. This defaults to `src`.
 
 ## Configuration
 

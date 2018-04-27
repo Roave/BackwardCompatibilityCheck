@@ -2,55 +2,53 @@
 
 declare(strict_types=1);
 
-namespace Roave\ApiCompare;
+namespace Roave\BackwardCompatibility;
 
 use ArrayIterator;
-use Assert\Assert;
 use Countable;
 use IteratorAggregate;
-use function array_merge;
 use function count;
 
 final class Changes implements IteratorAggregate, Countable
 {
     /** @var Change[] */
-    private $changes = [];
+    private $changes;
 
     private function __construct()
     {
     }
 
-    public static function new() : self
+    public static function empty() : self
     {
-        return new self();
+        static $empty;
+
+        if ($empty) {
+            return $empty;
+        }
+
+        $empty = new self();
+
+        $empty->changes = [];
+
+        return $empty;
     }
 
-    /**
-     * @param Change[] $changes
-     * @return Changes
-     */
-    public static function fromArray(array $changes) : self
+    public static function fromList(Change ...$changes) : self
     {
-        Assert::that($changes)->all()->isInstanceOf(Change::class);
-        $instance          = self::new();
+        $instance = new self();
+
         $instance->changes = $changes;
+
         return $instance;
     }
 
     public function mergeWith(self $other) : self
     {
-        $instance = new self();
+        if (! $other->changes) {
+            return $this;
+        }
 
-        $instance->changes = array_merge($this->changes, $other->changes);
-
-        return $instance;
-    }
-
-    public function withAddedChange(Change $change) : self
-    {
-        $new            = clone $this;
-        $new->changes[] = $change;
-        return $new;
+        return self::fromList(...$this->changes, ...$other->changes);
     }
 
     /**

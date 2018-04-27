@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Roave\ApiCompare\LocateDependencies;
+namespace Roave\BackwardCompatibility\LocateDependencies;
 
 use Roave\BetterReflection\SourceLocator\Type\SourceLocator;
 

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace RoaveTest\ApiCompare\Git;
+namespace RoaveTest\BackwardCompatibility\Git;
 
 use PHPUnit\Framework\TestCase;
-use Roave\ApiCompare\Git\CheckedOutRepository;
-use Roave\ApiCompare\Git\GitParseRevision;
+use Roave\BackwardCompatibility\Git\CheckedOutRepository;
+use Roave\BackwardCompatibility\Git\GitParseRevision;
 
 /**
- * @covers \Roave\ApiCompare\Git\GitParseRevision
+ * @covers \Roave\BackwardCompatibility\Git\GitParseRevision
  */
 final class GitParseRevisionTest extends TestCase
 {

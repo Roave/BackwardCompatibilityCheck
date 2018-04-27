@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Roave\ApiCompare\Support;
+namespace Roave\BackwardCompatibility\Support;
 
 use Assert\Assert;
 use function in_array;

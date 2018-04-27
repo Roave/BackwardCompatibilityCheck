@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace RoaveTest\ApiCompare\SourceLocator;
+namespace RoaveTest\BackwardCompatibility\SourceLocator;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Roave\ApiCompare\SourceLocator\StaticClassMapSourceLocator;
+use Roave\BackwardCompatibility\SourceLocator\StaticClassMapSourceLocator;
 use Roave\BetterReflection\Identifier\Identifier;
 use Roave\BetterReflection\Identifier\IdentifierType;
 use Roave\BetterReflection\Reflection\Reflection;
@@ -17,7 +17,7 @@ use Roave\BetterReflection\SourceLocator\Located\LocatedSource;
 use function file_get_contents;
 
 /**
- * @covers \Roave\ApiCompare\SourceLocator\StaticClassMapSourceLocator
+ * @covers \Roave\BackwardCompatibility\SourceLocator\StaticClassMapSourceLocator
  */
 final class StaticClassMapSourceLocatorTest extends TestCase
 {

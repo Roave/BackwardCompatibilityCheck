@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace RoaveTest\ApiCompare;
+namespace RoaveTest\BackwardCompatibility;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Roave\ApiCompare\Change;
-use Roave\ApiCompare\Changes;
-use Roave\ApiCompare\Comparator;
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassBased\ClassBased;
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\InterfaceBased\InterfaceBased;
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\TraitBased\TraitBased;
+use Roave\BackwardCompatibility\Change;
+use Roave\BackwardCompatibility\Changes;
+use Roave\BackwardCompatibility\Comparator;
+use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\ClassBased;
+use Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased\InterfaceBased;
+use Roave\BackwardCompatibility\DetectChanges\BCBreak\TraitBased\TraitBased;
 
 /**
- * @covers \Roave\ApiCompare\Comparator
+ * @covers \Roave\BackwardCompatibility\Comparator
  */
 final class ComparatorTest extends TestCase
 {
@@ -59,9 +59,7 @@ final class ComparatorTest extends TestCase
         $this->traitBasedComparatorWillNotBeCalled();
 
         self::assertEqualsIgnoringOrder(
-            Changes::fromArray([
-                Change::changed('class change', true),
-            ]),
+            Changes::fromList(Change::changed('class change', true)),
             $this->comparator->compare(
                 self::$stringReflectorFactory->__invoke('<?php class A {}'),
                 self::$stringReflectorFactory->__invoke(
@@ -97,9 +95,7 @@ PHP
         $this->traitBasedComparatorWillNotBeCalled();
 
         self::assertEqualsIgnoringOrder(
-            Changes::fromArray([
-                Change::changed('class change', true),
-            ]),
+            Changes::fromList(Change::changed('class change', true)),
             $this->comparator->compare(
                 self::$stringReflectorFactory->__invoke('<?php class A {}'),
                 self::$stringReflectorFactory->__invoke(
@@ -131,9 +127,7 @@ PHP
         $this->traitBasedComparatorWillNotBeCalled();
 
         self::assertEqualsIgnoringOrder(
-            Changes::fromArray([
-                Change::changed('interface change', true),
-            ]),
+            Changes::fromList(Change::changed('interface change', true)),
             $this->comparator->compare(
                 self::$stringReflectorFactory->__invoke('<?php interface A {}'),
                 self::$stringReflectorFactory->__invoke('<?php interface A {}'),
@@ -149,9 +143,7 @@ PHP
         $this->traitBasedComparatorWillBeCalled();
 
         self::assertEqualsIgnoringOrder(
-            Changes::fromArray([
-                Change::changed('trait change', true),
-            ]),
+            Changes::fromList(Change::changed('trait change', true)),
             $this->comparator->compare(
                 self::$stringReflectorFactory->__invoke('<?php trait A {}'),
                 self::$stringReflectorFactory->__invoke('<?php trait A {}'),
@@ -174,7 +166,7 @@ PHP
         $this->classBasedComparatorWillNotBeCalled();
 
         self::assertEqualsIgnoringOrder(
-            Changes::new(),
+            Changes::empty(),
             $this->comparator->compare(
                 self::$stringReflectorFactory->__invoke('<?php '),
                 self::$stringReflectorFactory->__invoke('<?php class A { private function foo() {} }'),
@@ -190,9 +182,7 @@ PHP
         $this->traitBasedComparatorWillNotBeCalled();
 
         self::assertEqualsIgnoringOrder(
-            Changes::fromArray([
-                Change::removed('Class A has been deleted', true),
-            ]),
+            Changes::fromList(Change::removed('Class A has been deleted', true)),
             $this->comparator->compare(
                 self::$stringReflectorFactory->__invoke('<?php class A { private function foo() {} }'),
                 self::$stringReflectorFactory->__invoke('<?php class A { private function foo() {} }'),
@@ -206,10 +196,8 @@ PHP
         $this
             ->classBasedComparison
             ->expects(self::atLeastOnce())
-            ->method('compare')
-            ->willReturn(Changes::fromArray([
-                Change::changed('class change', true),
-            ]));
+            ->method('__invoke')
+            ->willReturn(Changes::fromList(Change::changed('class change', true)));
     }
 
     private function classBasedComparatorWillNotBeCalled() : void
@@ -217,7 +205,7 @@ PHP
         $this
             ->classBasedComparison
             ->expects(self::never())
-            ->method('compare');
+            ->method('__invoke');
     }
 
     private function interfaceBasedComparatorWillBeCalled() : void
@@ -225,10 +213,8 @@ PHP
         $this
             ->interfaceBasedComparison
             ->expects(self::atLeastOnce())
-            ->method('compare')
-            ->willReturn(Changes::fromArray([
-                Change::changed('interface change', true),
-            ]));
+            ->method('__invoke')
+            ->willReturn(Changes::fromList(Change::changed('interface change', true)));
     }
 
     private function interfaceBasedComparatorWillNotBeCalled() : void
@@ -236,7 +222,7 @@ PHP
         $this
             ->interfaceBasedComparison
             ->expects(self::never())
-            ->method('compare');
+            ->method('__invoke');
     }
 
     private function traitBasedComparatorWillBeCalled() : void
@@ -244,10 +230,8 @@ PHP
         $this
             ->traitBasedComparison
             ->expects(self::atLeastOnce())
-            ->method('compare')
-            ->willReturn(Changes::fromArray([
-                Change::changed('trait change', true),
-            ]));
+            ->method('__invoke')
+            ->willReturn(Changes::fromList(Change::changed('trait change', true)));
     }
 
     private function traitBasedComparatorWillNotBeCalled() : void
@@ -255,6 +239,6 @@ PHP
         $this
             ->traitBasedComparison
             ->expects(self::never())
-            ->method('compare');
+            ->method('__invoke');
     }
 }

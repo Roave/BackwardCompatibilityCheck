@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RoaveTest\ApiCompare;
+namespace RoaveTest\BackwardCompatibility;
 
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflector\ClassReflector;

@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace RoaveTest\ApiCompare\Git;
+namespace RoaveTest\BackwardCompatibility\Git;
 
 use PHPUnit\Framework\TestCase;
-use Roave\ApiCompare\Git\CheckedOutRepository;
-use Roave\ApiCompare\Git\GitCheckoutRevisionToTemporaryPath;
-use Roave\ApiCompare\Git\Revision;
+use Roave\BackwardCompatibility\Git\CheckedOutRepository;
+use Roave\BackwardCompatibility\Git\GitCheckoutRevisionToTemporaryPath;
+use Roave\BackwardCompatibility\Git\Revision;
 use function realpath;
 
 /**
- * @covers \Roave\ApiCompare\Git\GitCheckoutRevisionToTemporaryPath
+ * @covers \Roave\BackwardCompatibility\Git\GitCheckoutRevisionToTemporaryPath
  */
 final class GitCheckoutRevisionToTemporaryPathTest extends TestCase
 {

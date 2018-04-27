@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Roave\ApiCompare\Factory;
+namespace Roave\BackwardCompatibility\Factory;
 
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Ast\Locator;

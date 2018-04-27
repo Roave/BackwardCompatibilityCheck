@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace RoaveTest\ApiCompare\Git;
+namespace RoaveTest\BackwardCompatibility\Git;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use Roave\ApiCompare\Git\PickLastMinorVersionFromCollection;
+use Roave\BackwardCompatibility\Git\PickLastMinorVersionFromCollection;
 use Version\VersionsCollection;
 
 /**
- * @covers \Roave\ApiCompare\Git\PickLastMinorVersionFromCollection
+ * @covers \Roave\BackwardCompatibility\Git\PickLastMinorVersionFromCollection
  */
 final class PickLastMinorVersionFromCollectionTest extends TestCase
 {

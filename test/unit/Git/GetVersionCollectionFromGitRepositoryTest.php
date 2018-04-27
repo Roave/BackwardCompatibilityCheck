@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace RoaveTest\ApiCompare\Git;
+namespace RoaveTest\BackwardCompatibility\Git;
 
 use PHPUnit\Framework\TestCase;
-use Roave\ApiCompare\Git\CheckedOutRepository;
-use Roave\ApiCompare\Git\GetVersionCollectionFromGitRepository;
+use Roave\BackwardCompatibility\Git\CheckedOutRepository;
+use Roave\BackwardCompatibility\Git\GetVersionCollectionFromGitRepository;
 use Symfony\Component\Process\Process;
 use Version\Version;
 use function array_map;
@@ -17,7 +17,7 @@ use function sys_get_temp_dir;
 use function uniqid;
 
 /**
- * @covers \Roave\ApiCompare\Git\GetVersionCollectionFromGitRepository
+ * @covers \Roave\BackwardCompatibility\Git\GetVersionCollectionFromGitRepository
  */
 final class GetVersionCollectionFromGitRepositoryTest extends TestCase
 {

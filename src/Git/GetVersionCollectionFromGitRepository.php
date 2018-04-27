@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Roave\ApiCompare\Git;
+namespace Roave\BackwardCompatibility\Git;
 
 use Symfony\Component\Process\Exception\LogicException;
 use Symfony\Component\Process\Exception\ProcessFailedException;

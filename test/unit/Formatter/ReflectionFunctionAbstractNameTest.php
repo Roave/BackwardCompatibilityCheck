@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace RoaveTest\ApiCompare\Formatter;
+namespace RoaveTest\BackwardCompatibility\Formatter;
 
 use PHPUnit\Framework\TestCase;
-use Roave\ApiCompare\Formatter\ReflectionFunctionAbstractName;
+use Roave\BackwardCompatibility\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
 use Roave\BetterReflection\Reflector\ClassReflector;
@@ -13,7 +13,7 @@ use Roave\BetterReflection\Reflector\FunctionReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 
 /**
- * @covers \Roave\ApiCompare\Formatter\ReflectionFunctionAbstractName
+ * @covers \Roave\BackwardCompatibility\Formatter\ReflectionFunctionAbstractName
  */
 final class ReflectionFunctionAbstractNameTest extends TestCase
 {
