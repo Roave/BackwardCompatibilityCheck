@@ -4,16 +4,13 @@ declare(strict_types=1);
 
 namespace RoaveTest\ApiCompare;
 
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
 use function array_fill;
 use function iterator_to_array;
-use function random_bytes;
 use function random_int;
 use function serialize;
-use function uniqid;
 use function unserialize;
 
 /**
@@ -46,6 +43,13 @@ final class ChangesTest extends TestCase
 
         self::assertEquals($frozen1, $changes1, 'Original Changes instance not mutated');
         self::assertEquals($frozen2, $changes2, 'Original Changes instance not mutated');
+    }
+
+    public function testMergeWithPreservesOriginalInstanceIfMergedWithEmptyChanges() : void
+    {
+        $changes = Changes::fromList(Change::changed('a', true));
+
+        self::assertSame($changes, $changes->mergeWith(Changes::empty()));
     }
 
     public function testFromList() : void

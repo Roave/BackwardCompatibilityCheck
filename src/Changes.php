@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace Roave\ApiCompare;
 
 use ArrayIterator;
-use Assert\Assert;
 use Countable;
 use IteratorAggregate;
-use function array_merge;
 use function count;
 
 final class Changes implements IteratorAggregate, Countable
