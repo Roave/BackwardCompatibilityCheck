@@ -50,13 +50,6 @@ final class Changes implements IteratorAggregate, Countable
         return $instance;
     }
 
-    public function withAddedChange(Change $change) : self
-    {
-        $new            = clone $this;
-        $new->changes[] = $change;
-        return $new;
-    }
-
     /**
      * {@inheritDoc}
      *

@@ -92,16 +92,6 @@ final class ChangesTest extends TestCase
         Changes::fromArray([$invalidChange]);
     }
 
-    public function testWithAddedChange() : void
-    {
-        $change = Change::added('added', true);
-
-        self::assertSame(
-            [$change],
-            iterator_to_array(Changes::empty()->withAddedChange($change))
-        );
-    }
-
     public function testCount() : void
     {
         $count = random_int(1, 10);

@@ -70,9 +70,9 @@ class Comparator
             /** @var ReflectionClass $newClass */
             $newClass = $newSourcesWithDependencies->reflect($oldSymbol->getName());
         } catch (IdentifierNotFound $exception) {
-            return $changelog->withAddedChange(
+            return $changelog->mergeWith(Changes::fromArray([
                 Change::removed(sprintf('Class %s has been deleted', $oldSymbol->getName()), true)
-            );
+            ]));
         }
 
         if ($oldSymbol->isInterface()) {
