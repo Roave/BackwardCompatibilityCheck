@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Roave\ApiCompare;
 
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassBased\ClassBased;
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\InterfaceBased\InterfaceBased;
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\TraitBased\TraitBased;
+use Roave\ApiCompare\DetectChanges\BCBreak\ClassBased\ClassBased;
+use Roave\ApiCompare\DetectChanges\BCBreak\InterfaceBased\InterfaceBased;
+use Roave\ApiCompare\DetectChanges\BCBreak\TraitBased\TraitBased;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;

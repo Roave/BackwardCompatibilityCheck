@@ -9,9 +9,9 @@ use PHPUnit\Framework\TestCase;
 use Roave\ApiCompare\Change;
 use Roave\ApiCompare\Changes;
 use Roave\ApiCompare\Comparator;
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\ClassBased\ClassBased;
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\InterfaceBased\InterfaceBased;
-use Roave\ApiCompare\Comparator\BackwardsCompatibility\TraitBased\TraitBased;
+use Roave\ApiCompare\DetectChanges\BCBreak\ClassBased\ClassBased;
+use Roave\ApiCompare\DetectChanges\BCBreak\InterfaceBased\InterfaceBased;
+use Roave\ApiCompare\DetectChanges\BCBreak\TraitBased\TraitBased;
 
 /**
  * @covers \Roave\ApiCompare\Comparator
