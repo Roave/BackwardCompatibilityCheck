@@ -34,5 +34,8 @@
         "psr-4": {
             "RoaveTest\\BackwardCompatibility\\": "test/unit"
         }
-    }
+    },
+    "bin": [
+        "bin/roave-backward-compatibility-check"
+    ]
 }
