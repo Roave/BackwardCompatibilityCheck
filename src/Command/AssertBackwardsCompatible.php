@@ -129,7 +129,7 @@ and compare the APIs, looking for breaking changes in the
 given `<sources-path>` ("src" by default).
 
 Once completed, it will print out the results to `STDERR`
-and terminate with `1` if breaking changes were detected.
+and terminate with `3` if breaking changes were detected.
 
 If you want to produce `STDOUT` output, then please use the
 `--format` flag.
@@ -208,7 +208,7 @@ USAGE
             $stdErr->writeln('<info>No backwards-incompatible changes detected</info>', $hasBcBreaks);
         }
 
-        return (int) (bool) $hasBcBreaks;
+        return $hasBcBreaks ? 3 : 0;
     }
 
     /**

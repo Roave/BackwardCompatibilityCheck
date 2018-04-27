@@ -28,7 +28,7 @@ vendor/bin/roave-backward-compatibility-check
 This will automatically detect the last minor version tagged, and
 compare the API against the current `HEAD`. If any BC breaks are found,
 the tool returns a non-zero status, which on most CI systems will cause
-the build to fail. The failure exit code is currently hard-coded as `1`.
+the build to fail.
 
 *NOTE:* detecting the base version only works if you have git tags in
 the SemVer-compliant `x.y.z` format, such as `1.2.3`.

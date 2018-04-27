@@ -213,7 +213,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
                 self::matches('<error>1 backwards-incompatible changes detected</error>')
             ));
 
-        self::assertSame(1, $this->compare->execute($this->input, $this->output));
+        self::assertSame(3, $this->compare->execute($this->input, $this->output));
     }
 
     public function testProvidingMarkdownOptionWritesMarkdownOutput() : void
