@@ -8,10 +8,12 @@ use Symfony\Component\Process\Exception\LogicException;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Exception\RuntimeException;
 use Symfony\Component\Process\Process;
+use Version\Exception\InvalidVersionStringException;
+use Version\Version;
 use Version\VersionsCollection;
 use function array_filter;
+use function array_map;
 use function explode;
-use function trim;
 
 final class GetVersionCollectionFromGitRepository implements GetVersionCollection
 {
@@ -28,12 +30,14 @@ final class GetVersionCollectionFromGitRepository implements GetVersionCollectio
             ->mustRun()
             ->getOutput();
 
-        // @todo handle invalid versions more gracefully (drop them)
         return VersionsCollection::fromArray(array_filter(
-            explode("\n", $output),
-            function (string $maybeVersion) {
-                return trim($maybeVersion) !== '';
-            }
+            array_map(function (string $maybeVersion) : ?Version {
+                try {
+                    return Version::fromString($maybeVersion);
+                } catch (InvalidVersionStringException $e) {
+                    return null;
+                }
+            }, explode("\n", $output))
         ));
     }
 }

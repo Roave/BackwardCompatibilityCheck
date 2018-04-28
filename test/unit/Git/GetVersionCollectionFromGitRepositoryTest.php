@@ -45,18 +45,30 @@ final class GetVersionCollectionFromGitRepositoryTest extends TestCase
         (new Process(['git', 'tag', $tagName]))->setWorkingDirectory((string) $this->repoPath)->mustRun();
     }
 
+    /** @return string[] */
+    private function getTags() : array
+    {
+        return array_map(
+            function (Version $version) {
+                return $version->getVersionString();
+            },
+            iterator_to_array((new GetVersionCollectionFromGitRepository())->fromRepository($this->repoPath))
+        );
+    }
+
     public function testFromRepository() : void
     {
         $this->makeTag('1.0.0');
 
-        self::assertSame(
-            ['1.0.0'],
-            array_map(
-                function (Version $version) {
-                    return $version->getVersionString();
-                },
-                iterator_to_array((new GetVersionCollectionFromGitRepository())->fromRepository($this->repoPath))
-            )
-        );
+        self::assertSame(['1.0.0'], $this->getTags());
+    }
+
+    public function testFromRepositoryIgnoresInvalidVersions() : void
+    {
+        $this->makeTag('1.0.0');
+        $this->makeTag('invalid-version');
+        $this->makeTag('1.1.0');
+
+        self::assertSame(['1.0.0', '1.1.0'], $this->getTags());
     }
 }
