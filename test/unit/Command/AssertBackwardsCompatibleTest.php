@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Command\AssertBackwardsCompatible;
-use Roave\BackwardCompatibility\Comparator;
+use Roave\BackwardCompatibility\CompareApi;
 use Roave\BackwardCompatibility\Factory\DirectoryReflectorFactory;
 use Roave\BackwardCompatibility\Git\CheckedOutRepository;
 use Roave\BackwardCompatibility\Git\GetVersionCollection;
@@ -63,8 +63,8 @@ final class AssertBackwardsCompatibleTest extends TestCase
     /** @var LocateDependencies|MockObject */
     private $locateDependencies;
 
-    /** @var Comparator|MockObject */
-    private $comparator;
+    /** @var CompareApi|MockObject */
+    private $compareApi;
 
     /** @var AggregateSourceLocator */
     private $dependencies;
@@ -86,7 +86,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
         $this->pickVersion        = $this->createMock(PickVersionFromVersionCollection::class);
         $this->locateDependencies = $this->createMock(LocateDependencies::class);
         $this->dependencies       = new AggregateSourceLocator();
-        $this->comparator         = $this->createMock(Comparator::class);
+        $this->compareApi         = $this->createMock(CompareApi::class);
         $this->compare            = new AssertBackwardsCompatible(
             $this->performCheckout,
             new DirectoryReflectorFactory((new BetterReflection())->astLocator()),
@@ -94,7 +94,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
             $this->getVersions,
             $this->pickVersion,
             $this->locateDependencies,
-            $this->comparator
+            $this->compareApi
         );
 
         $this
@@ -149,7 +149,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
             ->with((string) $this->sourceRepository)
             ->willReturn($this->dependencies);
 
-        $this->comparator->expects(self::once())->method('compare')->willReturn(Changes::empty());
+        $this->compareApi->expects(self::once())->method('__invoke')->willReturn(Changes::empty());
 
         self::assertSame(0, $this->compare->execute($this->input, $this->output));
     }
@@ -199,7 +199,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
             ->with((string) $this->sourceRepository)
             ->willReturn($this->dependencies);
 
-        $this->comparator->expects(self::once())->method('compare')->willReturn(Changes::fromList(
+        $this->compareApi->expects(self::once())->method('__invoke')->willReturn(Changes::fromList(
             Change::added(uniqid('added', true), true)
         ));
 
@@ -263,7 +263,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
             ->willReturn($this->dependencies);
 
         $changeToExpect = uniqid('changeToExpect', true);
-        $this->comparator->expects(self::once())->method('compare')->willReturn(Changes::fromList(
+        $this->compareApi->expects(self::once())->method('__invoke')->willReturn(Changes::fromList(
             Change::removed($changeToExpect, true)
         ));
 
@@ -338,7 +338,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
                 self::matches('<info>No backwards-incompatible changes detected</info>')
             ));
 
-        $this->comparator->expects(self::once())->method('compare')->willReturn(Changes::empty());
+        $this->compareApi->expects(self::once())->method('__invoke')->willReturn(Changes::empty());
 
         self::assertSame(0, $this->compare->execute($this->input, $this->output));
     }
@@ -381,7 +381,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
             ->with($toSha)
             ->willReturn(Revision::fromSha1($toSha));
 
-        $this->comparator->expects(self::never())->method('compare');
+        $this->compareApi->expects(self::never())->method('__invoke');
 
         $this->expectException(InvalidArgumentException::class);
         $this->compare->execute($this->input, $this->output);

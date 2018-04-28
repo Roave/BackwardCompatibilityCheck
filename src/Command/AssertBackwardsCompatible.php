@@ -6,7 +6,7 @@ namespace Roave\BackwardCompatibility\Command;
 
 use Assert\Assert;
 use Roave\BackwardCompatibility\Changes;
-use Roave\BackwardCompatibility\Comparator;
+use Roave\BackwardCompatibility\CompareApi;
 use Roave\BackwardCompatibility\Factory\DirectoryReflectorFactory;
 use Roave\BackwardCompatibility\Formatter\MarkdownPipedToSymfonyConsoleFormatter;
 use Roave\BackwardCompatibility\Formatter\SymfonyConsoleTextFormatter;
@@ -52,8 +52,8 @@ final class AssertBackwardsCompatible extends Command
     /** @var LocateDependencies */
     private $locateDependencies;
 
-    /** @var Comparator */
-    private $comparator;
+    /** @var CompareApi */
+    private $compareApi;
 
     /**
      * @throws LogicException
@@ -65,7 +65,7 @@ final class AssertBackwardsCompatible extends Command
         GetVersionCollection $getVersions,
         PickVersionFromVersionCollection $pickFromVersion,
         LocateDependencies $locateDependencies,
-        Comparator $comparator
+        CompareApi $compareApi
     ) {
         parent::__construct();
 
@@ -75,7 +75,7 @@ final class AssertBackwardsCompatible extends Command
         $this->getVersions        = $getVersions;
         $this->pickFromVersion    = $pickFromVersion;
         $this->locateDependencies = $locateDependencies;
-        $this->comparator         = $comparator;
+        $this->compareApi         = $compareApi;
     }
 
     /**
@@ -167,7 +167,7 @@ USAGE
             Assert::that($fromSources)->directory();
             Assert::that($toSources)->directory();
 
-            $changes = $this->comparator->compare(
+            $changes = $this->compareApi->__invoke(
                 $this->reflectorFactory->__invoke(
                     $fromPath . '/' . $sourcesPath,
                     new AggregateSourceLocator() // no dependencies
