@@ -8,15 +8,15 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
-use Roave\BackwardCompatibility\Comparator;
+use Roave\BackwardCompatibility\CompareClasses;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\ClassBased;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased\InterfaceBased;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\TraitBased\TraitBased;
 
 /**
- * @covers \Roave\BackwardCompatibility\Comparator
+ * @covers \Roave\BackwardCompatibility\CompareClasses
  */
-final class ComparatorTest extends TestCase
+final class CompareClassesTest extends TestCase
 {
     /** @var StringReflectorFactory|null */
     private static $stringReflectorFactory;
@@ -30,8 +30,8 @@ final class ComparatorTest extends TestCase
     /** @var TraitBased|MockObject */
     private $traitBasedComparison;
 
-    /** @var Comparator */
-    private $comparator;
+    /** @var CompareClasses */
+    private $compareClasses;
 
     public static function setUpBeforeClass() : void
     {
@@ -45,7 +45,7 @@ final class ComparatorTest extends TestCase
         $this->classBasedComparison     = $this->createMock(ClassBased::class);
         $this->interfaceBasedComparison = $this->createMock(InterfaceBased::class);
         $this->traitBasedComparison     = $this->createMock(TraitBased::class);
-        $this->comparator               = new Comparator(
+        $this->compareClasses           = new CompareClasses(
             $this->classBasedComparison,
             $this->interfaceBasedComparison,
             $this->traitBasedComparison
@@ -60,7 +60,7 @@ final class ComparatorTest extends TestCase
 
         self::assertEqualsIgnoringOrder(
             Changes::fromList(Change::changed('class change', true)),
-            $this->comparator->compare(
+            $this->compareClasses->__invoke(
                 self::$stringReflectorFactory->__invoke('<?php class A {}'),
                 self::$stringReflectorFactory->__invoke(
                     <<<'PHP'
@@ -96,7 +96,7 @@ PHP
 
         self::assertEqualsIgnoringOrder(
             Changes::fromList(Change::changed('class change', true)),
-            $this->comparator->compare(
+            $this->compareClasses->__invoke(
                 self::$stringReflectorFactory->__invoke('<?php class A {}'),
                 self::$stringReflectorFactory->__invoke(
                     <<<'PHP'
@@ -128,7 +128,7 @@ PHP
 
         self::assertEqualsIgnoringOrder(
             Changes::fromList(Change::changed('interface change', true)),
-            $this->comparator->compare(
+            $this->compareClasses->__invoke(
                 self::$stringReflectorFactory->__invoke('<?php interface A {}'),
                 self::$stringReflectorFactory->__invoke('<?php interface A {}'),
                 self::$stringReflectorFactory->__invoke('<?php interface A {}')
@@ -144,7 +144,7 @@ PHP
 
         self::assertEqualsIgnoringOrder(
             Changes::fromList(Change::changed('trait change', true)),
-            $this->comparator->compare(
+            $this->compareClasses->__invoke(
                 self::$stringReflectorFactory->__invoke('<?php trait A {}'),
                 self::$stringReflectorFactory->__invoke('<?php trait A {}'),
                 self::$stringReflectorFactory->__invoke('<?php trait A {}')
@@ -167,7 +167,7 @@ PHP
 
         self::assertEqualsIgnoringOrder(
             Changes::empty(),
-            $this->comparator->compare(
+            $this->compareClasses->__invoke(
                 self::$stringReflectorFactory->__invoke('<?php '),
                 self::$stringReflectorFactory->__invoke('<?php class A { private function foo() {} }'),
                 self::$stringReflectorFactory->__invoke('<?php ')
@@ -183,7 +183,7 @@ PHP
 
         self::assertEqualsIgnoringOrder(
             Changes::fromList(Change::removed('Class A has been deleted', true)),
-            $this->comparator->compare(
+            $this->compareClasses->__invoke(
                 self::$stringReflectorFactory->__invoke('<?php class A { private function foo() {} }'),
                 self::$stringReflectorFactory->__invoke('<?php class A { private function foo() {} }'),
                 self::$stringReflectorFactory->__invoke('<?php ')

@@ -8,7 +8,7 @@ use Composer\Factory;
 use Composer\Installer;
 use Composer\IO\ConsoleIO;
 use Roave\BackwardCompatibility\Command;
-use Roave\BackwardCompatibility\Comparator;
+use Roave\BackwardCompatibility\CompareClasses;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassConstantBased;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased;
@@ -67,7 +67,7 @@ use function file_exists;
                 },
                 $astLocator
             ),
-            new Comparator(
+            new CompareClasses(
                 new ClassBased\MultipleChecksOnAClass(
                     new ClassBased\ClassBecameAbstract(),
                     new ClassBased\ClassBecameInterface(),

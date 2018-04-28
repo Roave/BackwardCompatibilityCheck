@@ -13,7 +13,7 @@ use Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
 use function array_map;
 use function sprintf;
 
-class Comparator
+final class CompareClasses implements CompareApi
 {
     /** @var ClassBased */
     private $classBasedComparisons;
@@ -35,13 +35,9 @@ class Comparator
     }
 
     /**
-     * @param ClassReflector $definedSymbols              containing only defined symbols in the compared API
-     * @param ClassReflector $pastSourcesWithDependencies capable of giving us symbols with their dependencies from the
-     *                                                    old version of the sources
-     * @param ClassReflector $newSourcesWithDependencies  capable of giving us symbols with their dependencies from the
-     *                                                    old version of the sources
+     * {@inheritDoc}
      */
-    public function compare(
+    public function __invoke(
         ClassReflector $definedSymbols,
         ClassReflector $pastSourcesWithDependencies,
         ClassReflector $newSourcesWithDependencies
