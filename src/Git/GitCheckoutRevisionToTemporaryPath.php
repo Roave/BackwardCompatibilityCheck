@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\Git;
 
-use Assert\Assert;
 use RuntimeException;
 use Symfony\Component\Process\Exception\RuntimeException as ProcessRuntimeException;
 use Symfony\Component\Process\Process;
@@ -23,7 +22,7 @@ final class GitCheckoutRevisionToTemporaryPath implements PerformCheckoutOfRevis
     {
         $this->uniquenessFunction = $uniquenessFunction ?? function (string $nonUniqueThing) : string {
                 return uniqid($nonUniqueThing, true);
-            };
+        };
     }
 
     /**
