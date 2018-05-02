@@ -1,6 +1,11 @@
 language: php
 
 before_script:
+  - if ! git show-ref --quiet master; then
+      git config remote.origin.fetch +refs/heads/*:refs/remotes/origin/* ;
+      git fetch --tags ;
+      git branch master origin/master ;
+    fi
   - composer install
 
 # see https://github.com/travis-ci/travis-ci/issues/4942#issuecomment-159132444
