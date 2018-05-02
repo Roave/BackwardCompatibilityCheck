@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\Git;
 
+use Assert\Assert;
 use RuntimeException;
 use Symfony\Component\Process\Exception\RuntimeException as ProcessRuntimeException;
 use Symfony\Component\Process\Process;
@@ -20,12 +21,9 @@ final class GitCheckoutRevisionToTemporaryPath implements PerformCheckoutOfRevis
 
     public function __construct(?callable $uniquenessFunction = null)
     {
-        if ($uniquenessFunction === null) {
-            $uniquenessFunction = function (string $nonUniqueThing) : string {
+        $this->uniquenessFunction = $uniquenessFunction ?? function (string $nonUniqueThing) : string {
                 return uniqid($nonUniqueThing, true);
             };
-        }
-        $this->uniquenessFunction = $uniquenessFunction;
     }
 
     /**
@@ -61,7 +59,7 @@ final class GitCheckoutRevisionToTemporaryPath implements PerformCheckoutOfRevis
 
         if (file_exists($checkoutDirectory) || is_dir($checkoutDirectory)) {
             throw new RuntimeException(sprintf(
-                'Tried to check out revision %s to directory %s which already exists',
+                'Tried to check out revision "%s" to directory "%s" which already exists',
                 (string) $revision,
                 $checkoutDirectory
             ));

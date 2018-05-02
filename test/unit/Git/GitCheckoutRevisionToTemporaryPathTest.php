@@ -65,7 +65,7 @@ final class GitCheckoutRevisionToTemporaryPathTest extends TestCase
             $git->remove($second);
         } catch (\RuntimeException $runtimeException) {
             self::assertStringMatchesFormat(
-                'Tried to check out revision %s to directory %s which already exists',
+                'Tried to check out revision "%s" to directory "%s" which already exists',
                 $runtimeException->getMessage()
             );
         } finally {
