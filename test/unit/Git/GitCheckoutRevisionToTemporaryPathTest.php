@@ -15,19 +15,63 @@ use function realpath;
  */
 final class GitCheckoutRevisionToTemporaryPathTest extends TestCase
 {
+    private const TEST_REVISION_TO_CHECKOUT = '428327492a803b6e0c612b157a67a50a47275461';
+
     public function testCheckoutAndRemove() : void
     {
-        $sourceRepositoryPath = realpath(__DIR__ . '/../../../');
-
-        $git = new GitCheckoutRevisionToTemporaryPath();
+        $git      = new GitCheckoutRevisionToTemporaryPath();
+        $revision = Revision::fromSha1(self::TEST_REVISION_TO_CHECKOUT);
 
         $temporaryClone = $git->checkout(
-            CheckedOutRepository::fromPath($sourceRepositoryPath),
-            Revision::fromSha1('428327492a803b6e0c612b157a67a50a47275461')
+            CheckedOutRepository::fromPath(realpath(__DIR__ . '/../../../')),
+            $revision
         );
 
-        self::assertInstanceOf(CheckedOutRepository::class, $temporaryClone);
+        self::assertDirectoryExists((string) $temporaryClone);
 
         $git->remove($temporaryClone);
+    }
+
+    public function testCanCheckOutSameRevisionTwice() : void
+    {
+        $git              = new GitCheckoutRevisionToTemporaryPath();
+        $sourceRepository = CheckedOutRepository::fromPath(realpath(__DIR__ . '/../../../'));
+        $revision         = Revision::fromSha1(self::TEST_REVISION_TO_CHECKOUT);
+
+        $first  = $git->checkout($sourceRepository, $revision);
+        $second = $git->checkout($sourceRepository, $revision);
+
+        self::assertDirectoryExists((string) $first);
+        self::assertDirectoryExists((string) $second);
+
+        $git->remove($first);
+        $git->remove($second);
+    }
+
+    public function testExceptionIsThrownWhenTwoPathsCollide() : void
+    {
+        $git              = new GitCheckoutRevisionToTemporaryPath(function () : string {
+            return 'foo';
+        });
+        $sourceRepository = CheckedOutRepository::fromPath(realpath(__DIR__ . '/../../../'));
+        $revision         = Revision::fromSha1(self::TEST_REVISION_TO_CHECKOUT);
+
+        $first = $git->checkout($sourceRepository, $revision);
+
+        $successfullyCheckedOutSecondClone = false;
+        try {
+            $second                            = $git->checkout($sourceRepository, $revision);
+            $successfullyCheckedOutSecondClone = true;
+            $git->remove($second);
+        } catch (\RuntimeException $runtimeException) {
+            self::assertStringMatchesFormat(
+                'Tried to check out revision %s to directory %s which already exists',
+                $runtimeException->getMessage()
+            );
+        } finally {
+            $git->remove($first);
+        }
+
+        self::assertFalse($successfullyCheckedOutSecondClone);
     }
 }
