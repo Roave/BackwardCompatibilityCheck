@@ -55,7 +55,7 @@ final class OnlyProtectedClassConstantChangedTest extends TestCase
 
         self::assertEquals(
             Changes::empty(),
-            $this->changed->__invoke($this->fromConstant, $this->toConstant)
+            ($this->changed)($this->fromConstant, $this->toConstant)
         );
     }
 
@@ -78,7 +78,7 @@ final class OnlyProtectedClassConstantChangedTest extends TestCase
 
         self::assertEquals(
             $changes,
-            $this->changed->__invoke($this->fromConstant, $this->toConstant)
+            ($this->changed)($this->fromConstant, $this->toConstant)
         );
     }
 }

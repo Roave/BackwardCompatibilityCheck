@@ -23,6 +23,6 @@ final class OnlyPublicPropertyChanged implements PropertyBased
             return Changes::empty();
         }
 
-        return $this->propertyBased->__invoke($fromProperty, $toProperty);
+        return ($this->propertyBased)($fromProperty, $toProperty);
     }
 }

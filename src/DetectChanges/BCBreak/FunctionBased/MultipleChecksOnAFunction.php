@@ -23,7 +23,7 @@ final class MultipleChecksOnAFunction implements FunctionBased
         return array_reduce(
             $this->checks,
             function (Changes $changes, FunctionBased $check) use ($fromFunction, $toClass) : Changes {
-                return $changes->mergeWith($check->__invoke($fromFunction, $toClass));
+                return $changes->mergeWith($check($fromFunction, $toClass));
             },
             Changes::empty()
         );

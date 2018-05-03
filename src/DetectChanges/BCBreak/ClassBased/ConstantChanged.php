@@ -30,7 +30,7 @@ final class ConstantChanged implements ClassBased
         return array_reduce(
             array_keys($commonConstants),
             function (Changes $accumulator, string $constantName) use ($constantsFrom, $constantsTo) : Changes {
-                return $accumulator->mergeWith($this->checkConstant->__invoke(
+                return $accumulator->mergeWith(($this->checkConstant)(
                     $constantsFrom[$constantName],
                     $constantsTo[$constantName]
                 ));

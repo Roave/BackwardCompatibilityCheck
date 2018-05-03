@@ -53,7 +53,7 @@ final class ParameterDefaultValueChanged implements FunctionBased
                 sprintf(
                     'Default parameter value for for parameter $%s of %s changed from %s to %s',
                     $parameter->getName(),
-                    $this->formatFunction->__invoke($fromFunction),
+                    ($this->formatFunction)($fromFunction),
                     var_export($defaultValueFrom, true),
                     var_export($defaultValueTo, true)
                 ),

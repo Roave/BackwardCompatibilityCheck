@@ -34,7 +34,7 @@ final class MethodChanged implements ClassBased
         return array_reduce(
             array_keys($commonMethods),
             function (Changes $accumulator, string $methodName) use ($methodsFrom, $methodsTo) : Changes {
-                return $accumulator->mergeWith($this->checkMethod->__invoke(
+                return $accumulator->mergeWith(($this->checkMethod)(
                     $methodsFrom[$methodName],
                     $methodsTo[$methodName]
                 ));

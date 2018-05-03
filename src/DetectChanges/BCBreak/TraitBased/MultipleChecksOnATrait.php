@@ -23,7 +23,7 @@ final class MultipleChecksOnATrait implements TraitBased
         return array_reduce(
             $this->checks,
             function (Changes $changes, TraitBased $check) use ($fromTrait, $toTrait) : Changes {
-                return $changes->mergeWith($check->__invoke($fromTrait, $toTrait));
+                return $changes->mergeWith($check($fromTrait, $toTrait));
             },
             Changes::empty()
         );

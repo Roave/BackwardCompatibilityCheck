@@ -274,8 +274,8 @@ PHP
 
         $isCovariant = new TypeIsCovariant();
 
-        self::assertTrue($isCovariant->__invoke($nullable, $notNullable));
-        self::assertFalse($isCovariant->__invoke($notNullable, $nullable));
+        self::assertTrue($isCovariant($nullable, $notNullable));
+        self::assertFalse($isCovariant($notNullable, $nullable));
     }
 
     /** @return string[][] */

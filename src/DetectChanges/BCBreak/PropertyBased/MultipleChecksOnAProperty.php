@@ -23,7 +23,7 @@ final class MultipleChecksOnAProperty implements PropertyBased
         return array_reduce(
             $this->checks,
             function (Changes $changes, PropertyBased $check) use ($fromProperty, $toProperty) : Changes {
-                return $changes->mergeWith($check->__invoke($fromProperty, $toProperty));
+                return $changes->mergeWith($check($fromProperty, $toProperty));
             },
             Changes::empty()
         );

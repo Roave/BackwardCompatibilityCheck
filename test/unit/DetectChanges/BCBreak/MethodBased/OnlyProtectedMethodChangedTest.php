@@ -49,7 +49,7 @@ final class OnlyProtectedMethodChangedTest extends TestCase
             ->expects(self::never())
             ->method('__invoke');
 
-        self::assertEquals(Changes::empty(), $this->methodCheck->__invoke($from, $to));
+        self::assertEquals(Changes::empty(), ($this->methodCheck)($from, $to));
     }
 
     public function testWillCheckProtectedMethods() : void
@@ -73,6 +73,6 @@ final class OnlyProtectedMethodChangedTest extends TestCase
             ->with($from, $to)
             ->willReturn($result);
 
-        self::assertEquals($result, $this->methodCheck->__invoke($from, $to));
+        self::assertEquals($result, ($this->methodCheck)($from, $to));
     }
 }

@@ -30,7 +30,7 @@ final class PropertyChanged implements ClassBased
         return array_reduce(
             array_keys($commonProperties),
             function (Changes $accumulator, string $propertyName) use ($propertiesFrom, $propertiesTo) : Changes {
-                return $accumulator->mergeWith($this->checkProperty->__invoke(
+                return $accumulator->mergeWith(($this->checkProperty)(
                     $propertiesFrom[$propertyName],
                     $propertiesTo[$propertyName]
                 ));
