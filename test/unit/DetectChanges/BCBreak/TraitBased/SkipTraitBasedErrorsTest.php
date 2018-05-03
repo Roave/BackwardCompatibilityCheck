@@ -47,7 +47,7 @@ final class SkipTraitBasedErrorsTest extends TestCase
             ->with($fromTrait, $toTrait)
             ->willReturn($expectedChanges);
 
-        self::assertEquals($expectedChanges, $this->check->__invoke($fromTrait, $toTrait));
+        self::assertEquals($expectedChanges, ($this->check)($fromTrait, $toTrait));
     }
 
     public function testWillCollectFailures(): void
@@ -65,7 +65,7 @@ final class SkipTraitBasedErrorsTest extends TestCase
 
         self::assertEquals(
             Changes::fromList(Change::skippedDueToFailure($exception)),
-            $this->check->__invoke($fromTrait, $toTrait)
+            ($this->check)($fromTrait, $toTrait)
         );
     }
 }

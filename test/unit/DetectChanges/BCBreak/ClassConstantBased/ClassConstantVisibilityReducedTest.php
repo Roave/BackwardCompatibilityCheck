@@ -31,8 +31,7 @@ final class ClassConstantVisibilityReducedTest extends TestCase
         ReflectionClassConstant $toConstant,
         array $expectedMessages
     ) : void {
-        $changes = (new ClassConstantVisibilityReduced())
-            ->__invoke($fromConstant, $toConstant);
+        $changes = (new ClassConstantVisibilityReduced())($fromConstant, $toConstant);
 
         self::assertSame(
             $expectedMessages,

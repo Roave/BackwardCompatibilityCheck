@@ -77,7 +77,7 @@ PHP
                 Change::added('d', true),
                 Change::added('G', true)
             ),
-            (new MethodChanged($comparator))->__invoke(
+            (new MethodChanged($comparator))(
                 (new ClassReflector($fromLocator))->reflect('TheClass'),
                 (new ClassReflector($toLocator))->reflect('TheClass')
             )

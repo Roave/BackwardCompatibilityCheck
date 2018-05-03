@@ -29,8 +29,7 @@ final class InterfaceBecameTraitTest extends TestCase
         ReflectionClass $toClass,
         array $expectedMessages
     ): void {
-        $changes = (new InterfaceBecameTrait())
-            ->__invoke($fromClass, $toClass);
+        $changes = (new InterfaceBecameTrait())($fromClass, $toClass);
 
         self::assertSame(
             $expectedMessages,

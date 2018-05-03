@@ -21,7 +21,7 @@ final class SkipClassBasedErrors implements ClassBased
     public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass): Changes
     {
         try {
-            return $this->next->__invoke($fromClass, $toClass);
+            return ($this->next)($fromClass, $toClass);
         } catch (Throwable $failure) {
             return Changes::fromList(Change::skippedDueToFailure($failure));
         }

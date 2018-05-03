@@ -36,7 +36,7 @@ final class MethodRemoved implements ClassBased
 
         return Changes::fromList(...Vec\map($removedMethods, function (ReflectionMethod $method): Change {
             return Change::removed(
-                Str\format('Method %s was removed', $this->formatFunction->__invoke($method)),
+                Str\format('Method %s was removed', ($this->formatFunction)($method)),
                 true
             );
         }));

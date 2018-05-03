@@ -27,7 +27,7 @@ final class MultipleChecksOnAMethod implements MethodBased
     private function multipleChecks(ReflectionMethod $fromMethod, ReflectionMethod $toMethod): iterable
     {
         foreach ($this->checks as $check) {
-            yield from $check->__invoke($fromMethod, $toMethod);
+            yield from $check($fromMethod, $toMethod);
         }
     }
 }

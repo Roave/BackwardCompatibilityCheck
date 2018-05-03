@@ -31,8 +31,7 @@ final class RequiredParameterAmountIncreasedTest extends TestCase
         ReflectionFunctionAbstract $toFunction,
         array $expectedMessages
     ) : void {
-        $changes = (new RequiredParameterAmountIncreased())
-            ->__invoke($fromFunction, $toFunction);
+        $changes = (new RequiredParameterAmountIncreased())($fromFunction, $toFunction);
 
         self::assertSame(
             $expectedMessages,

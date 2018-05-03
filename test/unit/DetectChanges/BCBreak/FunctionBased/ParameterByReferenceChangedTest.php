@@ -31,8 +31,7 @@ final class ParameterByReferenceChangedTest extends TestCase
         ReflectionFunctionAbstract $toFunction,
         array $expectedMessages
     ) : void {
-        $changes = (new ParameterByReferenceChanged())
-            ->__invoke($fromFunction, $toFunction);
+        $changes = (new ParameterByReferenceChanged())($fromFunction, $toFunction);
 
         self::assertSame(
             $expectedMessages,

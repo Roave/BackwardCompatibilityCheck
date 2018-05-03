@@ -48,7 +48,7 @@ final class ParameterTypeContravarianceChanged implements FunctionBased
         $fromType = $fromParameter->getType();
         $toType   = $toParameter->getType();
 
-        if ($this->typeIsContravariant->__invoke($fromType, $toType)) {
+        if (($this->typeIsContravariant)($fromType, $toType)) {
             return Changes::empty();
         }
 
@@ -56,7 +56,7 @@ final class ParameterTypeContravarianceChanged implements FunctionBased
             Str\format(
                 'The parameter $%s of %s changed from %s to a non-contravariant %s',
                 $fromParameter->getName(),
-                $this->formatFunction->__invoke($fromParameter->getDeclaringFunction()),
+                ($this->formatFunction)($fromParameter->getDeclaringFunction()),
                 $this->typeToString($fromType),
                 $this->typeToString($toType)
             ),

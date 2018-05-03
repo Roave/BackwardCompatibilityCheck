@@ -56,7 +56,7 @@ final class OpenClassChangedTest extends TestCase
             ->with($this->fromClass, $this->toClass)
             ->willReturn($changes);
 
-        self::assertEquals($changes, $this->openClassChanged->__invoke($this->fromClass, $this->toClass));
+        self::assertEquals($changes, ($this->openClassChanged)($this->fromClass, $this->toClass));
     }
 
     public function testWillNotCheckOpenClass(): void
@@ -71,6 +71,6 @@ final class OpenClassChangedTest extends TestCase
             ->expects(self::never())
             ->method('__invoke');
 
-        self::assertEquals(Changes::empty(), $this->openClassChanged->__invoke($this->fromClass, $this->toClass));
+        self::assertEquals(Changes::empty(), ($this->openClassChanged)($this->fromClass, $this->toClass));
     }
 }

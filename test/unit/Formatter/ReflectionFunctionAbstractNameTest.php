@@ -22,7 +22,7 @@ final class ReflectionFunctionAbstractNameTest extends TestCase
      */
     public function testName(ReflectionFunctionAbstract $function, string $expectedName) : void
     {
-        self::assertSame($expectedName, (new ReflectionFunctionAbstractName())->__invoke($function));
+        self::assertSame($expectedName, (new ReflectionFunctionAbstractName())($function));
     }
 
     /**

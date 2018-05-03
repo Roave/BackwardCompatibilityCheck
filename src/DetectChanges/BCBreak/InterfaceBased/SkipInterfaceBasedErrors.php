@@ -21,7 +21,7 @@ final class SkipInterfaceBasedErrors implements InterfaceBased
     public function __invoke(ReflectionClass $fromInterface, ReflectionClass $toInterface): Changes
     {
         try {
-            return $this->next->__invoke($fromInterface, $toInterface);
+            return ($this->next)($fromInterface, $toInterface);
         } catch (Throwable $failure) {
             return Changes::fromList(Change::skippedDueToFailure($failure));
         }

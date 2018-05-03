@@ -42,8 +42,7 @@ PHP
 
         self::assertEquals(
             Changes::fromList(Change::removed('foo', true)),
-            (new ExcludeInternalProperty($check))
-                ->__invoke($property, $property)
+            (new ExcludeInternalProperty($check))($property, $property)
         );
     }
 
@@ -72,8 +71,7 @@ PHP
 
         self::assertEquals(
             Changes::empty(),
-            (new ExcludeInternalProperty($check))
-                ->__invoke($property, $property)
+            (new ExcludeInternalProperty($check))($property, $property)
         );
     }
 }

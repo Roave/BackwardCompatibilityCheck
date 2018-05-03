@@ -39,8 +39,7 @@ PHP
 
         self::assertEquals(
             Changes::fromList(Change::removed('foo', true)),
-            (new ExcludeInternalClass($check))
-                ->__invoke($fromReflection, $toReflection)
+            (new ExcludeInternalClass($check))($fromReflection, $toReflection)
         );
     }
 
@@ -64,8 +63,7 @@ PHP
 
         self::assertEquals(
             Changes::empty(),
-            (new ExcludeInternalClass($check))
-                ->__invoke($reflection, $reflection)
+            (new ExcludeInternalClass($check))($reflection, $reflection)
         );
     }
 }

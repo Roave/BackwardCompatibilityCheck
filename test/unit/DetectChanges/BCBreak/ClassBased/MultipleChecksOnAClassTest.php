@@ -52,7 +52,7 @@ final class MultipleChecksOnAClassTest extends TestCase
                 Change::added('2', true),
                 Change::added('3', true)
             ),
-            $multiCheck->__invoke($from, $to)
+            $multiCheck($from, $to)
         );
     }
 }

@@ -22,6 +22,6 @@ final class ExcludeAnonymousClasses implements ClassBased
             return Changes::empty();
         }
 
-        return $this->check->__invoke($fromClass, $toClass);
+        return ($this->check)($fromClass, $toClass);
     }
 }

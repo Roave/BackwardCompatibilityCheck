@@ -26,7 +26,7 @@ final class ExcludeInternalInterface implements InterfaceBased
             return Changes::empty();
         }
 
-        return $this->check->__invoke($fromInterface, $toInterface);
+        return ($this->check)($fromInterface, $toInterface);
     }
 
     private function isInternalDocComment(string $comment): bool

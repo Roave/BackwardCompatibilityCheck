@@ -25,7 +25,7 @@ final class ReflectionPropertyNameTest extends TestCase
      */
     public function testName(ReflectionProperty $property, string $expectedName): void
     {
-        self::assertSame($expectedName, (new ReflectionPropertyName())->__invoke($property));
+        self::assertSame($expectedName, (new ReflectionPropertyName())($property));
     }
 
     /**

@@ -38,7 +38,7 @@ final class PropertyVisibilityReduced implements PropertyBased
         return Changes::fromList(Change::changed(
             Str\format(
                 'Property %s visibility reduced from %s to %s',
-                $this->formatProperty->__invoke($fromProperty),
+                ($this->formatProperty)($fromProperty),
                 $visibilityFrom,
                 $visibilityTo
             ),

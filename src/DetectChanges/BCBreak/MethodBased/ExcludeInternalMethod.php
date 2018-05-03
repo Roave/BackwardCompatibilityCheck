@@ -26,7 +26,7 @@ final class ExcludeInternalMethod implements MethodBased
             return Changes::empty();
         }
 
-        return $this->check->__invoke($fromMethod, $toMethod);
+        return ($this->check)($fromMethod, $toMethod);
     }
 
     private function isInternalDocComment(string $comment): bool

@@ -31,8 +31,7 @@ final class ParameterDefaultValueChangedTest extends TestCase
         ReflectionFunctionAbstract $toFunction,
         array $expectedMessages
     ) : void {
-        $changes = (new ParameterDefaultValueChanged())
-            ->__invoke($fromFunction, $toFunction);
+        $changes = (new ParameterDefaultValueChanged())($fromFunction, $toFunction);
 
         self::assertSame(
             $expectedMessages,

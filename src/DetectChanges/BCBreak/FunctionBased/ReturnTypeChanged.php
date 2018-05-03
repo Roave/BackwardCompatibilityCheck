@@ -37,7 +37,7 @@ final class ReturnTypeChanged implements FunctionBased
         return Changes::fromList(Change::changed(
             Str\format(
                 'The return type of %s changed from %s to %s',
-                $this->formatFunction->__invoke($fromFunction),
+                ($this->formatFunction)($fromFunction),
                 $fromReturnType,
                 $toReturnType
             ),

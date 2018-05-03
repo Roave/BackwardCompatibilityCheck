@@ -26,7 +26,7 @@ final class ExcludeInternalClass implements ClassBased
             return Changes::empty();
         }
 
-        return $this->check->__invoke($fromClass, $toClass);
+        return ($this->check)($fromClass, $toClass);
     }
 
     private function isInternalDocComment(string $comment): bool

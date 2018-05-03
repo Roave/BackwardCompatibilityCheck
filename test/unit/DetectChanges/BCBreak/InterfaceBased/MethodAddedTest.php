@@ -29,8 +29,7 @@ final class MethodAddedTest extends TestCase
         ReflectionClass $toInterface,
         array $expectedMessages
     ): void {
-        $changes = (new MethodAdded())
-            ->__invoke($fromInterface, $toInterface);
+        $changes = (new MethodAdded())($fromInterface, $toInterface);
 
         self::assertSame(
             $expectedMessages,

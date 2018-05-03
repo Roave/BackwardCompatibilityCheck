@@ -26,8 +26,7 @@ final class TypeIsContravariantTest extends TestCase
     ): void {
         self::assertSame(
             $expectedToBeContravariant,
-            (new TypeIsContravariant())
-                ->__invoke($type, $newType)
+            (new TypeIsContravariant())($type, $newType)
         );
     }
 
@@ -210,8 +209,7 @@ PHP
     public function testContravarianceConsidersSameTypeAlwaysContravariant(?ReflectionType $type): void
     {
         self::assertTrue(
-            (new TypeIsContravariant())
-                ->__invoke($type, $type)
+            (new TypeIsContravariant())($type, $type)
         );
     }
 
@@ -273,8 +271,8 @@ PHP
 
         $isContravariant = new TypeIsContravariant();
 
-        self::assertFalse($isContravariant->__invoke($nullable, $notNullable));
-        self::assertTrue($isContravariant->__invoke($notNullable, $nullable));
+        self::assertFalse($isContravariant($nullable, $notNullable));
+        self::assertTrue($isContravariant($notNullable, $nullable));
     }
 
     /** @return string[][] */

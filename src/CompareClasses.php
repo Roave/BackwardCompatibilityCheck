@@ -87,18 +87,18 @@ final class CompareClasses implements CompareApi
         }
 
         if ($oldSymbol->isInterface()) {
-            yield from $this->interfaceBasedComparisons->__invoke($oldSymbol, $newClass);
+            yield from ($this->interfaceBasedComparisons)($oldSymbol, $newClass);
 
             return;
         }
 
         if ($oldSymbol->isTrait()) {
-            yield from $this->traitBasedComparisons->__invoke($oldSymbol, $newClass);
+            yield from ($this->traitBasedComparisons)($oldSymbol, $newClass);
 
             return;
         }
 
-        yield from $this->classBasedComparisons->__invoke($oldSymbol, $newClass);
+        yield from ($this->classBasedComparisons)($oldSymbol, $newClass);
     }
 
     private function isInternalDocComment(string $comment): bool

@@ -45,8 +45,10 @@ PHP
 
         self::assertSame(
             '/** an example */',
-            (new ComposerInstallationReflectorFactory($locateSources))
-                ->__invoke($path, $this->createMock(SourceLocator::class))
+            (new ComposerInstallationReflectorFactory($locateSources))(
+                $path,
+                $this->createMock(SourceLocator::class)
+            )
                 ->reflect('Dummy')
                 ->getDocComment()
         );

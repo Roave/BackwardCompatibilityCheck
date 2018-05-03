@@ -38,8 +38,7 @@ PHP
             ->with($fromReflection, $toReflection)
             ->willReturn(Changes::empty());
 
-        $excluder = new ExcludeAnonymousClasses($check);
-        $excluder->__invoke($fromReflection, $toReflection);
+        (new ExcludeAnonymousClasses($check))($fromReflection, $toReflection);
     }
 
     public function testAnonymousClassesAreExcluded(): void
@@ -62,7 +61,6 @@ PHP
         $check = $this->createMock(ClassBased::class);
         $check->expects(self::never())->method('__invoke');
 
-        (new ExcludeAnonymousClasses($check))
-            ->__invoke($anonymousClassReflection, $anonymousClassReflection);
+        (new ExcludeAnonymousClasses($check))($anonymousClassReflection, $anonymousClassReflection);
     }
 }
