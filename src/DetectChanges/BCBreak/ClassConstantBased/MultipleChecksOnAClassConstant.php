@@ -23,7 +23,7 @@ final class MultipleChecksOnAClassConstant implements ClassConstantBased
         return array_reduce(
             $this->checks,
             function (Changes $changes, ClassConstantBased $check) use ($fromConstant, $toConstant) : Changes {
-                return $changes->mergeWith($check->__invoke($fromConstant, $toConstant));
+                return $changes->mergeWith($check($fromConstant, $toConstant));
             },
             Changes::empty()
         );

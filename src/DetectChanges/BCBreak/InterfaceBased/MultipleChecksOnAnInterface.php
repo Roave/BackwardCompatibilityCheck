@@ -23,7 +23,7 @@ final class MultipleChecksOnAnInterface implements InterfaceBased
         return array_reduce(
             $this->checks,
             function (Changes $changes, InterfaceBased $check) use ($fromClass, $toClass) : Changes {
-                return $changes->mergeWith($check->__invoke($fromClass, $toClass));
+                return $changes->mergeWith($check($fromClass, $toClass));
             },
             Changes::empty()
         );

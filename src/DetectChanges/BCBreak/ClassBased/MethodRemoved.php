@@ -37,7 +37,7 @@ final class MethodRemoved implements ClassBased
 
         return Changes::fromList(...array_values(array_map(function (ReflectionMethod $method) : Change {
             return Change::removed(
-                sprintf('Method %s was removed', $this->formatFunction->__invoke($method)),
+                sprintf('Method %s was removed', ($this->formatFunction)($method)),
                 true
             );
         }, $removedMethods)));

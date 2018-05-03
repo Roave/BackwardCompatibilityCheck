@@ -263,8 +263,8 @@ PHP
 
         $isContravariant = new TypeIsContravariant();
 
-        self::assertFalse($isContravariant->__invoke($nullable, $notNullable));
-        self::assertTrue($isContravariant->__invoke($notNullable, $nullable));
+        self::assertFalse($isContravariant($nullable, $notNullable));
+        self::assertTrue($isContravariant($notNullable, $nullable));
     }
 
     /** @return string[][] */

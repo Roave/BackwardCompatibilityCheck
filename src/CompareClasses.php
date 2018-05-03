@@ -72,13 +72,13 @@ final class CompareClasses implements CompareApi
         }
 
         if ($oldSymbol->isInterface()) {
-            return $changelog->mergeWith($this->interfaceBasedComparisons->__invoke($oldSymbol, $newClass));
+            return $changelog->mergeWith(($this->interfaceBasedComparisons)($oldSymbol, $newClass));
         }
 
         if ($oldSymbol->isTrait()) {
-            return $changelog->mergeWith($this->traitBasedComparisons->__invoke($oldSymbol, $newClass));
+            return $changelog->mergeWith(($this->traitBasedComparisons)($oldSymbol, $newClass));
         }
 
-        return $changelog->mergeWith($this->classBasedComparisons->__invoke($oldSymbol, $newClass));
+        return $changelog->mergeWith(($this->classBasedComparisons)($oldSymbol, $newClass));
     }
 }

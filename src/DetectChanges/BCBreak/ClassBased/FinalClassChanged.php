@@ -23,6 +23,6 @@ final class FinalClassChanged implements ClassBased
             return Changes::empty();
         }
 
-        return $this->checkClass->__invoke($fromClass, $toClass);
+        return ($this->checkClass)($fromClass, $toClass);
     }
 }

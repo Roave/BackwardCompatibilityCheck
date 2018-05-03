@@ -36,7 +36,7 @@ final class ReturnTypeByReferenceChanged implements FunctionBased
         return Changes::fromList(Change::changed(
             sprintf(
                 'The return value of %s changed from %s to %s',
-                $this->formatFunction->__invoke($fromFunction),
+                ($this->formatFunction)($fromFunction),
                 $this->referenceToString($fromReturnsReference),
                 $this->referenceToString($toReturnsReference)
             ),

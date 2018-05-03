@@ -23,7 +23,7 @@ final class MultipleChecksOnAMethod implements MethodBased
         return array_reduce(
             $this->checks,
             function (Changes $changes, MethodBased $check) use ($fromMethod, $toMethod) : Changes {
-                return $changes->mergeWith($check->__invoke($fromMethod, $toMethod));
+                return $changes->mergeWith($check($fromMethod, $toMethod));
             },
             Changes::empty()
         );

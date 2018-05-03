@@ -23,7 +23,7 @@ final class MultipleChecksOnAClass implements ClassBased
         return array_reduce(
             $this->checks,
             function (Changes $changes, ClassBased $check) use ($fromClass, $toClass) : Changes {
-                return $changes->mergeWith($check->__invoke($fromClass, $toClass));
+                return $changes->mergeWith($check($fromClass, $toClass));
             },
             Changes::empty()
         );

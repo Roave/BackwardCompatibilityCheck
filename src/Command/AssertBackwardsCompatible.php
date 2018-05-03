@@ -167,18 +167,18 @@ USAGE
             Assert::that($fromSources)->directory();
             Assert::that($toSources)->directory();
 
-            $changes = $this->compareApi->__invoke(
-                $this->reflectorFactory->__invoke(
+            $changes = ($this->compareApi)(
+                ($this->reflectorFactory)(
                     $fromPath . '/' . $sourcesPath,
                     new AggregateSourceLocator() // no dependencies
                 ),
-                $this->reflectorFactory->__invoke(
+                ($this->reflectorFactory)(
                     $fromPath . '/' . $sourcesPath,
-                    $this->locateDependencies->__invoke((string) $fromPath)
+                    ($this->locateDependencies)((string) $fromPath)
                 ),
-                $this->reflectorFactory->__invoke(
+                ($this->reflectorFactory)(
                     $toPath . '/' . $sourcesPath,
-                    $this->locateDependencies->__invoke((string) $toPath)
+                    ($this->locateDependencies)((string) $toPath)
                 )
             );
 
