@@ -71,4 +71,11 @@ final class GetVersionCollectionFromGitRepositoryTest extends TestCase
 
         self::assertSame(['1.0.0', '1.1.0'], $this->getTags());
     }
+
+    public function testFromRepositoryAllowsVersionPrefix() : void
+    {
+        $this->makeTag('v1.0.0');
+
+        self::assertSame(['1.0.0'], $this->getTags());
+    }
 }

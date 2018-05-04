@@ -30,7 +30,7 @@ final class GetVersionCollectionFromGitRepository implements GetVersionCollectio
             ->mustRun()
             ->getOutput();
 
-        return VersionsCollection::fromArray(array_filter(
+        return new VersionsCollection(...array_filter(
             array_map(function (string $maybeVersion) : ?Version {
                 try {
                     return Version::fromString($maybeVersion);
