@@ -18,12 +18,12 @@ final class MultipleChecksOnAFunction implements FunctionBased
         $this->checks = $checks;
     }
 
-    public function __invoke(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toClass) : Changes
+    public function __invoke(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction) : Changes
     {
         return array_reduce(
             $this->checks,
-            function (Changes $changes, FunctionBased $check) use ($fromFunction, $toClass) : Changes {
-                return $changes->mergeWith($check->__invoke($fromFunction, $toClass));
+            function (Changes $changes, FunctionBased $check) use ($fromFunction, $toFunction) : Changes {
+                return $changes->mergeWith($check->__invoke($fromFunction, $toFunction));
             },
             Changes::empty()
         );
