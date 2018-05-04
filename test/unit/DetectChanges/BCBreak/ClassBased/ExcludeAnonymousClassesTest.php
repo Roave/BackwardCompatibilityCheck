@@ -12,13 +12,14 @@ use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\ExcludeAnonymou
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
+use function reset;
 
 final class ExcludeAnonymousClassesTest extends TestCase
 {
     public function testNormalClassesAreNotExcluded() : void
     {
-        $locator       = (new BetterReflection())->astLocator();
-        $reflector = new ClassReflector(new StringSourceLocator(
+        $locator        = (new BetterReflection())->astLocator();
+        $reflector      = new ClassReflector(new StringSourceLocator(
             <<<'PHP'
 <?php
 
@@ -28,7 +29,7 @@ PHP
             $locator
         ));
         $fromReflection = $reflector->reflect('ANormalClass');
-        $toReflection = $reflector->reflect('ANormalClass');
+        $toReflection   = $reflector->reflect('ANormalClass');
 
         /** @var ClassBased|MockObject $check */
         $check = $this->createMock(ClassBased::class);
@@ -43,8 +44,8 @@ PHP
 
     public function testAnonymousClassesAreExcluded() : void
     {
-        $locator       = (new BetterReflection())->astLocator();
-        $reflector = new ClassReflector(new StringSourceLocator(
+        $locator                  = (new BetterReflection())->astLocator();
+        $reflector                = new ClassReflector(new StringSourceLocator(
             <<<'PHP'
 <?php
 
@@ -53,7 +54,7 @@ PHP
             ,
             $locator
         ));
-        $allClasses = $reflector->getAllClasses();
+        $allClasses               = $reflector->getAllClasses();
         $anonymousClassReflection = reset($allClasses);
 
         /** @var ClassBased|MockObject $check */
