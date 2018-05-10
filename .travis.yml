@@ -14,9 +14,9 @@ git:
 
 jobs:
   include:
-    - stage: Static analysis (src) with phpstan
-      php: 7.2
-      script: vendor/bin/phpstan analyse --level=7 src
+    #- stage: Static analysis (src) with phpstan
+    #  php: 7.2
+    #  script: vendor/bin/phpstan analyse --level=7 src
 
     - stage: Test
       php: 7.2
@@ -35,9 +35,9 @@ jobs:
       php: 7.2
       script: vendor/bin/phpcs
 
-    - stage: Mutation Tests
-      php: 7.2
-      script: vendor/bin/infection
+    #- stage: Mutation Tests
+    #  php: 7.2
+    #  script: vendor/bin/infection
 
     - stage: Verify BC Breaks
       php: 7.2
