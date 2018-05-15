@@ -44,9 +44,17 @@ final class CompareClasses implements CompareApi
     ) : Changes {
         $changelog = Changes::empty();
 
-        $definedApiClassNames = array_map(function (ReflectionClass $class) : string {
-            return $class->getName();
-        }, $definedSymbols->getAllClasses());
+        $definedApiClassNames = array_map(
+            function (ReflectionClass $class) : string {
+                return $class->getName();
+            },
+            array_filter(
+                $definedSymbols->getAllClasses(),
+                function (ReflectionClass $class) : bool {
+                    return !$class->isAnonymous();
+                }
+            )
+        );
 
         foreach ($definedApiClassNames as $apiClassName) {
             /** @var ReflectionClass $oldSymbol */
