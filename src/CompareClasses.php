@@ -10,6 +10,7 @@ use Roave\BackwardCompatibility\DetectChanges\BCBreak\TraitBased\TraitBased;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use function array_filter;
 use function array_map;
 use function sprintf;
 
@@ -44,9 +45,17 @@ final class CompareClasses implements CompareApi
     ) : Changes {
         $changelog = Changes::empty();
 
-        $definedApiClassNames = array_map(function (ReflectionClass $class) : string {
-            return $class->getName();
-        }, $definedSymbols->getAllClasses());
+        $definedApiClassNames = array_map(
+            function (ReflectionClass $class) : string {
+                return $class->getName();
+            },
+            array_filter(
+                $definedSymbols->getAllClasses(),
+                function (ReflectionClass $class) : bool {
+                    return ! $class->isAnonymous();
+                }
+            )
+        );
 
         foreach ($definedApiClassNames as $apiClassName) {
             /** @var ReflectionClass $oldSymbol */

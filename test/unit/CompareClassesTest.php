@@ -152,6 +152,22 @@ PHP
         );
     }
 
+    public function testAnonymousClassesAreFilteredOut() : void
+    {
+        $this->classBasedComparatorWillNotBeCalled();
+        $this->interfaceBasedComparatorWillNotBeCalled();
+        $this->traitBasedComparatorWillNotBeCalled();
+
+        self::assertEquals(
+            Changes::empty(),
+            $this->compareClasses->__invoke(
+                self::$stringReflectorFactory->__invoke('<?php $x = new class () {};'),
+                self::$stringReflectorFactory->__invoke('<?php $x = new class () {};'),
+                self::$stringReflectorFactory->__invoke('<?php $x = new class () {};')
+            )
+        );
+    }
+
     /**
      * @param mixed $expected
      * @param mixed $actual
