@@ -158,7 +158,7 @@ PHP
         $this->interfaceBasedComparatorWillNotBeCalled();
         $this->traitBasedComparatorWillNotBeCalled();
 
-        self::assertEqualsIgnoringOrder(
+        self::assertEquals(
             Changes::empty(),
             $this->compareClasses->__invoke(
                 self::$stringReflectorFactory->__invoke('<?php $x = new class () {};'),
