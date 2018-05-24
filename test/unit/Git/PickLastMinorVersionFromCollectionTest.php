@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\Git;
 
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Git\PickLastMinorVersionFromCollection;
+use Version\Version;
 use Version\VersionsCollection;
+use function array_map;
 
 /**
  * @covers \Roave\BackwardCompatibility\Git\PickLastMinorVersionFromCollection
@@ -36,17 +37,10 @@ final class PickLastMinorVersionFromCollectionTest extends TestCase
         self::assertSame(
             $expectedVersion,
             (new PickLastMinorVersionFromCollection())->forVersions(
-                VersionsCollection::fromArray($collectionOfVersions)
+                new VersionsCollection(...array_map(function (string $version) : Version {
+                    return Version::fromString($version);
+                }, $collectionOfVersions))
             )->getVersionString()
         );
-    }
-
-    public function testEmptyVersionCollectionResultsInException() : void
-    {
-        $versions   = VersionsCollection::fromArray([]);
-        $determiner = new PickLastMinorVersionFromCollection();
-
-        $this->expectException(InvalidArgumentException::class);
-        $determiner->forVersions($versions);
     }
 }
