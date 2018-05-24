@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\Support;
 
-use PHPStan\Testing\TestCase;
+use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Support\ArrayHelpers;
 use stdClass;
 
