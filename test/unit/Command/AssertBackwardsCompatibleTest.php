@@ -280,7 +280,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
     {
         $fromSha       = sha1('fromRevision', false);
         $toSha         = sha1('toRevision', false);
-        $versions      = VersionsCollection::fromArray(['1.0.0', '1.0.1']);
+        $versions      = new VersionsCollection(Version::fromString('1.0.0'), Version::fromString('1.0.1'));
         $pickedVersion = Version::fromString('1.0.0');
 
         $this->input->expects(self::any())->method('hasOption')->willReturn(false);

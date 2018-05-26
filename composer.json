@@ -5,8 +5,8 @@
         "php": "^7.2",
         "beberlei/assert": "^2.9",
         "composer/composer": "^1.6",
-        "nikolaposa/version": "^2.2",
-        "roave/better-reflection": "^3.0",
+        "nikolaposa/version": "^3.0",
+      "roave/better-reflection": "^3.0",
         "symfony/console": "^4.0",
         "symfony/process": "^4.0"
     },
