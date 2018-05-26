@@ -1,3 +1,0 @@
-parameters:
-    ignoreErrors:
-        - '#Parameter \#1 ...$versions of class Version\VersionsCollection constructor expects array<int, Version\Version>, array<Version\Version|null> given.#'
