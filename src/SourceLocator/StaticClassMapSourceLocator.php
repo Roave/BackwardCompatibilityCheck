@@ -25,6 +25,7 @@ final class StaticClassMapSourceLocator extends AbstractSourceLocator
     ) {
         parent::__construct($astLocator);
 
+        /** @var string[] $realPaths */
         $realPaths = array_map('realpath', $classMap);
 
         Assert::that($classMap)->all()->file();
