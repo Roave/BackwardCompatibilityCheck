@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9edb1b0abf039a71f40aa53e2cf490df",
+    "content-hash": "a6d0d8eaca9f71d884db13e49f33a3be",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -439,38 +439,35 @@
         },
         {
             "name": "nikolaposa/version",
-            "version": "2.2.2",
+            "version": "3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikolaposa/version.git",
-                "reference": "9fd723babf6fccc9ee221e3b987348af0b00a8c7"
+                "reference": "796c9bb18607302265364a57cbe8d227fc310828"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikolaposa/version/zipball/9fd723babf6fccc9ee221e3b987348af0b00a8c7",
-                "reference": "9fd723babf6fccc9ee221e3b987348af0b00a8c7",
+                "url": "https://api.github.com/repos/nikolaposa/version/zipball/796c9bb18607302265364a57cbe8d227fc310828",
+                "reference": "796c9bb18607302265364a57cbe8d227fc310828",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.5"
+                "php": "^7.2.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^1.11",
-                "phpunit/phpunit": "^4.7"
+                "friendsofphp/php-cs-fixer": "^2.0",
+                "phpunit/phpunit": "^6.0 || ^7.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.2.x-dev"
+                    "dev-master": "3.0.x-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
                     "Version\\": "src/"
-                },
-                "classmap": [
-                    "src/"
-                ]
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -480,7 +477,7 @@
                 {
                     "name": "Nikola Poša",
                     "email": "posa.nikola@gmail.com",
-                    "homepage": "http://www.nikolaposa.in.rs"
+                    "homepage": "https://www.nikolaposa.in.rs"
                 }
             ],
             "description": "Value Object that represents a SemVer-compliant version number.",
@@ -491,7 +488,7 @@
                 "version",
                 "versioning"
             ],
-            "time": "2018-04-22T08:54:55+00:00"
+            "time": "2018-05-05T08:33:52+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",
