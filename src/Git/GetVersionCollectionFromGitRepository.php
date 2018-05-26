@@ -37,7 +37,10 @@ final class GetVersionCollectionFromGitRepository implements GetVersionCollectio
                 } catch (InvalidVersionStringException $e) {
                     return null;
                 }
-            }, explode("\n", $output))
+            }, explode("\n", $output)),
+            function (?Version $version) : bool {
+                return $version !== null;
+            }
         ));
     }
 }
