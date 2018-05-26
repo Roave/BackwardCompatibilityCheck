@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a6d0d8eaca9f71d884db13e49f33a3be",
+    "content-hash": "ec79f9014874ca0d46a73961e70f9e8b",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -1901,6 +1901,43 @@
                 "stub"
             ],
             "time": "2018-04-18T13:57:24+00:00"
+        },
+        {
+            "name": "phpstan/phpstan-shim",
+            "version": "0.9.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpstan/phpstan-shim.git",
+                "reference": "e4720fb2916be05de02869780072253e7e0e8a75"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpstan/phpstan-shim/zipball/e4720fb2916be05de02869780072253e7e0e8a75",
+                "reference": "e4720fb2916be05de02869780072253e7e0e8a75",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~7.0"
+            },
+            "replace": {
+                "phpstan/phpstan": "self.version"
+            },
+            "bin": [
+                "phpstan",
+                "phpstan.phar"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.9-dev"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHPStan Phar distribution",
+            "time": "2018-01-28T14:29:27+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
