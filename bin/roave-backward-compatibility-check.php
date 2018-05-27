@@ -33,7 +33,7 @@ use function file_exists;
 use function getcwd;
 
 (function () : void {
-    (function () {
+    (function () : void {
         $autoloaderLocations = [
             __DIR__ . '/../vendor/autoload.php',
             __DIR__ . '/../autoload.php',
