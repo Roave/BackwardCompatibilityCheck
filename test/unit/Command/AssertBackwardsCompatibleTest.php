@@ -109,7 +109,6 @@ final class AssertBackwardsCompatibleTest extends TestCase
         $fromSha = sha1('fromRevision', false);
         $toSha   = sha1('toRevision', false);
 
-        $this->input->expects(self::any())->method('hasOption')->willReturn(true);
         $this->input->expects(self::any())->method('getOption')->willReturnMap([
             ['from', $fromSha],
             ['to', $toSha],
@@ -159,7 +158,6 @@ final class AssertBackwardsCompatibleTest extends TestCase
         $fromSha = sha1('fromRevision', false);
         $toSha   = sha1('toRevision', false);
 
-        $this->input->expects(self::any())->method('hasOption')->willReturn(true);
         $this->input->expects(self::any())->method('getOption')->willReturnMap([
             ['from', $fromSha],
             ['to', $toSha],
@@ -221,7 +219,6 @@ final class AssertBackwardsCompatibleTest extends TestCase
         $fromSha = sha1('fromRevision', false);
         $toSha   = sha1('toRevision', false);
 
-        $this->input->expects(self::any())->method('hasOption')->willReturn(true);
         $this->input->expects(self::any())->method('getOption')->willReturnMap([
             ['from', $fromSha],
             ['to', $toSha],
@@ -283,7 +280,6 @@ final class AssertBackwardsCompatibleTest extends TestCase
         $versions      = new VersionsCollection(Version::fromString('1.0.0'), Version::fromString('1.0.1'));
         $pickedVersion = Version::fromString('1.0.0');
 
-        $this->input->expects(self::any())->method('hasOption')->willReturn(false);
         $this->input->expects(self::any())->method('getOption')->willReturnMap([
             ['from', null],
             ['to', 'HEAD'],
@@ -348,7 +344,6 @@ final class AssertBackwardsCompatibleTest extends TestCase
         $fromSha = sha1('fromRevision', false);
         $toSha   = sha1('toRevision', false);
 
-        $this->input->expects(self::any())->method('hasOption')->willReturn(true);
         $this->input->expects(self::any())->method('getOption')->willReturnMap([
             ['from', $fromSha],
             ['to', $toSha],
