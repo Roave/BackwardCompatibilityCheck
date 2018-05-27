@@ -110,6 +110,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
         $toSha   = sha1('toRevision', false);
 
         $this->input->expects(self::any())->method('hasOption')->willReturn(true);
+        $this->input->expects(self::any())->method('hasParameterOption')->willReturn(true);
         $this->input->expects(self::any())->method('getOption')->willReturnMap([
             ['from', $fromSha],
             ['to', $toSha],
@@ -160,6 +161,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
         $toSha   = sha1('toRevision', false);
 
         $this->input->expects(self::any())->method('hasOption')->willReturn(true);
+        $this->input->expects(self::any())->method('hasParameterOption')->willReturn(true);
         $this->input->expects(self::any())->method('getOption')->willReturnMap([
             ['from', $fromSha],
             ['to', $toSha],
@@ -222,6 +224,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
         $toSha   = sha1('toRevision', false);
 
         $this->input->expects(self::any())->method('hasOption')->willReturn(true);
+        $this->input->expects(self::any())->method('hasParameterOption')->willReturn(true);
         $this->input->expects(self::any())->method('getOption')->willReturnMap([
             ['from', $fromSha],
             ['to', $toSha],
@@ -349,6 +352,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
         $toSha   = sha1('toRevision', false);
 
         $this->input->expects(self::any())->method('hasOption')->willReturn(true);
+        $this->input->expects(self::any())->method('hasParameterOption')->willReturn(true);
         $this->input->expects(self::any())->method('getOption')->willReturnMap([
             ['from', $fromSha],
             ['to', $toSha],
