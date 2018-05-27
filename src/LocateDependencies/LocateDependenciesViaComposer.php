@@ -7,6 +7,7 @@ namespace Roave\BackwardCompatibility\LocateDependencies;
 use Assert\Assert;
 use Composer\Installer;
 use Roave\BackwardCompatibility\SourceLocator\StaticClassMapSourceLocator;
+use Roave\BackwardCompatibility\SourceLocator\StubClassSourceLocator;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
 use Roave\BetterReflection\Reflector\ClassReflector;
@@ -80,6 +81,7 @@ final class LocateDependenciesViaComposer implements LocateDependencies
             $this->sourceLocatorFromAutoloadStatic($generatedAutoloadClass),
             $this->sourceLocatorFromAutoloadFiles($generatedAutoloadClass),
             new PhpInternalSourceLocator($this->astLocator),
+            new StubClassSourceLocator($this->astLocator),
         ]);
     }
 
