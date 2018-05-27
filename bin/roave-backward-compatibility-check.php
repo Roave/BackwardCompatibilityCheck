@@ -30,148 +30,86 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use function file_exists;
+use function getcwd;
 
 (function () : void {
-    foreach ([__DIR__ . '/../vendor/autoload.php', __DIR__ . '/../autoload.php'] as $autoload) {
-        if (! file_exists($autoload)) {
-            continue;
+    (function () {
+        $autoloaderLocations = [
+            __DIR__ . '/../vendor/autoload.php',
+            __DIR__ . '/../autoload.php',
+            __DIR__ . '/../../autoload.php',
+            getcwd() . '/vendor/autoload.php',
+        ];
+
+        foreach ($autoloaderLocations as $autoload) {
+            if (file_exists($autoload)) {
+                /** @noinspection PhpIncludeInspection */
+                require_once $autoload;
+
+                return;
+            }
         }
 
-        /** @noinspection PhpIncludeInspection */
-        require $autoload;
+        throw new RuntimeException('Could not find Composer autoload.php');
+    })();
 
-        $application = new Application();
-        $helperSet   = $application->getHelperSet();
-        $input       = new ArgvInput();
-        $output      = new ConsoleOutput();
-        $astLocator  = (new BetterReflection())->astLocator();
-        $composerIo  = new ConsoleIO($input, $output, $helperSet);
+    $application = new Application();
+    $helperSet   = $application->getHelperSet();
+    $input       = new ArgvInput();
+    $output      = new ConsoleOutput();
+    $astLocator  = (new BetterReflection())->astLocator();
+    $composerIo  = new ConsoleIO($input, $output, $helperSet);
 
-        $apiCompareCommand = new Command\AssertBackwardsCompatible(
-            new GitCheckoutRevisionToTemporaryPath(),
-            new DirectoryReflectorFactory($astLocator),
-            new GitParseRevision(),
-            new GetVersionCollectionFromGitRepository(),
-            new PickLastMinorVersionFromCollection(),
-            new LocateDependenciesViaComposer(
-                function (string $installationPath) use ($composerIo) : Installer {
-                    return Installer::create(
+    $apiCompareCommand = new Command\AssertBackwardsCompatible(
+        new GitCheckoutRevisionToTemporaryPath(),
+        new DirectoryReflectorFactory($astLocator),
+        new GitParseRevision(),
+        new GetVersionCollectionFromGitRepository(),
+        new PickLastMinorVersionFromCollection(),
+        new LocateDependenciesViaComposer(
+            function (string $installationPath) use ($composerIo) : Installer {
+                return Installer::create(
+                    $composerIo,
+                    (new Factory())->createComposer(
                         $composerIo,
-                        (new Factory())->createComposer(
-                            $composerIo,
-                            null,
-                            true,
-                            $installationPath
-                        )
-                    );
-                },
-                $astLocator
-            ),
-            new CompareClasses(
-                new ClassBased\ExcludeAnonymousClasses(
-                    new ClassBased\MultipleChecksOnAClass(
-                        new ClassBased\ClassBecameAbstract(),
-                        new ClassBased\ClassBecameInterface(),
-                        new ClassBased\ClassBecameTrait(),
-                        new ClassBased\ClassBecameFinal(),
-                        new ClassBased\ConstantRemoved(),
-                        new ClassBased\PropertyRemoved(),
-                        new ClassBased\MethodRemoved(),
-                        new ClassBased\OpenClassChanged(
-                            new ClassBased\MultipleChecksOnAClass(
-                                new ClassBased\ConstantChanged(
-                                    new ClassConstantBased\MultipleChecksOnAClassConstant(
-                                        new ClassConstantBased\OnlyPublicClassConstantChanged(
-                                            new ClassConstantBased\MultipleChecksOnAClassConstant(
-                                                new ClassConstantBased\ClassConstantVisibilityReduced(),
-                                                new ClassConstantBased\ClassConstantValueChanged()
-                                            )
-                                        ),
-                                        new ClassConstantBased\OnlyProtectedClassConstantChanged(
-                                            new ClassConstantBased\MultipleChecksOnAClassConstant(
-                                                new ClassConstantBased\ClassConstantVisibilityReduced(),
-                                                new ClassConstantBased\ClassConstantValueChanged()
-                                            )
-                                        )
-                                    )
-                                ),
-                                new ClassBased\PropertyChanged(
-                                    new PropertyBased\MultipleChecksOnAProperty(
-                                        new PropertyBased\OnlyPublicPropertyChanged(
-                                            new PropertyBased\MultipleChecksOnAProperty(
-                                                new PropertyBased\PropertyDocumentedTypeChanged(),
-                                                new PropertyBased\PropertyDefaultValueChanged(),
-                                                new PropertyBased\PropertyVisibilityReduced(),
-                                                new PropertyBased\PropertyScopeChanged()
-                                            )
-                                        ),
-                                        new PropertyBased\OnlyProtectedPropertyChanged(
-                                            new PropertyBased\MultipleChecksOnAProperty(
-                                                new PropertyBased\PropertyDocumentedTypeChanged(),
-                                                new PropertyBased\PropertyDefaultValueChanged(),
-                                                new PropertyBased\PropertyVisibilityReduced(),
-                                                new PropertyBased\PropertyScopeChanged()
-                                            )
-                                        )
-                                    )
-                                ),
-                                new ClassBased\MethodChanged(
-                                    new MethodBased\MultipleChecksOnAMethod(
-                                        new MethodBased\OnlyPublicMethodChanged(
-                                            new MethodBased\MultipleChecksOnAMethod(
-                                                new MethodBased\MethodBecameFinal(),
-                                                new MethodBased\MethodConcretenessChanged(),
-                                                new MethodBased\MethodScopeChanged(),
-                                                new MethodBased\MethodVisibilityReduced(),
-                                                new MethodBased\MethodFunctionDefinitionChanged(
-                                                    new FunctionBased\MultipleChecksOnAFunction(
-                                                        new FunctionBased\ParameterByReferenceChanged(),
-                                                        new FunctionBased\ReturnTypeByReferenceChanged(),
-                                                        new FunctionBased\RequiredParameterAmountIncreased(),
-                                                        new FunctionBased\ParameterDefaultValueChanged(),
-                                                        new FunctionBased\ReturnTypeCovarianceChanged(new TypeIsCovariant()),
-                                                        new FunctionBased\ReturnTypeChanged(),
-                                                        new FunctionBased\ParameterTypeContravarianceChanged(new TypeIsContravariant()),
-                                                        new FunctionBased\ParameterTypeChanged()
-                                                    )
-                                                )
-                                            )
-                                        ),
-                                        new MethodBased\OnlyProtectedMethodChanged(
-                                            new MethodBased\MultipleChecksOnAMethod(
-                                                new MethodBased\MethodBecameFinal(),
-                                                new MethodBased\MethodConcretenessChanged(),
-                                                new MethodBased\MethodScopeChanged(),
-                                                new MethodBased\MethodVisibilityReduced(),
-                                                new MethodBased\MethodFunctionDefinitionChanged(
-                                                    new FunctionBased\MultipleChecksOnAFunction(
-                                                        new FunctionBased\ParameterByReferenceChanged(),
-                                                        new FunctionBased\ReturnTypeByReferenceChanged(),
-                                                        new FunctionBased\RequiredParameterAmountIncreased(),
-                                                        new FunctionBased\ParameterDefaultValueChanged(),
-                                                        new FunctionBased\ReturnTypeCovarianceChanged(new TypeIsCovariant()),
-                                                        new FunctionBased\ReturnTypeChanged(),
-                                                        new FunctionBased\ParameterTypeContravarianceChanged(new TypeIsContravariant()),
-                                                        new FunctionBased\ParameterTypeChanged()
-                                                    )
-                                                )
-                                            )
-                                        )
-                                    )
-                                )
-                            )
-                        ),
-                        new ClassBased\FinalClassChanged(
-                            new ClassBased\MultipleChecksOnAClass(
-                                new ClassBased\ConstantChanged(
+                        null,
+                        true,
+                        $installationPath
+                    )
+                );
+            },
+            $astLocator
+        ),
+        new CompareClasses(
+            new ClassBased\ExcludeAnonymousClasses(
+                new ClassBased\MultipleChecksOnAClass(
+                    new ClassBased\ClassBecameAbstract(),
+                    new ClassBased\ClassBecameInterface(),
+                    new ClassBased\ClassBecameTrait(),
+                    new ClassBased\ClassBecameFinal(),
+                    new ClassBased\ConstantRemoved(),
+                    new ClassBased\PropertyRemoved(),
+                    new ClassBased\MethodRemoved(),
+                    new ClassBased\OpenClassChanged(
+                        new ClassBased\MultipleChecksOnAClass(
+                            new ClassBased\ConstantChanged(
+                                new ClassConstantBased\MultipleChecksOnAClassConstant(
                                     new ClassConstantBased\OnlyPublicClassConstantChanged(
                                         new ClassConstantBased\MultipleChecksOnAClassConstant(
                                             new ClassConstantBased\ClassConstantVisibilityReduced(),
                                             new ClassConstantBased\ClassConstantValueChanged()
                                         )
+                                    ),
+                                    new ClassConstantBased\OnlyProtectedClassConstantChanged(
+                                        new ClassConstantBased\MultipleChecksOnAClassConstant(
+                                            new ClassConstantBased\ClassConstantVisibilityReduced(),
+                                            new ClassConstantBased\ClassConstantValueChanged()
+                                        )
                                     )
-                                ),
-                                new ClassBased\PropertyChanged(
+                                )
+                            ),
+                            new ClassBased\PropertyChanged(
+                                new PropertyBased\MultipleChecksOnAProperty(
                                     new PropertyBased\OnlyPublicPropertyChanged(
                                         new PropertyBased\MultipleChecksOnAProperty(
                                             new PropertyBased\PropertyDocumentedTypeChanged(),
@@ -179,9 +117,19 @@ use function file_exists;
                                             new PropertyBased\PropertyVisibilityReduced(),
                                             new PropertyBased\PropertyScopeChanged()
                                         )
+                                    ),
+                                    new PropertyBased\OnlyProtectedPropertyChanged(
+                                        new PropertyBased\MultipleChecksOnAProperty(
+                                            new PropertyBased\PropertyDocumentedTypeChanged(),
+                                            new PropertyBased\PropertyDefaultValueChanged(),
+                                            new PropertyBased\PropertyVisibilityReduced(),
+                                            new PropertyBased\PropertyScopeChanged()
+                                        )
                                     )
-                                ),
-                                new ClassBased\MethodChanged(
+                                )
+                            ),
+                            new ClassBased\MethodChanged(
+                                new MethodBased\MultipleChecksOnAMethod(
                                     new MethodBased\OnlyPublicMethodChanged(
                                         new MethodBased\MultipleChecksOnAMethod(
                                             new MethodBased\MethodBecameFinal(),
@@ -195,7 +143,29 @@ use function file_exists;
                                                     new FunctionBased\RequiredParameterAmountIncreased(),
                                                     new FunctionBased\ParameterDefaultValueChanged(),
                                                     new FunctionBased\ReturnTypeCovarianceChanged(new TypeIsCovariant()),
-                                                    new FunctionBased\ParameterTypeContravarianceChanged(new TypeIsContravariant())
+                                                    new FunctionBased\ReturnTypeChanged(),
+                                                    new FunctionBased\ParameterTypeContravarianceChanged(new TypeIsContravariant()),
+                                                    new FunctionBased\ParameterTypeChanged()
+                                                )
+                                            )
+                                        )
+                                    ),
+                                    new MethodBased\OnlyProtectedMethodChanged(
+                                        new MethodBased\MultipleChecksOnAMethod(
+                                            new MethodBased\MethodBecameFinal(),
+                                            new MethodBased\MethodConcretenessChanged(),
+                                            new MethodBased\MethodScopeChanged(),
+                                            new MethodBased\MethodVisibilityReduced(),
+                                            new MethodBased\MethodFunctionDefinitionChanged(
+                                                new FunctionBased\MultipleChecksOnAFunction(
+                                                    new FunctionBased\ParameterByReferenceChanged(),
+                                                    new FunctionBased\ReturnTypeByReferenceChanged(),
+                                                    new FunctionBased\RequiredParameterAmountIncreased(),
+                                                    new FunctionBased\ParameterDefaultValueChanged(),
+                                                    new FunctionBased\ReturnTypeCovarianceChanged(new TypeIsCovariant()),
+                                                    new FunctionBased\ReturnTypeChanged(),
+                                                    new FunctionBased\ParameterTypeContravarianceChanged(new TypeIsContravariant()),
+                                                    new FunctionBased\ParameterTypeChanged()
                                                 )
                                             )
                                         )
@@ -203,22 +173,102 @@ use function file_exists;
                                 )
                             )
                         )
-                    )
-                ),
-                new InterfaceBased\MultipleChecksOnAnInterface(
-                    new InterfaceBased\InterfaceBecameClass(),
-                    new InterfaceBased\InterfaceBecameTrait(),
-                    new InterfaceBased\MethodAdded(),
-                    new InterfaceBased\UseClassBasedChecksOnAnInterface(
+                    ),
+                    new ClassBased\FinalClassChanged(
                         new ClassBased\MultipleChecksOnAClass(
-                            new ClassBased\ConstantRemoved(),
-                            new ClassBased\MethodRemoved(),
                             new ClassBased\ConstantChanged(
-                                new ClassConstantBased\ClassConstantValueChanged()
+                                new ClassConstantBased\OnlyPublicClassConstantChanged(
+                                    new ClassConstantBased\MultipleChecksOnAClassConstant(
+                                        new ClassConstantBased\ClassConstantVisibilityReduced(),
+                                        new ClassConstantBased\ClassConstantValueChanged()
+                                    )
+                                )
+                            ),
+                            new ClassBased\PropertyChanged(
+                                new PropertyBased\OnlyPublicPropertyChanged(
+                                    new PropertyBased\MultipleChecksOnAProperty(
+                                        new PropertyBased\PropertyDocumentedTypeChanged(),
+                                        new PropertyBased\PropertyDefaultValueChanged(),
+                                        new PropertyBased\PropertyVisibilityReduced(),
+                                        new PropertyBased\PropertyScopeChanged()
+                                    )
+                                )
                             ),
                             new ClassBased\MethodChanged(
+                                new MethodBased\OnlyPublicMethodChanged(
+                                    new MethodBased\MultipleChecksOnAMethod(
+                                        new MethodBased\MethodBecameFinal(),
+                                        new MethodBased\MethodConcretenessChanged(),
+                                        new MethodBased\MethodScopeChanged(),
+                                        new MethodBased\MethodVisibilityReduced(),
+                                        new MethodBased\MethodFunctionDefinitionChanged(
+                                            new FunctionBased\MultipleChecksOnAFunction(
+                                                new FunctionBased\ParameterByReferenceChanged(),
+                                                new FunctionBased\ReturnTypeByReferenceChanged(),
+                                                new FunctionBased\RequiredParameterAmountIncreased(),
+                                                new FunctionBased\ParameterDefaultValueChanged(),
+                                                new FunctionBased\ReturnTypeCovarianceChanged(new TypeIsCovariant()),
+                                                new FunctionBased\ParameterTypeContravarianceChanged(new TypeIsContravariant())
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+            ),
+            new InterfaceBased\MultipleChecksOnAnInterface(
+                new InterfaceBased\InterfaceBecameClass(),
+                new InterfaceBased\InterfaceBecameTrait(),
+                new InterfaceBased\MethodAdded(),
+                new InterfaceBased\UseClassBasedChecksOnAnInterface(
+                    new ClassBased\MultipleChecksOnAClass(
+                        new ClassBased\ConstantRemoved(),
+                        new ClassBased\MethodRemoved(),
+                        new ClassBased\ConstantChanged(
+                            new ClassConstantBased\ClassConstantValueChanged()
+                        ),
+                        new ClassBased\MethodChanged(
+                            new MethodBased\MultipleChecksOnAMethod(
+                                new MethodBased\MethodScopeChanged(),
+                                new MethodBased\MethodFunctionDefinitionChanged(
+                                    new FunctionBased\MultipleChecksOnAFunction(
+                                        new FunctionBased\ParameterByReferenceChanged(),
+                                        new FunctionBased\ReturnTypeByReferenceChanged(),
+                                        new FunctionBased\RequiredParameterAmountIncreased(),
+                                        new FunctionBased\ParameterDefaultValueChanged(),
+                                        new FunctionBased\ReturnTypeCovarianceChanged(new TypeIsCovariant()),
+                                        new FunctionBased\ReturnTypeChanged(),
+                                        new FunctionBased\ParameterTypeContravarianceChanged(new TypeIsContravariant()),
+                                        new FunctionBased\ParameterTypeChanged()
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+            ),
+            new TraitBased\MultipleChecksOnATrait(
+                new TraitBased\TraitBecameInterface(),
+                new TraitBased\TraitBecameClass(),
+                new TraitBased\UseClassBasedChecksOnATrait(
+                    new ClassBased\MultipleChecksOnAClass(
+                        new ClassBased\PropertyChanged(
+                            new PropertyBased\MultipleChecksOnAProperty(
+                                new PropertyBased\PropertyDocumentedTypeChanged(),
+                                new PropertyBased\PropertyDefaultValueChanged(),
+                                new PropertyBased\PropertyVisibilityReduced(),
+                                new PropertyBased\PropertyScopeChanged()
+                            )
+                        ),
+                        new ClassBased\MethodChanged(
+                            new MethodBased\MultipleChecksOnAMethod(
                                 new MethodBased\MultipleChecksOnAMethod(
+                                    new MethodBased\MethodBecameFinal(),
+                                    new MethodBased\MethodConcretenessChanged(),
                                     new MethodBased\MethodScopeChanged(),
+                                    new MethodBased\MethodVisibilityReduced(),
                                     new MethodBased\MethodFunctionDefinitionChanged(
                                         new FunctionBased\MultipleChecksOnAFunction(
                                             new FunctionBased\ParameterByReferenceChanged(),
@@ -235,56 +285,13 @@ use function file_exists;
                             )
                         )
                     )
-                ),
-                new TraitBased\MultipleChecksOnATrait(
-                    new TraitBased\TraitBecameInterface(),
-                    new TraitBased\TraitBecameClass(),
-                    new TraitBased\UseClassBasedChecksOnATrait(
-                        new ClassBased\MultipleChecksOnAClass(
-                            new ClassBased\PropertyChanged(
-                                new PropertyBased\MultipleChecksOnAProperty(
-                                    new PropertyBased\PropertyDocumentedTypeChanged(),
-                                    new PropertyBased\PropertyDefaultValueChanged(),
-                                    new PropertyBased\PropertyVisibilityReduced(),
-                                    new PropertyBased\PropertyScopeChanged()
-                                )
-                            ),
-                            new ClassBased\MethodChanged(
-                                new MethodBased\MultipleChecksOnAMethod(
-                                    new MethodBased\MultipleChecksOnAMethod(
-                                        new MethodBased\MethodBecameFinal(),
-                                        new MethodBased\MethodConcretenessChanged(),
-                                        new MethodBased\MethodScopeChanged(),
-                                        new MethodBased\MethodVisibilityReduced(),
-                                        new MethodBased\MethodFunctionDefinitionChanged(
-                                            new FunctionBased\MultipleChecksOnAFunction(
-                                                new FunctionBased\ParameterByReferenceChanged(),
-                                                new FunctionBased\ReturnTypeByReferenceChanged(),
-                                                new FunctionBased\RequiredParameterAmountIncreased(),
-                                                new FunctionBased\ParameterDefaultValueChanged(),
-                                                new FunctionBased\ReturnTypeCovarianceChanged(new TypeIsCovariant()),
-                                                new FunctionBased\ReturnTypeChanged(),
-                                                new FunctionBased\ParameterTypeContravarianceChanged(new TypeIsContravariant()),
-                                                new FunctionBased\ParameterTypeChanged()
-                                            )
-                                        )
-                                    )
-                                )
-                            )
-                        )
-                    )
                 )
             )
-        );
+        )
+    );
 
-        $application->add($apiCompareCommand);
-        $application->setDefaultCommand($apiCompareCommand->getName());
+    $application->add($apiCompareCommand);
+    $application->setDefaultCommand($apiCompareCommand->getName());
 
-        /** @noinspection PhpUnhandledExceptionInspection */
-        $application->run($input, $output);
-
-        return;
-    }
-
-    throw new RuntimeException('Could not find Composer autoload.php');
+    $application->run($input, $output);
 })();
