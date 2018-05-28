@@ -148,7 +148,7 @@ USAGE
         // @todo fix flaky assumption about the path of the source repo...
         $sourceRepo = CheckedOutRepository::fromPath(getcwd());
 
-        $fromRevision = $input->hasParameterOption('from')
+        $fromRevision = $input->getOption('from') !== null
             ? $this->parseRevisionFromInput($input, $sourceRepo)
             : $this->determineFromRevisionFromRepository($sourceRepo, $stdErr);
 
