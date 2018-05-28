@@ -29,11 +29,8 @@ final class PickLastMinorVersionFromCollection implements PickVersionFromVersion
 
         $versions->sort(VersionsCollection::SORT_DESC);
 
-        /** @var Version[] $versionsAsArray */
-        $versionsAsArray = array_values(iterator_to_array($versions));
-
         /** @var Version $lastVersion */
-        $lastVersion = $versionsAsArray[0];
+        $lastVersion = array_values(iterator_to_array($versions))[0];
 
         $matchingMinorVersions = $versions->matching(new CompositeConstraint(
             CompositeConstraint::OPERATOR_AND,
@@ -49,7 +46,6 @@ final class PickLastMinorVersionFromCollection implements PickVersionFromVersion
         /** @var Version[] $matchingMinorVersionsAsArray */
         $matchingMinorVersionsAsArray = array_values(iterator_to_array($matchingMinorVersions));
 
-        // Note: since the collection is never empty, we can assume that the first element exists
         return $matchingMinorVersionsAsArray[0];
     }
 }
