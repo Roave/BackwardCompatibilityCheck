@@ -226,10 +226,16 @@ USAGE
         CheckedOutRepository $repository,
         OutputInterface $output
     ) : Revision {
-        $versionString = $this->pickFromVersion->forVersions(
-            $this->getVersions->fromRepository($repository)
-        )->getVersionString();
+        $versions = $this->getVersions->fromRepository($repository);
+
+        Assert
+            ::that($versions->count())
+            ->greaterThan(0, 'Could not detect any released versions for the given repository');
+
+        $versionString = $this->pickFromVersion->forVersions($versions)->getVersionString();
+
         $output->writeln(sprintf('Detected last minor version: %s', $versionString));
+
         return $this->parseRevision->fromStringForRepository(
             $versionString,
             $repository
