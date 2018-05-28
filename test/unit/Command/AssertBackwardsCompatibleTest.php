@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\Command;
 
+use Assert\AssertionFailedException;
 use Assert\InvalidArgumentException;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -271,6 +272,44 @@ final class AssertBackwardsCompatibleTest extends TestCase
             ->willReturnCallback(function (string $output) use ($changeToExpect) : void {
                 self::assertContains($changeToExpect, $output);
             });
+    }
+
+    public function testExecuteWithDefaultRevisionsNotProvidedAndNoDetectedTags() : void
+    {
+        $this->input->expects(self::any())->method('getOption')->willReturnMap([
+            ['from', null],
+            ['to', 'HEAD'],
+        ]);
+        $this->input->expects(self::any())->method('getArgument')->willReturnMap([
+            ['sources-path', 'src'],
+        ]);
+
+        $this
+            ->performCheckout
+            ->expects(self::never())
+            ->method('checkout');
+        $this
+            ->parseRevision
+            ->expects(self::never())
+            ->method('fromStringForRepository');;
+
+        $this
+            ->getVersions
+            ->expects(self::once())
+            ->method('fromRepository')
+            ->willReturn(new VersionsCollection());
+        $this
+            ->pickVersion
+            ->expects(self::never())
+            ->method('forVersions');
+        $this
+            ->compareApi
+            ->expects(self::never())
+            ->method('__invoke');
+
+        $this->expectException(AssertionFailedException::class);
+
+        $this->compare->execute($this->input, $this->output);
     }
 
     public function testExecuteWithDefaultRevisionsNotProvided() : void
