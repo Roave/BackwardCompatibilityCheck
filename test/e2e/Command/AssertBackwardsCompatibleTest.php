@@ -283,10 +283,8 @@ EXPECTED
             $this->sourcesRepository
         );
 
-        $check->run();
-//        self::assertSame(3, $check->run());
+        self::assertSame(3, $check->run());
 
-        var_dump($check->getOutput());
         $errorOutput = $check->getErrorOutput();
 
         self::assertContains('Detected last minor version: 2.2.3', $errorOutput);
