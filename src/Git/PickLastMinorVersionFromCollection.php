@@ -23,8 +23,7 @@ final class PickLastMinorVersionFromCollection implements PickVersionFromVersion
      */
     public function forVersions(VersionsCollection $versions) : Version
     {
-        Assert
-            ::that($versions->count())
+        Assert::that($versions->count())
             ->greaterThan(0, 'Cannot determine latest minor version from an empty collection');
 
         $versions->sort(VersionsCollection::SORT_DESC);

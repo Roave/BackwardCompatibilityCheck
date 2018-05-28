@@ -291,7 +291,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
         $this
             ->parseRevision
             ->expects(self::never())
-            ->method('fromStringForRepository');;
+            ->method('fromStringForRepository');
 
         $this
             ->getVersions

@@ -228,8 +228,7 @@ USAGE
     ) : Revision {
         $versions = $this->getVersions->fromRepository($repository);
 
-        Assert
-            ::that($versions->count())
+        Assert::that($versions->count())
             ->greaterThan(0, 'Could not detect any released versions for the given repository');
 
         $versionString = $this->pickFromVersion->forVersions($versions)->getVersionString();
