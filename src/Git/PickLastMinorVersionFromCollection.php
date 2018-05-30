@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\Git;
 
+use Assert\Assert;
 use Symfony\Component\Process\Exception\LogicException;
 use Symfony\Component\Process\Exception\RuntimeException;
 use Version\Version;
@@ -20,6 +21,8 @@ final class PickLastMinorVersionFromCollection implements PickVersionFromVersion
      */
     public function forVersions(VersionsCollection $versions) : Version
     {
+        Assert::that(count($versions))->greaterThan(0, 'Repository must have at least one version tag.');
+
         $versions->sort(VersionsCollection::SORT_DESC);
 
         /** @var Version[] $versionsAsArray */

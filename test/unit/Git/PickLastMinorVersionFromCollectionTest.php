@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\Git;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Git\PickLastMinorVersionFromCollection;
 use Version\Version;
@@ -42,5 +43,12 @@ final class PickLastMinorVersionFromCollectionTest extends TestCase
                 }, $collectionOfVersions))
             )->getVersionString()
         );
+    }
+
+    public function testFailsIfNoVersionGiven() : void
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        (new PickLastMinorVersionFromCollection())->forVersions(new VersionsCollection());
     }
 }
