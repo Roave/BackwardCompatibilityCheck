@@ -196,24 +196,7 @@ EXPECTED
 
     public function testWillPickTaggedVersionOnNoGivenFrom() : void
     {
-        (new Process(
-            [
-                'git',
-                'checkout',
-                $this->versions[1],
-            ],
-            $this->sourcesRepository
-        ))->mustRun();
-        (new Process(
-            [
-                'git',
-                'tag',
-                '1.2.3',
-                '-m',
-                'First tag',
-            ],
-            $this->sourcesRepository
-        ))->mustRun();
+        $this->tagOnVersion('1.2.3', 1);
 
         $check = new Process(
             [
@@ -241,42 +224,8 @@ EXPECTED
 
     public function testWillPickLatestTaggedVersionOnNoGivenFrom() : void
     {
-        (new Process(
-            [
-                'git',
-                'checkout',
-                $this->versions[1],
-            ],
-            $this->sourcesRepository
-        ))->mustRun();
-        (new Process(
-            [
-                'git',
-                'tag',
-                '2.2.3',
-                '-m',
-                'First tag',
-            ],
-            $this->sourcesRepository
-        ))->mustRun();
-        (new Process(
-            [
-                'git',
-                'checkout',
-                $this->versions[3],
-            ],
-            $this->sourcesRepository
-        ))->mustRun();
-        (new Process(
-            [
-                'git',
-                'tag',
-                '1.2.3',
-                '-m',
-                'First tag',
-            ],
-            $this->sourcesRepository
-        ))->mustRun();
+        $this->tagOnVersion('2.2.3', 1);
+        $this->tagOnVersion('1.2.3', 3);
 
         $check = new Process(
             [
@@ -300,5 +249,28 @@ EXPECTED
             ,
             $errorOutput // @TODO https://github.com/Roave/BackwardCompatibilityCheck/issues/79 this looks like a symfony bug - we shouldn't check STDERR, but STDOUT
         );
+    }
+
+    private function tagOnVersion(string $tagName, int $version) : void
+    {
+        (new Process(
+            [
+                'git',
+                'checkout',
+                $this->versions[$version],
+            ],
+            $this->sourcesRepository
+        ))->mustRun();
+
+        (new Process(
+            [
+                'git',
+                'tag',
+                $tagName,
+                '-m',
+                'A tag for version ' . $version,
+            ],
+            $this->sourcesRepository
+        ))->mustRun();
     }
 }
