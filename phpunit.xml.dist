@@ -9,6 +9,9 @@
         <testsuite name="unit">
             <directory>./test/unit</directory>
         </testsuite>
+        <testsuite name="end to end">
+            <directory>./test/e2e</directory>
+        </testsuite>
     </testsuites>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">

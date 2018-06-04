@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\Git;
 
+use Assert\AssertionFailedException;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Git\PickLastMinorVersionFromCollection;
 use Version\Version;
@@ -21,6 +22,12 @@ final class PickLastMinorVersionFromCollectionTest extends TestCase
     public function lastStableMinorVersionForCollectionProvider() : array
     {
         return [
+            ['2.2.0', ['1.1.0', '2.1.1', '2.2.0', '1.2.1']],
+            ['2.2.0', ['1.1.0', '2.2.1', '2.2.0', '1.2.1']],
+            ['2.2.0', ['1.2.0', '2.2.1', '2.2.0', '1.2.1']],
+            ['2.2.0', ['1.2.0', '2.2.0', '2.2.1', '1.2.1']],
+            ['2.2.0', ['1.2.0', '2.2.0', '2.2.0-alpha1', '2.2.1', '1.2.1']],
+            ['2.2.0', ['1.2.0', '2.2.0-alpha1', '2.2.0', '2.2.1', '1.2.1']],
             ['1.2.0', ['1.1.0', '1.1.1', '1.2.0', '1.2.1']],
             ['1.2.0', ['1.1.0', '1.1.1', '1.2.0']],
             ['1.2.0', ['1.2.0', '1.2.1']],
@@ -42,5 +49,14 @@ final class PickLastMinorVersionFromCollectionTest extends TestCase
                 }, $collectionOfVersions))
             )->getVersionString()
         );
+    }
+
+    public function testWillRejectEmptyCollection() : void
+    {
+        $pick = new PickLastMinorVersionFromCollection();
+
+        $this->expectException(AssertionFailedException::class);
+
+        $pick->forVersions(new VersionsCollection());
     }
 }
