@@ -28,7 +28,8 @@ final class AssertBackwardsCompatibleTest extends TestCase
 
 JSON;
 
-    private const CLASS_V1 = <<<'PHP'
+    private const CLASS_VERSIONS = [
+        <<<'PHP'
 <?php
 
 namespace TestArtifact;
@@ -40,9 +41,9 @@ final class TheClass
     }
 }
 
-PHP;
-
-    private const CLASS_V2 = <<<'PHP'
+PHP
+        ,
+        <<<'PHP'
 <?php
 
 namespace TestArtifact;
@@ -54,9 +55,9 @@ final class TheClass
     }
 }
 
-PHP;
-
-    private const CLASS_V3 = <<<'PHP'
+PHP
+        ,
+        <<<'PHP'
 <?php
 
 namespace TestArtifact;
@@ -68,9 +69,10 @@ final class TheClass
     }
 }
 
-PHP;
-
-    private const CLASS_V4 = <<<'PHP'
+PHP
+        ,
+        // The last version resets the class to its initial state
+        <<<'PHP'
 <?php
 
 namespace TestArtifact;
@@ -82,7 +84,8 @@ final class TheClass
     }
 }
 
-PHP;
+PHP
+    ];
 
     /** @var string path to the sources that should be checked */
     private $sourcesRepository;
@@ -114,7 +117,7 @@ PHP;
         (new Process('git add -A', $this->sourcesRepository))->mustRun();
         (new Process('git commit -am "Initial commit with composer manifest"', $this->sourcesRepository))->mustRun();
 
-        foreach ([self::CLASS_V1, self::CLASS_V2, self::CLASS_V3, self::CLASS_V4] as $key => $classCode) {
+        foreach (self::CLASS_VERSIONS as $key => $classCode) {
             file_put_contents($this->sourcesRepository . '/src/TheClass.php', $classCode);
 
             (new Process('git add -A', $this->sourcesRepository))->mustRun();
@@ -131,7 +134,7 @@ PHP;
         self::assertDirectoryExists($this->sourcesRepository);
 
         // Need to be extremely careful with this stuff - skipping it for now
-//        (new Process(['rm', '-r', $this->sourcesRepository]))->mustRun();
+        (new Process(['rm', '-r', $this->sourcesRepository]))->mustRun();
 
         parent::tearDown();
     }
