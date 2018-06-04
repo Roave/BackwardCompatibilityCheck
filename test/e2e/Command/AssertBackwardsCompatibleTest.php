@@ -155,7 +155,7 @@ PHP;
 
 EXPECTED
             ,
-            $check->getErrorOutput() // @TODO this looks like a symfony bug - we shouldn't check STDERR, but STDOUT
+            $check->getErrorOutput() // @TODO https://github.com/Roave/BackwardCompatibilityCheck/issues/79 this looks like a symfony bug - we shouldn't check STDERR, but STDOUT
         );
     }
 
@@ -232,7 +232,7 @@ EXPECTED
 
 EXPECTED
             ,
-            $errorOutput // @TODO this looks like a symfony bug - we shouldn't check STDERR, but STDOUT
+            $errorOutput // @TODO https://github.com/Roave/BackwardCompatibilityCheck/issues/79 this looks like a symfony bug - we shouldn't check STDERR, but STDOUT
         );
     }
 
@@ -295,7 +295,7 @@ EXPECTED
 
 EXPECTED
             ,
-            $errorOutput // @TODO this looks like a symfony bug - we shouldn't check STDERR, but STDOUT
+            $errorOutput // @TODO https://github.com/Roave/BackwardCompatibilityCheck/issues/79 this looks like a symfony bug - we shouldn't check STDERR, but STDOUT
         );
     }
 }
