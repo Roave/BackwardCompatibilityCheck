@@ -1,2 +1,5 @@
-vendor
-infection-log.txt
+/vendor
+/infection-log.txt
+/box.json
+/box.phar
+/dist

@@ -1,0 +1,15 @@
+{
+    "compactors": [
+        "Herrera\\Box\\Compactor\\Php",
+        "Herrera\\Box\\Compactor\\Json"
+    ],
+    "compression": "GZ",
+    "main": "bin/roave-backward-compatibility-check.php",
+    "output": "dist/roave-backward-compatibility-check.phar",
+    "files-bin": [
+        "LICENSE",
+        "vendor/composer/composer/LICENSE"
+    ],
+    "chmod": "0755",
+    "git-version": "git-version"
+}
