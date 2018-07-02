@@ -5,7 +5,7 @@
     xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
     name="Example Psalm config with recommended defaults"
     useDocblockTypes="true"
-    totallyTyped="false"
+    totallyTyped="true"
     allowPhpStormGenerics="true"
 >
     <projectFiles>
@@ -13,6 +13,27 @@
     </projectFiles>
 
     <issueHandlers>
-        <PropertyNotSetInConstructor errorLevel="suppress"/>
+        <PropertyNotSetInConstructor>
+            <errorLevel type="suppress">
+                <file name="src/Git/CheckedOutRepository.php" />
+                <file name="src/Git/Revision.php" />
+                <file name="src/Changes.php" />
+            </errorLevel>
+        </PropertyNotSetInConstructor>
+
+        <MixedAssignment>
+            <errorLevel type="suppress">
+                <file name="src/DetectChanges/BCBreak/ClassConstantBased/ClassConstantValueChanged.php" />
+                <file name="src/DetectChanges/BCBreak/FunctionBased/ParameterDefaultValueChanged.php" />
+                <file name="src/DetectChanges/BCBreak/PropertyBased/PropertyDefaultValueChanged.php" />
+                <file name="src/LocateDependencies/LocateDependenciesViaComposer.php" />
+            </errorLevel>
+        </MixedAssignment>
+
+        <MixedArgument>
+            <errorLevel type="suppress">
+                <file name="src/LocateDependencies/LocateDependenciesViaComposer.php" />
+            </errorLevel>
+        </MixedArgument>
     </issueHandlers>
 </psalm>

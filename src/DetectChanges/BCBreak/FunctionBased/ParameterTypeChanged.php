@@ -32,9 +32,9 @@ final class ParameterTypeChanged implements FunctionBased
 
     public function __invoke(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction) : Changes
     {
-        /** @var ReflectionParameter[] $fromParameters */
+        /** @var array<int, ReflectionParameter> $fromParameters */
         $fromParameters = array_values($fromFunction->getParameters());
-        /** @var ReflectionParameter[] $toParameters */
+        /** @var array<int, ReflectionParameter> $toParameters */
         $toParameters = array_values($toFunction->getParameters());
 
         $changes = Changes::empty();

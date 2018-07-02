@@ -15,9 +15,15 @@ use function uniqid;
 
 final class GitCheckoutRevisionToTemporaryPath implements PerformCheckoutOfRevision
 {
-    /** @var callable */
+    /**
+     * @psalm-var callable(string):string
+     * @var callable
+     */
     private $uniquenessFunction;
 
+    /**
+     * @psalm-param null|callable(string):string $uniquenessFunction
+     */
     public function __construct(?callable $uniquenessFunction = null)
     {
         $this->uniquenessFunction = $uniquenessFunction ?? function (string $nonUniqueThing) : string {

@@ -29,9 +29,15 @@ final class LocateDependenciesViaComposer implements LocateDependencies
     /** @var Locator */
     private $astLocator;
 
-    /** @var callable */
+    /**
+     * @psalm-var callable(string):Installer
+     * @var callable
+     */
     private $makeComposerInstaller;
 
+    /**
+     * @psalm-param callable(string):Installer $makeComposerInstaller
+     */
     public function __construct(
         callable $makeComposerInstaller,
         Locator $astLocator
@@ -92,6 +98,7 @@ final class LocateDependenciesViaComposer implements LocateDependencies
         Assert::that($classMapProperty)->notNull();
 
         assert($classMapProperty instanceof ReflectionProperty);
+        /** @var string[] $classMap */
         $classMap = $classMapProperty->getDefaultValue();
 
         Assert::that($classMap)

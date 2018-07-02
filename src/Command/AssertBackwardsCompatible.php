@@ -152,8 +152,8 @@ USAGE
             ? $this->parseRevisionFromInput($input, $sourceRepo)
             : $this->determineFromRevisionFromRepository($sourceRepo, $stdErr);
 
-        $toRevision  = $this->parseRevision->fromStringForRepository($input->getOption('to'), $sourceRepo);
-        $sourcesPath = $input->getArgument('sources-path');
+        $toRevision  = $this->parseRevision->fromStringForRepository((string) $input->getOption('to'), $sourceRepo);
+        $sourcesPath = (string) $input->getArgument('sources-path');
 
         $stdErr->writeln(sprintf('Comparing from %s to %s...', (string) $fromRevision, (string) $toRevision));
 
@@ -184,6 +184,7 @@ USAGE
 
             (new SymfonyConsoleTextFormatter($stdErr))->write($changes);
 
+            /** @var string[] $outputFormats */
             $outputFormats = $input->getOption('format') ?: [];
             Assert::that($outputFormats)->isArray();
 

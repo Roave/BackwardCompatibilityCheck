@@ -64,7 +64,7 @@ final class ParameterDefaultValueChanged implements FunctionBased
         return $changes;
     }
 
-    /** @return ReflectionParameter[] indexed by parameter index */
+    /** @return array<int, ReflectionParameter> indexed by parameter index */
     private function defaultParameterValues(ReflectionFunctionAbstract $function) : array
     {
         $optionalParameters = array_values(array_filter(

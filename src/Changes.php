@@ -23,6 +23,7 @@ final class Changes implements IteratorAggregate, Countable
         static $empty;
 
         if ($empty) {
+            /** @var self $empty */
             return $empty;
         }
 
