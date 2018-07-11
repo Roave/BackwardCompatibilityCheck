@@ -12,6 +12,15 @@ before_script:
 git:
   depth: 99999
 
+deploy:
+  provider: releases
+  api_key:
+    secure: $DEPLOY_TOKEN_SECURE
+  file: dist/roave-backward-compatibility-check.phar
+  skip_cleanup: true
+  on:
+    tags: true
+
 jobs:
   include:
 
@@ -47,6 +56,10 @@ jobs:
     - stage: Verify BC Breaks
       php: 7.2
       script: bin/roave-backward-compatibility-check --from=master --to=HEAD
+
+    - stage: Build release PHAR
+      php: 7.2
+      script: ./build-phar.sh
 
 cache:
   directories:
