@@ -30,7 +30,7 @@ jobs:
 
     - stage: Static analysis (src) with phpstan
       php: 7.2
-      script: vendor/bin/phpstan analyse --level=7 src
+      script: vendor/bin/phpstan analyse
 
     - stage: Test
       php: 7.2
