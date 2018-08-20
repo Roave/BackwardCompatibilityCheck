@@ -38,6 +38,7 @@ use function getcwd;
             __DIR__ . '/../vendor/autoload.php',
             __DIR__ . '/../autoload.php',
             __DIR__ . '/../../autoload.php',
+            __DIR__ . '/../../../autoload.php',
             getcwd() . '/vendor/autoload.php',
         ];
 
