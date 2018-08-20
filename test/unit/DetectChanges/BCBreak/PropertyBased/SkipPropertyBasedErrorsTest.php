@@ -11,8 +11,8 @@ use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\PropertyBased;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\SkipPropertyBasedErrors;
-use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
+use function uniqid;
 
 /**
  * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\SkipPropertyBasedErrors
@@ -33,8 +33,8 @@ final class SkipPropertyBasedErrorsTest extends TestCase
 
     public function testWillForwardChecks() : void
     {
-        $fromProperty      = $this->createMock(ReflectionProperty::class);
-        $toProperty        = $this->createMock(ReflectionProperty::class);
+        $fromProperty    = $this->createMock(ReflectionProperty::class);
+        $toProperty      = $this->createMock(ReflectionProperty::class);
         $expectedChanges = Changes::fromList(Change::added(
             uniqid('foo', true),
             true
@@ -54,7 +54,7 @@ final class SkipPropertyBasedErrorsTest extends TestCase
     {
         $fromProperty = $this->createMock(ReflectionProperty::class);
         $toProperty   = $this->createMock(ReflectionProperty::class);
-        $exception  = new Exception();
+        $exception    = new Exception();
 
         $this
             ->next

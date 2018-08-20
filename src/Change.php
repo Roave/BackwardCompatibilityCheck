@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Roave\BackwardCompatibility;
 
 use Assert\Assert;
+use Throwable;
 use function sprintf;
 use function strtoupper;
-use Throwable;
 
 /**
  * @todo this class probably needs subclassing or being turned into an interface

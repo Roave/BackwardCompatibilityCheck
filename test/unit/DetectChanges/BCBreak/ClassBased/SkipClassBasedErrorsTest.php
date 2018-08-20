@@ -12,6 +12,7 @@ use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\ClassBased;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\SkipClassBasedErrors;
 use Roave\BetterReflection\Reflection\ReflectionClass;
+use function uniqid;
 
 /**
  * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\SkipClassBasedErrors
