@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility;
 
+use Exception;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
 use function uniqid;
@@ -21,6 +22,7 @@ final class ChangeTest extends TestCase
         self::assertTrue($change->isAdded());
         self::assertFalse($change->isChanged());
         self::assertFalse($change->isRemoved());
+        self::assertFalse($change->isSkipped());
     }
 
     public function testBcAdded() : void
@@ -31,6 +33,7 @@ final class ChangeTest extends TestCase
         self::assertTrue($change->isAdded());
         self::assertFalse($change->isChanged());
         self::assertFalse($change->isRemoved());
+        self::assertFalse($change->isSkipped());
     }
 
     public function testChanged() : void
@@ -51,6 +54,7 @@ final class ChangeTest extends TestCase
         self::assertFalse($change->isAdded());
         self::assertTrue($change->isChanged());
         self::assertFalse($change->isRemoved());
+        self::assertFalse($change->isSkipped());
     }
 
     public function testRemoved() : void
@@ -61,6 +65,7 @@ final class ChangeTest extends TestCase
         self::assertFalse($change->isAdded());
         self::assertFalse($change->isChanged());
         self::assertTrue($change->isRemoved());
+        self::assertFalse($change->isSkipped());
     }
 
     public function testBcRemoved() : void
@@ -71,5 +76,17 @@ final class ChangeTest extends TestCase
         self::assertFalse($change->isAdded());
         self::assertFalse($change->isChanged());
         self::assertTrue($change->isRemoved());
+        self::assertFalse($change->isSkipped());
+    }
+
+    public function testskippedDueToFailure() : void
+    {
+        $failure    = new Exception('changeText');
+        $change     = Change::skippedDueToFailure($failure);
+        self::assertSame('[BC] SKIPPED: ' . $failure->getMessage(), (string) $change);
+        self::assertFalse($change->isAdded());
+        self::assertFalse($change->isChanged());
+        self::assertFalse($change->isRemoved());
+        self::assertTrue($change->isSkipped());
     }
 }
