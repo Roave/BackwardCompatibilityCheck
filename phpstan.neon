@@ -2,3 +2,5 @@ parameters:
     level: 7
     paths:
         - src
+includes:
+	- vendor/phpstan/phpstan-beberlei-assert/extension.neon
