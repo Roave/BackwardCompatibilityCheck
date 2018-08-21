@@ -22,10 +22,7 @@ final class GitCheckoutRevisionToTemporaryPathTest extends TestCase
         $git      = new GitCheckoutRevisionToTemporaryPath();
         $revision = Revision::fromSha1(self::TEST_REVISION_TO_CHECKOUT);
 
-        $temporaryClone = $git->checkout(
-            CheckedOutRepository::fromPath(realpath(__DIR__ . '/../../../')),
-            $revision
-        );
+        $temporaryClone = $git->checkout($this->sourceRepository(), $revision);
 
         self::assertDirectoryExists((string) $temporaryClone);
 
@@ -35,7 +32,7 @@ final class GitCheckoutRevisionToTemporaryPathTest extends TestCase
     public function testCanCheckOutSameRevisionTwice() : void
     {
         $git              = new GitCheckoutRevisionToTemporaryPath();
-        $sourceRepository = CheckedOutRepository::fromPath(realpath(__DIR__ . '/../../../'));
+        $sourceRepository = $this->sourceRepository();
         $revision         = Revision::fromSha1(self::TEST_REVISION_TO_CHECKOUT);
 
         $first  = $git->checkout($sourceRepository, $revision);
@@ -53,12 +50,13 @@ final class GitCheckoutRevisionToTemporaryPathTest extends TestCase
         $git              = new GitCheckoutRevisionToTemporaryPath(function () : string {
             return 'foo';
         });
-        $sourceRepository = CheckedOutRepository::fromPath(realpath(__DIR__ . '/../../../'));
+        $sourceRepository = $this->sourceRepository();
         $revision         = Revision::fromSha1(self::TEST_REVISION_TO_CHECKOUT);
 
         $first = $git->checkout($sourceRepository, $revision);
 
         $successfullyCheckedOutSecondClone = false;
+
         try {
             $second                            = $git->checkout($sourceRepository, $revision);
             $successfullyCheckedOutSecondClone = true;
@@ -73,5 +71,14 @@ final class GitCheckoutRevisionToTemporaryPathTest extends TestCase
         }
 
         self::assertFalse($successfullyCheckedOutSecondClone);
+    }
+
+    private function sourceRepository() : CheckedOutRepository
+    {
+        $repositoryPath = realpath(__DIR__ . '/../../..');
+
+        self::assertInternalType('string', $repositoryPath);
+
+        return CheckedOutRepository::fromPath($repositoryPath);
     }
 }
