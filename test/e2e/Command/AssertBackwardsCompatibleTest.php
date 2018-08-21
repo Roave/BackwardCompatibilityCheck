@@ -34,6 +34,10 @@ JSON;
 
 namespace TestArtifact;
 
+interface A {}
+interface B {}
+interface C {}
+
 final class TheClass
 {
     public function method(A $a)
@@ -47,6 +51,10 @@ PHP
 <?php
 
 namespace TestArtifact;
+
+interface A {}
+interface B {}
+interface C {}
 
 final class TheClass
 {
@@ -62,6 +70,10 @@ PHP
 
 namespace TestArtifact;
 
+interface A {}
+interface B {}
+interface C {}
+
 final class TheClass
 {
     public function method(C $a)
@@ -76,6 +88,10 @@ PHP
 <?php
 
 namespace TestArtifact;
+
+interface A {}
+interface B {}
+interface C {}
 
 final class TheClass
 {

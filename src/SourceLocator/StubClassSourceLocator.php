@@ -13,6 +13,12 @@ use function explode;
 use function implode;
 use function sprintf;
 
+/**
+ * @deprecated do not use: this locator was initially designed to have all classes stubbed out when they
+ *             cannot be found. This is no longer the case since version 1.1.0 of the library, since
+ *             classes that could not be located just lead to a new {@see \Roave\BackwardCompatibility\Change}
+ *             instance, with a BC break being reported.
+ */
 final class StubClassSourceLocator extends AbstractSourceLocator
 {
     /**
