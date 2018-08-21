@@ -9,7 +9,6 @@ use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\ClassBased;
-use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\FinalClassChanged;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\OpenClassChanged;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use function uniqid;
@@ -22,7 +21,7 @@ final class OpenClassChangedTest extends TestCase
     /** @var ClassBased|MockObject */
     private $check;
 
-    /** @var FinalClassChanged */
+    /** @var OpenClassChanged */
     private $openClassChanged;
 
     /** @var ReflectionClass|MockObject */

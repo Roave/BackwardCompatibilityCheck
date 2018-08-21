@@ -75,8 +75,13 @@ final class AssertBackwardsCompatibleTest extends TestCase
 
     public function setUp() : void
     {
-        $this->sourceRepository = CheckedOutRepository::fromPath(realpath(__DIR__ . '/../../../'));
-        chdir((string) $this->sourceRepository);
+        $repositoryPath = realpath(__DIR__ . '/../../../');
+
+        self::assertInternalType('string', $repositoryPath);
+
+        $this->sourceRepository = CheckedOutRepository::fromPath($repositoryPath);
+
+        chdir($this->sourceRepository->__toString());
 
         $this->input              = $this->createMock(InputInterface::class);
         $this->output             = $this->createMock(ConsoleOutputInterface::class);

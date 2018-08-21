@@ -10,6 +10,7 @@ use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\ClassBased;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\ExcludeAnonymousClasses;
 use Roave\BetterReflection\BetterReflection;
+use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 use function reset;
@@ -57,11 +58,13 @@ PHP
         $allClasses               = $reflector->getAllClasses();
         $anonymousClassReflection = reset($allClasses);
 
+        self::assertInstanceOf(ReflectionClass::class, $anonymousClassReflection);
+
         /** @var ClassBased|MockObject $check */
         $check = $this->createMock(ClassBased::class);
         $check->expects(self::never())->method('__invoke');
 
-        $excluder = new ExcludeAnonymousClasses($check);
-        $excluder->__invoke($anonymousClassReflection, $anonymousClassReflection);
+        (new ExcludeAnonymousClasses($check))
+            ->__invoke($anonymousClassReflection, $anonymousClassReflection);
     }
 }

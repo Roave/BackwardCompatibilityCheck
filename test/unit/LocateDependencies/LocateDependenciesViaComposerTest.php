@@ -15,7 +15,6 @@ use Roave\BetterReflection\SourceLocator\Ast\Locator;
 use Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\SingleFileSourceLocator;
-use stdClass;
 use function getcwd;
 use function realpath;
 
@@ -27,11 +26,14 @@ final class LocateDependenciesViaComposerTest extends TestCase
     /** @var string */
     private $originalCwd;
 
-    /** @var callable|MockObject */
+    /** @var callable */
     private $makeInstaller;
 
     /** @var Installer|MockObject */
     private $composerInstaller;
+
+    /** @var string|null */
+    private $expectedInstallatonPath;
 
     /** @var Locator */
     private $astLocator;
@@ -43,13 +45,18 @@ final class LocateDependenciesViaComposerTest extends TestCase
     {
         parent::setUp();
 
-        $this->originalCwd       = getcwd();
+        $originalCwd = getcwd();
+
+        self::assertInternalType('string', $originalCwd);
+
+        $this->originalCwd       = $originalCwd;
         $this->composerInstaller = $this->createMock(Installer::class);
         $this->astLocator        = (new BetterReflection())->astLocator();
-        $this->makeInstaller     = $this
-            ->getMockBuilder(stdClass::class)
-            ->setMethods(['__invoke'])
-            ->getMock();
+        $this->makeInstaller     = function (string $installationPath) : Installer {
+            self::assertSame($this->expectedInstallatonPath, $installationPath);
+
+            return $this->composerInstaller;
+        };
 
         $this
             ->composerInstaller
@@ -94,26 +101,19 @@ final class LocateDependenciesViaComposerTest extends TestCase
 
     public function testWillLocateDependencies() : void
     {
-        $composerInstallationStructure = realpath(__DIR__ . '/../../asset/composer-installation-structure');
-
-        $this
-            ->makeInstaller
-            ->expects(self::any())
-            ->method('__invoke')
-            ->with($composerInstallationStructure)
-            ->willReturn($this->composerInstaller);
+        $this->expectedInstallatonPath = $this->realpath(__DIR__ . '/../../asset/composer-installation-structure');
 
         $this
             ->composerInstaller
             ->expects(self::once())
             ->method('run')
-            ->willReturnCallback(function () use ($composerInstallationStructure) : void {
-                self::assertSame($composerInstallationStructure, getcwd());
+            ->willReturnCallback(function () : void {
+                self::assertSame($this->expectedInstallatonPath, getcwd());
             });
 
         $locator = $this
             ->locateDependencies
-            ->__invoke($composerInstallationStructure);
+            ->__invoke($this->expectedInstallatonPath);
 
         self::assertInstanceOf(AggregateSourceLocator::class, $locator);
 
@@ -127,8 +127,8 @@ final class LocateDependenciesViaComposerTest extends TestCase
         self::assertEquals(
             new StaticClassMapSourceLocator(
                 [
-                    'A\\ClassName' => realpath(__DIR__ . '/../../asset/composer-installation-structure/AClassName.php'),
-                    'B\\ClassName' => realpath(__DIR__ . '/../../asset/composer-installation-structure/BClassName.php'),
+                    'A\\ClassName' => $this->realpath(__DIR__ . '/../../asset/composer-installation-structure/AClassName.php'),
+                    'B\\ClassName' => $this->realpath(__DIR__ . '/../../asset/composer-installation-structure/BClassName.php'),
                 ],
                 $this->astLocator
             ),
@@ -137,11 +137,11 @@ final class LocateDependenciesViaComposerTest extends TestCase
         self::assertEquals(
             new AggregateSourceLocator([
                 new SingleFileSourceLocator(
-                    realpath(__DIR__ . '/../../asset/composer-installation-structure/included-file-1.php'),
+                    $this->realpath(__DIR__ . '/../../asset/composer-installation-structure/included-file-1.php'),
                     $this->astLocator
                 ),
                 new SingleFileSourceLocator(
-                    realpath(__DIR__ . '/../../asset/composer-installation-structure/included-file-2.php'),
+                    $this->realpath(__DIR__ . '/../../asset/composer-installation-structure/included-file-2.php'),
                     $this->astLocator
                 ),
             ]),
@@ -153,26 +153,19 @@ final class LocateDependenciesViaComposerTest extends TestCase
 
     public function testWillLocateDependenciesEvenWithoutAutoloadFiles() : void
     {
-        $composerInstallationStructure = realpath(__DIR__ . '/../../asset/composer-installation-structure-without-autoload-files');
-
-        $this
-            ->makeInstaller
-            ->expects(self::any())
-            ->method('__invoke')
-            ->with($composerInstallationStructure)
-            ->willReturn($this->composerInstaller);
+        $this->expectedInstallatonPath = $this->realpath(__DIR__ . '/../../asset/composer-installation-structure-without-autoload-files');
 
         $this
             ->composerInstaller
             ->expects(self::once())
             ->method('run')
-            ->willReturnCallback(function () use ($composerInstallationStructure) : void {
-                self::assertSame($composerInstallationStructure, getcwd());
+            ->willReturnCallback(function () : void {
+                self::assertSame($this->expectedInstallatonPath, getcwd());
             });
 
         $locator = $this
             ->locateDependencies
-            ->__invoke($composerInstallationStructure);
+            ->__invoke($this->expectedInstallatonPath);
 
         self::assertInstanceOf(AggregateSourceLocator::class, $locator);
 
@@ -186,8 +179,8 @@ final class LocateDependenciesViaComposerTest extends TestCase
         self::assertEquals(
             new StaticClassMapSourceLocator(
                 [
-                    'A\\ClassName' => realpath(__DIR__ . '/../../asset/composer-installation-structure-without-autoload-files/AClassName.php'),
-                    'B\\ClassName' => realpath(__DIR__ . '/../../asset/composer-installation-structure-without-autoload-files/BClassName.php'),
+                    'A\\ClassName' => $this->realpath(__DIR__ . '/../../asset/composer-installation-structure-without-autoload-files/AClassName.php'),
+                    'B\\ClassName' => $this->realpath(__DIR__ . '/../../asset/composer-installation-structure-without-autoload-files/BClassName.php'),
                 ],
                 $this->astLocator
             ),
@@ -196,5 +189,14 @@ final class LocateDependenciesViaComposerTest extends TestCase
         self::assertEquals(new AggregateSourceLocator(), $locators[1]);
         self::assertInstanceOf(PhpInternalSourceLocator::class, $locators[2]);
         self::assertInstanceOf(StubClassSourceLocator::class, $locators[3]);
+    }
+
+    private function realpath(string $path) : string
+    {
+        $realPath = realpath($path);
+
+        self::assertInternalType('string', $realPath);
+
+        return $realPath;
     }
 }

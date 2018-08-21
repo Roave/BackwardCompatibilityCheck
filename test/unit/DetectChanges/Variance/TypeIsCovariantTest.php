@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RoaveTest\BackwardCompatibility\DetectChanges\BCBreak\ClassBased;
+namespace RoaveTest\BackwardCompatibility\DetectChanges\Variance;
 
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\DetectChanges\Variance\TypeIsCovariant;

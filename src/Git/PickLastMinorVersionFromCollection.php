@@ -26,21 +26,21 @@ final class PickLastMinorVersionFromCollection implements PickVersionFromVersion
         Assert::that($versions->count())
             ->greaterThan(0, 'Cannot determine latest minor version from an empty collection');
 
-        $versions->sort(VersionsCollection::SORT_DESC);
+        $versionsSortedDescending = $versions->sortedDescending();
 
         /** @var Version $lastVersion */
-        $lastVersion = array_values(iterator_to_array($versions))[0];
+        $lastVersion = array_values(iterator_to_array($versionsSortedDescending))[0];
 
-        $matchingMinorVersions = $versions->matching(new CompositeConstraint(
-            CompositeConstraint::OPERATOR_AND,
-            new ComparisonConstraint(ComparisonConstraint::OPERATOR_LTE, $lastVersion),
-            new ComparisonConstraint(
-                ComparisonConstraint::OPERATOR_GTE,
-                Version::fromString($lastVersion->getMajor() . '.' . $lastVersion->getMinor() . '.0')
-            )
-        ));
-
-        $matchingMinorVersions->sort(VersionsCollection::SORT_ASC);
+        $matchingMinorVersions = $versions
+            ->matching(new CompositeConstraint(
+                CompositeConstraint::OPERATOR_AND,
+                new ComparisonConstraint(ComparisonConstraint::OPERATOR_LTE, $lastVersion),
+                new ComparisonConstraint(
+                    ComparisonConstraint::OPERATOR_GTE,
+                    Version::fromString($lastVersion->getMajor() . '.' . $lastVersion->getMinor() . '.0')
+                )
+            ))
+            ->sortedAscending();
 
         /** @var Version[] $matchingMinorVersionsAsArray */
         $matchingMinorVersionsAsArray = array_values(iterator_to_array($matchingMinorVersions));

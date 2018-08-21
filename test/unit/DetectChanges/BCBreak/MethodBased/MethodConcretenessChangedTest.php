@@ -9,6 +9,7 @@ use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased\MethodConcretenessChanged;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
+use Roave\BetterReflection\Reflection\ReflectionProperty;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 use function array_combine;
@@ -42,7 +43,7 @@ final class MethodConcretenessChangedTest extends TestCase
         );
     }
 
-    /** @return (string[]|ReflectionProperty)[][] */
+    /** @return string[][][]|ReflectionProperty[][][] */
     public function propertiesToBeTested() : array
     {
         $astLocator = (new BetterReflection())->astLocator();
