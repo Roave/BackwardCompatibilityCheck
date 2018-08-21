@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Roave\BackwardCompatibility;
 
 use Assert\Assert;
+use Throwable;
 use function sprintf;
 use function strtoupper;
 
@@ -16,9 +17,10 @@ final class Change
     private const ADDED   = 'added';
     private const CHANGED = 'changed';
     private const REMOVED = 'removed';
+    private const SKIPPED = 'skipped';
 
     /** @var string[] */
-    private static $validModificationTypes = [self::ADDED, self::CHANGED, self::REMOVED];
+    private static $validModificationTypes = [self::ADDED, self::CHANGED, self::REMOVED, self::SKIPPED];
 
     /** @var string */
     private $modificationType;
@@ -52,6 +54,12 @@ final class Change
         return new self(self::REMOVED, $description, $isBcBreak);
     }
 
+    public static function skippedDueToFailure(Throwable $failure) : self
+    {
+        // @TODO Note: we may consider importing the full exception for better printing later on
+        return new self(self::SKIPPED, $failure->getMessage(), true);
+    }
+
     public function isAdded() : bool
     {
         return $this->modificationType === self::ADDED;
@@ -65,6 +73,11 @@ final class Change
     public function isChanged() : bool
     {
         return $this->modificationType === self::CHANGED;
+    }
+
+    public function isSkipped() : bool
+    {
+        return $this->modificationType === self::SKIPPED;
     }
 
     public function __toString() : string

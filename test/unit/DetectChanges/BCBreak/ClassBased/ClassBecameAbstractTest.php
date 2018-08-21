@@ -16,6 +16,9 @@ use function array_keys;
 use function array_map;
 use function iterator_to_array;
 
+/**
+ * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\ClassBecameAbstract
+ */
 final class ClassBecameAbstractTest extends TestCase
 {
     /**
