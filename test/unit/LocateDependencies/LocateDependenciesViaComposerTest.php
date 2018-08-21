@@ -9,7 +9,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\LocateDependencies\LocateDependenciesViaComposer;
 use Roave\BackwardCompatibility\SourceLocator\StaticClassMapSourceLocator;
-use Roave\BackwardCompatibility\SourceLocator\StubClassSourceLocator;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\SourceLocator\Ast\Locator;
 use Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
@@ -123,7 +122,7 @@ final class LocateDependenciesViaComposerTest extends TestCase
 
         $locators = $reflectionLocators->getValue($locator);
 
-        self::assertCount(4, $locators);
+        self::assertCount(3, $locators);
         self::assertEquals(
             new StaticClassMapSourceLocator(
                 [
@@ -148,7 +147,6 @@ final class LocateDependenciesViaComposerTest extends TestCase
             $locators[1]
         );
         self::assertInstanceOf(PhpInternalSourceLocator::class, $locators[2]);
-        self::assertInstanceOf(StubClassSourceLocator::class, $locators[3]);
     }
 
     public function testWillLocateDependenciesEvenWithoutAutoloadFiles() : void
@@ -175,7 +173,7 @@ final class LocateDependenciesViaComposerTest extends TestCase
 
         $locators = $reflectionLocators->getValue($locator);
 
-        self::assertCount(4, $locators);
+        self::assertCount(3, $locators);
         self::assertEquals(
             new StaticClassMapSourceLocator(
                 [
@@ -188,7 +186,6 @@ final class LocateDependenciesViaComposerTest extends TestCase
         );
         self::assertEquals(new AggregateSourceLocator(), $locators[1]);
         self::assertInstanceOf(PhpInternalSourceLocator::class, $locators[2]);
-        self::assertInstanceOf(StubClassSourceLocator::class, $locators[3]);
     }
 
     private function realpath(string $path) : string
