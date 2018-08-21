@@ -2,5 +2,7 @@ parameters:
     level: 7
     paths:
         - src
+        - test/unit
 includes:
 	- vendor/phpstan/phpstan-beberlei-assert/extension.neon
+	- vendor/phpstan/phpstan-phpunit/extension.neon
