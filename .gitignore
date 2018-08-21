@@ -3,3 +3,6 @@
 /box.json
 /box.phar
 /dist
+phpstan.neon
+phpunit.xml
+phpcs.xml
