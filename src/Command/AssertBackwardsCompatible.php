@@ -100,6 +100,20 @@ final class AssertBackwardsCompatible extends Command
                 'HEAD'
             )
             ->addOption(
+                'sources-from',
+                null,
+                InputOption::VALUE_REQUIRED,
+                'Path to the sources in --from revision, relative to the repository root',
+                'src'
+            )
+            ->addOption(
+                'sources-to',
+                null,
+                InputOption::VALUE_REQUIRED,
+                'Path to the sources in --to revision, relative to the repository root',
+                'src'
+            )
+            ->addOption(
                 'format',
                 null,
                 InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
@@ -108,7 +122,7 @@ final class AssertBackwardsCompatible extends Command
             ->addArgument(
                 'sources-path',
                 InputArgument::OPTIONAL,
-                'Path to the sources, relative to the repository root',
+                'Path to the sources, relative to the repository root (deprecated: use --sources-from and --sources-to instead)',
                 'src'
             )
             ->addUsage(
@@ -165,23 +179,23 @@ USAGE
         $toPath   = $this->git->checkout($sourceRepo, $toRevision);
 
         try {
-            $fromSources = $fromPath . '/' . $sourcesPath;
-            $toSources   = $toPath . '/' . $sourcesPath;
+            $fromSources = $fromPath . '/' . ($input->getOption('sources-from') ?? $sourcesPath);
+            $toSources   = $toPath . '/' . ($input->getOption('sources-to') ?? $sourcesPath);
 
             Assert::that($fromSources)->directory();
             Assert::that($toSources)->directory();
 
             $changes = $this->compareApi->__invoke(
                 $this->reflectorFactory->__invoke(
-                    $fromPath . '/' . $sourcesPath,
+                    $fromSources,
                     new AggregateSourceLocator() // no dependencies
                 ),
                 $this->reflectorFactory->__invoke(
-                    $fromPath . '/' . $sourcesPath,
+                    $fromSources,
                     $this->locateDependencies->__invoke((string) $fromPath)
                 ),
                 $this->reflectorFactory->__invoke(
-                    $toPath . '/' . $sourcesPath,
+                    $toSources,
                     $this->locateDependencies->__invoke((string) $toPath)
                 )
             );
