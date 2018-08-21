@@ -146,7 +146,11 @@ USAGE
         $stdErr = $output->getErrorOutput();
 
         // @todo fix flaky assumption about the path of the source repo...
-        $sourceRepo = CheckedOutRepository::fromPath(getcwd());
+        $cwd = getcwd();
+
+        Assert::that($cwd)->string();
+
+        $sourceRepo = CheckedOutRepository::fromPath($cwd);
 
         $fromRevision = $input->getOption('from') !== null
             ? $this->parseRevisionFromInput($input, $sourceRepo)
