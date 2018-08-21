@@ -30,15 +30,12 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use function file_exists;
-use function getcwd;
 
 (function () : void {
     (function () : void {
         $autoloaderLocations = [
-            __DIR__ . '/../vendor/autoload.php',
-            __DIR__ . '/../autoload.php',
-            __DIR__ . '/../../autoload.php',
-            getcwd() . '/vendor/autoload.php',
+            __DIR__ . '/../vendor/autoload.php', // Installed by cloning the project and running `composer install`
+            __DIR__ . '/../../../autoload.php',  // Installed via `composer require`
         ];
 
         foreach ($autoloaderLocations as $autoload) {
