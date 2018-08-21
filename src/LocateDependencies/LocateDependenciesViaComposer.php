@@ -122,8 +122,12 @@ final class LocateDependenciesViaComposer implements LocateDependencies
 
         return new AggregateSourceLocator(array_values(array_map(
             function (string $path) : SourceLocator {
+                $realPath = realpath($path);
+
+                Assert::that($realPath)->string();
+
                 return new SingleFileSourceLocator(
-                    realpath($path),
+                    $realPath,
                     $this->astLocator
                 );
             },
@@ -134,6 +138,8 @@ final class LocateDependenciesViaComposer implements LocateDependencies
     private function runInDirectory(callable $callable, string $directoryOfExecution) : void
     {
         $originalDirectory = getcwd();
+
+        Assert::that($originalDirectory)->string();
 
         try {
             chdir($directoryOfExecution);
