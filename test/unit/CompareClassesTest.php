@@ -18,7 +18,7 @@ use Roave\BackwardCompatibility\DetectChanges\BCBreak\TraitBased\TraitBased;
  */
 final class CompareClassesTest extends TestCase
 {
-    /** @var StringReflectorFactory|null */
+    /** @var StringReflectorFactory */
     private static $stringReflectorFactory;
 
     /** @var ClassBased|MockObject */
