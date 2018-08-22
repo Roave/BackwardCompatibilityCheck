@@ -1,0 +1,20 @@
+{
+  "autoload": {
+    "psr-0": {
+      "foo": "foo0"
+    },
+    "psr-4": {
+      "bar": "bar4",
+      "baz": ["baz4_0", "baz4_1", "./baz4_2", "baz4_3/"]
+    },
+    "classmap": [
+      "classmap0",
+      "./classmap1",
+      "./classmap2/file.php"
+    ],
+    "files": [
+      "files/foo.php",
+      "/files/bar.php"
+    ]
+  }
+}
