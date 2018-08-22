@@ -14,12 +14,15 @@ use function array_filter;
 use function array_map;
 use function array_merge;
 use function array_values;
+use function file_get_contents;
 use function is_array;
 use function is_dir;
 use function is_file;
 use function json_decode;
 use function ltrim;
 use function realpath;
+use function strpos;
+use function substr;
 
 final class LocateSourcesViaComposerJson implements LocateSources
 {
@@ -145,7 +148,9 @@ final class LocateSourcesViaComposerJson implements LocateSources
     {
         return array_merge(
             [],
-            ...array_values(array_map([$this, 'stringToArray'], $autoloadDefinition['psr-0'] ?? []))
+            ...array_values(array_map(function ($paths) : array {
+                return $this->stringToArray($paths);
+            }, $autoloadDefinition['psr-0'] ?? []))
         );
     }
 
@@ -166,7 +171,7 @@ final class LocateSourcesViaComposerJson implements LocateSources
     private function prependInstallationPath(string $installationPath) : callable
     {
         return function (string $path) use ($installationPath) : string {
-            if (0 === strpos($path, './')) {
+            if (strpos($path, './') === 0) {
                 return $installationPath . '/' . substr($path, 2);
             }
 

@@ -12,6 +12,7 @@ use Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\DirectoriesSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\SingleFileSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\SourceLocator;
+use function realpath;
 
 /**
  * @covers \Roave\BackwardCompatibility\LocateSources\LocateSourcesViaComposerJson
@@ -24,7 +25,7 @@ final class LocateSourcesViaComposerJsonTest extends TestCase
     /** @var LocateSourcesViaComposerJson */
     private $locateSources;
 
-    protected function setUp()
+    protected function setUp() : void
     {
         parent::setUp();
 
@@ -39,15 +40,6 @@ final class LocateSourcesViaComposerJsonTest extends TestCase
         self::assertEquals($expectedSourceLocator, $this->locateSources->__invoke($installationPath));
     }
 
-    /** @param string[] $directories */
-    private function assertDirectoriesInAggregateSourceLocatorMatch(AggregateSourceLocator $sourceLocator, array $directories) : void
-    {
-        $internalLocators = $this->getObjectAttribute($sourceLocator, 'sourceLocators');
-
-        self::assertInternalType('array', $internalLocators);
-        self::assertEquals(new DirectoriesSourceLocator($directories, $this->astLocator()), $internalLocators[0]);
-    }
-
     /** @return string[][]|SourceLocator[][] */
     public function locatedSourcesExamples() : array
     {
@@ -56,7 +48,7 @@ final class LocateSourcesViaComposerJsonTest extends TestCase
                 __DIR__ . '/../../asset/located-sources/empty',
                 new AggregateSourceLocator([
                     new DirectoriesSourceLocator([], $this->astLocator()),
-                ])
+                ]),
             ],
             'composer definition with everything' => [
                 __DIR__ . '/../../asset/located-sources/composer-definition-with-everything',
@@ -86,7 +78,7 @@ final class LocateSourcesViaComposerJsonTest extends TestCase
                         $this->realPath(__DIR__ . '/../../asset/located-sources/composer-definition-with-everything/files/bar.php'),
                         $this->astLocator()
                     ),
-                ])
+                ]),
             ],
         ];
     }
