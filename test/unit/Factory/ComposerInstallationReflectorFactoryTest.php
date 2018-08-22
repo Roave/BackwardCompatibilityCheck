@@ -9,6 +9,7 @@ use Roave\BackwardCompatibility\Factory\ComposerInstallationReflectorFactory;
 use Roave\BackwardCompatibility\LocateSources\LocateSources;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\SourceLocator;
+use function uniqid;
 
 /**
  * @covers \Roave\BackwardCompatibility\Factory\ComposerInstallationReflectorFactory

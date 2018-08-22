@@ -148,9 +148,7 @@ final class LocateSourcesViaComposerJson implements LocateSources
     {
         return array_merge(
             [],
-            ...array_values(array_map(function ($paths) : array {
-                return $this->stringToArray($paths);
-            }, $autoloadDefinition['psr-0'] ?? []))
+            ...array_values(array_map([$this, 'stringToArray'], $autoloadDefinition['psr-0'] ?? []))
         );
     }
 

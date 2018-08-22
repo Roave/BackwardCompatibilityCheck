@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace RoaveTest\BackwardCompatibility\Command;
 
 use Assert\AssertionFailedException;
-use Assert\InvalidArgumentException;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
@@ -13,7 +12,6 @@ use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Command\AssertBackwardsCompatible;
 use Roave\BackwardCompatibility\CompareApi;
 use Roave\BackwardCompatibility\Factory\ComposerInstallationReflectorFactory;
-use Roave\BackwardCompatibility\Factory\DirectoryReflectorFactory;
 use Roave\BackwardCompatibility\Git\CheckedOutRepository;
 use Roave\BackwardCompatibility\Git\GetVersionCollection;
 use Roave\BackwardCompatibility\Git\ParseRevision;
