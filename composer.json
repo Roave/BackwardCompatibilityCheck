@@ -3,6 +3,7 @@
     "description": "Tool to compare two revisions of a public API to check for BC breaks",
     "require": {
         "php": "^7.2",
+        "ext-json": "*",
         "beberlei/assert": "^2.9",
         "composer/composer": "^1.6",
         "nikolaposa/version": "^3.1.0",

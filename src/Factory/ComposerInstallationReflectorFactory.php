@@ -4,30 +4,25 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\Factory;
 
+use Roave\BackwardCompatibility\LocateSources\LocateSources;
 use Roave\BetterReflection\Reflector\ClassReflector;
-use Roave\BetterReflection\SourceLocator\Ast\Locator;
 use Roave\BetterReflection\SourceLocator\Exception\InvalidDirectory;
 use Roave\BetterReflection\SourceLocator\Exception\InvalidFileInfo;
 use Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
-use Roave\BetterReflection\SourceLocator\Type\DirectoriesSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\MemoizingSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\SourceLocator;
 
 /**
  * @codeCoverageIgnore
- *
- * @deprecated this class builds a simplistic reflector with a DirectoriesSourceLocator around a given
- *             path: that is no longer the preferred approach.
- *             Please use {@see \Roave\BackwardCompatibilityCheck\Factory\ComposerInstallationReflectorFactory} instead.
  */
-final class DirectoryReflectorFactory
+final class ComposerInstallationReflectorFactory
 {
-    /** @var Locator */
-    private $astLocator;
+    /** @var LocateSources */
+    private $locateSources;
 
-    public function __construct(Locator $astLocator)
+    public function __construct(LocateSources $locateSources)
     {
-        $this->astLocator = $astLocator;
+        $this->locateSources = $locateSources;
     }
 
     /**
@@ -35,12 +30,12 @@ final class DirectoryReflectorFactory
      * @throws InvalidDirectory
      */
     public function __invoke(
-        string $directory,
+        string $installationDirectory,
         SourceLocator $dependencies
     ) : ClassReflector {
         return new ClassReflector(
             new MemoizingSourceLocator(new AggregateSourceLocator([
-                new DirectoriesSourceLocator([$directory], $this->astLocator),
+                $this->locateSources->__invoke($installationDirectory),
                 $dependencies,
             ]))
         );

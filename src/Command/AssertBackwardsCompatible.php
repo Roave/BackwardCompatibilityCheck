@@ -7,7 +7,7 @@ namespace Roave\BackwardCompatibility\Command;
 use Assert\Assert;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\CompareApi;
-use Roave\BackwardCompatibility\Factory\DirectoryReflectorFactory;
+use Roave\BackwardCompatibility\Factory\ComposerInstallationReflectorFactory;
 use Roave\BackwardCompatibility\Formatter\MarkdownPipedToSymfonyConsoleFormatter;
 use Roave\BackwardCompatibility\Formatter\SymfonyConsoleTextFormatter;
 use Roave\BackwardCompatibility\Git\CheckedOutRepository;
@@ -22,7 +22,6 @@ use Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Exception\LogicException;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\ConsoleOutputInterface;
@@ -37,8 +36,8 @@ final class AssertBackwardsCompatible extends Command
     /** @var PerformCheckoutOfRevision */
     private $git;
 
-    /** @var DirectoryReflectorFactory */
-    private $reflectorFactory;
+    /** @var ComposerInstallationReflectorFactory */
+    private $makeComposerInstallationReflector;
 
     /** @var ParseRevision */
     private $parseRevision;
@@ -60,7 +59,7 @@ final class AssertBackwardsCompatible extends Command
      */
     public function __construct(
         PerformCheckoutOfRevision $git,
-        DirectoryReflectorFactory $reflectorFactory,
+        ComposerInstallationReflectorFactory $makeComposerInstallationReflector,
         ParseRevision $parseRevision,
         GetVersionCollection $getVersions,
         PickVersionFromVersionCollection $pickFromVersion,
@@ -69,13 +68,13 @@ final class AssertBackwardsCompatible extends Command
     ) {
         parent::__construct();
 
-        $this->git                = $git;
-        $this->reflectorFactory   = $reflectorFactory;
-        $this->parseRevision      = $parseRevision;
-        $this->getVersions        = $getVersions;
-        $this->pickFromVersion    = $pickFromVersion;
-        $this->locateDependencies = $locateDependencies;
-        $this->compareApi         = $compareApi;
+        $this->git                               = $git;
+        $this->makeComposerInstallationReflector = $makeComposerInstallationReflector;
+        $this->parseRevision                     = $parseRevision;
+        $this->getVersions                       = $getVersions;
+        $this->pickFromVersion                   = $pickFromVersion;
+        $this->locateDependencies                = $locateDependencies;
+        $this->compareApi                        = $compareApi;
     }
 
     /**
@@ -105,12 +104,6 @@ final class AssertBackwardsCompatible extends Command
                 InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
                 'Currently only supports "markdown"'
             )
-            ->addArgument(
-                'sources-path',
-                InputArgument::OPTIONAL,
-                'Path to the sources, relative to the repository root',
-                'src'
-            )
             ->addUsage(
                 <<<'USAGE'
 
@@ -126,7 +119,7 @@ via `--to` ("HEAD" by default).
 
 It will then install all required dependencies in both copies
 and compare the APIs, looking for breaking changes in the
-given `<sources-path>` ("src" by default).
+defined "autoload" paths in your `composer.json` definition.
 
 Once completed, it will print out the results to `STDERR`
 and terminate with `3` if breaking changes were detected.
@@ -156,8 +149,7 @@ USAGE
             ? $this->parseRevisionFromInput($input, $sourceRepo)
             : $this->determineFromRevisionFromRepository($sourceRepo, $stdErr);
 
-        $toRevision  = $this->parseRevision->fromStringForRepository($input->getOption('to'), $sourceRepo);
-        $sourcesPath = $input->getArgument('sources-path');
+        $toRevision = $this->parseRevision->fromStringForRepository($input->getOption('to'), $sourceRepo);
 
         $stdErr->writeln(sprintf('Comparing from %s to %s...', (string) $fromRevision, (string) $toRevision));
 
@@ -165,23 +157,17 @@ USAGE
         $toPath   = $this->git->checkout($sourceRepo, $toRevision);
 
         try {
-            $fromSources = $fromPath . '/' . $sourcesPath;
-            $toSources   = $toPath . '/' . $sourcesPath;
-
-            Assert::that($fromSources)->directory();
-            Assert::that($toSources)->directory();
-
             $changes = $this->compareApi->__invoke(
-                $this->reflectorFactory->__invoke(
-                    $fromPath . '/' . $sourcesPath,
+                $this->makeComposerInstallationReflector->__invoke(
+                    $fromPath->__toString(),
                     new AggregateSourceLocator() // no dependencies
                 ),
-                $this->reflectorFactory->__invoke(
-                    $fromPath . '/' . $sourcesPath,
+                $this->makeComposerInstallationReflector->__invoke(
+                    $fromPath->__toString(),
                     $this->locateDependencies->__invoke((string) $fromPath)
                 ),
-                $this->reflectorFactory->__invoke(
-                    $toPath . '/' . $sourcesPath,
+                $this->makeComposerInstallationReflector->__invoke(
+                    $toPath->__toString(),
                     $this->locateDependencies->__invoke((string) $toPath)
                 )
             );

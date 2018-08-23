@@ -17,6 +17,7 @@
     <file>./test/unit</file>
 
     <rule ref="Doctrine">
+        <exclude name="SlevomatCodingStandard.Classes.UnusedPrivateElements"/>
         <exclude-pattern>src/DetectChanges/BCBreak/InterfaceBased/InterfaceBased.php</exclude-pattern>
         <exclude-pattern>test/unit/Formatter/ReflectionFunctionAbstractNameTest.php</exclude-pattern>
         <exclude-pattern>test/unit/DetectChanges/BCBreak/FunctionBased/ParameterByReferenceChangedTest.php</exclude-pattern>

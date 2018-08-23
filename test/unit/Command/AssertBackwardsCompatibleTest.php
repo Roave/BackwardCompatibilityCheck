@@ -5,14 +5,13 @@ declare(strict_types=1);
 namespace RoaveTest\BackwardCompatibility\Command;
 
 use Assert\AssertionFailedException;
-use Assert\InvalidArgumentException;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Command\AssertBackwardsCompatible;
 use Roave\BackwardCompatibility\CompareApi;
-use Roave\BackwardCompatibility\Factory\DirectoryReflectorFactory;
+use Roave\BackwardCompatibility\Factory\ComposerInstallationReflectorFactory;
 use Roave\BackwardCompatibility\Git\CheckedOutRepository;
 use Roave\BackwardCompatibility\Git\GetVersionCollection;
 use Roave\BackwardCompatibility\Git\ParseRevision;
@@ -20,6 +19,7 @@ use Roave\BackwardCompatibility\Git\PerformCheckoutOfRevision;
 use Roave\BackwardCompatibility\Git\PickVersionFromVersionCollection;
 use Roave\BackwardCompatibility\Git\Revision;
 use Roave\BackwardCompatibility\LocateDependencies\LocateDependencies;
+use Roave\BackwardCompatibility\LocateSources\LocateSourcesViaComposerJson;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
 use Symfony\Component\Console\Input\InputInterface;
@@ -95,7 +95,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
         $this->compareApi         = $this->createMock(CompareApi::class);
         $this->compare            = new AssertBackwardsCompatible(
             $this->performCheckout,
-            new DirectoryReflectorFactory((new BetterReflection())->astLocator()),
+            new ComposerInstallationReflectorFactory(new LocateSourcesViaComposerJson((new BetterReflection())->astLocator())),
             $this->parseRevision,
             $this->getVersions,
             $this->pickVersion,
@@ -381,48 +381,5 @@ final class AssertBackwardsCompatibleTest extends TestCase
         $this->compareApi->expects(self::once())->method('__invoke')->willReturn(Changes::empty());
 
         self::assertSame(0, $this->compare->execute($this->input, $this->output));
-    }
-
-    public function testExecuteFailsIfCheckedOutRepositoryDoesNotExist() : void
-    {
-        $fromSha = sha1('fromRevision', false);
-        $toSha   = sha1('toRevision', false);
-
-        $this->input->expects(self::any())->method('getOption')->willReturnMap([
-            ['from', $fromSha],
-            ['to', $toSha],
-        ]);
-        $this->input->expects(self::any())->method('getArgument')->willReturnMap([
-            ['sources-path', uniqid('src', true)],
-        ]);
-
-        $this->performCheckout->expects(self::at(0))
-            ->method('checkout')
-            ->with($this->sourceRepository, $fromSha)
-            ->willReturn($this->sourceRepository);
-        $this->performCheckout->expects(self::at(1))
-            ->method('checkout')
-            ->with($this->sourceRepository, $toSha)
-            ->willReturn($this->sourceRepository);
-        $this->performCheckout->expects(self::at(2))
-            ->method('remove')
-            ->with($this->sourceRepository);
-        $this->performCheckout->expects(self::at(3))
-            ->method('remove')
-            ->with($this->sourceRepository);
-
-        $this->parseRevision->expects(self::at(0))
-            ->method('fromStringForRepository')
-            ->with($fromSha)
-            ->willReturn(Revision::fromSha1($fromSha));
-        $this->parseRevision->expects(self::at(1))
-            ->method('fromStringForRepository')
-            ->with($toSha)
-            ->willReturn(Revision::fromSha1($toSha));
-
-        $this->compareApi->expects(self::never())->method('__invoke');
-
-        $this->expectException(InvalidArgumentException::class);
-        $this->compare->execute($this->input, $this->output);
     }
 }

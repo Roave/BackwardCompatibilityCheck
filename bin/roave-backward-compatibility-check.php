@@ -18,12 +18,13 @@ use Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\TraitBased;
 use Roave\BackwardCompatibility\DetectChanges\Variance\TypeIsContravariant;
 use Roave\BackwardCompatibility\DetectChanges\Variance\TypeIsCovariant;
-use Roave\BackwardCompatibility\Factory\DirectoryReflectorFactory;
+use Roave\BackwardCompatibility\Factory\ComposerInstallationReflectorFactory;
 use Roave\BackwardCompatibility\Git\GetVersionCollectionFromGitRepository;
 use Roave\BackwardCompatibility\Git\GitCheckoutRevisionToTemporaryPath;
 use Roave\BackwardCompatibility\Git\GitParseRevision;
 use Roave\BackwardCompatibility\Git\PickLastMinorVersionFromCollection;
 use Roave\BackwardCompatibility\LocateDependencies\LocateDependenciesViaComposer;
+use Roave\BackwardCompatibility\LocateSources\LocateSourcesViaComposerJson;
 use Roave\BetterReflection\BetterReflection;
 use RuntimeException;
 use Symfony\Component\Console\Application;
@@ -59,7 +60,7 @@ use function file_exists;
 
     $apiCompareCommand = new Command\AssertBackwardsCompatible(
         new GitCheckoutRevisionToTemporaryPath(),
-        new DirectoryReflectorFactory($astLocator),
+        new ComposerInstallationReflectorFactory(new LocateSourcesViaComposerJson($astLocator)),
         new GitParseRevision(),
         new GetVersionCollectionFromGitRepository(),
         new PickLastMinorVersionFromCollection(),
