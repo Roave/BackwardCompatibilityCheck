@@ -30,8 +30,8 @@ final class GitCheckoutRevisionToTemporaryPath implements PerformCheckoutOfRevis
     {
         $checkoutDirectory = $this->generateTemporaryPathFor($revision);
 
-        (new Process(['git', 'clone', (string) $sourceRepository, $checkoutDirectory]))->mustRun();
-        (new Process(['git', 'checkout', (string) $revision]))->setWorkingDirectory($checkoutDirectory)->mustRun();
+        (new Process(['git', 'clone', $sourceRepository, $checkoutDirectory]))->mustRun();
+        (new Process(['git', 'checkout', $revision]))->setWorkingDirectory($checkoutDirectory)->mustRun();
 
         return CheckedOutRepository::fromPath($checkoutDirectory);
     }
