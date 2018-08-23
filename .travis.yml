@@ -51,7 +51,7 @@ jobs:
 
     - stage: Mutation Tests
       php: 7.2
-      script: vendor/bin/infection
+      script: vendor/bin/infection --min-msi=100 --min-covered-msi=100
 
     - stage: Verify BC Breaks
       php: 7.2
