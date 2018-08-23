@@ -56,7 +56,7 @@ final class GitCheckoutRevisionToTemporaryPath implements PerformCheckoutOfRevis
         if (file_exists($checkoutDirectory)) {
             throw new RuntimeException(sprintf(
                 'Tried to check out revision "%s" to directory "%s" which already exists',
-                (string) $revision,
+                $revision->__toString(),
                 $checkoutDirectory
             ));
         }
