@@ -391,11 +391,13 @@ final class AssertBackwardsCompatibleTest extends TestCase
                 Version::fromString('1.0.0'),
                 Version::fromString('1.0.1'),
                 Version::fromString('1.0.2')
-            )],
+            ),
+            ],
             [new VersionsCollection(
                 Version::fromString('1.0.0'),
                 Version::fromString('1.0.1')
-            )],
+            ),
+            ],
             [new VersionsCollection(Version::fromString('1.0.0'))],
         ];
     }

@@ -8,7 +8,6 @@ use RuntimeException;
 use Symfony\Component\Process\Exception\RuntimeException as ProcessRuntimeException;
 use Symfony\Component\Process\Process;
 use function file_exists;
-use function is_dir;
 use function sprintf;
 use function sys_get_temp_dir;
 
