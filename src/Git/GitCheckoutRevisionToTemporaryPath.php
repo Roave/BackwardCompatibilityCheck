@@ -42,7 +42,7 @@ final class GitCheckoutRevisionToTemporaryPath implements PerformCheckoutOfRevis
      */
     public function remove(CheckedOutRepository $checkedOutRepository) : void
     {
-        (new Process(['rm', '-rf', (string) $checkedOutRepository]))->mustRun();
+        (new Process(['rm', '-rf', $checkedOutRepository]))->mustRun();
     }
 
     /**
