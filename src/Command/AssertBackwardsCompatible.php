@@ -206,10 +206,11 @@ USAGE
      */
     private function parseRevisionFromInput(InputInterface $input, CheckedOutRepository $repository) : Revision
     {
-        return $this->parseRevision->fromStringForRepository(
-            (string) $input->getOption('from'),
-            $repository
-        );
+        $from = $input->getOption('from');
+
+        Assert::that($from)->string();
+
+        return $this->parseRevision->fromStringForRepository($from, $repository);
     }
 
     private function determineFromRevisionFromRepository(
