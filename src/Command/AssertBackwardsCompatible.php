@@ -164,11 +164,11 @@ USAGE
                 ),
                 $this->makeComposerInstallationReflector->__invoke(
                     $fromPath->__toString(),
-                    $this->locateDependencies->__invoke((string) $fromPath)
+                    $this->locateDependencies->__invoke($fromPath->__toString())
                 ),
                 $this->makeComposerInstallationReflector->__invoke(
                     $toPath->__toString(),
-                    $this->locateDependencies->__invoke((string) $toPath)
+                    $this->locateDependencies->__invoke($toPath->__toString())
                 )
             );
 
@@ -219,6 +219,7 @@ USAGE
     ) : Revision {
         $versions = $this->getVersions->fromRepository($repository);
 
+        // @TODO add a test around the 0 limit
         Assert::that($versions->count())
             ->greaterThan(0, 'Could not detect any released versions for the given repository');
 
