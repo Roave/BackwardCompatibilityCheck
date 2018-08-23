@@ -11,7 +11,6 @@ use function file_exists;
 use function is_dir;
 use function sprintf;
 use function sys_get_temp_dir;
-use function uniqid;
 
 final class GitCheckoutRevisionToTemporaryPath implements PerformCheckoutOfRevision
 {
@@ -20,9 +19,7 @@ final class GitCheckoutRevisionToTemporaryPath implements PerformCheckoutOfRevis
 
     public function __construct(?callable $uniquenessFunction = null)
     {
-        $this->uniquenessFunction = $uniquenessFunction ?? function (string $nonUniqueThing) : string {
-                return uniqid($nonUniqueThing, true);
-        };
+        $this->uniquenessFunction = $uniquenessFunction ?? 'uniqid';
     }
 
     /**
