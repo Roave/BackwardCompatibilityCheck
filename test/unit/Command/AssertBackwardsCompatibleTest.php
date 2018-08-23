@@ -317,11 +317,11 @@ final class AssertBackwardsCompatibleTest extends TestCase
         $this->compare->execute($this->input, $this->output);
     }
 
-    public function testExecuteWithDefaultRevisionsNotProvided() : void
+    /** @dataProvider validVersionsCollections */
+    public function testExecuteWithDefaultRevisionsNotProvided(VersionsCollection $versions) : void
     {
         $fromSha       = sha1('fromRevision', false);
         $toSha         = sha1('toRevision', false);
-        $versions      = new VersionsCollection(Version::fromString('1.0.0'), Version::fromString('1.0.1'));
         $pickedVersion = Version::fromString('1.0.0');
 
         $this->input->expects(self::any())->method('getOption')->willReturnMap([
@@ -381,5 +381,24 @@ final class AssertBackwardsCompatibleTest extends TestCase
         $this->compareApi->expects(self::once())->method('__invoke')->willReturn(Changes::empty());
 
         self::assertSame(0, $this->compare->execute($this->input, $this->output));
+    }
+
+    /** @return VersionsCollection[][] */
+    public function validVersionsCollections() : array
+    {
+        return [
+            [new VersionsCollection(
+                Version::fromString('1.0.0'),
+                Version::fromString('1.0.1'),
+                Version::fromString('1.0.2')
+            ),
+            ],
+            [new VersionsCollection(
+                Version::fromString('1.0.0'),
+                Version::fromString('1.0.1')
+            ),
+            ],
+            [new VersionsCollection(Version::fromString('1.0.0'))],
+        ];
     }
 }

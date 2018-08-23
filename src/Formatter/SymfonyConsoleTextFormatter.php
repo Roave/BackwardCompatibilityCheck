@@ -22,7 +22,7 @@ final class SymfonyConsoleTextFormatter implements OutputFormatter
     {
         /** @var Change $change */
         foreach ($changes as $change) {
-            $this->output->writeln((string) $change);
+            $this->output->writeln($change->__toString());
         }
     }
 }

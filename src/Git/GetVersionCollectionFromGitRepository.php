@@ -26,7 +26,7 @@ final class GetVersionCollectionFromGitRepository implements GetVersionCollectio
     public function fromRepository(CheckedOutRepository $checkedOutRepository) : VersionsCollection
     {
         $output = (new Process(['git', 'tag', '-l']))
-            ->setWorkingDirectory((string) $checkedOutRepository)
+            ->setWorkingDirectory($checkedOutRepository->__toString())
             ->mustRun()
             ->getOutput();
 

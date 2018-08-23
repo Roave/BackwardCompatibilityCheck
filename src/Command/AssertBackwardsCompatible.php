@@ -151,7 +151,7 @@ USAGE
 
         $toRevision = $this->parseRevision->fromStringForRepository($input->getOption('to'), $sourceRepo);
 
-        $stdErr->writeln(sprintf('Comparing from %s to %s...', (string) $fromRevision, (string) $toRevision));
+        $stdErr->writeln(sprintf('Comparing from %s to %s...', $fromRevision, $toRevision));
 
         $fromPath = $this->git->checkout($sourceRepo, $fromRevision);
         $toPath   = $this->git->checkout($sourceRepo, $toRevision);
@@ -164,11 +164,11 @@ USAGE
                 ),
                 $this->makeComposerInstallationReflector->__invoke(
                     $fromPath->__toString(),
-                    $this->locateDependencies->__invoke((string) $fromPath)
+                    $this->locateDependencies->__invoke($fromPath->__toString())
                 ),
                 $this->makeComposerInstallationReflector->__invoke(
                     $toPath->__toString(),
-                    $this->locateDependencies->__invoke((string) $toPath)
+                    $this->locateDependencies->__invoke($toPath->__toString())
                 )
             );
 
@@ -206,10 +206,11 @@ USAGE
      */
     private function parseRevisionFromInput(InputInterface $input, CheckedOutRepository $repository) : Revision
     {
-        return $this->parseRevision->fromStringForRepository(
-            (string) $input->getOption('from'),
-            $repository
-        );
+        $from = $input->getOption('from');
+
+        Assert::that($from)->string();
+
+        return $this->parseRevision->fromStringForRepository($from, $repository);
     }
 
     private function determineFromRevisionFromRepository(
@@ -218,6 +219,7 @@ USAGE
     ) : Revision {
         $versions = $this->getVersions->fromRepository($repository);
 
+        // @TODO add a test around the 0 limit
         Assert::that($versions->count())
             ->greaterThan(0, 'Could not detect any released versions for the given repository');
 

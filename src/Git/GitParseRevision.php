@@ -17,7 +17,7 @@ final class GitParseRevision implements ParseRevision
     {
         return Revision::fromSha1(
             (new Process(['git', 'rev-parse', $something]))
-                ->setWorkingDirectory((string) $repository)
+                ->setWorkingDirectory($repository->__toString())
                 ->mustRun()
                 ->getOutput()
         );

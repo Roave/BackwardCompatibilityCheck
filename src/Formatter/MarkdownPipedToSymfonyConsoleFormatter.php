@@ -57,7 +57,7 @@ final class MarkdownPipedToSymfonyConsoleFormatter implements OutputFormatter
     {
         return array_map(
             function (Change $change) : string {
-                return ' - ' . str_replace(['ADDED: ', 'CHANGED: ', 'REMOVED: '], '', trim((string) $change)) . "\n";
+                return ' - ' . str_replace(['ADDED: ', 'CHANGED: ', 'REMOVED: '], '', trim($change->__toString())) . "\n";
             },
             array_filter($changes, $filterFunction)
         );

@@ -8,10 +8,8 @@ use RuntimeException;
 use Symfony\Component\Process\Exception\RuntimeException as ProcessRuntimeException;
 use Symfony\Component\Process\Process;
 use function file_exists;
-use function is_dir;
 use function sprintf;
 use function sys_get_temp_dir;
-use function uniqid;
 
 final class GitCheckoutRevisionToTemporaryPath implements PerformCheckoutOfRevision
 {
@@ -20,9 +18,7 @@ final class GitCheckoutRevisionToTemporaryPath implements PerformCheckoutOfRevis
 
     public function __construct(?callable $uniquenessFunction = null)
     {
-        $this->uniquenessFunction = $uniquenessFunction ?? function (string $nonUniqueThing) : string {
-                return uniqid($nonUniqueThing, true);
-        };
+        $this->uniquenessFunction = $uniquenessFunction ?? 'uniqid';
     }
 
     /**
@@ -33,8 +29,8 @@ final class GitCheckoutRevisionToTemporaryPath implements PerformCheckoutOfRevis
     {
         $checkoutDirectory = $this->generateTemporaryPathFor($revision);
 
-        (new Process(['git', 'clone', (string) $sourceRepository, $checkoutDirectory]))->mustRun();
-        (new Process(['git', 'checkout', (string) $revision]))->setWorkingDirectory($checkoutDirectory)->mustRun();
+        (new Process(['git', 'clone', $sourceRepository, $checkoutDirectory]))->mustRun();
+        (new Process(['git', 'checkout', $revision]))->setWorkingDirectory($checkoutDirectory)->mustRun();
 
         return CheckedOutRepository::fromPath($checkoutDirectory);
     }
@@ -45,7 +41,7 @@ final class GitCheckoutRevisionToTemporaryPath implements PerformCheckoutOfRevis
      */
     public function remove(CheckedOutRepository $checkedOutRepository) : void
     {
-        (new Process(['rm', '-rf', (string) $checkedOutRepository]))->mustRun();
+        (new Process(['rm', '-rf', $checkedOutRepository]))->mustRun();
     }
 
     /**
@@ -54,12 +50,12 @@ final class GitCheckoutRevisionToTemporaryPath implements PerformCheckoutOfRevis
     private function generateTemporaryPathFor(Revision $revision) : string
     {
         $uniquePathGenerator = $this->uniquenessFunction;
-        $checkoutDirectory   = sys_get_temp_dir() . '/api-compare-' . $uniquePathGenerator((string) $revision . '_');
+        $checkoutDirectory   = sys_get_temp_dir() . '/api-compare-' . $uniquePathGenerator($revision . '_');
 
-        if (file_exists($checkoutDirectory) || is_dir($checkoutDirectory)) {
+        if (file_exists($checkoutDirectory)) {
             throw new RuntimeException(sprintf(
                 'Tried to check out revision "%s" to directory "%s" which already exists',
-                (string) $revision,
+                $revision->__toString(),
                 $checkoutDirectory
             ));
         }
