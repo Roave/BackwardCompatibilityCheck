@@ -31,8 +31,8 @@ final class PropertyChanged implements ClassBased
     }
 
     /**
-     * @param array<string, ReflectionProperty> $from
-     * @param array<string, ReflectionProperty> $to
+     * @param ReflectionProperty[] $from
+     * @param ReflectionProperty[] $to
      *
      * @return iterable|Change[]
      */

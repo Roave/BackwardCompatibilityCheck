@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\TraitBased;
 
+use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 
@@ -19,10 +20,14 @@ final class MultipleChecksOnATrait implements TraitBased
 
     public function __invoke(ReflectionClass $fromTrait, ReflectionClass $toTrait) : Changes
     {
-        return Changes::fromIterator((function () use ($fromTrait, $toTrait) : iterable {
-            foreach ($this->checks as $check) {
-                yield from $check->__invoke($fromTrait, $toTrait);
-            }
-        })());
+        return Changes::fromIterator($this->multipleChecks($fromTrait, $toTrait));
+    }
+
+    /** @return iterable|Change[] */
+    private function multipleChecks(ReflectionClass $fromTrait, ReflectionClass $toTrait) : iterable
+    {
+        foreach ($this->checks as $check) {
+            yield from $check->__invoke($fromTrait, $toTrait);
+        }
     }
 }

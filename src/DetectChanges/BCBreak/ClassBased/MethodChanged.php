@@ -31,8 +31,8 @@ final class MethodChanged implements ClassBased
     }
 
     /**
-     * @param array<string, ReflectionMethod> $from
-     * @param array<string, ReflectionMethod> $to
+     * @param ReflectionMethod[] $from
+     * @param ReflectionMethod[] $to
      *
      * @return iterable|Change[]
      */

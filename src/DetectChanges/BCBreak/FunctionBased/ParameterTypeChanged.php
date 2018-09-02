@@ -32,17 +32,15 @@ final class ParameterTypeChanged implements FunctionBased
 
     public function __invoke(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction) : Changes
     {
-        /** @var ReflectionParameter[] $fromParameters */
-        $fromParameters = array_values($fromFunction->getParameters());
-        /** @var ReflectionParameter[] $toParameters */
-        $toParameters = array_values($toFunction->getParameters());
-
-        return Changes::fromIterator($this->checkSymbols($fromParameters, $toParameters));
+        return Changes::fromIterator($this->checkSymbols(
+            array_values($fromFunction->getParameters()),
+            array_values($toFunction->getParameters())
+        ));
     }
 
     /**
-     * @param array<int, ReflectionParameter> $from
-     * @param array<int, ReflectionParameter> $to
+     * @param ReflectionParameter[] $from
+     * @param ReflectionParameter[] $to
      *
      * @return iterable|Change[]
      */
@@ -53,6 +51,9 @@ final class ParameterTypeChanged implements FunctionBased
         }
     }
 
+    /**
+     * @return iterable|Change[]
+     */
     private function compareParameter(ReflectionParameter $fromParameter, ReflectionParameter $toParameter) : iterable
     {
         $fromType = $this->typeToString($fromParameter->getType());

@@ -10,6 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use function array_filter;
 use function array_map;
 use function implode;
+use function iterator_to_array;
 use function str_replace;
 use function trim;
 

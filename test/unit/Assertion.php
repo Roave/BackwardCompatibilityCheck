@@ -8,6 +8,7 @@ use Generator;
 use PHPUnit\Framework\Assert;
 use ReflectionProperty;
 use Roave\BackwardCompatibility\Changes;
+use function count;
 
 abstract class Assertion
 {
@@ -33,7 +34,8 @@ abstract class Assertion
         Assert::assertEquals($expected, $actual, $message);
     }
 
-    private static function reflectionGenerator() : ReflectionProperty {
+    private static function reflectionGenerator() : ReflectionProperty
+    {
         if (self::$reflectionGenerator) {
             return self::$reflectionGenerator;
         }

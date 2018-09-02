@@ -8,9 +8,9 @@ use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassConstantBased\ClassConstantBased;
 use Roave\BetterReflection\Reflection\ReflectionClass;
+use Roave\BetterReflection\Reflection\ReflectionClassConstant;
 use function array_intersect_key;
 use function array_keys;
-use Roave\BetterReflection\Reflection\ReflectionClassConstant;
 
 final class ConstantChanged implements ClassBased
 {
@@ -31,8 +31,8 @@ final class ConstantChanged implements ClassBased
     }
 
     /**
-     * @param array<string, ReflectionClassConstant> $from
-     * @param array<string, ReflectionClassConstant> $to
+     * @param ReflectionClassConstant[] $from
+     * @param ReflectionClassConstant[] $to
      *
      * @return iterable|Change[]
      */
