@@ -38,6 +38,21 @@ final class Changes implements IteratorAggregate, Countable
     }
 
     /** @param Change[] $changes */
+    public static function fromIterator(iterable $changes) : self
+    {
+        $instance = new self();
+
+        $instance->changes   = [];
+        $instance->generator = (function () use ($changes) : Generator {
+            foreach ($changes as $change) {
+                yield $change;
+            }
+        })();
+
+        return $instance;
+    }
+
+    /** @param Change[] $changes */
     public function mergeWithIterator(iterable $changes) : self
     {
         $instance = new self();
