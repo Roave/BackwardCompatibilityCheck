@@ -37,7 +37,7 @@ final class Changes implements IteratorAggregate, Countable
         return $empty;
     }
 
-    /** @param Change[] $changes */
+    /** @param iterable|Change[] $changes */
     public static function fromIterator(iterable $changes) : self
     {
         $instance = new self();
@@ -52,7 +52,7 @@ final class Changes implements IteratorAggregate, Countable
         return $instance;
     }
 
-    /** @param Change[] $changes */
+    /** @param iterable|Change[] $changes */
     public function mergeWithIterator(iterable $changes) : self
     {
         $instance = new self();
@@ -82,13 +82,13 @@ final class Changes implements IteratorAggregate, Countable
 
     public function mergeWith(self $other) : self
     {
-        return $this->mergeWithIterator($other);
+        return $this->mergeWithIterator($other->getIterator());
     }
 
     /**
      * {@inheritDoc}
      *
-     * @return ArrayIterator|Change[]
+     * @return iterable|Change[]
      */
     public function getIterator() : iterable
     {

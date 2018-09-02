@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased;
 
+use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\PropertyBased;
 use Roave\BetterReflection\Reflection\ReflectionClass;
+use Roave\BetterReflection\Reflection\ReflectionProperty;
 use function array_intersect_key;
 use function array_keys;
 
@@ -22,14 +24,22 @@ final class PropertyChanged implements ClassBased
 
     public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
     {
-        $propertiesFrom   = $fromClass->getProperties();
-        $propertiesTo     = $toClass->getProperties();
-        $commonProperties = array_keys(array_intersect_key($propertiesFrom, $propertiesTo));
+        return Changes::fromIterator($this->checkSymbols(
+            $fromClass->getProperties(),
+            $toClass->getProperties()
+        ));
+    }
 
-        return Changes::fromIterator((function () use ($propertiesFrom, $propertiesTo, $commonProperties) {
-            foreach ($commonProperties as $propertyName) {
-                yield from $this->checkProperty->__invoke($propertiesFrom[$propertyName], $propertiesTo[$propertyName]);
-            }
-        })());
+    /**
+     * @param array<string, ReflectionProperty> $from
+     * @param array<string, ReflectionProperty> $to
+     *
+     * @return iterable|Change[]
+     */
+    private function checkSymbols(array $from, array $to) : iterable
+    {
+        foreach (array_keys(array_intersect_key($from, $to)) as $name) {
+            yield from $this->checkProperty->__invoke($from[$name], $to[$name]);
+        }
     }
 }

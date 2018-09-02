@@ -19,7 +19,7 @@ final class MultipleChecksOnATrait implements TraitBased
 
     public function __invoke(ReflectionClass $fromTrait, ReflectionClass $toTrait) : Changes
     {
-        return Changes::fromIterator((function () use ($fromTrait, $toTrait) {
+        return Changes::fromIterator((function () use ($fromTrait, $toTrait) : iterable {
             foreach ($this->checks as $check) {
                 yield from $check->__invoke($fromTrait, $toTrait);
             }

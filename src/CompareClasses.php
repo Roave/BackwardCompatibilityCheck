@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility;
 
+use Generator;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\ClassBased;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased\InterfaceBased;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\TraitBased\TraitBased;
@@ -55,19 +56,35 @@ final class CompareClasses implements CompareApi
             )
         );
 
-        return Changes::fromIterator((function () use ($definedApiClassNames, $pastSourcesWithDependencies, $newSourcesWithDependencies) {
-            foreach ($definedApiClassNames as $apiClassName) {
-                /** @var ReflectionClass $oldSymbol */
-                $oldSymbol = $pastSourcesWithDependencies->reflect($apiClassName);
-                yield from $this->examineSymbol($oldSymbol, $newSourcesWithDependencies);
-            }
-        })());
+        return Changes::fromIterator($this->makeSymbolsIterator(
+            $definedApiClassNames,
+            $pastSourcesWithDependencies,
+            $newSourcesWithDependencies
+        ));
+    }
+
+    /**
+     * @param string[] $definedApiClassNames
+     *
+     * @return iterable|Change[]
+     */
+    private function makeSymbolsIterator(
+        array $definedApiClassNames,
+        ClassReflector $pastSourcesWithDependencies,
+        ClassReflector $newSourcesWithDependencies
+    ) : iterable {
+        foreach ($definedApiClassNames as $apiClassName) {
+            /** @var ReflectionClass $oldSymbol */
+            $oldSymbol = $pastSourcesWithDependencies->reflect($apiClassName);
+
+            yield from $this->examineSymbol($oldSymbol, $newSourcesWithDependencies);
+        }
     }
 
     private function examineSymbol(
         ReflectionClass $oldSymbol,
         ClassReflector $newSourcesWithDependencies
-    ) : \Generator {
+    ) : Generator {
         try {
             /** @var ReflectionClass $newClass */
             $newClass = $newSourcesWithDependencies->reflect($oldSymbol->getName());

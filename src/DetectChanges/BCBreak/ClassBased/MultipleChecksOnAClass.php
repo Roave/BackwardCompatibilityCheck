@@ -19,7 +19,7 @@ final class MultipleChecksOnAClass implements ClassBased
 
     public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
     {
-        return Changes::fromIterator((function () use ($fromClass, $toClass) {
+        return Changes::fromIterator((function () use ($fromClass, $toClass) : iterable {
             foreach ($this->checks as $check) {
                 yield from $check->__invoke($fromClass, $toClass);
             }

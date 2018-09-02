@@ -19,7 +19,7 @@ final class MultipleChecksOnAProperty implements PropertyBased
 
     public function __invoke(ReflectionProperty $fromProperty, ReflectionProperty $toProperty) : Changes
     {
-        return Changes::fromIterator((function () use ($fromProperty, $toProperty) {
+        return Changes::fromIterator((function () use ($fromProperty, $toProperty) : iterable {
             foreach ($this->checks as $check) {
                 yield from $check->__invoke($fromProperty, $toProperty);
             }

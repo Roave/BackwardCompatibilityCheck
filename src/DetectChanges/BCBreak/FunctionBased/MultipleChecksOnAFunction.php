@@ -20,7 +20,7 @@ final class MultipleChecksOnAFunction implements FunctionBased
 
     public function __invoke(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction) : Changes
     {
-        return Changes::fromIterator((function () use ($fromFunction, $toFunction) {
+        return Changes::fromIterator((function () use ($fromFunction, $toFunction) : iterable {
             foreach ($this->checks as $check) {
                 yield from $check->__invoke($fromFunction, $toFunction);
             }

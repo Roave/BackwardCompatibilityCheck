@@ -19,7 +19,7 @@ final class MultipleChecksOnAMethod implements MethodBased
 
     public function __invoke(ReflectionMethod $fromMethod, ReflectionMethod $toMethod) : Changes
     {
-        return Changes::fromIterator((function () use ($fromMethod, $toMethod) {
+        return Changes::fromIterator((function () use ($fromMethod, $toMethod) : iterable {
             foreach ($this->checks as $check) {
                 yield from $check->__invoke($fromMethod, $toMethod);
             }
