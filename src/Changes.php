@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility;
 
-use ArrayIterator;
 use Countable;
 use Generator;
 use IteratorAggregate;
 use function count;
+use function iterator_to_array;
 
 final class Changes implements IteratorAggregate, Countable
 {
     /** @var Change[] */
-    private $changes;
+    private $bufferedChanges;
 
-    /** Generator|null */
-    private $generator;
+    /** @var iterable|Change[]|null */
+    private $unBufferedChanges;
 
     private function __construct()
     {
@@ -32,7 +32,7 @@ final class Changes implements IteratorAggregate, Countable
 
         $empty = new self();
 
-        $empty->changes = [];
+        $empty->bufferedChanges = [];
 
         return $empty;
     }
@@ -42,31 +42,8 @@ final class Changes implements IteratorAggregate, Countable
     {
         $instance = new self();
 
-        $instance->changes   = [];
-        $instance->generator = (function () use ($changes) : Generator {
-            foreach ($changes as $change) {
-                yield $change;
-            }
-        })();
-
-        return $instance;
-    }
-
-    /** @param iterable|Change[] $changes */
-    public function mergeWithIterator(iterable $changes) : self
-    {
-        $instance = new self();
-
-        $instance->changes   = [];
-        $instance->generator = (function () use ($changes) : Generator {
-            foreach ($this as $change) {
-                yield $change;
-            }
-
-            foreach ($changes as $change) {
-                yield $change;
-            }
-        })();
+        $instance->bufferedChanges   = [];
+        $instance->unBufferedChanges = $changes;
 
         return $instance;
     }
@@ -75,14 +52,27 @@ final class Changes implements IteratorAggregate, Countable
     {
         $instance = new self();
 
-        $instance->changes = $changes;
+        $instance->bufferedChanges = $changes;
 
         return $instance;
     }
 
     public function mergeWith(self $other) : self
     {
-        return $this->mergeWithIterator($other->getIterator());
+        $instance = new self();
+
+        $instance->bufferedChanges   = [];
+        $instance->unBufferedChanges = (function () use ($other) : Generator {
+            foreach ($this as $change) {
+                yield $change;
+            }
+
+            foreach ($other as $change) {
+                yield $change;
+            }
+        })();
+
+        return $instance;
     }
 
     /**
@@ -92,17 +82,17 @@ final class Changes implements IteratorAggregate, Countable
      */
     public function getIterator() : iterable
     {
-        foreach ($this->changes as $change) {
+        foreach ($this->bufferedChanges as $change) {
             yield $change;
         }
 
-        foreach ($this->generator ?? [] as $change) {
-            $this->changes[] = $change;
+        foreach ($this->unBufferedChanges ?? [] as $change) {
+            $this->bufferedChanges[] = $change;
 
             yield $change;
         }
 
-        $this->generator = null;
+        $this->unBufferedChanges = null;
     }
 
     /**
