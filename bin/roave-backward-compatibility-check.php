@@ -89,6 +89,7 @@ use function file_exists;
                         new ClassBased\ConstantRemoved(),
                         new ClassBased\PropertyRemoved(),
                         new ClassBased\MethodRemoved(),
+                        new ClassBased\AncestorRemoved(),
                         new ClassBased\OpenClassChanged(
                             new ClassBased\MultipleChecksOnAClass(
                                 new ClassBased\ConstantChanged(
@@ -234,6 +235,7 @@ use function file_exists;
                 new InterfaceBased\MultipleChecksOnAnInterface(
                     new InterfaceBased\InterfaceBecameClass(),
                     new InterfaceBased\InterfaceBecameTrait(),
+                    new InterfaceBased\AncestorRemoved(),
                     new InterfaceBased\MethodAdded(),
                     new InterfaceBased\UseClassBasedChecksOnAnInterface(
                         new ClassBased\MultipleChecksOnAClass(
