@@ -45,6 +45,42 @@ final class ChangesTest extends TestCase
         self::assertEquals($frozen2, $changes2, 'Original Changes instance not mutated');
     }
 
+    public function testFromIteratorBuffersAllChangesWithoutLoadingThemEagerly() : void
+    {
+        $producedValues  = 0;
+        $changesProvider = function () use (& $producedValues) {
+            $producedValues += 1;
+
+            yield Change::changed('a', true);
+
+            $producedValues += 1;
+
+            yield Change::changed('b', false);
+        };
+
+        $changes = Changes::fromIterator($changesProvider());
+
+        self::assertSame(0, $producedValues);
+
+        // Nesting one level deep - should still not traverse the iterator eagerly
+        $changes = Changes::fromIterator($changes);
+
+        self::assertSame(0, $producedValues);
+
+        $expectedChanges = [
+            Change::changed('a', true),
+            Change::changed('b', false),
+        ];
+
+        self::assertEquals($expectedChanges, iterator_to_array($changes));
+        self::assertEquals(
+            $expectedChanges,
+            iterator_to_array($changes),
+            'Changes can be iterated upon more than once (they are buffered)'
+        );
+        self::assertCount(2, $changes);
+    }
+
     public function testMergeWithPreservesOriginalInstanceIfMergedWithEmptyChanges() : void
     {
         $changes = Changes::fromList(Change::changed('a', true));
