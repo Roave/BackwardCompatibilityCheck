@@ -11,6 +11,7 @@ use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassConstantBased\ClassConstantBased;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassConstantBased\MultipleChecksOnAClassConstant;
 use Roave\BetterReflection\Reflection\ReflectionClassConstant;
+use RoaveTest\BackwardCompatibility\Assertion;
 
 /**
  * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassConstantBased\MultipleChecksOnAClassConstant
@@ -51,7 +52,7 @@ final class MultipleChecksOnAClassConstantTest extends TestCase
             ->with($from, $to)
             ->willReturn(Changes::fromList(Change::added('3', true)));
 
-        $this->assertEquals(
+        Assertion::assertChangesEqual(
             Changes::fromList(
                 Change::added('1', true),
                 Change::added('2', true),

@@ -13,6 +13,7 @@ use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
+use RoaveTest\BackwardCompatibility\Assertion;
 
 /**
  * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\PropertyChanged
@@ -68,7 +69,7 @@ PHP
                 return Changes::fromList(Change::added($propertyName, true));
             });
 
-        self::assertEquals(
+        Assertion::assertChangesEqual(
             Changes::fromList(
                 Change::added('b', true),
                 Change::added('d', true)

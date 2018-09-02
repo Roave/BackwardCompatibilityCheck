@@ -26,14 +26,14 @@ final class ChangesTest extends TestCase
         $frozen1 = unserialize(serialize($changes1));
         $frozen2 = unserialize(serialize($changes2));
 
-        self::assertEquals(
+        Assertion::assertChangesEqual(
             Changes::fromList(
                 Change::changed('a', true),
                 Change::removed('b', false)
             ),
             $changes1->mergeWith($changes2)
         );
-        self::assertEquals(
+        Assertion::assertChangesEqual(
             Changes::fromList(
                 Change::removed('b', false),
                 Change::changed('a', true)
@@ -41,15 +41,15 @@ final class ChangesTest extends TestCase
             $changes2->mergeWith($changes1)
         );
 
-        self::assertEquals($frozen1, $changes1, 'Original Changes instance not mutated');
-        self::assertEquals($frozen2, $changes2, 'Original Changes instance not mutated');
+        Assertion::assertChangesEqual($frozen1, $changes1, 'Original Changes instance not mutated');
+        Assertion::assertChangesEqual($frozen2, $changes2, 'Original Changes instance not mutated');
     }
 
     public function testMergeWithPreservesOriginalInstanceIfMergedWithEmptyChanges() : void
     {
         $changes = Changes::fromList(Change::changed('a', true));
 
-        self::assertSame($changes, $changes->mergeWith(Changes::empty()));
+        Assertion::assertChangesEqual($changes, $changes->mergeWith(Changes::empty()));
     }
 
     public function testFromList() : void

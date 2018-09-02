@@ -13,6 +13,7 @@ use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
+use RoaveTest\BackwardCompatibility\Assertion;
 use function strtolower;
 
 /**
@@ -69,7 +70,7 @@ PHP
                 return Changes::fromList(Change::added($methodName, true));
             });
 
-        self::assertEquals(
+        Assertion::assertChangesEqual(
             Changes::fromList(
                 Change::added('b', true),
                 Change::added('d', true),

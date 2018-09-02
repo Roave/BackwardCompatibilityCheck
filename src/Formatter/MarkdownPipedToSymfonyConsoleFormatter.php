@@ -25,7 +25,7 @@ final class MarkdownPipedToSymfonyConsoleFormatter implements OutputFormatter
 
     public function write(Changes $changes) : void
     {
-        $arrayOfChanges = $changes->getIterator()->getArrayCopy();
+        $arrayOfChanges = iterator_to_array($changes->getIterator());
 
         $this->output->writeln(
             "# Added\n"
