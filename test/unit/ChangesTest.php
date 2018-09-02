@@ -41,8 +41,8 @@ final class ChangesTest extends TestCase
             $changes2->mergeWith($changes1)
         );
 
-        Assertion::assertChangesEqual($frozen1, $changes1, 'Original Changes instance not mutated');
-        Assertion::assertChangesEqual($frozen2, $changes2, 'Original Changes instance not mutated');
+        self::assertEquals($frozen1, $changes1, 'Original Changes instance not mutated');
+        self::assertEquals($frozen2, $changes2, 'Original Changes instance not mutated');
     }
 
     public function testMergeWithPreservesOriginalInstanceIfMergedWithEmptyChanges() : void
