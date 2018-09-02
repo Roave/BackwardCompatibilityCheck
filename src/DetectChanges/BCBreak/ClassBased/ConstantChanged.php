@@ -9,7 +9,6 @@ use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassConstantBased\ClassCo
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use function array_intersect_key;
 use function array_keys;
-use function array_reduce;
 
 final class ConstantChanged implements ClassBased
 {
@@ -25,17 +24,12 @@ final class ConstantChanged implements ClassBased
     {
         $constantsFrom   = $fromClass->getReflectionConstants();
         $constantsTo     = $toClass->getReflectionConstants();
-        $commonConstants = array_intersect_key($constantsFrom, $constantsTo);
+        $commonConstants = array_keys(array_intersect_key($constantsFrom, $constantsTo));
 
-        return array_reduce(
-            array_keys($commonConstants),
-            function (Changes $accumulator, string $constantName) use ($constantsFrom, $constantsTo) : Changes {
-                return $accumulator->mergeWith($this->checkConstant->__invoke(
-                    $constantsFrom[$constantName],
-                    $constantsTo[$constantName]
-                ));
-            },
-            Changes::empty()
-        );
+        return Changes::fromIterator((function () use ($constantsFrom, $constantsTo, $commonConstants) {
+            foreach ($commonConstants as $constantName) {
+                yield from $this->checkConstant->__invoke($constantsFrom[$constantName], $constantsTo[$constantName]);
+            }
+        })());
     }
 }

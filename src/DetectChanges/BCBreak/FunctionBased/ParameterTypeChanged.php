@@ -37,13 +37,11 @@ final class ParameterTypeChanged implements FunctionBased
         /** @var ReflectionParameter[] $toParameters */
         $toParameters = array_values($toFunction->getParameters());
 
-        $changes = Changes::empty();
-
-        foreach (array_intersect_key($fromParameters, $toParameters) as $parameterIndex => $commonParameter) {
-            $changes = $changes->mergeWith($this->compareParameter($commonParameter, $toParameters[$parameterIndex]));
-        }
-
-        return $changes;
+        return Changes::fromIterator((function () use ($fromParameters, $toParameters) {
+            foreach (array_intersect_key($fromParameters, $toParameters) as $parameterIndex => $commonParameter) {
+                yield from $this->compareParameter($commonParameter, $toParameters[$parameterIndex]);
+            }
+        })());
     }
 
     private function compareParameter(ReflectionParameter $fromParameter, ReflectionParameter $toParameter) : Changes

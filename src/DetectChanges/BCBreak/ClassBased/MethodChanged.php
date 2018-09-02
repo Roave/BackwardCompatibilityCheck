@@ -12,7 +12,6 @@ use function array_combine;
 use function array_intersect_key;
 use function array_keys;
 use function array_map;
-use function array_reduce;
 use function strtolower;
 
 final class MethodChanged implements ClassBased
@@ -29,18 +28,13 @@ final class MethodChanged implements ClassBased
     {
         $methodsFrom   = $this->methods($fromClass);
         $methodsTo     = $this->methods($toClass);
-        $commonMethods = array_intersect_key($methodsFrom, $methodsTo);
+        $commonMethods = array_keys(array_intersect_key($methodsFrom, $methodsTo));
 
-        return array_reduce(
-            array_keys($commonMethods),
-            function (Changes $accumulator, string $methodName) use ($methodsFrom, $methodsTo) : Changes {
-                return $accumulator->mergeWith($this->checkMethod->__invoke(
-                    $methodsFrom[$methodName],
-                    $methodsTo[$methodName]
-                ));
-            },
-            Changes::empty()
-        );
+        return Changes::fromIterator((function () use ($methodsFrom, $methodsTo, $commonMethods) {
+            foreach ($commonMethods as $methodName) {
+                yield from $this->checkMethod->__invoke($methodsFrom[$methodName], $methodsTo[$methodName]);
+            }
+        })());
     }
 
     /** @return ReflectionMethod[] indexed by lower case method name */
