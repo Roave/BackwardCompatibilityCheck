@@ -79,222 +79,64 @@ use function file_exists;
             $astLocator
         ),
         new CompareClasses(
-            new ClassBased\SkipClassBasedErrors(new ClassBased\SkipClassBasedErrors(
-                new ClassBased\SkipClassBasedErrors(new ClassBased\ExcludeAnonymousClasses(
-                    new ClassBased\SkipClassBasedErrors(new ClassBased\MultipleChecksOnAClass(
-                        new ClassBased\SkipClassBasedErrors(new ClassBased\ClassBecameAbstract()),
-                        new ClassBased\SkipClassBasedErrors(new ClassBased\ClassBecameInterface()),
-                        new ClassBased\SkipClassBasedErrors(new ClassBased\ClassBecameTrait()),
-                        new ClassBased\SkipClassBasedErrors(new ClassBased\ClassBecameFinal()),
-                        new ClassBased\SkipClassBasedErrors(new ClassBased\ConstantRemoved()),
-                        new ClassBased\SkipClassBasedErrors(new ClassBased\PropertyRemoved()),
-                        new ClassBased\SkipClassBasedErrors(new ClassBased\MethodRemoved()),
-                        new ClassBased\SkipClassBasedErrors(new ClassBased\AncestorRemoved()),
-                        new ClassBased\SkipClassBasedErrors(new ClassBased\OpenClassChanged(
-                            new ClassBased\SkipClassBasedErrors(new ClassBased\MultipleChecksOnAClass(
-                                new ClassBased\SkipClassBasedErrors(new ClassBased\ConstantChanged(
-                                    new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\SkipClassConstantBasedErrors(
-                                        new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\MultipleChecksOnAClassConstant(
-                                            new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\OnlyPublicClassConstantChanged(
-                                                new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\MultipleChecksOnAClassConstant(
-                                                    new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\ClassConstantVisibilityReduced()),
-                                                    new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\ClassConstantValueChanged())
-                                                ))
-                                            )),
-                                            new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\OnlyProtectedClassConstantChanged(
-                                                new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\MultipleChecksOnAClassConstant(
-                                                    new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\ClassConstantVisibilityReduced()),
-                                                    new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\ClassConstantValueChanged())
-                                                ))
-                                            ))
-                                        ))
-                                    ))
-                                )),
-                                new ClassBased\SkipClassBasedErrors(new ClassBased\PropertyChanged(
-                                    new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\SkipPropertyBasedErrors(
-                                        new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\MultipleChecksOnAProperty(
-                                            new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\OnlyPublicPropertyChanged(
-                                                new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\MultipleChecksOnAProperty(
-                                                    new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyDocumentedTypeChanged()),
-                                                    new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyDefaultValueChanged()),
-                                                    new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyVisibilityReduced()),
-                                                    new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyScopeChanged())
-                                                ))
-                                            )),
-                                            new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\OnlyProtectedPropertyChanged(
-                                                new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\MultipleChecksOnAProperty(
-                                                    new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyDocumentedTypeChanged()),
-                                                    new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyDefaultValueChanged()),
-                                                    new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyVisibilityReduced()),
-                                                    new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyScopeChanged())
-                                                ))
-                                            ))
-                                        ))
-                                    ))
-                                )),
-                                new ClassBased\SkipClassBasedErrors(new ClassBased\MethodChanged(
-                                    new MethodBased\SkipMethodBasedErrors(new MethodBased\SkipMethodBasedErrors(
-                                        new MethodBased\SkipMethodBasedErrors(new MethodBased\MultipleChecksOnAMethod(
-                                            new MethodBased\SkipMethodBasedErrors(new MethodBased\OnlyPublicMethodChanged(
-                                                new MethodBased\SkipMethodBasedErrors(new MethodBased\MultipleChecksOnAMethod(
-                                                    new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodBecameFinal()),
-                                                    new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodConcretenessChanged()),
-                                                    new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodScopeChanged()),
-                                                    new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodVisibilityReduced()),
-                                                    new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodFunctionDefinitionChanged(
-                                                        new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\MultipleChecksOnAFunction(
-                                                            new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterByReferenceChanged()),
-                                                            new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeByReferenceChanged()),
-                                                            new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\RequiredParameterAmountIncreased()),
-                                                            new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterDefaultValueChanged()),
-                                                            new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeCovarianceChanged(new TypeIsCovariant())),
-                                                            new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeChanged()),
-                                                            new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterTypeContravarianceChanged(new TypeIsContravariant())),
-                                                            new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterTypeChanged())
-                                                        ))
-                                                    ))
-                                                ))
-                                            )),
-                                            new MethodBased\SkipMethodBasedErrors(new MethodBased\OnlyProtectedMethodChanged(
-                                                new MethodBased\SkipMethodBasedErrors(new MethodBased\MultipleChecksOnAMethod(
-                                                    new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodBecameFinal()),
-                                                    new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodConcretenessChanged()),
-                                                    new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodScopeChanged()),
-                                                    new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodVisibilityReduced()),
-                                                    new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodFunctionDefinitionChanged(
-                                                        new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\MultipleChecksOnAFunction(
-                                                            new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterByReferenceChanged()),
-                                                            new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeByReferenceChanged()),
-                                                            new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\RequiredParameterAmountIncreased()),
-                                                            new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterDefaultValueChanged()),
-                                                            new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeCovarianceChanged(new TypeIsCovariant())),
-                                                            new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeChanged()),
-                                                            new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterTypeContravarianceChanged(new TypeIsContravariant())),
-                                                            new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterTypeChanged())
-                                                        ))
-                                                    ))
-                                                ))
-                                            ))
-                                        ))
-                                    ))
-                                ))
-                            ))
-                        )),
-                        new ClassBased\SkipClassBasedErrors(new ClassBased\FinalClassChanged(
-                            new ClassBased\SkipClassBasedErrors(new ClassBased\MultipleChecksOnAClass(
-                                new ClassBased\SkipClassBasedErrors(new ClassBased\ConstantChanged(
-                                    new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\SkipClassConstantBasedErrors(
-                                        new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\OnlyPublicClassConstantChanged(
-                                            new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\MultipleChecksOnAClassConstant(
-                                                new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\ClassConstantVisibilityReduced()),
-                                                new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\ClassConstantValueChanged())
-                                            ))
-                                        ))
-                                    ))
-                                )),
-                                new ClassBased\SkipClassBasedErrors(new ClassBased\PropertyChanged(
-                                    new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\SkipPropertyBasedErrors(
-                                        new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\OnlyPublicPropertyChanged(
-                                            new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\MultipleChecksOnAProperty(
-                                                new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyDocumentedTypeChanged()),
-                                                new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyDefaultValueChanged()),
-                                                new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyVisibilityReduced()),
-                                                new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyScopeChanged())
-                                            ))
-                                        ))
-                                    ))
-                                )),
-                                new ClassBased\SkipClassBasedErrors(new ClassBased\MethodChanged(
-                                    new MethodBased\SkipMethodBasedErrors(new MethodBased\SkipMethodBasedErrors(
-                                        new MethodBased\SkipMethodBasedErrors(new MethodBased\OnlyPublicMethodChanged(
-                                            new MethodBased\SkipMethodBasedErrors(new MethodBased\MultipleChecksOnAMethod(
-                                                new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodBecameFinal()),
-                                                new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodConcretenessChanged()),
-                                                new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodScopeChanged()),
-                                                new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodVisibilityReduced()),
-                                                new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodFunctionDefinitionChanged(
-                                                    new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\MultipleChecksOnAFunction(
-                                                        new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterByReferenceChanged()),
-                                                        new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeByReferenceChanged()),
-                                                        new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\RequiredParameterAmountIncreased()),
-                                                        new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterDefaultValueChanged()),
-                                                        new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeCovarianceChanged(new TypeIsCovariant())),
-                                                        new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterTypeContravarianceChanged(new TypeIsContravariant()))
-                                                    ))
-                                                ))
-                                            ))
-                                        ))
-                                    ))
-                                ))
-                            ))
-                        ))
-                    ))
-                ))
-            )),
-            new InterfaceBased\SkipInterfaceBasedErrors(new InterfaceBased\SkipInterfaceBasedErrors(
-                new InterfaceBased\SkipInterfaceBasedErrors(new InterfaceBased\MultipleChecksOnAnInterface(
-                    new InterfaceBased\SkipInterfaceBasedErrors(new InterfaceBased\InterfaceBecameClass()),
-                    new InterfaceBased\SkipInterfaceBasedErrors(new InterfaceBased\InterfaceBecameTrait()),
-                    new InterfaceBased\SkipInterfaceBasedErrors(new InterfaceBased\AncestorRemoved()),
-                    new InterfaceBased\SkipInterfaceBasedErrors(new InterfaceBased\MethodAdded()),
-                    new InterfaceBased\SkipInterfaceBasedErrors(new InterfaceBased\UseClassBasedChecksOnAnInterface(
-                        new ClassBased\SkipClassBasedErrors(new ClassBased\MultipleChecksOnAClass(
-                            new ClassBased\SkipClassBasedErrors(new ClassBased\ConstantRemoved()),
-                            new ClassBased\SkipClassBasedErrors(new ClassBased\MethodRemoved()),
+            new ClassBased\SkipClassBasedErrors(new ClassBased\ExcludeAnonymousClasses(
+                new ClassBased\MultipleChecksOnAClass(
+                    new ClassBased\SkipClassBasedErrors(new ClassBased\ClassBecameAbstract()),
+                    new ClassBased\SkipClassBasedErrors(new ClassBased\ClassBecameInterface()),
+                    new ClassBased\SkipClassBasedErrors(new ClassBased\ClassBecameTrait()),
+                    new ClassBased\SkipClassBasedErrors(new ClassBased\ClassBecameFinal()),
+                    new ClassBased\SkipClassBasedErrors(new ClassBased\ConstantRemoved()),
+                    new ClassBased\SkipClassBasedErrors(new ClassBased\PropertyRemoved()),
+                    new ClassBased\SkipClassBasedErrors(new ClassBased\MethodRemoved()),
+                    new ClassBased\SkipClassBasedErrors(new ClassBased\AncestorRemoved()),
+                    new ClassBased\SkipClassBasedErrors(new ClassBased\OpenClassChanged(
+                        new ClassBased\MultipleChecksOnAClass(
                             new ClassBased\SkipClassBasedErrors(new ClassBased\ConstantChanged(
-                                new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\SkipClassConstantBasedErrors(
-                                    new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\ClassConstantValueChanged())
-                                ))
-                            )),
-                            new ClassBased\SkipClassBasedErrors(new ClassBased\MethodChanged(
-                                new MethodBased\SkipMethodBasedErrors(new MethodBased\SkipMethodBasedErrors(
-                                    new MethodBased\SkipMethodBasedErrors(new MethodBased\MultipleChecksOnAMethod(
-                                        new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodScopeChanged()),
-                                        new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodFunctionDefinitionChanged(
-                                            new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\MultipleChecksOnAFunction(
-                                                new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterByReferenceChanged()),
-                                                new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeByReferenceChanged()),
-                                                new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\RequiredParameterAmountIncreased()),
-                                                new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterDefaultValueChanged()),
-                                                new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeCovarianceChanged(new TypeIsCovariant())),
-                                                new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeChanged()),
-                                                new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterTypeContravarianceChanged(new TypeIsContravariant())),
-                                                new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterTypeChanged())
-                                            ))
-                                        ))
+                                new ClassConstantBased\MultipleChecksOnAClassConstant(
+                                    new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\OnlyPublicClassConstantChanged(
+                                        new ClassConstantBased\MultipleChecksOnAClassConstant(
+                                            new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\ClassConstantVisibilityReduced()),
+                                            new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\ClassConstantValueChanged())
+                                        )
+                                    )),
+                                    new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\OnlyProtectedClassConstantChanged(
+                                        new ClassConstantBased\MultipleChecksOnAClassConstant(
+                                            new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\ClassConstantVisibilityReduced()),
+                                            new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\ClassConstantValueChanged())
+                                        )
                                     ))
-                                ))
-                            ))
-                        ))
-                    ))
-                ))
-            )),
-            new TraitBased\SkipTraitBasedErrors(new TraitBased\SkipTraitBasedErrors(
-                new TraitBased\SkipTraitBasedErrors(new TraitBased\MultipleChecksOnATrait(
-                    new TraitBased\SkipTraitBasedErrors(new TraitBased\TraitBecameInterface()),
-                    new TraitBased\SkipTraitBasedErrors(new TraitBased\TraitBecameClass()),
-                    new TraitBased\SkipTraitBasedErrors(new TraitBased\UseClassBasedChecksOnATrait(
-                        new ClassBased\SkipClassBasedErrors(new ClassBased\MultipleChecksOnAClass(
+                                )
+                            )),
                             new ClassBased\SkipClassBasedErrors(new ClassBased\PropertyChanged(
-                                new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\SkipPropertyBasedErrors(
-                                    new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\MultipleChecksOnAProperty(
-                                        new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyDocumentedTypeChanged()),
-                                        new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyDefaultValueChanged()),
-                                        new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyVisibilityReduced()),
-                                        new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyScopeChanged())
+                                new PropertyBased\MultipleChecksOnAProperty(
+                                    new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\OnlyPublicPropertyChanged(
+                                        new PropertyBased\MultipleChecksOnAProperty(
+                                            new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyDocumentedTypeChanged()),
+                                            new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyDefaultValueChanged()),
+                                            new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyVisibilityReduced()),
+                                            new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyScopeChanged())
+                                        )
+                                    )),
+                                    new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\OnlyProtectedPropertyChanged(
+                                        new PropertyBased\MultipleChecksOnAProperty(
+                                            new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyDocumentedTypeChanged()),
+                                            new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyDefaultValueChanged()),
+                                            new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyVisibilityReduced()),
+                                            new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyScopeChanged())
+                                        )
                                     ))
-                                ))
+                                )
                             )),
                             new ClassBased\SkipClassBasedErrors(new ClassBased\MethodChanged(
-                                new MethodBased\SkipMethodBasedErrors(new MethodBased\SkipMethodBasedErrors(
-                                    new MethodBased\SkipMethodBasedErrors(new MethodBased\MultipleChecksOnAMethod(
-                                        new MethodBased\SkipMethodBasedErrors(new MethodBased\MultipleChecksOnAMethod(
+                                new MethodBased\MultipleChecksOnAMethod(
+                                    new MethodBased\SkipMethodBasedErrors(new MethodBased\OnlyPublicMethodChanged(
+                                        new MethodBased\MultipleChecksOnAMethod(
                                             new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodBecameFinal()),
                                             new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodConcretenessChanged()),
                                             new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodScopeChanged()),
                                             new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodVisibilityReduced()),
                                             new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodFunctionDefinitionChanged(
-                                                new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\MultipleChecksOnAFunction(
+                                                new FunctionBased\MultipleChecksOnAFunction(
                                                     new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterByReferenceChanged()),
                                                     new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeByReferenceChanged()),
                                                     new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\RequiredParameterAmountIncreased()),
@@ -303,16 +145,148 @@ use function file_exists;
                                                     new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeChanged()),
                                                     new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterTypeContravarianceChanged(new TypeIsContravariant())),
                                                     new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterTypeChanged())
-                                                ))
+                                                )
                                             ))
-                                        ))
+                                        )
+                                    )),
+                                    new MethodBased\SkipMethodBasedErrors(new MethodBased\OnlyProtectedMethodChanged(
+                                        new MethodBased\MultipleChecksOnAMethod(
+                                            new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodBecameFinal()),
+                                            new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodConcretenessChanged()),
+                                            new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodScopeChanged()),
+                                            new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodVisibilityReduced()),
+                                            new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodFunctionDefinitionChanged(
+                                                new FunctionBased\MultipleChecksOnAFunction(
+                                                    new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterByReferenceChanged()),
+                                                    new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeByReferenceChanged()),
+                                                    new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\RequiredParameterAmountIncreased()),
+                                                    new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterDefaultValueChanged()),
+                                                    new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeCovarianceChanged(new TypeIsCovariant())),
+                                                    new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeChanged()),
+                                                    new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterTypeContravarianceChanged(new TypeIsContravariant())),
+                                                    new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterTypeChanged())
+                                                )
+                                            ))
+                                        )
                                     ))
+                                )
+                            ))
+                        )
+                    )),
+                    new ClassBased\SkipClassBasedErrors(new ClassBased\FinalClassChanged(
+                        new ClassBased\MultipleChecksOnAClass(
+                            new ClassBased\SkipClassBasedErrors(new ClassBased\ConstantChanged(
+                                new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\OnlyPublicClassConstantChanged(
+                                    new ClassConstantBased\MultipleChecksOnAClassConstant(
+                                        new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\ClassConstantVisibilityReduced()),
+                                        new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\ClassConstantValueChanged())
+                                    )
+                                ))
+                            )),
+                            new ClassBased\SkipClassBasedErrors(new ClassBased\PropertyChanged(
+                                new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\OnlyPublicPropertyChanged(
+                                    new PropertyBased\MultipleChecksOnAProperty(
+                                        new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyDocumentedTypeChanged()),
+                                        new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyDefaultValueChanged()),
+                                        new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyVisibilityReduced()),
+                                        new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyScopeChanged())
+                                    )
+                                ))
+                            )),
+                            new ClassBased\SkipClassBasedErrors(new ClassBased\MethodChanged(
+                                new MethodBased\SkipMethodBasedErrors(new MethodBased\OnlyPublicMethodChanged(
+                                    new MethodBased\MultipleChecksOnAMethod(
+                                        new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodBecameFinal()),
+                                        new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodConcretenessChanged()),
+                                        new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodScopeChanged()),
+                                        new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodVisibilityReduced()),
+                                        new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodFunctionDefinitionChanged(
+                                            new FunctionBased\MultipleChecksOnAFunction(
+                                                new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterByReferenceChanged()),
+                                                new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeByReferenceChanged()),
+                                                new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\RequiredParameterAmountIncreased()),
+                                                new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterDefaultValueChanged()),
+                                                new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeCovarianceChanged(new TypeIsCovariant())),
+                                                new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterTypeContravarianceChanged(new TypeIsContravariant()))
+                                            )
+                                        ))
+                                    )
                                 ))
                             ))
-                        ))
+                        )
                     ))
+                )
+            )),
+            new InterfaceBased\MultipleChecksOnAnInterface(
+                new InterfaceBased\SkipInterfaceBasedErrors(new InterfaceBased\InterfaceBecameClass()),
+                new InterfaceBased\SkipInterfaceBasedErrors(new InterfaceBased\InterfaceBecameTrait()),
+                new InterfaceBased\SkipInterfaceBasedErrors(new InterfaceBased\AncestorRemoved()),
+                new InterfaceBased\SkipInterfaceBasedErrors(new InterfaceBased\MethodAdded()),
+                new InterfaceBased\SkipInterfaceBasedErrors(new InterfaceBased\UseClassBasedChecksOnAnInterface(
+                    new ClassBased\MultipleChecksOnAClass(
+                        new ClassBased\SkipClassBasedErrors(new ClassBased\ConstantRemoved()),
+                        new ClassBased\SkipClassBasedErrors(new ClassBased\MethodRemoved()),
+                        new ClassBased\SkipClassBasedErrors(new ClassBased\ConstantChanged(
+                            new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\ClassConstantValueChanged())
+                        )),
+                        new ClassBased\SkipClassBasedErrors(new ClassBased\MethodChanged(
+                            new MethodBased\MultipleChecksOnAMethod(
+                                new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodScopeChanged()),
+                                new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodFunctionDefinitionChanged(
+                                    new FunctionBased\MultipleChecksOnAFunction(
+                                        new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterByReferenceChanged()),
+                                        new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeByReferenceChanged()),
+                                        new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\RequiredParameterAmountIncreased()),
+                                        new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterDefaultValueChanged()),
+                                        new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeCovarianceChanged(new TypeIsCovariant())),
+                                        new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeChanged()),
+                                        new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterTypeContravarianceChanged(new TypeIsContravariant())),
+                                        new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterTypeChanged())
+                                    )
+                                ))
+                            )
+                        ))
+                    )
                 ))
-            ))
+            ),
+            new TraitBased\MultipleChecksOnATrait(
+                new TraitBased\SkipTraitBasedErrors(new TraitBased\TraitBecameInterface()),
+                new TraitBased\SkipTraitBasedErrors(new TraitBased\TraitBecameClass()),
+                new TraitBased\SkipTraitBasedErrors(new TraitBased\UseClassBasedChecksOnATrait(
+                    new ClassBased\MultipleChecksOnAClass(
+                        new ClassBased\SkipClassBasedErrors(new ClassBased\PropertyChanged(
+                            new PropertyBased\MultipleChecksOnAProperty(
+                                new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyDocumentedTypeChanged()),
+                                new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyDefaultValueChanged()),
+                                new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyVisibilityReduced()),
+                                new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyScopeChanged())
+                            )
+                        )),
+                        new ClassBased\SkipClassBasedErrors(new ClassBased\MethodChanged(
+                            new MethodBased\MultipleChecksOnAMethod(
+                                new MethodBased\MultipleChecksOnAMethod(
+                                    new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodBecameFinal()),
+                                    new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodConcretenessChanged()),
+                                    new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodScopeChanged()),
+                                    new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodVisibilityReduced()),
+                                    new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodFunctionDefinitionChanged(
+                                        new FunctionBased\MultipleChecksOnAFunction(
+                                            new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterByReferenceChanged()),
+                                            new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeByReferenceChanged()),
+                                            new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\RequiredParameterAmountIncreased()),
+                                            new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterDefaultValueChanged()),
+                                            new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeCovarianceChanged(new TypeIsCovariant())),
+                                            new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeChanged()),
+                                            new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterTypeContravarianceChanged(new TypeIsContravariant())),
+                                            new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterTypeChanged())
+                                        )
+                                    ))
+                                )
+                            )
+                        ))
+                    )
+                ))
+            )
         )
     );
 
