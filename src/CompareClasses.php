@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility;
 
+use Generator;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\ClassBased;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased\InterfaceBased;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\TraitBased\TraitBased;
@@ -43,8 +44,6 @@ final class CompareClasses implements CompareApi
         ClassReflector $pastSourcesWithDependencies,
         ClassReflector $newSourcesWithDependencies
     ) : Changes {
-        $changelog = Changes::empty();
-
         $definedApiClassNames = array_map(
             function (ReflectionClass $class) : string {
                 return $class->getName();
@@ -57,37 +56,56 @@ final class CompareClasses implements CompareApi
             )
         );
 
+        return Changes::fromIterator($this->makeSymbolsIterator(
+            $definedApiClassNames,
+            $pastSourcesWithDependencies,
+            $newSourcesWithDependencies
+        ));
+    }
+
+    /**
+     * @param string[] $definedApiClassNames
+     *
+     * @return iterable|Change[]
+     */
+    private function makeSymbolsIterator(
+        array $definedApiClassNames,
+        ClassReflector $pastSourcesWithDependencies,
+        ClassReflector $newSourcesWithDependencies
+    ) : iterable {
         foreach ($definedApiClassNames as $apiClassName) {
             /** @var ReflectionClass $oldSymbol */
             $oldSymbol = $pastSourcesWithDependencies->reflect($apiClassName);
-            $changelog = $this->examineSymbol($changelog, $oldSymbol, $newSourcesWithDependencies);
-        }
 
-        return $changelog;
+            yield from $this->examineSymbol($oldSymbol, $newSourcesWithDependencies);
+        }
     }
 
     private function examineSymbol(
-        Changes $changelog,
         ReflectionClass $oldSymbol,
         ClassReflector $newSourcesWithDependencies
-    ) : Changes {
+    ) : Generator {
         try {
             /** @var ReflectionClass $newClass */
             $newClass = $newSourcesWithDependencies->reflect($oldSymbol->getName());
         } catch (IdentifierNotFound $exception) {
-            return $changelog->mergeWith(Changes::fromList(
-                Change::removed(sprintf('Class %s has been deleted', $oldSymbol->getName()), true)
-            ));
+            yield Change::removed(sprintf('Class %s has been deleted', $oldSymbol->getName()), true);
+
+            return;
         }
 
         if ($oldSymbol->isInterface()) {
-            return $changelog->mergeWith($this->interfaceBasedComparisons->__invoke($oldSymbol, $newClass));
+            yield from $this->interfaceBasedComparisons->__invoke($oldSymbol, $newClass);
+
+            return;
         }
 
         if ($oldSymbol->isTrait()) {
-            return $changelog->mergeWith($this->traitBasedComparisons->__invoke($oldSymbol, $newClass));
+            yield from $this->traitBasedComparisons->__invoke($oldSymbol, $newClass);
+
+            return;
         }
 
-        return $changelog->mergeWith($this->classBasedComparisons->__invoke($oldSymbol, $newClass));
+        yield from $this->classBasedComparisons->__invoke($oldSymbol, $newClass);
     }
 }

@@ -4,15 +4,19 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility;
 
-use ArrayIterator;
 use Countable;
+use Generator;
 use IteratorAggregate;
 use function count;
+use function iterator_to_array;
 
 final class Changes implements IteratorAggregate, Countable
 {
     /** @var Change[] */
-    private $changes;
+    private $bufferedChanges;
+
+    /** @var iterable|Change[]|null */
+    private $unBufferedChanges;
 
     private function __construct()
     {
@@ -28,37 +32,67 @@ final class Changes implements IteratorAggregate, Countable
 
         $empty = new self();
 
-        $empty->changes = [];
+        $empty->bufferedChanges = [];
 
         return $empty;
+    }
+
+    /** @param iterable|Change[] $changes */
+    public static function fromIterator(iterable $changes) : self
+    {
+        $instance = new self();
+
+        $instance->bufferedChanges   = [];
+        $instance->unBufferedChanges = $changes;
+
+        return $instance;
     }
 
     public static function fromList(Change ...$changes) : self
     {
         $instance = new self();
 
-        $instance->changes = $changes;
+        $instance->bufferedChanges = $changes;
 
         return $instance;
     }
 
     public function mergeWith(self $other) : self
     {
-        if (! $other->changes) {
-            return $this;
-        }
+        $instance = new self();
 
-        return self::fromList(...$this->changes, ...$other->changes);
+        $instance->bufferedChanges   = [];
+        $instance->unBufferedChanges = (function () use ($other) : Generator {
+            foreach ($this as $change) {
+                yield $change;
+            }
+
+            foreach ($other as $change) {
+                yield $change;
+            }
+        })();
+
+        return $instance;
     }
 
     /**
      * {@inheritDoc}
      *
-     * @return ArrayIterator|Change[]
+     * @return iterable|Change[]
      */
-    public function getIterator() : ArrayIterator
+    public function getIterator() : iterable
     {
-        return new ArrayIterator($this->changes);
+        foreach ($this->bufferedChanges as $change) {
+            yield $change;
+        }
+
+        foreach ($this->unBufferedChanges ?? [] as $change) {
+            $this->bufferedChanges[] = $change;
+
+            yield $change;
+        }
+
+        $this->unBufferedChanges = null;
     }
 
     /**
@@ -66,6 +100,6 @@ final class Changes implements IteratorAggregate, Countable
      */
     public function count() : int
     {
-        return count($this->changes);
+        return count(iterator_to_array($this));
     }
 }

@@ -11,6 +11,7 @@ use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\FunctionBased;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\MultipleChecksOnAFunction;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
+use RoaveTest\BackwardCompatibility\Assertion;
 
 /**
  * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\MultipleChecksOnAFunction
@@ -51,7 +52,7 @@ final class MultipleChecksOnAFunctionTest extends TestCase
             ->with($from, $to)
             ->willReturn(Changes::fromList(Change::added('3', true)));
 
-        $this->assertEquals(
+        Assertion::assertChangesEqual(
             Changes::fromList(
                 Change::added('1', true),
                 Change::added('2', true),

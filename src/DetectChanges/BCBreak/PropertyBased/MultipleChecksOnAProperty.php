@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased;
 
+use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
-use function array_reduce;
 
 final class MultipleChecksOnAProperty implements PropertyBased
 {
@@ -20,12 +20,14 @@ final class MultipleChecksOnAProperty implements PropertyBased
 
     public function __invoke(ReflectionProperty $fromProperty, ReflectionProperty $toProperty) : Changes
     {
-        return array_reduce(
-            $this->checks,
-            function (Changes $changes, PropertyBased $check) use ($fromProperty, $toProperty) : Changes {
-                return $changes->mergeWith($check->__invoke($fromProperty, $toProperty));
-            },
-            Changes::empty()
-        );
+        return Changes::fromIterator($this->multipleChecks($fromProperty, $toProperty));
+    }
+
+    /** @return iterable|Change[] */
+    private function multipleChecks(ReflectionProperty $fromProperty, ReflectionProperty $toProperty) : iterable
+    {
+        foreach ($this->checks as $check) {
+            yield from $check->__invoke($fromProperty, $toProperty);
+        }
     }
 }

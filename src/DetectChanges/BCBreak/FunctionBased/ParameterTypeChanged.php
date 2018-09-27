@@ -32,39 +32,45 @@ final class ParameterTypeChanged implements FunctionBased
 
     public function __invoke(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction) : Changes
     {
-        /** @var ReflectionParameter[] $fromParameters */
-        $fromParameters = array_values($fromFunction->getParameters());
-        /** @var ReflectionParameter[] $toParameters */
-        $toParameters = array_values($toFunction->getParameters());
-
-        $changes = Changes::empty();
-
-        foreach (array_intersect_key($fromParameters, $toParameters) as $parameterIndex => $commonParameter) {
-            $changes = $changes->mergeWith($this->compareParameter($commonParameter, $toParameters[$parameterIndex]));
-        }
-
-        return $changes;
+        return Changes::fromIterator($this->checkSymbols(
+            array_values($fromFunction->getParameters()),
+            array_values($toFunction->getParameters())
+        ));
     }
 
-    private function compareParameter(ReflectionParameter $fromParameter, ReflectionParameter $toParameter) : Changes
+    /**
+     * @param ReflectionParameter[] $from
+     * @param ReflectionParameter[] $to
+     *
+     * @return iterable|Change[]
+     */
+    private function checkSymbols(array $from, array $to) : iterable
+    {
+        foreach (array_intersect_key($from, $to) as $index => $commonParameter) {
+            yield from $this->compareParameter($commonParameter, $to[$index]);
+        }
+    }
+
+    /**
+     * @return iterable|Change[]
+     */
+    private function compareParameter(ReflectionParameter $fromParameter, ReflectionParameter $toParameter) : iterable
     {
         $fromType = $this->typeToString($fromParameter->getType());
         $toType   = $this->typeToString($toParameter->getType());
 
-        if ($fromType === $toType) {
-            return Changes::empty();
+        if ($fromType !== $toType) {
+            yield Change::changed(
+                sprintf(
+                    'The parameter $%s of %s changed from %s to %s',
+                    $fromParameter->getName(),
+                    $this->formatFunction->__invoke($fromParameter->getDeclaringFunction()),
+                    $fromType,
+                    $toType
+                ),
+                true
+            );
         }
-
-        return Changes::fromList(Change::changed(
-            sprintf(
-                'The parameter $%s of %s changed from %s to %s',
-                $fromParameter->getName(),
-                $this->formatFunction->__invoke($fromParameter->getDeclaringFunction()),
-                $fromType,
-                $toType
-            ),
-            true
-        ));
     }
 
     private function typeToString(?ReflectionType $type) : string

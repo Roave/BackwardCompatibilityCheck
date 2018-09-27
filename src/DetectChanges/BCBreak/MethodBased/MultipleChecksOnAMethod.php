@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased;
 
+use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
-use function array_reduce;
 
 final class MultipleChecksOnAMethod implements MethodBased
 {
@@ -20,12 +20,14 @@ final class MultipleChecksOnAMethod implements MethodBased
 
     public function __invoke(ReflectionMethod $fromMethod, ReflectionMethod $toMethod) : Changes
     {
-        return array_reduce(
-            $this->checks,
-            function (Changes $changes, MethodBased $check) use ($fromMethod, $toMethod) : Changes {
-                return $changes->mergeWith($check->__invoke($fromMethod, $toMethod));
-            },
-            Changes::empty()
-        );
+        return Changes::fromIterator($this->multipleChecks($fromMethod, $toMethod));
+    }
+
+    /** @return iterable|Change[] */
+    private function multipleChecks(ReflectionMethod $fromMethod, ReflectionMethod $toMethod) : iterable
+    {
+        foreach ($this->checks as $check) {
+            yield from $check->__invoke($fromMethod, $toMethod);
+        }
     }
 }

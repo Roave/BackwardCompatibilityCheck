@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased;
 
+use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClass;
-use function array_reduce;
 
 final class MultipleChecksOnAnInterface implements InterfaceBased
 {
@@ -18,14 +18,16 @@ final class MultipleChecksOnAnInterface implements InterfaceBased
         $this->checks = $checks;
     }
 
-    public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
+    public function __invoke(ReflectionClass $fromInterface, ReflectionClass $toInterface) : Changes
     {
-        return array_reduce(
-            $this->checks,
-            function (Changes $changes, InterfaceBased $check) use ($fromClass, $toClass) : Changes {
-                return $changes->mergeWith($check->__invoke($fromClass, $toClass));
-            },
-            Changes::empty()
-        );
+        return Changes::fromIterator($this->multipleChecks($fromInterface, $toInterface));
+    }
+
+    /** @return iterable|Change[] */
+    private function multipleChecks(ReflectionClass $fromInterface, ReflectionClass $toInterface) : iterable
+    {
+        foreach ($this->checks as $check) {
+            yield from $check->__invoke($fromInterface, $toInterface);
+        }
     }
 }

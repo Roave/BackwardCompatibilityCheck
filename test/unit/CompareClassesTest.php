@@ -58,7 +58,7 @@ final class CompareClassesTest extends TestCase
         $this->interfaceBasedComparatorWillNotBeCalled();
         $this->traitBasedComparatorWillNotBeCalled();
 
-        self::assertEqualsIgnoringOrder(
+        Assertion::assertChangesEqual(
             Changes::fromList(Change::changed('class change', true)),
             $this->compareClasses->__invoke(
                 self::$stringReflectorFactory->__invoke('<?php class A {}'),
@@ -94,7 +94,7 @@ PHP
         $this->interfaceBasedComparatorWillNotBeCalled();
         $this->traitBasedComparatorWillNotBeCalled();
 
-        self::assertEqualsIgnoringOrder(
+        Assertion::assertChangesEqual(
             Changes::fromList(Change::changed('class change', true)),
             $this->compareClasses->__invoke(
                 self::$stringReflectorFactory->__invoke('<?php class A {}'),
@@ -126,7 +126,7 @@ PHP
         $this->interfaceBasedComparatorWillBeCalled();
         $this->traitBasedComparatorWillNotBeCalled();
 
-        self::assertEqualsIgnoringOrder(
+        Assertion::assertChangesEqual(
             Changes::fromList(Change::changed('interface change', true)),
             $this->compareClasses->__invoke(
                 self::$stringReflectorFactory->__invoke('<?php interface A {}'),
@@ -142,7 +142,7 @@ PHP
         $this->interfaceBasedComparatorWillNotBeCalled();
         $this->traitBasedComparatorWillBeCalled();
 
-        self::assertEqualsIgnoringOrder(
+        Assertion::assertChangesEqual(
             Changes::fromList(Change::changed('trait change', true)),
             $this->compareClasses->__invoke(
                 self::$stringReflectorFactory->__invoke('<?php trait A {}'),
@@ -158,7 +158,7 @@ PHP
         $this->interfaceBasedComparatorWillNotBeCalled();
         $this->traitBasedComparatorWillNotBeCalled();
 
-        self::assertEquals(
+        Assertion::assertChangesEqual(
             Changes::empty(),
             $this->compareClasses->__invoke(
                 self::$stringReflectorFactory->__invoke('<?php $x = new class () {};'),
@@ -168,20 +168,11 @@ PHP
         );
     }
 
-    /**
-     * @param mixed $expected
-     * @param mixed $actual
-     */
-    private static function assertEqualsIgnoringOrder($expected, $actual) : void
-    {
-        self::assertEquals($expected, $actual, '', 0.0, 10, true);
-    }
-
     public function testSkipsReflectingUndefinedApi() : void
     {
         $this->classBasedComparatorWillNotBeCalled();
 
-        self::assertEqualsIgnoringOrder(
+        Assertion::assertChangesEqual(
             Changes::empty(),
             $this->compareClasses->__invoke(
                 self::$stringReflectorFactory->__invoke('<?php '),
@@ -197,7 +188,7 @@ PHP
         $this->interfaceBasedComparatorWillNotBeCalled();
         $this->traitBasedComparatorWillNotBeCalled();
 
-        self::assertEqualsIgnoringOrder(
+        Assertion::assertChangesEqual(
             Changes::fromList(Change::removed('Class A has been deleted', true)),
             $this->compareClasses->__invoke(
                 self::$stringReflectorFactory->__invoke('<?php class A { private function foo() {} }'),

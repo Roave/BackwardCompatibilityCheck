@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased;
 
+use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
-use function array_reduce;
 
 final class MultipleChecksOnAFunction implements FunctionBased
 {
@@ -20,12 +20,14 @@ final class MultipleChecksOnAFunction implements FunctionBased
 
     public function __invoke(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction) : Changes
     {
-        return array_reduce(
-            $this->checks,
-            function (Changes $changes, FunctionBased $check) use ($fromFunction, $toFunction) : Changes {
-                return $changes->mergeWith($check->__invoke($fromFunction, $toFunction));
-            },
-            Changes::empty()
-        );
+        return Changes::fromIterator($this->multipleChecks($fromFunction, $toFunction));
+    }
+
+    /** @return iterable|Change[] */
+    private function multipleChecks(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction) : iterable
+    {
+        foreach ($this->checks as $check) {
+            yield from $check->__invoke($fromFunction, $toFunction);
+        }
     }
 }

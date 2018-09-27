@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased;
 
+use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassConstantBased\ClassConstantBased;
 use Roave\BetterReflection\Reflection\ReflectionClass;
+use Roave\BetterReflection\Reflection\ReflectionClassConstant;
 use function array_intersect_key;
 use function array_keys;
-use function array_reduce;
 
 final class ConstantChanged implements ClassBased
 {
@@ -23,19 +24,22 @@ final class ConstantChanged implements ClassBased
 
     public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
     {
-        $constantsFrom   = $fromClass->getReflectionConstants();
-        $constantsTo     = $toClass->getReflectionConstants();
-        $commonConstants = array_intersect_key($constantsFrom, $constantsTo);
+        return Changes::fromIterator($this->checkSymbols(
+            $fromClass->getReflectionConstants(),
+            $toClass->getReflectionConstants()
+        ));
+    }
 
-        return array_reduce(
-            array_keys($commonConstants),
-            function (Changes $accumulator, string $constantName) use ($constantsFrom, $constantsTo) : Changes {
-                return $accumulator->mergeWith($this->checkConstant->__invoke(
-                    $constantsFrom[$constantName],
-                    $constantsTo[$constantName]
-                ));
-            },
-            Changes::empty()
-        );
+    /**
+     * @param ReflectionClassConstant[] $from
+     * @param ReflectionClassConstant[] $to
+     *
+     * @return iterable|Change[]
+     */
+    private function checkSymbols(array $from, array $to) : iterable
+    {
+        foreach (array_keys(array_intersect_key($from, $to)) as $name) {
+            yield from $this->checkConstant->__invoke($from[$name], $to[$name]);
+        }
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased;
 
+use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased\MethodBased;
 use Roave\BetterReflection\Reflection\ReflectionClass;
@@ -12,7 +13,6 @@ use function array_combine;
 use function array_intersect_key;
 use function array_keys;
 use function array_map;
-use function array_reduce;
 use function strtolower;
 
 final class MethodChanged implements ClassBased
@@ -27,20 +27,20 @@ final class MethodChanged implements ClassBased
 
     public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
     {
-        $methodsFrom   = $this->methods($fromClass);
-        $methodsTo     = $this->methods($toClass);
-        $commonMethods = array_intersect_key($methodsFrom, $methodsTo);
+        return Changes::fromIterator($this->checkSymbols($this->methods($fromClass), $this->methods($toClass)));
+    }
 
-        return array_reduce(
-            array_keys($commonMethods),
-            function (Changes $accumulator, string $methodName) use ($methodsFrom, $methodsTo) : Changes {
-                return $accumulator->mergeWith($this->checkMethod->__invoke(
-                    $methodsFrom[$methodName],
-                    $methodsTo[$methodName]
-                ));
-            },
-            Changes::empty()
-        );
+    /**
+     * @param ReflectionMethod[] $from
+     * @param ReflectionMethod[] $to
+     *
+     * @return iterable|Change[]
+     */
+    private function checkSymbols(array $from, array $to) : iterable
+    {
+        foreach (array_keys(array_intersect_key($from, $to)) as $name) {
+            yield from $this->checkMethod->__invoke($from[$name], $to[$name]);
+        }
     }
 
     /** @return ReflectionMethod[] indexed by lower case method name */
