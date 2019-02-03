@@ -16,6 +16,14 @@ of a PHP library.
 composer require --dev roave/backward-compatibility-check
 ```
 
+### Install with Docker
+
+You can also use Docker to run `roave-backward-compatibility-check`: 
+
+```bash
+docker run --rm -v `pwd`:/app nyholm/roave-bc-check
+```
+
 ## Usage
 
 ### Adding to a continuous integration pipeline
@@ -34,6 +42,24 @@ the build to fail.
 
 *NOTE:* detecting the base version only works if you have git tags in
 the SemVer-compliant `x.y.z` format, such as `1.2.3`.
+
+#### Github action
+
+You can use it as a Github Action like this:
+
+_.github/main.workflow_
+```
+workflow "Main" {
+  on = "push"
+  resolves = ["Roave BC Check"]
+}
+
+action "Roave BC Check" {
+  uses = "docker://nyholm/roave-bc-check-ga"
+  secrets = ["GITHUB_TOKEN"]
+  args = ""
+}
+```
 
 ### Running manually
 
