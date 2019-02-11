@@ -9,6 +9,7 @@ use Symfony\Component\Process\Exception\LogicException;
 use Symfony\Component\Process\Exception\RuntimeException;
 use Version\Constraint\ComparisonConstraint;
 use Version\Constraint\CompositeConstraint;
+use Version\Constraint\ConstraintInterface;
 use Version\Version;
 use Version\VersionsCollection;
 use function array_values;
@@ -26,12 +27,19 @@ final class PickLastMinorVersionFromCollection implements PickVersionFromVersion
         Assert::that($versions->count())
             ->greaterThan(0, 'Cannot determine latest minor version from an empty collection');
 
-        $versionsSortedDescending = $versions->sortedDescending();
+        $stableVersions = $versions->matching(new class implements ConstraintInterface {
+            public function assert(Version $version) : bool
+            {
+                return ! $version->isPreRelease();
+            }
+        });
+
+        $versionsSortedDescending = $stableVersions->sortedDescending();
 
         /** @var Version $lastVersion */
         $lastVersion = array_values(iterator_to_array($versionsSortedDescending))[0];
 
-        $matchingMinorVersions = $versions
+        $matchingMinorVersions = $stableVersions
             ->matching(new CompositeConstraint(
                 CompositeConstraint::OPERATOR_AND,
                 new ComparisonConstraint(ComparisonConstraint::OPERATOR_LTE, $lastVersion),
