@@ -12,6 +12,7 @@ use Roave\BetterReflection\Reflection\ReflectionProperty;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Ast\Locator;
 use Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
+use Roave\BetterReflection\SourceLocator\Type\Composer\LocatorForInstalledJson;
 use Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\SingleFileSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\SourceLocator;
@@ -21,7 +22,6 @@ use function assert;
 use function chdir;
 use function getcwd;
 use function realpath;
-use function reset;
 
 final class LocateDependenciesViaComposer implements LocateDependencies
 {
@@ -53,15 +53,20 @@ final class LocateDependenciesViaComposer implements LocateDependencies
 
             // Some defaults needed for this specific implementation:
             $installer->setDevMode(false);
-            $installer->setDumpAutoloader(true);
+//            $installer->setDumpAutoloader(true);
+            $installer->setDumpAutoloader(false);
             $installer->setRunScripts(false);
-            $installer->setOptimizeAutoloader(true);
-            $installer->setClassMapAuthoritative(true);
+//            $installer->setOptimizeAutoloader(true);
+//            $installer->setClassMapAuthoritative(true);
             $installer->setIgnorePlatformRequirements(true);
 
             $installer->run();
         }, $installationPath);
 
+        return new AggregateSourceLocator([
+            (new LocatorForInstalledJson())->__invoke($installationPath, $this->astLocator),
+            new PhpInternalSourceLocator($this->astLocator),
+        ]);
         $autoloadStatic = $installationPath . '/vendor/composer/autoload_static.php';
 
         Assert::that($autoloadStatic)->file();

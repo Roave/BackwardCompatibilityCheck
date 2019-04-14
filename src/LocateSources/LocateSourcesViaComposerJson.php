@@ -7,6 +7,7 @@ namespace Roave\BackwardCompatibility\LocateSources;
 use Assert\Assert;
 use Roave\BetterReflection\SourceLocator\Ast\Locator;
 use Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
+use Roave\BetterReflection\SourceLocator\Type\Composer\LocatorForComposerJson;
 use Roave\BetterReflection\SourceLocator\Type\DirectoriesSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\SingleFileSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\SourceLocator;
@@ -36,6 +37,7 @@ final class LocateSourcesViaComposerJson implements LocateSources
 
     public function __invoke(string $installationPath) : SourceLocator
     {
+        return (new LocatorForComposerJson)->__invoke($installationPath, $this->astLocator);
         $realInstallationPath = realpath($installationPath);
 
         Assert::that($realInstallationPath)->string();
