@@ -29,6 +29,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 use function assert;
 use function count;
 use function getcwd;
+use function is_array;
+use function is_string;
 use function sprintf;
 
 final class AssertBackwardsCompatible extends Command
@@ -149,7 +151,11 @@ USAGE
             ? $this->parseRevisionFromInput($input, $sourceRepo)
             : $this->determineFromRevisionFromRepository($sourceRepo, $stdErr);
 
-        $toRevision = $this->parseRevision->fromStringForRepository($input->getOption('to'), $sourceRepo);
+        $to = $input->getOption('to');
+
+        assert(is_string($to));
+
+        $toRevision = $this->parseRevision->fromStringForRepository($to, $sourceRepo);
 
         $stdErr->writeln(sprintf('Comparing from %s to %s...', $fromRevision, $toRevision));
 
@@ -175,7 +181,8 @@ USAGE
             (new SymfonyConsoleTextFormatter($stdErr))->write($changes);
 
             $outputFormats = $input->getOption('format') ?: [];
-            Assert::that($outputFormats)->isArray();
+
+            assert(is_array($outputFormats));
 
             if (ArrayHelpers::stringArrayContainsString('markdown', $outputFormats)) {
                 (new MarkdownPipedToSymfonyConsoleFormatter($output))->write($changes);
@@ -208,7 +215,7 @@ USAGE
     {
         $from = $input->getOption('from');
 
-        Assert::that($from)->string();
+        assert(is_string($from));
 
         return $this->parseRevision->fromStringForRepository($from, $repository);
     }

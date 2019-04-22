@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\LocateSources;
 
-use baz\LocatedClass;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\LocateSources\LocateSourcesViaComposerJson;
 use Roave\BetterReflection\BetterReflection;
@@ -33,9 +32,9 @@ final class LocateSourcesViaComposerJsonTest extends TestCase
         );
 
         self::assertSame(
-            LocatedClass::class,
+            'baz\\LocatedClass',
             $reflector
-                ->reflect(LocatedClass::class)
+                ->reflect('baz\\LocatedClass')
                 ->getName()
         );
     }
