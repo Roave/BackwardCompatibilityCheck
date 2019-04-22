@@ -9,12 +9,10 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use ReflectionProperty;
 use Roave\BackwardCompatibility\LocateDependencies\LocateDependenciesViaComposer;
-use Roave\BackwardCompatibility\SourceLocator\StaticClassMapSourceLocator;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\SourceLocator\Ast\Locator;
 use Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
-use Roave\BetterReflection\SourceLocator\Type\SingleFileSourceLocator;
 use function getcwd;
 use function realpath;
 
@@ -67,22 +65,12 @@ final class LocateDependenciesViaComposerTest extends TestCase
             ->composerInstaller
             ->expects(self::atLeastOnce())
             ->method('setDumpAutoloader')
-            ->with(true);
+            ->with(false);
         $this
             ->composerInstaller
             ->expects(self::atLeastOnce())
             ->method('setRunScripts')
             ->with(false);
-        $this
-            ->composerInstaller
-            ->expects(self::atLeastOnce())
-            ->method('setOptimizeAutoloader')
-            ->with(true);
-        $this
-            ->composerInstaller
-            ->expects(self::atLeastOnce())
-            ->method('setClassMapAuthoritative')
-            ->with(true);
         $this
             ->composerInstaller
             ->expects(self::atLeastOnce())
@@ -123,70 +111,8 @@ final class LocateDependenciesViaComposerTest extends TestCase
 
         $locators = $reflectionLocators->getValue($locator);
 
-        self::assertCount(3, $locators);
-        self::assertEquals(
-            new StaticClassMapSourceLocator(
-                [
-                    'A\\ClassName' => $this->realpath(__DIR__ . '/../../asset/composer-installation-structure/AClassName.php'),
-                    'B\\ClassName' => $this->realpath(__DIR__ . '/../../asset/composer-installation-structure/BClassName.php'),
-                ],
-                $this->astLocator
-            ),
-            $locators[0]
-        );
-        self::assertEquals(
-            new AggregateSourceLocator([
-                new SingleFileSourceLocator(
-                    $this->realpath(__DIR__ . '/../../asset/composer-installation-structure/included-file-1.php'),
-                    $this->astLocator
-                ),
-                new SingleFileSourceLocator(
-                    $this->realpath(__DIR__ . '/../../asset/composer-installation-structure/included-file-2.php'),
-                    $this->astLocator
-                ),
-            ]),
-            $locators[1]
-        );
-        self::assertInstanceOf(PhpInternalSourceLocator::class, $locators[2]);
-    }
-
-    public function testWillLocateDependenciesEvenWithoutAutoloadFiles() : void
-    {
-        $this->expectedInstallatonPath = $this->realpath(__DIR__ . '/../../asset/composer-installation-structure-without-autoload-files');
-
-        $this
-            ->composerInstaller
-            ->expects(self::once())
-            ->method('run')
-            ->willReturnCallback(function () : void {
-                self::assertSame($this->expectedInstallatonPath, getcwd());
-            });
-
-        $locator = $this
-            ->locateDependencies
-            ->__invoke($this->expectedInstallatonPath);
-
-        self::assertInstanceOf(AggregateSourceLocator::class, $locator);
-
-        $reflectionLocators = new ReflectionProperty(AggregateSourceLocator::class, 'sourceLocators');
-
-        $reflectionLocators->setAccessible(true);
-
-        $locators = $reflectionLocators->getValue($locator);
-
-        self::assertCount(3, $locators);
-        self::assertEquals(
-            new StaticClassMapSourceLocator(
-                [
-                    'A\\ClassName' => $this->realpath(__DIR__ . '/../../asset/composer-installation-structure-without-autoload-files/AClassName.php'),
-                    'B\\ClassName' => $this->realpath(__DIR__ . '/../../asset/composer-installation-structure-without-autoload-files/BClassName.php'),
-                ],
-                $this->astLocator
-            ),
-            $locators[0]
-        );
-        self::assertEquals(new AggregateSourceLocator(), $locators[1]);
-        self::assertInstanceOf(PhpInternalSourceLocator::class, $locators[2]);
+        self::assertCount(2, $locators);
+        self::assertInstanceOf(PhpInternalSourceLocator::class, $locators[1]);
     }
 
     private function realpath(string $path) : string

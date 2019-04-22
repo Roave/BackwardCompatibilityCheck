@@ -1,3 +1,8 @@
 {
-    "description": "a package"
+    "description": "a package",
+    "autoload": {
+        "psr-4": {
+            "Source\\": "src"
+        }
+    }
 }
