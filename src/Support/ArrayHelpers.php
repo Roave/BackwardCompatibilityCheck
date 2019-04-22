@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Roave\BackwardCompatibility\Support;
 
 use Assert\Assert;
+use InvalidArgumentException;
 use function in_array;
 
 /**
@@ -18,7 +19,7 @@ final class ArrayHelpers
      *
      * @param string[] $arrayOfStrings
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public static function stringArrayContainsString(string $value, array $arrayOfStrings) : bool
     {

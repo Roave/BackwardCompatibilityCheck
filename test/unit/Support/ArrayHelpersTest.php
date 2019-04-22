@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\Support;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Support\ArrayHelpers;
 use stdClass;
@@ -14,9 +15,9 @@ use stdClass;
 final class ArrayHelpersTest extends TestCase
 {
     /**
-     * @dataProvider stringArrayContainsStringValidValues
-     *
      * @param string[] $array
+     *
+     * @dataProvider stringArrayContainsStringValidValues
      */
     public function testInclusion(string $value, array $array, bool $expected) : void
     {
@@ -66,13 +67,13 @@ final class ArrayHelpersTest extends TestCase
     }
 
     /**
-     * @dataProvider invalidStringArrays
-     *
      * @param mixed[] $array
+     *
+     * @dataProvider invalidStringArrays
      */
     public function testRejectsArraysWithNonStringValues(array $array) : void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         ArrayHelpers::stringArrayContainsString('', $array);
     }

@@ -46,12 +46,12 @@ final class MethodRemoved implements ClassBased
     /** @return ReflectionMethod[] */
     private function accessibleMethods(ReflectionClass $class) : array
     {
-        $methods = array_filter($class->getMethods(), function (ReflectionMethod $method) : bool {
+        $methods = array_filter($class->getMethods(), static function (ReflectionMethod $method) : bool {
             return $method->isPublic() || $method->isProtected();
         });
 
         return array_combine(
-            array_map(function (ReflectionMethod $method) : string {
+            array_map(static function (ReflectionMethod $method) : string {
                 return $method->getName();
             }, $methods),
             $methods

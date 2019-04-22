@@ -45,12 +45,12 @@ final class CompareClasses implements CompareApi
         ClassReflector $newSourcesWithDependencies
     ) : Changes {
         $definedApiClassNames = array_map(
-            function (ReflectionClass $class) : string {
+            static function (ReflectionClass $class) : string {
                 return $class->getName();
             },
             array_filter(
                 $definedSymbols->getAllClasses(),
-                function (ReflectionClass $class) : bool {
+                static function (ReflectionClass $class) : bool {
                     return ! $class->isAnonymous();
                 }
             )

@@ -168,7 +168,7 @@ final class LocateSourcesViaComposerJson implements LocateSources
     /** @return callable (string $path) : string */
     private function prependInstallationPath(string $installationPath) : callable
     {
-        return function (string $path) use ($installationPath) : string {
+        return static function (string $path) use ($installationPath) : string {
             if (strpos($path, './') === 0) {
                 return $installationPath . '/' . substr($path, 2);
             }

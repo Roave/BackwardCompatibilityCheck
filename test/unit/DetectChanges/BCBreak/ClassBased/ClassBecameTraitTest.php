@@ -22,9 +22,9 @@ use function iterator_to_array;
 final class ClassBecameTraitTest extends TestCase
 {
     /**
-     * @dataProvider classesToBeTested
-     *
      * @param string[] $expectedMessages
+     *
+     * @dataProvider classesToBeTested
      */
     public function testDiffs(
         ReflectionClass $fromClass,
@@ -36,7 +36,7 @@ final class ClassBecameTraitTest extends TestCase
 
         self::assertSame(
             $expectedMessages,
-            array_map(function (Change $change) : string {
+            array_map(static function (Change $change) : string {
                 return $change->__toString();
             }, iterator_to_array($changes))
         );
@@ -105,7 +105,7 @@ PHP
         return array_combine(
             array_keys($classes),
             array_map(
-                function (string $className, array $errors) use ($fromReflector, $toReflector) : array {
+                static function (string $className, array $errors) use ($fromReflector, $toReflector) : array {
                     return [
                         $fromReflector->reflect($className),
                         $toReflector->reflect($className),

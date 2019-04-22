@@ -17,9 +17,9 @@ use function iterator_to_array;
 final class ConstantRemovedTest extends TestCase
 {
     /**
-     * @dataProvider classesToBeTested
-     *
      * @param string[] $expectedMessages
+     *
+     * @dataProvider classesToBeTested
      */
     public function testDiffs(
         ReflectionClass $fromClass,
@@ -31,7 +31,7 @@ final class ConstantRemovedTest extends TestCase
 
         self::assertSame(
             $expectedMessages,
-            array_map(function (Change $change) : string {
+            array_map(static function (Change $change) : string {
                 return $change->__toString();
             }, iterator_to_array($changes))
         );

@@ -31,21 +31,21 @@ final class MarkdownPipedToSymfonyConsoleFormatter implements OutputFormatter
         $this->output->writeln(
             "# Added\n"
             . implode('', $this->convertFilteredChangesToMarkdownBulletList(
-                function (Change $change) : bool {
+                static function (Change $change) : bool {
                     return $change->isAdded();
                 },
                 ...$arrayOfChanges
             ))
             . "\n# Changed\n"
             . implode('', $this->convertFilteredChangesToMarkdownBulletList(
-                function (Change $change) : bool {
+                static function (Change $change) : bool {
                     return $change->isChanged();
                 },
                 ...$arrayOfChanges
             ))
             . "\n# Removed\n"
             . implode('', $this->convertFilteredChangesToMarkdownBulletList(
-                function (Change $change) : bool {
+                static function (Change $change) : bool {
                     return $change->isRemoved();
                 },
                 ...$arrayOfChanges
@@ -57,7 +57,7 @@ final class MarkdownPipedToSymfonyConsoleFormatter implements OutputFormatter
     private function convertFilteredChangesToMarkdownBulletList(callable $filterFunction, Change ...$changes) : array
     {
         return array_map(
-            function (Change $change) : string {
+            static function (Change $change) : string {
                 return ' - ' . str_replace(['ADDED: ', 'CHANGED: ', 'REMOVED: '], '', trim($change->__toString())) . "\n";
             },
             array_filter($changes, $filterFunction)

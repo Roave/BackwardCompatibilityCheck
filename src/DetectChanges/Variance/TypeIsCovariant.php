@@ -6,6 +6,7 @@ namespace Roave\BackwardCompatibility\DetectChanges\Variance;
 
 use Roave\BackwardCompatibility\Support\ArrayHelpers;
 use Roave\BetterReflection\Reflection\ReflectionType;
+use Traversable;
 use function strtolower;
 
 /**
@@ -57,7 +58,7 @@ final class TypeIsCovariant
         }
 
         if (strtolower($typeAsString) === 'iterable' && ! $comparedType->isBuiltin()) {
-            if ($comparedType->targetReflectionClass()->implementsInterface(\Traversable::class)) {
+            if ($comparedType->targetReflectionClass()->implementsInterface(Traversable::class)) {
                 // `iterable` can be restricted via any `Iterator` implementation
                 return true;
             }

@@ -61,7 +61,7 @@ PHP
         $comparator
             ->expects(self::exactly(2))
             ->method('__invoke')
-            ->willReturnCallback(function (ReflectionClassConstant $from, ReflectionClassConstant $to) : Changes {
+            ->willReturnCallback(static function (ReflectionClassConstant $from, ReflectionClassConstant $to) : Changes {
                 $propertyName = $from->getName();
 
                 self::assertSame($propertyName, $to->getName());

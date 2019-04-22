@@ -49,7 +49,7 @@ final class MethodChanged implements ClassBased
         $methods = $class->getMethods();
 
         return array_combine(
-            array_map(function (ReflectionMethod $method) : string {
+            array_map(static function (ReflectionMethod $method) : string {
                 return strtolower($method->getName());
             }, $methods),
             $methods

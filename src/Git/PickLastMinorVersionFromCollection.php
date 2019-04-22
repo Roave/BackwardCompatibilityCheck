@@ -19,6 +19,7 @@ final class PickLastMinorVersionFromCollection implements PickVersionFromVersion
 {
     /**
      * {@inheritDoc}
+     *
      * @throws LogicException
      * @throws RuntimeException
      */
