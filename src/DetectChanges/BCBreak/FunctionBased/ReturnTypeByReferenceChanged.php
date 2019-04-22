@@ -8,7 +8,7 @@ use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
-use function sprintf;
+use function Safe\sprintf;
 
 /**
  * PHP still (sadly) supports by-ref return types, so the type is wildly different between by-ref and by-val, and

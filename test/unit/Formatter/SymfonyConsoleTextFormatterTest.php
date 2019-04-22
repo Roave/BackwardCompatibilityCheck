@@ -10,7 +10,7 @@ use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Formatter\SymfonyConsoleTextFormatter;
 use Symfony\Component\Console\Output\OutputInterface;
-use function sprintf;
+use function Safe\sprintf;
 use function uniqid;
 
 /**

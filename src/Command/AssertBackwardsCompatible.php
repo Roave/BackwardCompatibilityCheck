@@ -28,10 +28,10 @@ use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use function assert;
 use function count;
-use function getcwd;
 use function is_array;
 use function is_string;
-use function sprintf;
+use function Safe\getcwd;
+use function Safe\sprintf;
 
 final class AssertBackwardsCompatible extends Command
 {

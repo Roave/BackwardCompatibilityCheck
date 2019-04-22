@@ -7,7 +7,7 @@ namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
-use function sprintf;
+use function Safe\sprintf;
 
 /**
  * A property that changes from instance to static or the opposite has to be accessed differently,

@@ -9,13 +9,13 @@ use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
 use Roave\BetterReflection\Reflection\ReflectionParameter;
-use function array_combine;
 use function array_filter;
 use function array_intersect_key;
 use function array_map;
 use function array_values;
 use function assert;
-use function sprintf;
+use function Safe\array_combine;
+use function Safe\sprintf;
 use function var_export;
 
 /**

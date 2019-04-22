@@ -13,8 +13,8 @@ use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\SourceLocator\Ast\Locator;
 use Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
-use function getcwd;
-use function realpath;
+use function Safe\getcwd;
+use function Safe\realpath;
 
 /**
  * @covers \Roave\BackwardCompatibility\LocateDependencies\LocateDependenciesViaComposer

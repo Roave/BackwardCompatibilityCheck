@@ -8,7 +8,7 @@ use RuntimeException;
 use Symfony\Component\Process\Exception\RuntimeException as ProcessRuntimeException;
 use Symfony\Component\Process\Process;
 use function file_exists;
-use function sprintf;
+use function Safe\sprintf;
 use function sys_get_temp_dir;
 
 final class GitCheckoutRevisionToTemporaryPath implements PerformCheckoutOfRevision

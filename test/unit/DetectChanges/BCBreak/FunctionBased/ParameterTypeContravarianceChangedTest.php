@@ -15,6 +15,7 @@ use Roave\BetterReflection\Reflector\FunctionReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 use function array_map;
 use function iterator_to_array;
+use function Safe\array_combine;
 
 /**
  * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\ParameterTypeContravarianceChanged

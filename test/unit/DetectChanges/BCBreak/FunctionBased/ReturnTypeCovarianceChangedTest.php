@@ -13,6 +13,7 @@ use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\Reflector\FunctionReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
+use function Safe\array_combine;
 use function array_map;
 use function iterator_to_array;
 

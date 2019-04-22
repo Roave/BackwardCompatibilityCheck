@@ -14,7 +14,7 @@ use Roave\BetterReflection\Reflection\Reflection;
 use Roave\BetterReflection\Reflector\Reflector;
 use Roave\BetterReflection\SourceLocator\Ast\Locator;
 use Roave\BetterReflection\SourceLocator\Located\LocatedSource;
-use function file_get_contents;
+use function Safe\file_get_contents;
 
 /**
  * @covers \Roave\BackwardCompatibility\SourceLocator\StaticClassMapSourceLocator

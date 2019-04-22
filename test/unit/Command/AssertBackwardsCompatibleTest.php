@@ -27,8 +27,8 @@ use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Version\Version;
 use Version\VersionsCollection;
-use function chdir;
-use function realpath;
+use function Safe\chdir;
+use function Safe\realpath;
 use function sha1;
 use function uniqid;
 

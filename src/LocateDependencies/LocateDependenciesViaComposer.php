@@ -12,8 +12,8 @@ use Roave\BetterReflection\SourceLocator\Type\Composer\Factory\MakeLocatorForIns
 use Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\SourceLocator;
 use function assert;
-use function chdir;
-use function getcwd;
+use function Safe\chdir;
+use function Safe\getcwd;
 
 final class LocateDependenciesViaComposer implements LocateDependencies
 {
@@ -23,9 +23,6 @@ final class LocateDependenciesViaComposer implements LocateDependencies
     /** @var callable */
     private $makeComposerInstaller;
 
-    /**
-     * @psalm-param callable () : Installer $makeComposerInstaller
-     */
     public function __construct(
         callable $makeComposerInstaller,
         Locator $astLocator

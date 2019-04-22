@@ -8,7 +8,7 @@ use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Formatter\ReflectionPropertyName;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
-use function sprintf;
+use function Safe\sprintf;
 use function var_export;
 
 final class PropertyDefaultValueChanged implements PropertyBased

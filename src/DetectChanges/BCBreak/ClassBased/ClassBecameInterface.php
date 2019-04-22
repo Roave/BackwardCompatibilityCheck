@@ -7,7 +7,7 @@ namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClass;
-use function sprintf;
+use function Safe\sprintf;
 
 /**
  * A class cannot become an interface without introducing an explicit BC break, since
