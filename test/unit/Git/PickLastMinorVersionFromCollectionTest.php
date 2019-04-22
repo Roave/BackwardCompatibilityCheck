@@ -38,6 +38,7 @@ final class PickLastMinorVersionFromCollectionTest extends TestCase
 
     /**
      * @param string[] $collectionOfVersions
+     *
      * @dataProvider lastStableMinorVersionForCollectionProvider
      */
     public function testForRepository(string $expectedVersion, array $collectionOfVersions) : void
@@ -45,7 +46,7 @@ final class PickLastMinorVersionFromCollectionTest extends TestCase
         self::assertSame(
             $expectedVersion,
             (new PickLastMinorVersionFromCollection())->forVersions(
-                new VersionsCollection(...array_map(function (string $version) : Version {
+                new VersionsCollection(...array_map(static function (string $version) : Version {
                     return Version::fromString($version);
                 }, $collectionOfVersions))
             )->getVersionString()

@@ -14,11 +14,11 @@ use Roave\BetterReflection\SourceLocator\Type\MemoizingSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\SourceLocator;
 
 /**
- * @codeCoverageIgnore
- *
  * @deprecated this class builds a simplistic reflector with a DirectoriesSourceLocator around a given
  *             path: that is no longer the preferred approach.
  *             Please use {@see \Roave\BackwardCompatibilityCheck\Factory\ComposerInstallationReflectorFactory} instead.
+ *
+ * @codeCoverageIgnore
  */
 final class DirectoryReflectorFactory
 {

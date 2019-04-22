@@ -224,7 +224,7 @@ PHP
         return array_merge(
             [[null]],
             array_merge(...array_map(
-                function (string $type) use ($reflector) : array {
+                static function (string $type) use ($reflector) : array {
                     return [
                         [ReflectionType::createFromTypeAndReflector($type, false, $reflector)],
                         [ReflectionType::createFromTypeAndReflector($type, true, $reflector)],

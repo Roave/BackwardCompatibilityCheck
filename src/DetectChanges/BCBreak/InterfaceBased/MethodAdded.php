@@ -27,7 +27,7 @@ final class MethodAdded implements InterfaceBased
             return Changes::empty();
         }
 
-        return Changes::fromList(...array_values(array_map(function (ReflectionMethod $method) use (
+        return Changes::fromList(...array_values(array_map(static function (ReflectionMethod $method) use (
             $fromInterface
         ) : Change {
             return Change::added(
@@ -47,7 +47,7 @@ final class MethodAdded implements InterfaceBased
         $methods = $interface->getMethods();
 
         return array_combine(
-            array_map(function (ReflectionMethod $method) : string {
+            array_map(static function (ReflectionMethod $method) : string {
                 return strtolower($method->getName());
             }, $methods),
             $methods

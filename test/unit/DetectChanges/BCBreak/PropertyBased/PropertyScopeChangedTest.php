@@ -22,9 +22,9 @@ use function iterator_to_array;
 final class PropertyScopeChangedTest extends TestCase
 {
     /**
-     * @dataProvider propertiesToBeTested
-     *
      * @param string[] $expectedMessages
+     *
+     * @dataProvider propertiesToBeTested
      */
     public function testDiffs(
         ReflectionProperty $fromFunction,
@@ -36,7 +36,7 @@ final class PropertyScopeChangedTest extends TestCase
 
         self::assertSame(
             $expectedMessages,
-            array_map(function (Change $change) : string {
+            array_map(static function (Change $change) : string {
                 return $change->__toString();
             }, iterator_to_array($changes))
         );
@@ -122,7 +122,7 @@ PHP
         return array_combine(
             array_keys($properties),
             array_map(
-                function (string $property, array $errorMessages) use ($fromClass, $toClass) : array {
+                static function (string $property, array $errorMessages) use ($fromClass, $toClass) : array {
                     return [
                         $fromClass->getProperty($property),
                         $toClass->getProperty($property),

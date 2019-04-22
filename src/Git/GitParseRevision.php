@@ -11,6 +11,7 @@ final class GitParseRevision implements ParseRevision
 {
     /**
      * {@inheritDoc}
+     *
      * @throws RuntimeException
      */
     public function fromStringForRepository(string $something, CheckedOutRepository $repository) : Revision

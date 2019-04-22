@@ -48,7 +48,7 @@ final class ChangesTest extends TestCase
     public function testFromIteratorBuffersAllChangesWithoutLoadingThemEagerly() : void
     {
         $producedValues  = 0;
-        $changesProvider = function () use (& $producedValues) {
+        $changesProvider = static function () use (& $producedValues) {
             $producedValues += 1;
 
             yield Change::changed('a', true);

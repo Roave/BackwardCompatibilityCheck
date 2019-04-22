@@ -69,13 +69,13 @@ final class ParameterDefaultValueChanged implements FunctionBased
     {
         $optionalParameters = array_values(array_filter(
             $function->getParameters(),
-            function (ReflectionParameter $parameter) : bool {
+            static function (ReflectionParameter $parameter) : bool {
                 return $parameter->isDefaultValueAvailable();
             }
         ));
 
         return array_combine(
-            array_map(function (ReflectionParameter $parameter) : int {
+            array_map(static function (ReflectionParameter $parameter) : int {
                 return $parameter->getPosition();
             }, $optionalParameters),
             $optionalParameters

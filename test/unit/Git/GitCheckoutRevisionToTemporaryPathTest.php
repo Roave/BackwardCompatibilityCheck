@@ -8,6 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Git\CheckedOutRepository;
 use Roave\BackwardCompatibility\Git\GitCheckoutRevisionToTemporaryPath;
 use Roave\BackwardCompatibility\Git\Revision;
+use RuntimeException;
 use function realpath;
 
 /**
@@ -47,7 +48,7 @@ final class GitCheckoutRevisionToTemporaryPathTest extends TestCase
 
     public function testExceptionIsThrownWhenTwoPathsCollide() : void
     {
-        $git              = new GitCheckoutRevisionToTemporaryPath(function () : string {
+        $git              = new GitCheckoutRevisionToTemporaryPath(static function () : string {
             return 'foo';
         });
         $sourceRepository = $this->sourceRepository();
@@ -61,7 +62,7 @@ final class GitCheckoutRevisionToTemporaryPathTest extends TestCase
             $second                            = $git->checkout($sourceRepository, $revision);
             $successfullyCheckedOutSecondClone = true;
             $git->remove($second);
-        } catch (\RuntimeException $runtimeException) {
+        } catch (RuntimeException $runtimeException) {
             self::assertStringMatchesFormat(
                 'Tried to check out revision "%s" to directory "%s" which already exists',
                 $runtimeException->getMessage()

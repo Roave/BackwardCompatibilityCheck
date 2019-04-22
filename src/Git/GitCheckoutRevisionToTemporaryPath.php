@@ -23,6 +23,7 @@ final class GitCheckoutRevisionToTemporaryPath implements PerformCheckoutOfRevis
 
     /**
      * {@inheritDoc}
+     *
      * @throws ProcessRuntimeException
      */
     public function checkout(CheckedOutRepository $sourceRepository, Revision $revision) : CheckedOutRepository
@@ -37,6 +38,7 @@ final class GitCheckoutRevisionToTemporaryPath implements PerformCheckoutOfRevis
 
     /**
      * {@inheritDoc}
+     *
      * @throws ProcessRuntimeException
      */
     public function remove(CheckedOutRepository $checkedOutRepository) : void

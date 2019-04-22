@@ -23,9 +23,9 @@ use function iterator_to_array;
 final class ClassConstantValueChangedTest extends TestCase
 {
     /**
-     * @dataProvider propertiesToBeTested
-     *
      * @param string[] $expectedMessages
+     *
+     * @dataProvider propertiesToBeTested
      */
     public function testDiffs(
         ReflectionClassConstant $fromConstant,
@@ -37,7 +37,7 @@ final class ClassConstantValueChangedTest extends TestCase
 
         self::assertSame(
             $expectedMessages,
-            array_map(function (Change $change) : string {
+            array_map(static function (Change $change) : string {
                 return $change->__toString();
             }, iterator_to_array($changes))
         );
@@ -121,7 +121,7 @@ PHP
         return array_combine(
             array_keys($properties),
             array_map(
-                function (string $constant, array $errorMessages) use ($fromClass, $toClass) : array {
+                static function (string $constant, array $errorMessages) use ($fromClass, $toClass) : array {
                     return [
                         $fromClass->getReflectionConstant($constant),
                         $toClass->getReflectionConstant($constant),

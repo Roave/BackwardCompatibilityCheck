@@ -63,7 +63,7 @@ PHP
         return array_combine(
             array_keys($properties),
             array_map(
-                function (string $expectedMessage, ReflectionProperty $property) : array {
+                static function (string $expectedMessage, ReflectionProperty $property) : array {
                     return [$property, $expectedMessage];
                 },
                 array_keys($properties),

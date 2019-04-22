@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace RoaveTest\BackwardCompatibility\Formatter;
 
 use PHPUnit\Framework\TestCase;
+use ReflectionException;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Formatter\SymfonyConsoleTextFormatter;
@@ -18,7 +19,7 @@ use function uniqid;
 final class SymfonyConsoleTextFormatterTest extends TestCase
 {
     /**
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function testWrite() : void
     {

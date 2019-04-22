@@ -22,9 +22,9 @@ use function iterator_to_array;
 final class AncestorRemovedTest extends TestCase
 {
     /**
-     * @dataProvider interfacesToBeTested
-     *
      * @param string[] $expectedMessages
+     *
+     * @dataProvider interfacesToBeTested
      */
     public function testDiffs(
         ReflectionClass $fromInterface,
@@ -36,7 +36,7 @@ final class AncestorRemovedTest extends TestCase
 
         self::assertSame(
             $expectedMessages,
-            array_map(function (Change $change) : string {
+            array_map(static function (Change $change) : string {
                 return $change->__toString();
             }, iterator_to_array($changes))
         );
@@ -95,7 +95,7 @@ PHP
         return array_combine(
             array_keys($interfaces),
             array_map(
-                function (string $interfaceName, array $errors) use ($fromReflector, $toReflector) : array {
+                static function (string $interfaceName, array $errors) use ($fromReflector, $toReflector) : array {
                     return [
                         $fromReflector->reflect($interfaceName),
                         $toReflector->reflect($interfaceName),

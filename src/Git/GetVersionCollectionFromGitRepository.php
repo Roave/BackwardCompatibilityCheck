@@ -19,6 +19,7 @@ final class GetVersionCollectionFromGitRepository implements GetVersionCollectio
 {
     /**
      * {@inheritDoc}
+     *
      * @throws ProcessFailedException
      * @throws LogicException
      * @throws RuntimeException
@@ -31,7 +32,7 @@ final class GetVersionCollectionFromGitRepository implements GetVersionCollectio
             ->getOutput();
 
         return new VersionsCollection(...array_filter(
-            array_map(function (string $maybeVersion) : ?Version {
+            array_map(static function (string $maybeVersion) : ?Version {
                 try {
                     return Version::fromString($maybeVersion);
                 } catch (InvalidVersionStringException $e) {

@@ -62,7 +62,7 @@ PHP
         $comparator
             ->expects(self::exactly(3))
             ->method('__invoke')
-            ->willReturnCallback(function (ReflectionMethod $from, ReflectionMethod $to) : Changes {
+            ->willReturnCallback(static function (ReflectionMethod $from, ReflectionMethod $to) : Changes {
                 $methodName = $from->getName();
 
                 self::assertSame(strtolower($methodName), strtolower($to->getName()));

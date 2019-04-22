@@ -36,7 +36,7 @@ EOF;
 
         $output->expects(self::any())
             ->method('writeln')
-            ->willReturnCallback(function (string $output) use ($changeToExpect) : void {
+            ->willReturnCallback(static function (string $output) use ($changeToExpect) : void {
                 self::assertContains($changeToExpect, $output);
             });
 

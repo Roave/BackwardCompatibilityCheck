@@ -7,6 +7,7 @@ namespace RoaveTest\BackwardCompatibility\LocateDependencies;
 use Composer\Installer;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use ReflectionProperty;
 use Roave\BackwardCompatibility\LocateDependencies\LocateDependenciesViaComposer;
 use Roave\BackwardCompatibility\SourceLocator\StaticClassMapSourceLocator;
 use Roave\BetterReflection\BetterReflection;
@@ -116,7 +117,7 @@ final class LocateDependenciesViaComposerTest extends TestCase
 
         self::assertInstanceOf(AggregateSourceLocator::class, $locator);
 
-        $reflectionLocators = new \ReflectionProperty(AggregateSourceLocator::class, 'sourceLocators');
+        $reflectionLocators = new ReflectionProperty(AggregateSourceLocator::class, 'sourceLocators');
 
         $reflectionLocators->setAccessible(true);
 
@@ -167,7 +168,7 @@ final class LocateDependenciesViaComposerTest extends TestCase
 
         self::assertInstanceOf(AggregateSourceLocator::class, $locator);
 
-        $reflectionLocators = new \ReflectionProperty(AggregateSourceLocator::class, 'sourceLocators');
+        $reflectionLocators = new ReflectionProperty(AggregateSourceLocator::class, 'sourceLocators');
 
         $reflectionLocators->setAccessible(true);
 
