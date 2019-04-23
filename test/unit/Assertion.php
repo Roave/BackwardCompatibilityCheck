@@ -28,7 +28,7 @@ abstract class Assertion
             'Buffer must NOT be exhausted'
         );
         // Forces eager initialisation of the `Changes` instances, allowing us to compare them by value
-        Assert::assertSame(count($expected), count($actual));
+        Assert::assertCount(count($expected), $actual);
         Assert::assertEquals($expected, $actual, $message);
     }
 

@@ -37,7 +37,11 @@ final class MethodRemovedTest extends TestCase
         );
     }
 
-    /** @return (string[]|ReflectionClass)[][] */
+    /**
+     * @return array<string, array<int, ReflectionClass|array<int, string>>>
+     *
+     * @psalm-return array<string, array{0: ReflectionClass, 1: ReflectionClass, 2: array<int, string>}>
+     */
     public function classesToBeTested() : array
     {
         $locator = (new BetterReflection())->astLocator();

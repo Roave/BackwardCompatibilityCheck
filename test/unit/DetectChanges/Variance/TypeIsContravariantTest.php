@@ -15,7 +15,9 @@ use function array_merge;
 
 final class TypeIsContravariantTest extends TestCase
 {
-    /** @dataProvider checkedTypes */
+    /**
+     * @dataProvider checkedTypes
+     */
     public function testContravariance(
         ?ReflectionType $type,
         ?ReflectionType $newType,
@@ -28,7 +30,11 @@ final class TypeIsContravariantTest extends TestCase
         );
     }
 
-    /** @return (bool|ReflectionType|null)[][] */
+    /**
+     * @return array<string, array<int, bool|ReflectionType|null>>
+     *
+     * @psalm-return array<string, array{0: ReflectionType|null, 1: ReflectionType|null, 2: bool}>
+     */
     public function checkedTypes() : array
     {
         $reflector = new ClassReflector(new StringSourceLocator(
@@ -48,7 +54,7 @@ PHP
             ,
             (new BetterReflection())->astLocator()
         ));
-        
+
         return [
             'no type to no type is contravariant with itself'                          => [
                 null,
@@ -198,7 +204,9 @@ PHP
         ];
     }
 
-    /** @dataProvider existingTypes */
+    /**
+     * @dataProvider existingTypes
+     */
     public function testContravarianceConsidersSameTypeAlwaysContravariant(?ReflectionType $type) : void
     {
         self::assertTrue(
@@ -245,7 +253,9 @@ PHP
         );
     }
 
-    /** @dataProvider existingNullableTypeStrings */
+    /**
+     * @dataProvider existingNullableTypeStrings
+     */
     public function testContravarianceConsidersNullability(string $type) : void
     {
         $reflector   = new ClassReflector(new StringSourceLocator(

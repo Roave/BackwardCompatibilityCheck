@@ -25,7 +25,11 @@ final class ReflectionFunctionAbstractNameTest extends TestCase
         self::assertSame($expectedName, (new ReflectionFunctionAbstractName())->__invoke($function));
     }
 
-    /** @return (string|ReflectionFunctionAbstract)[][] */
+    /**
+     * @return array<string, array<int, string|ReflectionFunctionAbstract>>
+     *
+     * @psalm-return array<string, array{0: ReflectionFunctionAbstract, 1: string}>
+     */
     public function functionsToBeTested() : array
     {
         $locator = new StringSourceLocator(

@@ -4,6 +4,10 @@ parameters:
         - bin
         - src
         - test/unit
+    ignoreErrors:
+        # type inference for internal array_* functions is still pending improvements in phpstan stubs:
+        - '~^Method .*Test::.* but returns array<int|string, mixed>.$~i'
+
 includes:
 	- vendor/phpstan/phpstan-beberlei-assert/extension.neon
 	- vendor/phpstan/phpstan-phpunit/extension.neon

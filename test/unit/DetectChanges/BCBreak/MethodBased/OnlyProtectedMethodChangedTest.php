@@ -18,7 +18,7 @@ use function uniqid;
  */
 final class OnlyProtectedMethodChangedTest extends TestCase
 {
-    /** @var MethodBased|MockObject */
+    /** @var MethodBased&MockObject */
     private $check;
 
     /** @var OnlyProtectedMethodChanged */
@@ -34,9 +34,9 @@ final class OnlyProtectedMethodChangedTest extends TestCase
 
     public function testWillSkipCheckingNonProtectedMethods() : void
     {
-        /** @var ReflectionMethod|MockObject $to */
+        /** @var ReflectionMethod&MockObject $to */
         $from = $this->createMock(ReflectionMethod::class);
-        /** @var ReflectionMethod|MockObject $from */
+        /** @var ReflectionMethod&MockObject $from */
         $to = $this->createMock(ReflectionMethod::class);
 
         $from
@@ -54,9 +54,9 @@ final class OnlyProtectedMethodChangedTest extends TestCase
 
     public function testWillCheckProtectedMethods() : void
     {
-        /** @var ReflectionMethod|MockObject $to */
+        /** @var ReflectionMethod&MockObject $to */
         $from = $this->createMock(ReflectionMethod::class);
-        /** @var ReflectionMethod|MockObject $from */
+        /** @var ReflectionMethod&MockObject $from */
         $to = $this->createMock(ReflectionMethod::class);
 
         $from

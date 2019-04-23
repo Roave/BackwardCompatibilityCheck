@@ -41,7 +41,11 @@ final class ClassConstantVisibilityReducedTest extends TestCase
         );
     }
 
-    /** @return (string[]|ReflectionClassConstant)[][] */
+    /**
+     * @return array<string, array<int, ReflectionClassConstant|array<int, string>>>
+     *
+     * @psalm-return array<string, array{0: ReflectionClassConstant, 1: ReflectionClassConstant, 2: array<int, string>}>
+     */
     public function propertiesToBeTested() : array
     {
         $astLocator = (new BetterReflection())->astLocator();

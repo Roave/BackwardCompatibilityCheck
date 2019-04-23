@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\Support;
 
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Support\ArrayHelpers;
-use stdClass;
 
 /**
  * @covers \Roave\BackwardCompatibility\Support\ArrayHelpers
@@ -24,7 +22,11 @@ final class ArrayHelpersTest extends TestCase
         self::assertSame($expected, ArrayHelpers::stringArrayContainsString($value, $array));
     }
 
-    /** @return (string|string[]|bool)[][] */
+    /**
+     * @return array<int, array<int, string|array<int, string>|bool>>
+     *
+     * @psalm-return array<int, array{0: string, 1: array<int, string>, 2: bool}>
+     */
     public function stringArrayContainsStringValidValues() : array
     {
         return [
@@ -63,31 +65,6 @@ final class ArrayHelpersTest extends TestCase
                 ['foo', 'foo', 'foo'],
                 true,
             ],
-        ];
-    }
-
-    /**
-     * @param mixed[] $array
-     *
-     * @dataProvider invalidStringArrays
-     */
-    public function testRejectsArraysWithNonStringValues(array $array) : void
-    {
-        $this->expectException(InvalidArgumentException::class);
-
-        ArrayHelpers::stringArrayContainsString('', $array);
-    }
-
-    /** @return mixed[][] */
-    public function invalidStringArrays() : array
-    {
-        return [
-            [[null]],
-            [[true]],
-            [[123]],
-            [[123.45]],
-            [[[]]],
-            [[new stdClass()]],
         ];
     }
 }

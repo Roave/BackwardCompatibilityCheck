@@ -28,7 +28,7 @@ final class LocateDependenciesViaComposerTest extends TestCase
     /** @var callable */
     private $makeInstaller;
 
-    /** @var Installer|MockObject */
+    /** @var Installer&MockObject */
     private $composerInstaller;
 
     /** @var string|null */

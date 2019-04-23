@@ -40,31 +40,31 @@ final class AssertBackwardsCompatibleTest extends TestCase
     /** @var CheckedOutRepository */
     private $sourceRepository;
 
-    /** @var InputInterface|MockObject */
+    /** @var InputInterface&MockObject */
     private $input;
 
-    /** @var ConsoleOutputInterface|MockObject */
+    /** @var ConsoleOutputInterface&MockObject */
     private $output;
 
-    /** @var OutputInterface|MockObject */
+    /** @var OutputInterface&MockObject */
     private $stdErr;
 
-    /** @var PerformCheckoutOfRevision|MockObject */
+    /** @var PerformCheckoutOfRevision&MockObject */
     private $performCheckout;
 
-    /** @var ParseRevision|MockObject */
+    /** @var ParseRevision&MockObject */
     private $parseRevision;
 
-    /** @var GetVersionCollection|MockObject */
+    /** @var GetVersionCollection&MockObject */
     private $getVersions;
 
-    /** @var PickVersionFromVersionCollection|MockObject */
+    /** @var PickVersionFromVersionCollection&MockObject */
     private $pickVersion;
 
-    /** @var LocateDependencies|MockObject */
+    /** @var LocateDependencies&MockObject */
     private $locateDependencies;
 
-    /** @var CompareApi|MockObject */
+    /** @var CompareApi&MockObject */
     private $compareApi;
 
     /** @var AggregateSourceLocator */
@@ -335,7 +335,9 @@ final class AssertBackwardsCompatibleTest extends TestCase
         $this->compare->execute($this->input, $this->output);
     }
 
-    /** @dataProvider validVersionsCollections */
+    /**
+     * @dataProvider validVersionsCollections
+     */
     public function testExecuteWithDefaultRevisionsNotProvided(VersionsCollection $versions) : void
     {
         $fromSha       = sha1('fromRevision', false);

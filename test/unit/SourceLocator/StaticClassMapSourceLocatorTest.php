@@ -21,10 +21,10 @@ use function Safe\file_get_contents;
  */
 final class StaticClassMapSourceLocatorTest extends TestCase
 {
-    /** @var Locator|MockObject */
+    /** @var Locator&MockObject */
     private $astLocator;
 
-    /** @var Reflector|MockObject */
+    /** @var Reflector&MockObject */
     private $reflector;
 
     protected function setUp() : void

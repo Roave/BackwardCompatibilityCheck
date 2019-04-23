@@ -22,11 +22,11 @@ final class UseClassBasedChecksOnATraitTest extends TestCase
     {
         $changes = Changes::fromList(Change::added(uniqid('foo', true), true));
 
-        /** @var ClassBased|MockObject $classBased */
+        /** @var ClassBased&MockObject $classBased */
         $classBased = $this->createMock(ClassBased::class);
-        /** @var ReflectionClass|MockObject $fromTrait */
+        /** @var ReflectionClass&MockObject $fromTrait */
         $fromTrait = $this->createMock(ReflectionClass::class);
-        /** @var ReflectionClass|MockObject $toTrait */
+        /** @var ReflectionClass&MockObject $toTrait */
         $toTrait = $this->createMock(ReflectionClass::class);
 
         $classBased

@@ -49,7 +49,7 @@ final class GetVersionCollectionFromGitRepositoryTest extends TestCase
     private function getTags() : array
     {
         return array_map(
-            static function (Version $version) {
+            static function (Version $version) : string {
                 return $version->getVersionString();
             },
             iterator_to_array((new GetVersionCollectionFromGitRepository())->fromRepository($this->repoPath))

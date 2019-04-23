@@ -27,7 +27,11 @@ final class ReflectionPropertyNameTest extends TestCase
         self::assertSame($expectedName, (new ReflectionPropertyName())->__invoke($property));
     }
 
-    /** @return (string|ReflectionProperty)[][] */
+    /**
+     * @return array<string, array<int, string|ReflectionProperty>>
+     *
+     * @psalm-return array<string, array{0: ReflectionProperty, 1: string}>
+     */
     public function propertiesToBeTested() : array
     {
         $locator = new StringSourceLocator(
@@ -53,6 +57,7 @@ PHP
 
         $classReflector = new ClassReflector($locator);
 
+        /** @var array<string, ReflectionProperty> $properties */
         $properties = [
             'A::$b'    => $classReflector->reflect('A')->getProperty('b'),
             'A#$c'     => $classReflector->reflect('A')->getProperty('c'),

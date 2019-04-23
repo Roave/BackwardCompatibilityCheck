@@ -11,9 +11,17 @@
     <projectFiles>
         <directory name="bin"/>
         <directory name="src"/>
+        <directory name="test/e2e"/>
+        <directory name="test/unit"/>
     </projectFiles>
 
     <issueHandlers>
         <PropertyNotSetInConstructor errorLevel="suppress"/>
+        <InternalClass errorLevel="suppress"/>
+        <InternalMethod errorLevel="suppress"/>
     </issueHandlers>
+
+    <plugins>
+        <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
+    </plugins>
 </psalm>

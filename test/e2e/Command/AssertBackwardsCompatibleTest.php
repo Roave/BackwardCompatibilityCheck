@@ -126,26 +126,25 @@ PHP
         self::assertDirectoryExists($this->sourcesRepository);
         self::assertDirectoryExists($this->sourcesRepository . '/src');
 
-        (new Process('git init', $this->sourcesRepository))->mustRun();
+        (new Process(['git', 'init'], $this->sourcesRepository))->mustRun();
 
         file_put_contents($this->sourcesRepository . '/composer.json', self::COMPOSER_MANIFEST);
 
-        (new Process('git add -A', $this->sourcesRepository))->mustRun();
-        (new Process('git commit -am "Initial commit with composer manifest"', $this->sourcesRepository))->mustRun();
+        (new Process(['git', 'add', '-A'], $this->sourcesRepository))->mustRun();
+        (new Process(['git', 'commit', '-am', 'Initial commit with composer manifest'], $this->sourcesRepository))->mustRun();
 
         foreach (self::CLASS_VERSIONS as $key => $classCode) {
             file_put_contents($this->sourcesRepository . '/src/TheClass.php', $classCode);
 
-            (new Process('git add -A', $this->sourcesRepository))->mustRun();
-            (new Process(sprintf('git commit -am "Class sources v%d"', $key + 1), $this->sourcesRepository))->mustRun();
-            $this->versions[$key] = trim((new Process('git rev-parse HEAD', $this->sourcesRepository))->mustRun()
+            (new Process(['git', 'add', '-A'], $this->sourcesRepository))->mustRun();
+            (new Process(['git', 'commit', '-am', sprintf('Class sources v%d', $key + 1)], $this->sourcesRepository))->mustRun();
+            $this->versions[$key] = trim((new Process(['git', 'rev-parse', 'HEAD'], $this->sourcesRepository))->mustRun()
                                                                                                       ->getOutput());
         }
     }
 
     protected function tearDown() : void
     {
-        self::assertIsString($this->sourcesRepository);
         self::assertNotEmpty($this->sourcesRepository);
         self::assertDirectoryExists($this->sourcesRepository);
 
@@ -181,7 +180,7 @@ EXPECTED
     public function testWillNotRunWithoutTagsNorSpecifiedVersions() : void
     {
         $check = new Process(
-            __DIR__ . '/../../../bin/roave-backward-compatibility-check',
+            [__DIR__ . '/../../../bin/roave-backward-compatibility-check'],
             $this->sourcesRepository
         );
 

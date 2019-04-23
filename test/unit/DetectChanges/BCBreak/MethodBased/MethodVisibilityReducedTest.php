@@ -42,7 +42,11 @@ final class MethodVisibilityReducedTest extends TestCase
         );
     }
 
-    /** @return (string[]|ReflectionMethod)[][] */
+    /**
+     * @return array<string, array<int, ReflectionMethod|array<int, string>>>
+     *
+     * @psalm-return array<string, array{0: ReflectionMethod, 1: ReflectionMethod, 2: array<int, string>}>
+     */
     public function propertiesToBeTested() : array
     {
         $astLocator = (new BetterReflection())->astLocator();

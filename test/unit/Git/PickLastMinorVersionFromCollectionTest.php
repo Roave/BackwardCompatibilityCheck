@@ -17,7 +17,9 @@ use function array_map;
 final class PickLastMinorVersionFromCollectionTest extends TestCase
 {
     /**
-     * @return string[][]|string[][][]
+     * @return array<int, array<int, string|array<int, string>>>
+     *
+     * @psalm-return array<int, array{0: string, 1: array<int, string>}>
      */
     public function lastStableMinorVersionForCollectionProvider() : array
     {
