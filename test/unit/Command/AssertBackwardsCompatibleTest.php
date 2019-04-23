@@ -108,6 +108,26 @@ final class AssertBackwardsCompatibleTest extends TestCase
             ->willReturn($this->stdErr);
     }
 
+    public function testDefinition() : void
+    {
+        $usages = $this->compare->getUsages();
+
+        self::assertCount(1, $usages);
+        self::assertStringStartsWith(
+            'roave-backwards-compatibility-check:assert-backwards-compatible',
+            $usages[0]
+        );
+        self::assertStringContainsString('Without arguments, this command will attempt to detect', $usages[0]);
+        self::assertStringStartsWith('Verifies that the revision being', $this->compare->getDescription());
+
+        self::assertSame(
+            '[--from [FROM]] [--to TO] [--format [FORMAT]]',
+            $this->compare
+                ->getDefinition()
+                ->getSynopsis()
+        );
+    }
+
     public function testExecuteWhenRevisionsAreProvidedAsOptions() : void
     {
         $fromSha = sha1('fromRevision', false);
@@ -358,6 +378,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
             ->method('fromRepository')
             ->with(self::callback(function (CheckedOutRepository $checkedOutRepository) : bool {
                 self::assertEquals($this->sourceRepository, $checkedOutRepository);
+
                 return true;
             }))
             ->willReturn($versions);
