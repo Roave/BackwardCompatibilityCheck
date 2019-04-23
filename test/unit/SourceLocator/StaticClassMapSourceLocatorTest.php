@@ -35,7 +35,7 @@ final class StaticClassMapSourceLocatorTest extends TestCase
         $this->reflector  = $this->createMock(Reflector::class);
     }
 
-    public function rejectsEmptyKeys() : void
+    public function testRejectsEmptyKeys() : void
     {
         $this->expectException(InvalidArgumentException::class);
 
@@ -45,7 +45,7 @@ final class StaticClassMapSourceLocatorTest extends TestCase
         );
     }
 
-    public function rejectsNonStringKeys() : void
+    public function testRejectsNonStringKeys() : void
     {
         $this->expectException(InvalidArgumentException::class);
 
@@ -55,7 +55,7 @@ final class StaticClassMapSourceLocatorTest extends TestCase
         );
     }
 
-    public function acceptsEmptySet() : void
+    public function testAcceptsEmptySet() : void
     {
         $locator = new StaticClassMapSourceLocator([], $this->astLocator);
 
