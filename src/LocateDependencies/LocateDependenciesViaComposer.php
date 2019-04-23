@@ -62,8 +62,6 @@ final class LocateDependenciesViaComposer implements LocateDependencies
     {
         $originalDirectory = getcwd();
 
-        Assert::that($originalDirectory)->string();
-
         try {
             chdir($directoryOfExecution);
             $callable();

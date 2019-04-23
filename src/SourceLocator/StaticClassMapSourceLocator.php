@@ -49,10 +49,6 @@ final class StaticClassMapSourceLocator extends AbstractSourceLocator
             return null;
         }
 
-        $fileContents = file_get_contents($classFile);
-
-        Assert::that($fileContents)->string();
-
-        return new LocatedSource($fileContents, $classFile);
+        return new LocatedSource(file_get_contents($classFile), $classFile);
     }
 }
