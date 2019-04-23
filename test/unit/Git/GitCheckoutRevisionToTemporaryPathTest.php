@@ -15,6 +15,7 @@ use function Safe\mkdir;
 use function Safe\realpath;
 use function Safe\tempnam;
 use function Safe\unlink;
+use function sys_get_temp_dir;
 
 /**
  * @covers \Roave\BackwardCompatibility\Git\GitCheckoutRevisionToTemporaryPath
