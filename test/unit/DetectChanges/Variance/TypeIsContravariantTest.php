@@ -28,7 +28,7 @@ final class TypeIsContravariantTest extends TestCase
         );
     }
 
-    /** @return (null|bool|ReflectionType)[][] */
+    /** @return (bool|ReflectionType|null)[][] */
     public function checkedTypes() : array
     {
         $reflector = new ClassReflector(new StringSourceLocator(
@@ -207,7 +207,7 @@ PHP
         );
     }
 
-    /** @return (null|ReflectionType)[][] */
+    /** @return (ReflectionType|null)[][] */
     public function existingTypes() : array
     {
         $reflector = new ClassReflector(new StringSourceLocator(

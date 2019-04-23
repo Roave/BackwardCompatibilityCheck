@@ -20,6 +20,7 @@ final class StringReflectorFactory
     public function __invoke(string $sourceCode) : ClassReflector
     {
         $astLocator = (new BetterReflection())->astLocator();
+
         return new ClassReflector(
             new AggregateSourceLocator([
                 new PhpInternalSourceLocator($astLocator),

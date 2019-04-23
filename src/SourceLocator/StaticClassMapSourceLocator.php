@@ -19,9 +19,9 @@ final class StaticClassMapSourceLocator extends AbstractSourceLocator
     private $classMap;
 
      /**
-     * @param array<string, string> $classMap map of class => file. Every file must exist,
-     *                                        every key must be non-empty
-     */
+      * @param array<string, string> $classMap map of class => file. Every file must exist,
+      *                                        every key must be non-empty
+      */
     public function __construct(
         array $classMap,
         Locator $astLocator

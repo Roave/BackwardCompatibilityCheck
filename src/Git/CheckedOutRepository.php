@@ -20,6 +20,7 @@ final class CheckedOutRepository
         Assert::that($path . '/.git')->directory();
         $instance       = new self();
         $instance->path = $path;
+
         return $instance;
     }
 
