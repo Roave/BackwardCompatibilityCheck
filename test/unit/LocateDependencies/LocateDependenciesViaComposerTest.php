@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\LocateDependencies;
 
+use Assert\AssertionFailedException;
 use Composer\Installer;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -52,6 +53,34 @@ final class LocateDependenciesViaComposerTest extends TestCase
             return $this->composerInstaller;
         };
 
+        $this->locateDependencies = new LocateDependenciesViaComposer($this->makeInstaller, $this->astLocator);
+    }
+
+    protected function tearDown() : void
+    {
+        self::assertSame($this->originalCwd, getcwd());
+
+        parent::tearDown();
+    }
+
+    public function testWillNotLocateDependenciesForANonExistingPath() : void
+    {
+        $this
+            ->composerInstaller
+            ->expects(self::never())
+            ->method('run');
+
+        $this->expectException(AssertionFailedException::class);
+
+        $this
+            ->locateDependencies
+            ->__invoke(__DIR__ . '/non-existing');
+    }
+
+    public function testWillLocateDependencies() : void
+    {
+        $this->expectedInstallatonPath = realpath(__DIR__ . '/../../asset/composer-installation-structure');
+
         $this
             ->composerInstaller
             ->expects(self::atLeastOnce())
@@ -72,20 +101,6 @@ final class LocateDependenciesViaComposerTest extends TestCase
             ->expects(self::atLeastOnce())
             ->method('setIgnorePlatformRequirements')
             ->with(true);
-
-        $this->locateDependencies = new LocateDependenciesViaComposer($this->makeInstaller, $this->astLocator);
-    }
-
-    protected function tearDown() : void
-    {
-        self::assertSame($this->originalCwd, getcwd());
-
-        parent::tearDown();
-    }
-
-    public function testWillLocateDependencies() : void
-    {
-        $this->expectedInstallatonPath = realpath(__DIR__ . '/../../asset/composer-installation-structure');
 
         $this
             ->composerInstaller

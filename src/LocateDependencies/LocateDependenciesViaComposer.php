@@ -34,7 +34,6 @@ final class LocateDependenciesViaComposer implements LocateDependencies
 
     public function __invoke(string $installationPath) : SourceLocator
     {
-        Assert::that($installationPath)->directory();
         Assert::that($installationPath . '/composer.json')->file();
 
         $this->runInDirectory(function () use ($installationPath) : void {
