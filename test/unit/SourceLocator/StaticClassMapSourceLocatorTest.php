@@ -55,6 +55,16 @@ final class StaticClassMapSourceLocatorTest extends TestCase
         );
     }
 
+    public function testRejectsEmptyStringFiles() : void
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        new StaticClassMapSourceLocator(
+            ['foo' => ''],
+            $this->astLocator
+        );
+    }
+
     public function testAcceptsEmptySet() : void
     {
         $locator = new StaticClassMapSourceLocator([], $this->astLocator);
