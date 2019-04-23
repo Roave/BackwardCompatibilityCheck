@@ -17,6 +17,10 @@
         {
             "name": "James Titcumb",
             "email": "james@asgrim.com"
+        },
+        {
+            "name": "Marco Pivetta",
+            "email": "ocramius@gmail.com"
         }
     ],
     "require-dev": {
