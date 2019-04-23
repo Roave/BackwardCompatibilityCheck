@@ -45,16 +45,6 @@ final class StaticClassMapSourceLocatorTest extends TestCase
         );
     }
 
-    public function testRejectsNonStringKeys() : void
-    {
-        $this->expectException(InvalidArgumentException::class);
-
-        new StaticClassMapSourceLocator(
-            [__FILE__],
-            $this->astLocator
-        );
-    }
-
     public function testRejectsEmptyStringFiles() : void
     {
         $this->expectException(InvalidArgumentException::class);
