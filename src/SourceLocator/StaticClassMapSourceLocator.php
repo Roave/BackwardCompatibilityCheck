@@ -11,7 +11,7 @@ use Roave\BetterReflection\SourceLocator\Located\LocatedSource;
 use Roave\BetterReflection\SourceLocator\Type\AbstractSourceLocator;
 use function array_keys;
 use function array_map;
-use function file_get_contents;
+use function Safe\file_get_contents;
 
 final class StaticClassMapSourceLocator extends AbstractSourceLocator
 {

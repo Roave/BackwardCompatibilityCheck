@@ -10,7 +10,7 @@ use Roave\BackwardCompatibility\DetectChanges\Variance\TypeIsCovariant;
 use Roave\BackwardCompatibility\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
 use Roave\BetterReflection\Reflection\ReflectionType;
-use function sprintf;
+use function Safe\sprintf;
 
 /**
  * When the return type of a function changes, the new return type must be covariant to the current type.

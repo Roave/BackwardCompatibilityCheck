@@ -10,9 +10,9 @@ use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
-use function array_combine;
 use function array_keys;
 use function array_map;
+use function Safe\array_combine;
 
 /**
  * @covers \Roave\BackwardCompatibility\Formatter\ReflectionPropertyName

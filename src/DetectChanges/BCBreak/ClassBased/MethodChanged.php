@@ -9,10 +9,10 @@ use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased\MethodBased;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
-use function array_combine;
 use function array_intersect_key;
 use function array_keys;
 use function array_map;
+use function Safe\array_combine;
 use function strtolower;
 
 final class MethodChanged implements ClassBased

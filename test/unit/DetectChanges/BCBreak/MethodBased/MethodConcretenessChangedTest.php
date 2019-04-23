@@ -12,10 +12,10 @@ use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
-use function array_combine;
 use function array_keys;
 use function array_map;
 use function iterator_to_array;
+use function Safe\array_combine;
 
 /**
  * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased\MethodConcretenessChanged

@@ -13,6 +13,7 @@ use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 use function array_map;
 use function iterator_to_array;
+use function Safe\array_combine;
 
 /**
  * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassConstantBased\ClassConstantVisibilityReduced
@@ -109,8 +110,7 @@ PHP
             'privateIncreasedToPublic' => [],
         ];
 
-        return array_combine(
-            array_keys($properties),
+        return array_combine(array_keys($properties),
             array_map(
                 function (string $constant, array $errorMessages) use ($fromClass, $toClass) : array {
                     return [
@@ -121,7 +121,6 @@ PHP
                 },
                 array_keys($properties),
                 $properties
-            )
-        );
+            ));
     }
 }

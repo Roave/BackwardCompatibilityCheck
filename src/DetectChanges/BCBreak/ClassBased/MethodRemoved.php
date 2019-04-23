@@ -11,12 +11,12 @@ use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
 use const CASE_UPPER;
 use function array_change_key_case;
-use function array_combine;
 use function array_diff_key;
 use function array_filter;
 use function array_map;
 use function array_values;
-use function sprintf;
+use function Safe\array_combine;
+use function Safe\sprintf;
 
 final class MethodRemoved implements ClassBased
 {

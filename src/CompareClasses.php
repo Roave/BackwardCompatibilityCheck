@@ -13,7 +13,7 @@ use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
 use function array_filter;
 use function array_map;
-use function sprintf;
+use function Safe\sprintf;
 
 final class CompareClasses implements CompareApi
 {

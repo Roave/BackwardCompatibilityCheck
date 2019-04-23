@@ -8,7 +8,7 @@ use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
-use function sprintf;
+use function Safe\sprintf;
 
 /**
  * When new parameters are added, they must be optional, or else the callers will provide an insufficient

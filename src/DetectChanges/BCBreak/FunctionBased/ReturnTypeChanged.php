@@ -9,7 +9,7 @@ use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
 use Roave\BetterReflection\Reflection\ReflectionType;
-use function sprintf;
+use function Safe\sprintf;
 
 /**
  * Verifies if the return type of a function changed at all

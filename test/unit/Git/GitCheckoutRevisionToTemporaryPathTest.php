@@ -9,7 +9,7 @@ use Roave\BackwardCompatibility\Git\CheckedOutRepository;
 use Roave\BackwardCompatibility\Git\GitCheckoutRevisionToTemporaryPath;
 use Roave\BackwardCompatibility\Git\Revision;
 use RuntimeException;
-use function realpath;
+use function Safe\realpath;
 
 /**
  * @covers \Roave\BackwardCompatibility\Git\GitCheckoutRevisionToTemporaryPath

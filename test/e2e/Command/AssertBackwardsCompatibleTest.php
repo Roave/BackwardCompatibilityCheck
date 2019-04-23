@@ -15,9 +15,9 @@ final class AssertBackwardsCompatibleTest extends TestCase
     private const COMPOSER_MANIFEST = <<<'JSON'
 {
     "autoload": {
-        "psr-4": {
-            "TestArtifact\\": "src/"
-        }
+        "classmap": [
+            "src/"
+        ]
     },
     "repositories": [
         {
@@ -199,6 +199,7 @@ EXPECTED
                 __DIR__ . '/../../../bin/roave-backward-compatibility-check',
                 '--from=' . $this->versions[0],
                 '--to=' . $this->versions[3],
+                '-vvv',
             ],
             $this->sourcesRepository
         );

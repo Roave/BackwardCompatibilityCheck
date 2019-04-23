@@ -7,7 +7,7 @@ namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassConstantBased;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClassConstant;
-use function sprintf;
+use function Safe\sprintf;
 
 final class ClassConstantVisibilityReduced implements ClassConstantBased
 {

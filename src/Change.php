@@ -6,7 +6,7 @@ namespace Roave\BackwardCompatibility;
 
 use Assert\Assert;
 use Throwable;
-use function sprintf;
+use function Safe\sprintf;
 use function strtoupper;
 
 /**

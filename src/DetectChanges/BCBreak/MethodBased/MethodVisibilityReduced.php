@@ -7,7 +7,7 @@ namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
-use function sprintf;
+use function Safe\sprintf;
 
 final class MethodVisibilityReduced implements MethodBased
 {

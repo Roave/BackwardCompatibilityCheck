@@ -6,8 +6,8 @@ namespace RoaveTest\BackwardCompatibility\Git;
 
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Git\CheckedOutRepository;
-use function mkdir;
-use function rmdir;
+use function Safe\mkdir;
+use function Safe\rmdir;
 use function sys_get_temp_dir;
 use function uniqid;
 

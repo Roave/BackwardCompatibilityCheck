@@ -1,0 +1,20 @@
+[
+  {
+    "name": "a/b",
+    "autoload": {
+      "psr-0": {
+        "A_B_": "src"
+      },
+      "psr-4": {
+        "A\\B\\": "src"
+      },
+      "classmap": [
+        "classmap"
+      ],
+      "files": [
+        "included-file-1.php",
+        "included-file-2.php"
+      ]
+    }
+  }
+]

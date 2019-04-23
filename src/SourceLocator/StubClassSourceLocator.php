@@ -11,7 +11,7 @@ use function array_slice;
 use function count;
 use function explode;
 use function implode;
-use function sprintf;
+use function Safe\sprintf;
 
 /**
  * @deprecated do not use: this locator was initially designed to have all classes stubbed out when they

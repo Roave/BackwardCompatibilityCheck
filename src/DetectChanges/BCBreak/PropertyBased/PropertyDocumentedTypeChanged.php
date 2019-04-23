@@ -10,8 +10,8 @@ use Roave\BackwardCompatibility\Formatter\ReflectionPropertyName;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
 use function array_unique;
 use function implode;
-use function sort;
-use function sprintf;
+use function Safe\sort;
+use function Safe\sprintf;
 
 /**
  * Type declarations for properties are invariant: you can't restrict the type because the consumer may

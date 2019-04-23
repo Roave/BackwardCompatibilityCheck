@@ -10,9 +10,9 @@ use Roave\BackwardCompatibility\Git\GetVersionCollectionFromGitRepository;
 use Symfony\Component\Process\Process;
 use Version\Version;
 use function array_map;
-use function file_put_contents;
 use function iterator_to_array;
-use function mkdir;
+use function Safe\file_put_contents;
+use function Safe\mkdir;
 use function sys_get_temp_dir;
 use function uniqid;
 

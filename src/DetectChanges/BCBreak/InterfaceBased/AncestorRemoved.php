@@ -9,8 +9,8 @@ use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use function array_diff;
 use function array_merge;
-use function json_encode;
-use function sprintf;
+use function Safe\json_encode;
+use function Safe\sprintf;
 
 /**
  * An interface ancestor cannot be removed, as that breaks type checking in consumers.
