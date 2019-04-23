@@ -76,10 +76,6 @@ final class GitCheckoutRevisionToTemporaryPathTest extends TestCase
 
     private function sourceRepository() : CheckedOutRepository
     {
-        $repositoryPath = realpath(__DIR__ . '/../../..');
-
-        self::assertInternalType('string', $repositoryPath);
-
-        return CheckedOutRepository::fromPath($repositoryPath);
+        return CheckedOutRepository::fromPath(realpath(__DIR__ . '/../../..'));
     }
 }

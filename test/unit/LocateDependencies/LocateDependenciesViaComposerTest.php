@@ -43,11 +43,7 @@ final class LocateDependenciesViaComposerTest extends TestCase
     {
         parent::setUp();
 
-        $originalCwd = getcwd();
-
-        self::assertInternalType('string', $originalCwd);
-
-        $this->originalCwd       = $originalCwd;
+        $this->originalCwd       = getcwd();
         $this->composerInstaller = $this->createMock(Installer::class);
         $this->astLocator        = (new BetterReflection())->astLocator();
         $this->makeInstaller     = function (string $installationPath) : Installer {
@@ -89,7 +85,7 @@ final class LocateDependenciesViaComposerTest extends TestCase
 
     public function testWillLocateDependencies() : void
     {
-        $this->expectedInstallatonPath = $this->realpath(__DIR__ . '/../../asset/composer-installation-structure');
+        $this->expectedInstallatonPath = realpath(__DIR__ . '/../../asset/composer-installation-structure');
 
         $this
             ->composerInstaller
@@ -113,14 +109,5 @@ final class LocateDependenciesViaComposerTest extends TestCase
 
         self::assertCount(2, $locators);
         self::assertInstanceOf(PhpInternalSourceLocator::class, $locators[1]);
-    }
-
-    private function realpath(string $path) : string
-    {
-        $realPath = realpath($path);
-
-        self::assertInternalType('string', $realPath);
-
-        return $realPath;
     }
 }

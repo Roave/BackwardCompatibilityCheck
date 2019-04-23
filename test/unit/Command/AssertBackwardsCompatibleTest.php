@@ -77,8 +77,6 @@ final class AssertBackwardsCompatibleTest extends TestCase
     {
         $repositoryPath = realpath(__DIR__ . '/../../../');
 
-        self::assertInternalType('string', $repositoryPath);
-
         $this->sourceRepository = CheckedOutRepository::fromPath($repositoryPath);
 
         chdir($this->sourceRepository->__toString());
@@ -275,7 +273,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
         $this->output->expects(self::any())
             ->method('writeln')
             ->willReturnCallback(static function (string $output) use ($changeToExpect) : void {
-                self::assertContains($changeToExpect, $output);
+                self::assertStringContainsString($changeToExpect, $output);
             });
     }
 

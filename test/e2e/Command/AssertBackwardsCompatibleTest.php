@@ -115,7 +115,7 @@ PHP
 
         $this->sourcesRepository = tempnam(sys_get_temp_dir(), 'roave-backward-compatibility-e2e-test');
 
-        self::assertInternalType('string', $this->sourcesRepository);
+        self::assertIsString($this->sourcesRepository);
         self::assertNotEmpty($this->sourcesRepository);
         self::assertFileExists($this->sourcesRepository);
 
@@ -145,7 +145,7 @@ PHP
 
     protected function tearDown() : void
     {
-        self::assertInternalType('string', $this->sourcesRepository);
+        self::assertIsString($this->sourcesRepository);
         self::assertNotEmpty($this->sourcesRepository);
         self::assertDirectoryExists($this->sourcesRepository);
 
@@ -186,7 +186,7 @@ EXPECTED
         );
 
         self::assertSame(212, $check->run());
-        self::assertContains(
+        self::assertStringContainsString(
             'Could not detect any released versions for the given repository',
             $check->getErrorOutput()
         );
@@ -205,7 +205,7 @@ EXPECTED
         );
 
         self::assertSame(0, $check->run());
-        self::assertContains(
+        self::assertStringContainsString(
             'No backwards-incompatible changes detected',
             $check->getErrorOutput()
         );
@@ -227,7 +227,7 @@ EXPECTED
 
         $errorOutput = $check->getErrorOutput();
 
-        self::assertContains('Detected last minor version: 1.2.3', $errorOutput);
+        self::assertStringContainsString('Detected last minor version: 1.2.3', $errorOutput);
         self::assertStringEndsWith(
             <<<'EXPECTED'
 [BC] CHANGED: The parameter $a of TestArtifact\TheClass#method() changed from TestArtifact\B to a non-contravariant TestArtifact\C
@@ -256,7 +256,7 @@ EXPECTED
 
         $errorOutput = $check->getErrorOutput();
 
-        self::assertContains('Detected last minor version: 2.2.3', $errorOutput);
+        self::assertStringContainsString('Detected last minor version: 2.2.3', $errorOutput);
         self::assertStringEndsWith(
             <<<'EXPECTED'
 [BC] CHANGED: The parameter $a of TestArtifact\TheClass#method() changed from TestArtifact\B to a non-contravariant TestArtifact\C
