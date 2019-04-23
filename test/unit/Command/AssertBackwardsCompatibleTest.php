@@ -278,7 +278,6 @@ final class AssertBackwardsCompatibleTest extends TestCase
 
         $this
             ->locateDependencies
-            ->expects(self::any())
             ->method('__invoke')
             ->with((string) $this->sourceRepository)
             ->willReturn($this->dependencies);
@@ -288,13 +287,14 @@ final class AssertBackwardsCompatibleTest extends TestCase
             Change::removed($changeToExpect, true)
         ));
 
-        $this->compare->execute($this->input, $this->output);
-
-        $this->output->expects(self::any())
+        $this->output
+            ->expects(self::once())
             ->method('writeln')
             ->willReturnCallback(static function (string $output) use ($changeToExpect) : void {
-                self::assertStringContainsString($changeToExpect, $output);
+                self::assertStringContainsString(' [BC] ' . $changeToExpect, $output);
             });
+
+        $this->compare->execute($this->input, $this->output);
     }
 
     public function testExecuteWithDefaultRevisionsNotProvidedAndNoDetectedTags() : void
