@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility;
 
-use Assert\Assert;
 use Throwable;
 use function Safe\sprintf;
 use function strtoupper;
