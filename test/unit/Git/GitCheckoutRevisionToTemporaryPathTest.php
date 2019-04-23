@@ -28,6 +28,8 @@ final class GitCheckoutRevisionToTemporaryPathTest extends TestCase
         self::assertDirectoryExists((string) $temporaryClone);
 
         $git->remove($temporaryClone);
+
+        self::assertDirectoryNotExists((string) $temporaryClone);
     }
 
     public function testCanCheckOutSameRevisionTwice() : void
@@ -44,6 +46,9 @@ final class GitCheckoutRevisionToTemporaryPathTest extends TestCase
 
         $git->remove($first);
         $git->remove($second);
+
+        self::assertDirectoryNotExists((string) $first);
+        self::assertDirectoryNotExists((string) $second);
     }
 
     public function testExceptionIsThrownWhenTwoPathsCollide() : void
