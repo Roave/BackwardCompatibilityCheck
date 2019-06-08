@@ -65,9 +65,12 @@ final class StaticClassMapSourceLocatorTest extends TestCase
         ));
     }
 
-    public function testWillLocateThisClass() : void
+    /**
+     * @dataProvider thisClassPossiblePaths
+     */
+    public function testWillLocateThisClass(string $thisClassFilePath) : void
     {
-        $locator    = new StaticClassMapSourceLocator([self::class => __FILE__], $this->astLocator);
+        $locator    = new StaticClassMapSourceLocator([self::class => $thisClassFilePath], $this->astLocator);
         $reflection = $this->createMock(Reflection::class);
 
         $this
@@ -87,6 +90,15 @@ final class StaticClassMapSourceLocatorTest extends TestCase
             $this->reflector,
             new Identifier(self::class, new IdentifierType(IdentifierType::IDENTIFIER_CLASS))
         ));
+    }
+
+    /** @return array<int, array<int, string>> */
+    public static function thisClassPossiblePaths() : array
+    {
+        return [
+            [__FILE__],
+            [__DIR__ . '/../SourceLocator/StaticClassMapSourceLocatorTest.php'],
+        ];
     }
 
     public function testWillNotLocateUnknownClass() : void

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Roave\BackwardCompatibility\Git;
 
 use Assert\Assert;
-use function trim;
+use function rtrim;
 
 final class Revision
 {
@@ -20,7 +20,7 @@ final class Revision
     {
         Assert::that($sha1)->regex('/^[a-zA-Z0-9]{40}$/');
         $instance       = new self();
-        $instance->sha1 = trim($sha1);
+        $instance->sha1 = rtrim($sha1);
 
         return $instance;
     }

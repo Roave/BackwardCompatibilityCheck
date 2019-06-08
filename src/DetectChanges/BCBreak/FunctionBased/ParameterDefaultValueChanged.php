@@ -11,10 +11,7 @@ use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
 use Roave\BetterReflection\Reflection\ReflectionParameter;
 use function array_filter;
 use function array_intersect_key;
-use function array_map;
-use function array_values;
 use function assert;
-use function Safe\array_combine;
 use function Safe\sprintf;
 use function var_export;
 
@@ -67,18 +64,11 @@ final class ParameterDefaultValueChanged implements FunctionBased
     /** @return ReflectionParameter[] indexed by parameter index */
     private function defaultParameterValues(ReflectionFunctionAbstract $function) : array
     {
-        $optionalParameters = array_values(array_filter(
+        return array_filter(
             $function->getParameters(),
             static function (ReflectionParameter $parameter) : bool {
                 return $parameter->isDefaultValueAvailable();
             }
-        ));
-
-        return array_combine(
-            array_map(static function (ReflectionParameter $parameter) : int {
-                return $parameter->getPosition();
-            }, $optionalParameters),
-            $optionalParameters
         );
     }
 }

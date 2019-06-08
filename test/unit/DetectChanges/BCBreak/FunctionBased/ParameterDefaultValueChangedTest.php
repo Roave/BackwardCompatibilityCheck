@@ -63,6 +63,7 @@ namespace {
    function notChanged($a = 1, $b = 2, $c = 3) {}
    function namesChanged($a = 1, $b = 2, $c = 3) {}
    function orderChanged($a = 1, $b = 2, $c = 3) {}
+   function positionOfOptionalParameterChanged($a = 2, $b, $c = 1) {}
    class C {
        static function changed1($a = 1) {}
        function changed2($a = 1) {}
@@ -85,6 +86,7 @@ namespace {
    function notChanged($a = 1, $b = 2, $c = 3) {}
    function namesChanged($d = 1, $e = 2, $f = 3) {}
    function orderChanged($c = 3, $b = 2, $a = 1) {}
+   function positionOfOptionalParameterChanged($a, $b = 2, $c = 1) {}
    class C {
        static function changed1($a = 2) {}
        function changed2($a = 2) {}
@@ -115,6 +117,7 @@ PHP
                 '[BC] CHANGED: Default parameter value for for parameter $a of orderChanged() changed from 1 to 3',
                 '[BC] CHANGED: Default parameter value for for parameter $c of orderChanged() changed from 3 to 1',
             ],
+            'positionOfOptionalParameterChanged' => [],
         ];
 
         return array_merge(

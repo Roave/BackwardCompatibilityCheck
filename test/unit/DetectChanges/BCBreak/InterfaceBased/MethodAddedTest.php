@@ -63,6 +63,10 @@ interface D {
     function casingChanged() {}
 }
 interface E {}
+interface F {
+    public function a() {}
+    public function c() {}
+}
 PHP
             ,
             $astLocator
@@ -87,6 +91,11 @@ interface E {
     function added2() {}
     function ADDED3() {}
 }
+interface F {
+    public function a() {}
+    public function b() {}
+    public function c() {}
+}
 PHP
             ,
             $astLocator
@@ -105,6 +114,9 @@ PHP
                 '[BC] ADDED: Method added2() was added to interface E',
                 '[BC] ADDED: Method ADDED3() was added to interface E',
             ],
+            'F' => [
+                '[BC] ADDED: Method b() was added to interface F',
+            ]
         ];
 
         return array_combine(

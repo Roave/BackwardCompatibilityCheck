@@ -34,12 +34,12 @@ final class PropertyRemoved implements ClassBased
             array_keys($this->accessibleProperties($toClass))
         );
 
-        return Changes::fromList(...array_values(array_map(function (string $property) use ($fromProperties) : Change {
+        return Changes::fromList(...array_map(function (string $property) use ($fromProperties) : Change {
             return Change::removed(
                 sprintf('Property %s was removed', $this->formatProperty->__invoke($fromProperties[$property])),
                 true
             );
-        }, $removedProperties)));
+        }, $removedProperties));
     }
 
     /** @return ReflectionProperty[] */

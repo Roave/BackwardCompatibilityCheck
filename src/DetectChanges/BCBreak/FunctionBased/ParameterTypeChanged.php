@@ -33,8 +33,8 @@ final class ParameterTypeChanged implements FunctionBased
     public function __invoke(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction) : Changes
     {
         return Changes::fromIterator($this->checkSymbols(
-            array_values($fromFunction->getParameters()),
-            array_values($toFunction->getParameters())
+            $fromFunction->getParameters(),
+            $toFunction->getParameters()
         ));
     }
 

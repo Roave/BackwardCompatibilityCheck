@@ -23,6 +23,13 @@ final class RevisionTest extends TestCase
         self::assertSame($sha1, (string) Revision::fromSha1($sha1));
     }
 
+    public function testFromSha1WithNewlinesStillProvidesValidSha1() : void
+    {
+        $sha1 = sha1(uniqid('sha1', true));
+
+        self::assertSame($sha1, (string) Revision::fromSha1($sha1 . "\n"));
+    }
+
     /**
      * @return string[][]
      */
@@ -33,6 +40,8 @@ final class RevisionTest extends TestCase
             ['a'],
             [str_repeat('a', 39)],
             [str_repeat('a', 41)],
+            [' ' . str_repeat('a', 42)],
+            [str_repeat('a', 42) . ' '],
         ];
     }
 

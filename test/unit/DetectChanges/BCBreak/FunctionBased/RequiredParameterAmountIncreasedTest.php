@@ -64,6 +64,7 @@ namespace {
    function variadicParameterAdded($a, $b) {}
    function variadicParameterMoved($a, ...$b) {}
    function optionalParameterAddedInBetween($a, $b, $c) {}
+   function parameterMadeOptionalMidSignature($a, $b, $c) {}
    function untouched($a, $b, $c) {}
 }
 
@@ -91,6 +92,7 @@ namespace {
    function variadicParameterAdded($a, $b, ...$c) {}
    function variadicParameterMoved($a, $b, ...$b) {}
    function optionalParameterAddedInBetween($a, $b = null, $c, $d) {}
+   function parameterMadeOptionalMidSignature($a, $b = null, $c) {}
    function untouched($a, $b, $c) {}
 }
 
@@ -111,15 +113,16 @@ PHP
         $toReflector        = new FunctionReflector($toLocator, $toClassReflector);
 
         $functions = [
-            'parametersIncreased'             => ['[BC] CHANGED: The number of required arguments for parametersIncreased() increased from 3 to 4'],
-            'parametersReduced'               => [],
-            'parameterNamesChanged'           => [],
-            'optionalParameterAdded'          => [],
-            'noParametersToOneParameter'      => ['[BC] CHANGED: The number of required arguments for noParametersToOneParameter() increased from 0 to 1'],
-            'variadicParameterAdded'          => [],
-            'variadicParameterMoved'          => ['[BC] CHANGED: The number of required arguments for variadicParameterMoved() increased from 1 to 2'],
-            'optionalParameterAddedInBetween' => ['[BC] CHANGED: The number of required arguments for optionalParameterAddedInBetween() increased from 3 to 4'],
-            'untouched'                       => [],
+            'parametersIncreased'               => ['[BC] CHANGED: The number of required arguments for parametersIncreased() increased from 3 to 4'],
+            'parametersReduced'                 => [],
+            'parameterNamesChanged'             => [],
+            'optionalParameterAdded'            => [],
+            'noParametersToOneParameter'        => ['[BC] CHANGED: The number of required arguments for noParametersToOneParameter() increased from 0 to 1'],
+            'variadicParameterAdded'            => [],
+            'variadicParameterMoved'            => ['[BC] CHANGED: The number of required arguments for variadicParameterMoved() increased from 1 to 2'],
+            'optionalParameterAddedInBetween'   => ['[BC] CHANGED: The number of required arguments for optionalParameterAddedInBetween() increased from 3 to 4'],
+            'parameterMadeOptionalMidSignature' => [],
+            'untouched'                         => [],
         ];
 
         return array_merge(

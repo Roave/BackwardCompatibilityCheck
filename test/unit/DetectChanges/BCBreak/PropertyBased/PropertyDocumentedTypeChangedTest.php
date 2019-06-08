@@ -98,6 +98,16 @@ class TheClass {
      * @var int
      */
     private $privateDocblockToDifferentDocblock;
+    
+    /**
+     * @var int|int
+     */
+    private $duplicatePropertyTypesBeingDeduplicatedAreNotBcBreaks;
+    
+    /**
+     * @var int
+     */
+    private $propertyTypeBeingDuplicatedAreNotBcBreaks;
 }
 PHP
             ,
@@ -152,6 +162,16 @@ class TheClass {
      * @var float
      */
     private $privateDocblockToDifferentDocblock;
+    
+    /**
+     * @var int
+     */
+    private $duplicatePropertyTypesBeingDeduplicatedAreNotBcBreaks;
+    
+    /**
+     * @var int|int
+     */
+    private $propertyTypeBeingDuplicatedAreNotBcBreaks;
 }
 PHP
             ,
@@ -174,6 +194,8 @@ PHP
             'publicCompositeTypeDocblockToSameTypeDocblockWithDifferentSorting' => [],
             'publicCompositeTypeDocblockToDifferentCompositeTypeDocblock'       => ['[BC] CHANGED: Type documentation for property TheClass#$publicCompositeTypeDocblockToDifferentCompositeTypeDocblock changed from float|int to float|int|string'],
             'privateDocblockToDifferentDocblock'                                => ['[BC] CHANGED: Type documentation for property TheClass#$privateDocblockToDifferentDocblock changed from int to float'],
+            'duplicatePropertyTypesBeingDeduplicatedAreNotBcBreaks'             => [],
+            'propertyTypeBeingDuplicatedAreNotBcBreaks'                         => [],
         ];
 
         return array_combine(
