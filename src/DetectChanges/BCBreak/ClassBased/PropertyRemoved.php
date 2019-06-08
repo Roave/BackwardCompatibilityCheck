@@ -13,7 +13,6 @@ use function array_diff;
 use function array_filter;
 use function array_keys;
 use function array_map;
-use function array_values;
 use function Safe\sprintf;
 
 final class PropertyRemoved implements ClassBased

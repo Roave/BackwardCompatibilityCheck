@@ -114,9 +114,7 @@ PHP
                 '[BC] ADDED: Method added2() was added to interface E',
                 '[BC] ADDED: Method ADDED3() was added to interface E',
             ],
-            'F' => [
-                '[BC] ADDED: Method b() was added to interface F',
-            ]
+            'F' => ['[BC] ADDED: Method b() was added to interface F'],
         ];
 
         return array_combine(

@@ -10,7 +10,6 @@ use Roave\BackwardCompatibility\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
 use Roave\BetterReflection\Reflection\ReflectionParameter;
 use function array_intersect_key;
-use function array_values;
 use function Safe\sprintf;
 
 /**
