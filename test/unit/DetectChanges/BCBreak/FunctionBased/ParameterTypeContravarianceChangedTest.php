@@ -43,7 +43,11 @@ final class ParameterTypeContravarianceChangedTest extends TestCase
         );
     }
 
-    /** @return (string[]|ReflectionFunctionAbstract)[][] */
+    /**
+     * @return array<string, array<int, ReflectionFunctionAbstract|array<int, string>>>
+     *
+     * @psalm-return array<string, array{0: ReflectionFunctionAbstract, 1: ReflectionFunctionAbstract, 2: array<int, string>}>
+     */
     public function functionsToBeTested() : array
     {
         $astLocator = (new BetterReflection())->astLocator();

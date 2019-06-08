@@ -42,22 +42,22 @@ final class TypeIsCovariant
             return true;
         }
 
-        if (strtolower($typeAsString) === 'void') {
+        if ($typeAsString === 'void') {
             // nothing is covariant to `void`
             return false;
         }
 
-        if (strtolower($typeAsString) === 'object' && ! $comparedType->isBuiltin()) {
+        if ($typeAsString === 'object' && ! $comparedType->isBuiltin()) {
             // `object` is not covariant to a defined class type
             return true;
         }
 
-        if (strtolower($comparedTypeAsString) === 'array' && strtolower($typeAsString) === 'iterable') {
+        if ($comparedTypeAsString === 'array' && $typeAsString === 'iterable') {
             // an `array` is a subset of an `iterable`, therefore covariant
             return true;
         }
 
-        if (strtolower($typeAsString) === 'iterable' && ! $comparedType->isBuiltin()) {
+        if ($typeAsString === 'iterable' && ! $comparedType->isBuiltin()) {
             if ($comparedType->targetReflectionClass()->implementsInterface(Traversable::class)) {
                 // `iterable` can be restricted via any `Iterator` implementation
                 return true;

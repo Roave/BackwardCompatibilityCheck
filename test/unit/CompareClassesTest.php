@@ -21,13 +21,13 @@ final class CompareClassesTest extends TestCase
     /** @var StringReflectorFactory */
     private static $stringReflectorFactory;
 
-    /** @var ClassBased|MockObject */
+    /** @var ClassBased&MockObject */
     private $classBasedComparison;
 
-    /** @var InterfaceBased|MockObject */
+    /** @var InterfaceBased&MockObject */
     private $interfaceBasedComparison;
 
-    /** @var TraitBased|MockObject */
+    /** @var TraitBased&MockObject */
     private $traitBasedComparison;
 
     /** @var CompareClasses */

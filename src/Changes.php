@@ -7,6 +7,7 @@ namespace Roave\BackwardCompatibility;
 use Countable;
 use Generator;
 use IteratorAggregate;
+use Traversable;
 use function count;
 use function iterator_to_array;
 
@@ -78,7 +79,7 @@ final class Changes implements IteratorAggregate, Countable
     /**
      * {@inheritDoc}
      *
-     * @return iterable|Change[]
+     * @return Traversable<int, Change>
      */
     public function getIterator() : iterable
     {

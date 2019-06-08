@@ -20,18 +20,18 @@ final class MultipleChecksOnAClassConstantTest extends TestCase
 {
     public function testChecksAllGivenCheckers() : void
     {
-        /** @var ClassConstantBased|MockObject $checker1 */
+        /** @var ClassConstantBased&MockObject $checker1 */
         $checker1 = $this->createMock(ClassConstantBased::class);
-        /** @var ClassConstantBased|MockObject $checker2 */
+        /** @var ClassConstantBased&MockObject $checker2 */
         $checker2 = $this->createMock(ClassConstantBased::class);
-        /** @var ClassConstantBased|MockObject $checker3 */
+        /** @var ClassConstantBased&MockObject $checker3 */
         $checker3 = $this->createMock(ClassConstantBased::class);
 
         $multiCheck = new MultipleChecksOnAClassConstant($checker1, $checker2, $checker3);
 
-        /** @var ReflectionClassConstant|MockObject $from */
+        /** @var ReflectionClassConstant&MockObject $from */
         $from = $this->createMock(ReflectionClassConstant::class);
-        /** @var ReflectionClassConstant|MockObject $to */
+        /** @var ReflectionClassConstant&MockObject $to */
         $to = $this->createMock(ReflectionClassConstant::class);
 
         $checker1

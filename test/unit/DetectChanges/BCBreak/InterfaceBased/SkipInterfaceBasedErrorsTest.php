@@ -19,7 +19,7 @@ use function uniqid;
  */
 final class SkipInterfaceBasedErrorsTest extends TestCase
 {
-    /** @var InterfaceBased|MockObject */
+    /** @var InterfaceBased&MockObject */
     private $next;
 
     /** @var SkipInterfaceBasedErrors */

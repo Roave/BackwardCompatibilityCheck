@@ -23,6 +23,9 @@ final class LocateDependenciesViaComposer implements LocateDependencies
     /** @var callable */
     private $makeComposerInstaller;
 
+    /**
+     * @psalm-param callable () : Installer $makeComposerInstaller
+     */
     public function __construct(
         callable $makeComposerInstaller,
         Locator $astLocator
@@ -34,13 +37,11 @@ final class LocateDependenciesViaComposer implements LocateDependencies
 
     public function __invoke(string $installationPath) : SourceLocator
     {
-        Assert::that($installationPath)->directory();
         Assert::that($installationPath . '/composer.json')->file();
 
         $this->runInDirectory(function () use ($installationPath) : void {
             $installer = ($this->makeComposerInstaller)($installationPath);
 
-            Assert::that($installer)->isInstanceOf(Installer::class);
             assert($installer instanceof Installer);
 
             // Some defaults needed for this specific implementation:
@@ -61,8 +62,6 @@ final class LocateDependenciesViaComposer implements LocateDependencies
     private function runInDirectory(callable $callable, string $directoryOfExecution) : void
     {
         $originalDirectory = getcwd();
-
-        Assert::that($originalDirectory)->string();
 
         try {
             chdir($directoryOfExecution);

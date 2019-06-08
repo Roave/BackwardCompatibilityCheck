@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility;
 
+use Generator;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
@@ -47,30 +48,31 @@ final class ChangesTest extends TestCase
 
     public function testFromIteratorBuffersAllChangesWithoutLoadingThemEagerly() : void
     {
-        $producedValues  = 0;
-        $changesProvider = static function () use (& $producedValues) {
-            $producedValues += 1;
+        $stopProducingValues = static function () : void {
+            self::fail('No values should have been produced');
+        };
+
+        $changesProvider = static function () use (& $stopProducingValues) : Generator {
+            $stopProducingValues();
 
             yield Change::changed('a', true);
 
-            $producedValues += 1;
+            $stopProducingValues();
 
             yield Change::changed('b', false);
         };
 
         $changes = Changes::fromIterator($changesProvider());
 
-        self::assertSame(0, $producedValues);
-
         // Nesting one level deep - should still not traverse the iterator eagerly
-        $changes = Changes::fromIterator($changes);
-
-        self::assertSame(0, $producedValues);
-
+        $changes         = Changes::fromIterator($changes);
         $expectedChanges = [
             Change::changed('a', true),
             Change::changed('b', false),
         ];
+
+        $stopProducingValues = static function () : void {
+        };
 
         self::assertEquals($expectedChanges, iterator_to_array($changes));
         self::assertEquals(

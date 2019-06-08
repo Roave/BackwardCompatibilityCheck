@@ -19,7 +19,7 @@ use function uniqid;
  */
 final class MethodFunctionDefinitionChangedTest extends TestCase
 {
-    /** @var FunctionBased|MockObject */
+    /** @var FunctionBased&MockObject */
     private $functionCheck;
 
     /** @var MethodBased */
@@ -35,9 +35,9 @@ final class MethodFunctionDefinitionChangedTest extends TestCase
 
     public function testWillCheckVisibleMethods() : void
     {
-        /** @var ReflectionMethod|MockObject $to */
+        /** @var ReflectionMethod&MockObject $to */
         $from = $this->createMock(ReflectionMethod::class);
-        /** @var ReflectionMethod|MockObject $from */
+        /** @var ReflectionMethod&MockObject $from */
         $to = $this->createMock(ReflectionMethod::class);
 
         $result = Changes::fromList(Change::changed(uniqid('foo', true), true));

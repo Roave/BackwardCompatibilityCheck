@@ -9,7 +9,13 @@ use Roave\BackwardCompatibility\Git\CheckedOutRepository;
 use Roave\BackwardCompatibility\Git\GitCheckoutRevisionToTemporaryPath;
 use Roave\BackwardCompatibility\Git\Revision;
 use RuntimeException;
+use Symfony\Component\Process\Process;
+use function Safe\file_put_contents;
+use function Safe\mkdir;
 use function Safe\realpath;
+use function Safe\tempnam;
+use function Safe\unlink;
+use function sys_get_temp_dir;
 
 /**
  * @covers \Roave\BackwardCompatibility\Git\GitCheckoutRevisionToTemporaryPath
@@ -28,6 +34,8 @@ final class GitCheckoutRevisionToTemporaryPathTest extends TestCase
         self::assertDirectoryExists((string) $temporaryClone);
 
         $git->remove($temporaryClone);
+
+        self::assertDirectoryNotExists((string) $temporaryClone);
     }
 
     public function testCanCheckOutSameRevisionTwice() : void
@@ -44,6 +52,63 @@ final class GitCheckoutRevisionToTemporaryPathTest extends TestCase
 
         $git->remove($first);
         $git->remove($second);
+
+        self::assertDirectoryNotExists((string) $first);
+        self::assertDirectoryNotExists((string) $second);
+    }
+
+    public function testCheckedOutRevisionIsAtExpectedRevisionState() : void
+    {
+        $repoPath = tempnam(sys_get_temp_dir(), 'test-git-repo-');
+
+        unlink($repoPath);
+        mkdir($repoPath);
+
+        (new Process(['git', 'init'], $repoPath))
+            ->mustRun();
+
+        (new Process(['git', 'config', 'user.email', 'me@example.com'], $repoPath))
+            ->mustRun();
+
+        (new Process(['git', 'config', 'user.name', 'Mr Magoo'], $repoPath))
+            ->mustRun();
+
+        (new Process(['git', 'commit', '-m', 'initial commit', '--allow-empty'], $repoPath))
+            ->mustRun();
+
+        $firstCommit = Revision::fromSha1(
+            (new Process(['git', 'rev-parse', 'HEAD'], $repoPath))
+                ->mustRun()
+                ->getOutput()
+        );
+
+        file_put_contents($repoPath . '/a-file.txt', 'file contents');
+
+        (new Process(['git', 'add', 'a-file.txt'], $repoPath))
+            ->mustRun();
+
+        (new Process(['git', 'commit', '-m', 'second commit', '--allow-empty'], $repoPath))
+            ->mustRun();
+
+        $secondCommit = Revision::fromSha1(
+            (new Process(['git', 'rev-parse', 'HEAD'], $repoPath))
+                ->mustRun()
+                ->getOutput()
+        );
+
+        $git = new GitCheckoutRevisionToTemporaryPath();
+
+        $sourceRepository = CheckedOutRepository::fromPath($repoPath);
+        $first            = $git->checkout($sourceRepository, $firstCommit);
+        $second           = $git->checkout($sourceRepository, $secondCommit);
+
+        self::assertFileNotExists($first->__toString() . '/a-file.txt');
+        self::assertFileExists($second->__toString() . '/a-file.txt');
+
+        $git->remove($first);
+        $git->remove($second);
+
+        (new Process(['rm', '-rf', $repoPath]))->mustRun();
     }
 
     public function testExceptionIsThrownWhenTwoPathsCollide() : void
@@ -76,10 +141,6 @@ final class GitCheckoutRevisionToTemporaryPathTest extends TestCase
 
     private function sourceRepository() : CheckedOutRepository
     {
-        $repositoryPath = realpath(__DIR__ . '/../../..');
-
-        self::assertInternalType('string', $repositoryPath);
-
-        return CheckedOutRepository::fromPath($repositoryPath);
+        return CheckedOutRepository::fromPath(realpath(__DIR__ . '/../../..'));
     }
 }

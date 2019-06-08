@@ -22,11 +22,11 @@ final class UseClassBasedChecksOnAnInterfaceTest extends TestCase
     {
         $changes = Changes::fromList(Change::added(uniqid('foo', true), true));
 
-        /** @var ClassBased|MockObject $classBased */
+        /** @var ClassBased&MockObject $classBased */
         $classBased = $this->createMock(ClassBased::class);
-        /** @var ReflectionClass|MockObject $fromInterface */
+        /** @var ReflectionClass&MockObject $fromInterface */
         $fromInterface = $this->createMock(ReflectionClass::class);
-        /** @var ReflectionClass|MockObject $toInterface */
+        /** @var ReflectionClass&MockObject $toInterface */
         $toInterface = $this->createMock(ReflectionClass::class);
 
         $classBased

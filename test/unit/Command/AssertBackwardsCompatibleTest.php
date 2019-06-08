@@ -40,31 +40,31 @@ final class AssertBackwardsCompatibleTest extends TestCase
     /** @var CheckedOutRepository */
     private $sourceRepository;
 
-    /** @var InputInterface|MockObject */
+    /** @var InputInterface&MockObject */
     private $input;
 
-    /** @var ConsoleOutputInterface|MockObject */
+    /** @var ConsoleOutputInterface&MockObject */
     private $output;
 
-    /** @var OutputInterface|MockObject */
+    /** @var OutputInterface&MockObject */
     private $stdErr;
 
-    /** @var PerformCheckoutOfRevision|MockObject */
+    /** @var PerformCheckoutOfRevision&MockObject */
     private $performCheckout;
 
-    /** @var ParseRevision|MockObject */
+    /** @var ParseRevision&MockObject */
     private $parseRevision;
 
-    /** @var GetVersionCollection|MockObject */
+    /** @var GetVersionCollection&MockObject */
     private $getVersions;
 
-    /** @var PickVersionFromVersionCollection|MockObject */
+    /** @var PickVersionFromVersionCollection&MockObject */
     private $pickVersion;
 
-    /** @var LocateDependencies|MockObject */
+    /** @var LocateDependencies&MockObject */
     private $locateDependencies;
 
-    /** @var CompareApi|MockObject */
+    /** @var CompareApi&MockObject */
     private $compareApi;
 
     /** @var AggregateSourceLocator */
@@ -76,8 +76,6 @@ final class AssertBackwardsCompatibleTest extends TestCase
     public function setUp() : void
     {
         $repositoryPath = realpath(__DIR__ . '/../../../');
-
-        self::assertInternalType('string', $repositoryPath);
 
         $this->sourceRepository = CheckedOutRepository::fromPath($repositoryPath);
 
@@ -108,6 +106,26 @@ final class AssertBackwardsCompatibleTest extends TestCase
             ->expects(self::any())
             ->method('getErrorOutput')
             ->willReturn($this->stdErr);
+    }
+
+    public function testDefinition() : void
+    {
+        $usages = $this->compare->getUsages();
+
+        self::assertCount(1, $usages);
+        self::assertStringStartsWith(
+            'roave-backwards-compatibility-check:assert-backwards-compatible',
+            $usages[0]
+        );
+        self::assertStringContainsString('Without arguments, this command will attempt to detect', $usages[0]);
+        self::assertStringStartsWith('Verifies that the revision being', $this->compare->getDescription());
+
+        self::assertSame(
+            '[--from [FROM]] [--to TO] [--format [FORMAT]]',
+            $this->compare
+                ->getDefinition()
+                ->getSynopsis()
+        );
     }
 
     public function testExecuteWhenRevisionsAreProvidedAsOptions() : void
@@ -260,7 +278,6 @@ final class AssertBackwardsCompatibleTest extends TestCase
 
         $this
             ->locateDependencies
-            ->expects(self::any())
             ->method('__invoke')
             ->with((string) $this->sourceRepository)
             ->willReturn($this->dependencies);
@@ -270,13 +287,14 @@ final class AssertBackwardsCompatibleTest extends TestCase
             Change::removed($changeToExpect, true)
         ));
 
-        $this->compare->execute($this->input, $this->output);
-
-        $this->output->expects(self::any())
+        $this->output
+            ->expects(self::once())
             ->method('writeln')
             ->willReturnCallback(static function (string $output) use ($changeToExpect) : void {
-                self::assertContains($changeToExpect, $output);
+                self::assertStringContainsString(' [BC] ' . $changeToExpect, $output);
             });
+
+        $this->compare->execute($this->input, $this->output);
     }
 
     public function testExecuteWithDefaultRevisionsNotProvidedAndNoDetectedTags() : void
@@ -317,7 +335,9 @@ final class AssertBackwardsCompatibleTest extends TestCase
         $this->compare->execute($this->input, $this->output);
     }
 
-    /** @dataProvider validVersionsCollections */
+    /**
+     * @dataProvider validVersionsCollections
+     */
     public function testExecuteWithDefaultRevisionsNotProvided(VersionsCollection $versions) : void
     {
         $fromSha       = sha1('fromRevision', false);
@@ -360,6 +380,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
             ->method('fromRepository')
             ->with(self::callback(function (CheckedOutRepository $checkedOutRepository) : bool {
                 self::assertEquals($this->sourceRepository, $checkedOutRepository);
+
                 return true;
             }))
             ->willReturn($versions);

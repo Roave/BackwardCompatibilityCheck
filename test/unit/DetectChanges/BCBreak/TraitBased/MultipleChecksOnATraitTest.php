@@ -20,18 +20,18 @@ final class MultipleChecksOnATraitTest extends TestCase
 {
     public function testChecksAllGivenCheckers() : void
     {
-        /** @var TraitBased|MockObject $checker1 */
+        /** @var TraitBased&MockObject $checker1 */
         $checker1 = $this->createMock(TraitBased::class);
-        /** @var TraitBased|MockObject $checker2 */
+        /** @var TraitBased&MockObject $checker2 */
         $checker2 = $this->createMock(TraitBased::class);
-        /** @var TraitBased|MockObject $checker3 */
+        /** @var TraitBased&MockObject $checker3 */
         $checker3 = $this->createMock(TraitBased::class);
 
         $multiCheck = new MultipleChecksOnATrait($checker1, $checker2, $checker3);
 
-        /** @var ReflectionClass|MockObject $from */
+        /** @var ReflectionClass&MockObject $from */
         $from = $this->createMock(ReflectionClass::class);
-        /** @var ReflectionClass|MockObject $to */
+        /** @var ReflectionClass&MockObject $to */
         $to = $this->createMock(ReflectionClass::class);
 
         $checker1

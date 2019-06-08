@@ -18,7 +18,7 @@ use function uniqid;
  */
 final class AccessibleMethodChangeTest extends TestCase
 {
-    /** @var MethodBased|MockObject */
+    /** @var MethodBased&MockObject */
     private $check;
 
     /** @var MethodBased */
@@ -34,9 +34,9 @@ final class AccessibleMethodChangeTest extends TestCase
 
     public function testWillSkipCheckingPrivateMethods() : void
     {
-        /** @var ReflectionMethod|MockObject $to */
+        /** @var ReflectionMethod&MockObject $to */
         $from = $this->createMock(ReflectionMethod::class);
-        /** @var ReflectionMethod|MockObject $from */
+        /** @var ReflectionMethod&MockObject $from */
         $to = $this->createMock(ReflectionMethod::class);
 
         $from
@@ -54,9 +54,9 @@ final class AccessibleMethodChangeTest extends TestCase
 
     public function testWillCheckVisibleMethods() : void
     {
-        /** @var ReflectionMethod|MockObject $to */
+        /** @var ReflectionMethod&MockObject $to */
         $from = $this->createMock(ReflectionMethod::class);
-        /** @var ReflectionMethod|MockObject $from */
+        /** @var ReflectionMethod&MockObject $from */
         $to = $this->createMock(ReflectionMethod::class);
 
         $from

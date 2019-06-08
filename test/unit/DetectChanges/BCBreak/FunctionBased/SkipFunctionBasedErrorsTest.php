@@ -19,7 +19,7 @@ use function uniqid;
  */
 final class SkipFunctionBasedErrorsTest extends TestCase
 {
-    /** @var FunctionBased|MockObject */
+    /** @var FunctionBased&MockObject */
     private $next;
 
     /** @var SkipFunctionBasedErrors */

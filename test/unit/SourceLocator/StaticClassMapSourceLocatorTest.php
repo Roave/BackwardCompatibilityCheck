@@ -21,10 +21,10 @@ use function Safe\file_get_contents;
  */
 final class StaticClassMapSourceLocatorTest extends TestCase
 {
-    /** @var Locator|MockObject */
+    /** @var Locator&MockObject */
     private $astLocator;
 
-    /** @var Reflector|MockObject */
+    /** @var Reflector&MockObject */
     private $reflector;
 
     protected function setUp() : void
@@ -35,7 +35,7 @@ final class StaticClassMapSourceLocatorTest extends TestCase
         $this->reflector  = $this->createMock(Reflector::class);
     }
 
-    public function rejectsEmptyKeys() : void
+    public function testRejectsEmptyKeys() : void
     {
         $this->expectException(InvalidArgumentException::class);
 
@@ -45,17 +45,17 @@ final class StaticClassMapSourceLocatorTest extends TestCase
         );
     }
 
-    public function rejectsNonStringKeys() : void
+    public function testRejectsEmptyStringFiles() : void
     {
         $this->expectException(InvalidArgumentException::class);
 
         new StaticClassMapSourceLocator(
-            [__FILE__],
+            ['foo' => ''],
             $this->astLocator
         );
     }
 
-    public function acceptsEmptySet() : void
+    public function testAcceptsEmptySet() : void
     {
         $locator = new StaticClassMapSourceLocator([], $this->astLocator);
 
@@ -65,9 +65,12 @@ final class StaticClassMapSourceLocatorTest extends TestCase
         ));
     }
 
-    public function testWillLocateThisClass() : void
+    /**
+     * @dataProvider thisClassPossiblePaths
+     */
+    public function testWillLocateThisClass(string $thisClassFilePath) : void
     {
-        $locator    = new StaticClassMapSourceLocator([self::class => __FILE__], $this->astLocator);
+        $locator    = new StaticClassMapSourceLocator([self::class => $thisClassFilePath], $this->astLocator);
         $reflection = $this->createMock(Reflection::class);
 
         $this
@@ -87,6 +90,15 @@ final class StaticClassMapSourceLocatorTest extends TestCase
             $this->reflector,
             new Identifier(self::class, new IdentifierType(IdentifierType::IDENTIFIER_CLASS))
         ));
+    }
+
+    /** @return array<int, array<int, string>> */
+    public static function thisClassPossiblePaths() : array
+    {
+        return [
+            [__FILE__],
+            [__DIR__ . '/../SourceLocator/StaticClassMapSourceLocatorTest.php'],
+        ];
     }
 
     public function testWillNotLocateUnknownClass() : void

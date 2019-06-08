@@ -20,18 +20,18 @@ final class MultipleChecksOnAnInterfaceTest extends TestCase
 {
     public function testChecksAllGivenCheckers() : void
     {
-        /** @var InterfaceBased|MockObject $checker1 */
+        /** @var InterfaceBased&MockObject $checker1 */
         $checker1 = $this->createMock(InterfaceBased::class);
-        /** @var InterfaceBased|MockObject $checker2 */
+        /** @var InterfaceBased&MockObject $checker2 */
         $checker2 = $this->createMock(InterfaceBased::class);
-        /** @var InterfaceBased|MockObject $checker3 */
+        /** @var InterfaceBased&MockObject $checker3 */
         $checker3 = $this->createMock(InterfaceBased::class);
 
         $multiCheck = new MultipleChecksOnAnInterface($checker1, $checker2, $checker3);
 
-        /** @var ReflectionClass|MockObject $from */
+        /** @var ReflectionClass&MockObject $from */
         $from = $this->createMock(ReflectionClass::class);
-        /** @var ReflectionClass|MockObject $to */
+        /** @var ReflectionClass&MockObject $to */
         $to = $this->createMock(ReflectionClass::class);
 
         $checker1

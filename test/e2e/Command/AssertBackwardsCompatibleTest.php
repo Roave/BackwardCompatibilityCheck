@@ -115,7 +115,7 @@ PHP
 
         $this->sourcesRepository = tempnam(sys_get_temp_dir(), 'roave-backward-compatibility-e2e-test');
 
-        self::assertInternalType('string', $this->sourcesRepository);
+        self::assertIsString($this->sourcesRepository);
         self::assertNotEmpty($this->sourcesRepository);
         self::assertFileExists($this->sourcesRepository);
 
@@ -126,26 +126,25 @@ PHP
         self::assertDirectoryExists($this->sourcesRepository);
         self::assertDirectoryExists($this->sourcesRepository . '/src');
 
-        (new Process('git init', $this->sourcesRepository))->mustRun();
+        (new Process(['git', 'init'], $this->sourcesRepository))->mustRun();
 
         file_put_contents($this->sourcesRepository . '/composer.json', self::COMPOSER_MANIFEST);
 
-        (new Process('git add -A', $this->sourcesRepository))->mustRun();
-        (new Process('git commit -am "Initial commit with composer manifest"', $this->sourcesRepository))->mustRun();
+        (new Process(['git', 'add', '-A'], $this->sourcesRepository))->mustRun();
+        (new Process(['git', 'commit', '-am', 'Initial commit with composer manifest'], $this->sourcesRepository))->mustRun();
 
         foreach (self::CLASS_VERSIONS as $key => $classCode) {
             file_put_contents($this->sourcesRepository . '/src/TheClass.php', $classCode);
 
-            (new Process('git add -A', $this->sourcesRepository))->mustRun();
-            (new Process(sprintf('git commit -am "Class sources v%d"', $key + 1), $this->sourcesRepository))->mustRun();
-            $this->versions[$key] = trim((new Process('git rev-parse HEAD', $this->sourcesRepository))->mustRun()
+            (new Process(['git', 'add', '-A'], $this->sourcesRepository))->mustRun();
+            (new Process(['git', 'commit', '-am', sprintf('Class sources v%d', $key + 1)], $this->sourcesRepository))->mustRun();
+            $this->versions[$key] = trim((new Process(['git', 'rev-parse', 'HEAD'], $this->sourcesRepository))->mustRun()
                                                                                                       ->getOutput());
         }
     }
 
     protected function tearDown() : void
     {
-        self::assertInternalType('string', $this->sourcesRepository);
         self::assertNotEmpty($this->sourcesRepository);
         self::assertDirectoryExists($this->sourcesRepository);
 
@@ -181,12 +180,12 @@ EXPECTED
     public function testWillNotRunWithoutTagsNorSpecifiedVersions() : void
     {
         $check = new Process(
-            __DIR__ . '/../../../bin/roave-backward-compatibility-check',
+            [__DIR__ . '/../../../bin/roave-backward-compatibility-check'],
             $this->sourcesRepository
         );
 
         self::assertSame(212, $check->run());
-        self::assertContains(
+        self::assertStringContainsString(
             'Could not detect any released versions for the given repository',
             $check->getErrorOutput()
         );
@@ -205,7 +204,7 @@ EXPECTED
         );
 
         self::assertSame(0, $check->run());
-        self::assertContains(
+        self::assertStringContainsString(
             'No backwards-incompatible changes detected',
             $check->getErrorOutput()
         );
@@ -227,7 +226,7 @@ EXPECTED
 
         $errorOutput = $check->getErrorOutput();
 
-        self::assertContains('Detected last minor version: 1.2.3', $errorOutput);
+        self::assertStringContainsString('Detected last minor version: 1.2.3', $errorOutput);
         self::assertStringEndsWith(
             <<<'EXPECTED'
 [BC] CHANGED: The parameter $a of TestArtifact\TheClass#method() changed from TestArtifact\B to a non-contravariant TestArtifact\C
@@ -256,7 +255,7 @@ EXPECTED
 
         $errorOutput = $check->getErrorOutput();
 
-        self::assertContains('Detected last minor version: 2.2.3', $errorOutput);
+        self::assertStringContainsString('Detected last minor version: 2.2.3', $errorOutput);
         self::assertStringEndsWith(
             <<<'EXPECTED'
 [BC] CHANGED: The parameter $a of TestArtifact\TheClass#method() changed from TestArtifact\B to a non-contravariant TestArtifact\C

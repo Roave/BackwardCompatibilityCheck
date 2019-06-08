@@ -17,10 +17,10 @@ final class CheckedOutRepository
 
     public static function fromPath(string $path) : self
     {
-        Assert::that($path)->directory();
         Assert::that($path . '/.git')->directory();
         $instance       = new self();
         $instance->path = $path;
+
         return $instance;
     }
 

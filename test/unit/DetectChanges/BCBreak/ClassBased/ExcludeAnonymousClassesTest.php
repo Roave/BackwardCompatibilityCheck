@@ -32,7 +32,7 @@ PHP
         $fromReflection = $reflector->reflect('ANormalClass');
         $toReflection   = $reflector->reflect('ANormalClass');
 
-        /** @var ClassBased|MockObject $check */
+        /** @var ClassBased&MockObject $check */
         $check = $this->createMock(ClassBased::class);
         $check->expects(self::once())
             ->method('__invoke')
@@ -60,7 +60,7 @@ PHP
 
         self::assertInstanceOf(ReflectionClass::class, $anonymousClassReflection);
 
-        /** @var ClassBased|MockObject $check */
+        /** @var ClassBased&MockObject $check */
         $check = $this->createMock(ClassBased::class);
         $check->expects(self::never())->method('__invoke');
 

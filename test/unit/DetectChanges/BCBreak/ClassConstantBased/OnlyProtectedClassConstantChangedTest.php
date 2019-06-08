@@ -18,13 +18,13 @@ use function uniqid;
  */
 final class OnlyProtectedClassConstantChangedTest extends TestCase
 {
-    /** @var ClassConstantBased|MockObject */
+    /** @var ClassConstantBased&MockObject */
     private $check;
 
-    /** @var ReflectionClassConstant|MockObject */
+    /** @var ReflectionClassConstant&MockObject */
     private $fromConstant;
 
-    /** @var ReflectionClassConstant|MockObject */
+    /** @var ReflectionClassConstant&MockObject */
     private $toConstant;
 
     /** @var OnlyProtectedClassConstantChanged */

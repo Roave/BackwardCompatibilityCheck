@@ -42,7 +42,11 @@ final class PropertyDocumentedTypeChangedTest extends TestCase
         );
     }
 
-    /** @return (string[]|ReflectionProperty)[][] */
+    /**
+     * @return array<string, array<int, ReflectionProperty|array<int, string>>>
+     *
+     * @psalm-return array<string, array{0: ReflectionProperty, 1: ReflectionProperty, 2: array<int, string>}>
+     */
     public function propertiesToBeTested() : array
     {
         $astLocator = (new BetterReflection())->astLocator();
@@ -94,6 +98,16 @@ class TheClass {
      * @var int
      */
     private $privateDocblockToDifferentDocblock;
+    
+    /**
+     * @var int|int
+     */
+    private $duplicatePropertyTypesBeingDeduplicatedAreNotBcBreaks;
+    
+    /**
+     * @var int
+     */
+    private $propertyTypeBeingDuplicatedAreNotBcBreaks;
 }
 PHP
             ,
@@ -148,6 +162,16 @@ class TheClass {
      * @var float
      */
     private $privateDocblockToDifferentDocblock;
+    
+    /**
+     * @var int
+     */
+    private $duplicatePropertyTypesBeingDeduplicatedAreNotBcBreaks;
+    
+    /**
+     * @var int|int
+     */
+    private $propertyTypeBeingDuplicatedAreNotBcBreaks;
 }
 PHP
             ,
@@ -170,6 +194,8 @@ PHP
             'publicCompositeTypeDocblockToSameTypeDocblockWithDifferentSorting' => [],
             'publicCompositeTypeDocblockToDifferentCompositeTypeDocblock'       => ['[BC] CHANGED: Type documentation for property TheClass#$publicCompositeTypeDocblockToDifferentCompositeTypeDocblock changed from float|int to float|int|string'],
             'privateDocblockToDifferentDocblock'                                => ['[BC] CHANGED: Type documentation for property TheClass#$privateDocblockToDifferentDocblock changed from int to float'],
+            'duplicatePropertyTypesBeingDeduplicatedAreNotBcBreaks'             => [],
+            'propertyTypeBeingDuplicatedAreNotBcBreaks'                         => [],
         ];
 
         return array_combine(

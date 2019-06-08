@@ -11,7 +11,6 @@ use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
 use Roave\BetterReflection\Reflection\ReflectionParameter;
 use Roave\BetterReflection\Reflection\ReflectionType;
 use function array_intersect_key;
-use function array_values;
 use function Safe\sprintf;
 
 /**
@@ -33,8 +32,8 @@ final class ParameterTypeChanged implements FunctionBased
     public function __invoke(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction) : Changes
     {
         return Changes::fromIterator($this->checkSymbols(
-            array_values($fromFunction->getParameters()),
-            array_values($toFunction->getParameters())
+            $fromFunction->getParameters(),
+            $toFunction->getParameters()
         ));
     }
 

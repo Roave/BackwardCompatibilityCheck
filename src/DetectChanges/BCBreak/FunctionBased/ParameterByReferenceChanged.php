@@ -10,7 +10,6 @@ use Roave\BackwardCompatibility\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
 use Roave\BetterReflection\Reflection\ReflectionParameter;
 use function array_intersect_key;
-use function array_values;
 use function Safe\sprintf;
 
 /**
@@ -30,12 +29,9 @@ final class ParameterByReferenceChanged implements FunctionBased
 
     public function __invoke(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction) : Changes
     {
-        /** @var ReflectionParameter[] $fromParameters */
-        $fromParameters = array_values($fromFunction->getParameters());
-        /** @var ReflectionParameter[] $toParameters */
-        $toParameters = array_values($toFunction->getParameters());
-
-        $changes = Changes::empty();
+        $fromParameters = $fromFunction->getParameters();
+        $toParameters   = $toFunction->getParameters();
+        $changes        = Changes::empty();
 
         foreach (array_intersect_key($fromParameters, $toParameters) as $parameterIndex => $commonParameter) {
             $changes = $changes->mergeWith($this->compareParameter($commonParameter, $toParameters[$parameterIndex]));

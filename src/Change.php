@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility;
 
-use Assert\Assert;
 use Throwable;
 use function Safe\sprintf;
 use function strtoupper;
@@ -19,9 +18,6 @@ final class Change
     private const REMOVED = 'removed';
     private const SKIPPED = 'skipped';
 
-    /** @var string[] */
-    private static $validModificationTypes = [self::ADDED, self::CHANGED, self::REMOVED, self::SKIPPED];
-
     /** @var string */
     private $modificationType;
 
@@ -33,7 +29,6 @@ final class Change
 
     private function __construct(string $modificationType, string $description, bool $isBcBreak)
     {
-        Assert::that($modificationType)->inArray(self::$validModificationTypes);
         $this->modificationType = $modificationType;
         $this->description      = $description;
         $this->isBcBreak        = $isBcBreak;

@@ -18,7 +18,10 @@ final class StaticClassMapSourceLocator extends AbstractSourceLocator
     /** @var string[] */
     private $classMap;
 
-    /** @param string[] $classMap of class to file path. Every file must exist, every key must be non-empty */
+     /**
+      * @param array<string, string> $classMap map of class => file. Every file must exist,
+      *                                        every key must be non-empty
+      */
     public function __construct(
         array $classMap,
         Locator $astLocator
@@ -29,7 +32,7 @@ final class StaticClassMapSourceLocator extends AbstractSourceLocator
         $realPaths = array_map('realpath', $classMap);
 
         Assert::that($classMap)->all()->file();
-        Assert::that(array_keys($classMap))->all()->string()->notEmpty();
+        Assert::that(array_keys($classMap))->all()->notEmpty();
 
         $this->classMap = $realPaths;
     }
@@ -49,10 +52,6 @@ final class StaticClassMapSourceLocator extends AbstractSourceLocator
             return null;
         }
 
-        $fileContents = file_get_contents($classFile);
-
-        Assert::that($fileContents)->string();
-
-        return new LocatedSource($fileContents, $classFile);
+        return new LocatedSource(file_get_contents($classFile), $classFile);
     }
 }

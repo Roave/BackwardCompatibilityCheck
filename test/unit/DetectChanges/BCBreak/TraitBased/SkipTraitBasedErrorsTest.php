@@ -19,7 +19,7 @@ use function uniqid;
  */
 final class SkipTraitBasedErrorsTest extends TestCase
 {
-    /** @var TraitBased|MockObject */
+    /** @var TraitBased&MockObject */
     private $next;
 
     /** @var SkipTraitBasedErrors */

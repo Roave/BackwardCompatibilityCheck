@@ -20,18 +20,18 @@ final class MultipleChecksOnAPropertyTest extends TestCase
 {
     public function testChecksAllGivenCheckers() : void
     {
-        /** @var PropertyBased|MockObject $checker1 */
+        /** @var PropertyBased&MockObject $checker1 */
         $checker1 = $this->createMock(PropertyBased::class);
-        /** @var PropertyBased|MockObject $checker2 */
+        /** @var PropertyBased&MockObject $checker2 */
         $checker2 = $this->createMock(PropertyBased::class);
-        /** @var PropertyBased|MockObject $checker3 */
+        /** @var PropertyBased&MockObject $checker3 */
         $checker3 = $this->createMock(PropertyBased::class);
 
         $multiCheck = new MultipleChecksOnAProperty($checker1, $checker2, $checker3);
 
-        /** @var ReflectionProperty|MockObject $from */
+        /** @var ReflectionProperty&MockObject $from */
         $from = $this->createMock(ReflectionProperty::class);
-        /** @var ReflectionProperty|MockObject $to */
+        /** @var ReflectionProperty&MockObject $to */
         $to = $this->createMock(ReflectionProperty::class);
 
         $checker1

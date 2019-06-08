@@ -9,7 +9,6 @@ use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassConstantBased\ClassConstantValueChanged;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionClassConstant;
-use Roave\BetterReflection\Reflection\ReflectionProperty;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 use function array_keys;
@@ -43,7 +42,11 @@ final class ClassConstantValueChangedTest extends TestCase
         );
     }
 
-    /** @return string[][][]|ReflectionProperty[][][] */
+    /**
+     * @return array<string, array<int, ReflectionClassConstant|array<int, string>>>
+     *
+     * @psalm-return array<string, array{0: ReflectionClassConstant, 1: ReflectionClassConstant, 2: array<int, string>}>
+     */
     public function propertiesToBeTested() : array
     {
         $astLocator = (new BetterReflection())->astLocator();

@@ -18,13 +18,13 @@ use function uniqid;
  */
 final class OnlyPublicPropertyChangedTest extends TestCase
 {
-    /** @var PropertyBased|MockObject */
+    /** @var PropertyBased&MockObject */
     private $check;
 
-    /** @var ReflectionProperty|MockObject */
+    /** @var ReflectionProperty&MockObject */
     private $fromProperty;
 
-    /** @var ReflectionProperty|MockObject */
+    /** @var ReflectionProperty&MockObject */
     private $toProperty;
 
     /** @var OnlyPublicPropertyChanged */

@@ -40,17 +40,17 @@ final class TypeIsContravariant
             return true;
         }
 
-        if (strtolower($typeAsString) === 'void') {
+        if ($typeAsString === 'void') {
             // everything is always contravariant to `void`
             return true;
         }
 
-        if (strtolower($comparedTypeAsString) === 'object' && ! $type->isBuiltin()) {
+        if ($comparedTypeAsString === 'object' && ! $type->isBuiltin()) {
             // `object` is always contravariant to any object type
             return true;
         }
 
-        if (strtolower($comparedTypeAsString) === 'iterable' && strtolower($typeAsString) === 'array') {
+        if ($comparedTypeAsString === 'iterable' && $typeAsString === 'array') {
             return true;
         }
 

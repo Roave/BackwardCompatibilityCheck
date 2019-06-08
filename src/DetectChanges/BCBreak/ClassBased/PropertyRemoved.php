@@ -13,7 +13,6 @@ use function array_diff;
 use function array_filter;
 use function array_keys;
 use function array_map;
-use function array_values;
 use function Safe\sprintf;
 
 final class PropertyRemoved implements ClassBased
@@ -34,12 +33,12 @@ final class PropertyRemoved implements ClassBased
             array_keys($this->accessibleProperties($toClass))
         );
 
-        return Changes::fromList(...array_values(array_map(function (string $property) use ($fromProperties) : Change {
+        return Changes::fromList(...array_map(function (string $property) use ($fromProperties) : Change {
             return Change::removed(
                 sprintf('Property %s was removed', $this->formatProperty->__invoke($fromProperties[$property])),
                 true
             );
-        }, $removedProperties)));
+        }, $removedProperties));
     }
 
     /** @return ReflectionProperty[] */

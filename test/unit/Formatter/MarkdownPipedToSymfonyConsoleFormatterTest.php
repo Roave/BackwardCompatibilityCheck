@@ -34,10 +34,10 @@ final class MarkdownPipedToSymfonyConsoleFormatterTest extends TestCase
 
 EOF;
 
-        $output->expects(self::any())
+        $output->expects(self::once())
             ->method('writeln')
             ->willReturnCallback(static function (string $output) use ($changeToExpect) : void {
-                self::assertContains($changeToExpect, $output);
+                self::assertStringContainsString($changeToExpect, $output);
             });
 
         (new MarkdownPipedToSymfonyConsoleFormatter($output))->write(Changes::fromList(

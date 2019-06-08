@@ -15,7 +15,9 @@ use function array_merge;
 
 final class TypeIsCovariantTest extends TestCase
 {
-    /** @dataProvider checkedTypes */
+    /**
+     * @dataProvider checkedTypes
+     */
     public function testCovariance(
         ?ReflectionType $type,
         ?ReflectionType $newType,
@@ -28,7 +30,11 @@ final class TypeIsCovariantTest extends TestCase
         );
     }
 
-    /** @return (null|bool|ReflectionType)[][] */
+    /**
+     * @return array<string, array<int, bool|ReflectionType|null>>
+     *
+     * @psalm-return array<string, array{0: ReflectionType|null, 1: ReflectionType|null, 2: bool}>
+     */
     public function checkedTypes() : array
     {
         $reflector = new ClassReflector(new StringSourceLocator(
@@ -209,7 +215,9 @@ PHP
         ];
     }
 
-    /** @dataProvider existingTypes */
+    /**
+     * @dataProvider existingTypes
+     */
     public function testCovarianceConsidersSameTypeAlwaysCovariant(?ReflectionType $type) : void
     {
         self::assertTrue(
@@ -218,7 +226,7 @@ PHP
         );
     }
 
-    /** @return (null|ReflectionType)[][] */
+    /** @return (ReflectionType|null)[][] */
     public function existingTypes() : array
     {
         $reflector = new ClassReflector(new StringSourceLocator(
@@ -256,7 +264,9 @@ PHP
         );
     }
 
-    /** @dataProvider existingNullableTypeStrings */
+    /**
+     * @dataProvider existingNullableTypeStrings
+     */
     public function testCovarianceConsidersNullability(string $type) : void
     {
         $reflector   = new ClassReflector(new StringSourceLocator(

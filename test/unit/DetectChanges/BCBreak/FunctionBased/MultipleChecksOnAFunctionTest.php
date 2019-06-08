@@ -20,18 +20,18 @@ final class MultipleChecksOnAFunctionTest extends TestCase
 {
     public function testChecksAllGivenCheckers() : void
     {
-        /** @var FunctionBased|MockObject $checker1 */
+        /** @var FunctionBased&MockObject $checker1 */
         $checker1 = $this->createMock(FunctionBased::class);
-        /** @var FunctionBased|MockObject $checker2 */
+        /** @var FunctionBased&MockObject $checker2 */
         $checker2 = $this->createMock(FunctionBased::class);
-        /** @var FunctionBased|MockObject $checker3 */
+        /** @var FunctionBased&MockObject $checker3 */
         $checker3 = $this->createMock(FunctionBased::class);
 
         $multiCheck = new MultipleChecksOnAFunction($checker1, $checker2, $checker3);
 
-        /** @var ReflectionFunctionAbstract|MockObject $from */
+        /** @var ReflectionFunctionAbstract&MockObject $from */
         $from = $this->createMock(ReflectionFunctionAbstract::class);
-        /** @var ReflectionFunctionAbstract|MockObject $to */
+        /** @var ReflectionFunctionAbstract&MockObject $to */
         $to = $this->createMock(ReflectionFunctionAbstract::class);
 
         $checker1

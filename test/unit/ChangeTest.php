@@ -79,7 +79,7 @@ final class ChangeTest extends TestCase
         self::assertFalse($change->isSkipped());
     }
 
-    public function testskippedDueToFailure() : void
+    public function testSkippedDueToFailure() : void
     {
         $failure = new Exception('changeText');
         $change  = Change::skippedDueToFailure($failure);
