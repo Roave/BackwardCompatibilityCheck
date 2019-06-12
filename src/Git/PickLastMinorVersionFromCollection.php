@@ -12,7 +12,6 @@ use Version\Constraint\CompositeConstraint;
 use Version\Constraint\ConstraintInterface;
 use Version\Version;
 use Version\VersionsCollection;
-use function iterator_to_array;
 
 final class PickLastMinorVersionFromCollection implements PickVersionFromVersionCollection
 {
@@ -36,8 +35,7 @@ final class PickLastMinorVersionFromCollection implements PickVersionFromVersion
 
         $versionsSortedDescending = $stableVersions->sortedDescending();
 
-        /** @var Version $lastVersion */
-        $lastVersion = iterator_to_array($versionsSortedDescending)[0];
+        $lastVersion = $versionsSortedDescending->first();
 
         $matchingMinorVersions = $stableVersions
             ->matching(new CompositeConstraint(
@@ -50,9 +48,6 @@ final class PickLastMinorVersionFromCollection implements PickVersionFromVersion
             ))
             ->sortedAscending();
 
-        /** @var Version[] $matchingMinorVersionsAsArray */
-        $matchingMinorVersionsAsArray = iterator_to_array($matchingMinorVersions);
-
-        return $matchingMinorVersionsAsArray[0];
+        return $matchingMinorVersions->first();
     }
 }
