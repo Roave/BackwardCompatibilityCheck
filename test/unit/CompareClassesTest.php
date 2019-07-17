@@ -182,6 +182,32 @@ PHP
         );
     }
 
+    public function testSkipsReflectingInternalClassAlikeSymbols() : void
+    {
+        $this->classBasedComparatorWillNotBeCalled();
+        $this->interfaceBasedComparatorWillNotBeCalled();
+        $this->traitBasedComparatorWillNotBeCalled();
+
+        Assertion::assertChangesEqual(
+            Changes::empty(),
+            $this->compareClasses->__invoke(
+                self::$stringReflectorFactory->__invoke(<<<'PHP'
+<?php
+
+/** @internal */
+class A {}
+/** @internal */
+interface B {}
+/** @internal */
+trait C {}
+PHP
+                ),
+                self::$stringReflectorFactory->__invoke('<?php '),
+                self::$stringReflectorFactory->__invoke('<?php ')
+            )
+        );
+    }
+
     public function testRemovingAClassCausesABreak() : void
     {
         $this->classBasedComparatorWillNotBeCalled();

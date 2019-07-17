@@ -13,6 +13,7 @@ use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
 use function array_filter;
 use function array_map;
+use function Safe\preg_match;
 use function Safe\sprintf;
 
 final class CompareClasses implements CompareApi
@@ -50,8 +51,8 @@ final class CompareClasses implements CompareApi
             },
             array_filter(
                 $definedSymbols->getAllClasses(),
-                static function (ReflectionClass $class) : bool {
-                    return ! $class->isAnonymous();
+                function (ReflectionClass $class) : bool {
+                    return ! ($class->isAnonymous() || $this->isInternalDocComment($class->getDocComment()));
                 }
             )
         );
@@ -107,5 +108,10 @@ final class CompareClasses implements CompareApi
         }
 
         yield from $this->classBasedComparisons->__invoke($oldSymbol, $newClass);
+    }
+
+    private function isInternalDocComment(string $comment) : bool
+    {
+        return preg_match('/\s+@internal\s+/', $comment) === 1;
     }
 }
