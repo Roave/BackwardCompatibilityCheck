@@ -59,8 +59,6 @@ PHP
         ));
         $reflection = $reflector->reflect('AnInternalTrait');
 
-        self::assertInstanceOf(ReflectionClass::class, $reflection);
-
         $check = $this->createMock(TraitBased::class);
         $check->expects(self::never())->method('__invoke');
 

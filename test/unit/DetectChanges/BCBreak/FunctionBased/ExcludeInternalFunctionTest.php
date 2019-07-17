@@ -19,17 +19,16 @@ final class ExcludeInternalFunctionTest extends TestCase
 {
     public function testNormalFunctionsAreNotExcluded() : void
     {
-        $astLocator = (new BetterReflection())->astLocator();
-        $source     = new StringSourceLocator(
+        $source   = new StringSourceLocator(
             <<<'PHP'
 <?php
 
 function a() {}
 PHP
             ,
-            $astLocator
+            (new BetterReflection())->astLocator()
         );
-        $function   = (new FunctionReflector($source, new ClassReflector($source, $astLocator)))
+        $function = (new FunctionReflector($source, new ClassReflector($source)))
             ->reflect('a');
 
         $check = $this->createMock(FunctionBased::class);
@@ -47,8 +46,7 @@ PHP
 
     public function testInternalFunctionsAreExcluded() : void
     {
-        $astLocator = (new BetterReflection())->astLocator();
-        $source     = new StringSourceLocator(
+        $source   = new StringSourceLocator(
             <<<'PHP'
 <?php
 
@@ -56,9 +54,9 @@ PHP
 function a() {}
 PHP
             ,
-            $astLocator
+            (new BetterReflection())->astLocator()
         );
-        $function   = (new FunctionReflector($source, new ClassReflector($source, $astLocator)))
+        $function = (new FunctionReflector($source, new ClassReflector($source)))
             ->reflect('a');
 
         $check = $this->createMock(FunctionBased::class);

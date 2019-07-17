@@ -60,8 +60,6 @@ PHP
         ));
         $reflection = $reflector->reflect('AnInternalInterface');
 
-        self::assertInstanceOf(ReflectionClass::class, $reflection);
-
         $check = $this->createMock(InterfaceBased::class);
         $check->expects(self::never())->method('__invoke');
 

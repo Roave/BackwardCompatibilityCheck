@@ -32,6 +32,8 @@ PHP
             ->reflect('A')
             ->getProperty('property');
 
+        self::assertNotNull($property);
+
         $check = $this->createMock(PropertyBased::class);
         $check->expects(self::once())
               ->method('__invoke')
@@ -61,6 +63,8 @@ PHP
         )))
             ->reflect('A')
             ->getProperty('property');
+
+        self::assertNotNull($property);
 
         $check = $this->createMock(PropertyBased::class);
         $check->expects(self::never())

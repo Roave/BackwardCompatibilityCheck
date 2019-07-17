@@ -62,9 +62,6 @@ PHP
         ));
         $reflection = $reflector->reflect('AnInternalClass');
 
-        self::assertInstanceOf(ReflectionClass::class, $reflection);
-
-        /** @var ClassBased&MockObject $check */
         $check = $this->createMock(ClassBased::class);
         $check->expects(self::never())->method('__invoke');
 
