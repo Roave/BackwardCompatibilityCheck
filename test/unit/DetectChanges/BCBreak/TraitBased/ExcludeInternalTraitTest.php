@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RoaveTest\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased;
+namespace RoaveTest\BackwardCompatibility\DetectChanges\BCBreak\TraitBased;
 
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
