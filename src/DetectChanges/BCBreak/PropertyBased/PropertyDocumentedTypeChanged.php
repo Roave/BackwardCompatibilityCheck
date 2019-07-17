@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased;
 
+use InvalidArgumentException;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Formatter\ReflectionPropertyName;
@@ -34,8 +35,13 @@ final class PropertyDocumentedTypeChanged implements PropertyBased
             return Changes::empty();
         }
 
-        $fromTypes = array_unique($fromProperty->getDocBlockTypeStrings());
-        $toTypes   = array_unique($toProperty->getDocBlockTypeStrings());
+        try {
+            $fromTypes = array_unique($fromProperty->getDocBlockTypeStrings());
+            $toTypes   = array_unique($toProperty->getDocBlockTypeStrings());
+        } catch (InvalidArgumentException $failedToParseDocblock) {
+            // @TODO #134 improve docblock parsing upstream to remove this generic try-catch
+            return Changes::empty();
+        }
 
         sort($fromTypes);
         sort($toTypes);

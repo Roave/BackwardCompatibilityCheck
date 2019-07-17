@@ -108,6 +108,11 @@ class TheClass {
      * @var int
      */
     private $propertyTypeBeingDuplicatedAreNotBcBreaks;
+
+    /**
+     * @var GenericType<T1, T2>
+     */ 
+    public $propertyWithComplexDocblockThatCannotBeParsed;
 }
 PHP
             ,
@@ -172,6 +177,11 @@ class TheClass {
      * @var int|int
      */
     private $propertyTypeBeingDuplicatedAreNotBcBreaks;
+
+    /**
+     * @var GenericType<T1, T2>
+     */ 
+    public $propertyWithComplexDocblockThatCannotBeParsed;
 }
 PHP
             ,
@@ -196,6 +206,7 @@ PHP
             'privateDocblockToDifferentDocblock'                                => ['[BC] CHANGED: Type documentation for property TheClass#$privateDocblockToDifferentDocblock changed from int to float'],
             'duplicatePropertyTypesBeingDeduplicatedAreNotBcBreaks'             => [],
             'propertyTypeBeingDuplicatedAreNotBcBreaks'                         => [],
+            'propertyWithComplexDocblockThatCannotBeParsed'                     => [],
         ];
 
         return array_combine(
