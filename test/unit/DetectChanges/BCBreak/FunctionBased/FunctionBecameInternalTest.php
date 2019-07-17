@@ -12,6 +12,7 @@ use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\Reflector\FunctionReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
+use function array_keys;
 use function array_map;
 use function iterator_to_array;
 use function Safe\array_combine;
@@ -20,9 +21,9 @@ use function Safe\array_combine;
 final class FunctionBecameInternalTest extends TestCase
 {
     /**
-     * @dataProvider functionsToBeTested
-     *
      * @param string[] $expectedMessages
+     *
+     * @dataProvider functionsToBeTested
      */
     public function testDiffs(
         ReflectionFunctionAbstract $fromFunction,
@@ -34,7 +35,7 @@ final class FunctionBecameInternalTest extends TestCase
 
         self::assertSame(
             $expectedMessages,
-            array_map(function (Change $change) : string {
+            array_map(static function (Change $change) : string {
                 return $change->__toString();
             }, iterator_to_array($changes))
         );
@@ -95,7 +96,7 @@ PHP
         return array_combine(
             array_keys($functions),
             array_map(
-                function (string $function, array $errorMessages) use ($fromReflector, $toReflector) : array {
+                static function (string $function, array $errorMessages) use ($fromReflector, $toReflector) : array {
                     return [
                         $fromReflector->reflect($function),
                         $toReflector->reflect($function),

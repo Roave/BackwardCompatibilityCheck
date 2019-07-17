@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased;
 
 use Roave\BackwardCompatibility\Changes;
-use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\ExcludeInternalClass;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use function Safe\preg_match;
 

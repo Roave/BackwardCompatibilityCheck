@@ -7,7 +7,6 @@ namespace RoaveTest\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\PropertyBecameInternal;
-use Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\PropertyScopeChanged;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
 use Roave\BetterReflection\Reflector\ClassReflector;
