@@ -15,15 +15,15 @@ use function Safe\sprintf;
  */
 final class InterfaceBecameClass implements InterfaceBased
 {
-    public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
+    public function __invoke(ReflectionClass $fromInterface, ReflectionClass $toInterface) : Changes
     {
-        if (! $this->isClass($toClass) || ! $fromClass->isInterface()) {
+        if (! $this->isClass($toInterface) || ! $fromInterface->isInterface()) {
             // checking whether a class became an interface is done in `ClassBecameInterface`
             return Changes::empty();
         }
 
         return Changes::fromList(Change::changed(
-            sprintf('Interface %s became a class', $fromClass->getName()),
+            sprintf('Interface %s became a class', $fromInterface->getName()),
             true
         ));
     }
