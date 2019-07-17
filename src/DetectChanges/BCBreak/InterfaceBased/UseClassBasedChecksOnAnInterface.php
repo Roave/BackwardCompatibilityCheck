@@ -18,8 +18,8 @@ final class UseClassBasedChecksOnAnInterface implements InterfaceBased
         $this->check = $check;
     }
 
-    public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
+    public function __invoke(ReflectionClass $fromInterface, ReflectionClass $toInterface) : Changes
     {
-        return $this->check->__invoke($fromClass, $toClass);
+        return $this->check->__invoke($fromInterface, $toInterface);
     }
 }

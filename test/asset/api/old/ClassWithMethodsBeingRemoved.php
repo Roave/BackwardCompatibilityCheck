@@ -33,4 +33,16 @@ class ClassWithMethodsBeingRemoved
     private function keptPrivateMethod() : void
     {
     }
+    /** @internal */
+    public function removedInternalPublicMethod() : void
+    {
+    }
+    /** @internal */
+    protected function removedInternalProtectedMethod() : void
+    {
+    }
+    /** @internal */
+    protected function removedInternalPrivateMethod() : void
+    {
+    }
 }

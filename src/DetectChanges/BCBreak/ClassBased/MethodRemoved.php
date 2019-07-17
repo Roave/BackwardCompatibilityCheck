@@ -16,6 +16,7 @@ use function array_filter;
 use function array_map;
 use function array_values;
 use function Safe\array_combine;
+use function Safe\preg_match;
 use function Safe\sprintf;
 
 final class MethodRemoved implements ClassBased
@@ -46,8 +47,10 @@ final class MethodRemoved implements ClassBased
     /** @return ReflectionMethod[] */
     private function accessibleMethods(ReflectionClass $class) : array
     {
-        $methods = array_filter($class->getMethods(), static function (ReflectionMethod $method) : bool {
-            return $method->isPublic() || $method->isProtected();
+        $methods = array_filter($class->getMethods(), function (ReflectionMethod $method) : bool {
+            return ($method->isPublic()
+                || $method->isProtected())
+                && ! $this->isInternalDocComment($method->getDocComment());
         });
 
         return array_combine(
@@ -56,5 +59,10 @@ final class MethodRemoved implements ClassBased
             }, $methods),
             $methods
         );
+    }
+
+    private function isInternalDocComment(string $comment) : bool
+    {
+        return preg_match('/\s+@internal\s+/', $comment) === 1;
     }
 }

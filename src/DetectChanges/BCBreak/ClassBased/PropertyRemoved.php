@@ -13,6 +13,7 @@ use function array_diff;
 use function array_filter;
 use function array_keys;
 use function array_map;
+use function Safe\preg_match;
 use function Safe\sprintf;
 
 final class PropertyRemoved implements ClassBased
@@ -44,8 +45,15 @@ final class PropertyRemoved implements ClassBased
     /** @return ReflectionProperty[] */
     private function accessibleProperties(ReflectionClass $class) : array
     {
-        return array_filter($class->getProperties(), static function (ReflectionProperty $property) : bool {
-            return $property->isPublic() || $property->isProtected();
+        return array_filter($class->getProperties(), function (ReflectionProperty $property) : bool {
+            return ($property->isPublic()
+                || $property->isProtected())
+                && ! $this->isInternalDocComment($property->getDocComment());
         });
+    }
+
+    private function isInternalDocComment(string $comment) : bool
+    {
+        return preg_match('/\s+@internal\s+/', $comment) === 1;
     }
 }

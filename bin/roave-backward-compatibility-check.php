@@ -79,7 +79,7 @@ use function file_exists;
             $astLocator
         ),
         new CompareClasses(
-            new ClassBased\SkipClassBasedErrors(new ClassBased\ExcludeAnonymousClasses(
+            new ClassBased\SkipClassBasedErrors(new ClassBased\ExcludeAnonymousClasses(new ClassBased\ExcludeInternalClass(
                 new ClassBased\MultipleChecksOnAClass(
                     new ClassBased\SkipClassBasedErrors(new ClassBased\ClassBecameAbstract()),
                     new ClassBased\SkipClassBasedErrors(new ClassBased\ClassBecameInterface()),
@@ -89,6 +89,7 @@ use function file_exists;
                     new ClassBased\SkipClassBasedErrors(new ClassBased\PropertyRemoved()),
                     new ClassBased\SkipClassBasedErrors(new ClassBased\MethodRemoved()),
                     new ClassBased\SkipClassBasedErrors(new ClassBased\AncestorRemoved()),
+                    new ClassBased\SkipClassBasedErrors(new ClassBased\ClassBecameInternal()),
                     new ClassBased\SkipClassBasedErrors(new ClassBased\OpenClassChanged(
                         new ClassBased\MultipleChecksOnAClass(
                             new ClassBased\SkipClassBasedErrors(new ClassBased\ConstantChanged(
@@ -108,9 +109,10 @@ use function file_exists;
                                 )
                             )),
                             new ClassBased\SkipClassBasedErrors(new ClassBased\PropertyChanged(
-                                new PropertyBased\MultipleChecksOnAProperty(
+                                new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\ExcludeInternalProperty(new PropertyBased\MultipleChecksOnAProperty(
                                     new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\OnlyPublicPropertyChanged(
                                         new PropertyBased\MultipleChecksOnAProperty(
+                                            new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyBecameInternal()),
                                             new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyDocumentedTypeChanged()),
                                             new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyDefaultValueChanged()),
                                             new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyVisibilityReduced()),
@@ -119,16 +121,17 @@ use function file_exists;
                                     )),
                                     new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\OnlyProtectedPropertyChanged(
                                         new PropertyBased\MultipleChecksOnAProperty(
+                                            new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyBecameInternal()),
                                             new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyDocumentedTypeChanged()),
                                             new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyDefaultValueChanged()),
                                             new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyVisibilityReduced()),
                                             new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyScopeChanged())
                                         )
                                     ))
-                                )
+                                )))
                             )),
                             new ClassBased\SkipClassBasedErrors(new ClassBased\MethodChanged(
-                                new MethodBased\MultipleChecksOnAMethod(
+                                new MethodBased\SkipMethodBasedErrors(new MethodBased\ExcludeInternalMethod(new MethodBased\MultipleChecksOnAMethod(
                                     new MethodBased\SkipMethodBasedErrors(new MethodBased\OnlyPublicMethodChanged(
                                         new MethodBased\MultipleChecksOnAMethod(
                                             new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodBecameFinal()),
@@ -137,6 +140,7 @@ use function file_exists;
                                             new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodVisibilityReduced()),
                                             new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodFunctionDefinitionChanged(
                                                 new FunctionBased\MultipleChecksOnAFunction(
+                                                    new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\FunctionBecameInternal()),
                                                     new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterByReferenceChanged()),
                                                     new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeByReferenceChanged()),
                                                     new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\RequiredParameterAmountIncreased()),
@@ -157,6 +161,7 @@ use function file_exists;
                                             new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodVisibilityReduced()),
                                             new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodFunctionDefinitionChanged(
                                                 new FunctionBased\MultipleChecksOnAFunction(
+                                                    new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\FunctionBecameInternal()),
                                                     new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterByReferenceChanged()),
                                                     new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeByReferenceChanged()),
                                                     new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\RequiredParameterAmountIncreased()),
@@ -169,7 +174,7 @@ use function file_exists;
                                             ))
                                         )
                                     ))
-                                )
+                                )))
                             ))
                         )
                     )),
@@ -186,6 +191,7 @@ use function file_exists;
                             new ClassBased\SkipClassBasedErrors(new ClassBased\PropertyChanged(
                                 new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\OnlyPublicPropertyChanged(
                                     new PropertyBased\MultipleChecksOnAProperty(
+                                        new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyBecameInternal()),
                                         new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyDocumentedTypeChanged()),
                                         new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyDefaultValueChanged()),
                                         new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyVisibilityReduced()),
@@ -202,6 +208,7 @@ use function file_exists;
                                         new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodVisibilityReduced()),
                                         new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodFunctionDefinitionChanged(
                                             new FunctionBased\MultipleChecksOnAFunction(
+                                                new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\FunctionBecameInternal()),
                                                 new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterByReferenceChanged()),
                                                 new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeByReferenceChanged()),
                                                 new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\RequiredParameterAmountIncreased()),
@@ -216,14 +223,15 @@ use function file_exists;
                         )
                     ))
                 )
-            )),
-            new InterfaceBased\MultipleChecksOnAnInterface(
+            ))),
+            new InterfaceBased\SkipInterfaceBasedErrors(new InterfaceBased\ExcludeInternalInterface(new InterfaceBased\MultipleChecksOnAnInterface(
                 new InterfaceBased\SkipInterfaceBasedErrors(new InterfaceBased\InterfaceBecameClass()),
                 new InterfaceBased\SkipInterfaceBasedErrors(new InterfaceBased\InterfaceBecameTrait()),
                 new InterfaceBased\SkipInterfaceBasedErrors(new InterfaceBased\AncestorRemoved()),
                 new InterfaceBased\SkipInterfaceBasedErrors(new InterfaceBased\MethodAdded()),
                 new InterfaceBased\SkipInterfaceBasedErrors(new InterfaceBased\UseClassBasedChecksOnAnInterface(
                     new ClassBased\MultipleChecksOnAClass(
+                        new ClassBased\SkipClassBasedErrors(new ClassBased\ClassBecameInternal()),
                         new ClassBased\SkipClassBasedErrors(new ClassBased\ConstantRemoved()),
                         new ClassBased\SkipClassBasedErrors(new ClassBased\MethodRemoved()),
                         new ClassBased\SkipClassBasedErrors(new ClassBased\ConstantChanged(
@@ -234,6 +242,7 @@ use function file_exists;
                                 new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodScopeChanged()),
                                 new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodFunctionDefinitionChanged(
                                     new FunctionBased\MultipleChecksOnAFunction(
+                                        new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\FunctionBecameInternal()),
                                         new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterByReferenceChanged()),
                                         new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeByReferenceChanged()),
                                         new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\RequiredParameterAmountIncreased()),
@@ -248,14 +257,19 @@ use function file_exists;
                         ))
                     )
                 ))
-            ),
-            new TraitBased\MultipleChecksOnATrait(
+            ))),
+            new TraitBased\SkipTraitBasedErrors(new TraitBased\ExcludeInternalTrait(new TraitBased\MultipleChecksOnATrait(
                 new TraitBased\SkipTraitBasedErrors(new TraitBased\TraitBecameInterface()),
                 new TraitBased\SkipTraitBasedErrors(new TraitBased\TraitBecameClass()),
                 new TraitBased\SkipTraitBasedErrors(new TraitBased\UseClassBasedChecksOnATrait(
                     new ClassBased\MultipleChecksOnAClass(
+                        new ClassBased\SkipClassBasedErrors(new ClassBased\ClassBecameInternal()),
+                        new ClassBased\SkipClassBasedErrors(new ClassBased\ConstantRemoved()),
+                        new ClassBased\SkipClassBasedErrors(new ClassBased\PropertyRemoved()),
+                        new ClassBased\SkipClassBasedErrors(new ClassBased\MethodRemoved()),
                         new ClassBased\SkipClassBasedErrors(new ClassBased\PropertyChanged(
                             new PropertyBased\MultipleChecksOnAProperty(
+                                new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyBecameInternal()),
                                 new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyDocumentedTypeChanged()),
                                 new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyDefaultValueChanged()),
                                 new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyVisibilityReduced()),
@@ -271,6 +285,7 @@ use function file_exists;
                                     new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodVisibilityReduced()),
                                     new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodFunctionDefinitionChanged(
                                         new FunctionBased\MultipleChecksOnAFunction(
+                                            new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\FunctionBecameInternal()),
                                             new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterByReferenceChanged()),
                                             new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeByReferenceChanged()),
                                             new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\RequiredParameterAmountIncreased()),
@@ -286,7 +301,7 @@ use function file_exists;
                         ))
                     )
                 ))
-            )
+            )))
         )
     );
 

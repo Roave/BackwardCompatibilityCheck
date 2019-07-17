@@ -17,10 +17,10 @@ use function Safe\sprintf;
  */
 final class AncestorRemoved implements InterfaceBased
 {
-    public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
+    public function __invoke(ReflectionClass $fromInterface, ReflectionClass $toInterface) : Changes
     {
         $removedAncestors = array_merge(
-            array_diff($fromClass->getInterfaceNames(), $toClass->getInterfaceNames())
+            array_diff($fromInterface->getInterfaceNames(), $toInterface->getInterfaceNames())
         );
 
         if (! $removedAncestors) {
@@ -30,7 +30,7 @@ final class AncestorRemoved implements InterfaceBased
         return Changes::fromList(Change::removed(
             sprintf(
                 'These ancestors of %s have been removed: %s',
-                $fromClass->getName(),
+                $fromInterface->getName(),
                 json_encode($removedAncestors)
             ),
             true

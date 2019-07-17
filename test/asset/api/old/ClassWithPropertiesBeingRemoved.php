@@ -15,4 +15,10 @@ class ClassWithPropertiesBeingRemoved
     private $removedPrivateProperty;
     private $nameCaseChangePrivateProperty;
     private $keptPrivateProperty;
+    /** @internal */
+    public $removedInternalPublicProperty;
+    /** @internal */
+    protected $removedInternalProtectedProperty;
+    /** @internal */
+    private $removedInternalPrivateProperty;
 }

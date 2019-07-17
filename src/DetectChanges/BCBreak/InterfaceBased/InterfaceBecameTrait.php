@@ -15,15 +15,15 @@ use function Safe\sprintf;
  */
 final class InterfaceBecameTrait implements InterfaceBased
 {
-    public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
+    public function __invoke(ReflectionClass $fromInterface, ReflectionClass $toInterface) : Changes
     {
-        if (! $toClass->isTrait() || ! $fromClass->isInterface()) {
+        if (! $toInterface->isTrait() || ! $fromInterface->isInterface()) {
             // checking whether an interface became an class is done in `InterfaceBecameClass`
             return Changes::empty();
         }
 
         return Changes::fromList(Change::changed(
-            sprintf('Interface %s became a trait', $fromClass->getName()),
+            sprintf('Interface %s became a trait', $fromInterface->getName()),
             true
         ));
     }
