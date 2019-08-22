@@ -49,16 +49,16 @@ You can use it as a Github Action like this:
 
 _.github/main.workflow_
 ```
-workflow "Main" {
-  on = "push"
-  resolves = ["Roave BC Check"]
-}
-
-action "Roave BC Check" {
-  uses = "docker://nyholm/roave-bc-check-ga"
-  secrets = ["GITHUB_TOKEN"]
-  args = ""
-}
+on: [push, pull_request]
+name: Test
+jobs:
+    roave_bc_check:
+        name: Roave BC Check
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@master
+            - name: Roave BC Check
+              uses: docker://nyholm/roave-bc-check-ga
 ```
 
 ### Running manually
