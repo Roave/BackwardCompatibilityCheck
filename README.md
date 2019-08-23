@@ -49,7 +49,7 @@ You can use it as a Github Action like this:
 
 _.github/main.workflow_
 ```
-on: [push, pull_request]
+on: [push]
 name: Test
 jobs:
     roave_bc_check:
