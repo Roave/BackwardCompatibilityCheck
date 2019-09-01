@@ -5,7 +5,7 @@
         "php": "^7.3",
         "ext-json": "*",
         "beberlei/assert": "^3.2.1",
-        "composer/composer": "^1.8.5",
+        "composer/composer": "^1.9.0",
         "nikolaposa/version": "^3.1.0",
         "roave/better-reflection": "^3.4.0",
         "symfony/console": "^4.3.3",
