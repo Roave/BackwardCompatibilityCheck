@@ -7,6 +7,7 @@ namespace Roave\ApiCompareCli;
 use Composer\Factory;
 use Composer\Installer;
 use Composer\IO\ConsoleIO;
+use PackageVersions\Versions;
 use Roave\BackwardCompatibility\Command;
 use Roave\BackwardCompatibility\CompareClasses;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased;
@@ -51,7 +52,7 @@ use function file_exists;
         throw new RuntimeException('Could not find Composer autoload.php');
     })();
 
-    $application = new Application();
+    $application = new Application('roave/backward-compatibility-check', Versions::getVersion('roave/backward-compatibility-check'));
     $helperSet   = $application->getHelperSet();
     $input       = new ArgvInput();
     $output      = new ConsoleOutput();
