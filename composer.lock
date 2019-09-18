@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "406426254ab6447d1c20c79db3c75b92",
+    "content-hash": "9a1e2e21fb7bf82083eb4d00d0f3d7c8",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -3827,63 +3827,6 @@
                 "dependency injection"
             ],
             "time": "2018-01-21T07:42:36+00:00"
-        },
-        {
-            "name": "psalm/plugin-phpunit",
-            "version": "0.7",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/psalm/phpunit-psalm-plugin.git",
-                "reference": "69aaf6be9f3edecf0158d08dc073f9867e890387"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/psalm/phpunit-psalm-plugin/zipball/69aaf6be9f3edecf0158d08dc073f9867e890387",
-                "reference": "69aaf6be9f3edecf0158d08dc073f9867e890387",
-                "shasum": ""
-            },
-            "require": {
-                "composer/semver": "^1.4",
-                "ocramius/package-versions": "^1.3",
-                "phpunit/phpunit": "^6.0 || ^7.0 || ^8.0",
-                "vimeo/psalm": "^3.2.11 || ^3.3 || dev-master"
-            },
-            "require-dev": {
-                "codeception/base": "^2.5",
-                "squizlabs/php_codesniffer": "^3.3.1",
-                "weirdan/codeception-psalm-module": "^0.2.1"
-            },
-            "type": "psalm-plugin",
-            "extra": {
-                "psalm": {
-                    "pluginClass": "Psalm\\PhpUnitPlugin\\Plugin"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Psalm\\PhpUnitPlugin\\": [
-                        "."
-                    ],
-                    "Psalm\\PhpUnitPlugin\\Hooks\\": [
-                        "hooks"
-                    ],
-                    "Psalm\\PhpUnitPlugin\\Exception\\": [
-                        "Exception"
-                    ]
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Matt Brown",
-                    "email": "github@muglug.com"
-                }
-            ],
-            "description": "Psalm plugin for PHPUnit",
-            "time": "2019-07-10T21:05:07+00:00"
         },
         {
             "name": "roave/security-advisories",

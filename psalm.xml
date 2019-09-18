@@ -20,8 +20,4 @@
         <InternalClass errorLevel="suppress"/>
         <InternalMethod errorLevel="suppress"/>
     </issueHandlers>
-
-    <plugins>
-        <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
-    </plugins>
 </psalm>
