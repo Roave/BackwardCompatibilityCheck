@@ -1,12 +1,17 @@
 #!/usr/bin/env bash
 
-if [ ! -f box.phar ]; then
-    wget https://github.com/humbug/box/releases/download/3.0.0-beta.4/box.phar -O box.phar
-fi
+set -e
+
+mkdir -p tmp
+
+# Install humbug/box
+composer --working-dir=tmp require humbug/box --no-interaction --no-progress --no-suggest
 
 # Remove dev dependencies for package distribution
 composer install --no-dev
 
-php box.phar compile
+tmp/vendor/bin/box compile
 
 composer install
+
+rm -rf tmp
