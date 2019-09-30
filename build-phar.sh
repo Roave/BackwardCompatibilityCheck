@@ -2,16 +2,18 @@
 
 set -e
 
-mkdir -p tmp
+BOX_DIR="/tmp/box"
+
+mkdir -p ${BOX_DIR}
 
 # Install humbug/box
-composer --working-dir=tmp require humbug/box "^3.8" --no-interaction --no-progress --no-suggest
+composer --working-dir=${BOX_DIR} require humbug/box "^3.8" --no-interaction --no-progress --no-suggest
 
 # Remove dev dependencies for package distribution
 composer install --no-dev
 
-tmp/vendor/bin/box compile
+${BOX_DIR}/vendor/bin/box compile
 
 composer install
 
-rm -rf tmp
+rm -rf ${BOX_DIR}
