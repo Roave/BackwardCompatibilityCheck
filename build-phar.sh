@@ -1,14 +1,19 @@
 #!/usr/bin/env bash
 
-if [ ! -f box.phar ]; then
-    wget https://github.com/humbug/box/releases/download/3.0.0-beta.4/box.phar -O box.phar
-fi
+set -e
 
-# lock PHP to minimum allowed version
-composer config platform.php 7.2.0
-composer update --no-dev
+BOX_DIR="/tmp/box"
 
-php box.phar compile
+mkdir -p ${BOX_DIR}
 
-git checkout composer.*
+# Install humbug/box
+composer --working-dir=${BOX_DIR} require humbug/box "^3.8" --no-interaction --no-progress --no-suggest
+
+# Remove dev dependencies for package distribution
+composer install --no-dev
+
+${BOX_DIR}/vendor/bin/box compile
+
 composer install
+
+rm -rf ${BOX_DIR}
