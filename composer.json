@@ -26,7 +26,7 @@
     ],
     "require-dev": {
         "doctrine/coding-standard": "^6.0.0",
-        "infection/infection": "^0.14.1",
+        "infection/infection": "^0.15.0",
         "phpstan/phpstan": "^0.11.16",
         "phpstan/phpstan-beberlei-assert": "^0.11.1",
         "phpstan/phpstan-phpunit": "^0.11.2",
