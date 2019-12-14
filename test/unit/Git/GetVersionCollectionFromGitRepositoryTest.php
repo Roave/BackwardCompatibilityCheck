@@ -50,7 +50,7 @@ final class GetVersionCollectionFromGitRepositoryTest extends TestCase
     {
         return array_map(
             static function (Version $version) : string {
-                return $version->getVersionString();
+                return $version->toString();
             },
             iterator_to_array((new GetVersionCollectionFromGitRepository())->fromRepository($this->repoPath))
         );
