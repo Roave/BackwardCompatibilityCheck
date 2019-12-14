@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\Git;
 
-use Version\VersionsCollection;
+use Version\VersionCollection;
 
 interface GetVersionCollection
 {
-    public function fromRepository(CheckedOutRepository $repository) : VersionsCollection;
+    public function fromRepository(CheckedOutRepository $repository) : VersionCollection;
 }

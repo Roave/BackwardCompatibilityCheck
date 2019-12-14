@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "842a98f5fbeef214365165fbff98f360",
+    "content-hash": "0363013e63ffae64f926f8ea02f3d36b",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -528,29 +528,30 @@
         },
         {
             "name": "nikolaposa/version",
-            "version": "3.2.0",
+            "version": "4.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikolaposa/version.git",
-                "reference": "7ff2bbf2fe6a47efe47832d6198924e99b4a4f5a"
+                "reference": "ab1aede3f84403432fe6935f7d6bfc09639d60b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikolaposa/version/zipball/7ff2bbf2fe6a47efe47832d6198924e99b4a4f5a",
-                "reference": "7ff2bbf2fe6a47efe47832d6198924e99b4a4f5a",
+                "url": "https://api.github.com/repos/nikolaposa/version/zipball/ab1aede3f84403432fe6935f7d6bfc09639d60b2",
+                "reference": "ab1aede3f84403432fe6935f7d6bfc09639d60b2",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.2.0"
+                "beberlei/assert": "^3.2",
+                "php": "^7.2"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.0",
-                "phpunit/phpunit": "^6.0 || ^7.0"
+                "friendsofphp/php-cs-fixer": "^2.1",
+                "phpunit/phpunit": "^8.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.2.x-dev"
+                    "dev-master": "4.0.x-dev"
                 }
             },
             "autoload": {
@@ -577,7 +578,7 @@
                 "version",
                 "versioning"
             ],
-            "time": "2019-08-11T08:31:54+00:00"
+            "time": "2019-12-29T15:07:37+00:00"
         },
         {
             "name": "ocramius/package-versions",
