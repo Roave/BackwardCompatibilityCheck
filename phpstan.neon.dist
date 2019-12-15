@@ -9,6 +9,6 @@ parameters:
         - '~^Method .*Test::.* but returns array<int\|string, mixed>\.$~'
 
 includes:
-   - vendor/phpstan/phpstan-beberlei-assert/extension.neon
-   - vendor/phpstan/phpstan-phpunit/extension.neon
-   - vendor/thecodingmachine/phpstan-safe-rule/phpstan-safe-rule.neon
+    - vendor/phpstan/phpstan-beberlei-assert/extension.neon
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+    - vendor/thecodingmachine/phpstan-safe-rule/phpstan-safe-rule.neon
