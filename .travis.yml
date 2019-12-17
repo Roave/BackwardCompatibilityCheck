@@ -4,12 +4,12 @@ sudo: false
 
 php:
   - 7.3
-  - 7.4snapshot
+  - 7.4
   - nightly
 
 matrix:
   allow_failures:
-    - php: 7.4snapshot
+    - php: 7.4
     - php: nightly
 
 before_script:
