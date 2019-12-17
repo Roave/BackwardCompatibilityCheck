@@ -5,10 +5,10 @@ parameters:
         - src
         - test/unit
     ignoreErrors:
-        # type inference for internal array_* functions is still pending improvements in phpstan stubs:
-        - '~^Method .*Test::.* but returns array<int|string, mixed>.$~i'
+        # Type inference for internal array_* functions is still pending improvements in phpstan stubs.
+        - '~^Method .*Test::.* but returns array<int\|string, mixed>\.$~'
 
 includes:
-	- vendor/phpstan/phpstan-beberlei-assert/extension.neon
-	- vendor/phpstan/phpstan-phpunit/extension.neon
-	- vendor/thecodingmachine/phpstan-safe-rule/phpstan-safe-rule.neon
+    - vendor/phpstan/phpstan-beberlei-assert/extension.neon
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+    - vendor/thecodingmachine/phpstan-safe-rule/phpstan-safe-rule.neon
