@@ -76,6 +76,6 @@ final class GetVersionCollectionFromGitRepositoryTest extends TestCase
     {
         $this->makeTag('v1.0.0');
 
-        self::assertSame(['1.0.0'], $this->getTags());
+        self::assertSame(['v1.0.0'], $this->getTags());
     }
 }
