@@ -533,12 +533,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikolaposa/version.git",
-                "reference": "fcfaba80216720e6881834ffb53f83ae717ce11b"
+                "reference": "cfd499d89a2ec8e84307fdbfa838936d7ac7d500"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikolaposa/version/zipball/fcfaba80216720e6881834ffb53f83ae717ce11b",
-                "reference": "fcfaba80216720e6881834ffb53f83ae717ce11b",
+                "url": "https://api.github.com/repos/nikolaposa/version/zipball/cfd499d89a2ec8e84307fdbfa838936d7ac7d500",
+                "reference": "cfd499d89a2ec8e84307fdbfa838936d7ac7d500",
                 "shasum": ""
             },
             "require": {
@@ -579,7 +579,7 @@
                 "version",
                 "versioning"
             ],
-            "time": "2019-12-29T10:15:58+00:00"
+            "time": "2019-12-29T10:44:06+00:00"
         },
         {
             "name": "ocramius/package-versions",
