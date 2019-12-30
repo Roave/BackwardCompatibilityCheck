@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "aabfb74054f2d6ee070c6b1d0c151b61",
+    "content-hash": "e0500bdcff5901d48510cc43c4874424",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -529,16 +529,16 @@
         },
         {
             "name": "nikolaposa/version",
-            "version": "dev-master",
+            "version": "4.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikolaposa/version.git",
-                "reference": "cfd499d89a2ec8e84307fdbfa838936d7ac7d500"
+                "reference": "ab1aede3f84403432fe6935f7d6bfc09639d60b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikolaposa/version/zipball/cfd499d89a2ec8e84307fdbfa838936d7ac7d500",
-                "reference": "cfd499d89a2ec8e84307fdbfa838936d7ac7d500",
+                "url": "https://api.github.com/repos/nikolaposa/version/zipball/ab1aede3f84403432fe6935f7d6bfc09639d60b2",
+                "reference": "ab1aede3f84403432fe6935f7d6bfc09639d60b2",
                 "shasum": ""
             },
             "require": {
@@ -579,7 +579,7 @@
                 "version",
                 "versioning"
             ],
-            "time": "2019-12-29T10:44:06+00:00"
+            "time": "2019-12-29T15:07:37+00:00"
         },
         {
             "name": "ocramius/package-versions",
@@ -4979,7 +4979,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "nikolaposa/version": 20,
         "roave/security-advisories": 20
     },
     "prefer-stable": false,
