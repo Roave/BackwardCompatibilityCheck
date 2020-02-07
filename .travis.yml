@@ -26,8 +26,7 @@ git:
 
 deploy:
   provider: releases
-  api_key:
-    secure: $DEPLOY_TOKEN_SECURE
+  api_key: $DEPLOY_TOKEN_SECURE
   file: dist/roave-backward-compatibility-check.phar
   skip_cleanup: true
   on:
