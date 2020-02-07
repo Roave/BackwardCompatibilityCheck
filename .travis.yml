@@ -1,7 +1,5 @@
 language: php
 
-sudo: false
-
 php:
   - 7.3
   - 7.4
@@ -22,7 +20,6 @@ deploy:
   provider: releases
   api_key: $DEPLOY_TOKEN_SECURE
   file: dist/roave-backward-compatibility-check.phar
-  skip_cleanup: true
   on:
     tags: true
 
