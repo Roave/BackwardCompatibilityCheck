@@ -77,6 +77,8 @@ final class AssertBackwardsCompatible extends Command
         $this->pickFromVersion                   = $pickFromVersion;
         $this->locateDependencies                = $locateDependencies;
         $this->compareApi                        = $compareApi;
+
+        $this->setName('roave-backwards-compatibility-check:assert-backwards-compatible');
     }
 
     /**
@@ -85,7 +87,6 @@ final class AssertBackwardsCompatible extends Command
     protected function configure() : void
     {
         $this
-            ->setName('roave-backwards-compatibility-check:assert-backwards-compatible')
             ->setDescription('Verifies that the revision being compared with "from" does not introduce any BC (backwards-incompatible) changes')
             ->addOption(
                 'from',
@@ -189,6 +190,20 @@ USAGE
         }
 
         return $this->printOutcomeAndExit($changes, $stdErr);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * The parent implementation allows for nullable names: not here.
+     */
+    public function getName(): string
+    {
+        $name = parent::getName();
+
+        assert($name !== null);
+
+        return $name;
     }
 
     private function printOutcomeAndExit(Changes $changes, OutputInterface $stdErr) : int

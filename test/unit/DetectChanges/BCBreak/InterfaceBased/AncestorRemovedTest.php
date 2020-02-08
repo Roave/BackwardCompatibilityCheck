@@ -14,7 +14,7 @@ use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 use function array_keys;
 use function array_map;
 use function iterator_to_array;
-use function Safe\array_combine;
+use function array_combine;
 
 /**
  * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased\AncestorRemoved
@@ -45,7 +45,7 @@ final class AncestorRemovedTest extends TestCase
     /**
      * @return array<string, array<int, ReflectionClass|array<int, string>>>
      *
-     * @psalm-return array<string, array{0: ReflectionClass, 1: ReflectionClass, 2: array<int, string>}>
+     * @psalm-return array<string, array{0: ReflectionClass, 1: ReflectionClass, 2: list<string>}>
      */
     public function interfacesToBeTested() : array
     {
@@ -99,6 +99,7 @@ PHP
         return array_combine(
             array_keys($interfaces),
             array_map(
+                /** @psalm-param list<string> $errors https://github.com/vimeo/psalm/issues/2772 */
                 static function (string $interfaceName, array $errors) use ($fromReflector, $toReflector) : array {
                     return [
                         $fromReflector->reflect($interfaceName),

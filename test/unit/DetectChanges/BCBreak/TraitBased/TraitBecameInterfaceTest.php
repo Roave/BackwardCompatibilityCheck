@@ -14,7 +14,7 @@ use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 use function array_keys;
 use function array_map;
 use function iterator_to_array;
-use function Safe\array_combine;
+use function array_combine;
 
 /**
  * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\TraitBased\TraitBecameInterface
@@ -45,7 +45,7 @@ final class TraitBecameInterfaceTest extends TestCase
     /**
      * @return array<string, array<int, ReflectionClass|array<int, string>>>
      *
-     * @psalm-return array<string, array{0: ReflectionClass, 1: ReflectionClass, 2: array<int, string>}>
+     * @psalm-return array<string, array{0: ReflectionClass, 1: ReflectionClass, 2: list<string>}>
      */
     public function classesToBeTested() : array
     {

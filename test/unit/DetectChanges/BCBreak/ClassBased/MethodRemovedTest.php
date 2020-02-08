@@ -40,7 +40,7 @@ final class MethodRemovedTest extends TestCase
     /**
      * @return array<string, array<int, ReflectionClass|array<int, string>>>
      *
-     * @psalm-return array<string, array{0: ReflectionClass, 1: ReflectionClass, 2: array<int, string>}>
+     * @psalm-return array<string, array{0: ReflectionClass, 1: ReflectionClass, 2: list<string>}>
      */
     public function classesToBeTested() : array
     {
