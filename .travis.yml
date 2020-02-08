@@ -20,6 +20,8 @@ deploy:
   provider: releases
   api_key: $DEPLOY_TOKEN_SECURE
   file: dist/roave-backward-compatibility-check.phar
+  # do not skip cleanup: if the repo is cleaned up when deploying, then the phar is gone as well.
+  skip_cleanup: true
   on:
     tags: true
 
