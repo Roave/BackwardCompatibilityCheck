@@ -7,7 +7,6 @@ parameters:
     ignoreErrors:
         # Until https://github.com/thecodingmachine/safe/issues/185 is solved, we use \array_combine
         - '~^Function array_combine is unsafe to use.*~'
-        - '~Test::.* but returns .*|false\.~'
         - '~function array_merge expects array, array|false given\.~'
 
 includes:

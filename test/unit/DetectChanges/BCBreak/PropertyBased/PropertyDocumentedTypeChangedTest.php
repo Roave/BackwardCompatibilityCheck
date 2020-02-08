@@ -11,6 +11,7 @@ use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
+use RoaveTest\BackwardCompatibility\TypeRestriction;
 use function array_keys;
 use function array_map;
 use function iterator_to_array;
@@ -209,19 +210,20 @@ PHP
             'propertyWithComplexDocblockThatCannotBeParsed'                     => [],
         ];
 
-        return array_combine(
+        return TypeRestriction::array(array_combine(
             array_keys($properties),
             array_map(
+                /** @psalm-param list<string> $errorMessages https://github.com/vimeo/psalm/issues/2772 */
                 static function (string $property, array $errorMessages) use ($fromClass, $toClass) : array {
                     return [
-                        $fromClass->getProperty($property),
-                        $toClass->getProperty($property),
+                        TypeRestriction::object($fromClass->getProperty($property)),
+                        TypeRestriction::object($toClass->getProperty($property)),
                         $errorMessages,
                     ];
                 },
                 array_keys($properties),
                 $properties
             )
-        );
+        ));
     }
 }

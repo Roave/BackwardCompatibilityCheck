@@ -11,6 +11,7 @@ use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
+use RoaveTest\BackwardCompatibility\TypeRestriction;
 use function array_keys;
 use function array_map;
 use function iterator_to_array;
@@ -117,7 +118,7 @@ PHP
             'F' => ['[BC] ADDED: Method b() was added to interface F'],
         ];
 
-        return array_combine(
+        return TypeRestriction::array(array_combine(
             array_keys($properties),
             array_map(
                 /** @psalm-param list<string> $errorMessages https://github.com/vimeo/psalm/issues/2772 */
@@ -132,6 +133,6 @@ PHP
                 array_keys($properties),
                 $properties
             )
-        );
+        ));
     }
 }
