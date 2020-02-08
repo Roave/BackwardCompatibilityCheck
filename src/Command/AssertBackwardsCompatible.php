@@ -191,20 +191,6 @@ USAGE
         return $this->printOutcomeAndExit($changes, $stdErr);
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * The parent implementation allows for nullable names: not here.
-     */
-    public function getName(): string
-    {
-        $name = parent::getName();
-
-        assert($name !== null);
-
-        return $name;
-    }
-
     private function printOutcomeAndExit(Changes $changes, OutputInterface $stdErr) : int
     {
         $hasBcBreaks = count($changes);

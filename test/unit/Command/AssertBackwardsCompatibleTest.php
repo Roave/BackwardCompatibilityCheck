@@ -110,6 +110,11 @@ final class AssertBackwardsCompatibleTest extends TestCase
 
     public function testDefinition() : void
     {
+        self::assertSame(
+            'roave-backwards-compatibility-check:assert-backwards-compatible',
+            $this->compare->getName()
+        );
+
         $usages = $this->compare->getUsages();
 
         self::assertCount(1, $usages);

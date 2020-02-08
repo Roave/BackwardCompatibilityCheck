@@ -12,13 +12,10 @@ use Roave\BetterReflection\Reflection\ReflectionProperty;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 use RoaveTest\BackwardCompatibility\TypeRestriction;
-use Webmozart\Assert\Assert;
+use function array_combine;
 use function array_keys;
 use function array_map;
-use function assert;
-use function is_array;
 use function iterator_to_array;
-use function array_combine;
 
 /**
  * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\PropertyVisibilityReduced

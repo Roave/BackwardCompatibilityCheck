@@ -17,7 +17,7 @@ final class TypeRestriction
     /**
      * @param mixed[]|mixed $value
      *
-     * @return array
+     * @return mixed[]
      *
      * @psalm-template ArrayishParameterType of array
      * @psalm-param    ArrayishParameterType|mixed $value
@@ -31,10 +31,6 @@ final class TypeRestriction
     }
 
     /**
-     * @param object|null $value
-     *
-     * @return object
-     *
      * @psalm-template ObjectishParameterType of object
      * @psalm-param    ObjectishParameterType|null $value
      * @psalm-return   ObjectishParameterType

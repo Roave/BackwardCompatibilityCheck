@@ -52,7 +52,7 @@ final class ChangesTest extends TestCase
             self::fail('No values should have been produced');
         };
 
-        $changesProvider = static function () use (& $stopProducingValues) : Generator {
+        $changesProvider = static function () use (&$stopProducingValues) : Generator {
             $stopProducingValues();
 
             yield Change::changed('a', true);

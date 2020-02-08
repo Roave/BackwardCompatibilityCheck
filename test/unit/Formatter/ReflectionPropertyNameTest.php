@@ -11,9 +11,9 @@ use Roave\BetterReflection\Reflection\ReflectionProperty;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 use RoaveTest\BackwardCompatibility\TypeRestriction;
+use function array_combine;
 use function array_keys;
 use function array_map;
-use function array_combine;
 
 /**
  * @covers \Roave\BackwardCompatibility\Formatter\ReflectionPropertyName
