@@ -77,8 +77,6 @@ final class AssertBackwardsCompatible extends Command
         $this->pickFromVersion                   = $pickFromVersion;
         $this->locateDependencies                = $locateDependencies;
         $this->compareApi                        = $compareApi;
-
-        $this->setName('roave-backwards-compatibility-check:assert-backwards-compatible');
     }
 
     /**
@@ -87,6 +85,7 @@ final class AssertBackwardsCompatible extends Command
     protected function configure() : void
     {
         $this
+            ->setName('roave-backwards-compatibility-check:assert-backwards-compatible')
             ->setDescription('Verifies that the revision being compared with "from" does not introduce any BC (backwards-incompatible) changes')
             ->addOption(
                 'from',
