@@ -307,7 +307,7 @@ use function file_exists;
     );
 
     $application->add($apiCompareCommand);
-    $application->setDefaultCommand($apiCompareCommand->getName());
+    $application->setDefaultCommand('roave-backwards-compatibility-check:assert-backwards-compatible');
 
     $application->run($input, $output);
 })();
