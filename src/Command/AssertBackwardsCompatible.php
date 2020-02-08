@@ -226,7 +226,7 @@ USAGE
         Assert::that($versions->count())
             ->greaterThan(0, 'Could not detect any released versions for the given repository');
 
-        $versionString = $this->pickFromVersion->forVersions($versions)->getVersionString();
+        $versionString = $this->pickFromVersion->forVersions($versions)->toString();
 
         $output->writeln(sprintf('Detected last minor version: %s', $versionString));
 

@@ -50,7 +50,7 @@ final class GetVersionCollectionFromGitRepositoryTest extends TestCase
     {
         return array_map(
             static function (Version $version) : string {
-                return $version->getVersionString();
+                return $version->toString();
             },
             iterator_to_array((new GetVersionCollectionFromGitRepository())->fromRepository($this->repoPath))
         );
@@ -76,6 +76,6 @@ final class GetVersionCollectionFromGitRepositoryTest extends TestCase
     {
         $this->makeTag('v1.0.0');
 
-        self::assertSame(['1.0.0'], $this->getTags());
+        self::assertSame(['v1.0.0'], $this->getTags());
     }
 }

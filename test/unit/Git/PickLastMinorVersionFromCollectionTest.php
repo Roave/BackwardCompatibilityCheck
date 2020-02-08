@@ -8,7 +8,7 @@ use Assert\AssertionFailedException;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Git\PickLastMinorVersionFromCollection;
 use Version\Version;
-use Version\VersionsCollection;
+use Version\VersionCollection;
 use function array_map;
 
 /**
@@ -48,10 +48,10 @@ final class PickLastMinorVersionFromCollectionTest extends TestCase
         self::assertSame(
             $expectedVersion,
             (new PickLastMinorVersionFromCollection())->forVersions(
-                new VersionsCollection(...array_map(static function (string $version) : Version {
+                new VersionCollection(...array_map(static function (string $version) : Version {
                     return Version::fromString($version);
                 }, $collectionOfVersions))
-            )->getVersionString()
+            )->toString()
         );
     }
 
@@ -61,6 +61,6 @@ final class PickLastMinorVersionFromCollectionTest extends TestCase
 
         $this->expectException(AssertionFailedException::class);
 
-        $pick->forVersions(new VersionsCollection());
+        $pick->forVersions(new VersionCollection());
     }
 }

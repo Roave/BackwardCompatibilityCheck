@@ -26,7 +26,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Version\Version;
-use Version\VersionsCollection;
+use Version\VersionCollection;
 use function Safe\chdir;
 use function Safe\realpath;
 use function sha1;
@@ -325,7 +325,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
             ->getVersions
             ->expects(self::once())
             ->method('fromRepository')
-            ->willReturn(new VersionsCollection());
+            ->willReturn(new VersionCollection());
         $this
             ->pickVersion
             ->expects(self::never())
@@ -341,9 +341,9 @@ final class AssertBackwardsCompatibleTest extends TestCase
     }
 
     /**
-     * @dataProvider validVersionsCollections
+     * @dataProvider validVersionCollections
      */
-    public function testExecuteWithDefaultRevisionsNotProvided(VersionsCollection $versions) : void
+    public function testExecuteWithDefaultRevisionsNotProvided(VersionCollection $versions) : void
     {
         $fromSha       = sha1('fromRevision', false);
         $toSha         = sha1('toRevision', false);
@@ -409,22 +409,22 @@ final class AssertBackwardsCompatibleTest extends TestCase
         self::assertSame(0, $this->compare->execute($this->input, $this->output));
     }
 
-    /** @return VersionsCollection[][] */
-    public function validVersionsCollections() : array
+    /** @return VersionCollection[][] */
+    public function validVersionCollections() : array
     {
         return [
-            [new VersionsCollection(
+            [new VersionCollection(
                 Version::fromString('1.0.0'),
                 Version::fromString('1.0.1'),
                 Version::fromString('1.0.2')
             ),
             ],
-            [new VersionsCollection(
+            [new VersionCollection(
                 Version::fromString('1.0.0'),
                 Version::fromString('1.0.1')
             ),
             ],
-            [new VersionsCollection(Version::fromString('1.0.0'))],
+            [new VersionCollection(Version::fromString('1.0.0'))],
         ];
     }
 }
