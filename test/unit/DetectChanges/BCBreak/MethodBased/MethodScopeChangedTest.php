@@ -11,10 +11,11 @@ use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
+use RoaveTest\BackwardCompatibility\TypeRestriction;
+use function array_combine;
 use function array_keys;
 use function array_map;
 use function iterator_to_array;
-use function Safe\array_combine;
 
 /**
  * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased\MethodScopeChanged
@@ -45,7 +46,7 @@ final class MethodScopeChangedTest extends TestCase
     /**
      * @return array<string, array<int, ReflectionMethod|array<int, string>>>
      *
-     * @psalm-return array<string, array{0: ReflectionMethod, 1: ReflectionMethod, 2: array<int, string>}>
+     * @psalm-return array<string, array{0: ReflectionMethod, 1: ReflectionMethod, 2: list<string>}>
      */
     public function propertiesToBeTested() : array
     {
@@ -123,9 +124,10 @@ PHP
             'privateStaticToStatic'     => [],
         ];
 
-        return array_combine(
+        return TypeRestriction::array(array_combine(
             array_keys($properties),
             array_map(
+                /** @psalm-param list<string> $errorMessages https://github.com/vimeo/psalm/issues/2772 */
                 static function (string $methodName, array $errorMessages) use ($fromClass, $toClass) : array {
                     return [
                         $fromClass->getMethod($methodName),
@@ -136,6 +138,6 @@ PHP
                 array_keys($properties),
                 $properties
             )
-        );
+        ));
     }
 }

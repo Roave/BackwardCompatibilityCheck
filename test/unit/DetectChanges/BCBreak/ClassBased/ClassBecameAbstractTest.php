@@ -11,10 +11,11 @@ use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
+use RoaveTest\BackwardCompatibility\TypeRestriction;
+use function array_combine;
 use function array_keys;
 use function array_map;
 use function iterator_to_array;
-use function Safe\array_combine;
 
 /**
  * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\ClassBecameAbstract
@@ -45,7 +46,7 @@ final class ClassBecameAbstractTest extends TestCase
     /**
      * @return array<string, array<int, ReflectionClass|array<int, string>>>
      *
-     * @psalm-return array<string, array{0: ReflectionClass, 1: ReflectionClass, 2: array<int, string>}>
+     * @psalm-return array<string, array{0: ReflectionClass, 1: ReflectionClass, 2: list<string>}>
      */
     public function classesToBeTested() : array
     {
@@ -97,9 +98,10 @@ PHP
             'AbstractToInterface'  => [],
         ];
 
-        return array_combine(
+        return TypeRestriction::array(array_combine(
             array_keys($classes),
             array_map(
+                /** @psalm-param list<string> $errors https://github.com/vimeo/psalm/issues/2772 */
                 static function (string $className, array $errors) use ($fromReflector, $toReflector) : array {
                     return [
                         $fromReflector->reflect($className),
@@ -110,6 +112,6 @@ PHP
                 array_keys($classes),
                 $classes
             )
-        );
+        ));
     }
 }

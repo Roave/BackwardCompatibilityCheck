@@ -10,9 +10,10 @@ use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
+use RoaveTest\BackwardCompatibility\TypeRestriction;
+use function array_combine;
 use function array_keys;
 use function array_map;
-use function Safe\array_combine;
 
 /**
  * @covers \Roave\BackwardCompatibility\Formatter\ReflectionPropertyName
@@ -65,7 +66,7 @@ PHP
             'N1\D#$f'  => $classReflector->reflect('N1\D')->getProperty('f'),
         ];
 
-        return array_combine(
+        return TypeRestriction::array(array_combine(
             array_keys($properties),
             array_map(
                 static function (string $expectedMessage, ReflectionProperty $property) : array {
@@ -74,6 +75,6 @@ PHP
                 array_keys($properties),
                 $properties
             )
-        );
+        ));
     }
 }

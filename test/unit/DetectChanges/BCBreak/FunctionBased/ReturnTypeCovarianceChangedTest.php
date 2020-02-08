@@ -13,7 +13,7 @@ use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\Reflector\FunctionReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
-use function Safe\array_combine;
+use function array_combine;
 use function array_map;
 use function iterator_to_array;
 
@@ -46,7 +46,7 @@ final class ReturnTypeCovarianceChangedTest extends TestCase
     /**
      * @return array<string, array<int, ReflectionFunctionAbstract|array<int, string>>>
      *
-     * @psalm-return array<string, array{0: ReflectionFunctionAbstract, 1: ReflectionFunctionAbstract, 2: array<int, string>}>
+     * @psalm-return array<string, array{0: ReflectionFunctionAbstract, 1: ReflectionFunctionAbstract, 2: list<string>}>
      */
     public function functionsToBeTested() : array
     {
@@ -154,6 +154,7 @@ PHP
             array_combine(
                 array_keys($functions),
                 array_map(
+                    /** @psalm-param list<string> $errorMessages https://github.com/vimeo/psalm/issues/2772 */
                     function (string $function, array $errorMessages) use ($fromReflector, $toReflector) : array {
                         return [
                             $fromReflector->reflect($function),

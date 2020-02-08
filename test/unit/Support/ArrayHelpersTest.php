@@ -25,7 +25,7 @@ final class ArrayHelpersTest extends TestCase
     /**
      * @return array<int, array<int, string|array<int, string>|bool>>
      *
-     * @psalm-return array<int, array{0: string, 1: array<int, string>, 2: bool}>
+     * @psalm-return array<int, array{0: string, 1: list<string>, 2: bool}>
      */
     public function stringArrayContainsStringValidValues() : array
     {

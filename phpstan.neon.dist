@@ -5,8 +5,9 @@ parameters:
         - src
         - test/unit
     ignoreErrors:
-        # Type inference for internal array_* functions is still pending improvements in phpstan stubs.
-        - '~^Method .*Test::.* but returns array<int\|string, mixed>\.$~'
+        # Until https://github.com/thecodingmachine/safe/issues/185 is solved, we use \array_combine
+        - '~^Function array_combine is unsafe to use.*~'
+        - '~function array_merge expects array, array|false given\.~'
 
 includes:
     - vendor/phpstan/phpstan-beberlei-assert/extension.neon

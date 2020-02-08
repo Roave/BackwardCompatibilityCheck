@@ -11,10 +11,11 @@ use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
+use RoaveTest\BackwardCompatibility\TypeRestriction;
+use function array_combine;
 use function array_keys;
 use function array_map;
 use function iterator_to_array;
-use function Safe\array_combine;
 
 /**
  * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\PropertyVisibilityReduced
@@ -45,7 +46,7 @@ final class PropertyVisibilityReducedTest extends TestCase
     /**
      * @return array<string, array<int, ReflectionProperty|array<int, string>>>
      *
-     * @psalm-return array<string, array{0: ReflectionProperty, 1: ReflectionProperty, 2: array<int, string>}>
+     * @psalm-return array<string, array{0: ReflectionProperty, 1: ReflectionProperty, 2: list<string>}>
      */
     public function propertiesToBeTested() : array
     {
@@ -97,7 +98,6 @@ PHP
         $toClass            = $toClassReflector->reflect('TheClass');
 
         $properties = [
-
             'publicMaintainedPublic' => [],
             'publicReducedToProtected' => ['[BC] CHANGED: Property TheClass#$publicReducedToProtected visibility reduced from public to protected'],
             'publicReducedToPrivate' => ['[BC] CHANGED: Property TheClass#$publicReducedToPrivate visibility reduced from public to private'],
@@ -109,19 +109,20 @@ PHP
             'privateIncreasedToPublic' => [],
         ];
 
-        return array_combine(
+        return TypeRestriction::array(array_combine(
             array_keys($properties),
             array_map(
+                /** @psalm-param list<string> $errorMessages https://github.com/vimeo/psalm/issues/2772 */
                 static function (string $property, array $errorMessages) use ($fromClass, $toClass) : array {
                     return [
-                        $fromClass->getProperty($property),
-                        $toClass->getProperty($property),
+                        TypeRestriction::object($fromClass->getProperty($property)),
+                        TypeRestriction::object($toClass->getProperty($property)),
                         $errorMessages,
                     ];
                 },
                 array_keys($properties),
                 $properties
             )
-        );
+        ));
     }
 }

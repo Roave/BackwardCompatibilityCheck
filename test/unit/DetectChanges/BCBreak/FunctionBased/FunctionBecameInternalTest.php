@@ -12,10 +12,11 @@ use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\Reflector\FunctionReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
+use RoaveTest\BackwardCompatibility\TypeRestriction;
+use function array_combine;
 use function array_keys;
 use function array_map;
 use function iterator_to_array;
-use function Safe\array_combine;
 
 /** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\FunctionBecameInternal */
 final class FunctionBecameInternalTest extends TestCase
@@ -44,8 +45,7 @@ final class FunctionBecameInternalTest extends TestCase
     /**
      * @return array<string, array<int, ReflectionFunctionAbstract|array<int, string>>>
      *
-     * @psalm-return array<string, array{0: ReflectionFunctionAbstract, 1: ReflectionFunctionAbstract, 2: array<int,
-     *               string>}>
+     * @psalm-return array<string, array{0: ReflectionFunctionAbstract, 1: ReflectionFunctionAbstract, 2: list<string>}>
      */
     public function functionsToBeTested() : array
     {
@@ -93,9 +93,10 @@ PHP
             'd' => [],
         ];
 
-        return array_combine(
+        return TypeRestriction::array(array_combine(
             array_keys($functions),
             array_map(
+                /** @psalm-param list<string> $errorMessages https://github.com/vimeo/psalm/issues/2772 */
                 static function (string $function, array $errorMessages) use ($fromReflector, $toReflector) : array {
                     return [
                         $fromReflector->reflect($function),
@@ -106,6 +107,6 @@ PHP
                 array_keys($functions),
                 $functions
             )
-        );
+        ));
     }
 }
