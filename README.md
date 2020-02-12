@@ -57,6 +57,8 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
+            - name: fetch tags
+              run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
             - name: Roave BC Check
               uses: docker://nyholm/roave-bc-check-ga
 ```
