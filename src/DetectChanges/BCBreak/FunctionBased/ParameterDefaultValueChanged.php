@@ -11,7 +11,6 @@ use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
 use Roave\BetterReflection\Reflection\ReflectionParameter;
 use function array_filter;
 use function array_intersect_key;
-use function assert;
 use function Safe\sprintf;
 use function var_export;
 
@@ -37,8 +36,6 @@ final class ParameterDefaultValueChanged implements FunctionBased
         $changes = Changes::empty();
 
         foreach (array_intersect_key($fromParametersWithDefaults, $toParametersWithDefaults) as $parameterIndex => $parameter) {
-            assert($parameter instanceof ReflectionParameter);
-
             $defaultValueFrom = $parameter->getDefaultValue();
             $defaultValueTo   = $toParametersWithDefaults[$parameterIndex]->getDefaultValue();
 
