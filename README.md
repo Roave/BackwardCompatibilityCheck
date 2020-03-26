@@ -9,6 +9,7 @@ of a PHP library.
 
  * Your project uses `git`
  * Your project uses `composer.json` to define its dependencies
+ * Composer is aware of the class loading semantics of your projects, see e.g. the `"autoload"` section of `composer.json`
 
 ## Installation
 
