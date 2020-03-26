@@ -9,6 +9,7 @@ of a PHP library.
 
  * Your project uses `git`
  * Your project uses `composer.json` to define its dependencies
+ * All source paths are covered by an `"autoload"` section in `composer.json`
 
 ## Installation
 
