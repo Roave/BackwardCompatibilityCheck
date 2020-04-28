@@ -49,7 +49,7 @@ the SemVer-compliant `x.y.z` format, such as `1.2.3`.
 
 You can use it as a Github Action like this:
 
-_.github/main.workflow_
+_.github/workflows/main.yml_
 ```
 on: [push]
 name: Test
