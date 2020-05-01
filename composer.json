@@ -11,7 +11,7 @@
         "roave/better-reflection": "^3.5.0",
         "symfony/console": "^4.4.7",
         "symfony/process": "^4.4.5",
-        "thecodingmachine/safe": "^1.0"
+        "thecodingmachine/safe": "^1.1"
     },
     "license": "MIT",
     "authors": [
