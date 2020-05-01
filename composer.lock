@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c884ddfd64946064fb1de7081f568b08",
+    "content-hash": "aed69b2fea7966abadad666f57d4ff0a",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -1078,7 +1078,7 @@
         },
         {
             "name": "symfony/console",
-            "version": "v4.4.7",
+            "version": "v4.4.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
