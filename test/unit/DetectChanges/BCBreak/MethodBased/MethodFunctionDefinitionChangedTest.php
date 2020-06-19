@@ -35,10 +35,8 @@ final class MethodFunctionDefinitionChangedTest extends TestCase
 
     public function testWillCheckVisibleMethods() : void
     {
-        /** @var ReflectionMethod&MockObject $to */
         $from = $this->createMock(ReflectionMethod::class);
-        /** @var ReflectionMethod&MockObject $from */
-        $to = $this->createMock(ReflectionMethod::class);
+        $to   = $this->createMock(ReflectionMethod::class);
 
         $result = Changes::fromList(Change::changed(uniqid('foo', true), true));
 

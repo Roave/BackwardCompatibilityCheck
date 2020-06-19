@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\DetectChanges\BCBreak\ClassBased;
 
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
@@ -32,7 +31,6 @@ PHP
         $fromReflection = $reflector->reflect('ANormalClass');
         $toReflection   = $reflector->reflect('ANormalClass');
 
-        /** @var ClassBased&MockObject $check */
         $check = $this->createMock(ClassBased::class);
         $check->expects(self::once())
               ->method('__invoke')

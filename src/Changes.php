@@ -96,9 +96,6 @@ final class Changes implements IteratorAggregate, Countable
         $this->unBufferedChanges = null;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function count() : int
     {
         return count(iterator_to_array($this));

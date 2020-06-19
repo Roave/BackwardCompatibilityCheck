@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\DetectChanges\BCBreak\TraitBased;
 
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
@@ -22,12 +21,9 @@ final class UseClassBasedChecksOnATraitTest extends TestCase
     {
         $changes = Changes::fromList(Change::added(uniqid('foo', true), true));
 
-        /** @var ClassBased&MockObject $classBased */
         $classBased = $this->createMock(ClassBased::class);
-        /** @var ReflectionClass&MockObject $fromTrait */
-        $fromTrait = $this->createMock(ReflectionClass::class);
-        /** @var ReflectionClass&MockObject $toTrait */
-        $toTrait = $this->createMock(ReflectionClass::class);
+        $fromTrait  = $this->createMock(ReflectionClass::class);
+        $toTrait    = $this->createMock(ReflectionClass::class);
 
         $classBased
             ->expects(self::once())
