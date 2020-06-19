@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\DetectChanges\BCBreak\TraitBased;
 
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
@@ -20,19 +19,14 @@ final class MultipleChecksOnATraitTest extends TestCase
 {
     public function testChecksAllGivenCheckers() : void
     {
-        /** @var TraitBased&MockObject $checker1 */
         $checker1 = $this->createMock(TraitBased::class);
-        /** @var TraitBased&MockObject $checker2 */
         $checker2 = $this->createMock(TraitBased::class);
-        /** @var TraitBased&MockObject $checker3 */
         $checker3 = $this->createMock(TraitBased::class);
 
         $multiCheck = new MultipleChecksOnATrait($checker1, $checker2, $checker3);
 
-        /** @var ReflectionClass&MockObject $from */
         $from = $this->createMock(ReflectionClass::class);
-        /** @var ReflectionClass&MockObject $to */
-        $to = $this->createMock(ReflectionClass::class);
+        $to   = $this->createMock(ReflectionClass::class);
 
         $checker1
             ->expects(self::once())

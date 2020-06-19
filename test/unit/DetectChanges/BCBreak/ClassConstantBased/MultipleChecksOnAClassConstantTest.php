@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\DetectChanges\BCBreak\ClassConstantBased;
 
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
@@ -20,19 +19,14 @@ final class MultipleChecksOnAClassConstantTest extends TestCase
 {
     public function testChecksAllGivenCheckers() : void
     {
-        /** @var ClassConstantBased&MockObject $checker1 */
         $checker1 = $this->createMock(ClassConstantBased::class);
-        /** @var ClassConstantBased&MockObject $checker2 */
         $checker2 = $this->createMock(ClassConstantBased::class);
-        /** @var ClassConstantBased&MockObject $checker3 */
         $checker3 = $this->createMock(ClassConstantBased::class);
 
         $multiCheck = new MultipleChecksOnAClassConstant($checker1, $checker2, $checker3);
 
-        /** @var ReflectionClassConstant&MockObject $from */
         $from = $this->createMock(ReflectionClassConstant::class);
-        /** @var ReflectionClassConstant&MockObject $to */
-        $to = $this->createMock(ReflectionClassConstant::class);
+        $to   = $this->createMock(ReflectionClassConstant::class);
 
         $checker1
             ->expects(self::once())

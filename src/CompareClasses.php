@@ -37,9 +37,6 @@ final class CompareClasses implements CompareApi
         $this->traitBasedComparisons     = $traitBasedComparisons;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function __invoke(
         ClassReflector $definedSymbols,
         ClassReflector $pastSourcesWithDependencies,
@@ -75,7 +72,6 @@ final class CompareClasses implements CompareApi
         ClassReflector $newSourcesWithDependencies
     ) : iterable {
         foreach ($definedApiClassNames as $apiClassName) {
-            /** @var ReflectionClass $oldSymbol */
             $oldSymbol = $pastSourcesWithDependencies->reflect($apiClassName);
 
             yield from $this->examineSymbol($oldSymbol, $newSourcesWithDependencies);
@@ -87,7 +83,6 @@ final class CompareClasses implements CompareApi
         ClassReflector $newSourcesWithDependencies
     ) : Generator {
         try {
-            /** @var ReflectionClass $newClass */
             $newClass = $newSourcesWithDependencies->reflect($oldSymbol->getName());
         } catch (IdentifierNotFound $exception) {
             yield Change::removed(sprintf('Class %s has been deleted', $oldSymbol->getName()), true);

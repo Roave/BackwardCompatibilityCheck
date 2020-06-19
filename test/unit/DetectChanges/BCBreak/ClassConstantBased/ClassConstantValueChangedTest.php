@@ -46,7 +46,7 @@ final class ClassConstantValueChangedTest extends TestCase
     /**
      * @return array<string, array<int, ReflectionClassConstant|array<int, string>>>
      *
-     * @psalm-return array<string, array{0: ReflectionClassConstant, 1: ReflectionClassConstant, 2: list<string>}>
+     * @psalm-return array<string, array{0: ReflectionClassConstant|null, 1: ReflectionClassConstant|null, 2: list<string>}>
      */
     public function propertiesToBeTested() : array
     {

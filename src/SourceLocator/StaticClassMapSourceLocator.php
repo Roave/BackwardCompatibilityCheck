@@ -37,9 +37,6 @@ final class StaticClassMapSourceLocator extends AbstractSourceLocator
         $this->classMap = $realPaths;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     protected function createLocatedSource(Identifier $identifier) : ?LocatedSource
     {
         if (! $identifier->isClass()) {

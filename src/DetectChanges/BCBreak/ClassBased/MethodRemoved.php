@@ -9,7 +9,6 @@ use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
-use const CASE_UPPER;
 use function array_change_key_case;
 use function array_diff_key;
 use function array_filter;
@@ -18,6 +17,7 @@ use function array_values;
 use function Safe\array_combine;
 use function Safe\preg_match;
 use function Safe\sprintf;
+use const CASE_UPPER;
 
 final class MethodRemoved implements ClassBased
 {

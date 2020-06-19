@@ -34,10 +34,8 @@ final class OnlyProtectedMethodChangedTest extends TestCase
 
     public function testWillSkipCheckingNonProtectedMethods() : void
     {
-        /** @var ReflectionMethod&MockObject $to */
         $from = $this->createMock(ReflectionMethod::class);
-        /** @var ReflectionMethod&MockObject $from */
-        $to = $this->createMock(ReflectionMethod::class);
+        $to   = $this->createMock(ReflectionMethod::class);
 
         $from
             ->expects(self::any())
@@ -54,10 +52,8 @@ final class OnlyProtectedMethodChangedTest extends TestCase
 
     public function testWillCheckProtectedMethods() : void
     {
-        /** @var ReflectionMethod&MockObject $to */
         $from = $this->createMock(ReflectionMethod::class);
-        /** @var ReflectionMethod&MockObject $from */
-        $to = $this->createMock(ReflectionMethod::class);
+        $to   = $this->createMock(ReflectionMethod::class);
 
         $from
             ->expects(self::any())
