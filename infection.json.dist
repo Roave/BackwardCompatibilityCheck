@@ -11,6 +11,12 @@
     "mutators": {
         "@default": true,
         "IdenticalEqual": false,
-        "NotIdenticalNotEqual": false
+        "NotIdenticalNotEqual": false,
+        "UnwrapArrayUnique": {
+            "ignore": [
+                "Roave\\BackwardCompatibility\\DetectChanges\\BCBreak\\PropertyBased\\PropertyDocumentedTypeChanged::__invoke::39",
+                "Roave\\BackwardCompatibility\\DetectChanges\\BCBreak\\PropertyBased\\PropertyDocumentedTypeChanged::__invoke::40"
+            ]
+        }
     }
 }
