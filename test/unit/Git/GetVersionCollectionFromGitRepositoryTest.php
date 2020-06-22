@@ -28,10 +28,13 @@ final class GetVersionCollectionFromGitRepositoryTest extends TestCase
     {
         $tmpGitRepo = sys_get_temp_dir() . '/api-compare-' . uniqid('tmpGitRepo', true);
         mkdir($tmpGitRepo, 0777, true);
-        (new Process(['git', 'init']))->setWorkingDirectory($tmpGitRepo)->mustRun();
+        (new Process(['git', 'init'], $tmpGitRepo))->mustRun();
+        (new Process(['git', 'config', 'user.email', 'me@example.com'], $tmpGitRepo))->mustRun();
+        (new Process(['git', 'config', 'user.name', 'Me Again'], $tmpGitRepo))->mustRun();
         file_put_contents($tmpGitRepo . '/test', uniqid('testContent', true));
-        (new Process(['git', 'add', '.']))->setWorkingDirectory($tmpGitRepo)->mustRun();
-        (new Process(['git', 'commit', '-m', '"whatever"']))->setWorkingDirectory($tmpGitRepo)->mustRun();
+        (new Process(['git', 'add', '.'], $tmpGitRepo))->mustRun();
+        (new Process(['git', 'commit', '-m', '"whatever"'], $tmpGitRepo))->mustRun();
+
         $this->repoPath = CheckedOutRepository::fromPath($tmpGitRepo);
     }
 
@@ -42,7 +45,7 @@ final class GetVersionCollectionFromGitRepositoryTest extends TestCase
 
     private function makeTag(string $tagName): void
     {
-        (new Process(['git', 'tag', $tagName]))->setWorkingDirectory((string) $this->repoPath)->mustRun();
+        (new Process(['git', 'tag', $tagName], $this->repoPath->__toString()))->mustRun();
     }
 
     /** @return string[] */
