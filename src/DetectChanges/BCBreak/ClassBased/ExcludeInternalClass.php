@@ -13,8 +13,7 @@ use function Safe\preg_match;
  */
 final class ExcludeInternalClass implements ClassBased
 {
-    /** @var ClassBased */
-    private $check;
+    private ClassBased $check;
 
     public function __construct(ClassBased $check)
     {

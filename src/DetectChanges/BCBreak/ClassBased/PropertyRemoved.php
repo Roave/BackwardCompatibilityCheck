@@ -18,8 +18,7 @@ use function Safe\sprintf;
 
 final class PropertyRemoved implements ClassBased
 {
-    /** @var ReflectionPropertyName */
-    private $formatProperty;
+    private ReflectionPropertyName $formatProperty;
 
     public function __construct()
     {

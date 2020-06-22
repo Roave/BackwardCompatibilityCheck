@@ -18,8 +18,7 @@ use function Safe\sprintf;
  */
 final class ReturnTypeChanged implements FunctionBased
 {
-    /** @var ReflectionFunctionAbstractName */
-    private $formatFunction;
+    private ReflectionFunctionAbstractName $formatFunction;
 
     public function __construct()
     {

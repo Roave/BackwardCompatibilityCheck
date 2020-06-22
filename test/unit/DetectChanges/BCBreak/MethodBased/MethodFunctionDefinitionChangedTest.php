@@ -20,10 +20,9 @@ use function uniqid;
 final class MethodFunctionDefinitionChangedTest extends TestCase
 {
     /** @var FunctionBased&MockObject */
-    private $functionCheck;
+    private FunctionBased $functionCheck;
 
-    /** @var MethodBased */
-    private $methodCheck;
+    private MethodBased $methodCheck;
 
     protected function setUp() : void
     {

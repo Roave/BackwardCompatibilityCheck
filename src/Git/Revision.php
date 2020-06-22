@@ -9,8 +9,7 @@ use function rtrim;
 
 final class Revision
 {
-    /** @var string */
-    private $sha1;
+    private string $sha1;
 
     private function __construct()
     {

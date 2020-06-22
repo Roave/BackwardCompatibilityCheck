@@ -11,8 +11,7 @@ use Throwable;
 
 final class SkipInterfaceBasedErrors implements InterfaceBased
 {
-    /** @var InterfaceBased */
-    private $next;
+    private InterfaceBased $next;
 
     public function __construct(InterfaceBased $next)
     {

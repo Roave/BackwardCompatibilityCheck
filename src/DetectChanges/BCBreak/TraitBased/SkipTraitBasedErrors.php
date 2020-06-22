@@ -11,8 +11,7 @@ use Throwable;
 
 final class SkipTraitBasedErrors implements TraitBased
 {
-    /** @var TraitBased */
-    private $next;
+    private TraitBased $next;
 
     public function __construct(TraitBased $next)
     {

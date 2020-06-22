@@ -14,8 +14,7 @@ use Roave\BetterReflection\Reflector\ClassReflector;
  */
 final class LocateSourcesViaComposerJsonTest extends TestCase
 {
-    /** @var LocateSourcesViaComposerJson */
-    private $locateSources;
+    private LocateSourcesViaComposerJson $locateSources;
 
     protected function setUp() : void
     {

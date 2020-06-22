@@ -37,41 +37,38 @@ use function uniqid;
  */
 final class AssertBackwardsCompatibleTest extends TestCase
 {
-    /** @var CheckedOutRepository */
-    private $sourceRepository;
+    private CheckedOutRepository $sourceRepository;
 
     /** @var InputInterface&MockObject */
-    private $input;
+    private InputInterface $input;
 
     /** @var ConsoleOutputInterface&MockObject */
-    private $output;
+    private ConsoleOutputInterface $output;
 
     /** @var OutputInterface&MockObject */
-    private $stdErr;
+    private OutputInterface $stdErr;
 
     /** @var PerformCheckoutOfRevision&MockObject */
-    private $performCheckout;
+    private PerformCheckoutOfRevision $performCheckout;
 
     /** @var ParseRevision&MockObject */
-    private $parseRevision;
+    private ParseRevision $parseRevision;
 
     /** @var GetVersionCollection&MockObject */
-    private $getVersions;
+    private GetVersionCollection $getVersions;
 
     /** @var PickVersionFromVersionCollection&MockObject */
-    private $pickVersion;
+    private PickVersionFromVersionCollection $pickVersion;
 
     /** @var LocateDependencies&MockObject */
-    private $locateDependencies;
+    private LocateDependencies $locateDependencies;
 
     /** @var CompareApi&MockObject */
-    private $compareApi;
+    private CompareApi $compareApi;
 
-    /** @var AggregateSourceLocator */
-    private $dependencies;
+    private AggregateSourceLocator $dependencies;
 
-    /** @var AssertBackwardsCompatible */
-    private $compare;
+    private AssertBackwardsCompatible $compare;
 
     public function setUp() : void
     {
@@ -413,16 +410,18 @@ final class AssertBackwardsCompatibleTest extends TestCase
     public function validVersionCollections() : array
     {
         return [
-            [new VersionCollection(
-                Version::fromString('1.0.0'),
-                Version::fromString('1.0.1'),
-                Version::fromString('1.0.2')
-            ),
+            [
+                new VersionCollection(
+                    Version::fromString('1.0.0'),
+                    Version::fromString('1.0.1'),
+                    Version::fromString('1.0.2')
+                ),
             ],
-            [new VersionCollection(
-                Version::fromString('1.0.0'),
-                Version::fromString('1.0.1')
-            ),
+            [
+                new VersionCollection(
+                    Version::fromString('1.0.0'),
+                    Version::fromString('1.0.1')
+                ),
             ],
             [new VersionCollection(Version::fromString('1.0.0'))],
         ];

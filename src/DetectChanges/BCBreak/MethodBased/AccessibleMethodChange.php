@@ -12,8 +12,7 @@ use Roave\BetterReflection\Reflection\ReflectionMethod;
  */
 final class AccessibleMethodChange implements MethodBased
 {
-    /** @var MethodBased */
-    private $check;
+    private MethodBased $check;
 
     public function __construct(MethodBased $check)
     {

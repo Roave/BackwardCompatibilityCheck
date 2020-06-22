@@ -17,8 +17,7 @@ use Roave\BetterReflection\SourceLocator\Type\SourceLocator;
  */
 final class ComposerInstallationReflectorFactory
 {
-    /** @var LocateSources */
-    private $locateSources;
+    private LocateSources $locateSources;
 
     public function __construct(LocateSources $locateSources)
     {

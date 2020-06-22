@@ -19,10 +19,9 @@ use function uniqid;
 final class OnlyPublicMethodChangedTest extends TestCase
 {
     /** @var MethodBased&MockObject */
-    private $check;
+    private MethodBased $check;
 
-    /** @var OnlyPublicMethodChanged */
-    private $methodCheck;
+    private OnlyPublicMethodChanged $methodCheck;
 
     protected function setUp() : void
     {

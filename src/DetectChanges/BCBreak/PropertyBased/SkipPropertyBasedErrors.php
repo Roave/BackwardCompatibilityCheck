@@ -11,8 +11,7 @@ use Throwable;
 
 final class SkipPropertyBasedErrors implements PropertyBased
 {
-    /** @var PropertyBased */
-    private $next;
+    private PropertyBased $next;
 
     public function __construct(PropertyBased $next)
     {

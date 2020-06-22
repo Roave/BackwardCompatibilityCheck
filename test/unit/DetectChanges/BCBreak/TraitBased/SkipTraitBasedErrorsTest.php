@@ -20,10 +20,9 @@ use function uniqid;
 final class SkipTraitBasedErrorsTest extends TestCase
 {
     /** @var TraitBased&MockObject */
-    private $next;
+    private TraitBased $next;
 
-    /** @var SkipTraitBasedErrors */
-    private $check;
+    private SkipTraitBasedErrors $check;
 
     protected function setUp() : void
     {

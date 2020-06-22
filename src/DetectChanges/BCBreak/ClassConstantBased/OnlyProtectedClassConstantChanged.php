@@ -9,8 +9,7 @@ use Roave\BetterReflection\Reflection\ReflectionClassConstant;
 
 final class OnlyProtectedClassConstantChanged implements ClassConstantBased
 {
-    /** @var ClassConstantBased */
-    private $constantCheck;
+    private ClassConstantBased $constantCheck;
 
     public function __construct(ClassConstantBased $constantCheck)
     {

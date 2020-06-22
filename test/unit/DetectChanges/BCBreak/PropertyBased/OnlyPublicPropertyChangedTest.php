@@ -19,16 +19,15 @@ use function uniqid;
 final class OnlyPublicPropertyChangedTest extends TestCase
 {
     /** @var PropertyBased&MockObject */
-    private $check;
+    private PropertyBased $check;
 
     /** @var ReflectionProperty&MockObject */
-    private $fromProperty;
+    private ReflectionProperty $fromProperty;
 
     /** @var ReflectionProperty&MockObject */
-    private $toProperty;
+    private ReflectionProperty $toProperty;
 
-    /** @var OnlyPublicPropertyChanged */
-    private $changed;
+    private OnlyPublicPropertyChanged $changed;
 
     protected function setUp() : void
     {

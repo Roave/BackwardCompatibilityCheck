@@ -18,14 +18,11 @@ use function Safe\sprintf;
 
 final class CompareClasses implements CompareApi
 {
-    /** @var ClassBased */
-    private $classBasedComparisons;
+    private ClassBased $classBasedComparisons;
 
-    /** @var InterfaceBased */
-    private $interfaceBasedComparisons;
+    private InterfaceBased $interfaceBasedComparisons;
 
-    /** @var TraitBased */
-    private $traitBasedComparisons;
+    private TraitBased $traitBasedComparisons;
 
     public function __construct(
         ClassBased $classBasedComparisons,

@@ -104,10 +104,10 @@ PHP
     ];
 
     /** @var string path to the sources that should be checked */
-    private $sourcesRepository;
+    private string $sourcesRepository;
 
     /** @var string[] sha1 of the source versions */
-    private $versions = [];
+    private array $versions = [];
 
     protected function setUp() : void
     {

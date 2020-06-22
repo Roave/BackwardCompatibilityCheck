@@ -18,8 +18,7 @@ use function Safe\getcwd;
 
 final class LocateDependenciesViaComposer implements LocateDependencies
 {
-    /** @var Locator */
-    private $astLocator;
+    private Locator $astLocator;
 
     /** @var callable */
     private $makeComposerInstaller;

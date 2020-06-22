@@ -11,7 +11,7 @@ use Roave\BetterReflection\Reflection\ReflectionProperty;
 final class MultipleChecksOnAProperty implements PropertyBased
 {
     /** @var PropertyBased[] */
-    private $checks;
+    private array $checks;
 
     public function __construct(PropertyBased ...$checks)
     {

@@ -21,8 +21,7 @@ use function uniqid;
  */
 final class GetVersionCollectionFromGitRepositoryTest extends TestCase
 {
-    /** @var CheckedOutRepository */
-    private $repoPath;
+    private CheckedOutRepository $repoPath;
 
     public function setUp() : void
     {

@@ -19,16 +19,15 @@ use function uniqid;
 final class OnlyPublicClassConstantChangedTest extends TestCase
 {
     /** @var ClassConstantBased&MockObject */
-    private $check;
+    private ClassConstantBased $check;
 
     /** @var ReflectionClassConstant&MockObject */
-    private $fromConstant;
+    private ReflectionClassConstant $fromConstant;
 
     /** @var ReflectionClassConstant&MockObject */
-    private $toConstant;
+    private ReflectionClassConstant $toConstant;
 
-    /** @var OnlyPublicClassConstantChanged */
-    private $changed;
+    private OnlyPublicClassConstantChanged $changed;
 
     protected function setUp() : void
     {

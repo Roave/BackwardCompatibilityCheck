@@ -19,8 +19,7 @@ use function Safe\sprintf;
  */
 final class PropertyDocumentedTypeChanged implements PropertyBased
 {
-    /** @var ReflectionPropertyName */
-    private $formatProperty;
+    private ReflectionPropertyName $formatProperty;
 
     public function __construct()
     {

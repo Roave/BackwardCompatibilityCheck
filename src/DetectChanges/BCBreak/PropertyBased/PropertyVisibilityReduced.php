@@ -12,8 +12,7 @@ use function Safe\sprintf;
 
 final class PropertyVisibilityReduced implements PropertyBased
 {
-    /** @var ReflectionPropertyName */
-    private $formatProperty;
+    private ReflectionPropertyName $formatProperty;
 
     public function __construct()
     {

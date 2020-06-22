@@ -11,7 +11,7 @@ use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
 final class MultipleChecksOnAFunction implements FunctionBased
 {
     /** @var FunctionBased[] */
-    private $checks;
+    private array $checks;
 
     public function __construct(FunctionBased ...$checks)
     {

@@ -20,10 +20,9 @@ use function uniqid;
 final class SkipClassConstantBasedErrorsTest extends TestCase
 {
     /** @var ClassConstantBased&MockObject */
-    private $next;
+    private ClassConstantBased $next;
 
-    /** @var SkipClassConstantBasedErrors */
-    private $check;
+    private SkipClassConstantBasedErrors $check;
 
     protected function setUp() : void
     {

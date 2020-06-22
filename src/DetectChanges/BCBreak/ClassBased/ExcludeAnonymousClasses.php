@@ -9,8 +9,7 @@ use Roave\BetterReflection\Reflection\ReflectionClass;
 
 final class ExcludeAnonymousClasses implements ClassBased
 {
-    /** @var ClassBased */
-    private $check;
+    private ClassBased $check;
 
     public function __construct(ClassBased $check)
     {

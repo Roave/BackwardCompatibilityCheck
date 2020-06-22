@@ -10,8 +10,7 @@ use function Safe\preg_match;
 
 final class ExcludeInternalProperty implements PropertyBased
 {
-    /** @var PropertyBased */
-    private $propertyBased;
+    private PropertyBased $propertyBased;
 
     public function __construct(PropertyBased $propertyBased)
     {

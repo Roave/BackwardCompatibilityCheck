@@ -20,11 +20,9 @@ use function Safe\sprintf;
  */
 final class ParameterTypeContravarianceChanged implements FunctionBased
 {
-    /** @var TypeIsContravariant */
-    private $typeIsContravariant;
+    private TypeIsContravariant $typeIsContravariant;
 
-    /** @var ReflectionFunctionAbstractName */
-    private $formatFunction;
+    private ReflectionFunctionAbstractName $formatFunction;
 
     public function __construct(TypeIsContravariant $typeIsContravariant)
     {

@@ -16,8 +16,7 @@ use function trim;
 
 final class MarkdownPipedToSymfonyConsoleFormatter implements OutputFormatter
 {
-    /** @var OutputInterface */
-    private $output;
+    private OutputInterface $output;
 
     public function __construct(OutputInterface $output)
     {

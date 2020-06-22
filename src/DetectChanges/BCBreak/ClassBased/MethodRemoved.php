@@ -21,8 +21,7 @@ use const CASE_UPPER;
 
 final class MethodRemoved implements ClassBased
 {
-    /** @var ReflectionFunctionAbstractName */
-    private $formatFunction;
+    private ReflectionFunctionAbstractName $formatFunction;
 
     public function __construct()
     {

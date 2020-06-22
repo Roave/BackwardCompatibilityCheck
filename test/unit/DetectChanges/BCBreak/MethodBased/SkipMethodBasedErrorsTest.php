@@ -20,10 +20,9 @@ use function uniqid;
 final class SkipMethodBasedErrorsTest extends TestCase
 {
     /** @var MethodBased&MockObject */
-    private $next;
+    private MethodBased $next;
 
-    /** @var SkipMethodBasedErrors */
-    private $check;
+    private SkipMethodBasedErrors $check;
 
     protected function setUp() : void
     {

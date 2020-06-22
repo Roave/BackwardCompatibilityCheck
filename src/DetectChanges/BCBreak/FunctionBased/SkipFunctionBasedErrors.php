@@ -11,8 +11,7 @@ use Throwable;
 
 final class SkipFunctionBasedErrors implements FunctionBased
 {
-    /** @var FunctionBased */
-    private $next;
+    private FunctionBased $next;
 
     public function __construct(FunctionBased $next)
     {

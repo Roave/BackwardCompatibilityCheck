@@ -13,8 +13,7 @@ use function var_export;
 
 final class PropertyDefaultValueChanged implements PropertyBased
 {
-    /** @var ReflectionPropertyName */
-    private $formatProperty;
+    private ReflectionPropertyName $formatProperty;
 
     public function __construct()
     {

@@ -11,8 +11,7 @@ use Throwable;
 
 final class SkipClassBasedErrors implements ClassBased
 {
-    /** @var ClassBased */
-    private $next;
+    private ClassBased $next;
 
     public function __construct(ClassBased $next)
     {

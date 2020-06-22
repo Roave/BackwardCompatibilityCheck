@@ -35,26 +35,19 @@ use function Safe\sprintf;
 
 final class AssertBackwardsCompatible extends Command
 {
-    /** @var PerformCheckoutOfRevision */
-    private $git;
+    private PerformCheckoutOfRevision $git;
 
-    /** @var ComposerInstallationReflectorFactory */
-    private $makeComposerInstallationReflector;
+    private ComposerInstallationReflectorFactory $makeComposerInstallationReflector;
 
-    /** @var ParseRevision */
-    private $parseRevision;
+    private ParseRevision $parseRevision;
 
-    /** @var GetVersionCollection */
-    private $getVersions;
+    private GetVersionCollection $getVersions;
 
-    /** @var PickVersionFromVersionCollection */
-    private $pickFromVersion;
+    private PickVersionFromVersionCollection $pickFromVersion;
 
-    /** @var LocateDependencies */
-    private $locateDependencies;
+    private LocateDependencies $locateDependencies;
 
-    /** @var CompareApi */
-    private $compareApi;
+    private CompareApi $compareApi;
 
     /**
      * @throws LogicException

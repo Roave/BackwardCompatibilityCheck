@@ -11,7 +11,7 @@ use Roave\BetterReflection\Reflection\ReflectionClass;
 final class MultipleChecksOnAnInterface implements InterfaceBased
 {
     /** @var InterfaceBased[] */
-    private $checks;
+    private array $checks;
 
     public function __construct(InterfaceBased ...$checks)
     {

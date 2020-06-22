@@ -22,10 +22,10 @@ use function Safe\file_get_contents;
 final class StaticClassMapSourceLocatorTest extends TestCase
 {
     /** @var Locator&MockObject */
-    private $astLocator;
+    private Locator $astLocator;
 
     /** @var Reflector&MockObject */
-    private $reflector;
+    private Reflector $reflector;
 
     protected function setUp() : void
     {

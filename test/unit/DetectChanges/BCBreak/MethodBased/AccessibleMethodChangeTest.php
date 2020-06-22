@@ -19,10 +19,9 @@ use function uniqid;
 final class AccessibleMethodChangeTest extends TestCase
 {
     /** @var MethodBased&MockObject */
-    private $check;
+    private MethodBased $check;
 
-    /** @var MethodBased */
-    private $methodCheck;
+    private MethodBased $methodCheck;
 
     protected function setUp() : void
     {

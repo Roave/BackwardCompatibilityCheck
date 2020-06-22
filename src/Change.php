@@ -18,14 +18,11 @@ final class Change
     private const REMOVED = 'removed';
     private const SKIPPED = 'skipped';
 
-    /** @var string */
-    private $modificationType;
+    private string $modificationType;
 
-    /** @var string */
-    private $description;
+    private string $description;
 
-    /** @var bool */
-    private $isBcBreak;
+    private bool $isBcBreak;
 
     private function __construct(string $modificationType, string $description, bool $isBcBreak)
     {

@@ -8,8 +8,7 @@ use Assert\Assert;
 
 final class CheckedOutRepository
 {
-    /** @var string */
-    private $path;
+    private string $path;
 
     private function __construct()
     {

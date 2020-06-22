@@ -9,8 +9,7 @@ use Roave\BetterReflection\Reflection\ReflectionProperty;
 
 final class OnlyProtectedPropertyChanged implements PropertyBased
 {
-    /** @var PropertyBased */
-    private $propertyBased;
+    private PropertyBased $propertyBased;
 
     public function __construct(PropertyBased $propertyBased)
     {

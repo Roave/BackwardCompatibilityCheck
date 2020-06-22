@@ -16,7 +16,7 @@ use function Safe\file_get_contents;
 final class StaticClassMapSourceLocator extends AbstractSourceLocator
 {
     /** @var string[] */
-    private $classMap;
+    private array $classMap;
 
      /**
       * @param array<string, string> $classMap map of class => file. Every file must exist,

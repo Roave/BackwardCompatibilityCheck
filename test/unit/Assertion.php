@@ -11,8 +11,7 @@ use function count;
 
 abstract class Assertion
 {
-    /** @var ReflectionProperty|null */
-    private static $unBufferedChangesReflection;
+    private static ?ReflectionProperty $unBufferedChangesReflection = null;
 
     final private function __construct()
     {

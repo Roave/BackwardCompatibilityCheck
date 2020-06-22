@@ -11,7 +11,7 @@ use Roave\BetterReflection\Reflection\ReflectionClass;
 final class MultipleChecksOnATrait implements TraitBased
 {
     /** @var TraitBased[] */
-    private $checks;
+    private array $checks;
 
     public function __construct(TraitBased ...$checks)
     {

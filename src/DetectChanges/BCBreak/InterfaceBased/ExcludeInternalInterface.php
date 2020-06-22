@@ -13,8 +13,7 @@ use function Safe\preg_match;
  */
 final class ExcludeInternalInterface implements InterfaceBased
 {
-    /** @var InterfaceBased */
-    private $check;
+    private InterfaceBased $check;
 
     public function __construct(InterfaceBased $check)
     {

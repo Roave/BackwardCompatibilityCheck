@@ -16,8 +16,7 @@ use function Safe\sprintf;
  */
 final class FunctionBecameInternal implements FunctionBased
 {
-    /** @var ReflectionFunctionAbstractName */
-    private $formatFunction;
+    private ReflectionFunctionAbstractName $formatFunction;
 
     public function __construct()
     {

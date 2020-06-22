@@ -18,20 +18,18 @@ use Roave\BackwardCompatibility\DetectChanges\BCBreak\TraitBased\TraitBased;
  */
 final class CompareClassesTest extends TestCase
 {
-    /** @var StringReflectorFactory */
-    private static $stringReflectorFactory;
+    private static StringReflectorFactory $stringReflectorFactory;
 
     /** @var ClassBased&MockObject */
-    private $classBasedComparison;
+    private ClassBased $classBasedComparison;
 
     /** @var InterfaceBased&MockObject */
-    private $interfaceBasedComparison;
+    private InterfaceBased $interfaceBasedComparison;
 
     /** @var TraitBased&MockObject */
-    private $traitBasedComparison;
+    private TraitBased $traitBasedComparison;
 
-    /** @var CompareClasses */
-    private $compareClasses;
+    private CompareClasses $compareClasses;
 
     public static function setUpBeforeClass() : void
     {

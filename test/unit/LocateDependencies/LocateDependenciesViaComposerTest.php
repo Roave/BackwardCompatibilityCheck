@@ -22,23 +22,22 @@ use function Safe\realpath;
  */
 final class LocateDependenciesViaComposerTest extends TestCase
 {
-    /** @var string */
-    private $originalCwd;
+    private string $originalCwd;
 
-    /** @var callable */
+    /**
+     * @var callable
+     * @psalm-var callable(string) : Installer
+     */
     private $makeInstaller;
 
     /** @var Installer&MockObject */
-    private $composerInstaller;
+    private Installer $composerInstaller;
 
-    /** @var string|null */
-    private $expectedInstallatonPath;
+    private ?string $expectedInstallatonPath = null;
 
-    /** @var Locator */
-    private $astLocator;
+    private Locator $astLocator;
 
-    /** @var LocateDependenciesViaComposer */
-    private $locateDependencies;
+    private LocateDependenciesViaComposer $locateDependencies;
 
     protected function setUp() : void
     {

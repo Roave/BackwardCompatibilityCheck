@@ -19,8 +19,7 @@ use function Safe\sprintf;
  */
 final class ParameterByReferenceChanged implements FunctionBased
 {
-    /** @var ReflectionFunctionAbstractName */
-    private $formatFunction;
+    private ReflectionFunctionAbstractName $formatFunction;
 
     public function __construct()
     {

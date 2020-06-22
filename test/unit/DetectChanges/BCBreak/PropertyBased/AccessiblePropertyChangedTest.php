@@ -19,16 +19,15 @@ use function uniqid;
 final class AccessiblePropertyChangedTest extends TestCase
 {
     /** @var PropertyBased&MockObject */
-    private $check;
+    private PropertyBased $check;
 
     /** @var ReflectionProperty&MockObject */
-    private $fromProperty;
+    private ReflectionProperty $fromProperty;
 
     /** @var ReflectionProperty&MockObject */
-    private $toProperty;
+    private ReflectionProperty $toProperty;
 
-    /** @var AccessiblePropertyChanged */
-    private $accessiblePropertyChanged;
+    private AccessiblePropertyChanged $accessiblePropertyChanged;
 
     protected function setUp() : void
     {

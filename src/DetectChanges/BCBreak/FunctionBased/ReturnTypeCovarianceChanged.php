@@ -19,11 +19,9 @@ use function Safe\sprintf;
  */
 final class ReturnTypeCovarianceChanged implements FunctionBased
 {
-    /** @var TypeIsCovariant */
-    private $typeIsCovariant;
+    private TypeIsCovariant $typeIsCovariant;
 
-    /** @var ReflectionFunctionAbstractName */
-    private $formatFunction;
+    private ReflectionFunctionAbstractName $formatFunction;
 
     public function __construct(TypeIsCovariant $typeIsCovariant)
     {

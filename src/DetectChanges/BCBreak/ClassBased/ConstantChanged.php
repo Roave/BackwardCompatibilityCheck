@@ -14,8 +14,7 @@ use function array_keys;
 
 final class ConstantChanged implements ClassBased
 {
-    /** @var ClassConstantBased */
-    private $checkConstant;
+    private ClassConstantBased $checkConstant;
 
     public function __construct(ClassConstantBased $checkConstant)
     {

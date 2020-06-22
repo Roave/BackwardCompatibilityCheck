@@ -14,8 +14,7 @@ use function array_keys;
 
 final class PropertyChanged implements ClassBased
 {
-    /** @var PropertyBased */
-    private $checkProperty;
+    private PropertyBased $checkProperty;
 
     public function __construct(PropertyBased $checkProperty)
     {

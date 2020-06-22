@@ -19,16 +19,15 @@ use function uniqid;
 final class OpenClassChangedTest extends TestCase
 {
     /** @var ClassBased&MockObject */
-    private $check;
+    private ClassBased $check;
 
-    /** @var OpenClassChanged */
-    private $openClassChanged;
-
-    /** @var ReflectionClass&MockObject */
-    private $fromClass;
+    private OpenClassChanged $openClassChanged;
 
     /** @var ReflectionClass&MockObject */
-    private $toClass;
+    private ReflectionClass $fromClass;
+
+    /** @var ReflectionClass&MockObject */
+    private ReflectionClass $toClass;
 
     protected function setUp() : void
     {

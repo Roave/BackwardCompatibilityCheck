@@ -11,7 +11,7 @@ use Roave\BetterReflection\Reflection\ReflectionClassConstant;
 final class MultipleChecksOnAClassConstant implements ClassConstantBased
 {
     /** @var ClassConstantBased[] */
-    private $checks;
+    private array $checks;
 
     public function __construct(ClassConstantBased ...$checks)
     {

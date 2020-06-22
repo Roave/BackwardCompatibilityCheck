@@ -10,8 +10,7 @@ use Roave\BetterReflection\Reflection\ReflectionClass;
 
 final class UseClassBasedChecksOnATrait implements TraitBased
 {
-    /** @var ClassBased */
-    private $check;
+    private ClassBased $check;
 
     public function __construct(ClassBased $classBased)
     {

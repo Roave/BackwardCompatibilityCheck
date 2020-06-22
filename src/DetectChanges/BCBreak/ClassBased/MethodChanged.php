@@ -17,8 +17,7 @@ use function strtolower;
 
 final class MethodChanged implements ClassBased
 {
-    /** @var MethodBased */
-    private $checkMethod;
+    private MethodBased $checkMethod;
 
     public function __construct(MethodBased $checkMethod)
     {

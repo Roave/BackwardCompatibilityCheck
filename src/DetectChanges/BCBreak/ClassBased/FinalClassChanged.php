@@ -9,8 +9,7 @@ use Roave\BetterReflection\Reflection\ReflectionClass;
 
 final class FinalClassChanged implements ClassBased
 {
-    /** @var ClassBased */
-    private $checkClass;
+    private ClassBased $checkClass;
 
     public function __construct(ClassBased $checkClass)
     {

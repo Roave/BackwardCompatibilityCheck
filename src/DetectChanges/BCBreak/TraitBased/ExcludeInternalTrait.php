@@ -13,8 +13,7 @@ use function Safe\preg_match;
  */
 final class ExcludeInternalTrait implements TraitBased
 {
-    /** @var TraitBased */
-    private $check;
+    private TraitBased $check;
 
     public function __construct(TraitBased $check)
     {

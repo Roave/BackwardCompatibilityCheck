@@ -14,10 +14,10 @@ use function iterator_to_array;
 final class Changes implements IteratorAggregate, Countable
 {
     /** @var Change[] */
-    private $bufferedChanges;
+    private array $bufferedChanges;
 
     /** @var iterable|Change[]|null */
-    private $unBufferedChanges;
+    private ?iterable $unBufferedChanges = null;
 
     private function __construct()
     {

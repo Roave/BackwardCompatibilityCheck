@@ -16,8 +16,7 @@ use function Safe\sprintf;
  */
 final class PropertyBecameInternal implements PropertyBased
 {
-    /** @var ReflectionPropertyName */
-    private $formatProperty;
+    private ReflectionPropertyName $formatProperty;
 
     public function __construct()
     {

@@ -11,7 +11,7 @@ use Roave\BetterReflection\Reflection\ReflectionMethod;
 final class MultipleChecksOnAMethod implements MethodBased
 {
     /** @var MethodBased[] */
-    private $checks;
+    private array $checks;
 
     public function __construct(MethodBased ...$checks)
     {

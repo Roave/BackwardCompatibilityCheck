@@ -10,8 +10,7 @@ use Roave\BetterReflection\SourceLocator\Type\SourceLocator;
 
 final class LocateSourcesViaComposerJson implements LocateSources
 {
-    /** @var Locator */
-    private $astLocator;
+    private Locator $astLocator;
 
     public function __construct(Locator $astLocator)
     {
