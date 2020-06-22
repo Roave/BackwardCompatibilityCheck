@@ -6,11 +6,16 @@
         ]
     },
     "logs": {
-        "text": "infection-log.txt"
+        "text": "php:\/\/stderr",
+        "badge": {
+            "branch": "master"
+        }
     },
     "mutators": {
         "@default": true,
         "IdenticalEqual": false,
         "NotIdenticalNotEqual": false
-    }
+    },
+    "minMsi": 100,
+    "minCoveredMsi": 100
 }
