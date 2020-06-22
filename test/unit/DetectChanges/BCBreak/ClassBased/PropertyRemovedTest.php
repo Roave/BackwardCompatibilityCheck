@@ -11,6 +11,7 @@ use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\SingleFileSourceLocator;
+use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 
 use function array_map;
 use function iterator_to_array;
@@ -62,6 +63,41 @@ final class PropertyRemovedTest extends TestCase
                     '[BC] REMOVED: Property RoaveTestAsset\ClassWithPropertiesBeingRemoved#$nameCaseChangePublicProperty was removed',
                     '[BC] REMOVED: Property RoaveTestAsset\ClassWithPropertiesBeingRemoved#$removedProtectedProperty was removed',
                     '[BC] REMOVED: Property RoaveTestAsset\ClassWithPropertiesBeingRemoved#$nameCaseChangeProtectedProperty was removed',
+                ],
+            ],
+            'Decreased property visibility / removed properties in a final class - only `public` properties affect BC' => [
+                (new ClassReflector(new StringSourceLocator(
+                    <<<'PHP'
+<?php
+
+final class FinalClass
+{
+    public $decreasedVisibilityPublicProperty;
+    public $removedPublicProperty;
+    protected $decreasedVisibilityProtectedProperty;
+    protected $removedProtectedProperty;
+    private $privateProperty;
+}
+PHP
+                    ,
+                    $locator
+                )))->reflect('FinalClass'),
+                (new ClassReflector(new StringSourceLocator(
+                    <<<'PHP'
+<?php
+
+final class FinalClass
+{
+    protected $decreasedVisibilityPublicProperty;
+    private $decreasedVisibilityProtectedProperty;
+}
+PHP
+                    ,
+                    $locator
+                )))->reflect('FinalClass'),
+                [
+                    '[BC] REMOVED: Property FinalClass#$decreasedVisibilityPublicProperty was removed',
+                    '[BC] REMOVED: Property FinalClass#$removedPublicProperty was removed',
                 ],
             ],
         ];
