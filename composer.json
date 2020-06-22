@@ -2,7 +2,7 @@
     "name": "roave/backward-compatibility-check",
     "description": "Tool to compare two revisions of a public API to check for BC breaks",
     "require": {
-        "php": "^7.3",
+        "php": "^7.4",
         "ext-json": "*",
         "beberlei/assert": "^3.2.7",
         "composer/composer": "^1.10.7",
