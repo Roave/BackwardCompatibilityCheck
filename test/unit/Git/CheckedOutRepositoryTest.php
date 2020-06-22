@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\Git;
 
-use Assert\AssertionFailedException;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Git\CheckedOutRepository;
+
 use function Safe\mkdir;
 use function Safe\rmdir;
 use function sys_get_temp_dir;
@@ -17,7 +18,7 @@ use function uniqid;
  */
 final class CheckedOutRepositoryTest extends TestCase
 {
-    public function testFromPath() : void
+    public function testFromPath(): void
     {
         $path = sys_get_temp_dir() . '/' . uniqid('testPath', true);
         mkdir($path, 0777, true);
@@ -30,16 +31,16 @@ final class CheckedOutRepositoryTest extends TestCase
         rmdir($path);
     }
 
-    public function testFromPathRejectsNonGitDirectory() : void
+    public function testFromPathRejectsNonGitDirectory(): void
     {
-        $this->expectException(AssertionFailedException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         CheckedOutRepository::fromPath(__DIR__);
     }
 
-    public function testFromPathRejectsNonExistingDirectory() : void
+    public function testFromPathRejectsNonExistingDirectory(): void
     {
-        $this->expectException(AssertionFailedException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         CheckedOutRepository::fromPath(__DIR__ . '/non-existing');
     }

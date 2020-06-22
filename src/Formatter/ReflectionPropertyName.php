@@ -8,7 +8,7 @@ use Roave\BetterReflection\Reflection\ReflectionProperty;
 
 final class ReflectionPropertyName
 {
-    public function __invoke(ReflectionProperty $property) : string
+    public function __invoke(ReflectionProperty $property): string
     {
         if ($property->isStatic()) {
             return $property->getDeclaringClass()->getName() . '::$' . $property->getName();

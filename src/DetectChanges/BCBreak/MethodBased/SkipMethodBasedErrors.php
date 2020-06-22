@@ -11,15 +11,14 @@ use Throwable;
 
 final class SkipMethodBasedErrors implements MethodBased
 {
-    /** @var MethodBased */
-    private $next;
+    private MethodBased $next;
 
     public function __construct(MethodBased $next)
     {
         $this->next = $next;
     }
 
-    public function __invoke(ReflectionMethod $fromMethod, ReflectionMethod $toMethod) : Changes
+    public function __invoke(ReflectionMethod $fromMethod, ReflectionMethod $toMethod): Changes
     {
         try {
             return $this->next->__invoke($fromMethod, $toMethod);

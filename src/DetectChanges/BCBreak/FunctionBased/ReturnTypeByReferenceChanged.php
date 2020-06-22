@@ -8,6 +8,7 @@ use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
+
 use function Safe\sprintf;
 
 /**
@@ -16,15 +17,14 @@ use function Safe\sprintf;
  */
 final class ReturnTypeByReferenceChanged implements FunctionBased
 {
-    /** @var ReflectionFunctionAbstractName */
-    private $formatFunction;
+    private ReflectionFunctionAbstractName $formatFunction;
 
     public function __construct()
     {
         $this->formatFunction = new ReflectionFunctionAbstractName();
     }
 
-    public function __invoke(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction) : Changes
+    public function __invoke(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction): Changes
     {
         $fromReturnsReference = $fromFunction->returnsReference();
         $toReturnsReference   = $toFunction->returnsReference();
@@ -44,7 +44,7 @@ final class ReturnTypeByReferenceChanged implements FunctionBased
         ));
     }
 
-    private function referenceToString(bool $reference) : string
+    private function referenceToString(bool $reference): string
     {
         return $reference ? 'by-reference' : 'by-value';
     }

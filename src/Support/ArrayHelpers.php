@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Roave\BackwardCompatibility\Support;
 
 use InvalidArgumentException;
+
 use function in_array;
 
 /**
@@ -20,7 +21,7 @@ final class ArrayHelpers
      *
      * @throws InvalidArgumentException
      */
-    public static function stringArrayContainsString(string $value, array $arrayOfStrings) : bool
+    public static function stringArrayContainsString(string $value, array $arrayOfStrings): bool
     {
         return in_array($value, $arrayOfStrings);
     }

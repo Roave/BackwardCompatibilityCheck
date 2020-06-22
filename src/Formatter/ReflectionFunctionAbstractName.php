@@ -9,7 +9,7 @@ use Roave\BetterReflection\Reflection\ReflectionMethod;
 
 final class ReflectionFunctionAbstractName
 {
-    public function __invoke(ReflectionFunctionAbstract $function) : string
+    public function __invoke(ReflectionFunctionAbstract $function): string
     {
         if ($function instanceof ReflectionMethod) {
             if ($function->isStatic()) {

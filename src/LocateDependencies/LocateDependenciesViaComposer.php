@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\LocateDependencies;
 
-use Assert\Assert;
 use Composer\Installer;
 use Roave\BetterReflection\SourceLocator\Ast\Locator;
 use Roave\BetterReflection\SourceLocator\SourceStubber\ReflectionSourceStubber;
@@ -12,14 +11,15 @@ use Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\Composer\Factory\MakeLocatorForInstalledJson;
 use Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\SourceLocator;
+use Webmozart\Assert\Assert;
+
 use function assert;
 use function Safe\chdir;
 use function Safe\getcwd;
 
 final class LocateDependenciesViaComposer implements LocateDependencies
 {
-    /** @var Locator */
-    private $astLocator;
+    private Locator $astLocator;
 
     /** @var callable */
     private $makeComposerInstaller;
@@ -36,11 +36,11 @@ final class LocateDependenciesViaComposer implements LocateDependencies
         $this->astLocator            = $astLocator;
     }
 
-    public function __invoke(string $installationPath) : SourceLocator
+    public function __invoke(string $installationPath): SourceLocator
     {
-        Assert::that($installationPath . '/composer.json')->file();
+        Assert::file($installationPath . '/composer.json');
 
-        $this->runInDirectory(function () use ($installationPath) : void {
+        $this->runInDirectory(function () use ($installationPath): void {
             $installer = ($this->makeComposerInstaller)($installationPath);
 
             assert($installer instanceof Installer);
@@ -60,7 +60,7 @@ final class LocateDependenciesViaComposer implements LocateDependencies
         ]);
     }
 
-    private function runInDirectory(callable $callable, string $directoryOfExecution) : void
+    private function runInDirectory(callable $callable, string $directoryOfExecution): void
     {
         $originalDirectory = getcwd();
 

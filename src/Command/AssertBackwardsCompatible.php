@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\Command;
 
-use Assert\Assert;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\CompareApi;
 use Roave\BackwardCompatibility\Factory\ComposerInstallationReflectorFactory;
@@ -26,6 +25,8 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Webmozart\Assert\Assert;
+
 use function assert;
 use function count;
 use function is_array;
@@ -35,26 +36,19 @@ use function Safe\sprintf;
 
 final class AssertBackwardsCompatible extends Command
 {
-    /** @var PerformCheckoutOfRevision */
-    private $git;
+    private PerformCheckoutOfRevision $git;
 
-    /** @var ComposerInstallationReflectorFactory */
-    private $makeComposerInstallationReflector;
+    private ComposerInstallationReflectorFactory $makeComposerInstallationReflector;
 
-    /** @var ParseRevision */
-    private $parseRevision;
+    private ParseRevision $parseRevision;
 
-    /** @var GetVersionCollection */
-    private $getVersions;
+    private GetVersionCollection $getVersions;
 
-    /** @var PickVersionFromVersionCollection */
-    private $pickFromVersion;
+    private PickVersionFromVersionCollection $pickFromVersion;
 
-    /** @var LocateDependencies */
-    private $locateDependencies;
+    private LocateDependencies $locateDependencies;
 
-    /** @var CompareApi */
-    private $compareApi;
+    private CompareApi $compareApi;
 
     /**
      * @throws LogicException
@@ -82,7 +76,7 @@ final class AssertBackwardsCompatible extends Command
     /**
      * @throws InvalidArgumentException
      */
-    protected function configure() : void
+    protected function configure(): void
     {
         $this
             ->setName('roave-backwards-compatibility-check:assert-backwards-compatible')
@@ -135,7 +129,7 @@ USAGE
     /**
      * @throws InvalidArgumentException
      */
-    public function execute(InputInterface $input, OutputInterface $output) : int
+    public function execute(InputInterface $input, OutputInterface $output): int
     {
         assert($output instanceof ConsoleOutputInterface, '');
         $stdErr = $output->getErrorOutput();
@@ -191,7 +185,7 @@ USAGE
         return $this->printOutcomeAndExit($changes, $stdErr);
     }
 
-    private function printOutcomeAndExit(Changes $changes, OutputInterface $stdErr) : int
+    private function printOutcomeAndExit(Changes $changes, OutputInterface $stdErr): int
     {
         $hasBcBreaks = count($changes);
 
@@ -207,7 +201,7 @@ USAGE
     /**
      * @throws InvalidArgumentException
      */
-    private function parseRevisionFromInput(InputInterface $input, CheckedOutRepository $repository) : Revision
+    private function parseRevisionFromInput(InputInterface $input, CheckedOutRepository $repository): Revision
     {
         $from = $input->getOption('from');
 
@@ -219,12 +213,10 @@ USAGE
     private function determineFromRevisionFromRepository(
         CheckedOutRepository $repository,
         OutputInterface $output
-    ) : Revision {
+    ): Revision {
         $versions = $this->getVersions->fromRepository($repository);
 
-        // @TODO add a test around the 0 limit
-        Assert::that($versions->count())
-            ->greaterThan(0, 'Could not detect any released versions for the given repository');
+        Assert::minCount($versions, 1, 'Could not detect any released versions for the given repository');
 
         $versionString = $this->pickFromVersion->forVersions($versions)->toString();
 

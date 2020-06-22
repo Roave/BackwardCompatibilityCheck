@@ -12,15 +12,14 @@ use Roave\BetterReflection\Reflection\ReflectionMethod;
  */
 final class AccessibleMethodChange implements MethodBased
 {
-    /** @var MethodBased */
-    private $check;
+    private MethodBased $check;
 
     public function __construct(MethodBased $check)
     {
         $this->check = $check;
     }
 
-    public function __invoke(ReflectionMethod $fromMethod, ReflectionMethod $toMethod) : Changes
+    public function __invoke(ReflectionMethod $fromMethod, ReflectionMethod $toMethod): Changes
     {
         if ($fromMethod->isPrivate()) {
             return Changes::empty();

@@ -7,6 +7,7 @@ namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClass;
+
 use function array_diff;
 use function array_merge;
 use function Safe\json_encode;
@@ -18,7 +19,7 @@ use function Safe\sprintf;
  */
 final class AncestorRemoved implements ClassBased
 {
-    public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
+    public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass): Changes
     {
         $removedAncestors = array_merge(
             array_diff($fromClass->getParentClassNames(), $toClass->getParentClassNames()),

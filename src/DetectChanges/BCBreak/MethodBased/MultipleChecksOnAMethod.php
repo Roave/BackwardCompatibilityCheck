@@ -11,20 +11,20 @@ use Roave\BetterReflection\Reflection\ReflectionMethod;
 final class MultipleChecksOnAMethod implements MethodBased
 {
     /** @var MethodBased[] */
-    private $checks;
+    private array $checks;
 
     public function __construct(MethodBased ...$checks)
     {
         $this->checks = $checks;
     }
 
-    public function __invoke(ReflectionMethod $fromMethod, ReflectionMethod $toMethod) : Changes
+    public function __invoke(ReflectionMethod $fromMethod, ReflectionMethod $toMethod): Changes
     {
         return Changes::fromIterator($this->multipleChecks($fromMethod, $toMethod));
     }
 
     /** @return iterable|Change[] */
-    private function multipleChecks(ReflectionMethod $fromMethod, ReflectionMethod $toMethod) : iterable
+    private function multipleChecks(ReflectionMethod $fromMethod, ReflectionMethod $toMethod): iterable
     {
         foreach ($this->checks as $check) {
             yield from $check->__invoke($fromMethod, $toMethod);

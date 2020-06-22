@@ -13,6 +13,7 @@ use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\Reflector\FunctionReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 use RoaveTest\BackwardCompatibility\TypeRestriction;
+
 use function array_combine;
 use function array_keys;
 use function array_map;
@@ -30,13 +31,13 @@ final class FunctionBecameInternalTest extends TestCase
         ReflectionFunctionAbstract $fromFunction,
         ReflectionFunctionAbstract $toFunction,
         array $expectedMessages
-    ) : void {
+    ): void {
         $changes = (new FunctionBecameInternal())
             ->__invoke($fromFunction, $toFunction);
 
         self::assertSame(
             $expectedMessages,
-            array_map(static function (Change $change) : string {
+            array_map(static function (Change $change): string {
                 return $change->__toString();
             }, iterator_to_array($changes))
         );
@@ -47,7 +48,7 @@ final class FunctionBecameInternalTest extends TestCase
      *
      * @psalm-return array<string, array{0: ReflectionFunctionAbstract, 1: ReflectionFunctionAbstract, 2: list<string>}>
      */
-    public function functionsToBeTested() : array
+    public function functionsToBeTested(): array
     {
         $astLocator = (new BetterReflection())->astLocator();
 
@@ -97,7 +98,7 @@ PHP
             array_keys($functions),
             array_map(
                 /** @psalm-param list<string> $errorMessages https://github.com/vimeo/psalm/issues/2772 */
-                static function (string $function, array $errorMessages) use ($fromReflector, $toReflector) : array {
+                static function (string $function, array $errorMessages) use ($fromReflector, $toReflector): array {
                     return [
                         $fromReflector->reflect($function),
                         $toReflector->reflect($function),

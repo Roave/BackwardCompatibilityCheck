@@ -7,6 +7,7 @@ namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClass;
+
 use function Safe\sprintf;
 
 /**
@@ -15,7 +16,7 @@ use function Safe\sprintf;
  */
 final class InterfaceBecameTrait implements InterfaceBased
 {
-    public function __invoke(ReflectionClass $fromInterface, ReflectionClass $toInterface) : Changes
+    public function __invoke(ReflectionClass $fromInterface, ReflectionClass $toInterface): Changes
     {
         if (! $toInterface->isTrait() || ! $fromInterface->isInterface()) {
             // checking whether an interface became an class is done in `InterfaceBecameClass`

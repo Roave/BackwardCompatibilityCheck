@@ -14,6 +14,7 @@ use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 use RoaveTest\BackwardCompatibility\Assertion;
+
 use function strtolower;
 
 /**
@@ -21,7 +22,7 @@ use function strtolower;
  */
 final class MethodChangedTest extends TestCase
 {
-    public function testWillDetectChangesInMethods() : void
+    public function testWillDetectChangesInMethods(): void
     {
         $astLocator = (new BetterReflection())->astLocator();
 
@@ -62,7 +63,7 @@ PHP
         $comparator
             ->expects(self::exactly(3))
             ->method('__invoke')
-            ->willReturnCallback(static function (ReflectionMethod $from, ReflectionMethod $to) : Changes {
+            ->willReturnCallback(static function (ReflectionMethod $from, ReflectionMethod $to): Changes {
                 $methodName = $from->getName();
 
                 self::assertSame(strtolower($methodName), strtolower($to->getName()));

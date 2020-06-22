@@ -1,7 +1,6 @@
 language: php
 
 php:
-  - 7.3
   - 7.4
 
 before_script:
@@ -30,9 +29,6 @@ jobs:
 
     - stage: Static Analysis (src) with Psalm
       script: vendor/bin/psalm
-
-    - stage: Static analysis (src) with phpstan
-      script: vendor/bin/phpstan analyse
 
     - stage: Test
       script: vendor/bin/phpunit

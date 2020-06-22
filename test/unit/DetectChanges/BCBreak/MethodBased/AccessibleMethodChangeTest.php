@@ -11,6 +11,7 @@ use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased\AccessibleMethodChange;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased\MethodBased;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
+
 use function uniqid;
 
 /**
@@ -19,12 +20,11 @@ use function uniqid;
 final class AccessibleMethodChangeTest extends TestCase
 {
     /** @var MethodBased&MockObject */
-    private $check;
+    private MethodBased $check;
 
-    /** @var MethodBased */
-    private $methodCheck;
+    private MethodBased $methodCheck;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -32,7 +32,7 @@ final class AccessibleMethodChangeTest extends TestCase
         $this->methodCheck = new AccessibleMethodChange($this->check);
     }
 
-    public function testWillSkipCheckingPrivateMethods() : void
+    public function testWillSkipCheckingPrivateMethods(): void
     {
         $from = $this->createMock(ReflectionMethod::class);
         $to   = $this->createMock(ReflectionMethod::class);
@@ -50,7 +50,7 @@ final class AccessibleMethodChangeTest extends TestCase
         self::assertEquals(Changes::empty(), $this->methodCheck->__invoke($from, $to));
     }
 
-    public function testWillCheckVisibleMethods() : void
+    public function testWillCheckVisibleMethods(): void
     {
         $from = $this->createMock(ReflectionMethod::class);
         $to   = $this->createMock(ReflectionMethod::class);

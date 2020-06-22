@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Roave\BackwardCompatibility;
 
 use Throwable;
+
 use function Safe\sprintf;
 use function strtoupper;
 
@@ -18,14 +19,11 @@ final class Change
     private const REMOVED = 'removed';
     private const SKIPPED = 'skipped';
 
-    /** @var string */
-    private $modificationType;
+    private string $modificationType;
 
-    /** @var string */
-    private $description;
+    private string $description;
 
-    /** @var bool */
-    private $isBcBreak;
+    private bool $isBcBreak;
 
     private function __construct(string $modificationType, string $description, bool $isBcBreak)
     {
@@ -34,48 +32,48 @@ final class Change
         $this->isBcBreak        = $isBcBreak;
     }
 
-    public static function added(string $description, bool $isBcBreak) : self
+    public static function added(string $description, bool $isBcBreak): self
     {
         return new self(self::ADDED, $description, $isBcBreak);
     }
 
-    public static function changed(string $description, bool $isBcBreak) : self
+    public static function changed(string $description, bool $isBcBreak): self
     {
         return new self(self::CHANGED, $description, $isBcBreak);
     }
 
-    public static function removed(string $description, bool $isBcBreak) : self
+    public static function removed(string $description, bool $isBcBreak): self
     {
         return new self(self::REMOVED, $description, $isBcBreak);
     }
 
-    public static function skippedDueToFailure(Throwable $failure) : self
+    public static function skippedDueToFailure(Throwable $failure): self
     {
         // @TODO Note: we may consider importing the full exception for better printing later on
         return new self(self::SKIPPED, $failure->getMessage(), true);
     }
 
-    public function isAdded() : bool
+    public function isAdded(): bool
     {
         return $this->modificationType === self::ADDED;
     }
 
-    public function isRemoved() : bool
+    public function isRemoved(): bool
     {
         return $this->modificationType === self::REMOVED;
     }
 
-    public function isChanged() : bool
+    public function isChanged(): bool
     {
         return $this->modificationType === self::CHANGED;
     }
 
-    public function isSkipped() : bool
+    public function isSkipped(): bool
     {
         return $this->modificationType === self::SKIPPED;
     }
 
-    public function __toString() : string
+    public function __toString(): string
     {
         return sprintf(
             '%s%s: %s',

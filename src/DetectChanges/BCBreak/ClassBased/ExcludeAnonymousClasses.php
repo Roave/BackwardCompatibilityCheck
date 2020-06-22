@@ -9,15 +9,14 @@ use Roave\BetterReflection\Reflection\ReflectionClass;
 
 final class ExcludeAnonymousClasses implements ClassBased
 {
-    /** @var ClassBased */
-    private $check;
+    private ClassBased $check;
 
     public function __construct(ClassBased $check)
     {
         $this->check = $check;
     }
 
-    public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
+    public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass): Changes
     {
         if ($fromClass->isAnonymous()) {
             return Changes::empty();

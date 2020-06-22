@@ -7,6 +7,7 @@ namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
+
 use function Safe\sprintf;
 
 final class MethodVisibilityReduced implements MethodBased
@@ -17,7 +18,7 @@ final class MethodVisibilityReduced implements MethodBased
 
     private const VISIBILITY_PUBLIC = 'public';
 
-    public function __invoke(ReflectionMethod $fromMethod, ReflectionMethod $toMethod) : Changes
+    public function __invoke(ReflectionMethod $fromMethod, ReflectionMethod $toMethod): Changes
     {
         $visibilityFrom = $this->methodVisibility($fromMethod);
         $visibilityTo   = $this->methodVisibility($toMethod);
@@ -39,7 +40,7 @@ final class MethodVisibilityReduced implements MethodBased
         ));
     }
 
-    private function methodVisibility(ReflectionMethod $method) : string
+    private function methodVisibility(ReflectionMethod $method): string
     {
         if ($method->isPublic()) {
             return self::VISIBILITY_PUBLIC;

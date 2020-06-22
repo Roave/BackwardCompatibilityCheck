@@ -12,6 +12,7 @@ use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased\InterfaceBased;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased\SkipInterfaceBasedErrors;
 use Roave\BetterReflection\Reflection\ReflectionClass;
+
 use function uniqid;
 
 /**
@@ -20,18 +21,17 @@ use function uniqid;
 final class SkipInterfaceBasedErrorsTest extends TestCase
 {
     /** @var InterfaceBased&MockObject */
-    private $next;
+    private InterfaceBased $next;
 
-    /** @var SkipInterfaceBasedErrors */
-    private $check;
+    private SkipInterfaceBasedErrors $check;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         $this->next  = $this->createMock(InterfaceBased::class);
         $this->check = new SkipInterfaceBasedErrors($this->next);
     }
 
-    public function testWillForwardChecks() : void
+    public function testWillForwardChecks(): void
     {
         $fromInterface   = $this->createMock(ReflectionClass::class);
         $toInterface     = $this->createMock(ReflectionClass::class);
@@ -50,7 +50,7 @@ final class SkipInterfaceBasedErrorsTest extends TestCase
         self::assertEquals($expectedChanges, $this->check->__invoke($fromInterface, $toInterface));
     }
 
-    public function testWillCollectFailures() : void
+    public function testWillCollectFailures(): void
     {
         $fromInterface = $this->createMock(ReflectionClass::class);
         $toInterface   = $this->createMock(ReflectionClass::class);

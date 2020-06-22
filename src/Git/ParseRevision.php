@@ -6,5 +6,5 @@ namespace Roave\BackwardCompatibility\Git;
 
 interface ParseRevision
 {
-    public function fromStringForRepository(string $something, CheckedOutRepository $repository) : Revision;
+    public function fromStringForRepository(string $something, CheckedOutRepository $repository): Revision;
 }

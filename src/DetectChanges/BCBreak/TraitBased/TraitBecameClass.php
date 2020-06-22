@@ -7,6 +7,7 @@ namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\TraitBased;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClass;
+
 use function Safe\sprintf;
 
 /**
@@ -15,7 +16,7 @@ use function Safe\sprintf;
  */
 final class TraitBecameClass implements TraitBased
 {
-    public function __invoke(ReflectionClass $fromTrait, ReflectionClass $toTrait) : Changes
+    public function __invoke(ReflectionClass $fromTrait, ReflectionClass $toTrait): Changes
     {
         if ($this->isClass($fromTrait) || ! $this->isClass($toTrait)) {
             return Changes::empty();
@@ -30,7 +31,7 @@ final class TraitBecameClass implements TraitBased
     /**
      * According to the current state of the PHP ecosystem, we only have traits, interfaces and classes
      */
-    private function isClass(ReflectionClass $class) : bool
+    private function isClass(ReflectionClass $class): bool
     {
         return ! ($class->isTrait() || $class->isInterface());
     }

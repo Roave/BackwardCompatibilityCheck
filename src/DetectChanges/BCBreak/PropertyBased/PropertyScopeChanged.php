@@ -7,6 +7,7 @@ namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
+
 use function Safe\sprintf;
 
 /**
@@ -15,7 +16,7 @@ use function Safe\sprintf;
  */
 final class PropertyScopeChanged implements PropertyBased
 {
-    public function __invoke(ReflectionProperty $fromProperty, ReflectionProperty $toProperty) : Changes
+    public function __invoke(ReflectionProperty $fromProperty, ReflectionProperty $toProperty): Changes
     {
         $fromScope = $this->scopeAsString($fromProperty);
         $toScope   = $this->scopeAsString($toProperty);
@@ -36,7 +37,7 @@ final class PropertyScopeChanged implements PropertyBased
         ));
     }
 
-    private function scopeAsString(ReflectionProperty $property) : string
+    private function scopeAsString(ReflectionProperty $property): string
     {
         return $property->isStatic() ? 'static' : 'instance';
     }

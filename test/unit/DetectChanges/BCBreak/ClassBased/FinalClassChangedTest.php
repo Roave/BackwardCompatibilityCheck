@@ -11,6 +11,7 @@ use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\ClassBased;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\FinalClassChanged;
 use Roave\BetterReflection\Reflection\ReflectionClass;
+
 use function uniqid;
 
 /**
@@ -19,18 +20,17 @@ use function uniqid;
 final class FinalClassChangedTest extends TestCase
 {
     /** @var ClassBased&MockObject */
-    private $check;
+    private ClassBased $check;
 
-    /** @var FinalClassChanged */
-    private $finalClassChanged;
-
-    /** @var ReflectionClass&MockObject */
-    private $fromClass;
+    private FinalClassChanged $finalClassChanged;
 
     /** @var ReflectionClass&MockObject */
-    private $toClass;
+    private ReflectionClass $fromClass;
 
-    protected function setUp() : void
+    /** @var ReflectionClass&MockObject */
+    private ReflectionClass $toClass;
+
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -40,7 +40,7 @@ final class FinalClassChangedTest extends TestCase
         $this->toClass           = $this->createMock(ReflectionClass::class);
     }
 
-    public function testWillCheckFinalClass() : void
+    public function testWillCheckFinalClass(): void
     {
         $changes = Changes::fromList(Change::added(uniqid('carrot', true), true));
 
@@ -60,7 +60,7 @@ final class FinalClassChangedTest extends TestCase
         self::assertEquals($changes, $this->finalClassChanged->__invoke($this->fromClass, $this->toClass));
     }
 
-    public function testWillNotCheckOpenClass() : void
+    public function testWillNotCheckOpenClass(): void
     {
         $this
             ->fromClass

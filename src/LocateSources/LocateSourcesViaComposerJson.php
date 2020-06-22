@@ -10,15 +10,14 @@ use Roave\BetterReflection\SourceLocator\Type\SourceLocator;
 
 final class LocateSourcesViaComposerJson implements LocateSources
 {
-    /** @var Locator */
-    private $astLocator;
+    private Locator $astLocator;
 
     public function __construct(Locator $astLocator)
     {
         $this->astLocator = $astLocator;
     }
 
-    public function __invoke(string $installationPath) : SourceLocator
+    public function __invoke(string $installationPath): SourceLocator
     {
         return (new MakeLocatorForComposerJson())
             ->__invoke($installationPath, $this->astLocator);

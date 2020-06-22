@@ -6,6 +6,7 @@ namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased;
 
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
+
 use function Safe\preg_match;
 
 /**
@@ -13,15 +14,14 @@ use function Safe\preg_match;
  */
 final class ExcludeInternalMethod implements MethodBased
 {
-    /** @var MethodBased */
-    private $check;
+    private MethodBased $check;
 
     public function __construct(MethodBased $check)
     {
         $this->check = $check;
     }
 
-    public function __invoke(ReflectionMethod $fromMethod, ReflectionMethod $toMethod) : Changes
+    public function __invoke(ReflectionMethod $fromMethod, ReflectionMethod $toMethod): Changes
     {
         if ($this->isInternalDocComment($fromMethod->getDocComment())) {
             return Changes::empty();
@@ -30,7 +30,7 @@ final class ExcludeInternalMethod implements MethodBased
         return $this->check->__invoke($fromMethod, $toMethod);
     }
 
-    private function isInternalDocComment(string $comment) : bool
+    private function isInternalDocComment(string $comment): bool
     {
         return preg_match('/\s+@internal\s+/', $comment) === 1;
     }

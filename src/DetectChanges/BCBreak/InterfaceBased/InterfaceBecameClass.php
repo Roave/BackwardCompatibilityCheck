@@ -7,6 +7,7 @@ namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClass;
+
 use function Safe\sprintf;
 
 /**
@@ -15,7 +16,7 @@ use function Safe\sprintf;
  */
 final class InterfaceBecameClass implements InterfaceBased
 {
-    public function __invoke(ReflectionClass $fromInterface, ReflectionClass $toInterface) : Changes
+    public function __invoke(ReflectionClass $fromInterface, ReflectionClass $toInterface): Changes
     {
         if (! $this->isClass($toInterface) || ! $fromInterface->isInterface()) {
             // checking whether a class became an interface is done in `ClassBecameInterface`
@@ -31,7 +32,7 @@ final class InterfaceBecameClass implements InterfaceBased
     /**
      * According to the current state of the PHP ecosystem, we only have traits, interfaces and classes
      */
-    private function isClass(ReflectionClass $class) : bool
+    private function isClass(ReflectionClass $class): bool
     {
         return ! ($class->isTrait() || $class->isInterface());
     }

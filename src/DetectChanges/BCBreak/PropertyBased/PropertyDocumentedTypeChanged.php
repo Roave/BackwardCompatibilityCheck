@@ -8,6 +8,7 @@ use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Formatter\ReflectionPropertyName;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
+
 use function implode;
 use function Safe\sort;
 use function Safe\sprintf;
@@ -19,15 +20,14 @@ use function Safe\sprintf;
  */
 final class PropertyDocumentedTypeChanged implements PropertyBased
 {
-    /** @var ReflectionPropertyName */
-    private $formatProperty;
+    private ReflectionPropertyName $formatProperty;
 
     public function __construct()
     {
         $this->formatProperty = new ReflectionPropertyName();
     }
 
-    public function __invoke(ReflectionProperty $fromProperty, ReflectionProperty $toProperty) : Changes
+    public function __invoke(ReflectionProperty $fromProperty, ReflectionProperty $toProperty): Changes
     {
         if ($fromProperty->getDocComment() === '') {
             return Changes::empty();

@@ -11,20 +11,20 @@ use Roave\BetterReflection\Reflection\ReflectionClass;
 final class MultipleChecksOnATrait implements TraitBased
 {
     /** @var TraitBased[] */
-    private $checks;
+    private array $checks;
 
     public function __construct(TraitBased ...$checks)
     {
         $this->checks = $checks;
     }
 
-    public function __invoke(ReflectionClass $fromTrait, ReflectionClass $toTrait) : Changes
+    public function __invoke(ReflectionClass $fromTrait, ReflectionClass $toTrait): Changes
     {
         return Changes::fromIterator($this->multipleChecks($fromTrait, $toTrait));
     }
 
     /** @return iterable|Change[] */
-    private function multipleChecks(ReflectionClass $fromTrait, ReflectionClass $toTrait) : iterable
+    private function multipleChecks(ReflectionClass $fromTrait, ReflectionClass $toTrait): iterable
     {
         foreach ($this->checks as $check) {
             yield from $check->__invoke($fromTrait, $toTrait);

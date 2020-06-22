@@ -6,6 +6,7 @@ namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased;
 
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClass;
+
 use function Safe\preg_match;
 
 /**
@@ -13,15 +14,14 @@ use function Safe\preg_match;
  */
 final class ExcludeInternalInterface implements InterfaceBased
 {
-    /** @var InterfaceBased */
-    private $check;
+    private InterfaceBased $check;
 
     public function __construct(InterfaceBased $check)
     {
         $this->check = $check;
     }
 
-    public function __invoke(ReflectionClass $fromInterface, ReflectionClass $toInterface) : Changes
+    public function __invoke(ReflectionClass $fromInterface, ReflectionClass $toInterface): Changes
     {
         if ($this->isInternalDocComment($fromInterface->getDocComment())) {
             return Changes::empty();
@@ -30,7 +30,7 @@ final class ExcludeInternalInterface implements InterfaceBased
         return $this->check->__invoke($fromInterface, $toInterface);
     }
 
-    private function isInternalDocComment(string $comment) : bool
+    private function isInternalDocComment(string $comment): bool
     {
         return preg_match('/\s+@internal\s+/', $comment) === 1;
     }

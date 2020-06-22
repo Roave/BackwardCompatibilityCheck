@@ -9,15 +9,14 @@ use Roave\BetterReflection\Reflection\ReflectionClassConstant;
 
 final class OnlyProtectedClassConstantChanged implements ClassConstantBased
 {
-    /** @var ClassConstantBased */
-    private $constantCheck;
+    private ClassConstantBased $constantCheck;
 
     public function __construct(ClassConstantBased $constantCheck)
     {
         $this->constantCheck = $constantCheck;
     }
 
-    public function __invoke(ReflectionClassConstant $fromConstant, ReflectionClassConstant $toConstant) : Changes
+    public function __invoke(ReflectionClassConstant $fromConstant, ReflectionClassConstant $toConstant): Changes
     {
         if (! $fromConstant->isProtected()) {
             return Changes::empty();

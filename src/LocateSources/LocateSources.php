@@ -8,5 +8,5 @@ use Roave\BetterReflection\SourceLocator\Type\SourceLocator;
 
 interface LocateSources
 {
-    public function __invoke(string $installationPath) : SourceLocator;
+    public function __invoke(string $installationPath): SourceLocator;
 }

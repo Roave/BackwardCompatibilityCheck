@@ -9,5 +9,5 @@ use Roave\BetterReflection\Reflection\ReflectionClass;
 
 interface ClassBased
 {
-    public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes;
+    public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass): Changes;
 }

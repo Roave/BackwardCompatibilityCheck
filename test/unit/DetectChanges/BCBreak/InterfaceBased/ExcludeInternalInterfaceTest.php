@@ -16,7 +16,7 @@ use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 /** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased\ExcludeInternalInterface */
 final class ExcludeInternalInterfaceTest extends TestCase
 {
-    public function testNormalInterfacesAreNotExcluded() : void
+    public function testNormalInterfacesAreNotExcluded(): void
     {
         $locator    = (new BetterReflection())->astLocator();
         $reflector  = new ClassReflector(new StringSourceLocator(
@@ -43,7 +43,7 @@ PHP
         );
     }
 
-    public function testInternalInterfacesAreExcluded() : void
+    public function testInternalInterfacesAreExcluded(): void
     {
         $locator    = (new BetterReflection())->astLocator();
         $reflector  = new ClassReflector(new StringSourceLocator(

@@ -9,20 +9,20 @@ use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\PropertyBased;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
+
 use function array_intersect_key;
 use function array_keys;
 
 final class PropertyChanged implements ClassBased
 {
-    /** @var PropertyBased */
-    private $checkProperty;
+    private PropertyBased $checkProperty;
 
     public function __construct(PropertyBased $checkProperty)
     {
         $this->checkProperty = $checkProperty;
     }
 
-    public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
+    public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass): Changes
     {
         return Changes::fromIterator($this->checkSymbols(
             $fromClass->getProperties(),
@@ -36,7 +36,7 @@ final class PropertyChanged implements ClassBased
      *
      * @return iterable|Change[]
      */
-    private function checkSymbols(array $from, array $to) : iterable
+    private function checkSymbols(array $from, array $to): iterable
     {
         foreach (array_keys(array_intersect_key($from, $to)) as $name) {
             yield from $this->checkProperty->__invoke($from[$name], $to[$name]);

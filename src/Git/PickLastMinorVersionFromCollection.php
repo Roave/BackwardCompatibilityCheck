@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\Git;
 
-use Assert\Assert;
 use Symfony\Component\Process\Exception\LogicException;
 use Symfony\Component\Process\Exception\RuntimeException;
 use Version\Comparison\Constraint\CompositeConstraint;
@@ -12,6 +11,7 @@ use Version\Comparison\Constraint\Constraint;
 use Version\Comparison\Constraint\OperationConstraint;
 use Version\Version;
 use Version\VersionCollection;
+use Webmozart\Assert\Assert;
 
 final class PickLastMinorVersionFromCollection implements PickVersionFromVersionCollection
 {
@@ -21,13 +21,12 @@ final class PickLastMinorVersionFromCollection implements PickVersionFromVersion
      * @throws LogicException
      * @throws RuntimeException
      */
-    public function forVersions(VersionCollection $versions) : Version
+    public function forVersions(VersionCollection $versions): Version
     {
-        Assert::that($versions->count())
-            ->greaterThan(0, 'Cannot determine latest minor version from an empty collection');
+        Assert::minCount($versions, 1, 'Cannot determine latest minor version from an empty collection');
 
         $stableVersions = $versions->matching(new class implements Constraint {
-            public function assert(Version $version) : bool
+            public function assert(Version $version): bool
             {
                 return ! $version->isPreRelease();
             }

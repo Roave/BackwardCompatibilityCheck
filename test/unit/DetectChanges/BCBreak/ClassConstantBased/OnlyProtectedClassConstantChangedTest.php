@@ -11,6 +11,7 @@ use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassConstantBased\ClassConstantBased;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassConstantBased\OnlyProtectedClassConstantChanged;
 use Roave\BetterReflection\Reflection\ReflectionClassConstant;
+
 use function uniqid;
 
 /**
@@ -19,18 +20,17 @@ use function uniqid;
 final class OnlyProtectedClassConstantChangedTest extends TestCase
 {
     /** @var ClassConstantBased&MockObject */
-    private $check;
+    private ClassConstantBased $check;
 
     /** @var ReflectionClassConstant&MockObject */
-    private $fromConstant;
+    private ReflectionClassConstant $fromConstant;
 
     /** @var ReflectionClassConstant&MockObject */
-    private $toConstant;
+    private ReflectionClassConstant $toConstant;
 
-    /** @var OnlyProtectedClassConstantChanged */
-    private $changed;
+    private OnlyProtectedClassConstantChanged $changed;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -40,7 +40,7 @@ final class OnlyProtectedClassConstantChangedTest extends TestCase
         $this->toConstant   = $this->createMock(ReflectionClassConstant::class);
     }
 
-    public function testSkipsNonProtectedConstant() : void
+    public function testSkipsNonProtectedConstant(): void
     {
         $this
             ->check
@@ -59,7 +59,7 @@ final class OnlyProtectedClassConstantChangedTest extends TestCase
         );
     }
 
-    public function testChecksProtectedConstant() : void
+    public function testChecksProtectedConstant(): void
     {
         $changes = Changes::fromList(Change::changed(uniqid('potato', true), true));
 

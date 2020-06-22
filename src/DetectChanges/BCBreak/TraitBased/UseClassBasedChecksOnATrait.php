@@ -10,15 +10,14 @@ use Roave\BetterReflection\Reflection\ReflectionClass;
 
 final class UseClassBasedChecksOnATrait implements TraitBased
 {
-    /** @var ClassBased */
-    private $check;
+    private ClassBased $check;
 
     public function __construct(ClassBased $classBased)
     {
         $this->check = $classBased;
     }
 
-    public function __invoke(ReflectionClass $fromTrait, ReflectionClass $toTrait) : Changes
+    public function __invoke(ReflectionClass $fromTrait, ReflectionClass $toTrait): Changes
     {
         return $this->check->__invoke($fromTrait, $toTrait);
     }

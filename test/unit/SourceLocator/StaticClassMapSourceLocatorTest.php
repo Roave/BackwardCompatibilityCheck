@@ -14,6 +14,7 @@ use Roave\BetterReflection\Reflection\Reflection;
 use Roave\BetterReflection\Reflector\Reflector;
 use Roave\BetterReflection\SourceLocator\Ast\Locator;
 use Roave\BetterReflection\SourceLocator\Located\LocatedSource;
+
 use function Safe\file_get_contents;
 
 /**
@@ -22,12 +23,12 @@ use function Safe\file_get_contents;
 final class StaticClassMapSourceLocatorTest extends TestCase
 {
     /** @var Locator&MockObject */
-    private $astLocator;
+    private Locator $astLocator;
 
     /** @var Reflector&MockObject */
-    private $reflector;
+    private Reflector $reflector;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -35,7 +36,7 @@ final class StaticClassMapSourceLocatorTest extends TestCase
         $this->reflector  = $this->createMock(Reflector::class);
     }
 
-    public function testRejectsEmptyKeys() : void
+    public function testRejectsEmptyKeys(): void
     {
         $this->expectException(InvalidArgumentException::class);
 
@@ -45,7 +46,7 @@ final class StaticClassMapSourceLocatorTest extends TestCase
         );
     }
 
-    public function testRejectsEmptyStringFiles() : void
+    public function testRejectsEmptyStringFiles(): void
     {
         $this->expectException(InvalidArgumentException::class);
 
@@ -55,7 +56,7 @@ final class StaticClassMapSourceLocatorTest extends TestCase
         );
     }
 
-    public function testAcceptsEmptySet() : void
+    public function testAcceptsEmptySet(): void
     {
         $locator = new StaticClassMapSourceLocator([], $this->astLocator);
 
@@ -68,7 +69,7 @@ final class StaticClassMapSourceLocatorTest extends TestCase
     /**
      * @dataProvider thisClassPossiblePaths
      */
-    public function testWillLocateThisClass(string $thisClassFilePath) : void
+    public function testWillLocateThisClass(string $thisClassFilePath): void
     {
         $locator    = new StaticClassMapSourceLocator([self::class => $thisClassFilePath], $this->astLocator);
         $reflection = $this->createMock(Reflection::class);
@@ -77,7 +78,7 @@ final class StaticClassMapSourceLocatorTest extends TestCase
             ->astLocator
             ->expects(self::once())
             ->method('findReflection')
-            ->with($this->reflector, self::callback(static function (LocatedSource $source) : bool {
+            ->with($this->reflector, self::callback(static function (LocatedSource $source): bool {
                 self::assertSame(file_get_contents(__FILE__), $source->getSource());
                 self::assertSame(__FILE__, $source->getFileName());
                 self::assertNull($source->getExtensionName());
@@ -97,7 +98,7 @@ final class StaticClassMapSourceLocatorTest extends TestCase
      *
      * @psalm-return list<list<string>>
      */
-    public static function thisClassPossiblePaths() : array
+    public static function thisClassPossiblePaths(): array
     {
         return [
             [__FILE__],
@@ -105,7 +106,7 @@ final class StaticClassMapSourceLocatorTest extends TestCase
         ];
     }
 
-    public function testWillNotLocateUnknownClass() : void
+    public function testWillNotLocateUnknownClass(): void
     {
         $locator = new StaticClassMapSourceLocator([self::class => __FILE__], $this->astLocator);
 
@@ -120,7 +121,7 @@ final class StaticClassMapSourceLocatorTest extends TestCase
         ));
     }
 
-    public function testWillNotLocateFunctions() : void
+    public function testWillNotLocateFunctions(): void
     {
         $locator = new StaticClassMapSourceLocator([self::class => __FILE__], $this->astLocator);
 

@@ -9,6 +9,7 @@ use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
 use Roave\BetterReflection\Reflection\ReflectionParameter;
+
 use function array_intersect_key;
 use function Safe\sprintf;
 
@@ -19,15 +20,14 @@ use function Safe\sprintf;
  */
 final class ParameterByReferenceChanged implements FunctionBased
 {
-    /** @var ReflectionFunctionAbstractName */
-    private $formatFunction;
+    private ReflectionFunctionAbstractName $formatFunction;
 
     public function __construct()
     {
         $this->formatFunction = new ReflectionFunctionAbstractName();
     }
 
-    public function __invoke(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction) : Changes
+    public function __invoke(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction): Changes
     {
         $fromParameters = $fromFunction->getParameters();
         $toParameters   = $toFunction->getParameters();
@@ -40,7 +40,7 @@ final class ParameterByReferenceChanged implements FunctionBased
         return $changes;
     }
 
-    private function compareParameter(ReflectionParameter $fromParameter, ReflectionParameter $toParameter) : Changes
+    private function compareParameter(ReflectionParameter $fromParameter, ReflectionParameter $toParameter): Changes
     {
         $fromByReference = $fromParameter->isPassedByReference();
         $toByReference   = $toParameter->isPassedByReference();
@@ -61,7 +61,7 @@ final class ParameterByReferenceChanged implements FunctionBased
         ));
     }
 
-    private function referenceToString(bool $reference) : string
+    private function referenceToString(bool $reference): string
     {
         return $reference ? 'by-reference' : 'by-value';
     }

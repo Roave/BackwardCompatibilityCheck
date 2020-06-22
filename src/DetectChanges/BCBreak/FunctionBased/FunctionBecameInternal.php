@@ -8,6 +8,7 @@ use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
+
 use function Safe\preg_match;
 use function Safe\sprintf;
 
@@ -16,17 +17,17 @@ use function Safe\sprintf;
  */
 final class FunctionBecameInternal implements FunctionBased
 {
-    /** @var ReflectionFunctionAbstractName */
-    private $formatFunction;
+    private ReflectionFunctionAbstractName $formatFunction;
 
     public function __construct()
     {
         $this->formatFunction = new ReflectionFunctionAbstractName();
     }
 
-    public function __invoke(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction) : Changes
+    public function __invoke(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction): Changes
     {
-        if ($this->isInternalDocComment($toFunction->getDocComment())
+        if (
+            $this->isInternalDocComment($toFunction->getDocComment())
             && ! $this->isInternalDocComment($fromFunction->getDocComment())
         ) {
             return Changes::fromList(Change::changed(
@@ -41,7 +42,7 @@ final class FunctionBecameInternal implements FunctionBased
         return Changes::empty();
     }
 
-    private function isInternalDocComment(string $comment) : bool
+    private function isInternalDocComment(string $comment): bool
     {
         return preg_match('/\s+@internal\s+/', $comment) === 1;
     }

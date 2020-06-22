@@ -16,7 +16,7 @@ use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 /** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\ExcludeInternalProperty */
 final class ExcludeInternalPropertyTest extends TestCase
 {
-    public function testNormalPropertiesAreNotExcluded() : void
+    public function testNormalPropertiesAreNotExcluded(): void
     {
         $property = (new ClassReflector(new StringSourceLocator(
             <<<'PHP'
@@ -47,7 +47,7 @@ PHP
         );
     }
 
-    public function testInternalPropertiesAreExcluded() : void
+    public function testInternalPropertiesAreExcluded(): void
     {
         $property = (new ClassReflector(new StringSourceLocator(
             <<<'PHP'

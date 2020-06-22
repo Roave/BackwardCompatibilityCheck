@@ -8,12 +8,12 @@ use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Formatter\ReflectionPropertyName;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
+
 use function Safe\sprintf;
 
 final class PropertyVisibilityReduced implements PropertyBased
 {
-    /** @var ReflectionPropertyName */
-    private $formatProperty;
+    private ReflectionPropertyName $formatProperty;
 
     public function __construct()
     {
@@ -26,7 +26,7 @@ final class PropertyVisibilityReduced implements PropertyBased
 
     private const VISIBILITY_PUBLIC = 'public';
 
-    public function __invoke(ReflectionProperty $fromProperty, ReflectionProperty $toProperty) : Changes
+    public function __invoke(ReflectionProperty $fromProperty, ReflectionProperty $toProperty): Changes
     {
         $visibilityFrom = $this->propertyVisibility($fromProperty);
         $visibilityTo   = $this->propertyVisibility($toProperty);
@@ -47,7 +47,7 @@ final class PropertyVisibilityReduced implements PropertyBased
         ));
     }
 
-    private function propertyVisibility(ReflectionProperty $property) : string
+    private function propertyVisibility(ReflectionProperty $property): string
     {
         if ($property->isPublic()) {
             return self::VISIBILITY_PUBLIC;

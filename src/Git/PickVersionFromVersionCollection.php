@@ -9,5 +9,5 @@ use Version\VersionCollection;
 
 interface PickVersionFromVersionCollection
 {
-    public function forVersions(VersionCollection $versionsCollection) : Version;
+    public function forVersions(VersionCollection $versionsCollection): Version;
 }

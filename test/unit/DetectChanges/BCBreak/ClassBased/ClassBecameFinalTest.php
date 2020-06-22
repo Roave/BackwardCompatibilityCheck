@@ -11,6 +11,7 @@ use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
+
 use function array_map;
 use function iterator_to_array;
 
@@ -25,13 +26,13 @@ final class ClassBecameFinalTest extends TestCase
         ReflectionClass $fromClass,
         ReflectionClass $toClass,
         array $expectedMessages
-    ) : void {
+    ): void {
         $changes = (new ClassBecameFinal())
             ->__invoke($fromClass, $toClass);
 
         self::assertSame(
             $expectedMessages,
-            array_map(static function (Change $change) : string {
+            array_map(static function (Change $change): string {
                 return $change->__toString();
             }, iterator_to_array($changes))
         );
@@ -42,7 +43,7 @@ final class ClassBecameFinalTest extends TestCase
      *
      * @psalm-return array<string, array{0: ReflectionClass, 1: ReflectionClass, 2: list<string>}>
      */
-    public function classesToBeTested() : array
+    public function classesToBeTested(): array
     {
         $locator       = (new BetterReflection())->astLocator();
         $fromReflector = new ClassReflector(new StringSourceLocator(

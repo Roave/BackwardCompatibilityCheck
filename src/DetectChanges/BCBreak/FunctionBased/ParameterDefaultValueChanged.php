@@ -9,6 +9,7 @@ use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
 use Roave\BetterReflection\Reflection\ReflectionParameter;
+
 use function array_filter;
 use function array_intersect_key;
 use function Safe\sprintf;
@@ -20,15 +21,14 @@ use function var_export;
  */
 final class ParameterDefaultValueChanged implements FunctionBased
 {
-    /** @var ReflectionFunctionAbstractName */
-    private $formatFunction;
+    private ReflectionFunctionAbstractName $formatFunction;
 
     public function __construct()
     {
         $this->formatFunction = new ReflectionFunctionAbstractName();
     }
 
-    public function __invoke(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction) : Changes
+    public function __invoke(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction): Changes
     {
         $fromParametersWithDefaults = $this->defaultParameterValues($fromFunction);
         $toParametersWithDefaults   = $this->defaultParameterValues($toFunction);
@@ -59,11 +59,11 @@ final class ParameterDefaultValueChanged implements FunctionBased
     }
 
     /** @return ReflectionParameter[] indexed by parameter index */
-    private function defaultParameterValues(ReflectionFunctionAbstract $function) : array
+    private function defaultParameterValues(ReflectionFunctionAbstract $function): array
     {
         return array_filter(
             $function->getParameters(),
-            static function (ReflectionParameter $parameter) : bool {
+            static function (ReflectionParameter $parameter): bool {
                 return $parameter->isDefaultValueAvailable();
             }
         );

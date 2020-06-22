@@ -8,22 +8,23 @@ use Countable;
 use Generator;
 use IteratorAggregate;
 use Traversable;
+
 use function count;
 use function iterator_to_array;
 
 final class Changes implements IteratorAggregate, Countable
 {
     /** @var Change[] */
-    private $bufferedChanges;
+    private array $bufferedChanges;
 
     /** @var iterable|Change[]|null */
-    private $unBufferedChanges;
+    private ?iterable $unBufferedChanges = null;
 
     private function __construct()
     {
     }
 
-    public static function empty() : self
+    public static function empty(): self
     {
         static $empty;
 
@@ -39,7 +40,7 @@ final class Changes implements IteratorAggregate, Countable
     }
 
     /** @param iterable|Change[] $changes */
-    public static function fromIterator(iterable $changes) : self
+    public static function fromIterator(iterable $changes): self
     {
         $instance = new self();
 
@@ -49,7 +50,7 @@ final class Changes implements IteratorAggregate, Countable
         return $instance;
     }
 
-    public static function fromList(Change ...$changes) : self
+    public static function fromList(Change ...$changes): self
     {
         $instance = new self();
 
@@ -58,12 +59,12 @@ final class Changes implements IteratorAggregate, Countable
         return $instance;
     }
 
-    public function mergeWith(self $other) : self
+    public function mergeWith(self $other): self
     {
         $instance = new self();
 
         $instance->bufferedChanges   = [];
-        $instance->unBufferedChanges = (function () use ($other) : Generator {
+        $instance->unBufferedChanges = (function () use ($other): Generator {
             foreach ($this as $change) {
                 yield $change;
             }
@@ -81,7 +82,7 @@ final class Changes implements IteratorAggregate, Countable
      *
      * @return Traversable<int, Change>
      */
-    public function getIterator() : iterable
+    public function getIterator(): iterable
     {
         foreach ($this->bufferedChanges as $change) {
             yield $change;
@@ -96,7 +97,7 @@ final class Changes implements IteratorAggregate, Countable
         $this->unBufferedChanges = null;
     }
 
-    public function count() : int
+    public function count(): int
     {
         return count(iterator_to_array($this));
     }

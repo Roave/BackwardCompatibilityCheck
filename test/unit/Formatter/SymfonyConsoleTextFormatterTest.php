@@ -10,6 +10,7 @@ use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Formatter\SymfonyConsoleTextFormatter;
 use Symfony\Component\Console\Output\OutputInterface;
+
 use function Safe\sprintf;
 use function uniqid;
 
@@ -21,7 +22,7 @@ final class SymfonyConsoleTextFormatterTest extends TestCase
     /**
      * @throws ReflectionException
      */
-    public function testWrite() : void
+    public function testWrite(): void
     {
         $change1Text = uniqid('change1', true);
         $change2Text = uniqid('change2', true);

@@ -17,7 +17,7 @@ use RoaveTest\BackwardCompatibility\Assertion;
  */
 final class MultipleChecksOnAnInterfaceTest extends TestCase
 {
-    public function testChecksAllGivenCheckers() : void
+    public function testChecksAllGivenCheckers(): void
     {
         $checker1 = $this->createMock(InterfaceBased::class);
         $checker2 = $this->createMock(InterfaceBased::class);

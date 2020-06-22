@@ -12,6 +12,7 @@ use Roave\BetterReflection\Reflection\ReflectionClassConstant;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 use RoaveTest\BackwardCompatibility\TypeRestriction;
+
 use function array_combine;
 use function array_keys;
 use function array_map;
@@ -31,13 +32,13 @@ final class ClassConstantValueChangedTest extends TestCase
         ReflectionClassConstant $fromConstant,
         ReflectionClassConstant $toConstant,
         array $expectedMessages
-    ) : void {
+    ): void {
         $changes = (new ClassConstantValueChanged())
             ->__invoke($fromConstant, $toConstant);
 
         self::assertSame(
             $expectedMessages,
-            array_map(static function (Change $change) : string {
+            array_map(static function (Change $change): string {
                 return $change->__toString();
             }, iterator_to_array($changes))
         );
@@ -48,7 +49,7 @@ final class ClassConstantValueChangedTest extends TestCase
      *
      * @psalm-return array<string, array{0: ReflectionClassConstant|null, 1: ReflectionClassConstant|null, 2: list<string>}>
      */
-    public function propertiesToBeTested() : array
+    public function propertiesToBeTested(): array
     {
         $astLocator = (new BetterReflection())->astLocator();
 
@@ -126,7 +127,7 @@ PHP
             array_keys($properties),
             array_map(
                 /** @psalm-param list<string> $errorMessages https://github.com/vimeo/psalm/issues/2772 */
-                static function (string $constant, array $errorMessages) use ($fromClass, $toClass) : array {
+                static function (string $constant, array $errorMessages) use ($fromClass, $toClass): array {
                     return [
                         $fromClass->getReflectionConstant($constant),
                         $toClass->getReflectionConstant($constant),

@@ -18,7 +18,7 @@ final class StringReflectorFactory
     /**
      * @throws EmptyPhpSourceCode
      */
-    public function __invoke(string $sourceCode) : ClassReflector
+    public function __invoke(string $sourceCode): ClassReflector
     {
         $astLocator = (new BetterReflection())->astLocator();
         $stubber    = new ReflectionSourceStubber();

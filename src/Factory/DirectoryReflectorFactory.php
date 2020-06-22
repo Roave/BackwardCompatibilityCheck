@@ -22,8 +22,7 @@ use Roave\BetterReflection\SourceLocator\Type\SourceLocator;
  */
 final class DirectoryReflectorFactory
 {
-    /** @var Locator */
-    private $astLocator;
+    private Locator $astLocator;
 
     public function __construct(Locator $astLocator)
     {
@@ -37,7 +36,7 @@ final class DirectoryReflectorFactory
     public function __invoke(
         string $directory,
         SourceLocator $dependencies
-    ) : ClassReflector {
+    ): ClassReflector {
         return new ClassReflector(
             new MemoizingSourceLocator(new AggregateSourceLocator([
                 new DirectoriesSourceLocator([$directory], $this->astLocator),

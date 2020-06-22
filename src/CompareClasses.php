@@ -11,6 +11,7 @@ use Roave\BackwardCompatibility\DetectChanges\BCBreak\TraitBased\TraitBased;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
+
 use function array_filter;
 use function array_map;
 use function Safe\preg_match;
@@ -18,14 +19,11 @@ use function Safe\sprintf;
 
 final class CompareClasses implements CompareApi
 {
-    /** @var ClassBased */
-    private $classBasedComparisons;
+    private ClassBased $classBasedComparisons;
 
-    /** @var InterfaceBased */
-    private $interfaceBasedComparisons;
+    private InterfaceBased $interfaceBasedComparisons;
 
-    /** @var TraitBased */
-    private $traitBasedComparisons;
+    private TraitBased $traitBasedComparisons;
 
     public function __construct(
         ClassBased $classBasedComparisons,
@@ -41,14 +39,14 @@ final class CompareClasses implements CompareApi
         ClassReflector $definedSymbols,
         ClassReflector $pastSourcesWithDependencies,
         ClassReflector $newSourcesWithDependencies
-    ) : Changes {
+    ): Changes {
         $definedApiClassNames = array_map(
-            static function (ReflectionClass $class) : string {
+            static function (ReflectionClass $class): string {
                 return $class->getName();
             },
             array_filter(
                 $definedSymbols->getAllClasses(),
-                function (ReflectionClass $class) : bool {
+                function (ReflectionClass $class): bool {
                     return ! ($class->isAnonymous() || $this->isInternalDocComment($class->getDocComment()));
                 }
             )
@@ -70,7 +68,7 @@ final class CompareClasses implements CompareApi
         array $definedApiClassNames,
         ClassReflector $pastSourcesWithDependencies,
         ClassReflector $newSourcesWithDependencies
-    ) : iterable {
+    ): iterable {
         foreach ($definedApiClassNames as $apiClassName) {
             $oldSymbol = $pastSourcesWithDependencies->reflect($apiClassName);
 
@@ -81,7 +79,7 @@ final class CompareClasses implements CompareApi
     private function examineSymbol(
         ReflectionClass $oldSymbol,
         ClassReflector $newSourcesWithDependencies
-    ) : Generator {
+    ): Generator {
         try {
             $newClass = $newSourcesWithDependencies->reflect($oldSymbol->getName());
         } catch (IdentifierNotFound $exception) {
@@ -105,7 +103,7 @@ final class CompareClasses implements CompareApi
         yield from $this->classBasedComparisons->__invoke($oldSymbol, $newClass);
     }
 
-    private function isInternalDocComment(string $comment) : bool
+    private function isInternalDocComment(string $comment): bool
     {
         return preg_match('/\s+@internal\s+/', $comment) === 1;
     }

@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\Git;
 
-use Assert\AssertionFailedException;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Git\PickLastMinorVersionFromCollection;
 use Version\Version;
 use Version\VersionCollection;
+
 use function array_map;
 
 /**
@@ -21,7 +22,7 @@ final class PickLastMinorVersionFromCollectionTest extends TestCase
      *
      * @psalm-return array<int, array{0: string, 1: list<string>}>
      */
-    public function lastStableMinorVersionForCollectionProvider() : array
+    public function lastStableMinorVersionForCollectionProvider(): array
     {
         return [
             ['2.2.0', ['1.1.0', '2.1.1', '2.2.0', '1.2.1']],
@@ -43,23 +44,23 @@ final class PickLastMinorVersionFromCollectionTest extends TestCase
      *
      * @dataProvider lastStableMinorVersionForCollectionProvider
      */
-    public function testForRepository(string $expectedVersion, array $collectionOfVersions) : void
+    public function testForRepository(string $expectedVersion, array $collectionOfVersions): void
     {
         self::assertSame(
             $expectedVersion,
             (new PickLastMinorVersionFromCollection())->forVersions(
-                new VersionCollection(...array_map(static function (string $version) : Version {
+                new VersionCollection(...array_map(static function (string $version): Version {
                     return Version::fromString($version);
                 }, $collectionOfVersions))
             )->toString()
         );
     }
 
-    public function testWillRejectEmptyCollection() : void
+    public function testWillRejectEmptyCollection(): void
     {
         $pick = new PickLastMinorVersionFromCollection();
 
-        $this->expectException(AssertionFailedException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $pick->forVersions(new VersionCollection());
     }

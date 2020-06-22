@@ -10,6 +10,7 @@ use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionType;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
+
 use function array_map;
 use function array_merge;
 
@@ -22,7 +23,7 @@ final class TypeIsContravariantTest extends TestCase
         ?ReflectionType $type,
         ?ReflectionType $newType,
         bool $expectedToBeContravariant
-    ) : void {
+    ): void {
         self::assertSame(
             $expectedToBeContravariant,
             (new TypeIsContravariant())
@@ -35,7 +36,7 @@ final class TypeIsContravariantTest extends TestCase
      *
      * @psalm-return array<string, array{0: ReflectionType|null, 1: ReflectionType|null, 2: bool}>
      */
-    public function checkedTypes() : array
+    public function checkedTypes(): array
     {
         $reflector = new ClassReflector(new StringSourceLocator(
             <<<'PHP'
@@ -207,7 +208,7 @@ PHP
     /**
      * @dataProvider existingTypes
      */
-    public function testContravarianceConsidersSameTypeAlwaysContravariant(?ReflectionType $type) : void
+    public function testContravarianceConsidersSameTypeAlwaysContravariant(?ReflectionType $type): void
     {
         self::assertTrue(
             (new TypeIsContravariant())
@@ -216,7 +217,7 @@ PHP
     }
 
     /** @return (ReflectionType|null)[][] */
-    public function existingTypes() : array
+    public function existingTypes(): array
     {
         $reflector = new ClassReflector(new StringSourceLocator(
             <<<'PHP'
@@ -232,7 +233,7 @@ PHP
         return array_merge(
             [[null]],
             array_merge(...array_map(
-                static function (string $type) use ($reflector) : array {
+                static function (string $type) use ($reflector): array {
                     return [
                         [ReflectionType::createFromTypeAndReflector($type, false, $reflector)],
                         [ReflectionType::createFromTypeAndReflector($type, true, $reflector)],
@@ -256,7 +257,7 @@ PHP
     /**
      * @dataProvider existingNullableTypeStrings
      */
-    public function testContravarianceConsidersNullability(string $type) : void
+    public function testContravarianceConsidersNullability(string $type): void
     {
         $reflector   = new ClassReflector(new StringSourceLocator(
             <<<'PHP'
@@ -278,7 +279,7 @@ PHP
     }
 
     /** @return string[][] */
-    public function existingNullableTypeStrings() : array
+    public function existingNullableTypeStrings(): array
     {
         return [
             ['int'],

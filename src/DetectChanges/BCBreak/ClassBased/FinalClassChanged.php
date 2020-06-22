@@ -9,15 +9,14 @@ use Roave\BetterReflection\Reflection\ReflectionClass;
 
 final class FinalClassChanged implements ClassBased
 {
-    /** @var ClassBased */
-    private $checkClass;
+    private ClassBased $checkClass;
 
     public function __construct(ClassBased $checkClass)
     {
         $this->checkClass = $checkClass;
     }
 
-    public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
+    public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass): Changes
     {
         if (! $fromClass->isFinal()) {
             return Changes::empty();

@@ -12,6 +12,7 @@ use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased\MethodBased;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased\SkipMethodBasedErrors;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
+
 use function uniqid;
 
 /**
@@ -20,18 +21,17 @@ use function uniqid;
 final class SkipMethodBasedErrorsTest extends TestCase
 {
     /** @var MethodBased&MockObject */
-    private $next;
+    private MethodBased $next;
 
-    /** @var SkipMethodBasedErrors */
-    private $check;
+    private SkipMethodBasedErrors $check;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         $this->next  = $this->createMock(MethodBased::class);
         $this->check = new SkipMethodBasedErrors($this->next);
     }
 
-    public function testWillForwardChecks() : void
+    public function testWillForwardChecks(): void
     {
         $fromMethod      = $this->createMock(ReflectionMethod::class);
         $toMethod        = $this->createMock(ReflectionMethod::class);
@@ -50,7 +50,7 @@ final class SkipMethodBasedErrorsTest extends TestCase
         self::assertEquals($expectedChanges, $this->check->__invoke($fromMethod, $toMethod));
     }
 
-    public function testWillCollectFailures() : void
+    public function testWillCollectFailures(): void
     {
         $fromMethod = $this->createMock(ReflectionMethod::class);
         $toMethod   = $this->createMock(ReflectionMethod::class);

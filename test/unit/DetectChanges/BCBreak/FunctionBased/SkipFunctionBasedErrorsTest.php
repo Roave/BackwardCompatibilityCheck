@@ -12,6 +12,7 @@ use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\FunctionBased;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\SkipFunctionBasedErrors;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
+
 use function uniqid;
 
 /**
@@ -20,18 +21,17 @@ use function uniqid;
 final class SkipFunctionBasedErrorsTest extends TestCase
 {
     /** @var FunctionBased&MockObject */
-    private $next;
+    private FunctionBased $next;
 
-    /** @var SkipFunctionBasedErrors */
-    private $check;
+    private SkipFunctionBasedErrors $check;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         $this->next  = $this->createMock(FunctionBased::class);
         $this->check = new SkipFunctionBasedErrors($this->next);
     }
 
-    public function testWillForwardChecks() : void
+    public function testWillForwardChecks(): void
     {
         $fromFunction    = $this->createMock(ReflectionFunctionAbstract::class);
         $toFunction      = $this->createMock(ReflectionFunctionAbstract::class);
@@ -50,7 +50,7 @@ final class SkipFunctionBasedErrorsTest extends TestCase
         self::assertEquals($expectedChanges, $this->check->__invoke($fromFunction, $toFunction));
     }
 
-    public function testWillCollectFailures() : void
+    public function testWillCollectFailures(): void
     {
         $fromFunction = $this->createMock(ReflectionFunctionAbstract::class);
         $toFunction   = $this->createMock(ReflectionFunctionAbstract::class);

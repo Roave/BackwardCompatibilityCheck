@@ -4,27 +4,27 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\Git;
 
-use Assert\Assert;
+use Webmozart\Assert\Assert;
 
 final class CheckedOutRepository
 {
-    /** @var string */
-    private $path;
+    private string $path;
 
     private function __construct()
     {
     }
 
-    public static function fromPath(string $path) : self
+    public static function fromPath(string $path): self
     {
-        Assert::that($path . '/.git')->directory();
+        Assert::directory($path . '/.git');
+
         $instance       = new self();
         $instance->path = $path;
 
         return $instance;
     }
 
-    public function __toString() : string
+    public function __toString(): string
     {
         return $this->path;
     }

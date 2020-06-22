@@ -11,15 +11,14 @@ use Throwable;
 
 final class SkipClassConstantBasedErrors implements ClassConstantBased
 {
-    /** @var ClassConstantBased */
-    private $next;
+    private ClassConstantBased $next;
 
     public function __construct(ClassConstantBased $next)
     {
         $this->next = $next;
     }
 
-    public function __invoke(ReflectionClassConstant $fromConstant, ReflectionClassConstant $toConstant) : Changes
+    public function __invoke(ReflectionClassConstant $fromConstant, ReflectionClassConstant $toConstant): Changes
     {
         try {
             return $this->next->__invoke($fromConstant, $toConstant);

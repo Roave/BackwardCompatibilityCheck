@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\SourceLocator;
 
-use Assert\Assert;
 use Roave\BetterReflection\Identifier\Identifier;
 use Roave\BetterReflection\SourceLocator\Ast\Locator;
 use Roave\BetterReflection\SourceLocator\Located\LocatedSource;
 use Roave\BetterReflection\SourceLocator\Type\AbstractSourceLocator;
+use Webmozart\Assert\Assert;
+
 use function array_keys;
 use function array_map;
 use function Safe\file_get_contents;
@@ -16,7 +17,7 @@ use function Safe\file_get_contents;
 final class StaticClassMapSourceLocator extends AbstractSourceLocator
 {
     /** @var string[] */
-    private $classMap;
+    private array $classMap;
 
      /**
       * @param array<string, string> $classMap map of class => file. Every file must exist,
@@ -31,13 +32,13 @@ final class StaticClassMapSourceLocator extends AbstractSourceLocator
         /** @var string[] $realPaths */
         $realPaths = array_map('realpath', $classMap);
 
-        Assert::that($classMap)->all()->file();
-        Assert::that(array_keys($classMap))->all()->notEmpty();
+        Assert::allFile($realPaths);
+        Assert::allStringNotEmpty(array_keys($classMap));
 
         $this->classMap = $realPaths;
     }
 
-    protected function createLocatedSource(Identifier $identifier) : ?LocatedSource
+    protected function createLocatedSource(Identifier $identifier): ?LocatedSource
     {
         if (! $identifier->isClass()) {
             return null;
