@@ -18,7 +18,7 @@ final class SkipPropertyBasedErrors implements PropertyBased
         $this->next = $next;
     }
 
-    public function __invoke(ReflectionProperty $fromProperty, ReflectionProperty $toProperty) : Changes
+    public function __invoke(ReflectionProperty $fromProperty, ReflectionProperty $toProperty): Changes
     {
         try {
             return $this->next->__invoke($fromProperty, $toProperty);

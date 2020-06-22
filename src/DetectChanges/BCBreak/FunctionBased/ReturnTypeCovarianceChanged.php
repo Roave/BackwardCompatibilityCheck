@@ -10,6 +10,7 @@ use Roave\BackwardCompatibility\DetectChanges\Variance\TypeIsCovariant;
 use Roave\BackwardCompatibility\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
 use Roave\BetterReflection\Reflection\ReflectionType;
+
 use function Safe\sprintf;
 
 /**
@@ -29,7 +30,7 @@ final class ReturnTypeCovarianceChanged implements FunctionBased
         $this->formatFunction  = new ReflectionFunctionAbstractName();
     }
 
-    public function __invoke(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction) : Changes
+    public function __invoke(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction): Changes
     {
         $fromReturnType = $fromFunction->getReturnType();
         $toReturnType   = $toFunction->getReturnType();
@@ -49,7 +50,7 @@ final class ReturnTypeCovarianceChanged implements FunctionBased
         ));
     }
 
-    private function typeToString(?ReflectionType $type) : string
+    private function typeToString(?ReflectionType $type): string
     {
         if (! $type) {
             return 'no type';

@@ -12,6 +12,7 @@ use Roave\BetterReflection\SourceLocator\Type\Composer\Factory\MakeLocatorForIns
 use Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\SourceLocator;
 use Webmozart\Assert\Assert;
+
 use function assert;
 use function Safe\chdir;
 use function Safe\getcwd;
@@ -35,11 +36,11 @@ final class LocateDependenciesViaComposer implements LocateDependencies
         $this->astLocator            = $astLocator;
     }
 
-    public function __invoke(string $installationPath) : SourceLocator
+    public function __invoke(string $installationPath): SourceLocator
     {
         Assert::file($installationPath . '/composer.json');
 
-        $this->runInDirectory(function () use ($installationPath) : void {
+        $this->runInDirectory(function () use ($installationPath): void {
             $installer = ($this->makeComposerInstaller)($installationPath);
 
             assert($installer instanceof Installer);
@@ -59,7 +60,7 @@ final class LocateDependenciesViaComposer implements LocateDependencies
         ]);
     }
 
-    private function runInDirectory(callable $callable, string $directoryOfExecution) : void
+    private function runInDirectory(callable $callable, string $directoryOfExecution): void
     {
         $originalDirectory = getcwd();
 

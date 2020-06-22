@@ -18,7 +18,7 @@ final class SkipTraitBasedErrors implements TraitBased
         $this->next = $next;
     }
 
-    public function __invoke(ReflectionClass $fromTrait, ReflectionClass $toTrait) : Changes
+    public function __invoke(ReflectionClass $fromTrait, ReflectionClass $toTrait): Changes
     {
         try {
             return $this->next->__invoke($fromTrait, $toTrait);

@@ -12,6 +12,7 @@ use Roave\BetterReflection\Reflection\ReflectionProperty;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 use RoaveTest\BackwardCompatibility\TypeRestriction;
+
 use function array_combine;
 use function array_keys;
 use function array_map;
@@ -31,13 +32,13 @@ final class PropertyVisibilityReducedTest extends TestCase
         ReflectionProperty $fromProperty,
         ReflectionProperty $toProperty,
         array $expectedMessages
-    ) : void {
+    ): void {
         $changes = (new PropertyVisibilityReduced())
             ->__invoke($fromProperty, $toProperty);
 
         self::assertSame(
             $expectedMessages,
-            array_map(static function (Change $change) : string {
+            array_map(static function (Change $change): string {
                 return $change->__toString();
             }, iterator_to_array($changes))
         );
@@ -48,7 +49,7 @@ final class PropertyVisibilityReducedTest extends TestCase
      *
      * @psalm-return array<string, array{0: ReflectionProperty, 1: ReflectionProperty, 2: list<string>}>
      */
-    public function propertiesToBeTested() : array
+    public function propertiesToBeTested(): array
     {
         $astLocator = (new BetterReflection())->astLocator();
 
@@ -113,7 +114,7 @@ PHP
             array_keys($properties),
             array_map(
                 /** @psalm-param list<string> $errorMessages https://github.com/vimeo/psalm/issues/2772 */
-                static function (string $property, array $errorMessages) use ($fromClass, $toClass) : array {
+                static function (string $property, array $errorMessages) use ($fromClass, $toClass): array {
                     return [
                         TypeRestriction::object($fromClass->getProperty($property)),
                         TypeRestriction::object($toClass->getProperty($property)),

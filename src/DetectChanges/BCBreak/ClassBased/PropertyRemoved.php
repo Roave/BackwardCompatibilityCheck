@@ -9,6 +9,7 @@ use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Formatter\ReflectionPropertyName;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
+
 use function array_diff;
 use function array_filter;
 use function array_keys;
@@ -25,7 +26,7 @@ final class PropertyRemoved implements ClassBased
         $this->formatProperty = new ReflectionPropertyName();
     }
 
-    public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
+    public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass): Changes
     {
         $fromProperties    = $this->accessibleProperties($fromClass);
         $removedProperties = array_diff(
@@ -33,7 +34,7 @@ final class PropertyRemoved implements ClassBased
             array_keys($this->accessibleProperties($toClass))
         );
 
-        return Changes::fromList(...array_map(function (string $property) use ($fromProperties) : Change {
+        return Changes::fromList(...array_map(function (string $property) use ($fromProperties): Change {
             return Change::removed(
                 sprintf('Property %s was removed', $this->formatProperty->__invoke($fromProperties[$property])),
                 true
@@ -42,16 +43,16 @@ final class PropertyRemoved implements ClassBased
     }
 
     /** @return ReflectionProperty[] */
-    private function accessibleProperties(ReflectionClass $class) : array
+    private function accessibleProperties(ReflectionClass $class): array
     {
-        return array_filter($class->getProperties(), function (ReflectionProperty $property) : bool {
+        return array_filter($class->getProperties(), function (ReflectionProperty $property): bool {
             return ($property->isPublic()
                 || $property->isProtected())
                 && ! $this->isInternalDocComment($property->getDocComment());
         });
     }
 
-    private function isInternalDocComment(string $comment) : bool
+    private function isInternalDocComment(string $comment): bool
     {
         return preg_match('/\s+@internal\s+/', $comment) === 1;
     }

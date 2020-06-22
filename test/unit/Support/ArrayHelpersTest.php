@@ -17,7 +17,7 @@ final class ArrayHelpersTest extends TestCase
      *
      * @dataProvider stringArrayContainsStringValidValues
      */
-    public function testInclusion(string $value, array $array, bool $expected) : void
+    public function testInclusion(string $value, array $array, bool $expected): void
     {
         self::assertSame($expected, ArrayHelpers::stringArrayContainsString($value, $array));
     }
@@ -27,7 +27,7 @@ final class ArrayHelpersTest extends TestCase
      *
      * @psalm-return array<int, array{0: string, 1: list<string>, 2: bool}>
      */
-    public function stringArrayContainsStringValidValues() : array
+    public function stringArrayContainsStringValidValues(): array
     {
         return [
             [

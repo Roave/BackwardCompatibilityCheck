@@ -14,7 +14,7 @@ final class CheckedOutRepository
     {
     }
 
-    public static function fromPath(string $path) : self
+    public static function fromPath(string $path): self
     {
         Assert::directory($path . '/.git');
 
@@ -24,7 +24,7 @@ final class CheckedOutRepository
         return $instance;
     }
 
-    public function __toString() : string
+    public function __toString(): string
     {
         return $this->path;
     }

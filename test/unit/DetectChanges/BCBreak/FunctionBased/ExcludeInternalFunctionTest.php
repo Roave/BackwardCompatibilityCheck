@@ -17,7 +17,7 @@ use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 /** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\ExcludeInternalFunction */
 final class ExcludeInternalFunctionTest extends TestCase
 {
-    public function testNormalFunctionsAreNotExcluded() : void
+    public function testNormalFunctionsAreNotExcluded(): void
     {
         $source   = new StringSourceLocator(
             <<<'PHP'
@@ -44,7 +44,7 @@ PHP
         );
     }
 
-    public function testInternalFunctionsAreExcluded() : void
+    public function testInternalFunctionsAreExcluded(): void
     {
         $source   = new StringSourceLocator(
             <<<'PHP'

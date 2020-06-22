@@ -10,6 +10,7 @@ use Roave\BackwardCompatibility\Git\GitCheckoutRevisionToTemporaryPath;
 use Roave\BackwardCompatibility\Git\Revision;
 use RuntimeException;
 use Symfony\Component\Process\Process;
+
 use function Safe\file_put_contents;
 use function Safe\mkdir;
 use function Safe\realpath;
@@ -24,7 +25,7 @@ final class GitCheckoutRevisionToTemporaryPathTest extends TestCase
 {
     private const TEST_REVISION_TO_CHECKOUT = '428327492a803b6e0c612b157a67a50a47275461';
 
-    public function testCheckoutAndRemove() : void
+    public function testCheckoutAndRemove(): void
     {
         $git      = new GitCheckoutRevisionToTemporaryPath();
         $revision = Revision::fromSha1(self::TEST_REVISION_TO_CHECKOUT);
@@ -38,7 +39,7 @@ final class GitCheckoutRevisionToTemporaryPathTest extends TestCase
         self::assertDirectoryDoesNotExist((string) $temporaryClone);
     }
 
-    public function testCanCheckOutSameRevisionTwice() : void
+    public function testCanCheckOutSameRevisionTwice(): void
     {
         $git              = new GitCheckoutRevisionToTemporaryPath();
         $sourceRepository = $this->sourceRepository();
@@ -57,7 +58,7 @@ final class GitCheckoutRevisionToTemporaryPathTest extends TestCase
         self::assertDirectoryDoesNotExist((string) $second);
     }
 
-    public function testCheckedOutRevisionIsAtExpectedRevisionState() : void
+    public function testCheckedOutRevisionIsAtExpectedRevisionState(): void
     {
         $repoPath = tempnam(sys_get_temp_dir(), 'test-git-repo-');
 
@@ -111,9 +112,9 @@ final class GitCheckoutRevisionToTemporaryPathTest extends TestCase
         (new Process(['rm', '-rf', $repoPath]))->mustRun();
     }
 
-    public function testExceptionIsThrownWhenTwoPathsCollide() : void
+    public function testExceptionIsThrownWhenTwoPathsCollide(): void
     {
-        $git              = new GitCheckoutRevisionToTemporaryPath(static function () : string {
+        $git              = new GitCheckoutRevisionToTemporaryPath(static function (): string {
             return 'foo';
         });
         $sourceRepository = $this->sourceRepository();
@@ -139,7 +140,7 @@ final class GitCheckoutRevisionToTemporaryPathTest extends TestCase
         self::assertFalse($successfullyCheckedOutSecondClone);
     }
 
-    private function sourceRepository() : CheckedOutRepository
+    private function sourceRepository(): CheckedOutRepository
     {
         return CheckedOutRepository::fromPath(realpath(__DIR__ . '/../../..'));
     }

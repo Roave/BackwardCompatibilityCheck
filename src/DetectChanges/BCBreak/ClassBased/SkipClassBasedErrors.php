@@ -18,7 +18,7 @@ final class SkipClassBasedErrors implements ClassBased
         $this->next = $next;
     }
 
-    public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
+    public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass): Changes
     {
         try {
             return $this->next->__invoke($fromClass, $toClass);

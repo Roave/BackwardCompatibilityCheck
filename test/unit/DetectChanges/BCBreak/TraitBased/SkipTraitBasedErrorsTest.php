@@ -12,6 +12,7 @@ use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\TraitBased\SkipTraitBasedErrors;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\TraitBased\TraitBased;
 use Roave\BetterReflection\Reflection\ReflectionClass;
+
 use function uniqid;
 
 /**
@@ -24,13 +25,13 @@ final class SkipTraitBasedErrorsTest extends TestCase
 
     private SkipTraitBasedErrors $check;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         $this->next  = $this->createMock(TraitBased::class);
         $this->check = new SkipTraitBasedErrors($this->next);
     }
 
-    public function testWillForwardChecks() : void
+    public function testWillForwardChecks(): void
     {
         $fromTrait       = $this->createMock(ReflectionClass::class);
         $toTrait         = $this->createMock(ReflectionClass::class);
@@ -49,7 +50,7 @@ final class SkipTraitBasedErrorsTest extends TestCase
         self::assertEquals($expectedChanges, $this->check->__invoke($fromTrait, $toTrait));
     }
 
-    public function testWillCollectFailures() : void
+    public function testWillCollectFailures(): void
     {
         $fromTrait = $this->createMock(ReflectionClass::class);
         $toTrait   = $this->createMock(ReflectionClass::class);

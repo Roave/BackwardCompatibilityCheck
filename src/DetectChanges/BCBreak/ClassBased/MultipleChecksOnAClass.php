@@ -18,13 +18,13 @@ final class MultipleChecksOnAClass implements ClassBased
         $this->checks = $checks;
     }
 
-    public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
+    public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass): Changes
     {
         return Changes::fromIterator($this->multipleChecks($fromClass, $toClass));
     }
 
     /** @return iterable|Change[] */
-    private function multipleChecks(ReflectionClass $fromClass, ReflectionClass $toClass) : iterable
+    private function multipleChecks(ReflectionClass $fromClass, ReflectionClass $toClass): iterable
     {
         foreach ($this->checks as $check) {
             yield from $check->__invoke($fromClass, $toClass);

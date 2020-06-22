@@ -16,7 +16,7 @@ final class FinalClassChanged implements ClassBased
         $this->checkClass = $checkClass;
     }
 
-    public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
+    public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass): Changes
     {
         if (! $fromClass->isFinal()) {
             return Changes::empty();

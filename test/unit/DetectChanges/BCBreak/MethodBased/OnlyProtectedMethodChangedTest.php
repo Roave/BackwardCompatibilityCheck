@@ -11,6 +11,7 @@ use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased\MethodBased;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased\OnlyProtectedMethodChanged;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
+
 use function uniqid;
 
 /**
@@ -23,7 +24,7 @@ final class OnlyProtectedMethodChangedTest extends TestCase
 
     private OnlyProtectedMethodChanged $methodCheck;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -31,7 +32,7 @@ final class OnlyProtectedMethodChangedTest extends TestCase
         $this->methodCheck = new OnlyProtectedMethodChanged($this->check);
     }
 
-    public function testWillSkipCheckingNonProtectedMethods() : void
+    public function testWillSkipCheckingNonProtectedMethods(): void
     {
         $from = $this->createMock(ReflectionMethod::class);
         $to   = $this->createMock(ReflectionMethod::class);
@@ -49,7 +50,7 @@ final class OnlyProtectedMethodChangedTest extends TestCase
         self::assertEquals(Changes::empty(), $this->methodCheck->__invoke($from, $to));
     }
 
-    public function testWillCheckProtectedMethods() : void
+    public function testWillCheckProtectedMethods(): void
     {
         $from = $this->createMock(ReflectionMethod::class);
         $to   = $this->createMock(ReflectionMethod::class);

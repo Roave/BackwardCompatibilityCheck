@@ -11,6 +11,7 @@ use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\OnlyPublicPropertyChanged;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\PropertyBased;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
+
 use function uniqid;
 
 /**
@@ -29,7 +30,7 @@ final class OnlyPublicPropertyChangedTest extends TestCase
 
     private OnlyPublicPropertyChanged $changed;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -39,7 +40,7 @@ final class OnlyPublicPropertyChangedTest extends TestCase
         $this->toProperty   = $this->createMock(ReflectionProperty::class);
     }
 
-    public function testSkipsNonPublicProperty() : void
+    public function testSkipsNonPublicProperty(): void
     {
         $this
             ->check
@@ -58,7 +59,7 @@ final class OnlyPublicPropertyChangedTest extends TestCase
         );
     }
 
-    public function testChecksPublicProperty() : void
+    public function testChecksPublicProperty(): void
     {
         $changes = Changes::fromList(Change::changed(uniqid('potato', true), true));
 

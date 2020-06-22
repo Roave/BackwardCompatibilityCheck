@@ -17,7 +17,7 @@ use RoaveTest\BackwardCompatibility\Assertion;
  */
 final class MultipleChecksOnAClassTest extends TestCase
 {
-    public function testChecksAllGivenCheckers() : void
+    public function testChecksAllGivenCheckers(): void
     {
         $checker1 = $this->createMock(ClassBased::class);
         $checker2 = $this->createMock(ClassBased::class);

@@ -16,14 +16,14 @@ final class LocateSourcesViaComposerJsonTest extends TestCase
 {
     private LocateSourcesViaComposerJson $locateSources;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         parent::setUp();
 
         $this->locateSources = new LocateSourcesViaComposerJson((new BetterReflection())->astLocator());
     }
 
-    public function testCanLocateClassInMappendAutoloadDefinitions() : void
+    public function testCanLocateClassInMappendAutoloadDefinitions(): void
     {
         $reflector = new ClassReflector(
             $this->locateSources

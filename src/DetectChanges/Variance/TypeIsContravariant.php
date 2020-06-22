@@ -6,6 +6,7 @@ namespace Roave\BackwardCompatibility\DetectChanges\Variance;
 
 use Roave\BackwardCompatibility\Support\ArrayHelpers;
 use Roave\BetterReflection\Reflection\ReflectionType;
+
 use function strtolower;
 
 /**
@@ -19,7 +20,7 @@ final class TypeIsContravariant
     public function __invoke(
         ?ReflectionType $type,
         ?ReflectionType $comparedType
-    ) : bool {
+    ): bool {
         if ($comparedType === null) {
             return true;
         }

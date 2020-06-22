@@ -8,5 +8,5 @@ use Version\VersionCollection;
 
 interface GetVersionCollection
 {
-    public function fromRepository(CheckedOutRepository $repository) : VersionCollection;
+    public function fromRepository(CheckedOutRepository $repository): VersionCollection;
 }

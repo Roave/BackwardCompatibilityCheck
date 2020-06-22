@@ -16,7 +16,7 @@ final class OnlyPublicPropertyChanged implements PropertyBased
         $this->propertyBased = $propertyBased;
     }
 
-    public function __invoke(ReflectionProperty $fromProperty, ReflectionProperty $toProperty) : Changes
+    public function __invoke(ReflectionProperty $fromProperty, ReflectionProperty $toProperty): Changes
     {
         if (! $fromProperty->isPublic()) {
             return Changes::empty();

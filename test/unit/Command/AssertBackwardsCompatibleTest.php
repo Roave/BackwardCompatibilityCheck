@@ -27,6 +27,7 @@ use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Version\Version;
 use Version\VersionCollection;
+
 use function Safe\chdir;
 use function Safe\realpath;
 use function sha1;
@@ -70,7 +71,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
 
     private AssertBackwardsCompatible $compare;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         $repositoryPath = realpath(__DIR__ . '/../../../');
 
@@ -105,7 +106,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
             ->willReturn($this->stdErr);
     }
 
-    public function testDefinition() : void
+    public function testDefinition(): void
     {
         self::assertSame(
             'roave-backwards-compatibility-check:assert-backwards-compatible',
@@ -130,7 +131,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
         );
     }
 
-    public function testExecuteWhenRevisionsAreProvidedAsOptions() : void
+    public function testExecuteWhenRevisionsAreProvidedAsOptions(): void
     {
         $fromSha = sha1('fromRevision', false);
         $toSha   = sha1('toRevision', false);
@@ -179,7 +180,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
         self::assertSame(0, $this->compare->execute($this->input, $this->output));
     }
 
-    public function testExecuteReturnsNonZeroExitCodeWhenChangesAreDetected() : void
+    public function testExecuteReturnsNonZeroExitCodeWhenChangesAreDetected(): void
     {
         $fromSha = sha1('fromRevision', false);
         $toSha   = sha1('toRevision', false);
@@ -240,7 +241,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
         self::assertSame(3, $this->compare->execute($this->input, $this->output));
     }
 
-    public function testProvidingMarkdownOptionWritesMarkdownOutput() : void
+    public function testProvidingMarkdownOptionWritesMarkdownOutput(): void
     {
         $fromSha = sha1('fromRevision', false);
         $toSha   = sha1('toRevision', false);
@@ -292,14 +293,14 @@ final class AssertBackwardsCompatibleTest extends TestCase
         $this->output
             ->expects(self::once())
             ->method('writeln')
-            ->willReturnCallback(static function (string $output) use ($changeToExpect) : void {
+            ->willReturnCallback(static function (string $output) use ($changeToExpect): void {
                 self::assertStringContainsString(' [BC] ' . $changeToExpect, $output);
             });
 
         $this->compare->execute($this->input, $this->output);
     }
 
-    public function testExecuteWithDefaultRevisionsNotProvidedAndNoDetectedTags() : void
+    public function testExecuteWithDefaultRevisionsNotProvidedAndNoDetectedTags(): void
     {
         $this->input->expects(self::any())->method('getOption')->willReturnMap([
             ['from', null],
@@ -340,7 +341,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
     /**
      * @dataProvider validVersionCollections
      */
-    public function testExecuteWithDefaultRevisionsNotProvided(VersionCollection $versions) : void
+    public function testExecuteWithDefaultRevisionsNotProvided(VersionCollection $versions): void
     {
         $fromSha       = sha1('fromRevision', false);
         $toSha         = sha1('toRevision', false);
@@ -380,7 +381,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
 
         $this->getVersions->expects(self::once())
             ->method('fromRepository')
-            ->with(self::callback(function (CheckedOutRepository $checkedOutRepository) : bool {
+            ->with(self::callback(function (CheckedOutRepository $checkedOutRepository): bool {
                 self::assertEquals($this->sourceRepository, $checkedOutRepository);
 
                 return true;
@@ -407,7 +408,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
     }
 
     /** @return VersionCollection[][] */
-    public function validVersionCollections() : array
+    public function validVersionCollections(): array
     {
         return [
             [

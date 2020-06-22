@@ -16,7 +16,7 @@ final class SymfonyConsoleTextFormatter implements OutputFormatter
         $this->output = $output;
     }
 
-    public function write(Changes $changes) : void
+    public function write(Changes $changes): void
     {
         foreach ($changes as $change) {
             $this->output->writeln($change->__toString());

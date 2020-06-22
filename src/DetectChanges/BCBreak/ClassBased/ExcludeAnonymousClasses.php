@@ -16,7 +16,7 @@ final class ExcludeAnonymousClasses implements ClassBased
         $this->check = $check;
     }
 
-    public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
+    public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass): Changes
     {
         if ($fromClass->isAnonymous()) {
             return Changes::empty();

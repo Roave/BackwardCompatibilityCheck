@@ -6,7 +6,7 @@ namespace Roave\BackwardCompatibility\Git;
 
 interface PerformCheckoutOfRevision
 {
-    public function checkout(CheckedOutRepository $sourceRepository, Revision $revision) : CheckedOutRepository;
+    public function checkout(CheckedOutRepository $sourceRepository, Revision $revision): CheckedOutRepository;
 
-    public function remove(CheckedOutRepository $checkedOutRepository) : void;
+    public function remove(CheckedOutRepository $checkedOutRepository): void;
 }

@@ -7,6 +7,7 @@ namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
+
 use function Safe\sprintf;
 
 /**
@@ -15,7 +16,7 @@ use function Safe\sprintf;
  */
 final class MethodScopeChanged implements MethodBased
 {
-    public function __invoke(ReflectionMethod $fromMethod, ReflectionMethod $toMethod) : Changes
+    public function __invoke(ReflectionMethod $fromMethod, ReflectionMethod $toMethod): Changes
     {
         $scopeFrom = $this->methodScope($fromMethod);
         $scopeTo   = $this->methodScope($toMethod);
@@ -36,7 +37,7 @@ final class MethodScopeChanged implements MethodBased
         ));
     }
 
-    private function methodScope(ReflectionMethod $method) : string
+    private function methodScope(ReflectionMethod $method): string
     {
         return $method->isStatic() ? 'static' : 'instance';
     }

@@ -7,6 +7,7 @@ namespace RoaveTest\BackwardCompatibility;
 use Exception;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
+
 use function uniqid;
 
 /**
@@ -14,7 +15,7 @@ use function uniqid;
  */
 final class ChangeTest extends TestCase
 {
-    public function testAdded() : void
+    public function testAdded(): void
     {
         $changeText = uniqid('changeText', true);
         $change     = Change::added($changeText, false);
@@ -25,7 +26,7 @@ final class ChangeTest extends TestCase
         self::assertFalse($change->isSkipped());
     }
 
-    public function testBcAdded() : void
+    public function testBcAdded(): void
     {
         $changeText = uniqid('changeText', true);
         $change     = Change::added($changeText, true);
@@ -36,7 +37,7 @@ final class ChangeTest extends TestCase
         self::assertFalse($change->isSkipped());
     }
 
-    public function testChanged() : void
+    public function testChanged(): void
     {
         $changeText = uniqid('changeText', true);
         $change     = Change::changed($changeText, false);
@@ -46,7 +47,7 @@ final class ChangeTest extends TestCase
         self::assertFalse($change->isRemoved());
     }
 
-    public function testBcChanged() : void
+    public function testBcChanged(): void
     {
         $changeText = uniqid('changeText', true);
         $change     = Change::changed($changeText, true);
@@ -57,7 +58,7 @@ final class ChangeTest extends TestCase
         self::assertFalse($change->isSkipped());
     }
 
-    public function testRemoved() : void
+    public function testRemoved(): void
     {
         $changeText = uniqid('changeText', true);
         $change     = Change::removed($changeText, false);
@@ -68,7 +69,7 @@ final class ChangeTest extends TestCase
         self::assertFalse($change->isSkipped());
     }
 
-    public function testBcRemoved() : void
+    public function testBcRemoved(): void
     {
         $changeText = uniqid('changeText', true);
         $change     = Change::removed($changeText, true);
@@ -79,7 +80,7 @@ final class ChangeTest extends TestCase
         self::assertFalse($change->isSkipped());
     }
 
-    public function testSkippedDueToFailure() : void
+    public function testSkippedDueToFailure(): void
     {
         $failure = new Exception('changeText');
         $change  = Change::skippedDueToFailure($failure);

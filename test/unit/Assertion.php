@@ -7,6 +7,7 @@ namespace RoaveTest\BackwardCompatibility;
 use PHPUnit\Framework\Assert;
 use ReflectionProperty;
 use Roave\BackwardCompatibility\Changes;
+
 use function count;
 
 abstract class Assertion
@@ -21,7 +22,7 @@ abstract class Assertion
         Changes $expected,
         Changes $actual,
         string $message = ''
-    ) : void {
+    ): void {
         Assert::assertNotNull(
             self::reflectionUnBufferedChanges()->getValue($actual),
             'Buffer must NOT be exhausted'
@@ -31,7 +32,7 @@ abstract class Assertion
         Assert::assertEquals($expected, $actual, $message);
     }
 
-    private static function reflectionUnBufferedChanges() : ReflectionProperty
+    private static function reflectionUnBufferedChanges(): ReflectionProperty
     {
         if (self::$unBufferedChangesReflection) {
             return self::$unBufferedChangesReflection;

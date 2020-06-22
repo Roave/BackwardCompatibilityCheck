@@ -18,7 +18,7 @@ final class SkipMethodBasedErrors implements MethodBased
         $this->next = $next;
     }
 
-    public function __invoke(ReflectionMethod $fromMethod, ReflectionMethod $toMethod) : Changes
+    public function __invoke(ReflectionMethod $fromMethod, ReflectionMethod $toMethod): Changes
     {
         try {
             return $this->next->__invoke($fromMethod, $toMethod);

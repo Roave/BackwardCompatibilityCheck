@@ -9,6 +9,7 @@ use Roave\BackwardCompatibility\Factory\ComposerInstallationReflectorFactory;
 use Roave\BackwardCompatibility\LocateSources\LocateSources;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\SourceLocator;
+
 use function uniqid;
 
 /**
@@ -20,7 +21,7 @@ final class ComposerInstallationReflectorFactoryTest extends TestCase
      * Note: this test is quite pointless, it is just in place to verify that there aren't any
      *       silly runtime-related regressions.
      */
-    public function testWillInstantiateLocator() : void
+    public function testWillInstantiateLocator(): void
     {
         $path          = uniqid('path', true);
         $locateSources = $this->createMock(LocateSources::class);

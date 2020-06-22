@@ -19,5 +19,5 @@ interface CompareApi
         ClassReflector $definedSymbols,
         ClassReflector $pastSourcesWithDependencies,
         ClassReflector $newSourcesWithDependencies
-    ) : Changes;
+    ): Changes;
 }

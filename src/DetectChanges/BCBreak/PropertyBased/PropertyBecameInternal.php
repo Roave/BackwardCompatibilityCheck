@@ -8,6 +8,7 @@ use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Formatter\ReflectionPropertyName;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
+
 use function Safe\preg_match;
 use function Safe\sprintf;
 
@@ -23,9 +24,10 @@ final class PropertyBecameInternal implements PropertyBased
         $this->formatProperty = new ReflectionPropertyName();
     }
 
-    public function __invoke(ReflectionProperty $fromProperty, ReflectionProperty $toProperty) : Changes
+    public function __invoke(ReflectionProperty $fromProperty, ReflectionProperty $toProperty): Changes
     {
-        if ($this->isInternalDocComment($toProperty->getDocComment())
+        if (
+            $this->isInternalDocComment($toProperty->getDocComment())
             && ! $this->isInternalDocComment($fromProperty->getDocComment())
         ) {
             return Changes::fromList(Change::changed(
@@ -40,7 +42,7 @@ final class PropertyBecameInternal implements PropertyBased
         return Changes::empty();
     }
 
-    private function isInternalDocComment(string $comment) : bool
+    private function isInternalDocComment(string $comment): bool
     {
         return preg_match('/\s+@internal\s+/', $comment) === 1;
     }

@@ -31,10 +31,11 @@ use RuntimeException;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
+
 use function file_exists;
 
-(static function () : void {
-    (static function () : void {
+(static function (): void {
+    (static function (): void {
         $autoloaderLocations = [
             __DIR__ . '/../vendor/autoload.php', // Installed by cloning the project and running `composer install`
             __DIR__ . '/../../../autoload.php',  // Installed via `composer require`
@@ -66,7 +67,7 @@ use function file_exists;
         new GetVersionCollectionFromGitRepository(),
         new PickLastMinorVersionFromCollection(),
         new LocateDependenciesViaComposer(
-            static function (string $installationPath) use ($composerIo) : Installer {
+            static function (string $installationPath) use ($composerIo): Installer {
                 return Installer::create(
                     $composerIo,
                     (new Factory())->createComposer(

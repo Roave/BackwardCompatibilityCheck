@@ -11,6 +11,7 @@ use Roave\BackwardCompatibility\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
 use Roave\BetterReflection\Reflection\ReflectionParameter;
 use Roave\BetterReflection\Reflection\ReflectionType;
+
 use function array_intersect_key;
 use function Safe\sprintf;
 
@@ -30,7 +31,7 @@ final class ParameterTypeContravarianceChanged implements FunctionBased
         $this->formatFunction      = new ReflectionFunctionAbstractName();
     }
 
-    public function __invoke(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction) : Changes
+    public function __invoke(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction): Changes
     {
         $fromParameters = $fromFunction->getParameters();
         $toParameters   = $toFunction->getParameters();
@@ -43,7 +44,7 @@ final class ParameterTypeContravarianceChanged implements FunctionBased
         return $changes;
     }
 
-    private function compareParameter(ReflectionParameter $fromParameter, ReflectionParameter $toParameter) : Changes
+    private function compareParameter(ReflectionParameter $fromParameter, ReflectionParameter $toParameter): Changes
     {
         $fromType = $fromParameter->getType();
         $toType   = $toParameter->getType();
@@ -64,7 +65,7 @@ final class ParameterTypeContravarianceChanged implements FunctionBased
         ));
     }
 
-    private function typeToString(?ReflectionType $type) : string
+    private function typeToString(?ReflectionType $type): string
     {
         if (! $type) {
             return 'no type';

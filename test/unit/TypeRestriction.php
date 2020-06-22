@@ -23,7 +23,7 @@ final class TypeRestriction
      * @psalm-param    ArrayishParameterType|mixed $value
      * @psalm-return   ArrayishParameterType
      */
-    public static function array($value) : array
+    public static function array($value): array
     {
         assert(is_array($value));
 
@@ -35,7 +35,7 @@ final class TypeRestriction
      * @psalm-param    ObjectishParameterType|null $value
      * @psalm-return   ObjectishParameterType
      */
-    public static function object(?object $value) : object
+    public static function object(?object $value): object
     {
         assert($value !== null);
 

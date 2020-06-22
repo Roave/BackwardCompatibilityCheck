@@ -8,5 +8,5 @@ use Roave\BackwardCompatibility\Changes;
 
 interface OutputFormatter
 {
-    public function write(Changes $changes) : void;
+    public function write(Changes $changes): void;
 }

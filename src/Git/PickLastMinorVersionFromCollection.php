@@ -21,12 +21,12 @@ final class PickLastMinorVersionFromCollection implements PickVersionFromVersion
      * @throws LogicException
      * @throws RuntimeException
      */
-    public function forVersions(VersionCollection $versions) : Version
+    public function forVersions(VersionCollection $versions): Version
     {
         Assert::minCount($versions, 1, 'Cannot determine latest minor version from an empty collection');
 
         $stableVersions = $versions->matching(new class implements Constraint {
-            public function assert(Version $version) : bool
+            public function assert(Version $version): bool
             {
                 return ! $version->isPreRelease();
             }

@@ -11,6 +11,7 @@ use Roave\BetterReflection\Reflection\ReflectionProperty;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 use RoaveTest\BackwardCompatibility\TypeRestriction;
+
 use function array_combine;
 use function array_keys;
 use function array_map;
@@ -23,7 +24,7 @@ final class ReflectionPropertyNameTest extends TestCase
     /**
      * @dataProvider propertiesToBeTested
      */
-    public function testName(ReflectionProperty $property, string $expectedName) : void
+    public function testName(ReflectionProperty $property, string $expectedName): void
     {
         self::assertSame($expectedName, (new ReflectionPropertyName())->__invoke($property));
     }
@@ -33,7 +34,7 @@ final class ReflectionPropertyNameTest extends TestCase
      *
      * @psalm-return array<string, array{0: ReflectionProperty, 1: string}>
      */
-    public function propertiesToBeTested() : array
+    public function propertiesToBeTested(): array
     {
         $locator = new StringSourceLocator(
             <<<'PHP'
@@ -69,7 +70,7 @@ PHP
         return TypeRestriction::array(array_combine(
             array_keys($properties),
             array_map(
-                static function (string $expectedMessage, ReflectionProperty $property) : array {
+                static function (string $expectedMessage, ReflectionProperty $property): array {
                     return [$property, $expectedMessage];
                 },
                 array_keys($properties),

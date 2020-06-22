@@ -7,6 +7,7 @@ namespace RoaveTest\BackwardCompatibility\Git;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Git\Revision;
+
 use function sha1;
 use function str_repeat;
 use function uniqid;
@@ -16,14 +17,14 @@ use function uniqid;
  */
 final class RevisionTest extends TestCase
 {
-    public function testFromSha1WithValidSha1() : void
+    public function testFromSha1WithValidSha1(): void
     {
         $sha1 = sha1(uniqid('sha1', true));
 
         self::assertSame($sha1, (string) Revision::fromSha1($sha1));
     }
 
-    public function testFromSha1WithNewlinesStillProvidesValidSha1() : void
+    public function testFromSha1WithNewlinesStillProvidesValidSha1(): void
     {
         $sha1 = sha1(uniqid('sha1', true));
 
@@ -33,7 +34,7 @@ final class RevisionTest extends TestCase
     /**
      * @return string[][]
      */
-    public function invalidRevisionProvider() : array
+    public function invalidRevisionProvider(): array
     {
         return [
             [''],
@@ -48,7 +49,7 @@ final class RevisionTest extends TestCase
     /**
      * @dataProvider invalidRevisionProvider
      */
-    public function testInvalidSha1Rejected(string $invalidRevision) : void
+    public function testInvalidSha1Rejected(string $invalidRevision): void
     {
         $this->expectException(InvalidArgumentException::class);
         Revision::fromSha1($invalidRevision);

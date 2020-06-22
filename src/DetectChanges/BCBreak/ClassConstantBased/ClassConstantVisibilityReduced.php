@@ -7,6 +7,7 @@ namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassConstantBased;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClassConstant;
+
 use function Safe\sprintf;
 
 final class ClassConstantVisibilityReduced implements ClassConstantBased
@@ -17,7 +18,7 @@ final class ClassConstantVisibilityReduced implements ClassConstantBased
 
     private const VISIBILITY_PUBLIC = 'public';
 
-    public function __invoke(ReflectionClassConstant $fromConstant, ReflectionClassConstant $toConstant) : Changes
+    public function __invoke(ReflectionClassConstant $fromConstant, ReflectionClassConstant $toConstant): Changes
     {
         $visibilityFrom = $this->propertyVisibility($fromConstant);
         $visibilityTo   = $this->propertyVisibility($toConstant);
@@ -39,7 +40,7 @@ final class ClassConstantVisibilityReduced implements ClassConstantBased
         ));
     }
 
-    private function propertyVisibility(ReflectionClassConstant $property) : string
+    private function propertyVisibility(ReflectionClassConstant $property): string
     {
         if ($property->isPublic()) {
             return self::VISIBILITY_PUBLIC;

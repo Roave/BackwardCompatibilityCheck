@@ -16,7 +16,7 @@ final class OnlyProtectedClassConstantChanged implements ClassConstantBased
         $this->constantCheck = $constantCheck;
     }
 
-    public function __invoke(ReflectionClassConstant $fromConstant, ReflectionClassConstant $toConstant) : Changes
+    public function __invoke(ReflectionClassConstant $fromConstant, ReflectionClassConstant $toConstant): Changes
     {
         if (! $fromConstant->isProtected()) {
             return Changes::empty();

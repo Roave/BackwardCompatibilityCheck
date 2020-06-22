@@ -7,6 +7,7 @@ namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClass;
+
 use function Safe\sprintf;
 
 /**
@@ -16,7 +17,7 @@ use function Safe\sprintf;
  */
 final class ClassBecameTrait implements ClassBased
 {
-    public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
+    public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass): Changes
     {
         if ($fromClass->isTrait() || ! $toClass->isTrait()) {
             return Changes::empty();

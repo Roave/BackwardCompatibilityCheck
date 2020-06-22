@@ -18,13 +18,13 @@ final class MultipleChecksOnAnInterface implements InterfaceBased
         $this->checks = $checks;
     }
 
-    public function __invoke(ReflectionClass $fromInterface, ReflectionClass $toInterface) : Changes
+    public function __invoke(ReflectionClass $fromInterface, ReflectionClass $toInterface): Changes
     {
         return Changes::fromIterator($this->multipleChecks($fromInterface, $toInterface));
     }
 
     /** @return iterable|Change[] */
-    private function multipleChecks(ReflectionClass $fromInterface, ReflectionClass $toInterface) : iterable
+    private function multipleChecks(ReflectionClass $fromInterface, ReflectionClass $toInterface): iterable
     {
         foreach ($this->checks as $check) {
             yield from $check->__invoke($fromInterface, $toInterface);

@@ -15,7 +15,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 final class MarkdownPipedToSymfonyConsoleFormatterTest extends TestCase
 {
-    public function testWrite() : void
+    public function testWrite(): void
     {
         $output = $this->createMock(OutputInterface::class);
 
@@ -36,7 +36,7 @@ EOF;
 
         $output->expects(self::once())
             ->method('writeln')
-            ->willReturnCallback(static function (string $output) use ($changeToExpect) : void {
+            ->willReturnCallback(static function (string $output) use ($changeToExpect): void {
                 self::assertStringContainsString($changeToExpect, $output);
             });
 

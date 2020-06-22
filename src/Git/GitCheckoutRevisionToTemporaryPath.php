@@ -7,6 +7,7 @@ namespace Roave\BackwardCompatibility\Git;
 use RuntimeException;
 use Symfony\Component\Process\Exception\RuntimeException as ProcessRuntimeException;
 use Symfony\Component\Process\Process;
+
 use function file_exists;
 use function Safe\sprintf;
 use function sys_get_temp_dir;
@@ -26,7 +27,7 @@ final class GitCheckoutRevisionToTemporaryPath implements PerformCheckoutOfRevis
      *
      * @throws ProcessRuntimeException
      */
-    public function checkout(CheckedOutRepository $sourceRepository, Revision $revision) : CheckedOutRepository
+    public function checkout(CheckedOutRepository $sourceRepository, Revision $revision): CheckedOutRepository
     {
         $checkoutDirectory = $this->generateTemporaryPathFor($revision);
 
@@ -41,7 +42,7 @@ final class GitCheckoutRevisionToTemporaryPath implements PerformCheckoutOfRevis
      *
      * @throws ProcessRuntimeException
      */
-    public function remove(CheckedOutRepository $checkedOutRepository) : void
+    public function remove(CheckedOutRepository $checkedOutRepository): void
     {
         (new Process(['rm', '-rf', $checkedOutRepository]))->mustRun();
     }
@@ -49,7 +50,7 @@ final class GitCheckoutRevisionToTemporaryPath implements PerformCheckoutOfRevis
     /**
      * @throws RuntimeException
      */
-    private function generateTemporaryPathFor(Revision $revision) : string
+    private function generateTemporaryPathFor(Revision $revision): string
     {
         $uniquePathGenerator = $this->uniquenessFunction;
         $checkoutDirectory   = sys_get_temp_dir() . '/api-compare-' . $uniquePathGenerator($revision . '_');

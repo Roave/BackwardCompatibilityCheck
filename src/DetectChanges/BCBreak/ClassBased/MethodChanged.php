@@ -9,6 +9,7 @@ use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased\MethodBased;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
+
 use function array_intersect_key;
 use function array_keys;
 use function array_map;
@@ -24,7 +25,7 @@ final class MethodChanged implements ClassBased
         $this->checkMethod = $checkMethod;
     }
 
-    public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass) : Changes
+    public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass): Changes
     {
         return Changes::fromIterator($this->checkSymbols($this->methods($fromClass), $this->methods($toClass)));
     }
@@ -35,7 +36,7 @@ final class MethodChanged implements ClassBased
      *
      * @return iterable|Change[]
      */
-    private function checkSymbols(array $from, array $to) : iterable
+    private function checkSymbols(array $from, array $to): iterable
     {
         foreach (array_keys(array_intersect_key($from, $to)) as $name) {
             yield from $this->checkMethod->__invoke($from[$name], $to[$name]);
@@ -43,12 +44,12 @@ final class MethodChanged implements ClassBased
     }
 
     /** @return ReflectionMethod[] indexed by lower case method name */
-    private function methods(ReflectionClass $class) : array
+    private function methods(ReflectionClass $class): array
     {
         $methods = $class->getMethods();
 
         return array_combine(
-            array_map(static function (ReflectionMethod $method) : string {
+            array_map(static function (ReflectionMethod $method): string {
                 return strtolower($method->getName());
             }, $methods),
             $methods

@@ -12,6 +12,7 @@ use Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\FunctionBase
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased\MethodBased;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased\MethodFunctionDefinitionChanged;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
+
 use function uniqid;
 
 /**
@@ -24,7 +25,7 @@ final class MethodFunctionDefinitionChangedTest extends TestCase
 
     private MethodBased $methodCheck;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -32,7 +33,7 @@ final class MethodFunctionDefinitionChangedTest extends TestCase
         $this->methodCheck   = new MethodFunctionDefinitionChanged($this->functionCheck);
     }
 
-    public function testWillCheckVisibleMethods() : void
+    public function testWillCheckVisibleMethods(): void
     {
         $from = $this->createMock(ReflectionMethod::class);
         $to   = $this->createMock(ReflectionMethod::class);

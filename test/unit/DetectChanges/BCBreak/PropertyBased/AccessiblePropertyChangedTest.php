@@ -11,6 +11,7 @@ use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\AccessiblePropertyChanged;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\PropertyBased;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
+
 use function uniqid;
 
 /**
@@ -29,7 +30,7 @@ final class AccessiblePropertyChangedTest extends TestCase
 
     private AccessiblePropertyChanged $accessiblePropertyChanged;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -39,7 +40,7 @@ final class AccessiblePropertyChangedTest extends TestCase
         $this->toProperty                = $this->createMock(ReflectionProperty::class);
     }
 
-    public function testSkipsPrivateProperty() : void
+    public function testSkipsPrivateProperty(): void
     {
         $this
             ->check
@@ -58,7 +59,7 @@ final class AccessiblePropertyChangedTest extends TestCase
         );
     }
 
-    public function testChecksAccessibleProperty() : void
+    public function testChecksAccessibleProperty(): void
     {
         $changes = Changes::fromList(Change::changed(uniqid('potato', true), true));
 

@@ -12,11 +12,12 @@ use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
+
 use function reset;
 
 final class ExcludeAnonymousClassesTest extends TestCase
 {
-    public function testNormalClassesAreNotExcluded() : void
+    public function testNormalClassesAreNotExcluded(): void
     {
         $locator        = (new BetterReflection())->astLocator();
         $reflector      = new ClassReflector(new StringSourceLocator(
@@ -41,7 +42,7 @@ PHP
         $excluder->__invoke($fromReflection, $toReflection);
     }
 
-    public function testAnonymousClassesAreExcluded() : void
+    public function testAnonymousClassesAreExcluded(): void
     {
         $locator                  = (new BetterReflection())->astLocator();
         $reflector                = new ClassReflector(new StringSourceLocator(

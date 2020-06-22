@@ -8,6 +8,7 @@ use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Formatter\ReflectionPropertyName;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
+
 use function Safe\sprintf;
 use function var_export;
 
@@ -20,7 +21,7 @@ final class PropertyDefaultValueChanged implements PropertyBased
         $this->formatProperty = new ReflectionPropertyName();
     }
 
-    public function __invoke(ReflectionProperty $fromProperty, ReflectionProperty $toProperty) : Changes
+    public function __invoke(ReflectionProperty $fromProperty, ReflectionProperty $toProperty): Changes
     {
         $fromPropertyDefaultValue = $fromProperty->getDefaultValue();
         $toPropertyDefaultValue   = $toProperty->getDefaultValue();

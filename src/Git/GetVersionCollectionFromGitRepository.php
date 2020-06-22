@@ -11,6 +11,7 @@ use Symfony\Component\Process\Process;
 use Version\Exception\InvalidVersionString;
 use Version\Version;
 use Version\VersionCollection;
+
 use function array_filter;
 use function array_map;
 use function explode;
@@ -24,7 +25,7 @@ final class GetVersionCollectionFromGitRepository implements GetVersionCollectio
      * @throws LogicException
      * @throws RuntimeException
      */
-    public function fromRepository(CheckedOutRepository $checkedOutRepository) : VersionCollection
+    public function fromRepository(CheckedOutRepository $checkedOutRepository): VersionCollection
     {
         $output = (new Process(['git', 'tag', '-l']))
             ->setWorkingDirectory($checkedOutRepository->__toString())
@@ -32,7 +33,7 @@ final class GetVersionCollectionFromGitRepository implements GetVersionCollectio
             ->getOutput();
 
         return new VersionCollection(...array_filter(
-            array_map(static function (string $maybeVersion) : ?Version {
+            array_map(static function (string $maybeVersion): ?Version {
                 try {
                     return Version::fromString($maybeVersion);
                 } catch (InvalidVersionString $e) {

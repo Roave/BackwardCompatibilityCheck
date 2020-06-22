@@ -6,6 +6,7 @@ namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased;
 
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
+
 use function Safe\preg_match;
 
 /**
@@ -20,7 +21,7 @@ final class ExcludeInternalFunction implements FunctionBased
         $this->check = $check;
     }
 
-    public function __invoke(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction) : Changes
+    public function __invoke(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction): Changes
     {
         if ($this->isInternalDocComment($fromFunction->getDocComment())) {
             return Changes::empty();
@@ -29,7 +30,7 @@ final class ExcludeInternalFunction implements FunctionBased
         return $this->check->__invoke($fromFunction, $toFunction);
     }
 
-    private function isInternalDocComment(string $comment) : bool
+    private function isInternalDocComment(string $comment): bool
     {
         return preg_match('/\s+@internal\s+/', $comment) === 1;
     }

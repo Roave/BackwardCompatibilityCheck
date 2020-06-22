@@ -18,7 +18,7 @@ final class SkipInterfaceBasedErrors implements InterfaceBased
         $this->next = $next;
     }
 
-    public function __invoke(ReflectionClass $fromInterface, ReflectionClass $toInterface) : Changes
+    public function __invoke(ReflectionClass $fromInterface, ReflectionClass $toInterface): Changes
     {
         try {
             return $this->next->__invoke($fromInterface, $toInterface);

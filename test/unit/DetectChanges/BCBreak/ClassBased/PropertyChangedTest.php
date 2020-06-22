@@ -20,7 +20,7 @@ use RoaveTest\BackwardCompatibility\Assertion;
  */
 final class PropertyChangedTest extends TestCase
 {
-    public function testWillDetectChangesInProperties() : void
+    public function testWillDetectChangesInProperties(): void
     {
         $astLocator = (new BetterReflection())->astLocator();
 
@@ -61,7 +61,7 @@ PHP
         $comparator
             ->expects(self::exactly(2))
             ->method('__invoke')
-            ->willReturnCallback(static function (ReflectionProperty $from, ReflectionProperty $to) : Changes {
+            ->willReturnCallback(static function (ReflectionProperty $from, ReflectionProperty $to): Changes {
                 $propertyName = $from->getName();
 
                 self::assertSame($propertyName, $to->getName());

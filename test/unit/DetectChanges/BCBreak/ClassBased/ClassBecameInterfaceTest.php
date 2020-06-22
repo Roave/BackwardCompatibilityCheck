@@ -12,6 +12,7 @@ use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 use RoaveTest\BackwardCompatibility\TypeRestriction;
+
 use function array_combine;
 use function array_keys;
 use function array_map;
@@ -28,13 +29,13 @@ final class ClassBecameInterfaceTest extends TestCase
         ReflectionClass $fromClass,
         ReflectionClass $toClass,
         array $expectedMessages
-    ) : void {
+    ): void {
         $changes = (new ClassBecameInterface())
             ->__invoke($fromClass, $toClass);
 
         self::assertSame(
             $expectedMessages,
-            array_map(static function (Change $change) : string {
+            array_map(static function (Change $change): string {
                 return $change->__toString();
             }, iterator_to_array($changes))
         );
@@ -45,7 +46,7 @@ final class ClassBecameInterfaceTest extends TestCase
      *
      * @psalm-return array<string, array{0: ReflectionClass, 1: ReflectionClass, 2: list<string>}>
      */
-    public function classesToBeTested() : array
+    public function classesToBeTested(): array
     {
         $locator       = (new BetterReflection())->astLocator();
         $fromReflector = new ClassReflector(new StringSourceLocator(
@@ -108,7 +109,7 @@ PHP
             array_keys($classes),
             array_map(
                 /** @psalm-param list<string> $errors https://github.com/vimeo/psalm/issues/2772 */
-                static function (string $className, array $errors) use ($fromReflector, $toReflector) : array {
+                static function (string $className, array $errors) use ($fromReflector, $toReflector): array {
                     return [
                         $fromReflector->reflect($className),
                         $toReflector->reflect($className),

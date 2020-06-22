@@ -14,6 +14,7 @@ use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\SourceLocator\Ast\Locator;
 use Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
+
 use function Safe\getcwd;
 use function Safe\realpath;
 
@@ -39,14 +40,14 @@ final class LocateDependenciesViaComposerTest extends TestCase
 
     private LocateDependenciesViaComposer $locateDependencies;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         parent::setUp();
 
         $this->originalCwd       = getcwd();
         $this->composerInstaller = $this->createMock(Installer::class);
         $this->astLocator        = (new BetterReflection())->astLocator();
-        $this->makeInstaller     = function (string $installationPath) : Installer {
+        $this->makeInstaller     = function (string $installationPath): Installer {
             self::assertSame($this->expectedInstallatonPath, $installationPath);
 
             return $this->composerInstaller;
@@ -55,14 +56,14 @@ final class LocateDependenciesViaComposerTest extends TestCase
         $this->locateDependencies = new LocateDependenciesViaComposer($this->makeInstaller, $this->astLocator);
     }
 
-    protected function tearDown() : void
+    protected function tearDown(): void
     {
         self::assertSame($this->originalCwd, getcwd());
 
         parent::tearDown();
     }
 
-    public function testWillNotLocateDependenciesForANonExistingPath() : void
+    public function testWillNotLocateDependenciesForANonExistingPath(): void
     {
         $this
             ->composerInstaller
@@ -76,7 +77,7 @@ final class LocateDependenciesViaComposerTest extends TestCase
             ->__invoke(__DIR__ . '/non-existing');
     }
 
-    public function testWillLocateDependencies() : void
+    public function testWillLocateDependencies(): void
     {
         $this->expectedInstallatonPath = realpath(__DIR__ . '/../../asset/composer-installation-structure');
 
@@ -105,7 +106,7 @@ final class LocateDependenciesViaComposerTest extends TestCase
             ->composerInstaller
             ->expects(self::once())
             ->method('run')
-            ->willReturnCallback(function () : void {
+            ->willReturnCallback(function (): void {
                 self::assertSame($this->expectedInstallatonPath, getcwd());
             });
 

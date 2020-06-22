@@ -18,13 +18,13 @@ final class MultipleChecksOnAClassConstant implements ClassConstantBased
         $this->checks = $checks;
     }
 
-    public function __invoke(ReflectionClassConstant $fromConstant, ReflectionClassConstant $toConstant) : Changes
+    public function __invoke(ReflectionClassConstant $fromConstant, ReflectionClassConstant $toConstant): Changes
     {
         return Changes::fromIterator($this->multipleChecks($fromConstant, $fromConstant));
     }
 
     /** @return iterable|Change[] */
-    private function multipleChecks(ReflectionClassConstant $fromConstant, ReflectionClassConstant $toConstant) : iterable
+    private function multipleChecks(ReflectionClassConstant $fromConstant, ReflectionClassConstant $toConstant): iterable
     {
         foreach ($this->checks as $check) {
             yield from $check->__invoke($fromConstant, $toConstant);

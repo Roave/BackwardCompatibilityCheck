@@ -8,6 +8,7 @@ use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
+
 use function Safe\sprintf;
 
 /**
@@ -23,7 +24,7 @@ final class RequiredParameterAmountIncreased implements FunctionBased
         $this->formatFunction = new ReflectionFunctionAbstractName();
     }
 
-    public function __invoke(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction) : Changes
+    public function __invoke(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction): Changes
     {
         $fromRequiredParameters = $fromFunction->getNumberOfRequiredParameters();
         $toRequiredParameters   = $toFunction->getNumberOfRequiredParameters();

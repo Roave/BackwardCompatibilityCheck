@@ -26,6 +26,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Webmozart\Assert\Assert;
+
 use function assert;
 use function count;
 use function is_array;
@@ -75,7 +76,7 @@ final class AssertBackwardsCompatible extends Command
     /**
      * @throws InvalidArgumentException
      */
-    protected function configure() : void
+    protected function configure(): void
     {
         $this
             ->setName('roave-backwards-compatibility-check:assert-backwards-compatible')
@@ -128,7 +129,7 @@ USAGE
     /**
      * @throws InvalidArgumentException
      */
-    public function execute(InputInterface $input, OutputInterface $output) : int
+    public function execute(InputInterface $input, OutputInterface $output): int
     {
         assert($output instanceof ConsoleOutputInterface, '');
         $stdErr = $output->getErrorOutput();
@@ -184,7 +185,7 @@ USAGE
         return $this->printOutcomeAndExit($changes, $stdErr);
     }
 
-    private function printOutcomeAndExit(Changes $changes, OutputInterface $stdErr) : int
+    private function printOutcomeAndExit(Changes $changes, OutputInterface $stdErr): int
     {
         $hasBcBreaks = count($changes);
 
@@ -200,7 +201,7 @@ USAGE
     /**
      * @throws InvalidArgumentException
      */
-    private function parseRevisionFromInput(InputInterface $input, CheckedOutRepository $repository) : Revision
+    private function parseRevisionFromInput(InputInterface $input, CheckedOutRepository $repository): Revision
     {
         $from = $input->getOption('from');
 
@@ -212,7 +213,7 @@ USAGE
     private function determineFromRevisionFromRepository(
         CheckedOutRepository $repository,
         OutputInterface $output
-    ) : Revision {
+    ): Revision {
         $versions = $this->getVersions->fromRepository($repository);
 
         Assert::minCount($versions, 1, 'Could not detect any released versions for the given repository');

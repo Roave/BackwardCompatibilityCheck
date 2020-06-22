@@ -16,7 +16,7 @@ use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 /** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\ExcludeInternalClass */
 final class ExcludeInternalClassTest extends TestCase
 {
-    public function testNormalClassesAreNotExcluded() : void
+    public function testNormalClassesAreNotExcluded(): void
     {
         $locator        = (new BetterReflection())->astLocator();
         $reflector      = new ClassReflector(new StringSourceLocator(
@@ -44,7 +44,7 @@ PHP
         );
     }
 
-    public function testInternalClassesAreExcluded() : void
+    public function testInternalClassesAreExcluded(): void
     {
         $locator    = (new BetterReflection())->astLocator();
         $reflector  = new ClassReflector(new StringSourceLocator(

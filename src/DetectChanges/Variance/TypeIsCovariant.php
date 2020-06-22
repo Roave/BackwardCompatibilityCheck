@@ -7,6 +7,7 @@ namespace Roave\BackwardCompatibility\DetectChanges\Variance;
 use Roave\BackwardCompatibility\Support\ArrayHelpers;
 use Roave\BetterReflection\Reflection\ReflectionType;
 use Traversable;
+
 use function strtolower;
 
 /**
@@ -20,7 +21,7 @@ final class TypeIsCovariant
     public function __invoke(
         ?ReflectionType $type,
         ?ReflectionType $comparedType
-    ) : bool {
+    ): bool {
         if ($type === null) {
             // everything can be covariant to `mixed`
             return true;

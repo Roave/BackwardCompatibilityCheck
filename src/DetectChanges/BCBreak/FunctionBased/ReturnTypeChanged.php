@@ -9,6 +9,7 @@ use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
 use Roave\BetterReflection\Reflection\ReflectionType;
+
 use function Safe\sprintf;
 
 /**
@@ -25,7 +26,7 @@ final class ReturnTypeChanged implements FunctionBased
         $this->formatFunction = new ReflectionFunctionAbstractName();
     }
 
-    public function __invoke(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction) : Changes
+    public function __invoke(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction): Changes
     {
         $fromReturnType = $this->typeToString($fromFunction->getReturnType());
         $toReturnType   = $this->typeToString($toFunction->getReturnType());
@@ -45,7 +46,7 @@ final class ReturnTypeChanged implements FunctionBased
         ));
     }
 
-    private function typeToString(?ReflectionType $type) : string
+    private function typeToString(?ReflectionType $type): string
     {
         if (! $type) {
             return 'no type';

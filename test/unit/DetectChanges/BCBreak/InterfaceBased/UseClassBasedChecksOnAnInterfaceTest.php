@@ -10,6 +10,7 @@ use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\ClassBased;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased\UseClassBasedChecksOnAnInterface;
 use Roave\BetterReflection\Reflection\ReflectionClass;
+
 use function uniqid;
 
 /**
@@ -17,7 +18,7 @@ use function uniqid;
  */
 final class UseClassBasedChecksOnAnInterfaceTest extends TestCase
 {
-    public function testCompare() : void
+    public function testCompare(): void
     {
         $changes = Changes::fromList(Change::added(uniqid('foo', true), true));
 

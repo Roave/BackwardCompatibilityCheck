@@ -20,7 +20,7 @@ final class MethodFunctionDefinitionChanged implements MethodBased
         $this->functionCheck = $functionCheck;
     }
 
-    public function __invoke(ReflectionMethod $fromMethod, ReflectionMethod $toMethod) : Changes
+    public function __invoke(ReflectionMethod $fromMethod, ReflectionMethod $toMethod): Changes
     {
         return $this->functionCheck->__invoke($fromMethod, $toMethod);
     }

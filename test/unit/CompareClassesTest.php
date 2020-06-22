@@ -31,12 +31,12 @@ final class CompareClassesTest extends TestCase
 
     private CompareClasses $compareClasses;
 
-    public static function setUpBeforeClass() : void
+    public static function setUpBeforeClass(): void
     {
         self::$stringReflectorFactory = new StringReflectorFactory();
     }
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -50,7 +50,7 @@ final class CompareClassesTest extends TestCase
         );
     }
 
-    public function testWillRunSubComparators() : void
+    public function testWillRunSubComparators(): void
     {
         $this->classBasedComparatorWillBeCalled();
         $this->interfaceBasedComparatorWillNotBeCalled();
@@ -86,7 +86,7 @@ PHP
         );
     }
 
-    public function testWillNotRunSubComparatorsIfSymbolsWereDeleted() : void
+    public function testWillNotRunSubComparatorsIfSymbolsWereDeleted(): void
     {
         $this->classBasedComparatorWillBeCalled();
         $this->interfaceBasedComparatorWillNotBeCalled();
@@ -118,7 +118,7 @@ PHP
         );
     }
 
-    public function testWillRunInterfaceComparators() : void
+    public function testWillRunInterfaceComparators(): void
     {
         $this->classBasedComparatorWillNotBeCalled();
         $this->interfaceBasedComparatorWillBeCalled();
@@ -134,7 +134,7 @@ PHP
         );
     }
 
-    public function testWillRunTraitComparators() : void
+    public function testWillRunTraitComparators(): void
     {
         $this->classBasedComparatorWillNotBeCalled();
         $this->interfaceBasedComparatorWillNotBeCalled();
@@ -150,7 +150,7 @@ PHP
         );
     }
 
-    public function testAnonymousClassesAreFilteredOut() : void
+    public function testAnonymousClassesAreFilteredOut(): void
     {
         $this->classBasedComparatorWillNotBeCalled();
         $this->interfaceBasedComparatorWillNotBeCalled();
@@ -166,7 +166,7 @@ PHP
         );
     }
 
-    public function testSkipsReflectingUndefinedApi() : void
+    public function testSkipsReflectingUndefinedApi(): void
     {
         $this->classBasedComparatorWillNotBeCalled();
 
@@ -180,7 +180,7 @@ PHP
         );
     }
 
-    public function testSkipsReflectingInternalClassAlikeSymbols() : void
+    public function testSkipsReflectingInternalClassAlikeSymbols(): void
     {
         $this->classBasedComparatorWillNotBeCalled();
         $this->interfaceBasedComparatorWillNotBeCalled();
@@ -206,7 +206,7 @@ PHP
         );
     }
 
-    public function testRemovingAClassCausesABreak() : void
+    public function testRemovingAClassCausesABreak(): void
     {
         $this->classBasedComparatorWillNotBeCalled();
         $this->interfaceBasedComparatorWillNotBeCalled();
@@ -222,7 +222,7 @@ PHP
         );
     }
 
-    private function classBasedComparatorWillBeCalled() : void
+    private function classBasedComparatorWillBeCalled(): void
     {
         $this
             ->classBasedComparison
@@ -231,7 +231,7 @@ PHP
             ->willReturn(Changes::fromList(Change::changed('class change', true)));
     }
 
-    private function classBasedComparatorWillNotBeCalled() : void
+    private function classBasedComparatorWillNotBeCalled(): void
     {
         $this
             ->classBasedComparison
@@ -239,7 +239,7 @@ PHP
             ->method('__invoke');
     }
 
-    private function interfaceBasedComparatorWillBeCalled() : void
+    private function interfaceBasedComparatorWillBeCalled(): void
     {
         $this
             ->interfaceBasedComparison
@@ -248,7 +248,7 @@ PHP
             ->willReturn(Changes::fromList(Change::changed('interface change', true)));
     }
 
-    private function interfaceBasedComparatorWillNotBeCalled() : void
+    private function interfaceBasedComparatorWillNotBeCalled(): void
     {
         $this
             ->interfaceBasedComparison
@@ -256,7 +256,7 @@ PHP
             ->method('__invoke');
     }
 
-    private function traitBasedComparatorWillBeCalled() : void
+    private function traitBasedComparatorWillBeCalled(): void
     {
         $this
             ->traitBasedComparison
@@ -265,7 +265,7 @@ PHP
             ->willReturn(Changes::fromList(Change::changed('trait change', true)));
     }
 
-    private function traitBasedComparatorWillNotBeCalled() : void
+    private function traitBasedComparatorWillNotBeCalled(): void
     {
         $this
             ->traitBasedComparison

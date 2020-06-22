@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Roave\BackwardCompatibility\Git;
 
 use Webmozart\Assert\Assert;
+
 use function rtrim;
 
 final class Revision
@@ -15,7 +16,7 @@ final class Revision
     {
     }
 
-    public static function fromSha1(string $sha1) : self
+    public static function fromSha1(string $sha1): self
     {
         Assert::regex($sha1, '/^[a-zA-Z0-9]{40}$/');
 
@@ -25,7 +26,7 @@ final class Revision
         return $instance;
     }
 
-    public function __toString() : string
+    public function __toString(): string
     {
         return $this->sha1;
     }

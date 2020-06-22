@@ -14,7 +14,7 @@ final class GitParseRevision implements ParseRevision
      *
      * @throws RuntimeException
      */
-    public function fromStringForRepository(string $something, CheckedOutRepository $repository) : Revision
+    public function fromStringForRepository(string $something, CheckedOutRepository $repository): Revision
     {
         return Revision::fromSha1(
             (new Process(['git', 'rev-parse', $something]))

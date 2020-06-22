@@ -31,7 +31,7 @@ final class ComposerInstallationReflectorFactory
     public function __invoke(
         string $installationDirectory,
         SourceLocator $dependencies
-    ) : ClassReflector {
+    ): ClassReflector {
         return new ClassReflector(
             new MemoizingSourceLocator(new AggregateSourceLocator([
                 $this->locateSources->__invoke($installationDirectory),

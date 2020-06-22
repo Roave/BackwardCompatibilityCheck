@@ -8,6 +8,7 @@ use Generator;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
+
 use function array_fill;
 use function iterator_to_array;
 use function random_int;
@@ -19,7 +20,7 @@ use function unserialize;
  */
 final class ChangesTest extends TestCase
 {
-    public function testMergeWith() : void
+    public function testMergeWith(): void
     {
         $changes1 = Changes::fromList(Change::changed('a', true));
         $changes2 = Changes::fromList(Change::removed('b', false));
@@ -46,13 +47,13 @@ final class ChangesTest extends TestCase
         self::assertEquals($frozen2, $changes2, 'Original Changes instance not mutated');
     }
 
-    public function testFromIteratorBuffersAllChangesWithoutLoadingThemEagerly() : void
+    public function testFromIteratorBuffersAllChangesWithoutLoadingThemEagerly(): void
     {
-        $stopProducingValues = static function () : void {
+        $stopProducingValues = static function (): void {
             self::fail('No values should have been produced');
         };
 
-        $changesProvider = static function () use (&$stopProducingValues) : Generator {
+        $changesProvider = static function () use (&$stopProducingValues): Generator {
             $stopProducingValues();
 
             yield Change::changed('a', true);
@@ -71,7 +72,7 @@ final class ChangesTest extends TestCase
             Change::changed('b', false),
         ];
 
-        $stopProducingValues = static function () : void {
+        $stopProducingValues = static function (): void {
         };
 
         self::assertEquals($expectedChanges, iterator_to_array($changes));
@@ -83,14 +84,14 @@ final class ChangesTest extends TestCase
         self::assertCount(2, $changes);
     }
 
-    public function testMergeWithPreservesOriginalInstanceIfMergedWithEmptyChanges() : void
+    public function testMergeWithPreservesOriginalInstanceIfMergedWithEmptyChanges(): void
     {
         $changes = Changes::fromList(Change::changed('a', true));
 
         Assertion::assertChangesEqual($changes, $changes->mergeWith(Changes::empty()));
     }
 
-    public function testFromList() : void
+    public function testFromList(): void
     {
         $change = Change::added('added', true);
 
@@ -100,7 +101,7 @@ final class ChangesTest extends TestCase
         );
     }
 
-    public function testCount() : void
+    public function testCount(): void
     {
         $count = random_int(1, 10);
 

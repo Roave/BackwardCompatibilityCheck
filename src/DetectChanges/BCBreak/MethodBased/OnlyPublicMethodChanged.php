@@ -19,7 +19,7 @@ final class OnlyPublicMethodChanged implements MethodBased
         $this->check = $check;
     }
 
-    public function __invoke(ReflectionMethod $fromMethod, ReflectionMethod $toMethod) : Changes
+    public function __invoke(ReflectionMethod $fromMethod, ReflectionMethod $toMethod): Changes
     {
         if (! $fromMethod->isPublic()) {
             return Changes::empty();

@@ -36,7 +36,7 @@ final class DirectoryReflectorFactory
     public function __invoke(
         string $directory,
         SourceLocator $dependencies
-    ) : ClassReflector {
+    ): ClassReflector {
         return new ClassReflector(
             new MemoizingSourceLocator(new AggregateSourceLocator([
                 new DirectoriesSourceLocator([$directory], $this->astLocator),

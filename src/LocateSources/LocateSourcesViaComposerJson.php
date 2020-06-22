@@ -17,7 +17,7 @@ final class LocateSourcesViaComposerJson implements LocateSources
         $this->astLocator = $astLocator;
     }
 
-    public function __invoke(string $installationPath) : SourceLocator
+    public function __invoke(string $installationPath): SourceLocator
     {
         return (new MakeLocatorForComposerJson())
             ->__invoke($installationPath, $this->astLocator);
