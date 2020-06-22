@@ -45,9 +45,11 @@ final class PropertyRemoved implements ClassBased
     /** @return ReflectionProperty[] */
     private function accessibleProperties(ReflectionClass $class): array
     {
-        return array_filter($class->getProperties(), function (ReflectionProperty $property): bool {
+        $classIsOpen = ! $class->isFinal();
+
+        return array_filter($class->getProperties(), function (ReflectionProperty $property) use ($classIsOpen): bool {
             return ($property->isPublic()
-                || $property->isProtected())
+                || ($classIsOpen && $property->isProtected()))
                 && ! $this->isInternalDocComment($property->getDocComment());
         });
     }
