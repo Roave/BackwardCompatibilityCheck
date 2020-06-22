@@ -30,7 +30,7 @@
         "phpstan/phpstan": "^0.11.19",
         "phpstan/phpstan-beberlei-assert": "^0.11.2",
         "phpstan/phpstan-phpunit": "^0.11.2",
-        "phpunit/phpunit": "^9.0.1",
+        "phpunit/phpunit": "^9.2.5",
         "roave/security-advisories": "dev-master",
         "squizlabs/php_codesniffer": "^3.5.4",
         "thecodingmachine/phpstan-safe-rule": "^1.0",
