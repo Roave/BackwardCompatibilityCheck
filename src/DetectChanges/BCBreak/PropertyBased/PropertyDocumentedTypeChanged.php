@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased;
 
-use InvalidArgumentException;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Formatter\ReflectionPropertyName;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
-use function array_unique;
 use function implode;
 use function Safe\sort;
 use function Safe\sprintf;
