@@ -57,5 +57,8 @@ jobs:
         if: ${{ matrix.dependencies == 'locked' }}
         run: "composer install --no-interaction --no-progress --no-suggest"
 
+      - name: "Make sure current HEAD is master, and not detached"
+        run: "git checkout -b master || true"
+
       - name: "roave-backward-compatibility-check"
         run: "bin/roave-backward-compatibility-check --from=master --to=HEAD"
