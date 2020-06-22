@@ -35,7 +35,7 @@ final class GitCheckoutRevisionToTemporaryPathTest extends TestCase
 
         $git->remove($temporaryClone);
 
-        self::assertDirectoryNotExists((string) $temporaryClone);
+        self::assertDirectoryDoesNotExist((string) $temporaryClone);
     }
 
     public function testCanCheckOutSameRevisionTwice() : void
@@ -53,8 +53,8 @@ final class GitCheckoutRevisionToTemporaryPathTest extends TestCase
         $git->remove($first);
         $git->remove($second);
 
-        self::assertDirectoryNotExists((string) $first);
-        self::assertDirectoryNotExists((string) $second);
+        self::assertDirectoryDoesNotExist((string) $first);
+        self::assertDirectoryDoesNotExist((string) $second);
     }
 
     public function testCheckedOutRevisionIsAtExpectedRevisionState() : void
@@ -102,7 +102,7 @@ final class GitCheckoutRevisionToTemporaryPathTest extends TestCase
         $first            = $git->checkout($sourceRepository, $firstCommit);
         $second           = $git->checkout($sourceRepository, $secondCommit);
 
-        self::assertFileNotExists($first->__toString() . '/a-file.txt');
+        self::assertFileDoesNotExist($first->__toString() . '/a-file.txt');
         self::assertFileExists($second->__toString() . '/a-file.txt');
 
         $git->remove($first);
