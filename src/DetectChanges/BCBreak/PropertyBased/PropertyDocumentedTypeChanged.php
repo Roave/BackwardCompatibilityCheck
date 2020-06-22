@@ -35,13 +35,8 @@ final class PropertyDocumentedTypeChanged implements PropertyBased
             return Changes::empty();
         }
 
-        try {
-            $fromTypes = $fromProperty->getDocBlockTypeStrings();
-            $toTypes   = $toProperty->getDocBlockTypeStrings();
-        } catch (InvalidArgumentException $failedToParseDocblock) {
-            // @TODO #134 improve docblock parsing upstream to remove this generic try-catch
-            return Changes::empty();
-        }
+        $fromTypes = $fromProperty->getDocBlockTypeStrings();
+        $toTypes   = $toProperty->getDocBlockTypeStrings();
 
         sort($fromTypes);
         sort($toTypes);
