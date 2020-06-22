@@ -7,6 +7,7 @@ namespace Roave\BackwardCompatibility\LocateDependencies;
 use Assert\Assert;
 use Composer\Installer;
 use Roave\BetterReflection\SourceLocator\Ast\Locator;
+use Roave\BetterReflection\SourceLocator\SourceStubber\ReflectionSourceStubber;
 use Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\Composer\Factory\MakeLocatorForInstalledJson;
 use Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
@@ -55,7 +56,7 @@ final class LocateDependenciesViaComposer implements LocateDependencies
 
         return new AggregateSourceLocator([
             (new MakeLocatorForInstalledJson())->__invoke($installationPath, $this->astLocator),
-            new PhpInternalSourceLocator($this->astLocator),
+            new PhpInternalSourceLocator($this->astLocator, new ReflectionSourceStubber()),
         ]);
     }
 

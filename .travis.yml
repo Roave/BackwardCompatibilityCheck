@@ -49,7 +49,7 @@ jobs:
       script: vendor/bin/phpcs
 
     - stage: Mutation Tests
-      script: vendor/bin/infection --min-msi=100 --min-covered-msi=100
+      script: vendor/bin/infection --min-msi=100 --min-covered-msi=100 --show-mutations
 
     - stage: Verify BC Breaks
       script: bin/roave-backward-compatibility-check --from=master --to=HEAD
