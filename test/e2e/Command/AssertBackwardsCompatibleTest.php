@@ -184,7 +184,7 @@ EXPECTED
             $this->sourcesRepository
         );
 
-        self::assertSame(212, $check->run());
+        self::assertSame(1, $check->run());
         self::assertStringContainsString(
             'Could not detect any released versions for the given repository',
             $check->getErrorOutput()

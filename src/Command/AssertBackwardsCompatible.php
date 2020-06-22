@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\Command;
 
-use Assert\Assert;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\CompareApi;
 use Roave\BackwardCompatibility\Factory\ComposerInstallationReflectorFactory;
@@ -26,6 +25,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Webmozart\Assert\Assert;
 use function assert;
 use function count;
 use function is_array;
@@ -215,9 +215,7 @@ USAGE
     ) : Revision {
         $versions = $this->getVersions->fromRepository($repository);
 
-        // @TODO add a test around the 0 limit
-        Assert::that($versions->count())
-            ->greaterThan(0, 'Could not detect any released versions for the given repository');
+        Assert::minCount($versions, 1, 'Could not detect any released versions for the given repository');
 
         $versionString = $this->pickFromVersion->forVersions($versions)->toString();
 

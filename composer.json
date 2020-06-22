@@ -4,14 +4,14 @@
     "require": {
         "php": "^7.4.7",
         "ext-json": "*",
-        "beberlei/assert": "^3.2.7",
         "composer/composer": "^1.10.7",
         "nikolaposa/version": "^4.0.0",
         "ocramius/package-versions": "^1.8.0",
         "roave/better-reflection": "^4.6.1",
         "symfony/console": "^5.1.2",
         "symfony/process": "^5.1.2",
-        "thecodingmachine/safe": "^1.1.1"
+        "thecodingmachine/safe": "^1.1.1",
+        "webmozart/assert": "^1.9.0"
     },
     "license": "MIT",
     "authors": [
@@ -30,7 +30,6 @@
         "phpunit/phpunit": "^9.2.5",
         "roave/security-advisories": "dev-master",
         "squizlabs/php_codesniffer": "^3.5.5",
-        "thecodingmachine/phpstan-safe-rule": "^1.0",
         "vimeo/psalm": "^3.11.5"
     },
     "autoload": {

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\LocateDependencies;
 
-use Assert\AssertionFailedException;
 use Composer\Installer;
+use InvalidArgumentException;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use ReflectionProperty;
@@ -69,7 +69,7 @@ final class LocateDependenciesViaComposerTest extends TestCase
             ->expects(self::never())
             ->method('run');
 
-        $this->expectException(AssertionFailedException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $this
             ->locateDependencies

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\Command;
 
-use Assert\AssertionFailedException;
+use InvalidArgumentException;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
@@ -332,7 +332,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
             ->expects(self::never())
             ->method('__invoke');
 
-        $this->expectException(AssertionFailedException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $this->compare->execute($this->input, $this->output);
     }
