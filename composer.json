@@ -4,7 +4,7 @@
     "require": {
         "php": "^7.4.7",
         "ext-json": "*",
-        "composer/composer": "^1.10.7",
+        "composer/composer": "^1.10.8",
         "nikolaposa/version": "^4.0.0",
         "ocramius/package-versions": "^1.8.0",
         "roave/better-reflection": "^4.6.1",
