@@ -6,7 +6,7 @@
         "ext-json": "*",
         "composer/composer": "^1.10.8",
         "nikolaposa/version": "^4.0.0",
-        "ocramius/package-versions": "^1.8.0",
+        "ocramius/package-versions": "^1.9.0",
         "roave/better-reflection": "^4.6.1",
         "symfony/console": "^5.1.2",
         "symfony/process": "^5.1.2",
