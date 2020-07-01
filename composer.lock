@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2db1b2a8ffcbdec655a9d1b01e0b37f0",
+    "content-hash": "0d933a849a6069f70d58da22efce5b9d",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -2782,16 +2782,16 @@
         },
         {
             "name": "infection/infection",
-            "version": "0.16.3",
+            "version": "0.16.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/infection/infection.git",
-                "reference": "52d597af80429d52dd6218fcb9766fc7653ec88c"
+                "reference": "c1ef0b16b3e8d171f10ba8bfe8b6c93d482a68b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/infection/infection/zipball/52d597af80429d52dd6218fcb9766fc7653ec88c",
-                "reference": "52d597af80429d52dd6218fcb9766fc7653ec88c",
+                "url": "https://api.github.com/repos/infection/infection/zipball/c1ef0b16b3e8d171f10ba8bfe8b6c93d482a68b4",
+                "reference": "c1ef0b16b3e8d171f10ba8bfe8b6c93d482a68b4",
                 "shasum": ""
             },
             "require": {
@@ -2885,7 +2885,7 @@
                 "testing",
                 "unit testing"
             ],
-            "time": "2020-04-26T11:15:23+00:00"
+            "time": "2020-06-25T15:14:51+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -4275,20 +4275,20 @@
         },
         {
             "name": "sebastian/diff",
-            "version": "4.0.1",
+            "version": "4.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/diff.git",
-                "reference": "3e523c576f29dacecff309f35e4cc5a5c168e78a"
+                "reference": "1e90b4cf905a7d06c420b1d2e9d11a4dc8a13113"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/diff/zipball/3e523c576f29dacecff309f35e4cc5a5c168e78a",
-                "reference": "3e523c576f29dacecff309f35e4cc5a5c168e78a",
+                "url": "https://api.github.com/repos/sebastianbergmann/diff/zipball/1e90b4cf905a7d06c420b1d2e9d11a4dc8a13113",
+                "reference": "1e90b4cf905a7d06c420b1d2e9d11a4dc8a13113",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.3"
+                "php": "^7.3 || ^8.0"
             },
             "require-dev": {
                 "phpunit/phpunit": "^9.0",
@@ -4333,7 +4333,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-05-08T05:01:12+00:00"
+            "time": "2020-06-30T04:46:02+00:00"
         },
         {
             "name": "sebastian/environment",
