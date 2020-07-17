@@ -23,7 +23,11 @@ final class MultipleChecksOnAnInterface implements InterfaceBased
         return Changes::fromIterator($this->multipleChecks($fromInterface, $toInterface));
     }
 
-    /** @return iterable|Change[] */
+    /**
+     * @return iterable|Change[]
+     *
+     * @psalm-return iterable<int, Change>
+     */
     private function multipleChecks(ReflectionClass $fromInterface, ReflectionClass $toInterface): iterable
     {
         foreach ($this->checks as $check) {

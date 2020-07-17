@@ -15,7 +15,7 @@ use function array_diff_key;
 use function array_filter;
 use function array_map;
 use function array_values;
-use function Safe\array_combine;
+use function array_combine;
 use function Safe\preg_match;
 use function Safe\sprintf;
 
@@ -45,7 +45,11 @@ final class MethodRemoved implements ClassBased
         }, $removedMethods)));
     }
 
-    /** @return ReflectionMethod[] */
+    /**
+     * @return ReflectionMethod[]
+     *
+     * @psalm-return array<string, ReflectionMethod>
+     */
     private function accessibleMethods(ReflectionClass $class): array
     {
         $methods = array_filter($class->getMethods(), function (ReflectionMethod $method): bool {

@@ -13,7 +13,7 @@ use Roave\BetterReflection\Reflection\ReflectionMethod;
 use function array_intersect_key;
 use function array_keys;
 use function array_map;
-use function Safe\array_combine;
+use function array_combine;
 use function strtolower;
 
 final class MethodChanged implements ClassBased
@@ -43,7 +43,11 @@ final class MethodChanged implements ClassBased
         }
     }
 
-    /** @return ReflectionMethod[] indexed by lower case method name */
+    /**
+     * @return ReflectionMethod[] indexed by lower case method name
+     *
+     * @psalm-return array<string, ReflectionMethod>
+     */
     private function methods(ReflectionClass $class): array
     {
         $methods = $class->getMethods();

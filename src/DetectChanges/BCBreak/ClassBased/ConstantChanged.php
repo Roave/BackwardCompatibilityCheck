@@ -35,6 +35,8 @@ final class ConstantChanged implements ClassBased
      * @param ReflectionClassConstant[] $to
      *
      * @return iterable|Change[]
+     *
+     * @psalm-return iterable<int, Change>
      */
     private function checkSymbols(array $from, array $to): iterable
     {

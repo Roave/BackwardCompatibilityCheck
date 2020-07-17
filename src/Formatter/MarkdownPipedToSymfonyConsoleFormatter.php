@@ -53,7 +53,11 @@ final class MarkdownPipedToSymfonyConsoleFormatter implements OutputFormatter
         );
     }
 
-    /** @return string[] */
+    /**
+     * @return string[]
+     *
+     * @psalm-param callable(Change): bool $filterFunction
+     */
     private function convertFilteredChangesToMarkdownBulletList(callable $filterFunction, Change ...$changes): array
     {
         return array_map(

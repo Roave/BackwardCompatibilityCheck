@@ -23,7 +23,11 @@ final class MultipleChecksOnAClass implements ClassBased
         return Changes::fromIterator($this->multipleChecks($fromClass, $toClass));
     }
 
-    /** @return iterable|Change[] */
+    /**
+     * @return iterable|Change[]
+     *
+     * @psalm-return iterable<int, Change>
+     */
     private function multipleChecks(ReflectionClass $fromClass, ReflectionClass $toClass): iterable
     {
         foreach ($this->checks as $check) {

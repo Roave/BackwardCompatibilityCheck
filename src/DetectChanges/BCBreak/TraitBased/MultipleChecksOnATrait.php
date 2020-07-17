@@ -23,7 +23,11 @@ final class MultipleChecksOnATrait implements TraitBased
         return Changes::fromIterator($this->multipleChecks($fromTrait, $toTrait));
     }
 
-    /** @return iterable|Change[] */
+    /**
+     * @return iterable|Change[]
+     *
+     * @psalm-return iterable<int, Change>
+     */
     private function multipleChecks(ReflectionClass $fromTrait, ReflectionClass $toTrait): iterable
     {
         foreach ($this->checks as $check) {

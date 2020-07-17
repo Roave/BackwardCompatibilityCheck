@@ -5,19 +5,26 @@ declare(strict_types=1);
 namespace Roave\BackwardCompatibility;
 
 use Countable;
-use Generator;
 use IteratorAggregate;
-use Traversable;
 
 use function count;
 use function iterator_to_array;
 
+/** @template-implements IteratorAggregate<int, Change> */
 final class Changes implements IteratorAggregate, Countable
 {
-    /** @var Change[] */
+    /**
+     * @var Change[]
+     *
+     * @psalm-var list<Change>
+     */
     private array $bufferedChanges;
 
-    /** @var iterable|Change[]|null */
+    /**
+     * @var iterable|Change[]|null
+     *
+     * @psalm-var iterable<int, Change>|null
+     */
     private ?iterable $unBufferedChanges = null;
 
     private function __construct()
@@ -28,7 +35,7 @@ final class Changes implements IteratorAggregate, Countable
     {
         static $empty;
 
-        if ($empty) {
+        if ($empty instanceof self) {
             return $empty;
         }
 
@@ -39,7 +46,11 @@ final class Changes implements IteratorAggregate, Countable
         return $empty;
     }
 
-    /** @param iterable|Change[] $changes */
+    /**
+     * @param iterable|Change[] $changes
+     *
+     * @psalm-param iterable<int, Change> $changes
+     */
     public static function fromIterator(iterable $changes): self
     {
         $instance = new self();
@@ -64,7 +75,7 @@ final class Changes implements IteratorAggregate, Countable
         $instance = new self();
 
         $instance->bufferedChanges   = [];
-        $instance->unBufferedChanges = (function () use ($other): Generator {
+        $instance->unBufferedChanges = (function () use ($other): iterable {
             foreach ($this as $change) {
                 yield $change;
             }
@@ -79,8 +90,6 @@ final class Changes implements IteratorAggregate, Countable
 
     /**
      * {@inheritDoc}
-     *
-     * @return Traversable<int, Change>
      */
     public function getIterator(): iterable
     {
