@@ -1,12 +1,8 @@
-# https://help.github.com/en/categories/automating-your-workflow-with-github-actions
-
 name: "Check Coding Standards"
 
 on:
   pull_request:
   push:
-    branches:
-      - "master"
 
 jobs:
   coding-standards:
@@ -33,6 +29,7 @@ jobs:
           coverage: "pcov"
           php-version: "${{ matrix.php-version }}"
           ini-values: memory_limit=-1
+          tools: composer:v2, cs2pr
 
       - name: "Cache dependencies"
         uses: "actions/cache@v2"
@@ -55,5 +52,5 @@ jobs:
         if: ${{ matrix.dependencies == 'locked' }}
         run: "composer install --no-interaction --no-progress --no-suggest"
 
-      - name: "phpcs"
-        run: "vendor/bin/phpcs"
+      - name: "Coding Standard"
+        run: "vendor/bin/phpcs -q --report=checkstyle | cs2pr"

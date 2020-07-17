@@ -1,12 +1,8 @@
-# https://help.github.com/en/categories/automating-your-workflow-with-github-actions
-
 name: "PHPUnit tests"
 
 on:
   pull_request:
   push:
-    branches:
-      - "master"
 
 jobs:
   phpunit:
@@ -24,7 +20,6 @@ jobs:
           - "7.4"
         operating-system:
           - "ubuntu-latest"
-          - "windows-latest"
 
     steps:
       - name: "Checkout"
@@ -36,6 +31,7 @@ jobs:
           coverage: "pcov"
           php-version: "${{ matrix.php-version }}"
           ini-values: memory_limit=-1
+          tools: composer:v2, cs2pr
 
       - name: "Cache dependencies"
         uses: "actions/cache@v2"
@@ -58,5 +54,5 @@ jobs:
         if: ${{ matrix.dependencies == 'locked' }}
         run: "composer install --no-interaction --no-progress --no-suggest"
 
-      - name: "phpunit"
+      - name: "Tests"
         run: "vendor/bin/phpunit"

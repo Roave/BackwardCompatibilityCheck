@@ -1,16 +1,12 @@
-# https://help.github.com/en/categories/automating-your-workflow-with-github-actions
-
-name: "Backward Compatibility Check"
+name: "Check Backwards Compatibility"
 
 on:
   pull_request:
   push:
-    branches:
-      - "master"
 
 jobs:
-  backward-compatibility-check:
-    name: "Backward Compatibility Check"
+  coding-standards:
+    name: "Check Backwards Compatibility"
 
     runs-on: ${{ matrix.operating-system }}
 
@@ -35,6 +31,7 @@ jobs:
           coverage: "pcov"
           php-version: "${{ matrix.php-version }}"
           ini-values: memory_limit=-1
+          tools: composer:v2, cs2pr
 
       - name: "Cache dependencies"
         uses: "actions/cache@v2"
@@ -57,8 +54,5 @@ jobs:
         if: ${{ matrix.dependencies == 'locked' }}
         run: "composer install --no-interaction --no-progress --no-suggest"
 
-      - name: "Make sure current HEAD is master, and not detached"
-        run: "git checkout -b master || true"
-
-      - name: "roave-backward-compatibility-check"
-        run: "bin/roave-backward-compatibility-check --from=master --to=HEAD"
+      - name: "Roave Backward Compatibility Check"
+        run: "vendor/bin/roave-backward-compatibility-check"
