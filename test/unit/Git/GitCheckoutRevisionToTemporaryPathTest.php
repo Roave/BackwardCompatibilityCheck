@@ -70,11 +70,6 @@ final class GitCheckoutRevisionToTemporaryPathTest extends TestCase
 
         (new Process(['git', 'config', 'user.email', 'me@example.com'], $repoPath))
             ->mustRun();
-        (new Process(['git', 'config', 'user.name', 'Just Me'], $repoPath))
-            ->mustRun();
-
-        (new Process(['git', 'config', 'user.email', 'me@example.com'], $repoPath))
-            ->mustRun();
 
         (new Process(['git', 'config', 'user.name', 'Mr Magoo'], $repoPath))
             ->mustRun();
