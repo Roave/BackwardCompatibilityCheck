@@ -127,6 +127,10 @@ PHP
         self::assertDirectoryExists($this->sourcesRepository . '/src');
 
         (new Process(['git', 'init'], $this->sourcesRepository))->mustRun();
+        (new Process(['git', 'config', 'user.email', 'me@example.com'], $this->sourcesRepository))
+            ->mustRun();
+        (new Process(['git', 'config', 'user.name', 'Just Me'], $this->sourcesRepository))
+            ->mustRun();
 
         file_put_contents($this->sourcesRepository . '/composer.json', self::COMPOSER_MANIFEST);
 
