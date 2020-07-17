@@ -1,3 +1,5 @@
+*.php text eol=lf
+*.phpt text eol=lf
 /.gitattributes export-ignore
 /.github/ export-ignore
 /.gitignore export-ignore
