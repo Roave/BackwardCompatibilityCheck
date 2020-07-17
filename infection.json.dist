@@ -1,12 +1,11 @@
 {
-    "timeout": 10,
     "source": {
         "directories": [
             "src"
         ]
     },
     "logs": {
-        "text": "php:\/\/stderr",
+        "text": "php://stderr",
         "badge": {
             "branch": "master"
         }
