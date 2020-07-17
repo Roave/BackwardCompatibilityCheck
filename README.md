@@ -1,6 +1,9 @@
 # Roave Backward Compatibility Check
 
-[![Build Status](https://travis-ci.org/Roave/BackwardCompatibilityCheck.svg?branch=master)](https://travis-ci.org/Roave/BackwardCompatibilityCheck)  [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Roave/BackwardCompatibilityCheck/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Roave/BackwardCompatibilityCheck/?branch=master) [![Latest Stable Version](https://poser.pugx.org/roave/backward-compatibility-check/v/stable)](https://packagist.org/packages/roave/backward-compatibility-check) [![License](https://poser.pugx.org/roave/backward-compatibility-check/license)](https://packagist.org/packages/roave/backward-compatibility-check)
+[![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2FRoave%2FBackwardCompatibilityCheck%2Fmaster)](https://dashboard.stryker-mutator.io/reports/github.com/Roave/BackwardCompatibilityCheck/master)
+[![Type Coverage](https://shepherd.dev/github/Roave/BackwardCompatibilityCheck/coverage.svg)](https://shepherd.dev/github/Roave/BackwardCompatibilityCheck)
+[![Latest Stable Version](https://poser.pugx.org/roave/backward-compatibility-check/v/stable)](https://packagist.org/packages/roave/backward-compatibility-check)
+[![License](https://poser.pugx.org/roave/backward-compatibility-check/license)](https://packagist.org/packages/roave/backward-compatibility-check)
 
 A tool that can be used to verify BC breaks between two versions
 of a PHP library.
