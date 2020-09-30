@@ -16,7 +16,8 @@ use function Safe\sprintf;
 /**
  * @todo only apply this to PHP 8+ code
  *
- * Detects a change in a parameter type
+ * Detects a change in a parameter name, which must now be considered a BC break as of PHP 8 (specifically, since the
+ * named parameters feature was introduced). This check can be prevented with the @no-named-arguments annotation.
  *
  * This is mostly useful for methods, where a change in a parameter name is not allowed in
  * inheritance/interface scenarios, except if annotated with `no-named-arguments`
