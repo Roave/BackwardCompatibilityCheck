@@ -12,6 +12,7 @@ use Roave\BetterReflection\Reflection\ReflectionParameter;
 
 use function array_intersect_key;
 use function Safe\sprintf;
+use function strpos;
 
 /**
  * @todo only apply this to PHP 8+ code
@@ -24,6 +25,8 @@ use function Safe\sprintf;
  */
 final class ParameterNameChanged implements FunctionBased
 {
+    private const NO_NAMED_ARGUMENTS_ANNOTATION = '@no-named-arguments';
+
     private ReflectionFunctionAbstractName $formatFunction;
 
     public function __construct()
@@ -33,6 +36,39 @@ final class ParameterNameChanged implements FunctionBased
 
     public function __invoke(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction): Changes
     {
+        $fromHadNoNamedArgumentsAnnotation = $this->methodHasNoNamedArgumentsAnnotation($fromFunction);
+        $toHasNoNamedArgumentsAnnotation   = $this->methodHasNoNamedArgumentsAnnotation($toFunction);
+
+        if ($fromHadNoNamedArgumentsAnnotation && ! $toHasNoNamedArgumentsAnnotation) {
+            return Changes::fromList(
+                Change::removed(
+                    sprintf(
+                        'The %s annotation was removed from %s',
+                        self::NO_NAMED_ARGUMENTS_ANNOTATION,
+                        $this->formatFunction->__invoke($fromFunction),
+                    ),
+                    true
+                )
+            );
+        }
+
+        if (! $fromHadNoNamedArgumentsAnnotation && $toHasNoNamedArgumentsAnnotation) {
+            return Changes::fromList(
+                Change::added(
+                    sprintf(
+                        'The %s annotation was added from %s',
+                        self::NO_NAMED_ARGUMENTS_ANNOTATION,
+                        $this->formatFunction->__invoke($fromFunction),
+                    ),
+                    true
+                )
+            );
+        }
+
+        if ($toHasNoNamedArgumentsAnnotation) {
+            return Changes::empty();
+        }
+
         return Changes::fromIterator($this->checkSymbols(
             $fromFunction->getParameters(),
             $toFunction->getParameters()
@@ -57,8 +93,6 @@ final class ParameterNameChanged implements FunctionBased
      */
     private function compareParameter(ReflectionParameter $fromParameter, ReflectionParameter $toParameter): iterable
     {
-        // @todo detect if the method has a @no-named-arguments annotation, and return if so
-
         $fromName = $fromParameter->getName();
         $toName   = $toParameter->getName();
 
@@ -76,5 +110,10 @@ final class ParameterNameChanged implements FunctionBased
             ),
             true
         );
+    }
+
+    private function methodHasNoNamedArgumentsAnnotation(ReflectionFunctionAbstract $function): bool
+    {
+        return strpos($function->getDocComment(), self::NO_NAMED_ARGUMENTS_ANNOTATION) !== false;
     }
 }

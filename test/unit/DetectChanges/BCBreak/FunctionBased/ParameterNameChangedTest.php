@@ -99,7 +99,10 @@ PHP
                 '[BC] CHANGED: Parameter 0 of changed() changed name from a to c',
                 '[BC] CHANGED: Parameter 1 of changed() changed name from b to d',
             ],
-            'removingAnnotation'      => ['[BC] CHANGED: The @no-named-arguments annotation was removed from changed()'],
+            'untouched' => [],
+            'changedButAnnotated' => [],
+            'removingAnnotation'      => ['[BC] REMOVED: The @no-named-arguments annotation was removed from removingAnnotation()'],
+            'addingAnnotation'      => ['[BC] ADDED: The @no-named-arguments annotation was added from addingAnnotation()'],
         ];
 
         return array_combine(
