@@ -10,10 +10,16 @@ final class ReflectionPropertyName
 {
     public function __invoke(ReflectionProperty $property): string
     {
-        if ($property->isStatic()) {
-            return $property->getDeclaringClass()->getName() . '::$' . $property->getName();
+        $declaringClass = $property->getDeclaringClass();
+        $className      = $declaringClass->getName();
+        if ($declaringClass->isTrait()) {
+            $className = $property->getImplementingClass()->getName();
         }
 
-        return $property->getDeclaringClass()->getName() . '#$' . $property->getName();
+        if ($property->isStatic()) {
+            return $className . '::$' . $property->getName();
+        }
+
+        return $className . '#$' . $property->getName();
     }
 }
