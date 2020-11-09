@@ -100,6 +100,71 @@ PHP
                     '[BC] REMOVED: Property FinalClass#$removedPublicProperty was removed',
                 ],
             ],
+            'removed trait use from class' => [
+                (new ClassReflector(new StringSourceLocator(
+                    <<<'PHP'
+<?php
+
+trait PropertyTrait {
+    protected $testProperty;
+}
+
+class TestClass
+{
+    use PropertyTrait;
+}
+PHP
+                    ,
+                    $locator
+                )))->reflect('TestClass'),
+                (new ClassReflector(new StringSourceLocator(
+                    <<<'PHP'
+<?php
+
+class TestClass
+{
+}
+PHP
+                    ,
+                    $locator
+                )))->reflect('TestClass'),
+                ['[BC] REMOVED: Property TestClass#$testProperty was removed'],
+            ],
+            'removed property from trait' => [
+                (new ClassReflector(new StringSourceLocator(
+                    <<<'PHP'
+<?php
+
+trait PropertyTrait {
+    protected $testProperty;
+}
+
+class TestClass
+{
+    use PropertyTrait;
+}
+PHP
+                    ,
+                    $locator
+                )))->reflect('TestClass'),
+                (new ClassReflector(new StringSourceLocator(
+                    <<<'PHP'
+<?php
+
+trait PropertyTrait {
+    
+}
+
+class TestClass
+{
+    use PropertyTrait;
+}
+PHP
+                    ,
+                    $locator
+                )))->reflect('TestClass'),
+                ['[BC] REMOVED: Property TestClass#$testProperty was removed'],
+            ],
         ];
     }
 }

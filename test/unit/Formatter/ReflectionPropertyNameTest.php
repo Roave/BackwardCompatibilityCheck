@@ -41,9 +41,29 @@ final class ReflectionPropertyNameTest extends TestCase
 <?php
 
 namespace {
+    trait TestTrait {
+        public static $b;
+        public $c;
+    }
     class A {
         public static $b;
         public $c;
+        public $d;
+    }
+    class B {
+        use TestTrait;
+        
+        public $d;
+    }
+    class C {
+        use TestTrait;
+        
+        public $c;
+    }
+    class D extends A {
+        public $c;
+    }
+    class E extends A {
     }
 }
 namespace N1 {
@@ -61,10 +81,18 @@ PHP
 
         /** @var array<string, ReflectionProperty> $properties */
         $properties = [
-            'A::$b'    => $classReflector->reflect('A')->getProperty('b'),
-            'A#$c'     => $classReflector->reflect('A')->getProperty('c'),
-            'N1\D::$e' => $classReflector->reflect('N1\D')->getProperty('e'),
-            'N1\D#$f'  => $classReflector->reflect('N1\D')->getProperty('f'),
+            'A::$b'         => $classReflector->reflect('A')->getProperty('b'),
+            'A#$c'          => $classReflector->reflect('A')->getProperty('c'),
+            'TestTrait::$b' => $classReflector->reflect('TestTrait')->getProperty('b'),
+            'TestTrait#$c'  => $classReflector->reflect('TestTrait')->getProperty('c'),
+            'B::$b'         => $classReflector->reflect('B')->getProperty('b'),
+            'B#$c'          => $classReflector->reflect('B')->getProperty('c'),
+            'B#$d'          => $classReflector->reflect('B')->getProperty('d'),
+            'C#$c'          => $classReflector->reflect('C')->getProperty('c'),
+            'D#$c'          => $classReflector->reflect('D')->getProperty('c'),
+            'A#$d'          => $classReflector->reflect('E')->getProperty('d'),
+            'N1\D::$e'      => $classReflector->reflect('N1\D')->getProperty('e'),
+            'N1\D#$f'       => $classReflector->reflect('N1\D')->getProperty('f'),
         ];
 
         return TypeRestriction::array(array_combine(
