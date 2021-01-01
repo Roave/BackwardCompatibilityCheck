@@ -10,7 +10,7 @@
         "roave/better-reflection": "^4.9.0",
         "symfony/console": "^5.1.2",
         "symfony/process": "^5.1.2",
-        "thecodingmachine/safe": "^1.1.3",
+        "thecodingmachine/safe": "^1.3.3",
         "webmozart/assert": "^1.9.1"
     },
     "license": "MIT",
