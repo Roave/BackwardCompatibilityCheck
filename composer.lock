@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "70222aad7da07ede00d61bd6dba70703",
+    "content-hash": "e148ef6ea5890de6e9a8d73ae3644351",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -697,16 +697,16 @@
         },
         {
             "name": "ocramius/package-versions",
-            "version": "1.10.0",
+            "version": "1.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Ocramius/PackageVersions.git",
-                "reference": "80f88b35ff45a0fdccf852d4788bb79bb67c3817"
+                "reference": "f51ff2b2b49baaa302d6bf71880e4d8b5acd7015"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Ocramius/PackageVersions/zipball/80f88b35ff45a0fdccf852d4788bb79bb67c3817",
-                "reference": "80f88b35ff45a0fdccf852d4788bb79bb67c3817",
+                "url": "https://api.github.com/repos/Ocramius/PackageVersions/zipball/f51ff2b2b49baaa302d6bf71880e4d8b5acd7015",
+                "reference": "f51ff2b2b49baaa302d6bf71880e4d8b5acd7015",
                 "shasum": ""
             },
             "require": {
@@ -747,7 +747,7 @@
             "description": "Composer plugin that provides efficient querying for installed package versions (no runtime IO)",
             "support": {
                 "issues": "https://github.com/Ocramius/PackageVersions/issues",
-                "source": "https://github.com/Ocramius/PackageVersions/tree/1.10.0"
+                "source": "https://github.com/Ocramius/PackageVersions/tree/1.11.x"
             },
             "funding": [
                 {
@@ -759,7 +759,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-07-11T19:45:58+00:00"
+            "time": "2020-08-21T12:16:47+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",
