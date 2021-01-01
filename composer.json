@@ -5,7 +5,7 @@
         "php": "^7.4.7",
         "ext-json": "*",
         "composer/composer": "^2.0.0@dev",
-        "nikolaposa/version": "^4.0.0",
+        "nikolaposa/version": "^4.1.0",
         "ocramius/package-versions": "^1.11.0",
         "roave/better-reflection": "^4.9.0",
         "symfony/console": "^5.1.2",
