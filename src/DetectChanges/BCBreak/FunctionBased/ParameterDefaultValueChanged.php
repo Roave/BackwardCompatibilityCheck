@@ -45,7 +45,7 @@ final class ParameterDefaultValueChanged implements FunctionBased
 
             $changes = $changes->mergeWith(Changes::fromList(Change::changed(
                 sprintf(
-                    'Default parameter value for for parameter $%s of %s changed from %s to %s',
+                    'Default parameter value for parameter $%s of %s changed from %s to %s',
                     $parameter->getName(),
                     $this->formatFunction->__invoke($fromFunction),
                     var_export($defaultValueFrom, true),
