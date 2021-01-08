@@ -104,18 +104,18 @@ PHP
 
         $functions = [
             'changed'            => [
-                '[BC] CHANGED: Default parameter value for for parameter $a of changed() changed from 1 to 2',
+                '[BC] CHANGED: Default parameter value for parameter $a of changed() changed from 1 to 2',
             ],
             'defaultAdded'       => [],
             'defaultRemoved'     => [],
             'defaultTypeChanged' => [
-                '[BC] CHANGED: Default parameter value for for parameter $a of defaultTypeChanged() changed from \'1\' to 1',
+                '[BC] CHANGED: Default parameter value for parameter $a of defaultTypeChanged() changed from \'1\' to 1',
             ],
             'notChanged'         => [],
             'namesChanged'       => [],
             'orderChanged'       => [
-                '[BC] CHANGED: Default parameter value for for parameter $a of orderChanged() changed from 1 to 3',
-                '[BC] CHANGED: Default parameter value for for parameter $c of orderChanged() changed from 3 to 1',
+                '[BC] CHANGED: Default parameter value for parameter $a of orderChanged() changed from 1 to 3',
+                '[BC] CHANGED: Default parameter value for parameter $c of orderChanged() changed from 3 to 1',
             ],
             'positionOfOptionalParameterChanged' => [],
         ];
@@ -141,14 +141,14 @@ PHP
                     $fromClassReflector->reflect('C')->getMethod('changed1'),
                     $toClassReflector->reflect('C')->getMethod('changed1'),
                     [
-                        '[BC] CHANGED: Default parameter value for for parameter $a of C::changed1() changed from 1 to 2',
+                        '[BC] CHANGED: Default parameter value for parameter $a of C::changed1() changed from 1 to 2',
                     ],
                 ],
                 'C#changed2'  => [
                     $fromClassReflector->reflect('C')->getMethod('changed2'),
                     $toClassReflector->reflect('C')->getMethod('changed2'),
                     [
-                        '[BC] CHANGED: Default parameter value for for parameter $a of C#changed2() changed from 1 to 2',
+                        '[BC] CHANGED: Default parameter value for parameter $a of C#changed2() changed from 1 to 2',
                     ],
                 ],
             ]
