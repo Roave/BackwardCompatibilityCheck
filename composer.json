@@ -9,7 +9,7 @@
         "ocramius/package-versions": "^1.11.0",
         "roave/better-reflection": "^4.9.0",
         "symfony/console": "^5.2.2",
-        "symfony/process": "^5.2.1",
+        "symfony/process": "^5.2.2",
         "thecodingmachine/safe": "^1.3.3",
         "webmozart/assert": "^1.9.1"
     },
