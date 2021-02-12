@@ -48,24 +48,50 @@ the build to fail.
 *NOTE:* detecting the base version only works if you have git tags in
 the SemVer-compliant `x.y.z` format, such as `1.2.3`.
 
-#### Github action
+*NOTE:* since this tool relies on tags, you need to make sure tags are fetched
+as part of your CI pipeline. For example in a GitHub action, note the use of
+[`fetch-depth: 0`](https://github.com/actions/checkout#fetch-all-history-for-all-tags-and-branches):
 
-You can use it as a Github Action like this:
+```.yaml
+jobs:
+  roave-backwards-compatibility-check:
+    name: Roave Backwards Compatibility Check
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+          with:
+            fetch-depth: 0
+        - name: "Install PHP"
+          uses: shivammathur/setup-php@v2
+          with:
+            coverage: "none"
+            php-version: "7.4" # https://github.com/Roave/BackwardCompatibilityCheck/issues/283
+        - name: "Install dependencies"
+          run: "composer install --no-interaction"
+        - name: "Check for BC breaks"
+          run: "vendor/bin/roave-backward-compatibility-check"
+```
+
+#### Nyholm Github Action
+
+Tobias Nyholm also offers [a simple GitHub action](https://github.com/Nyholm/roave-bc-check-docker)
+that you can use in your Github pipeline. We recommend this for most cases as
+it is simple to set up:
 
 _.github/workflows/main.yml_
 ```
 on: [push]
 name: Test
 jobs:
-    roave_bc_check:
-        name: Roave BC Check
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@master
-            - name: fetch tags
-              run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
-            - name: Roave BC Check
-              uses: docker://nyholm/roave-bc-check-ga
+  roave-backwards-compatibility-check:
+    name: Roave Backwards Compatibility Check
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+          with:
+            fetch-depth: 0
+        - name: "Check for BC breaks"
+          uses: docker://nyholm/roave-bc-check-ga
 ```
 
 ### Running manually
