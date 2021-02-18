@@ -52,7 +52,7 @@ the SemVer-compliant `x.y.z` format, such as `1.2.3`.
 as part of your CI pipeline. For example in a GitHub action, note the use of
 [`fetch-depth: 0`](https://github.com/actions/checkout#fetch-all-history-for-all-tags-and-branches):
 
-```.yaml
+```yaml
 jobs:
   roave-backwards-compatibility-check:
     name: Roave Backwards Compatibility Check
@@ -79,7 +79,7 @@ that you can use in your Github pipeline. We recommend this for most cases as
 it is simple to set up:
 
 _.github/workflows/main.yml_
-```
+```yaml
 on: [push]
 name: Test
 jobs:
