@@ -28,12 +28,12 @@ final class SymfonyConsoleTextFormatterTest extends TestCase
         $change2Text = uniqid('change2', true);
 
         $output = $this->createMock(OutputInterface::class);
-        $output->expects(self::at(0))
+        $output->expects(self::exactly(2))
             ->method('writeln')
-            ->with(sprintf('[BC] REMOVED: %s', $change1Text));
-        $output->expects(self::at(1))
-            ->method('writeln')
-            ->with(sprintf('     ADDED: %s', $change2Text));
+            ->withConsecutive(
+                [sprintf('[BC] REMOVED: %s', $change1Text)],
+                [sprintf('     ADDED: %s', $change2Text)]
+            );
 
         (new SymfonyConsoleTextFormatter($output))->write(Changes::fromList(
             Change::removed($change1Text, true),
