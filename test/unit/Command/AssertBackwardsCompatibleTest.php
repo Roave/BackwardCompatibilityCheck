@@ -28,6 +28,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Version\Version;
 use Version\VersionCollection;
 
+use Webmozart\Assert\Assert;
 use function Safe\chdir;
 use function Safe\realpath;
 use function sha1;
@@ -115,7 +116,8 @@ final class AssertBackwardsCompatibleTest extends TestCase
 
         $usages = $this->compare->getUsages();
 
-        self::assertCount(1, $usages);
+        Assert::allStringNotEmpty($usages);
+        self::assertNotEmpty($usages);
         self::assertStringStartsWith(
             'roave-backwards-compatibility-check:assert-backwards-compatible',
             $usages[0]

@@ -42,6 +42,8 @@ final class ParameterTypeChanged implements FunctionBased
      * @param ReflectionParameter[] $to
      *
      * @return iterable|Change[]
+     *
+     * @psalm-return iterable<int, Change>
      */
     private function checkSymbols(array $from, array $to): iterable
     {
@@ -52,6 +54,8 @@ final class ParameterTypeChanged implements FunctionBased
 
     /**
      * @return iterable|Change[]
+     *
+     * @psalm-return iterable<int, Change>
      */
     private function compareParameter(ReflectionParameter $fromParameter, ReflectionParameter $toParameter): iterable
     {

@@ -63,6 +63,8 @@ final class CompareClasses implements CompareApi
      * @param string[] $definedApiClassNames
      *
      * @return iterable|Change[]
+     *
+     * @psalm-return iterable<int, Change>
      */
     private function makeSymbolsIterator(
         array $definedApiClassNames,
@@ -76,10 +78,15 @@ final class CompareClasses implements CompareApi
         }
     }
 
+    /**
+     * @psalm-return iterable<int, Change>
+     *
+     * @psalm-suppress MixedReturnTypeCoercion the inferred generator can't be reconciled with iterable<int, Change>
+     */
     private function examineSymbol(
         ReflectionClass $oldSymbol,
         ClassReflector $newSourcesWithDependencies
-    ): Generator {
+    ): iterable {
         try {
             $newClass = $newSourcesWithDependencies->reflect($oldSymbol->getName());
         } catch (IdentifierNotFound $exception) {

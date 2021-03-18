@@ -11,15 +11,24 @@ use Symfony\Component\Process\Process;
 use function file_exists;
 use function Safe\sprintf;
 use function sys_get_temp_dir;
+use function uniqid;
 
 final class GitCheckoutRevisionToTemporaryPath implements PerformCheckoutOfRevision
 {
-    /** @var callable */
+    /**
+     * @var callable
+     *
+     * @psalm-var callable(string): string
+     */
     private $uniquenessFunction;
 
+    /** @psalm-param callable(string): string $uniquenessFunction */
     public function __construct(?callable $uniquenessFunction = null)
     {
-        $this->uniquenessFunction = $uniquenessFunction ?? 'uniqid';
+        $this->uniquenessFunction = $uniquenessFunction
+            ?? static function (string $prefix) : string {
+                return uniqid($prefix);
+            };
     }
 
     /**

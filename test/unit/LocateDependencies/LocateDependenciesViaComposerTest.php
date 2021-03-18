@@ -120,6 +120,7 @@ final class LocateDependenciesViaComposerTest extends TestCase
 
         $reflectionLocators->setAccessible(true);
 
+        /** @psalm-var list<\Roave\BetterReflection\SourceLocator\Type\SourceLocator> $locators */
         $locators = $reflectionLocators->getValue($locator);
 
         self::assertCount(2, $locators);

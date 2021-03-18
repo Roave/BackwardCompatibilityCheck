@@ -12,7 +12,7 @@ use Roave\BetterReflection\Reflection\ReflectionMethod;
 use function array_diff_key;
 use function array_map;
 use function array_values;
-use function Safe\array_combine;
+use function array_combine;
 use function Safe\sprintf;
 use function strtolower;
 

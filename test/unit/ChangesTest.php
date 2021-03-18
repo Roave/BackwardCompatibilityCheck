@@ -9,6 +9,7 @@ use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 
+use UnexpectedValueException;
 use function array_fill;
 use function iterator_to_array;
 use function random_int;
@@ -49,16 +50,21 @@ final class ChangesTest extends TestCase
 
     public function testFromIteratorBuffersAllChangesWithoutLoadingThemEagerly(): void
     {
-        $stopProducingValues = static function (): void {
-            self::fail('No values should have been produced');
+        $stopProducingValues = new class () {
+            public bool $throw = true;
+
+            public function stop(): void
+            {
+                throw new UnexpectedValueException('No values should have been produced');
+            }
         };
 
-        $changesProvider = static function () use (&$stopProducingValues): Generator {
-            $stopProducingValues();
+        $changesProvider = static function () use ($stopProducingValues): Generator {
+            $stopProducingValues->stop();
 
             yield Change::changed('a', true);
 
-            $stopProducingValues();
+            $stopProducingValues->stop();
 
             yield Change::changed('b', false);
         };
@@ -72,8 +78,7 @@ final class ChangesTest extends TestCase
             Change::changed('b', false),
         ];
 
-        $stopProducingValues = static function (): void {
-        };
+        $stopProducingValues->throw = false;
 
         self::assertEquals($expectedChanges, iterator_to_array($changes));
         self::assertEquals(

@@ -42,7 +42,11 @@ final class PropertyRemoved implements ClassBased
         }, $removedProperties));
     }
 
-    /** @return ReflectionProperty[] */
+    /**
+     * @return ReflectionProperty[]
+     *
+     * @psalm-return array<string, ReflectionProperty>
+     */
     private function accessibleProperties(ReflectionClass $class): array
     {
         $classIsOpen = ! $class->isFinal();
