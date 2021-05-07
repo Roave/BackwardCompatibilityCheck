@@ -7,7 +7,7 @@
         "composer/composer": "^2.0",
         "nikolaposa/version": "^4.1.0",
         "ocramius/package-versions": "^1.11.0",
-        "roave/better-reflection": "^4.9.0",
+        "roave/better-reflection": "^4.12.2",
         "symfony/console": "^5.2.6",
         "symfony/process": "^5.2.4",
         "thecodingmachine/safe": "^1.3.3",
