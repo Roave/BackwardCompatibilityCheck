@@ -7,7 +7,6 @@ namespace Roave\BackwardCompatibility;
 use Countable;
 use Generator;
 use IteratorAggregate;
-use Psl\Dict;
 use Psl\Iter;
 use Traversable;
 
@@ -101,6 +100,6 @@ final class Changes implements IteratorAggregate, Countable
 
     public function count(): int
     {
-        return Iter\count(Dict\from_iterable($this));
+        return Iter\count($this->getIterator());
     }
 }
