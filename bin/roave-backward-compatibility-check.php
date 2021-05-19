@@ -8,7 +8,6 @@ use Composer\Factory;
 use Composer\Installer;
 use Composer\IO\ConsoleIO;
 use PackageVersions\Versions;
-use Psl\Filesystem;
 use Roave\BackwardCompatibility\Command;
 use Roave\BackwardCompatibility\CompareClasses;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased;
@@ -33,6 +32,8 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
+use function file_exists;
+
 (static function (): void {
     (static function (): void {
         $autoloaderLocations = [
@@ -41,10 +42,9 @@ use Symfony\Component\Console\Output\ConsoleOutput;
         ];
 
         foreach ($autoloaderLocations as $autoload) {
-            if (Filesystem\exists($autoload)) {
+            if (file_exists($autoload)) {
                 /**
                  * @noinspection PhpIncludeInspection
-                 * @psalm-suppress UnresolvableInclude
                  */
                 require_once $autoload;
 

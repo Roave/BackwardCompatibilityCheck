@@ -7,11 +7,13 @@ namespace Roave\BackwardCompatibility;
 use Countable;
 use Generator;
 use IteratorAggregate;
+use Psl\Dict;
+use Psl\Iter;
 use Traversable;
 
-use function count;
-use function iterator_to_array;
-
+/**
+ * @implements IteratorAggregate<int, Change>
+ */
 final class Changes implements IteratorAggregate, Countable
 {
     /** @var Change[] */
@@ -99,6 +101,6 @@ final class Changes implements IteratorAggregate, Countable
 
     public function count(): int
     {
-        return count(iterator_to_array($this));
+        return Iter\count(Dict\from_iterable($this));
     }
 }

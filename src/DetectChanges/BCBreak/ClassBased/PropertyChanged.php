@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased;
 
+use Psl\Dict;
+use Psl\Vec;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\PropertyBased;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
-
-use function array_intersect_key;
-use function array_keys;
 
 final class PropertyChanged implements ClassBased
 {
@@ -38,7 +37,7 @@ final class PropertyChanged implements ClassBased
      */
     private function checkSymbols(array $from, array $to): iterable
     {
-        foreach (array_keys(array_intersect_key($from, $to)) as $name) {
+        foreach (Vec\keys(Dict\intersect_by_key($from, $to)) as $name) {
             yield from $this->checkProperty->__invoke($from[$name], $to[$name]);
         }
     }

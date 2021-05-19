@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\DetectChanges\Variance;
 
-use Roave\BackwardCompatibility\Support\ArrayHelpers;
+use Psl\Iter;
+use Psl\Str;
 use Roave\BetterReflection\Reflection\ReflectionType;
 use Traversable;
-
-use function strtolower;
 
 /**
  * This is a simplistic covariant type check. A more appropriate approach would be to
@@ -39,7 +38,7 @@ final class TypeIsCovariant
         $typeAsString         = $type->__toString();
         $comparedTypeAsString = $comparedType->__toString();
 
-        if (strtolower($typeAsString) === strtolower($comparedTypeAsString)) {
+        if (Str\lowercase($typeAsString) === Str\lowercase($comparedTypeAsString)) {
             return true;
         }
 
@@ -81,9 +80,6 @@ final class TypeIsCovariant
             return $comparedTypeReflectionClass->implementsInterface($typeAsString);
         }
 
-        return ArrayHelpers::stringArrayContainsString(
-            $typeAsString,
-            $comparedTypeReflectionClass->getParentClassNames()
-        );
+        return Iter\contains($comparedTypeReflectionClass->getParentClassNames(), $typeAsString);
     }
 }
