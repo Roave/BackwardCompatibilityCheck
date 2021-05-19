@@ -7,8 +7,7 @@ namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassConstantBased;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClassConstant;
-
-use function Safe\sprintf;
+use Psl\Str;
 
 final class ClassConstantVisibilityReduced implements ClassConstantBased
 {
@@ -29,7 +28,7 @@ final class ClassConstantVisibilityReduced implements ClassConstantBased
         }
 
         return Changes::fromList(Change::changed(
-            sprintf(
+            Str\format(
                 'Constant %s::%s visibility reduced from %s to %s',
                 $fromConstant->getDeclaringClass()->getName(),
                 $fromConstant->getName(),

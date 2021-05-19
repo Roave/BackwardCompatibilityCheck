@@ -9,17 +9,10 @@ use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
-
-use function array_change_key_case;
-use function array_diff_key;
-use function array_filter;
-use function array_map;
-use function array_values;
-use function Safe\array_combine;
-use function Safe\preg_match;
-use function Safe\sprintf;
-
-use const CASE_UPPER;
+use Psl\Dict;
+use Psl\Vec;
+use Psl\Str;
+use Psl\Regex;
 
 final class MethodRemoved implements ClassBased
 {
@@ -32,38 +25,42 @@ final class MethodRemoved implements ClassBased
 
     public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass): Changes
     {
-        $removedMethods = array_diff_key(
-            array_change_key_case($this->accessibleMethods($fromClass), CASE_UPPER),
-            array_change_key_case($this->accessibleMethods($toClass), CASE_UPPER)
+        $removedMethods = Dict\diff_by_key(
+            Dict\map_keys($this->accessibleMethods($fromClass), function(string $key): string {
+                return Str\uppercase($key);
+            }),
+            Dict\map_keys($this->accessibleMethods($toClass), function(string $key): string {
+                return Str\uppercase($key);
+            }),
         );
 
-        return Changes::fromList(...array_values(array_map(function (ReflectionMethod $method): Change {
+        return Changes::fromList(...Vec\map($removedMethods, function (ReflectionMethod $method): Change {
             return Change::removed(
-                sprintf('Method %s was removed', $this->formatFunction->__invoke($method)),
+                Str\format('Method %s was removed', $this->formatFunction->__invoke($method)),
                 true
             );
-        }, $removedMethods)));
+        }));
     }
 
     /** @return ReflectionMethod[] */
     private function accessibleMethods(ReflectionClass $class): array
     {
-        $methods = array_filter($class->getMethods(), function (ReflectionMethod $method): bool {
+        $methods = Vec\filter($class->getMethods(), function (ReflectionMethod $method): bool {
             return ($method->isPublic()
                 || $method->isProtected())
                 && ! $this->isInternalDocComment($method->getDocComment());
         });
 
-        return array_combine(
-            array_map(static function (ReflectionMethod $method): string {
+        return Dict\associate(
+            Vec\map($methods, static function (ReflectionMethod $method): string {
                 return $method->getName();
-            }, $methods),
+            }),
             $methods
         );
     }
 
     private function isInternalDocComment(string $comment): bool
     {
-        return preg_match('/\s+@internal\s+/', $comment) === 1;
+        return Regex\matches($comment, '/\s+@internal\s+/');
     }
 }

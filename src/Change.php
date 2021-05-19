@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace Roave\BackwardCompatibility;
 
 use Throwable;
-
-use function Safe\sprintf;
-use function strtoupper;
+use Psl\Str;
 
 /**
  * @todo this class probably needs subclassing or being turned into an interface
@@ -75,10 +73,10 @@ final class Change
 
     public function __toString(): string
     {
-        return sprintf(
+        return Str\format(
             '%s%s: %s',
             $this->isBcBreak ? '[BC] ' : '     ',
-            strtoupper($this->modificationType),
+            Str\uppercase($this->modificationType),
             $this->description
         );
     }

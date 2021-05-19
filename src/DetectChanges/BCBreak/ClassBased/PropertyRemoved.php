@@ -9,13 +9,10 @@ use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Formatter\ReflectionPropertyName;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
-
-use function array_diff;
-use function array_filter;
-use function array_keys;
-use function array_map;
-use function Safe\preg_match;
-use function Safe\sprintf;
+use Psl\Str;
+use Psl\Regex;
+use Psl\Dict;
+use Psl\Vec;
 
 final class PropertyRemoved implements ClassBased
 {
@@ -29,25 +26,27 @@ final class PropertyRemoved implements ClassBased
     public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass): Changes
     {
         $fromProperties    = $this->accessibleProperties($fromClass);
-        $removedProperties = array_diff(
-            array_keys($fromProperties),
-            array_keys($this->accessibleProperties($toClass))
+        $removedProperties = Dict\diff(
+            Vec\keys($fromProperties),
+            Vec\keys($this->accessibleProperties($toClass))
         );
 
-        return Changes::fromList(...array_map(function (string $property) use ($fromProperties): Change {
+        return Changes::fromList(...Vec\map($removedProperties, function (string $property) use ($fromProperties): Change {
             return Change::removed(
-                sprintf('Property %s was removed', $this->formatProperty->__invoke($fromProperties[$property])),
+                Str\format('Property %s was removed', $this->formatProperty->__invoke($fromProperties[$property])),
                 true
             );
-        }, $removedProperties));
+        }));
     }
 
-    /** @return ReflectionProperty[] */
+    /** 
+     * @return array<string, ReflectionProperty>
+     */
     private function accessibleProperties(ReflectionClass $class): array
     {
         $classIsOpen = ! $class->isFinal();
 
-        return array_filter($class->getProperties(), function (ReflectionProperty $property) use ($classIsOpen): bool {
+        return Dict\filter($class->getProperties(), function (ReflectionProperty $property) use ($classIsOpen): bool {
             return ($property->isPublic()
                 || ($classIsOpen && $property->isProtected()))
                 && ! $this->isInternalDocComment($property->getDocComment());
@@ -56,6 +55,6 @@ final class PropertyRemoved implements ClassBased
 
     private function isInternalDocComment(string $comment): bool
     {
-        return preg_match('/\s+@internal\s+/', $comment) === 1;
+        return Regex\matches($comment, '/\s+@internal\s+/');
     }
 }

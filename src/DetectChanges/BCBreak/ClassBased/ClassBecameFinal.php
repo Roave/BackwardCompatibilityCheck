@@ -7,8 +7,7 @@ namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClass;
-
-use function Safe\sprintf;
+use Psl\Str;
 
 final class ClassBecameFinal implements ClassBased
 {
@@ -23,7 +22,7 @@ final class ClassBecameFinal implements ClassBased
         }
 
         return Changes::fromList(Change::changed(
-            sprintf('Class %s became final', $fromClass->getName()),
+            Str\format('Class %s became final', $fromClass->getName()),
             true
         ));
     }

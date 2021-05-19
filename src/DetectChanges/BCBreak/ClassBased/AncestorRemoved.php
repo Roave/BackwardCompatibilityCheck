@@ -7,11 +7,10 @@ namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClass;
-
-use function array_diff;
-use function array_merge;
-use function Safe\json_encode;
-use function Safe\sprintf;
+use Psl\Json;
+use Psl\Str;
+use Psl\Dict;
+use Psl\Vec;
 
 /**
  * A class ancestor (interface or class) cannot be removed, as that breaks type
@@ -21,9 +20,9 @@ final class AncestorRemoved implements ClassBased
 {
     public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass): Changes
     {
-        $removedAncestors = array_merge(
-            array_diff($fromClass->getParentClassNames(), $toClass->getParentClassNames()),
-            array_diff($fromClass->getInterfaceNames(), $toClass->getInterfaceNames())
+        $removedAncestors = Vec\concat(
+            Dict\diff($fromClass->getParentClassNames(), $toClass->getParentClassNames()),
+            Dict\diff($fromClass->getInterfaceNames(), $toClass->getInterfaceNames())
         );
 
         if (! $removedAncestors) {
@@ -31,10 +30,10 @@ final class AncestorRemoved implements ClassBased
         }
 
         return Changes::fromList(Change::removed(
-            sprintf(
+            Str\format(
                 'These ancestors of %s have been removed: %s',
                 $fromClass->getName(),
-                json_encode($removedAncestors)
+                Json\encode($removedAncestors)
             ),
             true
         ));

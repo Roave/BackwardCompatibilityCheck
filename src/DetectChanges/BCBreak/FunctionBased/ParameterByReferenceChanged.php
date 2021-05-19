@@ -9,9 +9,8 @@ use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
 use Roave\BetterReflection\Reflection\ReflectionParameter;
-
-use function array_intersect_key;
-use function Safe\sprintf;
+use Psl\Dict;
+use Psl\Str;
 
 /**
  * A parameter passed by-value and a parameter passed by-reference are wildly different, so changing
@@ -33,7 +32,7 @@ final class ParameterByReferenceChanged implements FunctionBased
         $toParameters   = $toFunction->getParameters();
         $changes        = Changes::empty();
 
-        foreach (array_intersect_key($fromParameters, $toParameters) as $parameterIndex => $commonParameter) {
+        foreach (Dict\intersect_by_key($fromParameters, $toParameters) as $parameterIndex => $commonParameter) {
             $changes = $changes->mergeWith($this->compareParameter($commonParameter, $toParameters[$parameterIndex]));
         }
 
@@ -50,7 +49,7 @@ final class ParameterByReferenceChanged implements FunctionBased
         }
 
         return Changes::fromList(Change::changed(
-            sprintf(
+            Str\format(
                 'The parameter $%s of %s changed from %s to %s',
                 $fromParameter->getName(),
                 $this->formatFunction->__invoke($fromParameter->getDeclaringFunction()),

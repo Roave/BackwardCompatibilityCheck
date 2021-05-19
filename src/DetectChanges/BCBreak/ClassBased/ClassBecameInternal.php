@@ -7,9 +7,8 @@ namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClass;
-
-use function Safe\preg_match;
-use function Safe\sprintf;
+use Psl\Regex;
+use Psl\Str;
 
 /**
  * A class that is marked internal is no available to downstream consumers.
@@ -23,7 +22,7 @@ final class ClassBecameInternal implements ClassBased
             && $this->isInternalDocComment($toClass->getDocComment())
         ) {
             return Changes::fromList(Change::changed(
-                sprintf(
+                Str\format(
                     '%s was marked "@internal"',
                     $fromClass->getName()
                 ),
@@ -36,6 +35,6 @@ final class ClassBecameInternal implements ClassBased
 
     private function isInternalDocComment(string $comment): bool
     {
-        return preg_match('/\s+@internal\s+/', $comment) === 1;
+        return Regex\matches($comment, '/\s+@internal\s+/');
     }
 }

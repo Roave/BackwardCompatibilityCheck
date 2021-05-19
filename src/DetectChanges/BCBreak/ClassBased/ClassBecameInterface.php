@@ -7,8 +7,7 @@ namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClass;
-
-use function Safe\sprintf;
+use Psl\Str;
 
 /**
  * A class cannot become an interface without introducing an explicit BC break, since
@@ -25,7 +24,7 @@ final class ClassBecameInterface implements ClassBased
         }
 
         return Changes::fromList(Change::changed(
-            sprintf('Class %s became an interface', $fromClass->getName()),
+            Str\format('Class %s became an interface', $fromClass->getName()),
             true
         ));
     }

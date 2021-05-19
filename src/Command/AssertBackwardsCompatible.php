@@ -25,14 +25,11 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Webmozart\Assert\Assert;
-
-use function assert;
-use function count;
-use function is_array;
-use function is_string;
-use function Safe\getcwd;
-use function Safe\sprintf;
+use Psl\Type;
+use Psl\Env;
+use Psl\Str;
+use Psl\Iter;
+use Psl;
 
 final class AssertBackwardsCompatible extends Command
 {
@@ -131,23 +128,21 @@ USAGE
      */
     public function execute(InputInterface $input, OutputInterface $output): int
     {
-        assert($output instanceof ConsoleOutputInterface, '');
+        $output = Type\object(ConsoleOutputInterface::class)->assert($output);
         $stdErr = $output->getErrorOutput();
 
         // @todo fix flaky assumption about the path of the source repo...
-        $sourceRepo = CheckedOutRepository::fromPath(getcwd());
+        $sourceRepo = CheckedOutRepository::fromPath(Env\current_dir());
 
         $fromRevision = $input->getOption('from') !== null
             ? $this->parseRevisionFromInput($input, $sourceRepo)
             : $this->determineFromRevisionFromRepository($sourceRepo, $stdErr);
 
-        $to = $input->getOption('to');
-
-        assert(is_string($to));
+        $to = Type\string()->coerce($input->getOption('to'));
 
         $toRevision = $this->parseRevision->fromStringForRepository($to, $sourceRepo);
 
-        $stdErr->writeln(sprintf('Comparing from %s to %s...', $fromRevision, $toRevision));
+        $stdErr->writeln(Str\format('Comparing from %s to %s...', $fromRevision, $toRevision));
 
         $fromPath = $this->git->checkout($sourceRepo, $fromRevision);
         $toPath   = $this->git->checkout($sourceRepo, $toRevision);
@@ -170,11 +165,9 @@ USAGE
 
             (new SymfonyConsoleTextFormatter($stdErr))->write($changes);
 
-            $outputFormats = $input->getOption('format') ?: [];
+            $outputFormats = Type\vec(Type\string())->coerce($input->getOption('format') ?: []);
 
-            assert(is_array($outputFormats));
-
-            if (ArrayHelpers::stringArrayContainsString('markdown', $outputFormats)) {
+            if (Iter\contains($outputFormats, 'markdown')) {
                 (new MarkdownPipedToSymfonyConsoleFormatter($output))->write($changes);
             }
         } finally {
@@ -187,10 +180,10 @@ USAGE
 
     private function printOutcomeAndExit(Changes $changes, OutputInterface $stdErr): int
     {
-        $hasBcBreaks = count($changes);
+        $hasBcBreaks = Iter\count($changes);
 
         if ($hasBcBreaks) {
-            $stdErr->writeln(sprintf('<error>%s backwards-incompatible changes detected</error>', $hasBcBreaks));
+            $stdErr->writeln(Str\format('<error>%s backwards-incompatible changes detected</error>', $hasBcBreaks));
         } else {
             $stdErr->writeln('<info>No backwards-incompatible changes detected</info>', $hasBcBreaks);
         }
@@ -203,9 +196,7 @@ USAGE
      */
     private function parseRevisionFromInput(InputInterface $input, CheckedOutRepository $repository): Revision
     {
-        $from = $input->getOption('from');
-
-        assert(is_string($from));
+        $from = Type\string()->coerce($input->getOption('from'));
 
         return $this->parseRevision->fromStringForRepository($from, $repository);
     }
@@ -216,11 +207,11 @@ USAGE
     ): Revision {
         $versions = $this->getVersions->fromRepository($repository);
 
-        Assert::minCount($versions, 1, 'Could not detect any released versions for the given repository');
+        Psl\invariant(Iter\count($versions) >= 1, 'Could not detect any released versions for the given repository');
 
         $versionString = $this->pickFromVersion->forVersions($versions)->toString();
 
-        $output->writeln(sprintf('Detected last minor version: %s', $versionString));
+        $output->writeln(Str\format('Detected last minor version: %s', $versionString));
 
         return $this->parseRevision->fromStringForRepository(
             $versionString,

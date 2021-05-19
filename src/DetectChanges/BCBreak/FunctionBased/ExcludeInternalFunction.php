@@ -6,8 +6,7 @@ namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased;
 
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
-
-use function Safe\preg_match;
+use Psl\Regex;
 
 /**
  * Functions marked "internal" (docblock) are not affected by BC checks.
@@ -32,6 +31,6 @@ final class ExcludeInternalFunction implements FunctionBased
 
     private function isInternalDocComment(string $comment): bool
     {
-        return preg_match('/\s+@internal\s+/', $comment) === 1;
+        return Regex\matches($comment, '/\s+@internal\s+/');
     }
 }

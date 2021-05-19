@@ -9,10 +9,9 @@ use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
 use Roave\BetterReflection\Reflection\ReflectionParameter;
+use Psl\Dict;
+use Psl\Str;
 
-use function array_filter;
-use function array_intersect_key;
-use function Safe\sprintf;
 use function var_export;
 
 /**
@@ -35,7 +34,7 @@ final class ParameterDefaultValueChanged implements FunctionBased
 
         $changes = Changes::empty();
 
-        foreach (array_intersect_key($fromParametersWithDefaults, $toParametersWithDefaults) as $parameterIndex => $parameter) {
+        foreach (Dict\intersect_by_key($fromParametersWithDefaults, $toParametersWithDefaults) as $parameterIndex => $parameter) {
             $defaultValueFrom = $parameter->getDefaultValue();
             $defaultValueTo   = $toParametersWithDefaults[$parameterIndex]->getDefaultValue();
 
@@ -44,7 +43,7 @@ final class ParameterDefaultValueChanged implements FunctionBased
             }
 
             $changes = $changes->mergeWith(Changes::fromList(Change::changed(
-                sprintf(
+                Str\format(
                     'Default parameter value for parameter $%s of %s changed from %s to %s',
                     $parameter->getName(),
                     $this->formatFunction->__invoke($fromFunction),
@@ -61,7 +60,7 @@ final class ParameterDefaultValueChanged implements FunctionBased
     /** @return ReflectionParameter[] indexed by parameter index */
     private function defaultParameterValues(ReflectionFunctionAbstract $function): array
     {
-        return array_filter(
+        return Dict\filter(
             $function->getParameters(),
             static function (ReflectionParameter $parameter): bool {
                 return $parameter->isDefaultValueAvailable();

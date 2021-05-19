@@ -7,8 +7,7 @@ namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
-
-use function Safe\sprintf;
+use Psl\Str;
 
 /**
  * A method that changes from instance to static or the opposite has to be called differently,
@@ -26,7 +25,7 @@ final class MethodScopeChanged implements MethodBased
         }
 
         return Changes::fromList(Change::changed(
-            sprintf(
+            Str\format(
                 'Method %s() of class %s changed scope from %s to %s',
                 $fromMethod->getName(),
                 $fromMethod->getDeclaringClass()->getName(),

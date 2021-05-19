@@ -7,8 +7,7 @@ namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
-
-use function Safe\sprintf;
+use Psl\Str;
 
 /**
  * A method that changes from non-final to final breaks all child classes that
@@ -23,7 +22,7 @@ final class MethodBecameFinal implements MethodBased
         }
 
         return Changes::fromList(Change::changed(
-            sprintf(
+            Str\format(
                 'Method %s() of class %s became final',
                 $fromMethod->getName(),
                 $fromMethod->getDeclaringClass()->getName()

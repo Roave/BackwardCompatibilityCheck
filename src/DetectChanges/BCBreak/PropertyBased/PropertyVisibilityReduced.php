@@ -8,8 +8,7 @@ use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Formatter\ReflectionPropertyName;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
-
-use function Safe\sprintf;
+use Psl\Str;
 
 final class PropertyVisibilityReduced implements PropertyBased
 {
@@ -37,7 +36,7 @@ final class PropertyVisibilityReduced implements PropertyBased
         }
 
         return Changes::fromList(Change::changed(
-            sprintf(
+            Str\format(
                 'Property %s visibility reduced from %s to %s',
                 $this->formatProperty->__invoke($fromProperty),
                 $visibilityFrom,

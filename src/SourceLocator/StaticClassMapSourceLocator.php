@@ -9,14 +9,13 @@ use Roave\BetterReflection\SourceLocator\Ast\Locator;
 use Roave\BetterReflection\SourceLocator\Located\LocatedSource;
 use Roave\BetterReflection\SourceLocator\Type\AbstractSourceLocator;
 use Webmozart\Assert\Assert;
-
-use function array_keys;
-use function array_map;
-use function Safe\file_get_contents;
+use Psl\Type;
+use Psl\Dict;
+use Psl\Filesystem;
 
 final class StaticClassMapSourceLocator extends AbstractSourceLocator
 {
-    /** @var string[] */
+    /** @var array<non-empty-string, string> */
     private array $classMap;
 
      /**
@@ -29,13 +28,13 @@ final class StaticClassMapSourceLocator extends AbstractSourceLocator
     ) {
         parent::__construct($astLocator);
 
-        /** @var string[] $realPaths */
-        $realPaths = array_map('realpath', $classMap);
-
+        $realPaths = Dict\map($classMap, static function(string $file): string {
+            return Filesystem\canonicalize($file);
+        });
+        
         Assert::allFile($realPaths);
-        Assert::allStringNotEmpty(array_keys($classMap));
 
-        $this->classMap = $realPaths;
+        $this->classMap = Type\dict(Type\non_empty_string(), Type\string())->coerce($realPaths);
     }
 
     protected function createLocatedSource(Identifier $identifier): ?LocatedSource
@@ -50,6 +49,6 @@ final class StaticClassMapSourceLocator extends AbstractSourceLocator
             return null;
         }
 
-        return new LocatedSource(file_get_contents($classFile), $classFile);
+        return new LocatedSource(Filesystem\read_file($classFile), $classFile);
     }
 }

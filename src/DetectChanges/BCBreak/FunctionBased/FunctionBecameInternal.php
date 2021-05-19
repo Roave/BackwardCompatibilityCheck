@@ -8,9 +8,8 @@ use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
-
-use function Safe\preg_match;
-use function Safe\sprintf;
+use Psl\Str;
+use Psl\Regex;
 
 /**
  * A function that is marked internal is no available to downstream consumers.
@@ -31,7 +30,7 @@ final class FunctionBecameInternal implements FunctionBased
             && ! $this->isInternalDocComment($fromFunction->getDocComment())
         ) {
             return Changes::fromList(Change::changed(
-                sprintf(
+                Str\format(
                     '%s was marked "@internal"',
                     $this->formatFunction->__invoke($fromFunction),
                 ),
@@ -44,6 +43,6 @@ final class FunctionBecameInternal implements FunctionBased
 
     private function isInternalDocComment(string $comment): bool
     {
-        return preg_match('/\s+@internal\s+/', $comment) === 1;
+        return Regex\matches($comment, '/\s+@internal\s+/');
     }
 }

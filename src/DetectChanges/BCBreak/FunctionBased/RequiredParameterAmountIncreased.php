@@ -8,8 +8,7 @@ use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
-
-use function Safe\sprintf;
+use Psl\Str;
 
 /**
  * When new parameters are added, they must be optional, or else the callers will provide an insufficient
@@ -34,7 +33,7 @@ final class RequiredParameterAmountIncreased implements FunctionBased
         }
 
         return Changes::fromList(Change::changed(
-            sprintf(
+            Str\format(
                 'The number of required arguments for %s increased from %d to %d',
                 $this->formatFunction->__invoke($fromFunction),
                 $fromRequiredParameters,

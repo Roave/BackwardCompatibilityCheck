@@ -10,8 +10,7 @@ use Roave\BackwardCompatibility\DetectChanges\Variance\TypeIsCovariant;
 use Roave\BackwardCompatibility\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
 use Roave\BetterReflection\Reflection\ReflectionType;
-
-use function Safe\sprintf;
+use Psl\Str;
 
 /**
  * When the return type of a function changes, the new return type must be covariant to the current type.
@@ -40,7 +39,7 @@ final class ReturnTypeCovarianceChanged implements FunctionBased
         }
 
         return Changes::fromList(Change::changed(
-            sprintf(
+            Str\format(
                 'The return type of %s changed from %s to the non-covariant %s',
                 $this->formatFunction->__invoke($fromFunction),
                 $this->typeToString($fromReturnType),

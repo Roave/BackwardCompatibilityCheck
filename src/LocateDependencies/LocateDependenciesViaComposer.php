@@ -11,11 +11,10 @@ use Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\Composer\Factory\MakeLocatorForInstalledJson;
 use Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\SourceLocator;
-use Webmozart\Assert\Assert;
-
-use function assert;
-use function Safe\chdir;
-use function Safe\getcwd;
+use Psl\Filesystem;
+use Psl;
+use Psl\Env;
+use Psl\Type;
 
 final class LocateDependenciesViaComposer implements LocateDependencies
 {
@@ -38,12 +37,10 @@ final class LocateDependenciesViaComposer implements LocateDependencies
 
     public function __invoke(string $installationPath): SourceLocator
     {
-        Assert::file($installationPath . '/composer.json');
+        Psl\invariant(Filesystem\is_file($installationPath . '/composer.json'), 'Could not locate composer.json within installation path.');
 
         $this->runInDirectory(function () use ($installationPath): void {
-            $installer = ($this->makeComposerInstaller)($installationPath);
-
-            assert($installer instanceof Installer);
+            $installer = Type\object(Installer::class)->assert(($this->makeComposerInstaller)($installationPath));
 
             // Some defaults needed for this specific implementation:
             $installer->setDevMode(false);
@@ -62,13 +59,13 @@ final class LocateDependenciesViaComposer implements LocateDependencies
 
     private function runInDirectory(callable $callable, string $directoryOfExecution): void
     {
-        $originalDirectory = getcwd();
+        $originalDirectory = Env\current_dir();
 
         try {
-            chdir($directoryOfExecution);
+            Env\set_current_dir($directoryOfExecution);
             $callable();
         } finally {
-            chdir($originalDirectory);
+            Env\set_current_dir($originalDirectory);
         }
     }
 }

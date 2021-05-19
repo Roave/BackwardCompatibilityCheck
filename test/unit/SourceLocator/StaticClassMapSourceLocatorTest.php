@@ -7,6 +7,7 @@ namespace RoaveTest\BackwardCompatibility\SourceLocator;
 use InvalidArgumentException;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Psl\Type\Exception\CoercionException;
 use Roave\BackwardCompatibility\SourceLocator\StaticClassMapSourceLocator;
 use Roave\BetterReflection\Identifier\Identifier;
 use Roave\BetterReflection\Identifier\IdentifierType;
@@ -14,8 +15,7 @@ use Roave\BetterReflection\Reflection\Reflection;
 use Roave\BetterReflection\Reflector\Reflector;
 use Roave\BetterReflection\SourceLocator\Ast\Locator;
 use Roave\BetterReflection\SourceLocator\Located\LocatedSource;
-
-use function Safe\file_get_contents;
+use Psl\Filesystem;
 
 /**
  * @covers \Roave\BackwardCompatibility\SourceLocator\StaticClassMapSourceLocator
@@ -38,7 +38,8 @@ final class StaticClassMapSourceLocatorTest extends TestCase
 
     public function testRejectsEmptyKeys(): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(CoercionException::class);
+        $this->expectExceptionMessage('Could not coerce "string" to type "non-empty-string".');
 
         new StaticClassMapSourceLocator(
             ['' => __FILE__],
@@ -79,7 +80,7 @@ final class StaticClassMapSourceLocatorTest extends TestCase
             ->expects(self::once())
             ->method('findReflection')
             ->with($this->reflector, self::callback(static function (LocatedSource $source): bool {
-                self::assertSame(file_get_contents(__FILE__), $source->getSource());
+                self::assertSame(Filesystem\read_file(__FILE__), $source->getSource());
                 self::assertSame(__FILE__, $source->getFileName());
                 self::assertNull($source->getExtensionName());
 

@@ -11,9 +11,8 @@ use Roave\BackwardCompatibility\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
 use Roave\BetterReflection\Reflection\ReflectionParameter;
 use Roave\BetterReflection\Reflection\ReflectionType;
-
-use function array_intersect_key;
-use function Safe\sprintf;
+use Psl\Dict;
+use Psl\Str;
 
 /**
  * When a parameter type changes, the new type should be wider than the previous type, or else
@@ -37,7 +36,7 @@ final class ParameterTypeContravarianceChanged implements FunctionBased
         $toParameters   = $toFunction->getParameters();
         $changes        = Changes::empty();
 
-        foreach (array_intersect_key($fromParameters, $toParameters) as $parameterIndex => $commonParameter) {
+        foreach (Dict\intersect_by_key($fromParameters, $toParameters) as $parameterIndex => $commonParameter) {
             $changes = $changes->mergeWith($this->compareParameter($commonParameter, $toParameters[$parameterIndex]));
         }
 
@@ -54,7 +53,7 @@ final class ParameterTypeContravarianceChanged implements FunctionBased
         }
 
         return Changes::fromList(Change::changed(
-            sprintf(
+            Str\format(
                 'The parameter $%s of %s changed from %s to a non-contravariant %s',
                 $fromParameter->getName(),
                 $this->formatFunction->__invoke($fromParameter->getDeclaringFunction()),

@@ -9,12 +9,9 @@ use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased\MethodBased;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
-
-use function array_intersect_key;
-use function array_keys;
-use function array_map;
-use function Safe\array_combine;
-use function strtolower;
+use Psl\Dict;
+use Psl\Str;
+use Psl\Vec;
 
 final class MethodChanged implements ClassBased
 {
@@ -38,7 +35,7 @@ final class MethodChanged implements ClassBased
      */
     private function checkSymbols(array $from, array $to): iterable
     {
-        foreach (array_keys(array_intersect_key($from, $to)) as $name) {
+        foreach (Vec\keys(Dict\intersect_by_key($from, $to)) as $name) {
             yield from $this->checkMethod->__invoke($from[$name], $to[$name]);
         }
     }
@@ -48,10 +45,10 @@ final class MethodChanged implements ClassBased
     {
         $methods = $class->getMethods();
 
-        return array_combine(
-            array_map(static function (ReflectionMethod $method): string {
-                return strtolower($method->getName());
-            }, $methods),
+        return Dict\associate(
+            Vec\map($methods, static function (ReflectionMethod $method): string {
+                return Str\lowercase($method->getName());
+            }),
             $methods
         );
     }

@@ -6,8 +6,7 @@ namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased;
 
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClass;
-
-use function Safe\preg_match;
+use Psl\Regex;
 
 /**
  * Interfaces marked "internal" (docblock) are not affected by BC checks.
@@ -32,6 +31,6 @@ final class ExcludeInternalInterface implements InterfaceBased
 
     private function isInternalDocComment(string $comment): bool
     {
-        return preg_match('/\s+@internal\s+/', $comment) === 1;
+        return Regex\matches($comment, '/\s+@internal\s+/');
     }
 }

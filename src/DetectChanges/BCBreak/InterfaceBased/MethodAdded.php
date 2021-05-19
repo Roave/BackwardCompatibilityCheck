@@ -8,13 +8,9 @@ use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
-
-use function array_diff_key;
-use function array_map;
-use function array_values;
-use function Safe\array_combine;
-use function Safe\sprintf;
-use function strtolower;
+use Psl\Dict;
+use Psl\Vec;
+use Psl\Str;
 
 final class MethodAdded implements InterfaceBased
 {
@@ -22,24 +18,24 @@ final class MethodAdded implements InterfaceBased
     {
         $fromMethods = $this->methods($fromInterface);
         $toMethods   = $this->methods($toInterface);
-        $newMethods  = array_diff_key($toMethods, $fromMethods);
+        $newMethods  = Dict\diff_by_key($toMethods, $fromMethods);
 
         if (! $newMethods) {
             return Changes::empty();
         }
 
-        return Changes::fromList(...array_values(array_map(static function (ReflectionMethod $method) use (
+        return Changes::fromList(...Vec\map($newMethods, static function (ReflectionMethod $method) use (
             $fromInterface
         ): Change {
             return Change::added(
-                sprintf(
+                Str\format(
                     'Method %s() was added to interface %s',
                     $method->getName(),
                     $fromInterface->getName()
                 ),
                 true
             );
-        }, $newMethods)));
+        }));
     }
 
     /** @return ReflectionMethod[] indexed by lowercase method name */
@@ -47,10 +43,10 @@ final class MethodAdded implements InterfaceBased
     {
         $methods = $interface->getMethods();
 
-        return array_combine(
-            array_map(static function (ReflectionMethod $method): string {
-                return strtolower($method->getName());
-            }, $methods),
+        return Dict\associate(
+            Vec\map($methods, static function (ReflectionMethod $method): string {
+                return Str\lowercase($method->getName());
+            }),
             $methods
         );
     }

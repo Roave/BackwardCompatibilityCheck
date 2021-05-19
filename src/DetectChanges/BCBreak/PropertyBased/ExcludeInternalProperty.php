@@ -6,8 +6,7 @@ namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased;
 
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
-
-use function Safe\preg_match;
+use Psl\Regex;
 
 final class ExcludeInternalProperty implements PropertyBased
 {
@@ -29,6 +28,6 @@ final class ExcludeInternalProperty implements PropertyBased
 
     private function isInternalDocComment(string $comment): bool
     {
-        return preg_match('/\s+@internal\s+/', $comment) === 1;
+        return Regex\matches($comment, '/\s+@internal\s+/');
     }
 }
