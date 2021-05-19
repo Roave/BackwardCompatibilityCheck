@@ -118,7 +118,6 @@ PHP
 
         $this->sourcesRepository = Filesystem\create_temporary_file(Env\temp_dir(), 'roave-backward-compatibility-e2e-test');
 
-        self::assertIsString($this->sourcesRepository);
         self::assertNotEmpty($this->sourcesRepository);
         self::assertFileExists($this->sourcesRepository);
 

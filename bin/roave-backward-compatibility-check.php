@@ -42,7 +42,10 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 
         foreach ($autoloaderLocations as $autoload) {
             if (Filesystem\exists($autoload)) {
-                /** @noinspection PhpIncludeInspection */
+                /**
+                 * @noinspection PhpIncludeInspection
+                 * @psalm-suppress UnresolvableInclude
+                 */
                 require_once $autoload;
 
                 return;
