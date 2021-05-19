@@ -24,7 +24,7 @@
     ],
     "require-dev": {
         "doctrine/coding-standard": "^8.2.0",
-        "infection/infection": "^0.16.4",
+        "infection/infection": "^0.22.0",
         "php-standard-library/psalm-plugin": "^1.1",
         "phpunit/phpunit": "^9.5",
         "roave/security-advisories": "dev-master",
