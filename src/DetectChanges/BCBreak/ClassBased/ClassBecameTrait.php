@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased;
 
+use Psl\Str;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClass;
-
-use function Safe\sprintf;
 
 /**
  * A class cannot become a trait without introducing an explicit BC break, since
@@ -24,7 +23,7 @@ final class ClassBecameTrait implements ClassBased
         }
 
         return Changes::fromList(Change::changed(
-            sprintf('Class %s became a trait', $fromClass->getName()),
+            Str\format('Class %s became a trait', $fromClass->getName()),
             true
         ));
     }

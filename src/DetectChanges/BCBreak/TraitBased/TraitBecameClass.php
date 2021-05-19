@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\TraitBased;
 
+use Psl\Str;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClass;
-
-use function Safe\sprintf;
 
 /**
  * A trait cannot change to become a class, as that forces all implementations
@@ -23,7 +22,7 @@ final class TraitBecameClass implements TraitBased
         }
 
         return Changes::fromList(Change::changed(
-            sprintf('Trait %s became a class', $fromTrait->getName()),
+            Str\format('Trait %s became a class', $fromTrait->getName()),
             true
         ));
     }

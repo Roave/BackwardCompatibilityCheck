@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\Git;
 
-use Webmozart\Assert\Assert;
-
-use function rtrim;
+use Psl;
+use Psl\Regex;
+use Psl\Str;
 
 final class Revision
 {
@@ -18,10 +18,10 @@ final class Revision
 
     public static function fromSha1(string $sha1): self
     {
-        Assert::regex($sha1, '/^[a-zA-Z0-9]{40}$/');
+        Psl\invariant(Regex\matches($sha1, '/^[a-zA-Z0-9]{40}$/'), 'Invalid SHA1 hash.');
 
         $instance       = new self();
-        $instance->sha1 = rtrim($sha1);
+        $instance->sha1 = Str\trim_right($sha1);
 
         return $instance;
     }

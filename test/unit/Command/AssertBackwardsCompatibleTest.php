@@ -4,9 +4,13 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\Command;
 
-use InvalidArgumentException;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Psl\Env;
+use Psl\Exception\InvariantViolationException;
+use Psl\Filesystem;
+use Psl\Hash;
+use Psl\SecureRandom;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Command\AssertBackwardsCompatible;
@@ -28,10 +32,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Version\Version;
 use Version\VersionCollection;
 
-use function Safe\chdir;
-use function Safe\realpath;
-use function sha1;
-use function uniqid;
+use function assert;
+use function is_string;
 
 /**
  * @covers \Roave\BackwardCompatibility\Command\AssertBackwardsCompatible
@@ -73,11 +75,12 @@ final class AssertBackwardsCompatibleTest extends TestCase
 
     public function setUp(): void
     {
-        $repositoryPath = realpath(__DIR__ . '/../../../');
+        $repositoryPath = Filesystem\canonicalize(__DIR__ . '/../../../');
+        assert(is_string($repositoryPath));
 
         $this->sourceRepository = CheckedOutRepository::fromPath($repositoryPath);
 
-        chdir($this->sourceRepository->__toString());
+        Env\set_current_dir($this->sourceRepository->__toString());
 
         $this->input              = $this->createMock(InputInterface::class);
         $this->output             = $this->createMock(ConsoleOutputInterface::class);
@@ -133,8 +136,8 @@ final class AssertBackwardsCompatibleTest extends TestCase
 
     public function testExecuteWhenRevisionsAreProvidedAsOptions(): void
     {
-        $fromSha = sha1('fromRevision', false);
-        $toSha   = sha1('toRevision', false);
+        $fromSha = Hash\Context::forAlgorithm('sha1')->update('fromRevision')->finalize();
+        $toSha   = Hash\Context::forAlgorithm('sha1')->update('toRevision')->finalize();
 
         $this->input->expects(self::any())->method('getOption')->willReturnMap([
             ['from', $fromSha],
@@ -182,8 +185,8 @@ final class AssertBackwardsCompatibleTest extends TestCase
 
     public function testExecuteReturnsNonZeroExitCodeWhenChangesAreDetected(): void
     {
-        $fromSha = sha1('fromRevision', false);
-        $toSha   = sha1('toRevision', false);
+        $fromSha = Hash\Context::forAlgorithm('sha1')->update('fromRevision')->finalize();
+        $toSha   = Hash\Context::forAlgorithm('sha1')->update('toRevision')->finalize();
 
         $this->input->expects(self::any())->method('getOption')->willReturnMap([
             ['from', $fromSha],
@@ -225,7 +228,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
             ->willReturn($this->dependencies);
 
         $this->compareApi->expects(self::once())->method('__invoke')->willReturn(Changes::fromList(
-            Change::added(uniqid('added', true), true)
+            Change::added('added' . SecureRandom\string(8), true)
         ));
 
         $this
@@ -243,8 +246,8 @@ final class AssertBackwardsCompatibleTest extends TestCase
 
     public function testProvidingMarkdownOptionWritesMarkdownOutput(): void
     {
-        $fromSha = sha1('fromRevision', false);
-        $toSha   = sha1('toRevision', false);
+        $fromSha = Hash\Context::forAlgorithm('sha1')->update('fromRevision')->finalize();
+        $toSha   = Hash\Context::forAlgorithm('sha1')->update('toRevision')->finalize();
 
         $this->input->expects(self::any())->method('getOption')->willReturnMap([
             ['from', $fromSha],
@@ -285,7 +288,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
             ->with((string) $this->sourceRepository)
             ->willReturn($this->dependencies);
 
-        $changeToExpect = uniqid('changeToExpect', true);
+        $changeToExpect = SecureRandom\string(8);
         $this->compareApi->expects(self::once())->method('__invoke')->willReturn(Changes::fromList(
             Change::removed($changeToExpect, true)
         ));
@@ -333,7 +336,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
             ->expects(self::never())
             ->method('__invoke');
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(InvariantViolationException::class);
 
         $this->compare->execute($this->input, $this->output);
     }
@@ -343,8 +346,8 @@ final class AssertBackwardsCompatibleTest extends TestCase
      */
     public function testExecuteWithDefaultRevisionsNotProvided(VersionCollection $versions): void
     {
-        $fromSha       = sha1('fromRevision', false);
-        $toSha         = sha1('toRevision', false);
+        $fromSha       = Hash\Context::forAlgorithm('sha1')->update('fromRevision')->finalize();
+        $toSha         = Hash\Context::forAlgorithm('sha1')->update('toRevision')->finalize();
         $pickedVersion = Version::fromString('1.0.0');
 
         $this->input->expects(self::any())->method('getOption')->willReturnMap([

@@ -4,16 +4,11 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\Formatter;
 
+use Psl\Str;
+use Psl\Vec;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Symfony\Component\Console\Output\OutputInterface;
-
-use function array_filter;
-use function array_map;
-use function implode;
-use function iterator_to_array;
-use function str_replace;
-use function trim;
 
 final class MarkdownPipedToSymfonyConsoleFormatter implements OutputFormatter
 {
@@ -26,41 +21,45 @@ final class MarkdownPipedToSymfonyConsoleFormatter implements OutputFormatter
 
     public function write(Changes $changes): void
     {
-        $arrayOfChanges = iterator_to_array($changes);
+        $arrayOfChanges = Vec\values($changes);
 
         $this->output->writeln(
             "# Added\n"
-            . implode('', $this->convertFilteredChangesToMarkdownBulletList(
+            . Str\join($this->convertFilteredChangesToMarkdownBulletList(
                 static function (Change $change): bool {
                     return $change->isAdded();
                 },
                 ...$arrayOfChanges
-            ))
+            ), '')
             . "\n# Changed\n"
-            . implode('', $this->convertFilteredChangesToMarkdownBulletList(
+            . Str\join($this->convertFilteredChangesToMarkdownBulletList(
                 static function (Change $change): bool {
                     return $change->isChanged();
                 },
                 ...$arrayOfChanges
-            ))
+            ), '')
             . "\n# Removed\n"
-            . implode('', $this->convertFilteredChangesToMarkdownBulletList(
+            . Str\join($this->convertFilteredChangesToMarkdownBulletList(
                 static function (Change $change): bool {
                     return $change->isRemoved();
                 },
                 ...$arrayOfChanges
-            ))
+            ), '')
         );
     }
 
-    /** @return string[] */
+    /**
+     * @param callable(Change): bool $filterFunction
+     *
+     * @return list<string>
+     */
     private function convertFilteredChangesToMarkdownBulletList(callable $filterFunction, Change ...$changes): array
     {
-        return array_map(
+        return Vec\map(
+            Vec\filter($changes, $filterFunction),
             static function (Change $change): string {
-                return ' - ' . str_replace(['ADDED: ', 'CHANGED: ', 'REMOVED: '], '', trim($change->__toString())) . "\n";
-            },
-            array_filter($changes, $filterFunction)
+                return ' - ' . Str\replace_every(Str\trim($change->__toString()), ['ADDED: ' => '', 'CHANGED: ' => '', 'REMOVED: ' => '']) . "\n";
+            }
         );
     }
 }

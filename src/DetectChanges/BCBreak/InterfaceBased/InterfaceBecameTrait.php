@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased;
 
+use Psl\Str;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClass;
-
-use function Safe\sprintf;
 
 /**
  * An interface cannot become a trait without introducing an explicit BC break, since
@@ -24,7 +23,7 @@ final class InterfaceBecameTrait implements InterfaceBased
         }
 
         return Changes::fromList(Change::changed(
-            sprintf('Interface %s became a trait', $fromInterface->getName()),
+            Str\format('Interface %s became a trait', $fromInterface->getName()),
             true
         ));
     }

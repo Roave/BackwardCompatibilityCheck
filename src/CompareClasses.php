@@ -5,17 +5,15 @@ declare(strict_types=1);
 namespace Roave\BackwardCompatibility;
 
 use Generator;
+use Psl\Dict;
+use Psl\Regex;
+use Psl\Str;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\ClassBased;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased\InterfaceBased;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\TraitBased\TraitBased;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
-
-use function array_filter;
-use function array_map;
-use function Safe\preg_match;
-use function Safe\sprintf;
 
 final class CompareClasses implements CompareApi
 {
@@ -40,16 +38,16 @@ final class CompareClasses implements CompareApi
         ClassReflector $pastSourcesWithDependencies,
         ClassReflector $newSourcesWithDependencies
     ): Changes {
-        $definedApiClassNames = array_map(
-            static function (ReflectionClass $class): string {
-                return $class->getName();
-            },
-            array_filter(
+        $definedApiClassNames = Dict\map(
+            Dict\filter(
                 $definedSymbols->getAllClasses(),
                 function (ReflectionClass $class): bool {
                     return ! ($class->isAnonymous() || $this->isInternalDocComment($class->getDocComment()));
                 }
-            )
+            ),
+            static function (ReflectionClass $class): string {
+                return $class->getName();
+            }
         );
 
         return Changes::fromIterator($this->makeSymbolsIterator(
@@ -83,7 +81,7 @@ final class CompareClasses implements CompareApi
         try {
             $newClass = $newSourcesWithDependencies->reflect($oldSymbol->getName());
         } catch (IdentifierNotFound $exception) {
-            yield Change::removed(sprintf('Class %s has been deleted', $oldSymbol->getName()), true);
+            yield Change::removed(Str\format('Class %s has been deleted', $oldSymbol->getName()), true);
 
             return;
         }
@@ -105,6 +103,6 @@ final class CompareClasses implements CompareApi
 
     private function isInternalDocComment(string $comment): bool
     {
-        return preg_match('/\s+@internal\s+/', $comment) === 1;
+        return Regex\matches($comment, '/\s+@internal\s+/');
     }
 }

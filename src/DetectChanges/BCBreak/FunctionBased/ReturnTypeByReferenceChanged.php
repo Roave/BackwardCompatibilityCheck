@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased;
 
+use Psl\Str;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
-
-use function Safe\sprintf;
 
 /**
  * PHP still (sadly) supports by-ref return types, so the type is wildly different between by-ref and by-val, and
@@ -34,7 +33,7 @@ final class ReturnTypeByReferenceChanged implements FunctionBased
         }
 
         return Changes::fromList(Change::changed(
-            sprintf(
+            Str\format(
                 'The return value of %s changed from %s to %s',
                 $this->formatFunction->__invoke($fromFunction),
                 $this->referenceToString($fromReturnsReference),

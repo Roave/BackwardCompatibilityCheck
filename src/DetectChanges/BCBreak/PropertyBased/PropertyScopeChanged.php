@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased;
 
+use Psl\Str;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
-
-use function Safe\sprintf;
 
 /**
  * A property that changes from instance to static or the opposite has to be accessed differently,
@@ -26,7 +25,7 @@ final class PropertyScopeChanged implements PropertyBased
         }
 
         return Changes::fromList(Change::changed(
-            sprintf(
+            Str\format(
                 'Property $%s of %s changed scope from %s to %s',
                 $fromProperty->getName(),
                 $fromProperty->getDeclaringClass()->getName(),

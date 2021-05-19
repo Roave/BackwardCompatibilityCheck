@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased;
 
+use Psl\Str;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
 use Roave\BetterReflection\Reflection\ReflectionType;
-
-use function Safe\sprintf;
 
 /**
  * Verifies if the return type of a function changed at all
@@ -36,7 +35,7 @@ final class ReturnTypeChanged implements FunctionBased
         }
 
         return Changes::fromList(Change::changed(
-            sprintf(
+            Str\format(
                 'The return type of %s changed from %s to %s',
                 $this->formatFunction->__invoke($fromFunction),
                 $fromReturnType,

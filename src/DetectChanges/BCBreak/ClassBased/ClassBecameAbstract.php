@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased;
 
+use Psl\Str;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClass;
-
-use function Safe\sprintf;
 
 /**
  * A class cannot become abstract without introducing an explicit BC break, since
@@ -29,7 +28,7 @@ final class ClassBecameAbstract implements ClassBased
         }
 
         return Changes::fromList(Change::changed(
-            sprintf('Class %s became abstract', $fromClass->getName()),
+            Str\format('Class %s became abstract', $fromClass->getName()),
             true
         ));
     }

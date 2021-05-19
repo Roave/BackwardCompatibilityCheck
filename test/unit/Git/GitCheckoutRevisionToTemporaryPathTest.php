@@ -5,18 +5,13 @@ declare(strict_types=1);
 namespace RoaveTest\BackwardCompatibility\Git;
 
 use PHPUnit\Framework\TestCase;
+use Psl\Env;
+use Psl\Filesystem;
+use Psl\Shell;
 use Roave\BackwardCompatibility\Git\CheckedOutRepository;
 use Roave\BackwardCompatibility\Git\GitCheckoutRevisionToTemporaryPath;
 use Roave\BackwardCompatibility\Git\Revision;
 use RuntimeException;
-use Symfony\Component\Process\Process;
-
-use function Safe\file_put_contents;
-use function Safe\mkdir;
-use function Safe\realpath;
-use function Safe\tempnam;
-use function Safe\unlink;
-use function sys_get_temp_dir;
 
 /**
  * @covers \Roave\BackwardCompatibility\Git\GitCheckoutRevisionToTemporaryPath
@@ -60,41 +55,27 @@ final class GitCheckoutRevisionToTemporaryPathTest extends TestCase
 
     public function testCheckedOutRevisionIsAtExpectedRevisionState(): void
     {
-        $repoPath = tempnam(sys_get_temp_dir(), 'test-git-repo-');
+        $repoPath = Filesystem\create_temporary_file(Env\temp_dir(), 'test-git-repo-');
 
-        unlink($repoPath);
-        mkdir($repoPath);
+        Filesystem\delete_file($repoPath);
+        Filesystem\create_directory($repoPath);
 
-        (new Process(['git', 'init'], $repoPath))
-            ->mustRun();
-
-        (new Process(['git', 'config', 'user.email', 'me@example.com'], $repoPath))
-            ->mustRun();
-
-        (new Process(['git', 'config', 'user.name', 'Mr Magoo'], $repoPath))
-            ->mustRun();
-
-        (new Process(['git', 'commit', '-m', 'initial commit', '--allow-empty'], $repoPath))
-            ->mustRun();
+        Shell\execute('git', ['init'], $repoPath);
+        Shell\execute('git', ['config', 'user.email', 'me@example.com'], $repoPath);
+        Shell\execute('git', ['config', 'user.name', 'Mr Magoo'], $repoPath);
+        Shell\execute('git', ['commit', '-m', 'initial commit', '--allow-empty'], $repoPath);
 
         $firstCommit = Revision::fromSha1(
-            (new Process(['git', 'rev-parse', 'HEAD'], $repoPath))
-                ->mustRun()
-                ->getOutput()
+            Shell\execute('git', ['rev-parse', 'HEAD'], $repoPath)
         );
 
-        file_put_contents($repoPath . '/a-file.txt', 'file contents');
+        Filesystem\write_file($repoPath . '/a-file.txt', 'file contents');
 
-        (new Process(['git', 'add', 'a-file.txt'], $repoPath))
-            ->mustRun();
-
-        (new Process(['git', 'commit', '-m', 'second commit', '--allow-empty'], $repoPath))
-            ->mustRun();
+        Shell\execute('git', ['add', 'a-file.txt'], $repoPath);
+        Shell\execute('git', ['commit', '-m', 'second commit', '--allow-empty'], $repoPath);
 
         $secondCommit = Revision::fromSha1(
-            (new Process(['git', 'rev-parse', 'HEAD'], $repoPath))
-                ->mustRun()
-                ->getOutput()
+            Shell\execute('git', ['rev-parse', 'HEAD'], $repoPath)
         );
 
         $git = new GitCheckoutRevisionToTemporaryPath();
@@ -109,7 +90,7 @@ final class GitCheckoutRevisionToTemporaryPathTest extends TestCase
         $git->remove($first);
         $git->remove($second);
 
-        (new Process(['rm', '-rf', $repoPath]))->mustRun();
+        Shell\execute('rm', ['-rf', $repoPath]);
     }
 
     public function testExceptionIsThrownWhenTwoPathsCollide(): void
@@ -142,6 +123,6 @@ final class GitCheckoutRevisionToTemporaryPathTest extends TestCase
 
     private function sourceRepository(): CheckedOutRepository
     {
-        return CheckedOutRepository::fromPath(realpath(__DIR__ . '/../../..'));
+        return CheckedOutRepository::fromPath((string) Filesystem\canonicalize(__DIR__ . '/../../..'));
     }
 }
