@@ -141,7 +141,11 @@ USAGE
 
         $toRevision = $this->parseRevision->fromStringForRepository($to, $sourceRepo);
 
-        $stdErr->writeln(Str\format('Comparing from %s to %s...', (string) $fromRevision, (string) $toRevision));
+        $stdErr->writeln(Str\format(
+            'Comparing from %s to %s...',
+            Type\string()->coerce($fromRevision),
+            Type\string()->coerce($toRevision)
+        ));
 
         $fromPath = $this->git->checkout($sourceRepo, $fromRevision);
         $toPath   = $this->git->checkout($sourceRepo, $toRevision);

@@ -173,7 +173,7 @@ PHP
 
 EXPECTED
                 ,
-                $exception->getOutput() // @TODO https://github.com/Roave/BackwardCompatibilityCheck/issues/79 this looks like a symfony bug - we shouldn't check STDERR, but STDOUT
+                $exception->getErrorOutput() // @TODO https://github.com/Roave/BackwardCompatibilityCheck/issues/79 this looks like a symfony bug - we shouldn't check STDERR, but STDOUT
             );
         }
     }
@@ -199,7 +199,7 @@ EXPECTED
             '-vvv',
         ], $this->sourcesRepository);
 
-        self::assertStringContainsString('No backwards-incompatible changes detected', $output);
+        self::assertEmpty($output);
     }
 
     public function testWillPickTaggedVersionOnNoGivenFrom() : void
