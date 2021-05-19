@@ -10,8 +10,7 @@
         "ocramius/package-versions": "^1.11.0",
         "roave/better-reflection": "^4.9.0",
         "symfony/console": "^5.2.6",
-        "symfony/process": "^5.2.4",
-        "webmozart/assert": "^1.9.1"
+        "symfony/process": "^5.2.4"
     },
     "license": "MIT",
     "authors": [

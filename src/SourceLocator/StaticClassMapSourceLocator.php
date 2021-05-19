@@ -8,10 +8,11 @@ use Roave\BetterReflection\Identifier\Identifier;
 use Roave\BetterReflection\SourceLocator\Ast\Locator;
 use Roave\BetterReflection\SourceLocator\Located\LocatedSource;
 use Roave\BetterReflection\SourceLocator\Type\AbstractSourceLocator;
-use Webmozart\Assert\Assert;
 use Psl\Type;
 use Psl\Dict;
 use Psl\Filesystem;
+use Psl\Iter;
+use Psl;
 
 final class StaticClassMapSourceLocator extends AbstractSourceLocator
 {
@@ -32,7 +33,9 @@ final class StaticClassMapSourceLocator extends AbstractSourceLocator
             return Type\string()->assert(Filesystem\canonicalize($file));
         });
         
-        Assert::allFile($realPaths);
+        Psl\invariant(Iter\all($realPaths, static function(string $file): bool {
+            return Filesystem\is_file($file);
+        }), 'Invalid class-map.');
 
         $this->classMap = Type\dict(Type\non_empty_string(), Type\string())->coerce($realPaths);
     }
