@@ -31,8 +31,7 @@ use RuntimeException;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
-
-use function file_exists;
+use Psl\Filesystem;
 
 (static function (): void {
     (static function (): void {
@@ -42,7 +41,7 @@ use function file_exists;
         ];
 
         foreach ($autoloaderLocations as $autoload) {
-            if (file_exists($autoload)) {
+            if (Filesystem\exists($autoload)) {
                 /** @noinspection PhpIncludeInspection */
                 require_once $autoload;
 

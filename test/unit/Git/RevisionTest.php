@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\Git;
 
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use Psl\Exception\InvariantViolationException;
 use Roave\BackwardCompatibility\Git\Revision;
-
-use function sha1;
-use function str_repeat;
-use function uniqid;
+use Psl\Str;
+use Psl\SecureRandom;
+use Psl\Hash;
 
 /**
  * @covers \Roave\BackwardCompatibility\Git\Revision
@@ -19,14 +18,14 @@ final class RevisionTest extends TestCase
 {
     public function testFromSha1WithValidSha1(): void
     {
-        $sha1 = sha1(uniqid('sha1', true));
+        $sha1 = Hash\Context::forAlgorithm('sha1')->update(SecureRandom\string(8))->finalize();
 
         self::assertSame($sha1, (string) Revision::fromSha1($sha1));
     }
 
     public function testFromSha1WithNewlinesStillProvidesValidSha1(): void
     {
-        $sha1 = sha1(uniqid('sha1', true));
+        $sha1 = Hash\Context::forAlgorithm('sha1')->update(SecureRandom\string(8))->finalize();
 
         self::assertSame($sha1, (string) Revision::fromSha1($sha1 . "\n"));
     }
@@ -39,10 +38,10 @@ final class RevisionTest extends TestCase
         return [
             [''],
             ['a'],
-            [str_repeat('a', 39)],
-            [str_repeat('a', 41)],
-            [' ' . str_repeat('a', 42)],
-            [str_repeat('a', 42) . ' '],
+            [Str\repeat('a', 39)],
+            [Str\repeat('a', 41)],
+            [' ' . Str\repeat('a', 42)],
+            [Str\repeat('a', 42) . ' '],
         ];
     }
 
@@ -51,7 +50,7 @@ final class RevisionTest extends TestCase
      */
     public function testInvalidSha1Rejected(string $invalidRevision): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(InvariantViolationException::class);
         Revision::fromSha1($invalidRevision);
     }
 }

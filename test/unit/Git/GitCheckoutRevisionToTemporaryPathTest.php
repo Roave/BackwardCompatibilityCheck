@@ -9,7 +9,6 @@ use Roave\BackwardCompatibility\Git\CheckedOutRepository;
 use Roave\BackwardCompatibility\Git\GitCheckoutRevisionToTemporaryPath;
 use Roave\BackwardCompatibility\Git\Revision;
 use RuntimeException;
-use Symfony\Component\Process\Process;
 use Psl\Shell;
 use Psl\Filesystem;
 use Psl\Env;
@@ -76,9 +75,7 @@ final class GitCheckoutRevisionToTemporaryPathTest extends TestCase
         Shell\execute('git', ['commit', '-m', 'second commit', '--allow-empty'], $repoPath);
 
         $secondCommit = Revision::fromSha1(
-            (new Process(['git', 'rev-parse', 'HEAD'], $repoPath))
-                ->mustRun()
-                ->getOutput()
+            Shell\execute('git', ['rev-parse', 'HEAD'], $repoPath)
         );
 
         $git = new GitCheckoutRevisionToTemporaryPath();

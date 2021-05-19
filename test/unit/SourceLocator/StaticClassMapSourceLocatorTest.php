@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\SourceLocator;
 
-use InvalidArgumentException;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Psl\Exception\InvariantViolationException;
 use Psl\Type\Exception\CoercionException;
 use Roave\BackwardCompatibility\SourceLocator\StaticClassMapSourceLocator;
 use Roave\BetterReflection\Identifier\Identifier;
@@ -49,7 +49,7 @@ final class StaticClassMapSourceLocatorTest extends TestCase
 
     public function testRejectsEmptyStringFiles(): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(InvariantViolationException::class);
 
         new StaticClassMapSourceLocator(
             ['foo' => ''],

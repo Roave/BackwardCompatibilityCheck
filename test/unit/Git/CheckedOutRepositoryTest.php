@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\Git;
 
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use Psl\Exception\InvariantViolationException;
 use Roave\BackwardCompatibility\Git\CheckedOutRepository;
 use Psl\Filesystem;
 use Psl\SecureRandom;
@@ -31,14 +31,14 @@ final class CheckedOutRepositoryTest extends TestCase
 
     public function testFromPathRejectsNonGitDirectory(): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(InvariantViolationException::class);
 
         CheckedOutRepository::fromPath(__DIR__);
     }
 
     public function testFromPathRejectsNonExistingDirectory(): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(InvariantViolationException::class);
 
         CheckedOutRepository::fromPath(__DIR__ . '/non-existing');
     }

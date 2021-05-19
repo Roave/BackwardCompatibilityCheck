@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\Git;
 
-use Symfony\Component\Process\Exception\LogicException;
-use Symfony\Component\Process\Exception\RuntimeException;
 use Version\Comparison\Constraint\CompositeConstraint;
 use Version\Comparison\Constraint\Constraint;
 use Version\Comparison\Constraint\OperationConstraint;
@@ -15,12 +13,6 @@ use Psl;
 
 final class PickLastMinorVersionFromCollection implements PickVersionFromVersionCollection
 {
-    /**
-     * {@inheritDoc}
-     *
-     * @throws LogicException
-     * @throws RuntimeException
-     */
     public function forVersions(VersionCollection $versionsCollection): Version
     {
         Psl\invariant(!$versionsCollection->isEmpty(), 'Cannot determine latest minor version from an empty collection');

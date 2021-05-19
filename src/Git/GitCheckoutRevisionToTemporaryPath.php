@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace Roave\BackwardCompatibility\Git;
 
 use RuntimeException;
-use Symfony\Component\Process\Exception\RuntimeException as ProcessRuntimeException;
-use Symfony\Component\Process\Process;
 use Psl\Filesystem;
 use Psl\Env;
 use Psl\Str;
+use Psl\Shell;
 
 final class GitCheckoutRevisionToTemporaryPath implements PerformCheckoutOfRevision
 {
@@ -22,24 +21,24 @@ final class GitCheckoutRevisionToTemporaryPath implements PerformCheckoutOfRevis
     }
 
     /**
-     * @throws ProcessRuntimeException
+     * @throws Shell\Exception\RuntimeException
      */
     public function checkout(CheckedOutRepository $sourceRepository, Revision $revision): CheckedOutRepository
     {
         $checkoutDirectory = $this->generateTemporaryPathFor($revision);
 
-        (new Process(['git', 'clone', $sourceRepository, $checkoutDirectory]))->mustRun();
-        (new Process(['git', 'checkout', $revision], $checkoutDirectory))->mustRun();
+        Shell\execute('git', ['clone', $sourceRepository->__toString(), $checkoutDirectory]);
+        Shell\execute('git', ['checkout', $revision->__toString()], $checkoutDirectory);
 
         return CheckedOutRepository::fromPath($checkoutDirectory);
     }
 
     /**
-     * @throws ProcessRuntimeException
+     * @throws Shell\Exception\RuntimeException
      */
     public function remove(CheckedOutRepository $checkedOutRepository): void
     {
-        (new Process(['rm', '-rf', $checkedOutRepository]))->mustRun();
+        Shell\execute('rm', ['-rf', $checkedOutRepository->__toString()]);
     }
 
     /**
