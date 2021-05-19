@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased;
 
+use Psl\Str;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\DetectChanges\Variance\TypeIsCovariant;
 use Roave\BackwardCompatibility\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
 use Roave\BetterReflection\Reflection\ReflectionType;
-use Psl\Str;
 
 /**
  * When the return type of a function changes, the new return type must be covariant to the current type.

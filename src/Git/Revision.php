@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\Git;
 
-use Psl\Str;
-use Psl\Regex;
 use Psl;
+use Psl\Regex;
+use Psl\Str;
 
 final class Revision
 {

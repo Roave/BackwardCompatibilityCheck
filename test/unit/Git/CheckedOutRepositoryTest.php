@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace RoaveTest\BackwardCompatibility\Git;
 
 use PHPUnit\Framework\TestCase;
+use Psl\Env;
 use Psl\Exception\InvariantViolationException;
-use Roave\BackwardCompatibility\Git\CheckedOutRepository;
 use Psl\Filesystem;
 use Psl\SecureRandom;
-use Psl\Env;
+use Roave\BackwardCompatibility\Git\CheckedOutRepository;
 
 /**
  * @covers \Roave\BackwardCompatibility\Git\CheckedOutRepository

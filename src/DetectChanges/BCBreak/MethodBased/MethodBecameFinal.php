@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased;
 
+use Psl\Str;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
-use Psl\Str;
 
 /**
  * A method that changes from non-final to final breaks all child classes that

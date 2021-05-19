@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\TraitBased;
 
+use Psl\Regex;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClass;
-use Psl\Regex;
 
 /**
  * Traits marked "internal" (docblock) are not affected by BC checks.
@@ -31,6 +31,6 @@ final class ExcludeInternalTrait implements TraitBased
 
     private function isInternalDocComment(string $comment): bool
     {
-        return Regex\matches( $comment, '/\s+@internal\s+/');
+        return Regex\matches($comment, '/\s+@internal\s+/');
     }
 }

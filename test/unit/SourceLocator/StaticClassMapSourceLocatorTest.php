@@ -7,6 +7,7 @@ namespace RoaveTest\BackwardCompatibility\SourceLocator;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psl\Exception\InvariantViolationException;
+use Psl\Filesystem;
 use Psl\Type\Exception\CoercionException;
 use Roave\BackwardCompatibility\SourceLocator\StaticClassMapSourceLocator;
 use Roave\BetterReflection\Identifier\Identifier;
@@ -15,7 +16,6 @@ use Roave\BetterReflection\Reflection\Reflection;
 use Roave\BetterReflection\Reflector\Reflector;
 use Roave\BetterReflection\SourceLocator\Ast\Locator;
 use Roave\BetterReflection\SourceLocator\Located\LocatedSource;
-use Psl\Filesystem;
 
 /**
  * @covers \Roave\BackwardCompatibility\SourceLocator\StaticClassMapSourceLocator

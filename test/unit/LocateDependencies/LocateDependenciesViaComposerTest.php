@@ -7,15 +7,15 @@ namespace RoaveTest\BackwardCompatibility\LocateDependencies;
 use Composer\Installer;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Psl\Env;
 use Psl\Exception\InvariantViolationException;
+use Psl\Filesystem;
+use Psl\Type;
 use ReflectionProperty;
 use Roave\BackwardCompatibility\LocateDependencies\LocateDependenciesViaComposer;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
-use Psl\Env;
-use Psl\Type;
-use Psl\Filesystem;
 
 /**
  * @covers \Roave\BackwardCompatibility\LocateDependencies\LocateDependenciesViaComposer
@@ -38,7 +38,7 @@ final class LocateDependenciesViaComposerTest extends TestCase
         $this->originalCwd       = Env\current_dir();
         $this->composerInstaller = $this->createMock(Installer::class);
 
-        $astLocator = (new BetterReflection())->astLocator();
+        $astLocator    = (new BetterReflection())->astLocator();
         $makeInstaller = function (string $installationPath): Installer {
             self::assertSame($this->expectedInstallationPath, $installationPath);
 

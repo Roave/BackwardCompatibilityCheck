@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased;
 
+use Psl\Regex;
+use Psl\Str;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClass;
-use Psl\Regex;
-use Psl\Str;
 
 /**
  * A class that is marked internal is no available to downstream consumers.

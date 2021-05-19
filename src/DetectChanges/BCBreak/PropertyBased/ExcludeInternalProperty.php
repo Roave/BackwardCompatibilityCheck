@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased;
 
+use Psl\Regex;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
-use Psl\Regex;
 
 final class ExcludeInternalProperty implements PropertyBased
 {

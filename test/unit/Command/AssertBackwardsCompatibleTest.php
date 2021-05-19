@@ -6,7 +6,11 @@ namespace RoaveTest\BackwardCompatibility\Command;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Psl\Env;
 use Psl\Exception\InvariantViolationException;
+use Psl\Filesystem;
+use Psl\Hash;
+use Psl\SecureRandom;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Command\AssertBackwardsCompatible;
@@ -27,10 +31,9 @@ use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Version\Version;
 use Version\VersionCollection;
-use Psl\SecureRandom;
-use Psl\Filesystem;
-use Psl\Env;
-use Psl\Hash;
+
+use function assert;
+use function is_string;
 
 /**
  * @covers \Roave\BackwardCompatibility\Command\AssertBackwardsCompatible
@@ -72,8 +75,8 @@ final class AssertBackwardsCompatibleTest extends TestCase
 
     public function setUp(): void
     {
-        /** @var string $repositoryPath */
         $repositoryPath = Filesystem\canonicalize(__DIR__ . '/../../../');
+        assert(is_string($repositoryPath));
 
         $this->sourceRepository = CheckedOutRepository::fromPath($repositoryPath);
 
@@ -225,7 +228,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
             ->willReturn($this->dependencies);
 
         $this->compareApi->expects(self::once())->method('__invoke')->willReturn(Changes::fromList(
-            Change::added('added'.SecureRandom\string(8), true)
+            Change::added('added' . SecureRandom\string(8), true)
         ));
 
         $this

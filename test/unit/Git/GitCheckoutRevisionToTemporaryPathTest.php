@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace RoaveTest\BackwardCompatibility\Git;
 
 use PHPUnit\Framework\TestCase;
+use Psl\Env;
+use Psl\Filesystem;
+use Psl\Shell;
 use Roave\BackwardCompatibility\Git\CheckedOutRepository;
 use Roave\BackwardCompatibility\Git\GitCheckoutRevisionToTemporaryPath;
 use Roave\BackwardCompatibility\Git\Revision;
 use RuntimeException;
-use Psl\Shell;
-use Psl\Filesystem;
-use Psl\Env;
 
 /**
  * @covers \Roave\BackwardCompatibility\Git\GitCheckoutRevisionToTemporaryPath

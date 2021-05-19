@@ -6,10 +6,10 @@ namespace RoaveTest\BackwardCompatibility\Git;
 
 use PHPUnit\Framework\TestCase;
 use Psl\Exception\InvariantViolationException;
-use Roave\BackwardCompatibility\Git\Revision;
-use Psl\Str;
-use Psl\SecureRandom;
 use Psl\Hash;
+use Psl\SecureRandom;
+use Psl\Str;
+use Roave\BackwardCompatibility\Git\Revision;
 
 /**
  * @covers \Roave\BackwardCompatibility\Git\Revision

@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased;
 
+use Psl\Dict;
+use Psl\Str;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
 use Roave\BetterReflection\Reflection\ReflectionParameter;
-use Psl\Dict;
-use Psl\Str;
 
 /**
  * A parameter passed by-value and a parameter passed by-reference are wildly different, so changing

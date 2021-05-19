@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassConstantBased;
 
+use Psl\Str;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClassConstant;
-use Psl\Str;
 
 final class ClassConstantVisibilityReduced implements ClassConstantBased
 {

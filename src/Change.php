@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility;
 
-use Throwable;
 use Psl\Str;
+use Throwable;
 
 /**
  * @todo this class probably needs subclassing or being turned into an interface

@@ -5,16 +5,15 @@ declare(strict_types=1);
 namespace Roave\BackwardCompatibility;
 
 use Generator;
+use Psl\Dict;
+use Psl\Regex;
+use Psl\Str;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\ClassBased;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased\InterfaceBased;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\TraitBased\TraitBased;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
-
-use Psl\Str;
-use Psl\Regex;
-use Psl\Dict;
 
 final class CompareClasses implements CompareApi
 {

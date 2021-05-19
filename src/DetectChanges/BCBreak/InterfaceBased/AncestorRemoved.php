@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased;
 
+use Psl\Dict;
+use Psl\Json;
+use Psl\Str;
+use Psl\Vec;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClass;
-use Psl\Vec;
-use Psl\Dict;
-use Psl\Str;
-use Psl\Json;
 
 /**
  * An interface ancestor cannot be removed, as that breaks type checking in consumers.

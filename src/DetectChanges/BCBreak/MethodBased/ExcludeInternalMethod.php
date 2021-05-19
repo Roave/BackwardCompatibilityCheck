@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased;
 
+use Psl\Regex;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
-use Psl\Regex;
 
 /**
  * Methods marked "internal" (docblock) are not affected by BC checks.

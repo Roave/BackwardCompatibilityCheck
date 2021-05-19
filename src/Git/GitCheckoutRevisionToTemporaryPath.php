@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\Git;
 
-use RuntimeException;
-use Psl\Filesystem;
 use Psl\Env;
-use Psl\Str;
+use Psl\Filesystem;
 use Psl\Shell;
+use Psl\Str;
+use RuntimeException;
 
 final class GitCheckoutRevisionToTemporaryPath implements PerformCheckoutOfRevision
 {

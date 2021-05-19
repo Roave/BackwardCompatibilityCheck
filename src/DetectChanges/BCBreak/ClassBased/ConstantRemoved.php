@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased;
 
+use Psl\Dict;
+use Psl\Str;
+use Psl\Vec;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionClassConstant;
-use Psl\Dict;
-use Psl\Vec;
-use Psl\Str;
 
 final class ConstantRemoved implements ClassBased
 {

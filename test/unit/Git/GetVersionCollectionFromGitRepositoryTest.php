@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace RoaveTest\BackwardCompatibility\Git;
 
 use PHPUnit\Framework\TestCase;
+use Psl\Dict;
+use Psl\Env;
+use Psl\Filesystem;
+use Psl\SecureRandom;
+use Psl\Shell;
 use Roave\BackwardCompatibility\Git\CheckedOutRepository;
 use Roave\BackwardCompatibility\Git\GetVersionCollectionFromGitRepository;
 use Version\Version;
-use Psl\Filesystem;
-use Psl\Dict;
-use Psl\Env;
-use Psl\SecureRandom;
-use Psl\Shell;
 
 /**
  * @covers \Roave\BackwardCompatibility\Git\GetVersionCollectionFromGitRepository
@@ -30,7 +30,7 @@ final class GetVersionCollectionFromGitRepositoryTest extends TestCase
         Shell\execute('git', ['config', 'user.name', 'Me Again'], $tmpGitRepo);
         Filesystem\write_file($tmpGitRepo . '/test', SecureRandom\string(8));
         Shell\execute('git', ['add', '.'], $tmpGitRepo);
-        Shell\execute('git', ['commit',  '-m', '"whatever"'], $tmpGitRepo);
+        Shell\execute('git', ['commit', '-m', '"whatever"'], $tmpGitRepo);
 
         $this->repoPath = CheckedOutRepository::fromPath($tmpGitRepo);
     }

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased;
 
+use Psl\Regex;
+use Psl\Str;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
-use Psl\Str;
-use Psl\Regex;
 
 /**
  * A function that is marked internal is no available to downstream consumers.

@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\Command;
 
+use Psl;
+use Psl\Env;
+use Psl\Iter;
+use Psl\Str;
+use Psl\Type;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\CompareApi;
 use Roave\BackwardCompatibility\Factory\ComposerInstallationReflectorFactory;
@@ -16,7 +21,6 @@ use Roave\BackwardCompatibility\Git\PerformCheckoutOfRevision;
 use Roave\BackwardCompatibility\Git\PickVersionFromVersionCollection;
 use Roave\BackwardCompatibility\Git\Revision;
 use Roave\BackwardCompatibility\LocateDependencies\LocateDependencies;
-use Roave\BackwardCompatibility\Support\ArrayHelpers;
 use Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
@@ -25,11 +29,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Psl\Type;
-use Psl\Env;
-use Psl\Str;
-use Psl\Iter;
-use Psl;
 
 final class AssertBackwardsCompatible extends Command
 {

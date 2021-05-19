@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace RoaveTest\BackwardCompatibility\Formatter;
 
 use PHPUnit\Framework\TestCase;
+use Psl\SecureRandom;
+use Psl\Str;
 use ReflectionException;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Formatter\SymfonyConsoleTextFormatter;
 use Symfony\Component\Console\Output\OutputInterface;
-use Psl\Str;
-use Psl\SecureRandom;
 
 /**
  * @covers \Roave\BackwardCompatibility\Formatter\SymfonyConsoleTextFormatter

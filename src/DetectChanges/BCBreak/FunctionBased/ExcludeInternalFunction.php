@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased;
 
+use Psl\Regex;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
-use Psl\Regex;
 
 /**
  * Functions marked "internal" (docblock) are not affected by BC checks.

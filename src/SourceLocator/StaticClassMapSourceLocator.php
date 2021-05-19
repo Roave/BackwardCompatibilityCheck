@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\SourceLocator;
 
+use Psl;
+use Psl\Dict;
+use Psl\Filesystem;
+use Psl\Iter;
+use Psl\Type;
 use Roave\BetterReflection\Identifier\Identifier;
 use Roave\BetterReflection\SourceLocator\Ast\Locator;
 use Roave\BetterReflection\SourceLocator\Located\LocatedSource;
 use Roave\BetterReflection\SourceLocator\Type\AbstractSourceLocator;
-use Psl\Type;
-use Psl\Dict;
-use Psl\Filesystem;
-use Psl\Iter;
-use Psl;
 
 final class StaticClassMapSourceLocator extends AbstractSourceLocator
 {
@@ -29,11 +29,11 @@ final class StaticClassMapSourceLocator extends AbstractSourceLocator
     ) {
         parent::__construct($astLocator);
 
-        $realPaths = Dict\map($classMap, static function(string $file): string {
+        $realPaths = Dict\map($classMap, static function (string $file): string {
             return Type\string()->assert(Filesystem\canonicalize($file));
         });
         
-        Psl\invariant(Iter\all($realPaths, static function(string $file): bool {
+        Psl\invariant(Iter\all($realPaths, static function (string $file): bool {
             return Filesystem\is_file($file);
         }), 'Invalid class-map.');
 

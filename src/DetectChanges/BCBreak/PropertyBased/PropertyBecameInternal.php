@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased;
 
+use Psl\Regex;
+use Psl\Str;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Formatter\ReflectionPropertyName;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
-use Psl\Str;
-use Psl\Regex;
 
 /**
  * A property that is marked internal is no available to downstream consumers.

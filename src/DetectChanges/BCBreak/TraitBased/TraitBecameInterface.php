@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\TraitBased;
 
+use Psl\Str;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClass;
-use Psl\Str;
 
 /**
  * A trait cannot change to become a interface, as that forces all implementations

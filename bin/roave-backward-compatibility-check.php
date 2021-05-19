@@ -8,6 +8,7 @@ use Composer\Factory;
 use Composer\Installer;
 use Composer\IO\ConsoleIO;
 use PackageVersions\Versions;
+use Psl\Filesystem;
 use Roave\BackwardCompatibility\Command;
 use Roave\BackwardCompatibility\CompareClasses;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased;
@@ -31,7 +32,6 @@ use RuntimeException;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
-use Psl\Filesystem;
 
 (static function (): void {
     (static function (): void {

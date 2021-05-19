@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased;
 
+use Psl\Dict;
+use Psl\Regex;
+use Psl\Str;
+use Psl\Vec;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Formatter\ReflectionPropertyName;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
-use Psl\Str;
-use Psl\Regex;
-use Psl\Dict;
-use Psl\Vec;
 
 final class PropertyRemoved implements ClassBased
 {
@@ -39,7 +39,7 @@ final class PropertyRemoved implements ClassBased
         }));
     }
 
-    /** 
+    /**
      * @return array<string, ReflectionProperty>
      */
     private function accessibleProperties(ReflectionClass $class): array

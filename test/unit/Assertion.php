@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace RoaveTest\BackwardCompatibility;
 
 use PHPUnit\Framework\Assert;
+use Psl\Iter;
 use ReflectionProperty;
 use Roave\BackwardCompatibility\Changes;
-use Psl\Iter;
 
 abstract class Assertion
 {

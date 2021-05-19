@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased;
 
+use Psl\Dict;
+use Psl\Regex;
+use Psl\Str;
+use Psl\Vec;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
-use Psl\Dict;
-use Psl\Vec;
-use Psl\Str;
-use Psl\Regex;
 
 final class MethodRemoved implements ClassBased
 {
@@ -26,10 +26,10 @@ final class MethodRemoved implements ClassBased
     public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass): Changes
     {
         $removedMethods = Dict\diff_by_key(
-            Dict\map_keys($this->accessibleMethods($fromClass), function(string $key): string {
+            Dict\map_keys($this->accessibleMethods($fromClass), static function (string $key): string {
                 return Str\uppercase($key);
             }),
-            Dict\map_keys($this->accessibleMethods($toClass), function(string $key): string {
+            Dict\map_keys($this->accessibleMethods($toClass), static function (string $key): string {
                 return Str\uppercase($key);
             }),
         );

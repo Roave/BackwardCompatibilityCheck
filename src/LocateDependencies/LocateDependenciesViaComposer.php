@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace Roave\BackwardCompatibility\LocateDependencies;
 
 use Composer\Installer;
+use Psl;
+use Psl\Env;
+use Psl\Filesystem;
+use Psl\Type;
 use Roave\BetterReflection\SourceLocator\Ast\Locator;
 use Roave\BetterReflection\SourceLocator\SourceStubber\ReflectionSourceStubber;
 use Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\Composer\Factory\MakeLocatorForInstalledJson;
 use Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\SourceLocator;
-use Psl\Filesystem;
-use Psl;
-use Psl\Env;
-use Psl\Type;
 
 final class LocateDependenciesViaComposer implements LocateDependencies
 {
