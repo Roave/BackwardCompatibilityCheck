@@ -4,8 +4,6 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
     name="Example Psalm config with recommended defaults"
-    useDocblockTypes="true"
-    totallyTyped="false"
     allowPhpStormGenerics="true"
 >
     <projectFiles>
@@ -19,5 +17,22 @@
         <PropertyNotSetInConstructor errorLevel="suppress"/>
         <InternalClass errorLevel="suppress"/>
         <InternalMethod errorLevel="suppress"/>
+
+        <DeprecatedClass>
+            <errorLevel type="suppress">
+                <directory name="test"/>
+                <directory name="bin"/>
+            </errorLevel>
+        </DeprecatedClass>
+
+        <DeprecatedMethod>
+            <errorLevel type="suppress">
+                <directory name="test/"/>
+            </errorLevel>
+        </DeprecatedMethod>
     </issueHandlers>
+    
+    <plugins>
+        <pluginClass class="Psl\Psalm\Plugin" />
+    </plugins>
 </psalm>

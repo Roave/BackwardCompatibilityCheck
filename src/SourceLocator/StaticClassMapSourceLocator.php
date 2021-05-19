@@ -15,7 +15,7 @@ use Psl\Filesystem;
 
 final class StaticClassMapSourceLocator extends AbstractSourceLocator
 {
-    /** @var array<non-empty-string, string> */
+    /** @var array<string, string> */
     private array $classMap;
 
      /**
@@ -29,7 +29,7 @@ final class StaticClassMapSourceLocator extends AbstractSourceLocator
         parent::__construct($astLocator);
 
         $realPaths = Dict\map($classMap, static function(string $file): string {
-            return Filesystem\canonicalize($file);
+            return Type\string()->assert(Filesystem\canonicalize($file));
         });
         
         Assert::allFile($realPaths);

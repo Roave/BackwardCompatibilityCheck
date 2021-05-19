@@ -21,8 +21,8 @@ final class AncestorRemoved implements ClassBased
     public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass): Changes
     {
         $removedAncestors = Vec\concat(
-            Dict\diff($fromClass->getParentClassNames(), $toClass->getParentClassNames()),
-            Dict\diff($fromClass->getInterfaceNames(), $toClass->getInterfaceNames())
+            Vec\values(Dict\diff($fromClass->getParentClassNames(), $toClass->getParentClassNames())),
+            Vec\values(Dict\diff($fromClass->getInterfaceNames(), $toClass->getInterfaceNames()))
         );
 
         if (! $removedAncestors) {
