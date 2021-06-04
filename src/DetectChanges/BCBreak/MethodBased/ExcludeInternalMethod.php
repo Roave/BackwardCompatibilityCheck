@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased;
 
+use Psl\Regex;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
-
-use function Safe\preg_match;
 
 /**
  * Methods marked "internal" (docblock) are not affected by BC checks.
@@ -32,6 +31,6 @@ final class ExcludeInternalMethod implements MethodBased
 
     private function isInternalDocComment(string $comment): bool
     {
-        return preg_match('/\s+@internal\s+/', $comment) === 1;
+        return Regex\matches($comment, '/\s+@internal\s+/');
     }
 }

@@ -13,11 +13,13 @@
             <directory>./test/e2e</directory>
         </testsuite>
     </testsuites>
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
+
+    <coverage processUncoveredFiles="true">
+        <include>
             <directory suffix=".php">./src</directory>
-        </whitelist>
-    </filter>
+        </include>
+    </coverage>
+
     <php>
         <ini name="error_reporting" value="E_ALL"/>
     </php>

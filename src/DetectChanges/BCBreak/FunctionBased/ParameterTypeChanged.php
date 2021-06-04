@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased;
 
+use Psl\Dict;
+use Psl\Str;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
 use Roave\BetterReflection\Reflection\ReflectionParameter;
 use Roave\BetterReflection\Reflection\ReflectionType;
-
-use function array_intersect_key;
-use function Safe\sprintf;
 
 /**
  * Detects a change in a parameter type
@@ -38,14 +37,14 @@ final class ParameterTypeChanged implements FunctionBased
     }
 
     /**
-     * @param ReflectionParameter[] $from
-     * @param ReflectionParameter[] $to
+     * @param list<ReflectionParameter> $from
+     * @param list<ReflectionParameter> $to
      *
-     * @return iterable|Change[]
+     * @return iterable<Change>
      */
     private function checkSymbols(array $from, array $to): iterable
     {
-        foreach (array_intersect_key($from, $to) as $index => $commonParameter) {
+        foreach (Dict\intersect_by_key($from, $to) as $index => $commonParameter) {
             yield from $this->compareParameter($commonParameter, $to[$index]);
         }
     }
@@ -63,7 +62,7 @@ final class ParameterTypeChanged implements FunctionBased
         }
 
         yield Change::changed(
-            sprintf(
+            Str\format(
                 'The parameter $%s of %s changed from %s to %s',
                 $fromParameter->getName(),
                 $this->formatFunction->__invoke($fromParameter->getDeclaringFunction()),

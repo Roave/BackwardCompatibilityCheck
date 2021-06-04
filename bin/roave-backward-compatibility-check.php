@@ -43,7 +43,6 @@ use function file_exists;
 
         foreach ($autoloaderLocations as $autoload) {
             if (file_exists($autoload)) {
-                /** @noinspection PhpIncludeInspection */
                 require_once $autoload;
 
                 return;

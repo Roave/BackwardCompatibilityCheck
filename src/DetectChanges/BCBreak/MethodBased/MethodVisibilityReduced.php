@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased;
 
+use Psl\Str;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
-
-use function Safe\sprintf;
 
 final class MethodVisibilityReduced implements MethodBased
 {
@@ -29,7 +28,7 @@ final class MethodVisibilityReduced implements MethodBased
         }
 
         return Changes::fromList(Change::changed(
-            sprintf(
+            Str\format(
                 'Method %s() of class %s visibility reduced from %s to %s',
                 $fromMethod->getName(),
                 $fromMethod->getDeclaringClass()->getName(),

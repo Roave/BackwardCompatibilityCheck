@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased;
 
+use Psl\Dict;
+use Psl\Json;
+use Psl\Str;
+use Psl\Vec;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClass;
-
-use function array_diff;
-use function array_merge;
-use function Safe\json_encode;
-use function Safe\sprintf;
 
 /**
  * An interface ancestor cannot be removed, as that breaks type checking in consumers.
@@ -20,8 +19,8 @@ final class AncestorRemoved implements InterfaceBased
 {
     public function __invoke(ReflectionClass $fromInterface, ReflectionClass $toInterface): Changes
     {
-        $removedAncestors = array_merge(
-            array_diff($fromInterface->getInterfaceNames(), $toInterface->getInterfaceNames())
+        $removedAncestors = Vec\values(
+            Dict\diff($fromInterface->getInterfaceNames(), $toInterface->getInterfaceNames())
         );
 
         if (! $removedAncestors) {
@@ -29,10 +28,10 @@ final class AncestorRemoved implements InterfaceBased
         }
 
         return Changes::fromList(Change::removed(
-            sprintf(
+            Str\format(
                 'These ancestors of %s have been removed: %s',
                 $fromInterface->getName(),
-                json_encode($removedAncestors)
+                Json\encode($removedAncestors)
             ),
             true
         ));

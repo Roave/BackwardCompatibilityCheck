@@ -5,18 +5,17 @@ declare(strict_types=1);
 namespace RoaveTest\BackwardCompatibility\LocateDependencies;
 
 use Composer\Installer;
-use InvalidArgumentException;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Psl\Env;
+use Psl\Exception\InvariantViolationException;
+use Psl\Filesystem;
+use Psl\Type;
 use ReflectionProperty;
 use Roave\BackwardCompatibility\LocateDependencies\LocateDependenciesViaComposer;
 use Roave\BetterReflection\BetterReflection;
-use Roave\BetterReflection\SourceLocator\Ast\Locator;
 use Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
-
-use function Safe\getcwd;
-use function Safe\realpath;
 
 /**
  * @covers \Roave\BackwardCompatibility\LocateDependencies\LocateDependenciesViaComposer
@@ -25,18 +24,10 @@ final class LocateDependenciesViaComposerTest extends TestCase
 {
     private string $originalCwd;
 
-    /**
-     * @var callable
-     * @psalm-var callable(string) : Installer
-     */
-    private $makeInstaller;
-
     /** @var Installer&MockObject */
     private Installer $composerInstaller;
 
-    private ?string $expectedInstallatonPath = null;
-
-    private Locator $astLocator;
+    private string $expectedInstallationPath;
 
     private LocateDependenciesViaComposer $locateDependencies;
 
@@ -44,21 +35,22 @@ final class LocateDependenciesViaComposerTest extends TestCase
     {
         parent::setUp();
 
-        $this->originalCwd       = getcwd();
+        $this->originalCwd       = Env\current_dir();
         $this->composerInstaller = $this->createMock(Installer::class);
-        $this->astLocator        = (new BetterReflection())->astLocator();
-        $this->makeInstaller     = function (string $installationPath): Installer {
-            self::assertSame($this->expectedInstallatonPath, $installationPath);
+
+        $astLocator    = (new BetterReflection())->astLocator();
+        $makeInstaller = function (string $installationPath): Installer {
+            self::assertSame($this->expectedInstallationPath, $installationPath);
 
             return $this->composerInstaller;
         };
 
-        $this->locateDependencies = new LocateDependenciesViaComposer($this->makeInstaller, $this->astLocator);
+        $this->locateDependencies = new LocateDependenciesViaComposer($makeInstaller, $astLocator);
     }
 
     protected function tearDown(): void
     {
-        self::assertSame($this->originalCwd, getcwd());
+        self::assertSame($this->originalCwd, Env\current_dir());
 
         parent::tearDown();
     }
@@ -70,7 +62,8 @@ final class LocateDependenciesViaComposerTest extends TestCase
             ->expects(self::never())
             ->method('run');
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(InvariantViolationException::class);
+        $this->expectExceptionMessage('Could not locate composer.json within installation path.');
 
         $this
             ->locateDependencies
@@ -79,7 +72,8 @@ final class LocateDependenciesViaComposerTest extends TestCase
 
     public function testWillLocateDependencies(): void
     {
-        $this->expectedInstallatonPath = realpath(__DIR__ . '/../../asset/composer-installation-structure');
+        $this->expectedInstallationPath = Type\string()
+            ->assert(Filesystem\canonicalize(__DIR__ . '/../../asset/composer-installation-structure'));
 
         $this
             ->composerInstaller
@@ -107,12 +101,12 @@ final class LocateDependenciesViaComposerTest extends TestCase
             ->expects(self::once())
             ->method('run')
             ->willReturnCallback(function (): void {
-                self::assertSame($this->expectedInstallatonPath, getcwd());
+                self::assertSame($this->expectedInstallationPath, Env\current_dir());
             });
 
         $locator = $this
             ->locateDependencies
-            ->__invoke($this->expectedInstallatonPath);
+            ->__invoke($this->expectedInstallationPath);
 
         self::assertInstanceOf(AggregateSourceLocator::class, $locator);
 

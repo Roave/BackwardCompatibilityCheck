@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\Git;
 
-use Webmozart\Assert\Assert;
+use Psl;
+use Psl\Filesystem;
 
 final class CheckedOutRepository
 {
@@ -16,7 +17,7 @@ final class CheckedOutRepository
 
     public static function fromPath(string $path): self
     {
-        Assert::directory($path . '/.git');
+        Psl\invariant(Filesystem\is_directory($path . '/.git'), 'Directory "%s" is not a GIT repository.', $path);
 
         $instance       = new self();
         $instance->path = $path;

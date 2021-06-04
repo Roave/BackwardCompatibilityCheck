@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased;
 
+use Psl\Str;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Formatter\ReflectionPropertyName;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
 
-use function Safe\sprintf;
 use function var_export;
 
 final class PropertyDefaultValueChanged implements PropertyBased
@@ -31,7 +31,7 @@ final class PropertyDefaultValueChanged implements PropertyBased
         }
 
         return Changes::fromList(Change::changed(
-            sprintf(
+            Str\format(
                 'Property %s changed default value from %s to %s',
                 $this->formatProperty->__invoke($fromProperty),
                 var_export($fromPropertyDefaultValue, true),

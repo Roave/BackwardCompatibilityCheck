@@ -5,17 +5,14 @@ declare(strict_types=1);
 namespace RoaveTest\BackwardCompatibility\Git;
 
 use PHPUnit\Framework\TestCase;
+use Psl\Dict;
+use Psl\Env;
+use Psl\Filesystem;
+use Psl\SecureRandom;
+use Psl\Shell;
 use Roave\BackwardCompatibility\Git\CheckedOutRepository;
 use Roave\BackwardCompatibility\Git\GetVersionCollectionFromGitRepository;
-use Symfony\Component\Process\Process;
 use Version\Version;
-
-use function array_map;
-use function iterator_to_array;
-use function Safe\file_put_contents;
-use function Safe\mkdir;
-use function sys_get_temp_dir;
-use function uniqid;
 
 /**
  * @covers \Roave\BackwardCompatibility\Git\GetVersionCollectionFromGitRepository
@@ -26,36 +23,36 @@ final class GetVersionCollectionFromGitRepositoryTest extends TestCase
 
     public function setUp(): void
     {
-        $tmpGitRepo = sys_get_temp_dir() . '/api-compare-' . uniqid('tmpGitRepo', true);
-        mkdir($tmpGitRepo, 0777, true);
-        (new Process(['git', 'init'], $tmpGitRepo))->mustRun();
-        (new Process(['git', 'config', 'user.email', 'me@example.com'], $tmpGitRepo))->mustRun();
-        (new Process(['git', 'config', 'user.name', 'Me Again'], $tmpGitRepo))->mustRun();
-        file_put_contents($tmpGitRepo . '/test', uniqid('testContent', true));
-        (new Process(['git', 'add', '.'], $tmpGitRepo))->mustRun();
-        (new Process(['git', 'commit', '-m', '"whatever"'], $tmpGitRepo))->mustRun();
+        $tmpGitRepo = Env\temp_dir() . '/api-compare-' . SecureRandom\string(8);
+        Filesystem\create_directory($tmpGitRepo);
+        Shell\execute('git', ['init'], $tmpGitRepo);
+        Shell\execute('git', ['config', 'user.email', 'me@example.com'], $tmpGitRepo);
+        Shell\execute('git', ['config', 'user.name', 'Me Again'], $tmpGitRepo);
+        Filesystem\write_file($tmpGitRepo . '/test', SecureRandom\string(8));
+        Shell\execute('git', ['add', '.'], $tmpGitRepo);
+        Shell\execute('git', ['commit', '-m', '"whatever"'], $tmpGitRepo);
 
         $this->repoPath = CheckedOutRepository::fromPath($tmpGitRepo);
     }
 
     public function tearDown(): void
     {
-        (new Process(['rm', '-Rf', (string) $this->repoPath]))->mustRun();
+        Shell\execute('rm', ['-Rf', (string) $this->repoPath]);
     }
 
     private function makeTag(string $tagName): void
     {
-        (new Process(['git', 'tag', $tagName], $this->repoPath->__toString()))->mustRun();
+        Shell\execute('git', ['tag', $tagName], (string) $this->repoPath);
     }
 
     /** @return string[] */
     private function getTags(): array
     {
-        return array_map(
+        return Dict\map(
+            (new GetVersionCollectionFromGitRepository())->fromRepository($this->repoPath),
             static function (Version $version): string {
                 return $version->toString();
             },
-            iterator_to_array((new GetVersionCollectionFromGitRepository())->fromRepository($this->repoPath))
         );
     }
 

@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace RoaveTest\BackwardCompatibility;
 
 use PHPUnit\Framework\Assert;
+use Psl\Iter;
 use ReflectionProperty;
 use Roave\BackwardCompatibility\Changes;
-
-use function count;
 
 abstract class Assertion
 {
@@ -28,7 +27,7 @@ abstract class Assertion
             'Buffer must NOT be exhausted'
         );
         // Forces eager initialisation of the `Changes` instances, allowing us to compare them by value
-        Assert::assertCount(count($expected), $actual);
+        Assert::assertCount(Iter\count($expected), $actual);
         Assert::assertEquals($expected, $actual, $message);
     }
 

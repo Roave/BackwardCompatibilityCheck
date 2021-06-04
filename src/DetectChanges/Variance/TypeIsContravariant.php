@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\DetectChanges\Variance;
 
-use Roave\BackwardCompatibility\Support\ArrayHelpers;
+use Psl\Iter;
+use Psl\Str;
 use Roave\BetterReflection\Reflection\ReflectionType;
-
-use function strtolower;
 
 /**
  * This is a simplistic contravariant type check. A more appropriate approach would be to
@@ -37,7 +36,7 @@ final class TypeIsContravariant
         $typeAsString         = $type->__toString();
         $comparedTypeAsString = $comparedType->__toString();
 
-        if (strtolower($typeAsString) === strtolower($comparedTypeAsString)) {
+        if (Str\lowercase($typeAsString) === Str\lowercase($comparedTypeAsString)) {
             return true;
         }
 
@@ -70,9 +69,6 @@ final class TypeIsContravariant
             return $typeReflectionClass->implementsInterface($comparedTypeAsString);
         }
 
-        return ArrayHelpers::stringArrayContainsString(
-            $comparedTypeAsString,
-            $typeReflectionClass->getParentClassNames()
-        );
+        return Iter\contains($typeReflectionClass->getParentClassNames(), $comparedTypeAsString);
     }
 }

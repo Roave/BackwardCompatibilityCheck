@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased;
 
+use Psl\Str;
+use Psl\Vec;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Formatter\ReflectionPropertyName;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
-
-use function implode;
-use function Safe\sort;
-use function Safe\sprintf;
 
 /**
  * Type declarations for properties are invariant: you can't restrict the type because the consumer may
@@ -33,22 +31,19 @@ final class PropertyDocumentedTypeChanged implements PropertyBased
             return Changes::empty();
         }
 
-        $fromTypes = $fromProperty->getDocBlockTypeStrings();
-        $toTypes   = $toProperty->getDocBlockTypeStrings();
-
-        sort($fromTypes);
-        sort($toTypes);
+        $fromTypes = Vec\sort($fromProperty->getDocBlockTypeStrings());
+        $toTypes   = Vec\sort($toProperty->getDocBlockTypeStrings());
 
         if ($fromTypes === $toTypes) {
             return Changes::empty();
         }
 
         return Changes::fromList(Change::changed(
-            sprintf(
+            Str\format(
                 'Type documentation for property %s changed from %s to %s',
                 $this->formatProperty->__invoke($fromProperty),
-                implode('|', $fromTypes) ?: 'having no type',
-                implode('|', $toTypes) ?: 'having no type'
+                Str\join($fromTypes, '|') ?: 'having no type',
+                Str\join($toTypes, '|') ?: 'having no type'
             ),
             true
         ));

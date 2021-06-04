@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassConstantBased;
 
+use Psl\Str;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClassConstant;
 
-use function Safe\sprintf;
 use function var_export;
 
 final class ClassConstantValueChanged implements ClassConstantBased
@@ -27,7 +27,7 @@ final class ClassConstantValueChanged implements ClassConstantBased
         }
 
         return Changes::fromList(Change::changed(
-            sprintf(
+            Str\format(
                 'Value of constant %s::%s changed from %s to %s',
                 $fromConstant->getDeclaringClass()->getName(),
                 $fromConstant->getName(),
