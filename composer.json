@@ -23,7 +23,7 @@
         }
     ],
     "require-dev": {
-        "doctrine/coding-standard": "^8.2.0",
+        "doctrine/coding-standard": "^9.0.0",
         "infection/infection": "^0.16.4",
         "php-standard-library/psalm-plugin": "^1.1",
         "phpunit/phpunit": "^9.5",
