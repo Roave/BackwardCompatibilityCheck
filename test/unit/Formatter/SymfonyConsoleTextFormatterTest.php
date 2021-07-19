@@ -27,12 +27,12 @@ final class SymfonyConsoleTextFormatterTest extends TestCase
         $change2Text = SecureRandom\string(8);
 
         $output = $this->createMock(OutputInterface::class);
-        $output->expects(self::at(0))
+        $output->expects(self::exactly(2))
             ->method('writeln')
-            ->with(Str\format('[BC] REMOVED: %s', $change1Text));
-        $output->expects(self::at(1))
-            ->method('writeln')
-            ->with(Str\format('     ADDED: %s', $change2Text));
+            ->withConsecutive(
+                [Str\format('[BC] REMOVED: %s', $change1Text)],
+                [Str\format('     ADDED: %s', $change2Text)]
+            );
 
         (new SymfonyConsoleTextFormatter($output))->write(Changes::fromList(
             Change::removed($change1Text, true),
