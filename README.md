@@ -85,13 +85,13 @@ name: Test
 jobs:
   roave-backwards-compatibility-check:
     name: Roave Backwards Compatibility Check
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v2
-          with:
-            fetch-depth: 0
-        - name: "Check for BC breaks"
-          uses: docker://nyholm/roave-bc-check-ga
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: "Check for BC breaks"
+        uses: docker://nyholm/roave-bc-check-ga
 ```
 
 ### Running manually
