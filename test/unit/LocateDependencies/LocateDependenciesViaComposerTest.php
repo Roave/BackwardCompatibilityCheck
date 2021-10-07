@@ -119,4 +119,54 @@ final class LocateDependenciesViaComposerTest extends TestCase
         self::assertCount(2, $locators);
         self::assertInstanceOf(PhpInternalSourceLocator::class, $locators[1]);
     }
+
+    public function testDevelopmentDependenciesCanBeOptionallyInstalled(): void
+    {
+        $this->expectedInstallationPath = Type\string()
+            ->assert(Filesystem\canonicalize(__DIR__ . '/../../asset/composer-installation-structure'));
+
+        $this
+            ->composerInstaller
+            ->expects(self::atLeastOnce())
+            ->method('setDevMode')
+            ->with(true);
+        $this
+            ->composerInstaller
+            ->expects(self::atLeastOnce())
+            ->method('setDumpAutoloader')
+            ->with(false);
+        $this
+            ->composerInstaller
+            ->expects(self::atLeastOnce())
+            ->method('setRunScripts')
+            ->with(false);
+        $this
+            ->composerInstaller
+            ->expects(self::atLeastOnce())
+            ->method('setIgnorePlatformRequirements')
+            ->with(true);
+
+        $this
+            ->composerInstaller
+            ->expects(self::once())
+            ->method('run')
+            ->willReturnCallback(function (): void {
+                self::assertSame($this->expectedInstallationPath, Env\current_dir());
+            });
+
+        $locator = $this
+            ->locateDependencies
+            ->__invoke($this->expectedInstallationPath, true);
+
+        self::assertInstanceOf(AggregateSourceLocator::class, $locator);
+
+        $reflectionLocators = new ReflectionProperty(AggregateSourceLocator::class, 'sourceLocators');
+
+        $reflectionLocators->setAccessible(true);
+
+        $locators = $reflectionLocators->getValue($locator);
+
+        self::assertCount(2, $locators);
+        self::assertInstanceOf(PhpInternalSourceLocator::class, $locators[1]);
+    }
 }

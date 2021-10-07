@@ -96,6 +96,12 @@ final class AssertBackwardsCompatible extends Command
                 InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
                 'Currently only supports "markdown"'
             )
+            ->addOption(
+                'install-development-dependencies',
+                null,
+                InputOption::VALUE_NONE,
+                'Whether to also install "require-dev" dependencies too'
+            )
             ->addUsage(
                 <<<'USAGE'
 
@@ -139,6 +145,8 @@ USAGE
 
         $to = Type\string()->coerce($input->getOption('to'));
 
+        $includeDevelopmentDependencies = Type\bool()->coerce($input->getOption('install-development-dependencies'));
+
         $toRevision = $this->parseRevision->fromStringForRepository($to, $sourceRepo);
 
         $stdErr->writeln(Str\format(
@@ -158,11 +166,11 @@ USAGE
                 ),
                 $this->makeComposerInstallationReflector->__invoke(
                     $fromPath->__toString(),
-                    $this->locateDependencies->__invoke($fromPath->__toString())
+                    $this->locateDependencies->__invoke($fromPath->__toString(), $includeDevelopmentDependencies)
                 ),
                 $this->makeComposerInstallationReflector->__invoke(
                     $toPath->__toString(),
-                    $this->locateDependencies->__invoke($toPath->__toString())
+                    $this->locateDependencies->__invoke($toPath->__toString(), $includeDevelopmentDependencies)
                 )
             );
 
