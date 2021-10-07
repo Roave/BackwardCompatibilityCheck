@@ -126,7 +126,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
         self::assertStringStartsWith('Verifies that the revision being', $this->compare->getDescription());
 
         self::assertSame(
-            '[--from [FROM]] [--to TO] [--format [FORMAT]]',
+            '[--from [FROM]] [--to TO] [--format [FORMAT]] [--install-development-dependencies]',
             $this->compare
                 ->getDefinition()
                 ->getSynopsis()
@@ -141,6 +141,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
         $this->input->method('getOption')->willReturnMap([
             ['from', $fromSha],
             ['to', $toSha],
+            ['install-development-dependencies', false],
         ]);
         $this->input->method('getArgument')->willReturnMap([
             ['sources-path', 'src'],
@@ -177,7 +178,57 @@ final class AssertBackwardsCompatibleTest extends TestCase
             ->locateDependencies
 
             ->method('__invoke')
-            ->with((string) $this->sourceRepository)
+            ->with((string) $this->sourceRepository, false)
+            ->willReturn($this->dependencies);
+
+        $this->compareApi->expects(self::once())->method('__invoke')->willReturn(Changes::empty());
+
+        self::assertSame(0, $this->compare->execute($this->input, $this->output));
+    }
+
+    public function testExecuteWhenDevelopmentDependenciesAreRequested(): void
+    {
+        $fromSha = Hash\Context::forAlgorithm('sha1')->update('fromRevision')->finalize();
+        $toSha   = Hash\Context::forAlgorithm('sha1')->update('toRevision')->finalize();
+
+        $this->input->expects(self::any())->method('getOption')->willReturnMap([
+            ['from', $fromSha],
+            ['to', $toSha],
+            ['install-development-dependencies', true],
+        ]);
+        $this->input->expects(self::any())->method('getArgument')->willReturnMap([
+            ['sources-path', 'src'],
+        ]);
+
+        $this->performCheckout->expects(self::at(0))
+            ->method('checkout')
+            ->with($this->sourceRepository, $fromSha)
+            ->willReturn($this->sourceRepository);
+        $this->performCheckout->expects(self::at(1))
+            ->method('checkout')
+            ->with($this->sourceRepository, $toSha)
+            ->willReturn($this->sourceRepository);
+        $this->performCheckout->expects(self::at(2))
+            ->method('remove')
+            ->with($this->sourceRepository);
+        $this->performCheckout->expects(self::at(3))
+            ->method('remove')
+            ->with($this->sourceRepository);
+
+        $this->parseRevision->expects(self::at(0))
+            ->method('fromStringForRepository')
+            ->with($fromSha)
+            ->willReturn(Revision::fromSha1($fromSha));
+        $this->parseRevision->expects(self::at(1))
+            ->method('fromStringForRepository')
+            ->with($toSha)
+            ->willReturn(Revision::fromSha1($toSha));
+
+        $this
+            ->locateDependencies
+            ->expects(self::any())
+            ->method('__invoke')
+            ->with((string) $this->sourceRepository, true)
             ->willReturn($this->dependencies);
 
         $this->compareApi->expects(self::once())->method('__invoke')->willReturn(Changes::empty());
@@ -193,6 +244,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
         $this->input->method('getOption')->willReturnMap([
             ['from', $fromSha],
             ['to', $toSha],
+            ['install-development-dependencies', false],
         ]);
         $this->input->method('getArgument')->willReturnMap([
             ['sources-path', 'src'],
@@ -228,7 +280,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
         $this
             ->locateDependencies
             ->method('__invoke')
-            ->with((string) $this->sourceRepository)
+            ->with((string) $this->sourceRepository, false)
             ->willReturn($this->dependencies);
 
         $this->compareApi->expects(self::once())->method('__invoke')->willReturn(Changes::fromList(
@@ -257,6 +309,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
             ['from', $fromSha],
             ['to', $toSha],
             ['format', ['markdown']],
+            ['install-development-dependencies', false],
         ]);
         $this->input->method('getArgument')->willReturnMap([
             ['sources-path', 'src'],
@@ -292,7 +345,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
         $this
             ->locateDependencies
             ->method('__invoke')
-            ->with((string) $this->sourceRepository)
+            ->with((string) $this->sourceRepository, false)
             ->willReturn($this->dependencies);
 
         $changeToExpect = SecureRandom\string(8);
@@ -360,6 +413,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
         $this->input->method('getOption')->willReturnMap([
             ['from', null],
             ['to', 'HEAD'],
+            ['install-development-dependencies', false],
         ]);
         $this->input->method('getArgument')->willReturnMap([
             ['sources-path', 'src'],
