@@ -34,7 +34,7 @@ final class LocateDependenciesViaComposer implements LocateDependencies
         $this->astLocator            = $astLocator;
     }
 
-    public function __invoke(string $installationPath, bool $includeDevelopmentDependencies = false): SourceLocator
+    public function __invoke(string $installationPath, bool $includeDevelopmentDependencies): SourceLocator
     {
         Psl\invariant(Filesystem\is_file($installationPath . '/composer.json'), 'Could not locate composer.json within installation path.');
 

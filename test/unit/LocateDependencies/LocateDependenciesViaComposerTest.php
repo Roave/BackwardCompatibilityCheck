@@ -67,7 +67,7 @@ final class LocateDependenciesViaComposerTest extends TestCase
 
         $this
             ->locateDependencies
-            ->__invoke(__DIR__ . '/non-existing');
+            ->__invoke(__DIR__ . '/non-existing', false);
     }
 
     public function testWillLocateDependencies(): void
@@ -106,7 +106,7 @@ final class LocateDependenciesViaComposerTest extends TestCase
 
         $locator = $this
             ->locateDependencies
-            ->__invoke($this->expectedInstallationPath);
+            ->__invoke($this->expectedInstallationPath, false);
 
         self::assertInstanceOf(AggregateSourceLocator::class, $locator);
 
