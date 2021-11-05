@@ -96,6 +96,11 @@ final class ChangesTest extends TestCase
         Assertion::assertChangesEqual($changes, $changes->mergeWith(Changes::empty()));
     }
 
+    public function testEmptyWillCacheSameInstance(): void
+    {
+        self::assertSame(Changes::empty(), Changes::empty());
+    }
+
     public function testFromList(): void
     {
         $change = Change::added('added', true);
