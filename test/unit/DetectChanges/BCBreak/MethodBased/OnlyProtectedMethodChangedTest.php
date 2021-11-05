@@ -38,7 +38,6 @@ final class OnlyProtectedMethodChangedTest extends TestCase
         $to   = $this->createMock(ReflectionMethod::class);
 
         $from
-            ->expects(self::any())
             ->method('isProtected')
             ->willReturn(false);
 
@@ -56,7 +55,6 @@ final class OnlyProtectedMethodChangedTest extends TestCase
         $to   = $this->createMock(ReflectionMethod::class);
 
         $from
-            ->expects(self::any())
             ->method('isProtected')
             ->willReturn(true);
 
@@ -64,7 +62,6 @@ final class OnlyProtectedMethodChangedTest extends TestCase
 
         $this
             ->check
-            ->expects(self::any())
             ->method('__invoke')
             ->with($from, $to)
             ->willReturn($result);

@@ -49,7 +49,6 @@ final class OnlyProtectedClassConstantChangedTest extends TestCase
 
         $this
             ->fromConstant
-            ->expects(self::any())
             ->method('isProtected')
             ->willReturn(false);
 
@@ -72,7 +71,6 @@ final class OnlyProtectedClassConstantChangedTest extends TestCase
 
         $this
             ->fromConstant
-            ->expects(self::any())
             ->method('isProtected')
             ->willReturn(true);
 

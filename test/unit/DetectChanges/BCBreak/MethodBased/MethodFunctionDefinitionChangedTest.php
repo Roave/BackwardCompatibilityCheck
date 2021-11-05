@@ -42,7 +42,6 @@ final class MethodFunctionDefinitionChangedTest extends TestCase
 
         $this
             ->functionCheck
-            ->expects(self::any())
             ->method('__invoke')
             ->with($from, $to)
             ->willReturn($result);

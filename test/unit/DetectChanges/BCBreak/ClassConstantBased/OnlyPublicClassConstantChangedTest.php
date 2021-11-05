@@ -49,7 +49,6 @@ final class OnlyPublicClassConstantChangedTest extends TestCase
 
         $this
             ->fromConstant
-            ->expects(self::any())
             ->method('isPublic')
             ->willReturn(false);
 
@@ -72,7 +71,6 @@ final class OnlyPublicClassConstantChangedTest extends TestCase
 
         $this
             ->fromConstant
-            ->expects(self::any())
             ->method('isPublic')
             ->willReturn(true);
 

@@ -38,7 +38,6 @@ final class AccessibleMethodChangeTest extends TestCase
         $to   = $this->createMock(ReflectionMethod::class);
 
         $from
-            ->expects(self::any())
             ->method('isPrivate')
             ->willReturn(true);
 
@@ -56,7 +55,6 @@ final class AccessibleMethodChangeTest extends TestCase
         $to   = $this->createMock(ReflectionMethod::class);
 
         $from
-            ->expects(self::any())
             ->method('isPrivate')
             ->willReturn(false);
 
@@ -64,7 +62,6 @@ final class AccessibleMethodChangeTest extends TestCase
 
         $this
             ->check
-            ->expects(self::any())
             ->method('__invoke')
             ->with($from, $to)
             ->willReturn($result);
