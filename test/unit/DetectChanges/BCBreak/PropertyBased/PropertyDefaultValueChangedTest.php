@@ -46,7 +46,6 @@ final class PropertyDefaultValueChangedTest extends TestCase
 
     /**
      * @return array<string, array<int, ReflectionProperty|array<int, string>>>
-     *
      * @psalm-return array<string, array{0: ReflectionProperty, 1: ReflectionProperty, 2: list<string>}>
      */
     public function propertiesToBeTested(): array

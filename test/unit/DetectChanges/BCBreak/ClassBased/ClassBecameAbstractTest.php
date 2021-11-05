@@ -11,7 +11,6 @@ use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
-use RoaveTest\BackwardCompatibility\TypeRestriction;
 
 use function array_combine;
 use function array_keys;
@@ -46,7 +45,6 @@ final class ClassBecameAbstractTest extends TestCase
 
     /**
      * @return array<string, array<int, ReflectionClass|array<int, string>>>
-     *
      * @psalm-return array<string, array{0: ReflectionClass, 1: ReflectionClass, 2: list<string>}>
      */
     public function classesToBeTested(): array

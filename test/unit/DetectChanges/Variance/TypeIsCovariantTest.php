@@ -33,7 +33,6 @@ final class TypeIsCovariantTest extends TestCase
 
     /**
      * @return array<string, array<int, bool|ReflectionType|null>>
-     *
      * @psalm-return array<string, array{0: ReflectionType|null, 1: ReflectionType|null, 2: bool}>
      */
     public function checkedTypes(): array

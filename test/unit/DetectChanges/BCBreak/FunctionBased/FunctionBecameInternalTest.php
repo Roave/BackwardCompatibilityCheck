@@ -12,7 +12,6 @@ use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\Reflector\FunctionReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
-use RoaveTest\BackwardCompatibility\TypeRestriction;
 
 use function array_combine;
 use function array_keys;
@@ -45,7 +44,6 @@ final class FunctionBecameInternalTest extends TestCase
 
     /**
      * @return array<string, array<int, ReflectionFunctionAbstract|array<int, string>>>
-     *
      * @psalm-return array<string, array{0: ReflectionFunctionAbstract, 1: ReflectionFunctionAbstract, 2: list<string>}>
      */
     public function functionsToBeTested(): array

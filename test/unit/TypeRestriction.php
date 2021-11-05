@@ -14,9 +14,11 @@ use function assert;
 final class TypeRestriction
 {
     /**
-     * @psalm-template ObjectishParameterType of object
      * @psalm-param    ObjectishParameterType|null $value
+     *
      * @psalm-return   ObjectishParameterType
+     *
+     * @psalm-template ObjectishParameterType of object
      */
     public static function object(?object $value): object
     {

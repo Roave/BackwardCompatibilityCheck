@@ -96,7 +96,6 @@ final class StaticClassMapSourceLocatorTest extends TestCase
 
     /**
      * @return array<int, array<int, string>>
-     *
      * @psalm-return list<list<string>>
      */
     public static function thisClassPossiblePaths(): array

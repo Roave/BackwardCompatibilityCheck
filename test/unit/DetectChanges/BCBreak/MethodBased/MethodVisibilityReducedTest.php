@@ -11,7 +11,6 @@ use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
-use RoaveTest\BackwardCompatibility\TypeRestriction;
 
 use function array_combine;
 use function array_keys;
@@ -46,7 +45,6 @@ final class MethodVisibilityReducedTest extends TestCase
 
     /**
      * @return array<string, array<int, ReflectionMethod|array<int, string>>>
-     *
      * @psalm-return array<string, array{0: ReflectionMethod, 1: ReflectionMethod, 2: list<string>}>
      */
     public function propertiesToBeTested(): array

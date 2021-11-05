@@ -10,7 +10,6 @@ use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
-use RoaveTest\BackwardCompatibility\TypeRestriction;
 
 use function array_combine;
 use function array_keys;
@@ -31,7 +30,6 @@ final class ReflectionPropertyNameTest extends TestCase
 
     /**
      * @return array<string, array<int, string|ReflectionProperty>>
-     *
      * @psalm-return array<string, array{0: ReflectionProperty, 1: string}>
      */
     public function propertiesToBeTested(): array
