@@ -12,9 +12,10 @@ use RuntimeException;
 
 final class GitCheckoutRevisionToTemporaryPath implements PerformCheckoutOfRevision
 {
-    /** @var callable */
+    /** @var callable(string): string */
     private $uniquenessFunction;
 
+    /** @param (callable(string): string)|null $uniquenessFunction*/
     public function __construct(?callable $uniquenessFunction = null)
     {
         $this->uniquenessFunction = $uniquenessFunction ?? 'uniqid';

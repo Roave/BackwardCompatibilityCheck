@@ -10,42 +10,41 @@ use IteratorAggregate;
 use Psl\Iter;
 use Traversable;
 
+use function array_values;
+
 /**
  * @implements IteratorAggregate<int, Change>
  */
 final class Changes implements IteratorAggregate, Countable
 {
-    /** @var Change[] */
+    /** @var list<Change> */
     private array $bufferedChanges;
 
-    /** @var iterable|Change[]|null */
+    /** @var iterable<int, Change>|null */
     private ?iterable $unBufferedChanges = null;
 
-    private function __construct()
+    /** @param list<Change> $bufferedChanges */
+    private function __construct(array $bufferedChanges)
     {
+        $this->bufferedChanges = $bufferedChanges;
     }
 
     public static function empty(): self
     {
         static $empty;
 
-        if ($empty) {
+        if ($empty instanceof self) {
             return $empty;
         }
 
-        $empty = new self();
-
-        $empty->bufferedChanges = [];
-
-        return $empty;
+        return $empty = new self([]);
     }
 
-    /** @param iterable|Change[] $changes */
+    /** @param iterable<int, Change> $changes */
     public static function fromIterator(iterable $changes): self
     {
-        $instance = new self();
+        $instance = new self([]);
 
-        $instance->bufferedChanges   = [];
         $instance->unBufferedChanges = $changes;
 
         return $instance;
@@ -53,16 +52,12 @@ final class Changes implements IteratorAggregate, Countable
 
     public static function fromList(Change ...$changes): self
     {
-        $instance = new self();
-
-        $instance->bufferedChanges = $changes;
-
-        return $instance;
+        return new self(array_values($changes));
     }
 
     public function mergeWith(self $other): self
     {
-        $instance = new self();
+        $instance = new self([]);
 
         $instance->bufferedChanges   = [];
         $instance->unBufferedChanges = (function () use ($other): Generator {

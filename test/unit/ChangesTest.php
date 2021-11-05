@@ -6,6 +6,7 @@ namespace RoaveTest\BackwardCompatibility;
 
 use Generator;
 use PHPUnit\Framework\TestCase;
+use Psl\Type;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 
@@ -25,8 +26,10 @@ final class ChangesTest extends TestCase
         $changes1 = Changes::fromList(Change::changed('a', true));
         $changes2 = Changes::fromList(Change::removed('b', false));
 
-        $frozen1 = unserialize(serialize($changes1));
-        $frozen2 = unserialize(serialize($changes2));
+        $frozen1 = Type\object(Changes::class)
+            ->coerce(unserialize(serialize($changes1)));
+        $frozen2 = Type\object(Changes::class)
+            ->coerce(unserialize(serialize($changes2)));
 
         Assertion::assertChangesEqual(
             Changes::fromList(
@@ -47,6 +50,7 @@ final class ChangesTest extends TestCase
         self::assertEquals($frozen2, $changes2, 'Original Changes instance not mutated');
     }
 
+    /** @psalm-suppress UnusedVariable by-ref assignments are in place to override the behavior of the spy/callback */
     public function testFromIteratorBuffersAllChangesWithoutLoadingThemEagerly(): void
     {
         $stopProducingValues = static function (): void {
@@ -54,6 +58,7 @@ final class ChangesTest extends TestCase
         };
 
         $changesProvider = static function () use (&$stopProducingValues): Generator {
+            /** @psalm-var callable(): void $stopProducingValues */
             $stopProducingValues();
 
             yield Change::changed('a', true);
@@ -91,6 +96,11 @@ final class ChangesTest extends TestCase
         Assertion::assertChangesEqual($changes, $changes->mergeWith(Changes::empty()));
     }
 
+    public function testEmptyWillCacheSameInstance(): void
+    {
+        self::assertSame(Changes::empty(), Changes::empty());
+    }
+
     public function testFromList(): void
     {
         $change = Change::added('added', true);
@@ -103,7 +113,7 @@ final class ChangesTest extends TestCase
 
     public function testCount(): void
     {
-        $count = random_int(1, 10);
+        $count = random_int(2, 10);
 
         self::assertCount(
             $count,

@@ -16,6 +16,7 @@ use Roave\BackwardCompatibility\LocateDependencies\LocateDependenciesViaComposer
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
+use Roave\BetterReflection\SourceLocator\Type\SourceLocator;
 
 /**
  * @covers \Roave\BackwardCompatibility\LocateDependencies\LocateDependenciesViaComposer
@@ -114,7 +115,10 @@ final class LocateDependenciesViaComposerTest extends TestCase
 
         $reflectionLocators->setAccessible(true);
 
-        $locators = $reflectionLocators->getValue($locator);
+        $locators = Type\shape([
+            0 => Type\object(SourceLocator::class),
+            1 => Type\object(SourceLocator::class),
+        ])->coerce($reflectionLocators->getValue($locator));
 
         self::assertCount(2, $locators);
         self::assertInstanceOf(PhpInternalSourceLocator::class, $locators[1]);
@@ -164,7 +168,10 @@ final class LocateDependenciesViaComposerTest extends TestCase
 
         $reflectionLocators->setAccessible(true);
 
-        $locators = $reflectionLocators->getValue($locator);
+        $locators = Type\shape([
+            0 => Type\object(SourceLocator::class),
+            1 => Type\object(SourceLocator::class),
+        ])->coerce($reflectionLocators->getValue($locator));
 
         self::assertCount(2, $locators);
         self::assertInstanceOf(PhpInternalSourceLocator::class, $locators[1]);

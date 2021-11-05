@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility;
 
-use Generator;
 use Psl\Dict;
 use Psl\Regex;
 use Psl\Str;
@@ -60,7 +59,7 @@ final class CompareClasses implements CompareApi
     /**
      * @param string[] $definedApiClassNames
      *
-     * @return iterable|Change[]
+     * @return iterable<int, Change>
      */
     private function makeSymbolsIterator(
         array $definedApiClassNames,
@@ -74,10 +73,11 @@ final class CompareClasses implements CompareApi
         }
     }
 
+    /** @return iterable<int, Change> */
     private function examineSymbol(
         ReflectionClass $oldSymbol,
         ClassReflector $newSourcesWithDependencies
-    ): Generator {
+    ): iterable {
         try {
             $newClass = $newSourcesWithDependencies->reflect($oldSymbol->getName());
         } catch (IdentifierNotFound $exception) {

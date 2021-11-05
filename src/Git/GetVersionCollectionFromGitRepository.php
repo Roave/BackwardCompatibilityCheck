@@ -6,6 +6,7 @@ namespace Roave\BackwardCompatibility\Git;
 
 use Psl\Shell;
 use Psl\Str;
+use Psl\Type;
 use Psl\Vec;
 use Version\Exception\InvalidVersionString;
 use Version\Version;
@@ -23,7 +24,8 @@ final class GetVersionCollectionFromGitRepository implements GetVersionCollectio
 
         return new VersionCollection(...Vec\filter_nulls(Vec\map(Str\split($output, "\n"), static function (string $maybeVersion): ?Version {
             try {
-                return Version::fromString($maybeVersion);
+                return Type\object(Version::class)
+                    ->coerce(Version::fromString($maybeVersion));
             } catch (InvalidVersionString $e) {
                 return null;
             }

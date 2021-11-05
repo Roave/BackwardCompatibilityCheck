@@ -12,9 +12,6 @@ use Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\MemoizingSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\SourceLocator;
 
-/**
- * @codeCoverageIgnore
- */
 final class ComposerInstallationReflectorFactory
 {
     private LocateSources $locateSources;
