@@ -95,7 +95,7 @@ PHP
             'N1\D#$f'       => $classReflector->reflect('N1\D')->getProperty('f'),
         ];
 
-        return TypeRestriction::array(array_combine(
+        return array_combine(
             array_keys($properties),
             array_map(
                 static function (string $expectedMessage, ReflectionProperty $property): array {
@@ -104,6 +104,6 @@ PHP
                 array_keys($properties),
                 $properties
             )
-        ));
+        );
     }
 }

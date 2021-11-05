@@ -94,7 +94,7 @@ PHP
             'd' => [],
         ];
 
-        return TypeRestriction::array(array_combine(
+        return array_combine(
             array_keys($functions),
             array_map(
                 /** @psalm-param list<string> $errorMessages https://github.com/vimeo/psalm/issues/2772 */
@@ -108,6 +108,6 @@ PHP
                 array_keys($functions),
                 $functions
             )
-        ));
+        );
     }
 }

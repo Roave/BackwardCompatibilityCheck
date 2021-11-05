@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace RoaveTest\BackwardCompatibility;
 
 use function assert;
-use function is_array;
 
 /**
  * This utility is mostly for test purposes only: it takes values and makes sure they match
@@ -14,22 +13,6 @@ use function is_array;
  */
 final class TypeRestriction
 {
-    /**
-     * @param mixed[]|mixed $value
-     *
-     * @return mixed[]
-     *
-     * @psalm-template ArrayishParameterType of array
-     * @psalm-param    ArrayishParameterType|mixed $value
-     * @psalm-return   ArrayishParameterType
-     */
-    public static function array($value): array
-    {
-        assert(is_array($value));
-
-        return $value;
-    }
-
     /**
      * @psalm-template ObjectishParameterType of object
      * @psalm-param    ObjectishParameterType|null $value

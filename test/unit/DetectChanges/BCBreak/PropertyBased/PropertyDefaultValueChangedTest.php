@@ -141,7 +141,7 @@ PHP
             'privateExpressionToExpressionValue'   => [],
         ];
 
-        return TypeRestriction::array(array_combine(
+        return array_combine(
             array_keys($properties),
             array_map(
                 /** @psalm-param list<string> $errorMessages https://github.com/vimeo/psalm/issues/2772 */
@@ -155,6 +155,6 @@ PHP
                 array_keys($properties),
                 $properties
             )
-        ));
+        );
     }
 }

@@ -98,7 +98,7 @@ PHP
             'ParentInterfaceOrderSwapped' => [],
         ];
 
-        return TypeRestriction::array(array_combine(
+        return array_combine(
             array_keys($interfaces),
             array_map(
                 /** @psalm-param list<string> $errors https://github.com/vimeo/psalm/issues/2772 */
@@ -112,6 +112,6 @@ PHP
                 array_keys($interfaces),
                 $interfaces
             )
-        ));
+        );
     }
 }
