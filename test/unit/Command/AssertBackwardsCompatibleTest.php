@@ -11,6 +11,7 @@ use Psl\Exception\InvariantViolationException;
 use Psl\Filesystem;
 use Psl\Hash;
 use Psl\SecureRandom;
+use Psl\Type;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Command\AssertBackwardsCompatible;
@@ -41,36 +42,25 @@ use function is_string;
 final class AssertBackwardsCompatibleTest extends TestCase
 {
     private CheckedOutRepository $sourceRepository;
-
     /** @var InputInterface&MockObject */
     private InputInterface $input;
-
     /** @var ConsoleOutputInterface&MockObject */
     private ConsoleOutputInterface $output;
-
     /** @var OutputInterface&MockObject */
     private OutputInterface $stdErr;
-
     /** @var PerformCheckoutOfRevision&MockObject */
     private PerformCheckoutOfRevision $performCheckout;
-
     /** @var ParseRevision&MockObject */
     private ParseRevision $parseRevision;
-
     /** @var GetVersionCollection&MockObject */
     private GetVersionCollection $getVersions;
-
     /** @var PickVersionFromVersionCollection&MockObject */
     private PickVersionFromVersionCollection $pickVersion;
-
     /** @var LocateDependencies&MockObject */
     private LocateDependencies $locateDependencies;
-
     /** @var CompareApi&MockObject */
     private CompareApi $compareApi;
-
     private AggregateSourceLocator $dependencies;
-
     private AssertBackwardsCompatible $compare;
 
     public function setUp(): void
@@ -115,7 +105,9 @@ final class AssertBackwardsCompatibleTest extends TestCase
             $this->compare->getName()
         );
 
-        $usages = $this->compare->getUsages();
+        $usages = Type\shape([
+            0 => Type\string(),
+        ])->coerce($this->compare->getUsages());
 
         self::assertCount(1, $usages);
         self::assertStringStartsWith(
@@ -176,7 +168,6 @@ final class AssertBackwardsCompatibleTest extends TestCase
 
         $this
             ->locateDependencies
-
             ->method('__invoke')
             ->with((string) $this->sourceRepository, false)
             ->willReturn($this->dependencies);
@@ -410,7 +401,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
     {
         $fromSha       = Hash\Context::forAlgorithm('sha1')->update('fromRevision')->finalize();
         $toSha         = Hash\Context::forAlgorithm('sha1')->update('toRevision')->finalize();
-        $pickedVersion = Version::fromString('1.0.0');
+        $pickedVersion = $this->makeVersion('1.0.0');
 
         $this->input->method('getOption')->willReturnMap([
             ['from', null],
@@ -482,18 +473,25 @@ final class AssertBackwardsCompatibleTest extends TestCase
         return [
             [
                 new VersionCollection(
-                    Version::fromString('1.0.0'),
-                    Version::fromString('1.0.1'),
-                    Version::fromString('1.0.2')
+                    $this->makeVersion('1.0.0'),
+                    $this->makeVersion('1.0.1'),
+                    $this->makeVersion('1.0.2'),
                 ),
             ],
             [
                 new VersionCollection(
-                    Version::fromString('1.0.0'),
-                    Version::fromString('1.0.1')
+                    $this->makeVersion('1.0.0'),
+                    $this->makeVersion('1.0.1'),
                 ),
             ],
-            [new VersionCollection(Version::fromString('1.0.0'))],
+            [new VersionCollection($this->makeVersion('1.0.0'))],
         ];
+    }
+
+    /** @psalm-param non-empty-string $version */
+    private function makeVersion(string $version): Version
+    {
+        return Type\object(Version::class)
+            ->coerce(Version::fromString($version));
     }
 }

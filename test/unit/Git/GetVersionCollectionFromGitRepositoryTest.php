@@ -10,6 +10,7 @@ use Psl\Env;
 use Psl\Filesystem;
 use Psl\SecureRandom;
 use Psl\Shell;
+use Psl\Type;
 use Roave\BackwardCompatibility\Git\CheckedOutRepository;
 use Roave\BackwardCompatibility\Git\GetVersionCollectionFromGitRepository;
 use Version\Version;
@@ -49,7 +50,11 @@ final class GetVersionCollectionFromGitRepositoryTest extends TestCase
     private function getTags(): array
     {
         return Dict\map(
-            (new GetVersionCollectionFromGitRepository())->fromRepository($this->repoPath),
+            Type\vec(Type\object(Version::class))
+                ->coerce(
+                    (new GetVersionCollectionFromGitRepository())
+                        ->fromRepository($this->repoPath)
+                ),
             static function (Version $version): string {
                 return $version->toString();
             },

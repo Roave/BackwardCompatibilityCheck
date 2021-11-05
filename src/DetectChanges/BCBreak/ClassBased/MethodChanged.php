@@ -31,7 +31,7 @@ final class MethodChanged implements ClassBased
      * @param ReflectionMethod[] $from
      * @param ReflectionMethod[] $to
      *
-     * @return iterable|Change[]
+     * @return iterable<int, Change>
      */
     private function checkSymbols(array $from, array $to): iterable
     {

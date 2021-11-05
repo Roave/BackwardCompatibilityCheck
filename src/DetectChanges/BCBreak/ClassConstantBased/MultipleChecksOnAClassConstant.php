@@ -23,7 +23,7 @@ final class MultipleChecksOnAClassConstant implements ClassConstantBased
         return Changes::fromIterator($this->multipleChecks($fromConstant, $fromConstant));
     }
 
-    /** @return iterable|Change[] */
+    /** @return iterable<int, Change> */
     private function multipleChecks(ReflectionClassConstant $fromConstant, ReflectionClassConstant $toConstant): iterable
     {
         foreach ($this->checks as $check) {

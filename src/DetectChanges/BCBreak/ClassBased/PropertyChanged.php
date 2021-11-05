@@ -33,7 +33,7 @@ final class PropertyChanged implements ClassBased
      * @param ReflectionProperty[] $from
      * @param ReflectionProperty[] $to
      *
-     * @return iterable|Change[]
+     * @return iterable<int, Change>
      */
     private function checkSymbols(array $from, array $to): iterable
     {

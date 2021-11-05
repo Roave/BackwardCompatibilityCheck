@@ -19,11 +19,11 @@ final class LocateDependenciesViaComposer implements LocateDependencies
 {
     private Locator $astLocator;
 
-    /** @psalm-var callable () : Installer $makeComposerInstaller */
+    /** @psalm-var callable(string): Installer $makeComposerInstaller */
     private $makeComposerInstaller;
 
     /**
-     * @psalm-param callable () : Installer $makeComposerInstaller
+     * @psalm-param callable(string): Installer $makeComposerInstaller
      */
     public function __construct(
         callable $makeComposerInstaller,

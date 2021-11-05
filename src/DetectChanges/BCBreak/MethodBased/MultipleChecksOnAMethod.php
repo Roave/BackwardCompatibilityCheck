@@ -23,7 +23,7 @@ final class MultipleChecksOnAMethod implements MethodBased
         return Changes::fromIterator($this->multipleChecks($fromMethod, $toMethod));
     }
 
-    /** @return iterable|Change[] */
+    /** @return iterable<int, Change> */
     private function multipleChecks(ReflectionMethod $fromMethod, ReflectionMethod $toMethod): iterable
     {
         foreach ($this->checks as $check) {

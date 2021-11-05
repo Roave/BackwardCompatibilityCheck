@@ -42,7 +42,7 @@ final class MethodRemoved implements ClassBased
         }));
     }
 
-    /** @return ReflectionMethod[] */
+    /** @return array<string, ReflectionMethod> */
     private function accessibleMethods(ReflectionClass $class): array
     {
         $methods = Vec\filter($class->getMethods(), function (ReflectionMethod $method): bool {

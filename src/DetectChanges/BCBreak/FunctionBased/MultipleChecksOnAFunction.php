@@ -23,7 +23,7 @@ final class MultipleChecksOnAFunction implements FunctionBased
         return Changes::fromIterator($this->multipleChecks($fromFunction, $toFunction));
     }
 
-    /** @return iterable|Change[] */
+    /** @return iterable<int, Change> */
     private function multipleChecks(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction): iterable
     {
         foreach ($this->checks as $check) {

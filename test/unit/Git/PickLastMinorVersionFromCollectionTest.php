@@ -6,6 +6,7 @@ namespace RoaveTest\BackwardCompatibility\Git;
 
 use PHPUnit\Framework\TestCase;
 use Psl\Exception\InvariantViolationException;
+use Psl\Type;
 use Roave\BackwardCompatibility\Git\PickLastMinorVersionFromCollection;
 use Version\Version;
 use Version\VersionCollection;
@@ -49,7 +50,8 @@ final class PickLastMinorVersionFromCollectionTest extends TestCase
             $expectedVersion,
             (new PickLastMinorVersionFromCollection())->forVersions(
                 new VersionCollection(...array_map(static function (string $version): Version {
-                    return Version::fromString($version);
+                    return Type\object(Version::class)
+                        ->coerce(Version::fromString($version));
                 }, $collectionOfVersions))
             )->toString()
         );
