@@ -163,6 +163,7 @@ PHP
             Shell\execute(__DIR__ . '/../../../bin/roave-backward-compatibility-check', [
                 '--from=' . $this->versions[0],
                 '--to=' . $this->versions[1],
+                '-vvv',
             ], $this->sourcesRepository);
         } catch (Shell\Exception\FailedExecutionException $exception) {
             self::assertStringEndsWith(
