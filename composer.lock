@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bc5c5bf8a02b0b67394e76ff9dacaa45",
+    "content-hash": "44ff4232fdf61b158d9999ed0bc1b6f5",
     "packages": [
         {
             "name": "azjezz/psl",
-            "version": "1.8.1",
+            "version": "1.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/azjezz/psl.git",
-                "reference": "3860787c6c277feec6d3759b33eb78ebdf70f22d"
+                "reference": "60683bf0f79efc8deaeb1069f0c25c3212427411"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/azjezz/psl/zipball/3860787c6c277feec6d3759b33eb78ebdf70f22d",
-                "reference": "3860787c6c277feec6d3759b33eb78ebdf70f22d",
+                "url": "https://api.github.com/repos/azjezz/psl/zipball/60683bf0f79efc8deaeb1069f0c25c3212427411",
+                "reference": "60683bf0f79efc8deaeb1069f0c25c3212427411",
                 "shasum": ""
             },
             "require": {
@@ -26,10 +26,7 @@
                 "ext-json": "*",
                 "ext-mbstring": "*",
                 "ext-sodium": "*",
-                "php": "^8.0"
-            },
-            "suggest": {
-                "php-standard-library/psalm-plugin": "Psalm integration"
+                "php": "^7.4 || ^8.0"
             },
             "type": "library",
             "extra": {
@@ -62,15 +59,9 @@
             "description": "PHP Standard Library",
             "support": {
                 "issues": "https://github.com/azjezz/psl/issues",
-                "source": "https://github.com/azjezz/psl/tree/1.8.1"
+                "source": "https://github.com/azjezz/psl/tree/1.6.1"
             },
-            "funding": [
-                {
-                    "url": "https://opencollective.com/php-standard-library",
-                    "type": "open_collective"
-                }
-            ],
-            "time": "2021-10-03T15:35:04+00:00"
+            "time": "2021-05-19T11:49:49+00:00"
         },
         {
             "name": "beberlei/assert",
