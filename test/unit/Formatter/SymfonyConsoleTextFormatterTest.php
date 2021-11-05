@@ -30,8 +30,8 @@ final class SymfonyConsoleTextFormatterTest extends TestCase
         $output->expects(self::exactly(2))
             ->method('writeln')
             ->withConsecutive(
-                [sprintf('[BC] REMOVED: %s', $change1Text)],
-                [sprintf('     ADDED: %s', $change2Text)]
+                [Str\format('[BC] REMOVED: %s', $change1Text)],
+                [Str\format('     ADDED: %s', $change2Text)]
             );
 
         (new SymfonyConsoleTextFormatter($output))->write(Changes::fromList(
