@@ -6,8 +6,9 @@
     },
     "logs": {
         "text": "php://stderr",
+        "github": true,
         "badge": {
-            "branch": "master"
+            "branch": "6.0.x"
         }
     },
     "mutators": {
