@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f0ad24eda97ced216b6c2f177a75d167",
+    "content-hash": "bc5c5bf8a02b0b67394e76ff9dacaa45",
     "packages": [
         {
             "name": "azjezz/psl",
-            "version": "1.9.0",
+            "version": "1.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/azjezz/psl.git",
-                "reference": "08a67302236053c0eea7cba5e7e83ae1ae02cd36"
+                "reference": "3860787c6c277feec6d3759b33eb78ebdf70f22d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/azjezz/psl/zipball/08a67302236053c0eea7cba5e7e83ae1ae02cd36",
-                "reference": "08a67302236053c0eea7cba5e7e83ae1ae02cd36",
+                "url": "https://api.github.com/repos/azjezz/psl/zipball/3860787c6c277feec6d3759b33eb78ebdf70f22d",
+                "reference": "3860787c6c277feec6d3759b33eb78ebdf70f22d",
                 "shasum": ""
             },
             "require": {
@@ -62,7 +62,7 @@
             "description": "PHP Standard Library",
             "support": {
                 "issues": "https://github.com/azjezz/psl/issues",
-                "source": "https://github.com/azjezz/psl/tree/1.9.0"
+                "source": "https://github.com/azjezz/psl/tree/1.8.1"
             },
             "funding": [
                 {
@@ -70,7 +70,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2021-10-18T19:30:34+00:00"
+            "time": "2021-10-03T15:35:04+00:00"
         },
         {
             "name": "beberlei/assert",
