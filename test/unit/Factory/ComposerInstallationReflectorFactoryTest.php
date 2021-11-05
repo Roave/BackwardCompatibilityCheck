@@ -7,8 +7,9 @@ namespace RoaveTest\BackwardCompatibility\Factory;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Factory\ComposerInstallationReflectorFactory;
 use Roave\BackwardCompatibility\LocateSources\LocateSources;
-use Roave\BetterReflection\Reflector\ClassReflector;
+use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\SourceLocator\Type\SourceLocator;
+use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 
 use function uniqid;
 
@@ -25,17 +26,29 @@ final class ComposerInstallationReflectorFactoryTest extends TestCase
     {
         $path          = uniqid('path', true);
         $locateSources = $this->createMock(LocateSources::class);
+        $sources       = new StringSourceLocator(
+            <<<'PHP'
+<?php
+
+/** an example */
+class Dummy {}
+PHP
+            ,
+            (new BetterReflection())->astLocator()
+        );
 
         $locateSources
             ->expects(self::atLeastOnce())
             ->method('__invoke')
             ->with($path)
-            ->willReturn($this->createMock(SourceLocator::class));
+            ->willReturn($sources);
 
-        self::assertInstanceOf(
-            ClassReflector::class,
+        self::assertSame(
+            '/** an example */',
             (new ComposerInstallationReflectorFactory($locateSources))
                 ->__invoke($path, $this->createMock(SourceLocator::class))
+                ->reflect('Dummy')
+                ->getDocComment()
         );
     }
 }
