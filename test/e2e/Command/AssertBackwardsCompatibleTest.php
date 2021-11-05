@@ -152,7 +152,7 @@ PHP
         self::assertDirectoryExists($this->sourcesRepository);
 
         // Need to be extremely careful with this stuff - skipping it for now
-        Shell\execute('rm', ['-r', $this->sourcesRepository]);
+        Shell\execute('rm', ['-rf', $this->sourcesRepository]);
 
         parent::tearDown();
     }
