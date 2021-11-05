@@ -47,7 +47,7 @@ final class GitCheckoutRevisionToTemporaryPath implements PerformCheckoutOfRevis
     private function generateTemporaryPathFor(Revision $revision): string
     {
         $uniquePathGenerator = $this->uniquenessFunction;
-        $checkoutDirectory   = Env\temp_dir() . '/api-compare-' . $uniquePathGenerator($revision . '_');
+        $checkoutDirectory   = Env\temp_dir() . '/api-compare-' . $uniquePathGenerator($revision->__toString());
 
         if (Filesystem\exists($checkoutDirectory)) {
             throw new RuntimeException(Str\format(
