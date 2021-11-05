@@ -49,7 +49,6 @@ final class AccessiblePropertyChangedTest extends TestCase
 
         $this
             ->fromProperty
-            ->expects(self::any())
             ->method('isPrivate')
             ->willReturn(true);
 
@@ -72,7 +71,6 @@ final class AccessiblePropertyChangedTest extends TestCase
 
         $this
             ->fromProperty
-            ->expects(self::any())
             ->method('isPrivate')
             ->willReturn(false);
 

@@ -104,7 +104,6 @@ final class AssertBackwardsCompatibleTest extends TestCase
 
         $this
             ->output
-            ->expects(self::any())
             ->method('getErrorOutput')
             ->willReturn($this->stdErr);
     }
@@ -139,11 +138,11 @@ final class AssertBackwardsCompatibleTest extends TestCase
         $fromSha = Hash\Context::forAlgorithm('sha1')->update('fromRevision')->finalize();
         $toSha   = Hash\Context::forAlgorithm('sha1')->update('toRevision')->finalize();
 
-        $this->input->expects(self::any())->method('getOption')->willReturnMap([
+        $this->input->method('getOption')->willReturnMap([
             ['from', $fromSha],
             ['to', $toSha],
         ]);
-        $this->input->expects(self::any())->method('getArgument')->willReturnMap([
+        $this->input->method('getArgument')->willReturnMap([
             ['sources-path', 'src'],
         ]);
 
@@ -176,7 +175,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
 
         $this
             ->locateDependencies
-            ->expects(self::any())
+
             ->method('__invoke')
             ->with((string) $this->sourceRepository)
             ->willReturn($this->dependencies);
@@ -191,11 +190,11 @@ final class AssertBackwardsCompatibleTest extends TestCase
         $fromSha = Hash\Context::forAlgorithm('sha1')->update('fromRevision')->finalize();
         $toSha   = Hash\Context::forAlgorithm('sha1')->update('toRevision')->finalize();
 
-        $this->input->expects(self::any())->method('getOption')->willReturnMap([
+        $this->input->method('getOption')->willReturnMap([
             ['from', $fromSha],
             ['to', $toSha],
         ]);
-        $this->input->expects(self::any())->method('getArgument')->willReturnMap([
+        $this->input->method('getArgument')->willReturnMap([
             ['sources-path', 'src'],
         ]);
 
@@ -228,7 +227,6 @@ final class AssertBackwardsCompatibleTest extends TestCase
 
         $this
             ->locateDependencies
-            ->expects(self::any())
             ->method('__invoke')
             ->with((string) $this->sourceRepository)
             ->willReturn($this->dependencies);
@@ -255,12 +253,12 @@ final class AssertBackwardsCompatibleTest extends TestCase
         $fromSha = Hash\Context::forAlgorithm('sha1')->update('fromRevision')->finalize();
         $toSha   = Hash\Context::forAlgorithm('sha1')->update('toRevision')->finalize();
 
-        $this->input->expects(self::any())->method('getOption')->willReturnMap([
+        $this->input->method('getOption')->willReturnMap([
             ['from', $fromSha],
             ['to', $toSha],
             ['format', ['markdown']],
         ]);
-        $this->input->expects(self::any())->method('getArgument')->willReturnMap([
+        $this->input->method('getArgument')->willReturnMap([
             ['sources-path', 'src'],
         ]);
 
@@ -314,11 +312,11 @@ final class AssertBackwardsCompatibleTest extends TestCase
 
     public function testExecuteWithDefaultRevisionsNotProvidedAndNoDetectedTags(): void
     {
-        $this->input->expects(self::any())->method('getOption')->willReturnMap([
+        $this->input->method('getOption')->willReturnMap([
             ['from', null],
             ['to', 'HEAD'],
         ]);
-        $this->input->expects(self::any())->method('getArgument')->willReturnMap([
+        $this->input->method('getArgument')->willReturnMap([
             ['sources-path', 'src'],
         ]);
 
@@ -359,11 +357,11 @@ final class AssertBackwardsCompatibleTest extends TestCase
         $toSha         = Hash\Context::forAlgorithm('sha1')->update('toRevision')->finalize();
         $pickedVersion = Version::fromString('1.0.0');
 
-        $this->input->expects(self::any())->method('getOption')->willReturnMap([
+        $this->input->method('getOption')->willReturnMap([
             ['from', null],
             ['to', 'HEAD'],
         ]);
-        $this->input->expects(self::any())->method('getArgument')->willReturnMap([
+        $this->input->method('getArgument')->willReturnMap([
             ['sources-path', 'src'],
         ]);
 

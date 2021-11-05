@@ -10,7 +10,6 @@ use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
-use RoaveTest\BackwardCompatibility\TypeRestriction;
 
 use function array_combine;
 use function array_keys;
@@ -31,7 +30,6 @@ final class ReflectionPropertyNameTest extends TestCase
 
     /**
      * @return array<string, array<int, string|ReflectionProperty>>
-     *
      * @psalm-return array<string, array{0: ReflectionProperty, 1: string}>
      */
     public function propertiesToBeTested(): array
@@ -95,7 +93,7 @@ PHP
             'N1\D#$f'       => $classReflector->reflect('N1\D')->getProperty('f'),
         ];
 
-        return TypeRestriction::array(array_combine(
+        return array_combine(
             array_keys($properties),
             array_map(
                 static function (string $expectedMessage, ReflectionProperty $property): array {
@@ -104,6 +102,6 @@ PHP
                 array_keys($properties),
                 $properties
             )
-        ));
+        );
     }
 }

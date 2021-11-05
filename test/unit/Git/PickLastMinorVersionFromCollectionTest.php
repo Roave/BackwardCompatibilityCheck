@@ -19,7 +19,6 @@ final class PickLastMinorVersionFromCollectionTest extends TestCase
 {
     /**
      * @return array<int, array<int, string|array<int, string>>>
-     *
      * @psalm-return array<int, array{0: string, 1: list<string>}>
      */
     public function lastStableMinorVersionForCollectionProvider(): array

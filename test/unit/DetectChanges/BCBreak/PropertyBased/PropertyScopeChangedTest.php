@@ -46,7 +46,6 @@ final class PropertyScopeChangedTest extends TestCase
 
     /**
      * @return array<string, array<int, ReflectionProperty|array<int, string>>>
-     *
      * @psalm-return array<string, array{0: ReflectionProperty, 1: ReflectionProperty, 2: list<string>}>
      */
     public function propertiesToBeTested(): array
@@ -125,7 +124,7 @@ PHP
             'privateStaticToStatic'     => [],
         ];
 
-        return TypeRestriction::array(array_combine(
+        return array_combine(
             array_keys($properties),
             array_map(
                 /** @psalm-param list<string> $errorMessages https://github.com/vimeo/psalm/issues/2772 */
@@ -139,6 +138,6 @@ PHP
                 array_keys($properties),
                 $properties
             )
-        ));
+        );
     }
 }

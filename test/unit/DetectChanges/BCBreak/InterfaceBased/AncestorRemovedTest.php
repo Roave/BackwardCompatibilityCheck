@@ -11,7 +11,6 @@ use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
-use RoaveTest\BackwardCompatibility\TypeRestriction;
 
 use function array_combine;
 use function array_keys;
@@ -46,7 +45,6 @@ final class AncestorRemovedTest extends TestCase
 
     /**
      * @return array<string, array<int, ReflectionClass|array<int, string>>>
-     *
      * @psalm-return array<string, array{0: ReflectionClass, 1: ReflectionClass, 2: list<string>}>
      */
     public function interfacesToBeTested(): array
@@ -98,7 +96,7 @@ PHP
             'ParentInterfaceOrderSwapped' => [],
         ];
 
-        return TypeRestriction::array(array_combine(
+        return array_combine(
             array_keys($interfaces),
             array_map(
                 /** @psalm-param list<string> $errors https://github.com/vimeo/psalm/issues/2772 */
@@ -112,6 +110,6 @@ PHP
                 array_keys($interfaces),
                 $interfaces
             )
-        ));
+        );
     }
 }

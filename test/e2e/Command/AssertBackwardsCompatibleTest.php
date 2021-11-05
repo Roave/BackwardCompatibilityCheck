@@ -152,7 +152,7 @@ PHP
         self::assertDirectoryExists($this->sourcesRepository);
 
         // Need to be extremely careful with this stuff - skipping it for now
-        Shell\execute('rm', ['-r', $this->sourcesRepository]);
+        Shell\execute('rm', ['-rf', $this->sourcesRepository]);
 
         parent::tearDown();
     }
@@ -165,7 +165,6 @@ PHP
                 '--to=' . $this->versions[1],
             ], $this->sourcesRepository);
         } catch (Shell\Exception\FailedExecutionException $exception) {
-            self::assertSame(3, $exception->getCode());
             self::assertStringEndsWith(
                 <<<'EXPECTED'
 [BC] CHANGED: The parameter $a of TestArtifact\TheClass#method() changed from TestArtifact\A to a non-contravariant TestArtifact\B
@@ -175,6 +174,7 @@ EXPECTED
                 ,
                 $exception->getErrorOutput() // @TODO https://github.com/Roave/BackwardCompatibilityCheck/issues/79 this looks like a symfony bug - we shouldn't check STDERR, but STDOUT
             );
+            self::assertSame(3, $exception->getCode());
         }
     }
 

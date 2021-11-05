@@ -46,7 +46,6 @@ final class OpenClassChangedTest extends TestCase
 
         $this
             ->fromClass
-            ->expects(self::any())
             ->method('isFinal')
             ->willReturn(false);
 
@@ -64,7 +63,6 @@ final class OpenClassChangedTest extends TestCase
     {
         $this
             ->fromClass
-            ->expects(self::any())
             ->method('isFinal')
             ->willReturn(true);
 

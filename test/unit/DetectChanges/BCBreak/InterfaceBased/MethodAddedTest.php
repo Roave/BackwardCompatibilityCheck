@@ -11,7 +11,6 @@ use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
-use RoaveTest\BackwardCompatibility\TypeRestriction;
 
 use function array_combine;
 use function array_keys;
@@ -43,7 +42,6 @@ final class MethodAddedTest extends TestCase
 
     /**
      * @return array<string, array<int, ReflectionClass|array<int, string>>>
-     *
      * @psalm-return array<string, array{0: ReflectionClass, 1: ReflectionClass, 2: list<string>}>
      */
     public function interfacesToBeTested(): array
@@ -119,7 +117,7 @@ PHP
             'F' => ['[BC] ADDED: Method b() was added to interface F'],
         ];
 
-        return TypeRestriction::array(array_combine(
+        return array_combine(
             array_keys($properties),
             array_map(
                 /** @psalm-param list<string> $errorMessages https://github.com/vimeo/psalm/issues/2772 */
@@ -134,6 +132,6 @@ PHP
                 array_keys($properties),
                 $properties
             )
-        ));
+        );
     }
 }
