@@ -15,7 +15,7 @@ final class GitCheckoutRevisionToTemporaryPath implements PerformCheckoutOfRevis
     /** @var callable(string): string */
     private $uniquenessFunction;
 
-    /** @param callable(string ): string|null $uniquenessFunction*/
+    /** @param (callable(string): string)|null $uniquenessFunction*/
     public function __construct(?callable $uniquenessFunction = null)
     {
         $this->uniquenessFunction = $uniquenessFunction ?? 'uniqid';
