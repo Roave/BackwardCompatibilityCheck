@@ -8,7 +8,6 @@ use Composer\Installer;
 use Psl;
 use Psl\Env;
 use Psl\Filesystem;
-use Psl\Type;
 use Roave\BetterReflection\SourceLocator\Ast\Locator;
 use Roave\BetterReflection\SourceLocator\SourceStubber\ReflectionSourceStubber;
 use Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
@@ -20,7 +19,7 @@ final class LocateDependenciesViaComposer implements LocateDependencies
 {
     private Locator $astLocator;
 
-    /** @var callable */
+    /** @psalm-var callable () : Installer $makeComposerInstaller */
     private $makeComposerInstaller;
 
     /**
@@ -40,11 +39,15 @@ final class LocateDependenciesViaComposer implements LocateDependencies
         Psl\invariant(Filesystem\is_file($installationPath . '/composer.json'), 'Could not locate composer.json within installation path.');
 
         $this->runInDirectory(function () use ($installationPath): void {
-            $installer = Type\object(Installer::class)->assert(($this->makeComposerInstaller)($installationPath));
+            $installer = ($this->makeComposerInstaller)($installationPath);
 
             // Some defaults needed for this specific implementation:
             $installer->setDevMode(false);
             $installer->setDumpAutoloader(false);
+            /**
+             * @psalm-suppress DeprecatedMethod we will keep using the deprecated API until the next major release
+             *                 of composer, as we otherwise need to re-design how an {@see Installer} is constructed.
+             */
             $installer->setRunScripts(false);
             $installer->setIgnorePlatformRequirements(true);
 
