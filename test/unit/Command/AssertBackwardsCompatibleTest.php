@@ -191,42 +191,44 @@ final class AssertBackwardsCompatibleTest extends TestCase
         $fromSha = Hash\Context::forAlgorithm('sha1')->update('fromRevision')->finalize();
         $toSha   = Hash\Context::forAlgorithm('sha1')->update('toRevision')->finalize();
 
-        $this->input->expects(self::any())->method('getOption')->willReturnMap([
+        $this->input->method('getOption')->willReturnMap([
             ['from', $fromSha],
             ['to', $toSha],
             ['install-development-dependencies', true],
         ]);
-        $this->input->expects(self::any())->method('getArgument')->willReturnMap([
+        $this->input->method('getArgument')->willReturnMap([
             ['sources-path', 'src'],
         ]);
 
-        $this->performCheckout->expects(self::at(0))
+        $this->performCheckout->expects(self::exactly(2))
             ->method('checkout')
-            ->with($this->sourceRepository, $fromSha)
-            ->willReturn($this->sourceRepository);
-        $this->performCheckout->expects(self::at(1))
-            ->method('checkout')
-            ->with($this->sourceRepository, $toSha)
-            ->willReturn($this->sourceRepository);
-        $this->performCheckout->expects(self::at(2))
-            ->method('remove')
-            ->with($this->sourceRepository);
-        $this->performCheckout->expects(self::at(3))
-            ->method('remove')
-            ->with($this->sourceRepository);
+            ->withConsecutive(
+                [$this->sourceRepository, $fromSha],
+                [$this->sourceRepository, $toSha]
+            )->willReturnOnConsecutiveCalls(
+                $this->sourceRepository,
+                $this->sourceRepository
+            );
 
-        $this->parseRevision->expects(self::at(0))
+        $this->performCheckout->expects(self::exactly(2))
+            ->method('remove')
+            ->withConsecutive(
+                [$this->sourceRepository],
+                [$this->sourceRepository]
+            );
+
+        $this->parseRevision->expects(self::exactly(2))
             ->method('fromStringForRepository')
-            ->with($fromSha)
-            ->willReturn(Revision::fromSha1($fromSha));
-        $this->parseRevision->expects(self::at(1))
-            ->method('fromStringForRepository')
-            ->with($toSha)
-            ->willReturn(Revision::fromSha1($toSha));
+            ->withConsecutive(
+                [$fromSha],
+                [$toSha]
+            )->willReturnOnConsecutiveCalls(
+                Revision::fromSha1($fromSha),
+                Revision::fromSha1($toSha)
+            );
 
         $this
             ->locateDependencies
-            ->expects(self::any())
             ->method('__invoke')
             ->with((string) $this->sourceRepository, true)
             ->willReturn($this->dependencies);
