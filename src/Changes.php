@@ -10,6 +10,8 @@ use IteratorAggregate;
 use Psl\Iter;
 use Traversable;
 
+use function array_values;
+
 /**
  * @implements IteratorAggregate<int, Change>
  */
@@ -50,7 +52,7 @@ final class Changes implements IteratorAggregate, Countable
 
     public static function fromList(Change ...$changes): self
     {
-        return new self($changes);
+        return new self(array_values($changes));
     }
 
     public function mergeWith(self $other): self
