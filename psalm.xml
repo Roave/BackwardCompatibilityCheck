@@ -31,7 +31,7 @@
             </errorLevel>
         </DeprecatedMethod>
     </issueHandlers>
-    
+
     <plugins>
         <pluginClass class="Psl\Psalm\Plugin" />
     </plugins>
