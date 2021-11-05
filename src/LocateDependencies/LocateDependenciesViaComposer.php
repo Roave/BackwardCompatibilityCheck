@@ -34,15 +34,15 @@ final class LocateDependenciesViaComposer implements LocateDependencies
         $this->astLocator            = $astLocator;
     }
 
-    public function __invoke(string $installationPath): SourceLocator
+    public function __invoke(string $installationPath, bool $includeDevelopmentDependencies): SourceLocator
     {
         Psl\invariant(Filesystem\is_file($installationPath . '/composer.json'), 'Could not locate composer.json within installation path.');
 
-        $this->runInDirectory(function () use ($installationPath): void {
+        $this->runInDirectory(function () use ($installationPath, $includeDevelopmentDependencies): void {
             $installer = ($this->makeComposerInstaller)($installationPath);
 
             // Some defaults needed for this specific implementation:
-            $installer->setDevMode(false);
+            $installer->setDevMode($includeDevelopmentDependencies);
             $installer->setDumpAutoloader(false);
             /**
              * @psalm-suppress DeprecatedMethod we will keep using the deprecated API until the next major release
