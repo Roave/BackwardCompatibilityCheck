@@ -8,7 +8,7 @@
         "text": "php://stderr",
         "github": true,
         "badge": {
-            "branch": "6.0.x"
+            "branch": "/^\\d+\\.\\d+\\.x$/"
         }
     },
     "mutators": {
