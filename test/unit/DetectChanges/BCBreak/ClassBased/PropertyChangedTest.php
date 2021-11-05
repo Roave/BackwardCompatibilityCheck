@@ -74,7 +74,7 @@ PHP
                 Change::added('b', true),
                 Change::added('d', true)
             ),
-            (new PropertyChanged($comparator))->__invoke(
+            (new PropertyChanged($comparator))(
                 (new ClassReflector($fromLocator))->reflect('TheClass'),
                 (new ClassReflector($toLocator))->reflect('TheClass')
             )

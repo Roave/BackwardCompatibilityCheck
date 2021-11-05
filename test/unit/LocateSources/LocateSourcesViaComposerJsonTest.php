@@ -26,8 +26,7 @@ final class LocateSourcesViaComposerJsonTest extends TestCase
     public function testCanLocateClassInMappendAutoloadDefinitions(): void
     {
         $reflector = new ClassReflector(
-            $this->locateSources
-                ->__invoke(__DIR__ . '/../../asset/located-sources/composer-definition-with-everything')
+            ($this->locateSources)(__DIR__ . '/../../asset/located-sources/composer-definition-with-everything')
         );
 
         self::assertSame(

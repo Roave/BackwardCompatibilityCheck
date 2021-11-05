@@ -40,8 +40,7 @@ PHP
 
         self::assertEquals(
             Changes::fromList(Change::removed('foo', true)),
-            (new ExcludeInternalMethod($check))
-                ->__invoke($method, $method)
+            (new ExcludeInternalMethod($check))($method, $method)
         );
     }
 
@@ -68,8 +67,7 @@ PHP
 
         self::assertEquals(
             Changes::empty(),
-            (new ExcludeInternalMethod($check))
-                ->__invoke($method, $method)
+            (new ExcludeInternalMethod($check))($method, $method)
         );
     }
 }

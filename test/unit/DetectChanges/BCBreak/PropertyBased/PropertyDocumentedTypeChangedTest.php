@@ -33,8 +33,7 @@ final class PropertyDocumentedTypeChangedTest extends TestCase
         ReflectionProperty $toProperty,
         array $expectedMessages
     ): void {
-        $changes = (new PropertyDocumentedTypeChanged())
-            ->__invoke($fromProperty, $toProperty);
+        $changes = (new PropertyDocumentedTypeChanged())($fromProperty, $toProperty);
 
         self::assertSame(
             $expectedMessages,

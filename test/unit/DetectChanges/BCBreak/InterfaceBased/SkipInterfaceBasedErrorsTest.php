@@ -47,7 +47,7 @@ final class SkipInterfaceBasedErrorsTest extends TestCase
             ->with($fromInterface, $toInterface)
             ->willReturn($expectedChanges);
 
-        self::assertEquals($expectedChanges, $this->check->__invoke($fromInterface, $toInterface));
+        self::assertEquals($expectedChanges, ($this->check)($fromInterface, $toInterface));
     }
 
     public function testWillCollectFailures(): void
@@ -65,7 +65,7 @@ final class SkipInterfaceBasedErrorsTest extends TestCase
 
         self::assertEquals(
             Changes::fromList(Change::skippedDueToFailure($exception)),
-            $this->check->__invoke($fromInterface, $toInterface)
+            ($this->check)($fromInterface, $toInterface)
         );
     }
 }

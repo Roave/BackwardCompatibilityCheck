@@ -55,7 +55,7 @@ final class LocateDependenciesViaComposer implements LocateDependencies
         }, $installationPath);
 
         return new AggregateSourceLocator([
-            (new MakeLocatorForInstalledJson())->__invoke($installationPath, $this->astLocator),
+            (new MakeLocatorForInstalledJson())($installationPath, $this->astLocator),
             new PhpInternalSourceLocator($this->astLocator, new ReflectionSourceStubber()),
         ]);
     }

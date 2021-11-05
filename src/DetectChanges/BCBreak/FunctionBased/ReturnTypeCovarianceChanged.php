@@ -34,14 +34,14 @@ final class ReturnTypeCovarianceChanged implements FunctionBased
         $fromReturnType = $fromFunction->getReturnType();
         $toReturnType   = $toFunction->getReturnType();
 
-        if ($this->typeIsCovariant->__invoke($fromReturnType, $toReturnType)) {
+        if (($this->typeIsCovariant)($fromReturnType, $toReturnType)) {
             return Changes::empty();
         }
 
         return Changes::fromList(Change::changed(
             Str\format(
                 'The return type of %s changed from %s to the non-covariant %s',
-                $this->formatFunction->__invoke($fromFunction),
+                ($this->formatFunction)($fromFunction),
                 $this->typeToString($fromReturnType),
                 $this->typeToString($toReturnType)
             ),

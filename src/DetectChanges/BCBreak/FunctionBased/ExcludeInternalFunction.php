@@ -26,7 +26,7 @@ final class ExcludeInternalFunction implements FunctionBased
             return Changes::empty();
         }
 
-        return $this->check->__invoke($fromFunction, $toFunction);
+        return ($this->check)($fromFunction, $toFunction);
     }
 
     private function isInternalDocComment(string $comment): bool

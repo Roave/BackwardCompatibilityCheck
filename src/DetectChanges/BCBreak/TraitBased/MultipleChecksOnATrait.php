@@ -27,7 +27,7 @@ final class MultipleChecksOnATrait implements TraitBased
     private function multipleChecks(ReflectionClass $fromTrait, ReflectionClass $toTrait): iterable
     {
         foreach ($this->checks as $check) {
-            yield from $check->__invoke($fromTrait, $toTrait);
+            yield from $check($fromTrait, $toTrait);
         }
     }
 }

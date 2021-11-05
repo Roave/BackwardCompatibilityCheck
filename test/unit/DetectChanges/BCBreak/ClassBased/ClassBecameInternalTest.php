@@ -28,8 +28,7 @@ final class ClassBecameInternalTest extends TestCase
         ReflectionClass $toClass,
         array $expectedMessages
     ): void {
-        $changes = (new ClassBecameInternal())
-            ->__invoke($fromClass, $toClass);
+        $changes = (new ClassBecameInternal())($fromClass, $toClass);
 
         self::assertSame(
             $expectedMessages,

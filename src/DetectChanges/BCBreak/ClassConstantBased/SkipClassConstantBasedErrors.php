@@ -21,7 +21,7 @@ final class SkipClassConstantBasedErrors implements ClassConstantBased
     public function __invoke(ReflectionClassConstant $fromConstant, ReflectionClassConstant $toConstant): Changes
     {
         try {
-            return $this->next->__invoke($fromConstant, $toConstant);
+            return ($this->next)($fromConstant, $toConstant);
         } catch (Throwable $failure) {
             return Changes::fromList(Change::skippedDueToFailure($failure));
         }

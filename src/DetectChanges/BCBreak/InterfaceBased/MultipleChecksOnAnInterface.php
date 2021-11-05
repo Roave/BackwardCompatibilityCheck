@@ -27,7 +27,7 @@ final class MultipleChecksOnAnInterface implements InterfaceBased
     private function multipleChecks(ReflectionClass $fromInterface, ReflectionClass $toInterface): iterable
     {
         foreach ($this->checks as $check) {
-            yield from $check->__invoke($fromInterface, $toInterface);
+            yield from $check($fromInterface, $toInterface);
         }
     }
 }

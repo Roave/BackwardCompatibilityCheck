@@ -19,6 +19,6 @@ final class UseClassBasedChecksOnATrait implements TraitBased
 
     public function __invoke(ReflectionClass $fromTrait, ReflectionClass $toTrait): Changes
     {
-        return $this->check->__invoke($fromTrait, $toTrait);
+        return ($this->check)($fromTrait, $toTrait);
     }
 }

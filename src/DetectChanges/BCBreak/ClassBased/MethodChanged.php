@@ -36,7 +36,7 @@ final class MethodChanged implements ClassBased
     private function checkSymbols(array $from, array $to): iterable
     {
         foreach (Vec\keys(Dict\intersect_by_key($from, $to)) as $name) {
-            yield from $this->checkMethod->__invoke($from[$name], $to[$name]);
+            yield from ($this->checkMethod)($from[$name], $to[$name]);
         }
     }
 

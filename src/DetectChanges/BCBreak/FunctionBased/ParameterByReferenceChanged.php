@@ -52,7 +52,7 @@ final class ParameterByReferenceChanged implements FunctionBased
             Str\format(
                 'The parameter $%s of %s changed from %s to %s',
                 $fromParameter->getName(),
-                $this->formatFunction->__invoke($fromParameter->getDeclaringFunction()),
+                ($this->formatFunction)($fromParameter->getDeclaringFunction()),
                 $this->referenceToString($fromByReference),
                 $this->referenceToString($toByReference)
             ),

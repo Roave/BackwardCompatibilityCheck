@@ -26,7 +26,7 @@ final class ExcludeInternalTrait implements TraitBased
             return Changes::empty();
         }
 
-        return $this->check->__invoke($fromTrait, $toTrait);
+        return ($this->check)($fromTrait, $toTrait);
     }
 
     private function isInternalDocComment(string $comment): bool

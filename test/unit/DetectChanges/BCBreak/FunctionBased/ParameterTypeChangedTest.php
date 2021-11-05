@@ -31,8 +31,7 @@ final class ParameterTypeChangedTest extends TestCase
         ReflectionFunctionAbstract $toFunction,
         array $expectedMessages
     ) : void {
-        $changes = (new ParameterTypeChanged())
-            ->__invoke($fromFunction, $toFunction);
+        $changes = (new ParameterTypeChanged())($fromFunction, $toFunction);
 
         self::assertSame(
             $expectedMessages,

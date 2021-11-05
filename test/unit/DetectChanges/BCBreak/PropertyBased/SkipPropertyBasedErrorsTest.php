@@ -47,7 +47,7 @@ final class SkipPropertyBasedErrorsTest extends TestCase
             ->with($fromProperty, $toProperty)
             ->willReturn($expectedChanges);
 
-        self::assertEquals($expectedChanges, $this->check->__invoke($fromProperty, $toProperty));
+        self::assertEquals($expectedChanges, ($this->check)($fromProperty, $toProperty));
     }
 
     public function testWillCollectFailures(): void
@@ -65,7 +65,7 @@ final class SkipPropertyBasedErrorsTest extends TestCase
 
         self::assertEquals(
             Changes::fromList(Change::skippedDueToFailure($exception)),
-            $this->check->__invoke($fromProperty, $toProperty)
+            ($this->check)($fromProperty, $toProperty)
         );
     }
 }

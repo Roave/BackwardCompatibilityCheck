@@ -32,8 +32,7 @@ final class ClassBecameAbstractTest extends TestCase
         ReflectionClass $toClass,
         array $expectedMessages
     ): void {
-        $changes = (new ClassBecameAbstract())
-            ->__invoke($fromClass, $toClass);
+        $changes = (new ClassBecameAbstract())($fromClass, $toClass);
 
         self::assertSame(
             $expectedMessages,

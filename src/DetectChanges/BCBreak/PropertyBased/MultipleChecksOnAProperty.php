@@ -27,7 +27,7 @@ final class MultipleChecksOnAProperty implements PropertyBased
     private function multipleChecks(ReflectionProperty $fromProperty, ReflectionProperty $toProperty): iterable
     {
         foreach ($this->checks as $check) {
-            yield from $check->__invoke($fromProperty, $toProperty);
+            yield from $check($fromProperty, $toProperty);
         }
     }
 }

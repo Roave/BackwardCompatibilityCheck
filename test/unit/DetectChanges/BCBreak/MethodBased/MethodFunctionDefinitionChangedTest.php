@@ -46,6 +46,6 @@ final class MethodFunctionDefinitionChangedTest extends TestCase
             ->with($from, $to)
             ->willReturn($result);
 
-        self::assertEquals($result, $this->methodCheck->__invoke($from, $to));
+        self::assertEquals($result, ($this->methodCheck)($from, $to));
     }
 }

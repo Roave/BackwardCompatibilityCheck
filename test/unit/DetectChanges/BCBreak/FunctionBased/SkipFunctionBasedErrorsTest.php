@@ -47,7 +47,7 @@ final class SkipFunctionBasedErrorsTest extends TestCase
             ->with($fromFunction, $toFunction)
             ->willReturn($expectedChanges);
 
-        self::assertEquals($expectedChanges, $this->check->__invoke($fromFunction, $toFunction));
+        self::assertEquals($expectedChanges, ($this->check)($fromFunction, $toFunction));
     }
 
     public function testWillCollectFailures(): void
@@ -65,7 +65,7 @@ final class SkipFunctionBasedErrorsTest extends TestCase
 
         self::assertEquals(
             Changes::fromList(Change::skippedDueToFailure($exception)),
-            $this->check->__invoke($fromFunction, $toFunction)
+            ($this->check)($fromFunction, $toFunction)
         );
     }
 }

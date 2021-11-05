@@ -34,7 +34,7 @@ final class UseClassBasedChecksOnAnInterfaceTest extends TestCase
 
         self::assertSame(
             $changes,
-            (new UseClassBasedChecksOnAnInterface($classBased))->__invoke($fromInterface, $toInterface)
+            (new UseClassBasedChecksOnAnInterface($classBased))($fromInterface, $toInterface)
         );
     }
 }

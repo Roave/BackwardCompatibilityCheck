@@ -159,18 +159,18 @@ USAGE
         $toPath   = $this->git->checkout($sourceRepo, $toRevision);
 
         try {
-            $changes = $this->compareApi->__invoke(
-                $this->makeComposerInstallationReflector->__invoke(
+            $changes = ($this->compareApi)(
+                ($this->makeComposerInstallationReflector)(
                     $fromPath->__toString(),
                     new AggregateSourceLocator() // no dependencies
                 ),
-                $this->makeComposerInstallationReflector->__invoke(
+                ($this->makeComposerInstallationReflector)(
                     $fromPath->__toString(),
-                    $this->locateDependencies->__invoke($fromPath->__toString(), $includeDevelopmentDependencies)
+                    ($this->locateDependencies)($fromPath->__toString(), $includeDevelopmentDependencies)
                 ),
-                $this->makeComposerInstallationReflector->__invoke(
+                ($this->makeComposerInstallationReflector)(
                     $toPath->__toString(),
-                    $this->locateDependencies->__invoke($toPath->__toString(), $includeDevelopmentDependencies)
+                    ($this->locateDependencies)($toPath->__toString(), $includeDevelopmentDependencies)
                 )
             );
 

@@ -22,6 +22,6 @@ final class OnlyPublicClassConstantChanged implements ClassConstantBased
             return Changes::empty();
         }
 
-        return $this->constantCheck->__invoke($fromConstant, $toConstant);
+        return ($this->constantCheck)($fromConstant, $toConstant);
     }
 }

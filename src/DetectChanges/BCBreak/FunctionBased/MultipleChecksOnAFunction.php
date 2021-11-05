@@ -27,7 +27,7 @@ final class MultipleChecksOnAFunction implements FunctionBased
     private function multipleChecks(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction): iterable
     {
         foreach ($this->checks as $check) {
-            yield from $check->__invoke($fromFunction, $toFunction);
+            yield from $check($fromFunction, $toFunction);
         }
     }
 }

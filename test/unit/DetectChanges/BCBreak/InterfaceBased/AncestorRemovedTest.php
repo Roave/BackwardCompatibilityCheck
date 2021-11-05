@@ -32,8 +32,7 @@ final class AncestorRemovedTest extends TestCase
         ReflectionClass $toInterace,
         array $expectedMessages
     ): void {
-        $changes = (new AncestorRemoved())
-            ->__invoke($fromInterface, $toInterace);
+        $changes = (new AncestorRemoved())($fromInterface, $toInterace);
 
         self::assertSame(
             $expectedMessages,

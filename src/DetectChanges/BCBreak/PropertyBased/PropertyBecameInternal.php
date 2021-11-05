@@ -32,7 +32,7 @@ final class PropertyBecameInternal implements PropertyBased
             return Changes::fromList(Change::changed(
                 Str\format(
                     'Property %s was marked "@internal"',
-                    $this->formatProperty->__invoke($fromProperty),
+                    ($this->formatProperty)($fromProperty),
                 ),
                 true
             ));

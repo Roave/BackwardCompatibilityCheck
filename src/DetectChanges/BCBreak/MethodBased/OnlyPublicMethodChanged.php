@@ -25,6 +25,6 @@ final class OnlyPublicMethodChanged implements MethodBased
             return Changes::empty();
         }
 
-        return $this->check->__invoke($fromMethod, $toMethod);
+        return ($this->check)($fromMethod, $toMethod);
     }
 }

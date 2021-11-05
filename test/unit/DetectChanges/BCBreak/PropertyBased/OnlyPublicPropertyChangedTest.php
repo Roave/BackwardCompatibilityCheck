@@ -54,7 +54,7 @@ final class OnlyPublicPropertyChangedTest extends TestCase
 
         self::assertEquals(
             Changes::empty(),
-            $this->changed->__invoke($this->fromProperty, $this->toProperty)
+            ($this->changed)($this->fromProperty, $this->toProperty)
         );
     }
 
@@ -76,7 +76,7 @@ final class OnlyPublicPropertyChangedTest extends TestCase
 
         self::assertEquals(
             $changes,
-            $this->changed->__invoke($this->fromProperty, $this->toProperty)
+            ($this->changed)($this->fromProperty, $this->toProperty)
         );
     }
 }

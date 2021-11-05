@@ -66,9 +66,7 @@ final class LocateDependenciesViaComposerTest extends TestCase
         $this->expectException(InvariantViolationException::class);
         $this->expectExceptionMessage('Could not locate composer.json within installation path.');
 
-        $this
-            ->locateDependencies
-            ->__invoke(__DIR__ . '/non-existing', false);
+        ($this->locateDependencies)(__DIR__ . '/non-existing', false);
     }
 
     public function testWillLocateDependencies(): void
@@ -105,9 +103,7 @@ final class LocateDependenciesViaComposerTest extends TestCase
                 self::assertSame($this->expectedInstallationPath, Env\current_dir());
             });
 
-        $locator = $this
-            ->locateDependencies
-            ->__invoke($this->expectedInstallationPath, false);
+        $locator = ($this->locateDependencies)($this->expectedInstallationPath, false);
 
         self::assertInstanceOf(AggregateSourceLocator::class, $locator);
 
@@ -158,9 +154,7 @@ final class LocateDependenciesViaComposerTest extends TestCase
                 self::assertSame($this->expectedInstallationPath, Env\current_dir());
             });
 
-        $locator = $this
-            ->locateDependencies
-            ->__invoke($this->expectedInstallationPath, true);
+        $locator = ($this->locateDependencies)($this->expectedInstallationPath, true);
 
         self::assertInstanceOf(AggregateSourceLocator::class, $locator);
 

@@ -27,7 +27,7 @@ final class MultipleChecksOnAClassConstant implements ClassConstantBased
     private function multipleChecks(ReflectionClassConstant $fromConstant, ReflectionClassConstant $toConstant): iterable
     {
         foreach ($this->checks as $check) {
-            yield from $check->__invoke($fromConstant, $toConstant);
+            yield from $check($fromConstant, $toConstant);
         }
     }
 }

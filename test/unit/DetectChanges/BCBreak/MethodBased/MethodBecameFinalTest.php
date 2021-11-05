@@ -32,8 +32,7 @@ final class MethodBecameFinalTest extends TestCase
         ReflectionMethod $toMethod,
         array $expectedMessages
     ): void {
-        $changes = (new MethodBecameFinal())
-            ->__invoke($fromMethod, $toMethod);
+        $changes = (new MethodBecameFinal())($fromMethod, $toMethod);
 
         self::assertSame(
             $expectedMessages,

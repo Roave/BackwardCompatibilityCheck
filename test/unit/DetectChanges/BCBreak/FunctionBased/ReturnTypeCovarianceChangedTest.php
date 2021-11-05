@@ -32,8 +32,7 @@ final class ReturnTypeCovarianceChangedTest extends TestCase
         ReflectionFunctionAbstract $toFunction,
         array $expectedMessages
     ) : void {
-        $changes = (new ReturnTypeCovarianceChanged(new TypeIsCovariant()))
-            ->__invoke($fromFunction, $toFunction);
+        $changes = (new ReturnTypeCovarianceChanged(new TypeIsCovariant()))($fromFunction, $toFunction);
 
         self::assertSame(
             $expectedMessages,

@@ -33,7 +33,7 @@ final class PropertyDefaultValueChanged implements PropertyBased
         return Changes::fromList(Change::changed(
             Str\format(
                 'Property %s changed default value from %s to %s',
-                $this->formatProperty->__invoke($fromProperty),
+                ($this->formatProperty)($fromProperty),
                 var_export($fromPropertyDefaultValue, true),
                 var_export($toPropertyDefaultValue, true)
             ),

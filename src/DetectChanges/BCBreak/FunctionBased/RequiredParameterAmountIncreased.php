@@ -35,7 +35,7 @@ final class RequiredParameterAmountIncreased implements FunctionBased
         return Changes::fromList(Change::changed(
             Str\format(
                 'The number of required arguments for %s increased from %d to %d',
-                $this->formatFunction->__invoke($fromFunction),
+                ($this->formatFunction)($fromFunction),
                 $fromRequiredParameters,
                 $toRequiredParameters
             ),

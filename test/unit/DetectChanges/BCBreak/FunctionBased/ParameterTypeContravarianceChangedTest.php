@@ -32,8 +32,7 @@ final class ParameterTypeContravarianceChangedTest extends TestCase
         ReflectionFunctionAbstract $toFunction,
         array $expectedMessages
     ) : void {
-        $changes = (new ParameterTypeContravarianceChanged(new TypeIsContravariant()))
-            ->__invoke($fromFunction, $toFunction);
+        $changes = (new ParameterTypeContravarianceChanged(new TypeIsContravariant()))($fromFunction, $toFunction);
 
         self::assertSame(
             $expectedMessages,

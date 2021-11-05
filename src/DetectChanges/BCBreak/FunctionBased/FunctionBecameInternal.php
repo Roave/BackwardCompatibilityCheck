@@ -32,7 +32,7 @@ final class FunctionBecameInternal implements FunctionBased
             return Changes::fromList(Change::changed(
                 Str\format(
                     '%s was marked "@internal"',
-                    $this->formatFunction->__invoke($fromFunction),
+                    ($this->formatFunction)($fromFunction),
                 ),
                 true
             ));

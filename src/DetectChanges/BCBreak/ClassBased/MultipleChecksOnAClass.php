@@ -27,7 +27,7 @@ final class MultipleChecksOnAClass implements ClassBased
     private function multipleChecks(ReflectionClass $fromClass, ReflectionClass $toClass): iterable
     {
         foreach ($this->checks as $check) {
-            yield from $check->__invoke($fromClass, $toClass);
+            yield from $check($fromClass, $toClass);
         }
     }
 }

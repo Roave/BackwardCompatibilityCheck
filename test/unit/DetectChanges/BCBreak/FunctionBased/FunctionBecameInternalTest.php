@@ -31,8 +31,7 @@ final class FunctionBecameInternalTest extends TestCase
         ReflectionFunctionAbstract $toFunction,
         array $expectedMessages
     ): void {
-        $changes = (new FunctionBecameInternal())
-            ->__invoke($fromFunction, $toFunction);
+        $changes = (new FunctionBecameInternal())($fromFunction, $toFunction);
 
         self::assertSame(
             $expectedMessages,

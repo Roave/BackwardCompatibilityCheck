@@ -21,7 +21,7 @@ final class SkipMethodBasedErrors implements MethodBased
     public function __invoke(ReflectionMethod $fromMethod, ReflectionMethod $toMethod): Changes
     {
         try {
-            return $this->next->__invoke($fromMethod, $toMethod);
+            return ($this->next)($fromMethod, $toMethod);
         } catch (Throwable $failure) {
             return Changes::fromList(Change::skippedDueToFailure($failure));
         }

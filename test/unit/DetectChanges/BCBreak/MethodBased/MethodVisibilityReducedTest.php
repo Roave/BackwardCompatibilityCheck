@@ -32,8 +32,7 @@ final class MethodVisibilityReducedTest extends TestCase
         ReflectionMethod $toMethod,
         array $expectedMessages
     ): void {
-        $changes = (new MethodVisibilityReduced())
-            ->__invoke($fromMethod, $toMethod);
+        $changes = (new MethodVisibilityReduced())($fromMethod, $toMethod);
 
         self::assertSame(
             $expectedMessages,

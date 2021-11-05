@@ -38,7 +38,7 @@ final class ConstantChanged implements ClassBased
     private function checkSymbols(array $from, array $to): iterable
     {
         foreach (Vec\keys(Dict\intersect_by_key($from, $to)) as $name) {
-            yield from $this->checkConstant->__invoke($from[$name], $to[$name]);
+            yield from ($this->checkConstant)($from[$name], $to[$name]);
         }
     }
 }

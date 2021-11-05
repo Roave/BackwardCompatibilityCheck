@@ -31,8 +31,7 @@ final class ReturnTypeByReferenceChangedTest extends TestCase
         ReflectionFunctionAbstract $toFunction,
         array $expectedMessages
     ) : void {
-        $changes = (new ReturnTypeByReferenceChanged())
-            ->__invoke($fromFunction, $toFunction);
+        $changes = (new ReturnTypeByReferenceChanged())($fromFunction, $toFunction);
 
         self::assertSame(
             $expectedMessages,

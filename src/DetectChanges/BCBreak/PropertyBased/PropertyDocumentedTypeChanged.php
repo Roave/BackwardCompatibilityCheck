@@ -41,7 +41,7 @@ final class PropertyDocumentedTypeChanged implements PropertyBased
         return Changes::fromList(Change::changed(
             Str\format(
                 'Type documentation for property %s changed from %s to %s',
-                $this->formatProperty->__invoke($fromProperty),
+                ($this->formatProperty)($fromProperty),
                 Str\join($fromTypes, '|') ?: 'having no type',
                 Str\join($toTypes, '|') ?: 'having no type'
             ),

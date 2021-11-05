@@ -26,8 +26,7 @@ final class TypeIsCovariantTest extends TestCase
     ): void {
         self::assertSame(
             $expectedToBeContravariant,
-            (new TypeIsCovariant())
-                ->__invoke($type, $newType)
+            (new TypeIsCovariant())($type, $newType)
         );
     }
 
@@ -221,8 +220,7 @@ PHP
     public function testCovarianceConsidersSameTypeAlwaysCovariant(?ReflectionType $type): void
     {
         self::assertTrue(
-            (new TypeIsCovariant())
-                ->__invoke($type, $type)
+            (new TypeIsCovariant())($type, $type)
         );
     }
 
@@ -284,8 +282,8 @@ PHP
 
         $isCovariant = new TypeIsCovariant();
 
-        self::assertTrue($isCovariant->__invoke($nullable, $notNullable));
-        self::assertFalse($isCovariant->__invoke($notNullable, $nullable));
+        self::assertTrue($isCovariant($nullable, $notNullable));
+        self::assertFalse($isCovariant($notNullable, $nullable));
     }
 
     /** @return string[][] */

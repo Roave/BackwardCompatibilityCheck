@@ -33,8 +33,7 @@ final class PropertyBecameInternalTest extends TestCase
         ReflectionProperty $toFunction,
         array $expectedMessages
     ): void {
-        $changes = (new PropertyBecameInternal())
-            ->__invoke($fromFunction, $toFunction);
+        $changes = (new PropertyBecameInternal())($fromFunction, $toFunction);
 
         self::assertSame(
             $expectedMessages,
