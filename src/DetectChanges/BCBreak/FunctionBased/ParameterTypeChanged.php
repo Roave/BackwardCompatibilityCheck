@@ -79,7 +79,6 @@ final class ParameterTypeChanged implements FunctionBased
             return 'no type';
         }
 
-        return ($type->allowsNull() ? '?' : '')
-            . $type->__toString();
+        return $type->__toString();
     }
 }

@@ -6,13 +6,17 @@ namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased;
 
 use Psl\Dict;
 use Psl\Str;
+use Psl\Type;
+use ReflectionProperty;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\DetectChanges\Variance\TypeIsContravariant;
+use Roave\BackwardCompatibility\DetectChanges\Variance\TypeWithReflectorScope;
 use Roave\BackwardCompatibility\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
 use Roave\BetterReflection\Reflection\ReflectionParameter;
 use Roave\BetterReflection\Reflection\ReflectionType;
+use Roave\BetterReflection\Reflector\Reflector;
 
 /**
  * When a parameter type changes, the new type should be wider than the previous type, or else
@@ -48,7 +52,11 @@ final class ParameterTypeContravarianceChanged implements FunctionBased
         $fromType = $fromParameter->getType();
         $toType   = $toParameter->getType();
 
-        if (($this->typeIsContravariant)($fromType, $toType)) {
+
+        if (($this->typeIsContravariant)(
+            new TypeWithReflectorScope($fromType, $this->extractReflector($fromParameter)),
+            new TypeWithReflectorScope($toType, $this->extractReflector($toParameter)),
+        )) {
             return Changes::empty();
         }
 
@@ -70,7 +78,18 @@ final class ParameterTypeContravarianceChanged implements FunctionBased
             return 'no type';
         }
 
-        return ($type->allowsNull() ? '?' : '')
-            . $type->__toString();
+        return $type->__toString();
+    }
+
+
+    /** @TODO may the gods of BC compliance be merciful on me */
+    private function extractReflector(ReflectionParameter $parameter): Reflector
+    {
+        $reflectionReflector = new ReflectionProperty(ReflectionFunctionAbstract::class, 'reflector');
+
+        $reflectionReflector->setAccessible(true);
+
+        return Type\object(Reflector::class)
+            ->coerce($reflectionReflector->getValue($parameter->getDeclaringFunction()));
     }
 }

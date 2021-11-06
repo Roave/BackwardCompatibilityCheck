@@ -51,7 +51,6 @@ final class ReturnTypeChanged implements FunctionBased
             return 'no type';
         }
 
-        return ($type->allowsNull() ? '?' : '')
-            . $type->__toString();
+        return $type->__toString();
     }
 }

@@ -10,7 +10,7 @@ use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased\ExcludeInternalInterface;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased\InterfaceBased;
 use Roave\BetterReflection\BetterReflection;
-use Roave\BetterReflection\Reflector\ClassReflector;
+use Roave\BetterReflection\Reflector\DefaultReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 
 /** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased\ExcludeInternalInterface */
@@ -19,7 +19,7 @@ final class ExcludeInternalInterfaceTest extends TestCase
     public function testNormalInterfacesAreNotExcluded(): void
     {
         $locator    = (new BetterReflection())->astLocator();
-        $reflector  = new ClassReflector(new StringSourceLocator(
+        $reflector  = new DefaultReflector(new StringSourceLocator(
             <<<'PHP'
 <?php
 
@@ -28,7 +28,7 @@ PHP
             ,
             $locator
         ));
-        $reflection = $reflector->reflect('ANormalInterface');
+        $reflection = $reflector->reflectClass('ANormalInterface');
 
         $check = $this->createMock(InterfaceBased::class);
         $check->expects(self::once())
@@ -45,7 +45,7 @@ PHP
     public function testInternalInterfacesAreExcluded(): void
     {
         $locator    = (new BetterReflection())->astLocator();
-        $reflector  = new ClassReflector(new StringSourceLocator(
+        $reflector  = new DefaultReflector(new StringSourceLocator(
             <<<'PHP'
 <?php
 
@@ -55,7 +55,7 @@ PHP
             ,
             $locator
         ));
-        $reflection = $reflector->reflect('AnInternalInterface');
+        $reflection = $reflector->reflectClass('AnInternalInterface');
 
         $check = $this->createMock(InterfaceBased::class);
         $check->expects(self::never())->method('__invoke');

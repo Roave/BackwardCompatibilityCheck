@@ -82,6 +82,7 @@ final class StaticClassMapSourceLocatorTest extends TestCase
             ->with($this->reflector, self::callback(static function (LocatedSource $source): bool {
                 self::assertSame(Filesystem\read_file(__FILE__), $source->getSource());
                 self::assertSame(__FILE__, $source->getFileName());
+                self::assertSame(self::class, $source->getName());
                 self::assertNull($source->getExtensionName());
 
                 return true;

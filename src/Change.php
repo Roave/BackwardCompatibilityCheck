@@ -7,9 +7,7 @@ namespace Roave\BackwardCompatibility;
 use Psl\Str;
 use Throwable;
 
-/**
- * @todo this class probably needs subclassing or being turned into an interface
- */
+/** @psalm-immutable */
 final class Change
 {
     private const ADDED   = 'added';
@@ -17,12 +15,14 @@ final class Change
     private const REMOVED = 'removed';
     private const SKIPPED = 'skipped';
 
+    /** @psalm-var self::* */
     private string $modificationType;
 
     private string $description;
 
     private bool $isBcBreak;
 
+    /** @psalm-param self::* $modificationType */
     private function __construct(string $modificationType, string $description, bool $isBcBreak)
     {
         $this->modificationType = $modificationType;
@@ -30,21 +30,25 @@ final class Change
         $this->isBcBreak        = $isBcBreak;
     }
 
+    /** @psalm-pure */
     public static function added(string $description, bool $isBcBreak): self
     {
         return new self(self::ADDED, $description, $isBcBreak);
     }
 
+    /** @psalm-pure */
     public static function changed(string $description, bool $isBcBreak): self
     {
         return new self(self::CHANGED, $description, $isBcBreak);
     }
 
+    /** @psalm-pure */
     public static function removed(string $description, bool $isBcBreak): self
     {
         return new self(self::REMOVED, $description, $isBcBreak);
     }
 
+    /** @psalm-pure */
     public static function skippedDueToFailure(Throwable $failure): self
     {
         // @TODO Note: we may consider importing the full exception for better printing later on

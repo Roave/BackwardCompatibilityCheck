@@ -9,8 +9,7 @@ use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\ParameterDefaultValueChanged;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
-use Roave\BetterReflection\Reflector\ClassReflector;
-use Roave\BetterReflection\Reflector\FunctionReflector;
+use Roave\BetterReflection\Reflector\DefaultReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 use function array_combine;
 use function array_map;
@@ -96,10 +95,8 @@ PHP
             $astLocator
         );
 
-        $fromClassReflector = new ClassReflector($fromLocator);
-        $toClassReflector   = new ClassReflector($toLocator);
-        $fromReflector      = new FunctionReflector($fromLocator, $fromClassReflector);
-        $toReflector        = new FunctionReflector($toLocator, $toClassReflector);
+        $fromReflector      = new DefaultReflector($fromLocator);
+        $toReflector        = new DefaultReflector($toLocator);
 
         $functions = [
             'changed'            => [
@@ -126,8 +123,8 @@ PHP
                     /** @psalm-param list<string> $errorMessages https://github.com/vimeo/psalm/issues/2772 */
                     static function (string $function, array $errorMessages) use ($fromReflector, $toReflector) : array {
                         return [
-                            $fromReflector->reflect($function),
-                            $toReflector->reflect($function),
+                            $fromReflector->reflectFunction($function),
+                            $toReflector->reflectFunction($function),
                             $errorMessages,
                         ];
                     },
@@ -137,15 +134,15 @@ PHP
             ),
             [
                 'C::changed1' => [
-                    $fromClassReflector->reflect('C')->getMethod('changed1'),
-                    $toClassReflector->reflect('C')->getMethod('changed1'),
+                    $fromReflector->reflectClass('C')->getMethod('changed1'),
+                    $toReflector->reflectClass('C')->getMethod('changed1'),
                     [
                         '[BC] CHANGED: Default parameter value for parameter $a of C::changed1() changed from 1 to 2',
                     ],
                 ],
                 'C#changed2'  => [
-                    $fromClassReflector->reflect('C')->getMethod('changed2'),
-                    $toClassReflector->reflect('C')->getMethod('changed2'),
+                    $fromReflector->reflectClass('C')->getMethod('changed2'),
+                    $toReflector->reflectClass('C')->getMethod('changed2'),
                     [
                         '[BC] CHANGED: Default parameter value for parameter $a of C#changed2() changed from 1 to 2',
                     ],

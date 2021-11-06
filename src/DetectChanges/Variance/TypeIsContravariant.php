@@ -6,6 +6,7 @@ namespace Roave\BackwardCompatibility\DetectChanges\Variance;
 
 use Psl\Iter;
 use Psl\Str;
+use Roave\BetterReflection\Reflection\ReflectionNamedType;
 use Roave\BetterReflection\Reflection\ReflectionType;
 
 /**
@@ -13,13 +14,18 @@ use Roave\BetterReflection\Reflection\ReflectionType;
  * have a `$type->includes($otherType)` check with actual types represented as value objects,
  * but that is a massive piece of work that should be done by importing an external library
  * instead, if this class no longer suffices.
+ *
+ * @TODO introduce union/intersection type support here
  */
 final class TypeIsContravariant
 {
     public function __invoke(
-        ?ReflectionType $type,
-        ?ReflectionType $comparedType
+        TypeWithReflectorScope $originalType,
+        TypeWithReflectorScope $newType
     ): bool {
+        $type         = $originalType->type;
+        $comparedType = $newType->type;
+
         if ($comparedType === null) {
             return true;
         }
@@ -29,12 +35,17 @@ final class TypeIsContravariant
             return false;
         }
 
+        if (! $type instanceof ReflectionNamedType || ! $comparedType instanceof ReflectionNamedType) {
+            // @TODO we'll assume everyting is fine, for now - union and intersection types still need test additions
+            return true;
+        }
+
         if ($type->allowsNull() && ! $comparedType->allowsNull()) {
             return false;
         }
 
-        $typeAsString         = $type->__toString();
-        $comparedTypeAsString = $comparedType->__toString();
+        $typeAsString         = $type->getName();
+        $comparedTypeAsString = $comparedType->getName();
 
         if (Str\lowercase($typeAsString) === Str\lowercase($comparedTypeAsString)) {
             return true;
@@ -63,9 +74,10 @@ final class TypeIsContravariant
             return false;
         }
 
-        $typeReflectionClass = $type->targetReflectionClass();
+        $typeReflectionClass = $originalType->originatingReflector->reflectClass($typeAsString);
+        $comparedTypeClass = $newType->originatingReflector->reflectClass($comparedTypeAsString);
 
-        if ($comparedType->targetReflectionClass()->isInterface()) {
+        if ($comparedTypeClass->isInterface()) {
             return $typeReflectionClass->implementsInterface($comparedTypeAsString);
         }
 

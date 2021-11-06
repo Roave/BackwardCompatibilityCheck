@@ -6,7 +6,7 @@ namespace Roave\BackwardCompatibility\DetectChanges\Variance;
 
 use Psl\Iter;
 use Psl\Str;
-use Roave\BetterReflection\Reflection\ReflectionType;
+use Roave\BetterReflection\Reflection\ReflectionNamedType;
 use Traversable;
 
 /**
@@ -14,13 +14,19 @@ use Traversable;
  * have a `$type->includes($otherType)` check with actual types represented as value objects,
  * but that is a massive piece of work that should be done by importing an external library
  * instead, if this class no longer suffices.
+ *
+ * @TODO introduce union/intersection type support here
  */
 final class TypeIsCovariant
 {
     public function __invoke(
-        ?ReflectionType $type,
-        ?ReflectionType $comparedType
-    ): bool {
+        TypeWithReflectorScope $originalType,
+        TypeWithReflectorScope $newType
+    ): bool
+    {
+        $type         = $originalType->type;
+        $comparedType = $newType->type;
+
         if ($type === null) {
             // everything can be covariant to `mixed`
             return true;
@@ -31,12 +37,17 @@ final class TypeIsCovariant
             return false;
         }
 
+        if (! $type instanceof ReflectionNamedType || ! $comparedType instanceof ReflectionNamedType) {
+            // @TODO we'll assume everyting is fine, for now - union and intersection types still need test additions
+            return true;
+        }
+
         if ($comparedType->allowsNull() && ! $type->allowsNull()) {
             return false;
         }
 
-        $typeAsString         = $type->__toString();
-        $comparedTypeAsString = $comparedType->__toString();
+        $typeAsString         = $type->getName();
+        $comparedTypeAsString = $comparedType->getName();
 
         if (Str\lowercase($typeAsString) === Str\lowercase($comparedTypeAsString)) {
             return true;
@@ -58,7 +69,9 @@ final class TypeIsCovariant
         }
 
         if ($typeAsString === 'iterable' && ! $comparedType->isBuiltin()) {
-            if ($comparedType->targetReflectionClass()->implementsInterface(Traversable::class)) {
+            $comparedTypeReflectionClass = $newType->originatingReflector->reflectClass($comparedType->getName());
+
+            if ($comparedTypeReflectionClass->implementsInterface(Traversable::class)) {
                 // `iterable` can be restricted via any `Iterator` implementation
                 return true;
             }
@@ -74,9 +87,10 @@ final class TypeIsCovariant
             return false;
         }
 
-        $comparedTypeReflectionClass = $comparedType->targetReflectionClass();
+        $originalTypeReflectionClass = $originalType->originatingReflector->reflectClass($typeAsString);
+        $comparedTypeReflectionClass = $newType->originatingReflector->reflectClass($comparedTypeAsString);
 
-        if ($type->targetReflectionClass()->isInterface()) {
+        if ($originalTypeReflectionClass->isInterface()) {
             return $comparedTypeReflectionClass->implementsInterface($typeAsString);
         }
 

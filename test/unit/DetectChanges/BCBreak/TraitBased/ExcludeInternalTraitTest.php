@@ -10,7 +10,7 @@ use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\TraitBased\ExcludeInternalTrait;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\TraitBased\TraitBased;
 use Roave\BetterReflection\BetterReflection;
-use Roave\BetterReflection\Reflector\ClassReflector;
+use Roave\BetterReflection\Reflector\DefaultReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 
 /** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\TraitBased\ExcludeInternalTrait */
@@ -19,7 +19,7 @@ final class ExcludeInternalTraitTest extends TestCase
     public function testNormalTraitsAreNotExcluded(): void
     {
         $locator    = (new BetterReflection())->astLocator();
-        $reflector  = new ClassReflector(new StringSourceLocator(
+        $reflector  = new DefaultReflector(new StringSourceLocator(
             <<<'PHP'
 <?php
 
@@ -28,7 +28,7 @@ PHP
             ,
             $locator
         ));
-        $reflection = $reflector->reflect('ANormalTrait');
+        $reflection = $reflector->reflectClass('ANormalTrait');
 
         $check = $this->createMock(TraitBased::class);
         $check->expects(self::once())
@@ -45,7 +45,7 @@ PHP
     public function testInternalTraitsAreExcluded(): void
     {
         $locator    = (new BetterReflection())->astLocator();
-        $reflector  = new ClassReflector(new StringSourceLocator(
+        $reflector  = new DefaultReflector(new StringSourceLocator(
             <<<'PHP'
 <?php
 
@@ -55,7 +55,7 @@ PHP
             ,
             $locator
         ));
-        $reflection = $reflector->reflect('AnInternalTrait');
+        $reflection = $reflector->reflectClass('AnInternalTrait');
 
         $check = $this->createMock(TraitBased::class);
         $check->expects(self::never())->method('__invoke');

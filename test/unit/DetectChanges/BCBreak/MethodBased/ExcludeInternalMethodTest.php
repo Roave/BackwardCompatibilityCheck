@@ -10,7 +10,7 @@ use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased\ExcludeInternalMethod;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased\MethodBased;
 use Roave\BetterReflection\BetterReflection;
-use Roave\BetterReflection\Reflector\ClassReflector;
+use Roave\BetterReflection\Reflector\DefaultReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 
 /** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased\ExcludeInternalMethod */
@@ -18,7 +18,7 @@ final class ExcludeInternalMethodTest extends TestCase
 {
     public function testNormalMethodsAreNotExcluded(): void
     {
-        $method = (new ClassReflector(new StringSourceLocator(
+        $method = (new DefaultReflector(new StringSourceLocator(
             <<<'PHP'
 <?php
 
@@ -29,7 +29,7 @@ PHP
             ,
             (new BetterReflection())->astLocator()
         )))
-            ->reflect('A')
+            ->reflectClass('A')
             ->getMethod('method');
 
         $check = $this->createMock(MethodBased::class);
@@ -46,7 +46,7 @@ PHP
 
     public function testInternalFunctionsAreExcluded(): void
     {
-        $method = (new ClassReflector(new StringSourceLocator(
+        $method = (new DefaultReflector(new StringSourceLocator(
             <<<'PHP'
 <?php
 
@@ -58,7 +58,7 @@ PHP
             ,
             (new BetterReflection())->astLocator()
         )))
-            ->reflect('A')
+            ->reflectClass('A')
             ->getMethod('method');
 
         $check = $this->createMock(MethodBased::class);

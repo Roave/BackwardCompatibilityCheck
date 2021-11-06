@@ -8,8 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
-use Roave\BetterReflection\Reflector\ClassReflector;
-use Roave\BetterReflection\Reflector\FunctionReflector;
+use Roave\BetterReflection\Reflector\DefaultReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 
 /**
@@ -55,24 +54,23 @@ PHP
             (new BetterReflection())->astLocator()
         );
 
-        $classReflector    = new ClassReflector($locator);
-        $functionReflector = new FunctionReflector($locator, $classReflector);
+        $reflector    = new DefaultReflector($locator);
 
         return [
             'a'       => [
-                $functionReflector->reflect('a'),
+                $reflector->reflectFunction('a'),
                 'a()',
             ],
             'N1\b'    => [
-                $functionReflector->reflect('N1\b'),
+                $reflector->reflectFunction('N1\b'),
                 'N1\b()',
             ],
             'N2\C::d' => [
-                $classReflector->reflect('N2\C')->getMethod('d'),
+                $reflector->reflectClass('N2\C')->getMethod('d'),
                 'N2\C::d()',
             ],
             'N2\C#e'  => [
-                $classReflector->reflect('N2\C')->getMethod('e'),
+                $reflector->reflectClass('N2\C')->getMethod('e'),
                 'N2\C#e()',
             ],
         ];

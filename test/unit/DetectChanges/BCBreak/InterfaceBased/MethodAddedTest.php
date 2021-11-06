@@ -9,7 +9,7 @@ use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased\MethodAdded;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionClass;
-use Roave\BetterReflection\Reflector\ClassReflector;
+use Roave\BetterReflection\Reflector\DefaultReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 
 use function array_combine;
@@ -100,8 +100,8 @@ PHP
             $astLocator
         );
 
-        $fromClassReflector = new ClassReflector($fromLocator);
-        $toClassReflector   = new ClassReflector($toLocator);
+        $fromClassReflector = new DefaultReflector($fromLocator);
+        $toClassReflector   = new DefaultReflector($toLocator);
 
         $properties = [
             'A' => ['[BC] ADDED: Method added() was added to interface A'],
@@ -123,8 +123,8 @@ PHP
                 static function (string $className, array $errorMessages) use ($fromClassReflector, $toClassReflector
                 ): array {
                     return [
-                        $fromClassReflector->reflect($className),
-                        $toClassReflector->reflect($className),
+                        $fromClassReflector->reflectClass($className),
+                        $toClassReflector->reflectClass($className),
                         $errorMessages,
                     ];
                 },

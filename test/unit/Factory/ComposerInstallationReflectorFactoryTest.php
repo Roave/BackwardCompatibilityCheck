@@ -49,7 +49,7 @@ PHP
                 $path,
                 $this->createMock(SourceLocator::class)
             )
-                ->reflect('Dummy')
+                ->reflectClass('Dummy')
                 ->getDocComment()
         );
     }

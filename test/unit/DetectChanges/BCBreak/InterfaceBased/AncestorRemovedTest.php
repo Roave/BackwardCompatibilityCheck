@@ -9,7 +9,7 @@ use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased\AncestorRemoved;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionClass;
-use Roave\BetterReflection\Reflector\ClassReflector;
+use Roave\BetterReflection\Reflector\DefaultReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 
 use function array_combine;
@@ -49,7 +49,7 @@ final class AncestorRemovedTest extends TestCase
     public function interfacesToBeTested(): array
     {
         $locator       = (new BetterReflection())->astLocator();
-        $fromReflector = new ClassReflector(new StringSourceLocator(
+        $fromReflector = new DefaultReflector(new StringSourceLocator(
             <<<'PHP'
 <?php
 
@@ -66,7 +66,7 @@ PHP
             ,
             $locator
         ));
-        $toReflector   = new ClassReflector(new StringSourceLocator(
+        $toReflector   = new DefaultReflector(new StringSourceLocator(
             <<<'PHP'
 <?php
 
@@ -101,8 +101,8 @@ PHP
                 /** @psalm-param list<string> $errors https://github.com/vimeo/psalm/issues/2772 */
                 static function (string $interfaceName, array $errors) use ($fromReflector, $toReflector): array {
                     return [
-                        $fromReflector->reflect($interfaceName),
-                        $toReflector->reflect($interfaceName),
+                        $fromReflector->reflectClass($interfaceName),
+                        $toReflector->reflectClass($interfaceName),
                         $errors,
                     ];
                 },

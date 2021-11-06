@@ -9,7 +9,7 @@ use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\ClassBecameInternal;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionClass;
-use Roave\BetterReflection\Reflector\ClassReflector;
+use Roave\BetterReflection\Reflector\DefaultReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 
 use function array_map;
@@ -45,7 +45,7 @@ final class ClassBecameInternalTest extends TestCase
     public function classesToBeTested(): array
     {
         $locator       = (new BetterReflection())->astLocator();
-        $fromReflector = new ClassReflector(new StringSourceLocator(
+        $fromReflector = new DefaultReflector(new StringSourceLocator(
             <<<'PHP'
 <?php
 
@@ -59,7 +59,7 @@ PHP
             ,
             $locator
         ));
-        $toReflector   = new ClassReflector(new StringSourceLocator(
+        $toReflector   = new DefaultReflector(new StringSourceLocator(
             <<<'PHP'
 <?php
 
@@ -76,23 +76,23 @@ PHP
 
         return [
             'A' => [
-                $fromReflector->reflect('A'),
-                $toReflector->reflect('A'),
+                $fromReflector->reflectClass('A'),
+                $toReflector->reflectClass('A'),
                 [],
             ],
             'B' => [
-                $fromReflector->reflect('B'),
-                $toReflector->reflect('B'),
+                $fromReflector->reflectClass('B'),
+                $toReflector->reflectClass('B'),
                 ['[BC] CHANGED: B was marked "@internal"'],
             ],
             'C' => [
-                $fromReflector->reflect('C'),
-                $toReflector->reflect('C'),
+                $fromReflector->reflectClass('C'),
+                $toReflector->reflectClass('C'),
                 [],
             ],
             'D' => [
-                $fromReflector->reflect('D'),
-                $toReflector->reflect('D'),
+                $fromReflector->reflectClass('D'),
+                $toReflector->reflectClass('D'),
                 [],
             ],
         ];

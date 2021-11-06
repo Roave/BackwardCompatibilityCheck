@@ -9,7 +9,7 @@ use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\MethodRemoved;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionClass;
-use Roave\BetterReflection\Reflector\ClassReflector;
+use Roave\BetterReflection\Reflector\DefaultReflector;
 use Roave\BetterReflection\SourceLocator\Type\SingleFileSourceLocator;
 
 use function array_map;
@@ -47,14 +47,14 @@ final class MethodRemovedTest extends TestCase
 
         return [
             'RoaveTestAsset\\ClassWithMethodsBeingRemoved' => [
-                (new ClassReflector(new SingleFileSourceLocator(
+                (new DefaultReflector(new SingleFileSourceLocator(
                     __DIR__ . '/../../../../asset/api/old/ClassWithMethodsBeingRemoved.php',
                     $locator
-                )))->reflect('RoaveTestAsset\\ClassWithMethodsBeingRemoved'),
-                (new ClassReflector(new SingleFileSourceLocator(
+                )))->reflectClass('RoaveTestAsset\\ClassWithMethodsBeingRemoved'),
+                (new DefaultReflector(new SingleFileSourceLocator(
                     __DIR__ . '/../../../../asset/api/new/ClassWithMethodsBeingRemoved.php',
                     $locator
-                )))->reflect('RoaveTestAsset\\ClassWithMethodsBeingRemoved'),
+                )))->reflectClass('RoaveTestAsset\\ClassWithMethodsBeingRemoved'),
                 [
                     '[BC] REMOVED: Method RoaveTestAsset\ClassWithMethodsBeingRemoved#removedPublicMethod() was removed',
                     '[BC] REMOVED: Method RoaveTestAsset\ClassWithMethodsBeingRemoved#removedProtectedMethod() was removed',

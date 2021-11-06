@@ -5,12 +5,16 @@ declare(strict_types=1);
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased;
 
 use Psl\Str;
+use Psl\Type;
+use ReflectionProperty;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\DetectChanges\Variance\TypeIsCovariant;
+use Roave\BackwardCompatibility\DetectChanges\Variance\TypeWithReflectorScope;
 use Roave\BackwardCompatibility\Formatter\ReflectionFunctionAbstractName;
 use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
 use Roave\BetterReflection\Reflection\ReflectionType;
+use Roave\BetterReflection\Reflector\Reflector;
 
 /**
  * When the return type of a function changes, the new return type must be covariant to the current type.
@@ -34,7 +38,10 @@ final class ReturnTypeCovarianceChanged implements FunctionBased
         $fromReturnType = $fromFunction->getReturnType();
         $toReturnType   = $toFunction->getReturnType();
 
-        if (($this->typeIsCovariant)($fromReturnType, $toReturnType)) {
+        if (($this->typeIsCovariant)(
+            new TypeWithReflectorScope($fromReturnType, $this->extractReflector($fromFunction)),
+            new TypeWithReflectorScope($toReturnType, $this->extractReflector($toFunction)),
+        )) {
             return Changes::empty();
         }
 
@@ -55,7 +62,17 @@ final class ReturnTypeCovarianceChanged implements FunctionBased
             return 'no type';
         }
 
-        return ($type->allowsNull() ? '?' : '')
-            . $type->__toString();
+        return $type->__toString();
+    }
+
+    /** @TODO may the gods of BC compliance be merciful on me */
+    private function extractReflector(ReflectionFunctionAbstract $function): Reflector
+    {
+        $reflectionReflector = new ReflectionProperty(ReflectionFunctionAbstract::class, 'reflector');
+
+        $reflectionReflector->setAccessible(true);
+
+        return Type\object(Reflector::class)
+            ->coerce($reflectionReflector->getValue($function));
     }
 }

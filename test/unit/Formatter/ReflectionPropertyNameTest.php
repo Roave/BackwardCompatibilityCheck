@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Formatter\ReflectionPropertyName;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
-use Roave\BetterReflection\Reflector\ClassReflector;
+use Roave\BetterReflection\Reflector\DefaultReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 
 use function array_combine;
@@ -75,22 +75,22 @@ PHP
             (new BetterReflection())->astLocator()
         );
 
-        $classReflector = new ClassReflector($locator);
+        $classReflector = new DefaultReflector($locator);
 
         /** @var array<string, ReflectionProperty> $properties */
         $properties = [
-            'A::$b'         => $classReflector->reflect('A')->getProperty('b'),
-            'A#$c'          => $classReflector->reflect('A')->getProperty('c'),
-            'TestTrait::$b' => $classReflector->reflect('TestTrait')->getProperty('b'),
-            'TestTrait#$c'  => $classReflector->reflect('TestTrait')->getProperty('c'),
-            'B::$b'         => $classReflector->reflect('B')->getProperty('b'),
-            'B#$c'          => $classReflector->reflect('B')->getProperty('c'),
-            'B#$d'          => $classReflector->reflect('B')->getProperty('d'),
-            'C#$c'          => $classReflector->reflect('C')->getProperty('c'),
-            'D#$c'          => $classReflector->reflect('D')->getProperty('c'),
-            'A#$d'          => $classReflector->reflect('E')->getProperty('d'),
-            'N1\D::$e'      => $classReflector->reflect('N1\D')->getProperty('e'),
-            'N1\D#$f'       => $classReflector->reflect('N1\D')->getProperty('f'),
+            'A::$b'         => $classReflector->reflectClass('A')->getProperty('b'),
+            'A#$c'          => $classReflector->reflectClass('A')->getProperty('c'),
+            'TestTrait::$b' => $classReflector->reflectClass('TestTrait')->getProperty('b'),
+            'TestTrait#$c'  => $classReflector->reflectClass('TestTrait')->getProperty('c'),
+            'B::$b'         => $classReflector->reflectClass('B')->getProperty('b'),
+            'B#$c'          => $classReflector->reflectClass('B')->getProperty('c'),
+            'B#$d'          => $classReflector->reflectClass('B')->getProperty('d'),
+            'C#$c'          => $classReflector->reflectClass('C')->getProperty('c'),
+            'D#$c'          => $classReflector->reflectClass('D')->getProperty('c'),
+            'A#$d'          => $classReflector->reflectClass('E')->getProperty('d'),
+            'N1\D::$e'      => $classReflector->reflectClass('N1\D')->getProperty('e'),
+            'N1\D#$f'       => $classReflector->reflectClass('N1\D')->getProperty('f'),
         ];
 
         return array_combine(

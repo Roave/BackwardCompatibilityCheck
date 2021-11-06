@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\DetectChanges\Variance;
 
+use PhpParser\Node\Identifier;
+use PhpParser\Node\NullableType;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\DetectChanges\Variance\TypeIsContravariant;
+use Roave\BackwardCompatibility\DetectChanges\Variance\TypeWithReflectorScope;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionType;
-use Roave\BetterReflection\Reflector\ClassReflector;
+use Roave\BetterReflection\Reflector\DefaultReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 
 use function array_map;
@@ -20,8 +23,8 @@ final class TypeIsContravariantTest extends TestCase
      * @dataProvider checkedTypes
      */
     public function testContravariance(
-        ?ReflectionType $type,
-        ?ReflectionType $newType,
+        TypeWithReflectorScope $type,
+        TypeWithReflectorScope $newType,
         bool $expectedToBeContravariant
     ): void {
         self::assertSame(
@@ -32,11 +35,11 @@ final class TypeIsContravariantTest extends TestCase
 
     /**
      * @return array<string, array<int, bool|ReflectionType|null>>
-     * @psalm-return array<string, array{0: ReflectionType|null, 1: ReflectionType|null, 2: bool}>
+     * @psalm-return array<string, array{0: TypeWithReflectorScope, 1: TypeWithReflectorScope, 2: bool}>
      */
     public function checkedTypes(): array
     {
-        $reflector = new ClassReflector(new StringSourceLocator(
+        $reflector = new DefaultReflector(new StringSourceLocator(
             <<<'PHP'
 <?php
 
@@ -54,7 +57,7 @@ PHP
             (new BetterReflection())->astLocator()
         ));
 
-        return [
+        $types = [
             'no type to no type is contravariant with itself'                          => [
                 null,
                 null,
@@ -62,161 +65,170 @@ PHP
             ],
             'no type to void type is not contravariant'                                => [
                 null,
-                ReflectionType::createFromTypeAndReflector('void', false, $reflector),
+                ReflectionType::createFromNode(new Identifier('void')),
                 false,
             ],
             'void type to no type is contravariant'                                    => [
-                ReflectionType::createFromTypeAndReflector('void', false, $reflector),
+                ReflectionType::createFromNode(new Identifier('void')),
                 null,
                 true,
             ],
             'void type to scalar type is contravariant'                                => [
-                ReflectionType::createFromTypeAndReflector('void', false, $reflector),
-                ReflectionType::createFromTypeAndReflector('string', false, $reflector),
+                ReflectionType::createFromNode(new Identifier('void')),
+                ReflectionType::createFromNode(new Identifier('string')),
                 true,
             ],
             'void type to class type is contravariant'                                 => [
-                ReflectionType::createFromTypeAndReflector('void', false, $reflector),
-                ReflectionType::createFromTypeAndReflector('AClass', false, $reflector),
+                ReflectionType::createFromNode(new Identifier('void')),
+                ReflectionType::createFromNode(new Identifier('AClass')),
                 true,
             ],
             'scalar type to no type is contravariant'                                  => [
-                ReflectionType::createFromTypeAndReflector('string', false, $reflector),
+                ReflectionType::createFromNode(new Identifier('string')),
                 null,
                 true,
             ],
             'no type to scalar type is not contravariant'                              => [
                 null,
-                ReflectionType::createFromTypeAndReflector('string', false, $reflector),
+                ReflectionType::createFromNode(new Identifier('string')),
                 false,
             ],
             'class type to no type is contravariant'                                   => [
-                ReflectionType::createFromTypeAndReflector('AClass', false, $reflector),
+                ReflectionType::createFromNode(new Identifier('AClass')),
                 null,
                 true,
             ],
             'no type to class type is not contravariant'                               => [
-                ReflectionType::createFromTypeAndReflector('AClass', false, $reflector),
+                ReflectionType::createFromNode(new Identifier('AClass')),
                 null,
                 true,
             ],
             'iterable to array is not contravariant'                 => [
-                ReflectionType::createFromTypeAndReflector('iterable', false, $reflector),
-                ReflectionType::createFromTypeAndReflector('array', false, $reflector),
+                ReflectionType::createFromNode(new Identifier('iterable')),
+                ReflectionType::createFromNode(new Identifier('array')),
                 false,
             ],
             'array to iterable is contravariant'                 => [
-                ReflectionType::createFromTypeAndReflector('array', false, $reflector),
-                ReflectionType::createFromTypeAndReflector('iterable', false, $reflector),
+                ReflectionType::createFromNode(new Identifier('array')),
+                ReflectionType::createFromNode(new Identifier('iterable')),
                 true,
             ],
             'iterable to non-iterable class type is not contravariant'                 => [
-                ReflectionType::createFromTypeAndReflector('iterable', false, $reflector),
-                ReflectionType::createFromTypeAndReflector('AnotherClassWithMultipleInterfaces', false, $reflector),
+                ReflectionType::createFromNode(new Identifier('iterable')),
+                ReflectionType::createFromNode(new Identifier('AnotherClassWithMultipleInterfaces')),
                 false,
             ],
             'iterable to iterable class type is not contravariant'                         => [
-                ReflectionType::createFromTypeAndReflector('iterable', false, $reflector),
-                ReflectionType::createFromTypeAndReflector('Iterator', false, $reflector),
+                ReflectionType::createFromNode(new Identifier('iterable')),
+                ReflectionType::createFromNode(new Identifier('Iterator')),
                 false,
             ],
             'non-iterable class to iterable type is not contravariant'                 => [
-                ReflectionType::createFromTypeAndReflector('iterable', false, $reflector),
-                ReflectionType::createFromTypeAndReflector('AnotherClassWithMultipleInterfaces', false, $reflector),
+                ReflectionType::createFromNode(new Identifier('iterable')),
+                ReflectionType::createFromNode(new Identifier('AnotherClassWithMultipleInterfaces')),
                 false,
             ],
             'iterable class type to iterable is not contravariant'                     => [
-                ReflectionType::createFromTypeAndReflector('Iterator', false, $reflector),
-                ReflectionType::createFromTypeAndReflector('iterable', false, $reflector),
+                ReflectionType::createFromNode(new Identifier('Iterator')),
+                ReflectionType::createFromNode(new Identifier('iterable')),
                 false,
             ],
             'object to class type is not contravariant'                                => [
-                ReflectionType::createFromTypeAndReflector('object', false, $reflector),
-                ReflectionType::createFromTypeAndReflector('AClass', false, $reflector),
+                ReflectionType::createFromNode(new Identifier('object')),
+                ReflectionType::createFromNode(new Identifier('AClass')),
                 false,
             ],
             'class type to object is contravariant'                                    => [
-                ReflectionType::createFromTypeAndReflector('AClass', false, $reflector),
-                ReflectionType::createFromTypeAndReflector('object', false, $reflector),
+                ReflectionType::createFromNode(new Identifier('AClass')),
+                ReflectionType::createFromNode(new Identifier('object')),
                 true,
             ],
             'class type to scalar type is not contravariant'                           => [
-                ReflectionType::createFromTypeAndReflector('AClass', false, $reflector),
-                ReflectionType::createFromTypeAndReflector('string', false, $reflector),
+                ReflectionType::createFromNode(new Identifier('AClass')),
+                ReflectionType::createFromNode(new Identifier('string')),
                 false,
             ],
             'scalar type to class type is not contravariant'                           => [
-                ReflectionType::createFromTypeAndReflector('string', false, $reflector),
-                ReflectionType::createFromTypeAndReflector('AClass', false, $reflector),
+                ReflectionType::createFromNode(new Identifier('string')),
+                ReflectionType::createFromNode(new Identifier('AClass')),
                 false,
             ],
             'scalar type (string) to different scalar type (int) is not contravariant' => [
-                ReflectionType::createFromTypeAndReflector('string', false, $reflector),
-                ReflectionType::createFromTypeAndReflector('int', false, $reflector),
+                ReflectionType::createFromNode(new Identifier('string')),
+                ReflectionType::createFromNode(new Identifier('int')),
                 false,
             ],
             'scalar type (int) to different scalar type (float) is not contravariant'  => [
-                ReflectionType::createFromTypeAndReflector('int', false, $reflector),
-                ReflectionType::createFromTypeAndReflector('float', false, $reflector),
+                ReflectionType::createFromNode(new Identifier('int')),
+                ReflectionType::createFromNode(new Identifier('float')),
                 false,
             ],
             'object type to scalar type is not contravariant'                          => [
-                ReflectionType::createFromTypeAndReflector('object', false, $reflector),
-                ReflectionType::createFromTypeAndReflector('string', false, $reflector),
+                ReflectionType::createFromNode(new Identifier('object')),
+                ReflectionType::createFromNode(new Identifier('string')),
                 false,
             ],
             'scalar type to object type is not contravariant'                          => [
-                ReflectionType::createFromTypeAndReflector('string', false, $reflector),
-                ReflectionType::createFromTypeAndReflector('object', false, $reflector),
+                ReflectionType::createFromNode(new Identifier('string')),
+                ReflectionType::createFromNode(new Identifier('object')),
                 false,
             ],
             'class to superclass is contravariant'                                     => [
-                ReflectionType::createFromTypeAndReflector('BClass', false, $reflector),
-                ReflectionType::createFromTypeAndReflector('AClass', false, $reflector),
+                ReflectionType::createFromNode(new Identifier('BClass')),
+                ReflectionType::createFromNode(new Identifier('AClass')),
                 true,
             ],
             'class to subclass is not contravariant'                                   => [
-                ReflectionType::createFromTypeAndReflector('BClass', false, $reflector),
-                ReflectionType::createFromTypeAndReflector('CClass', false, $reflector),
+                ReflectionType::createFromNode(new Identifier('BClass')),
+                ReflectionType::createFromNode(new Identifier('CClass')),
                 false,
             ],
             'class to implemented interface is contravariant'                          => [
-                ReflectionType::createFromTypeAndReflector('AnotherClassWithMultipleInterfaces', false, $reflector),
-                ReflectionType::createFromTypeAndReflector('AnInterface', false, $reflector),
+                ReflectionType::createFromNode(new Identifier('AnotherClassWithMultipleInterfaces')),
+                ReflectionType::createFromNode(new Identifier('AnInterface')),
                 true,
             ],
             'class to not implemented interface is not contravariant'                  => [
-                ReflectionType::createFromTypeAndReflector('AnotherClassWithMultipleInterfaces', false, $reflector),
-                ReflectionType::createFromTypeAndReflector('Traversable', false, $reflector),
+                ReflectionType::createFromNode(new Identifier('AnotherClassWithMultipleInterfaces')),
+                ReflectionType::createFromNode(new Identifier('Traversable')),
                 false,
             ],
             'interface to parent interface is contravariant'                           => [
-                ReflectionType::createFromTypeAndReflector('Iterator', false, $reflector),
-                ReflectionType::createFromTypeAndReflector('Traversable', false, $reflector),
+                ReflectionType::createFromNode(new Identifier('Iterator')),
+                ReflectionType::createFromNode(new Identifier('Traversable')),
                 true,
             ],
             'interface to child interface is contravariant'                            => [
-                ReflectionType::createFromTypeAndReflector('Traversable', false, $reflector),
-                ReflectionType::createFromTypeAndReflector('Iterator', false, $reflector),
+                ReflectionType::createFromNode(new Identifier('Traversable')),
+                ReflectionType::createFromNode(new Identifier('Iterator')),
                 false,
             ],
         ];
+
+        return array_map(
+            static fn (array $types): array => [
+                new TypeWithReflectorScope($types[0], $reflector),
+                new TypeWithReflectorScope($types[1], $reflector),
+                $types[2]
+            ],
+            $types
+        );
     }
 
     /**
      * @dataProvider existingTypes
      */
-    public function testContravarianceConsidersSameTypeAlwaysContravariant(?ReflectionType $type): void
+    public function testContravarianceConsidersSameTypeAlwaysContravariant(TypeWithReflectorScope $type): void
     {
         self::assertTrue(
             (new TypeIsContravariant())($type, $type)
         );
     }
 
-    /** @return (ReflectionType|null)[][] */
+    /** @return TypeWithReflectorScope[][] */
     public function existingTypes(): array
     {
-        $reflector = new ClassReflector(new StringSourceLocator(
+        $reflector = new DefaultReflector(new StringSourceLocator(
             <<<'PHP'
 <?php
 
@@ -228,12 +240,12 @@ PHP
         ));
 
         return array_merge(
-            [[null]],
+            [[new TypeWithReflectorScope(null, $reflector)]],
             array_merge(...array_map(
                 static function (string $type) use ($reflector): array {
                     return [
-                        [ReflectionType::createFromTypeAndReflector($type, false, $reflector)],
-                        [ReflectionType::createFromTypeAndReflector($type, true, $reflector)],
+                        [new TypeWithReflectorScope(ReflectionType::createFromNode(new Identifier($type)), $reflector)],
+                        [new TypeWithReflectorScope(ReflectionType::createFromNode(new NullableType(new Identifier($type))), $reflector)],
                     ];
                 },
                 [
@@ -256,7 +268,7 @@ PHP
      */
     public function testContravarianceConsidersNullability(string $type): void
     {
-        $reflector   = new ClassReflector(new StringSourceLocator(
+        $reflector   = new DefaultReflector(new StringSourceLocator(
             <<<'PHP'
 <?php
 
@@ -266,8 +278,8 @@ PHP
             ,
             (new BetterReflection())->astLocator()
         ));
-        $nullable    = ReflectionType::createFromTypeAndReflector($type, true, $reflector);
-        $notNullable = ReflectionType::createFromTypeAndReflector($type, false, $reflector);
+        $nullable    = new TypeWithReflectorScope(ReflectionType::createFromNode(new NullableType(new Identifier($type))), $reflector);
+        $notNullable = new TypeWithReflectorScope(ReflectionType::createFromNode(new Identifier($type)), $reflector);
 
         $isContravariant = new TypeIsContravariant();
 
