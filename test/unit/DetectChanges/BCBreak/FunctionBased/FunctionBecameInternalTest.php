@@ -78,8 +78,8 @@ PHP
             $astLocator
         );
 
-        $fromReflector      = new DefaultReflector($fromLocator);
-        $toReflector        = new DefaultReflector($toLocator);
+        $fromReflector = new DefaultReflector($fromLocator);
+        $toReflector   = new DefaultReflector($toLocator);
 
         $functions = [
             'a' => [],

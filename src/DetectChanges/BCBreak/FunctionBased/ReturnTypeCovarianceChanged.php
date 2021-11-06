@@ -38,10 +38,12 @@ final class ReturnTypeCovarianceChanged implements FunctionBased
         $fromReturnType = $fromFunction->getReturnType();
         $toReturnType   = $toFunction->getReturnType();
 
-        if (($this->typeIsCovariant)(
-            new TypeWithReflectorScope($fromReturnType, $this->extractReflector($fromFunction)),
-            new TypeWithReflectorScope($toReturnType, $this->extractReflector($toFunction)),
-        )) {
+        if (
+            ($this->typeIsCovariant)(
+                new TypeWithReflectorScope($fromReturnType, $this->extractReflector($fromFunction)),
+                new TypeWithReflectorScope($toReturnType, $this->extractReflector($toFunction)),
+            )
+        ) {
             return Changes::empty();
         }
 

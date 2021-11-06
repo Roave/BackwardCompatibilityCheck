@@ -7,7 +7,6 @@ namespace Roave\BackwardCompatibility\DetectChanges\Variance;
 use Psl\Iter;
 use Psl\Str;
 use Roave\BetterReflection\Reflection\ReflectionNamedType;
-use Roave\BetterReflection\Reflection\ReflectionType;
 
 /**
  * This is a simplistic contravariant type check. A more appropriate approach would be to
@@ -75,7 +74,7 @@ final class TypeIsContravariant
         }
 
         $typeReflectionClass = $originalType->originatingReflector->reflectClass($typeAsString);
-        $comparedTypeClass = $newType->originatingReflector->reflectClass($comparedTypeAsString);
+        $comparedTypeClass   = $newType->originatingReflector->reflectClass($comparedTypeAsString);
 
         if ($comparedTypeClass->isInterface()) {
             return $typeReflectionClass->implementsInterface($comparedTypeAsString);

@@ -22,8 +22,7 @@ final class TypeIsCovariant
     public function __invoke(
         TypeWithReflectorScope $originalType,
         TypeWithReflectorScope $newType
-    ): bool
-    {
+    ): bool {
         $type         = $originalType->type;
         $comparedType = $newType->type;
 

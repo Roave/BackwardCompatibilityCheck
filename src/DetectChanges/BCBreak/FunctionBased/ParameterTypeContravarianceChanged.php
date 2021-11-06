@@ -53,10 +53,12 @@ final class ParameterTypeContravarianceChanged implements FunctionBased
         $toType   = $toParameter->getType();
 
 
-        if (($this->typeIsContravariant)(
-            new TypeWithReflectorScope($fromType, $this->extractReflector($fromParameter)),
-            new TypeWithReflectorScope($toType, $this->extractReflector($toParameter)),
-        )) {
+        if (
+            ($this->typeIsContravariant)(
+                new TypeWithReflectorScope($fromType, $this->extractReflector($fromParameter)),
+                new TypeWithReflectorScope($toType, $this->extractReflector($toParameter)),
+            )
+        ) {
             return Changes::empty();
         }
 
@@ -80,7 +82,6 @@ final class ParameterTypeContravarianceChanged implements FunctionBased
 
         return $type->__toString();
     }
-
 
     /** @TODO may the gods of BC compliance be merciful on me */
     private function extractReflector(ReflectionParameter $parameter): Reflector

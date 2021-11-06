@@ -6,7 +6,6 @@ namespace Roave\BackwardCompatibility\DetectChanges\Variance;
 
 use Roave\BetterReflection\Reflection\ReflectionIntersectionType;
 use Roave\BetterReflection\Reflection\ReflectionNamedType;
-use Roave\BetterReflection\Reflection\ReflectionType;
 use Roave\BetterReflection\Reflection\ReflectionUnionType;
 use Roave\BetterReflection\Reflector\Reflector;
 
@@ -17,7 +16,6 @@ use Roave\BetterReflection\Reflector\Reflector;
  * still respect variance rules.
  *
  * @psalm-immutable
- *
  * @psalm-internal \Roave\BackwardCompatibility
  */
 final class TypeWithReflectorScope

@@ -220,7 +220,7 @@ PHP
             static fn (array $types): array => [
                 new TypeWithReflectorScope($types[0], $reflector),
                 new TypeWithReflectorScope($types[1], $reflector),
-                $types[2]
+                $types[2],
             ],
             $types
         );
