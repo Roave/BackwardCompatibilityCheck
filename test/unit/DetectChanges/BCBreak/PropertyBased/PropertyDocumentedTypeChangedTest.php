@@ -113,6 +113,13 @@ class TheClass {
      * @var GenericType<T1, T2>
      */ 
     public $propertyWithComplexDocblockThatCannotBeParsed;
+    
+    /**
+     * @var int
+     */
+    public $propertyWithDocblockTypeHintChangeToNativeTypeHint;
+    
+    public int $propertyWithNativeTypeHintChanged;
 }
 PHP
             ,
@@ -182,6 +189,10 @@ class TheClass {
      * @var GenericType<T1, T2>
      */ 
     public $propertyWithComplexDocblockThatCannotBeParsed;
+    
+    public int $propertyWithDocblockTypeHintChangeToNativeTypeHint;
+ 
+    public float $propertyWithNativeTypeHintChanged;
 }
 PHP
             ,
@@ -207,6 +218,8 @@ PHP
             'duplicatePropertyTypesBeingDeduplicatedAreNotBcBreaks'             => [],
             'propertyTypeBeingDuplicatedAreNotBcBreaks'                         => [],
             'propertyWithComplexDocblockThatCannotBeParsed'                     => [],
+            'propertyWithDocblockTypeHintChangeToNativeTypeHint'                => [],
+            'propertyWithNativeTypeHintChanged'                                 => ['[BC] CHANGED: Type documentation for property TheClass#propertyWithNativeTypeHintChanged changed from int to float'],
         ];
 
         return array_combine(
