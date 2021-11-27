@@ -222,7 +222,7 @@ PHP
             'propertyTypeBeingDuplicatedAreNotBcBreaks'                         => [],
             'propertyWithComplexDocblockThatCannotBeParsed'                     => [],
             'propertyWithDocblockTypeHintChangeToNativeTypeHint'                => [],
-            'propertyWithDocblockTypeHintChangeToNativeTypeHintAndTypeChange'   => ['[BC] CHANGED: Type documentation for property TheClass#propertyWithDocblockTypeHintChangeToNativeTypeHintAndTypeChange changed from int to float'],
+            'propertyWithDocblockTypeHintChangeToNativeTypeHintAndTypeChange'   => ['[BC] CHANGED: Type documentation for property TheClass#$propertyWithDocblockTypeHintChangeToNativeTypeHintAndTypeChange changed from int to float'],
         ];
 
         return array_combine(
