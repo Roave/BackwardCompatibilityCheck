@@ -119,7 +119,10 @@ class TheClass {
      */
     public $propertyWithDocblockTypeHintChangeToNativeTypeHint;
     
-    public int $propertyWithNativeTypeHintChanged;
+    /**
+     * @var int
+     */
+    public $propertyWithDocblockTypeHintChangeToNativeTypeHintAndTypeChange;
 }
 PHP
             ,
@@ -192,7 +195,7 @@ class TheClass {
     
     public int $propertyWithDocblockTypeHintChangeToNativeTypeHint;
  
-    public float $propertyWithNativeTypeHintChanged;
+    public float $propertyWithDocblockTypeHintChangeToNativeTypeHintAndTypeChange;
 }
 PHP
             ,
@@ -219,7 +222,7 @@ PHP
             'propertyTypeBeingDuplicatedAreNotBcBreaks'                         => [],
             'propertyWithComplexDocblockThatCannotBeParsed'                     => [],
             'propertyWithDocblockTypeHintChangeToNativeTypeHint'                => [],
-            'propertyWithNativeTypeHintChanged'                                 => ['[BC] CHANGED: Type documentation for property TheClass#propertyWithNativeTypeHintChanged changed from int to float'],
+            'propertyWithDocblockTypeHintChangeToNativeTypeHintAndTypeChange'   => ['[BC] CHANGED: Type documentation for property TheClass#propertyWithDocblockTypeHintChangeToNativeTypeHintAndTypeChange changed from int to float'],
         ];
 
         return array_combine(
