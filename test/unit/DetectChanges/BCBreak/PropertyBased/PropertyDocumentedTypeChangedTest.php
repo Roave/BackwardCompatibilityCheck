@@ -123,6 +123,11 @@ class TheClass {
      * @var int
      */
     public $propertyWithDocblockTypeHintChangeToNativeTypeHintAndTypeChange;
+    
+    /**
+     * @var RoaveTest\BackwardCompatibility\Stubs\DemoStub
+     */
+    public $propertyWithDocblockTypeHintChangeToNativeWithShortNamespaceClass;
 }
 PHP
             ,
@@ -132,6 +137,8 @@ PHP
         $toLocator = new StringSourceLocator(
             <<<'PHP'
 <?php
+
+use RoaveTest\BackwardCompatibility\Stubs\DemoStub;
 
 class TheClass {
     public $publicNoDocblockToNoDocblock;
@@ -196,6 +203,8 @@ class TheClass {
     public int $propertyWithDocblockTypeHintChangeToNativeTypeHint;
  
     public float $propertyWithDocblockTypeHintChangeToNativeTypeHintAndTypeChange;
+            
+    public DemoStub $propertyWithDocblockTypeHintChangeToNativeWithShortNamespaceClass;
 }
 PHP
             ,
@@ -223,6 +232,7 @@ PHP
             'propertyWithComplexDocblockThatCannotBeParsed'                     => [],
             'propertyWithDocblockTypeHintChangeToNativeTypeHint'                => [],
             'propertyWithDocblockTypeHintChangeToNativeTypeHintAndTypeChange'   => ['[BC] CHANGED: Type documentation for property TheClass#$propertyWithDocblockTypeHintChangeToNativeTypeHintAndTypeChange changed from int to float'],
+            'propertyWithDocblockTypeHintChangeToNativeWithShortNamespaceClass' => [],
         ];
 
         return array_combine(
