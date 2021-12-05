@@ -6,6 +6,7 @@ namespace RoaveTest\BackwardCompatibility\DetectChanges\Variance;
 
 use PhpParser\Node\Identifier;
 use PhpParser\Node\NullableType;
+use PhpParser\Node\UnionType;
 use PHPUnit\Framework\TestCase;
 use Psl\Type;
 use Roave\BackwardCompatibility\DetectChanges\Variance\TypeIsContravariant;
@@ -257,6 +258,42 @@ PHP
                 new Identifier('Iterator'),
                 false,
             ],
+
+            'scalar type to union type is contravariant'                            => [
+                new Identifier('int'),
+                new UnionType([new Identifier('int'), new Identifier('string')]),
+                true,
+            ],
+            'union type to scalar is not contravariant'                            => [
+                new UnionType([new Identifier('int'), new Identifier('string')]),
+                new Identifier('int'),
+                false,
+            ],
+            'same union type is contravariant'                            => [
+                new UnionType([new Identifier('int'), new Identifier('string')]),
+                new UnionType([new Identifier('int'), new Identifier('string')]),
+                true,
+            ],
+            'same union type (in reverse order) is covariant'                            => [
+                new UnionType([new Identifier('int'), new Identifier('string')]),
+                new UnionType([new Identifier('string'), new Identifier('int')]),
+                true,
+            ],
+            'incompatible union types are not contravariant'                            => [
+                new UnionType([new Identifier('int'), new Identifier('string')]),
+                new UnionType([new Identifier('float'), new Identifier('bool')]),
+                false,
+            ],
+            'union type to wider union type is contravariant - https://3v4l.org/jO1eE#v8.1rc3'                            => [
+                new UnionType([new Identifier('int'), new Identifier('string')]),
+                new UnionType([new Identifier('int'), new Identifier('string'), new Identifier('float')]),
+                true,
+            ],
+            'union type to narrower union type is not contravariant - https://3v4l.org/SOUBk#v8.1rc3'                            => [
+                new UnionType([new Identifier('int'), new Identifier('string'), new Identifier('float')]),
+                new UnionType([new Identifier('int'), new Identifier('string')]),
+                false,
+            ],
         ];
 
         return array_map(
@@ -377,7 +414,7 @@ PHP
     private static function identifierType(
         Reflector $reflector,
         ReflectionProperty $owner,
-        Identifier|NullableType $identifier
+        Identifier|NullableType|UnionType $identifier
     ): ReflectionType {
         return ReflectionType::createFromNode($reflector, $owner, $identifier);
     }

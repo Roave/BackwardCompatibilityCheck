@@ -8,6 +8,7 @@ use Psl\Iter;
 use Psl\Str;
 use Roave\BetterReflection\Reflection\ReflectionNamedType;
 use Roave\BetterReflection\Reflection\ReflectionType;
+use Roave\BetterReflection\Reflection\ReflectionUnionType;
 
 /**
  * This is a simplistic contravariant type check. A more appropriate approach would be to
@@ -39,11 +40,30 @@ final class TypeIsContravariant
             return false;
         }
 
+        if ($type instanceof ReflectionUnionType) {
+            return Iter\all(
+                $type->getTypes(),
+                fn (ReflectionNamedType $type): bool => $this($type, $comparedType)
+            );
+        }
+
+        if ($comparedType instanceof ReflectionUnionType) {
+            return Iter\any(
+                $comparedType->getTypes(),
+                fn (ReflectionNamedType $comparedType): bool => $this($type, $comparedType)
+            );
+        }
+
         if (! $type instanceof ReflectionNamedType || ! $comparedType instanceof ReflectionNamedType) {
             // @TODO we'll assume everyting is fine, for now - union and intersection types still need test additions
             return true;
         }
 
+        return $this->compareNamedTypes($type, $comparedType);
+    }
+
+    private function compareNamedTypes(ReflectionNamedType $type, ReflectionNamedType $comparedType): bool
+    {
         if ($type->allowsNull() && ! $comparedType->allowsNull()) {
             return false;
         }

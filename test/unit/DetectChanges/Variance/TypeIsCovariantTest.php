@@ -6,6 +6,7 @@ namespace RoaveTest\BackwardCompatibility\DetectChanges\Variance;
 
 use PhpParser\Node\Identifier;
 use PhpParser\Node\NullableType;
+use PhpParser\Node\UnionType;
 use PHPUnit\Framework\TestCase;
 use Psl\Type;
 use Roave\BackwardCompatibility\DetectChanges\Variance\TypeIsCovariant;
@@ -268,6 +269,42 @@ PHP
                 new Identifier('Iterator'),
                 true,
             ],
+
+            'scalar type to union type is not covariant'                            => [
+                new Identifier('int'),
+                new UnionType([new Identifier('int'), new Identifier('string')]),
+                false,
+            ],
+            'union type to scalar is covariant'                            => [
+                new UnionType([new Identifier('int'), new Identifier('string')]),
+                new Identifier('int'),
+                true,
+            ],
+            'same union type is covariant'                            => [
+                new UnionType([new Identifier('int'), new Identifier('string')]),
+                new UnionType([new Identifier('int'), new Identifier('string')]),
+                true,
+            ],
+            'same union type (in reverse order) is covariant'                            => [
+                new UnionType([new Identifier('int'), new Identifier('string')]),
+                new UnionType([new Identifier('string'), new Identifier('int')]),
+                true,
+            ],
+            'incompatible union types are not covariant'                            => [
+                new UnionType([new Identifier('int'), new Identifier('string')]),
+                new UnionType([new Identifier('float'), new Identifier('bool')]),
+                false,
+            ],
+            'union type to wider union type is not covariant - https://3v4l.org/Tudl8#v8.1rc3'                            => [
+                new UnionType([new Identifier('int'), new Identifier('string')]),
+                new UnionType([new Identifier('int'), new Identifier('string'), new Identifier('float')]),
+                false,
+            ],
+            'union type to narrower union type is covariant - https://3v4l.org/RB2fC#v8.1rc3'                            => [
+                new UnionType([new Identifier('int'), new Identifier('string'), new Identifier('float')]),
+                new UnionType([new Identifier('int'), new Identifier('string')]),
+                true,
+            ],
         ];
 
         return array_map(
@@ -395,7 +432,7 @@ PHP
     private static function identifierType(
         Reflector $reflector,
         ReflectionProperty $owner,
-        Identifier|NullableType $identifier
+        Identifier|NullableType|UnionType $identifier
     ): ReflectionType {
         return ReflectionType::createFromNode($reflector, $owner, $identifier);
     }

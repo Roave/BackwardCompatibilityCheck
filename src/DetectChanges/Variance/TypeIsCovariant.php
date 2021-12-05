@@ -8,6 +8,7 @@ use Psl\Iter;
 use Psl\Str;
 use Roave\BetterReflection\Reflection\ReflectionNamedType;
 use Roave\BetterReflection\Reflection\ReflectionType;
+use Roave\BetterReflection\Reflection\ReflectionUnionType;
 use Traversable;
 
 /**
@@ -34,11 +35,30 @@ final class TypeIsCovariant
             return false;
         }
 
+        if ($comparedType instanceof ReflectionUnionType) {
+            return Iter\all(
+                $comparedType->getTypes(),
+                fn (ReflectionNamedType $comparedType): bool => $this($type, $comparedType)
+            );
+        }
+
+        if ($type instanceof ReflectionUnionType) {
+            return Iter\any(
+                $type->getTypes(),
+                fn (ReflectionNamedType $type): bool => $this($type, $comparedType)
+            );
+        }
+
         if (! $type instanceof ReflectionNamedType || ! $comparedType instanceof ReflectionNamedType) {
             // @TODO we'll assume everyting is fine, for now - union and intersection types still need test additions
             return true;
         }
 
+        return $this->compareNamedTypes($type, $comparedType);
+    }
+
+    private function compareNamedTypes(ReflectionNamedType $type, ReflectionNamedType $comparedType): bool
+    {
         if ($comparedType->allowsNull() && ! $type->allowsNull()) {
             return false;
         }
