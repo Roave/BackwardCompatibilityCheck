@@ -114,7 +114,7 @@ use function file_exists;
                                     new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\OnlyPublicPropertyChanged(
                                         new PropertyBased\MultipleChecksOnAProperty(
                                             new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyBecameInternal()),
-                                            new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyDocumentedTypeChanged()),
+                                            new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyTypeChanged(new TypeIsContravariant(), new TypeIsCovariant())),
                                             new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyDefaultValueChanged()),
                                             new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyVisibilityReduced()),
                                             new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyScopeChanged())
@@ -123,7 +123,7 @@ use function file_exists;
                                     new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\OnlyProtectedPropertyChanged(
                                         new PropertyBased\MultipleChecksOnAProperty(
                                             new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyBecameInternal()),
-                                            new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyDocumentedTypeChanged()),
+                                            new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyTypeChanged(new TypeIsContravariant(), new TypeIsCovariant())),
                                             new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyDefaultValueChanged()),
                                             new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyVisibilityReduced()),
                                             new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyScopeChanged())
@@ -193,7 +193,7 @@ use function file_exists;
                                 new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\OnlyPublicPropertyChanged(
                                     new PropertyBased\MultipleChecksOnAProperty(
                                         new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyBecameInternal()),
-                                        new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyDocumentedTypeChanged()),
+                                        new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyTypeChanged(new TypeIsContravariant(), new TypeIsCovariant())),
                                         new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyDefaultValueChanged()),
                                         new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyVisibilityReduced()),
                                         new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyScopeChanged())
@@ -271,7 +271,7 @@ use function file_exists;
                         new ClassBased\SkipClassBasedErrors(new ClassBased\PropertyChanged(
                             new PropertyBased\MultipleChecksOnAProperty(
                                 new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyBecameInternal()),
-                                new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyDocumentedTypeChanged()),
+                                new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyTypeChanged(new TypeIsContravariant(), new TypeIsCovariant())),
                                 new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyDefaultValueChanged()),
                                 new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyVisibilityReduced()),
                                 new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyScopeChanged())

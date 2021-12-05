@@ -8,7 +8,8 @@ use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\ParameterTypeChanged;
 use Roave\BetterReflection\BetterReflection;
-use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
+use Roave\BetterReflection\Reflection\ReflectionFunction;
+use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflector\DefaultReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 use function array_combine;
@@ -26,8 +27,8 @@ final class ParameterTypeChangedTest extends TestCase
      * @param string[] $expectedMessages
      */
     public function testDiffs(
-        ReflectionFunctionAbstract $fromFunction,
-        ReflectionFunctionAbstract $toFunction,
+        ReflectionMethod|ReflectionFunction $fromFunction,
+        ReflectionMethod|ReflectionFunction $toFunction,
         array $expectedMessages
     ) : void {
         $changes = (new ParameterTypeChanged())($fromFunction, $toFunction);
@@ -41,9 +42,11 @@ final class ParameterTypeChangedTest extends TestCase
     }
 
     /**
-     * @return array<string, array<int, ReflectionFunctionAbstract|array<int, string>>>
-     *
-     * @psalm-return array<string, array{0: ReflectionFunctionAbstract, 1: ReflectionFunctionAbstract, 2: list<string>}>
+     * @return array<string, array{
+     *     0: ReflectionMethod|ReflectionFunction,
+     *     1: ReflectionMethod|ReflectionFunction,
+     *     2: list<string>
+     * }>
      */
     public function functionsToBeTested() : array
     {

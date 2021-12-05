@@ -10,17 +10,17 @@ use Psl\Str;
 use Psl\Vec;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
-use Roave\BackwardCompatibility\Formatter\ReflectionFunctionAbstractName;
+use Roave\BackwardCompatibility\Formatter\FunctionName;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
 
 final class MethodRemoved implements ClassBased
 {
-    private ReflectionFunctionAbstractName $formatFunction;
+    private FunctionName $formatFunction;
 
     public function __construct()
     {
-        $this->formatFunction = new ReflectionFunctionAbstractName();
+        $this->formatFunction = new FunctionName();
     }
 
     public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass): Changes

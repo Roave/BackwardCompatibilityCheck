@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\Formatter;
 
-use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
+use Roave\BetterReflection\Reflection\ReflectionFunction;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
 
-final class ReflectionFunctionAbstractName
+/** @internal */
+final class FunctionName
 {
-    public function __invoke(ReflectionFunctionAbstract $function): string
+    public function __invoke(ReflectionMethod|ReflectionFunction $function): string
     {
         if ($function instanceof ReflectionMethod) {
             if ($function->isStatic()) {

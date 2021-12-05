@@ -8,8 +8,9 @@ use Psl\Dict;
 use Psl\Str;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
-use Roave\BackwardCompatibility\Formatter\ReflectionFunctionAbstractName;
-use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
+use Roave\BackwardCompatibility\Formatter\FunctionName;
+use Roave\BetterReflection\Reflection\ReflectionFunction;
+use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflection\ReflectionParameter;
 
 /**
@@ -19,15 +20,17 @@ use Roave\BetterReflection\Reflection\ReflectionParameter;
  */
 final class ParameterByReferenceChanged implements FunctionBased
 {
-    private ReflectionFunctionAbstractName $formatFunction;
+    private FunctionName $formatFunction;
 
     public function __construct()
     {
-        $this->formatFunction = new ReflectionFunctionAbstractName();
+        $this->formatFunction = new FunctionName();
     }
 
-    public function __invoke(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction): Changes
-    {
+    public function __invoke(
+        ReflectionMethod|ReflectionFunction $fromFunction,
+        ReflectionMethod|ReflectionFunction $toFunction
+    ): Changes {
         $fromParameters = $fromFunction->getParameters();
         $toParameters   = $toFunction->getParameters();
         $changes        = Changes::empty();

@@ -6,7 +6,9 @@ namespace RoaveTest\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased;
 
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
-use Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\PropertyDocumentedTypeChanged;
+use Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\PropertyTypeChanged;
+use Roave\BackwardCompatibility\DetectChanges\Variance\TypeIsContravariant;
+use Roave\BackwardCompatibility\DetectChanges\Variance\TypeIsCovariant;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
 use Roave\BetterReflection\Reflector\DefaultReflector;
@@ -19,9 +21,9 @@ use function array_map;
 use function iterator_to_array;
 
 /**
- * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\PropertyDocumentedTypeChanged
+ * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\PropertyTypeChanged
  */
-final class PropertyDocumentedTypeChangedTest extends TestCase
+final class PropertyTypeChangedTest extends TestCase
 {
     /**
      * @param string[] $expectedMessages
@@ -33,7 +35,10 @@ final class PropertyDocumentedTypeChangedTest extends TestCase
         ReflectionProperty $toProperty,
         array $expectedMessages
     ): void {
-        $changes = (new PropertyDocumentedTypeChanged())($fromProperty, $toProperty);
+        $changes = (new PropertyTypeChanged(
+            new TypeIsContravariant(),
+            new TypeIsCovariant()
+        ))($fromProperty, $toProperty);
 
         self::assertSame(
             $expectedMessages,
@@ -123,6 +128,8 @@ class TheClass {
      * @var int
      */
     public $propertyWithDocblockTypeHintChangeToNativeTypeHintAndTypeChange;
+
+    public int $propertyWithDeclaredTypeRemoved;
 }
 PHP
             ,
@@ -196,6 +203,8 @@ class TheClass {
     public int $propertyWithDocblockTypeHintChangeToNativeTypeHint;
  
     public float $propertyWithDocblockTypeHintChangeToNativeTypeHintAndTypeChange;
+
+    public $propertyWithDeclaredTypeRemoved;
 }
 PHP
             ,
@@ -207,22 +216,27 @@ PHP
         $fromClass          = $fromClassReflector->reflectClass('TheClass');
         $toClass            = $toClassReflector->reflectClass('TheClass');
 
+        // Note: lots of docblock-related tests report no BC breaks here. This is because this change checker does
+        //       not operate on documented types anymore. Documented types are too advanced for this library to inspect,
+        //       right now, since psalm/phpstan/psr-5 are constantly evolving. The library will limit itself in
+        //       inspecting reflection-based type changes (for now).
         $properties = [
             'publicNoDocblockToNoDocblock'                                      => [],
             'publicNoDocblockToDocblock'                                        => [],
-            'publicNoTypeDocblockToDocblock'                                    => ['[BC] CHANGED: Type documentation for property TheClass#$publicNoTypeDocblockToDocblock changed from having no type to int'],
+            'publicNoTypeDocblockToDocblock'                                    => [],
             'publicDocblockToSameDocblock'                                      => [],
-            'publicDocblockToDifferentDocblock'                                 => ['[BC] CHANGED: Type documentation for property TheClass#$publicDocblockToDifferentDocblock changed from int to float'],
-            'publicDocblockToNoDocblock'                                        => ['[BC] CHANGED: Type documentation for property TheClass#$publicDocblockToNoDocblock changed from int to having no type'],
+            'publicDocblockToDifferentDocblock'                                 => [],
+            'publicDocblockToNoDocblock'                                        => [],
             'publicCompositeTypeDocblockToSameTypeDocblock'                     => [],
             'publicCompositeTypeDocblockToSameTypeDocblockWithDifferentSorting' => [],
-            'publicCompositeTypeDocblockToDifferentCompositeTypeDocblock'       => ['[BC] CHANGED: Type documentation for property TheClass#$publicCompositeTypeDocblockToDifferentCompositeTypeDocblock changed from float|int to float|int|string'],
-            'privateDocblockToDifferentDocblock'                                => ['[BC] CHANGED: Type documentation for property TheClass#$privateDocblockToDifferentDocblock changed from int to float'],
+            'publicCompositeTypeDocblockToDifferentCompositeTypeDocblock'       => [],
+            'privateDocblockToDifferentDocblock'                                => [],
             'duplicatePropertyTypesBeingDeduplicatedAreNotBcBreaks'             => [],
             'propertyTypeBeingDuplicatedAreNotBcBreaks'                         => [],
             'propertyWithComplexDocblockThatCannotBeParsed'                     => [],
-            'propertyWithDocblockTypeHintChangeToNativeTypeHint'                => [],
-            'propertyWithDocblockTypeHintChangeToNativeTypeHintAndTypeChange'   => ['[BC] CHANGED: Type documentation for property TheClass#$propertyWithDocblockTypeHintChangeToNativeTypeHintAndTypeChange changed from int to float'],
+            'propertyWithDocblockTypeHintChangeToNativeTypeHint'                => ['[BC] CHANGED: Type type of property TheClass#$propertyWithDocblockTypeHintChangeToNativeTypeHint changed from having no type to int'],
+            'propertyWithDocblockTypeHintChangeToNativeTypeHintAndTypeChange'   => ['[BC] CHANGED: Type type of property TheClass#$propertyWithDocblockTypeHintChangeToNativeTypeHintAndTypeChange changed from having no type to float'],
+            'propertyWithDeclaredTypeRemoved'                                   => ['[BC] CHANGED: Type type of property TheClass#$propertyWithDeclaredTypeRemoved changed from int to having no type'],
         ];
 
         return array_combine(

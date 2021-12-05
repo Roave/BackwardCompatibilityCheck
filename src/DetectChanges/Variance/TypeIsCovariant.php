@@ -7,6 +7,7 @@ namespace Roave\BackwardCompatibility\DetectChanges\Variance;
 use Psl\Iter;
 use Psl\Str;
 use Roave\BetterReflection\Reflection\ReflectionNamedType;
+use Roave\BetterReflection\Reflection\ReflectionType;
 use Traversable;
 
 /**
@@ -20,12 +21,9 @@ use Traversable;
 final class TypeIsCovariant
 {
     public function __invoke(
-        TypeWithReflectorScope $originalType,
-        TypeWithReflectorScope $newType
+        ?ReflectionType $type,
+        ?ReflectionType $comparedType
     ): bool {
-        $type         = $originalType->type;
-        $comparedType = $newType->type;
-
         if ($type === null) {
             // everything can be covariant to `mixed`
             return true;
@@ -68,7 +66,7 @@ final class TypeIsCovariant
         }
 
         if ($typeAsString === 'iterable' && ! $comparedType->isBuiltin()) {
-            $comparedTypeReflectionClass = $newType->originatingReflector->reflectClass($comparedType->getName());
+            $comparedTypeReflectionClass = $comparedType->getClass();
 
             if ($comparedTypeReflectionClass->implementsInterface(Traversable::class)) {
                 // `iterable` can be restricted via any `Iterator` implementation
@@ -86,13 +84,16 @@ final class TypeIsCovariant
             return false;
         }
 
-        $originalTypeReflectionClass = $originalType->originatingReflector->reflectClass($typeAsString);
-        $comparedTypeReflectionClass = $newType->originatingReflector->reflectClass($comparedTypeAsString);
+        $originalTypeReflectionClass = $type->getClass();
+        $comparedTypeReflectionClass = $comparedType->getClass();
 
         if ($originalTypeReflectionClass->isInterface()) {
-            return $comparedTypeReflectionClass->implementsInterface($typeAsString);
+            return $comparedTypeReflectionClass->implementsInterface($originalTypeReflectionClass->getName());
         }
 
-        return Iter\contains($comparedTypeReflectionClass->getParentClassNames(), $typeAsString);
+        return Iter\contains(
+            $comparedTypeReflectionClass->getParentClassNames(),
+            $originalTypeReflectionClass->getName()
+        );
     }
 }

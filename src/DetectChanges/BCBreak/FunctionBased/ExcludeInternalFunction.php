@@ -6,7 +6,8 @@ namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased;
 
 use Psl\Regex;
 use Roave\BackwardCompatibility\Changes;
-use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
+use Roave\BetterReflection\Reflection\ReflectionFunction;
+use Roave\BetterReflection\Reflection\ReflectionMethod;
 
 /**
  * Functions marked "internal" (docblock) are not affected by BC checks.
@@ -20,8 +21,10 @@ final class ExcludeInternalFunction implements FunctionBased
         $this->check = $check;
     }
 
-    public function __invoke(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction): Changes
-    {
+    public function __invoke(
+        ReflectionMethod|ReflectionFunction $fromFunction,
+        ReflectionMethod|ReflectionFunction $toFunction
+    ): Changes {
         if ($this->isInternalDocComment($fromFunction->getDocComment())) {
             return Changes::empty();
         }

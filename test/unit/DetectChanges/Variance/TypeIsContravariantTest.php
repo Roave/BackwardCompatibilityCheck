@@ -7,11 +7,14 @@ namespace RoaveTest\BackwardCompatibility\DetectChanges\Variance;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\NullableType;
 use PHPUnit\Framework\TestCase;
+use Psl\Type;
 use Roave\BackwardCompatibility\DetectChanges\Variance\TypeIsContravariant;
 use Roave\BackwardCompatibility\DetectChanges\Variance\TypeWithReflectorScope;
 use Roave\BetterReflection\BetterReflection;
+use Roave\BetterReflection\Reflection\ReflectionProperty;
 use Roave\BetterReflection\Reflection\ReflectionType;
 use Roave\BetterReflection\Reflector\DefaultReflector;
+use Roave\BetterReflection\Reflector\Reflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 
 use function array_map;
@@ -23,8 +26,8 @@ final class TypeIsContravariantTest extends TestCase
      * @dataProvider checkedTypes
      */
     public function testContravariance(
-        TypeWithReflectorScope $type,
-        TypeWithReflectorScope $newType,
+        ?ReflectionType $type,
+        ?ReflectionType $newType,
         bool $expectedToBeContravariant
     ): void {
         self::assertSame(
@@ -34,8 +37,11 @@ final class TypeIsContravariantTest extends TestCase
     }
 
     /**
-     * @return array<string, array<int, bool|ReflectionType|null>>
-     * @psalm-return array<string, array{0: TypeWithReflectorScope, 1: TypeWithReflectorScope, 2: bool}>
+     * @return array<string, array{
+     *     0: ReflectionType|null,
+     *     1: ReflectionType|null,
+     *     2: bool
+     * }>
      */
     public function checkedTypes(): array
     {
@@ -52,10 +58,17 @@ class AnotherClassWithMultipleInterfaces implements AnInterface, AnotherInterfac
 class AClass {}
 class BClass extends AClass {}
 class CClass extends BClass {}
+final class OwnerPropertyContainer { private $owner; }
 PHP
             ,
             (new BetterReflection())->astLocator()
         ));
+
+        $owner = Type\object(ReflectionProperty::class)
+            ->coerce(
+                $reflector->reflectClass('OwnerPropertyContainer')
+                    ->getProperty('owner')
+            );
 
         $types = [
             'no type to no type is contravariant with itself'                          => [
@@ -65,150 +78,154 @@ PHP
             ],
             'no type to void type is not contravariant'                                => [
                 null,
-                ReflectionType::createFromNode(new Identifier('void')),
+                new Identifier('void'),
                 false,
             ],
             'void type to no type is contravariant'                                    => [
-                ReflectionType::createFromNode(new Identifier('void')),
+                new Identifier('void'),
                 null,
                 true,
             ],
             'void type to scalar type is contravariant'                                => [
-                ReflectionType::createFromNode(new Identifier('void')),
-                ReflectionType::createFromNode(new Identifier('string')),
+                new Identifier('void'),
+                new Identifier('string'),
                 true,
             ],
             'void type to class type is contravariant'                                 => [
-                ReflectionType::createFromNode(new Identifier('void')),
-                ReflectionType::createFromNode(new Identifier('AClass')),
+                new Identifier('void'),
+                new Identifier('AClass'),
                 true,
             ],
             'scalar type to no type is contravariant'                                  => [
-                ReflectionType::createFromNode(new Identifier('string')),
+                new Identifier('string'),
                 null,
                 true,
             ],
             'no type to scalar type is not contravariant'                              => [
                 null,
-                ReflectionType::createFromNode(new Identifier('string')),
+                new Identifier('string'),
                 false,
             ],
             'class type to no type is contravariant'                                   => [
-                ReflectionType::createFromNode(new Identifier('AClass')),
+                new Identifier('AClass'),
                 null,
                 true,
             ],
             'no type to class type is not contravariant'                               => [
-                ReflectionType::createFromNode(new Identifier('AClass')),
+                new Identifier('AClass'),
                 null,
                 true,
             ],
             'iterable to array is not contravariant'                 => [
-                ReflectionType::createFromNode(new Identifier('iterable')),
-                ReflectionType::createFromNode(new Identifier('array')),
+                new Identifier('iterable'),
+                new Identifier('array'),
                 false,
             ],
             'array to iterable is contravariant'                 => [
-                ReflectionType::createFromNode(new Identifier('array')),
-                ReflectionType::createFromNode(new Identifier('iterable')),
+                new Identifier('array'),
+                new Identifier('iterable'),
                 true,
             ],
             'iterable to non-iterable class type is not contravariant'                 => [
-                ReflectionType::createFromNode(new Identifier('iterable')),
-                ReflectionType::createFromNode(new Identifier('AnotherClassWithMultipleInterfaces')),
+                new Identifier('iterable'),
+                new Identifier('AnotherClassWithMultipleInterfaces'),
                 false,
             ],
             'iterable to iterable class type is not contravariant'                         => [
-                ReflectionType::createFromNode(new Identifier('iterable')),
-                ReflectionType::createFromNode(new Identifier('Iterator')),
+                new Identifier('iterable'),
+                new Identifier('Iterator'),
                 false,
             ],
             'non-iterable class to iterable type is not contravariant'                 => [
-                ReflectionType::createFromNode(new Identifier('iterable')),
-                ReflectionType::createFromNode(new Identifier('AnotherClassWithMultipleInterfaces')),
+                new Identifier('iterable'),
+                new Identifier('AnotherClassWithMultipleInterfaces'),
                 false,
             ],
             'iterable class type to iterable is not contravariant'                     => [
-                ReflectionType::createFromNode(new Identifier('Iterator')),
-                ReflectionType::createFromNode(new Identifier('iterable')),
+                new Identifier('Iterator'),
+                new Identifier('iterable'),
                 false,
             ],
             'object to class type is not contravariant'                                => [
-                ReflectionType::createFromNode(new Identifier('object')),
-                ReflectionType::createFromNode(new Identifier('AClass')),
+                new Identifier('object'),
+                new Identifier('AClass'),
                 false,
             ],
             'class type to object is contravariant'                                    => [
-                ReflectionType::createFromNode(new Identifier('AClass')),
-                ReflectionType::createFromNode(new Identifier('object')),
+                new Identifier('AClass'),
+                new Identifier('object'),
                 true,
             ],
             'class type to scalar type is not contravariant'                           => [
-                ReflectionType::createFromNode(new Identifier('AClass')),
-                ReflectionType::createFromNode(new Identifier('string')),
+                new Identifier('AClass'),
+                new Identifier('string'),
                 false,
             ],
             'scalar type to class type is not contravariant'                           => [
-                ReflectionType::createFromNode(new Identifier('string')),
-                ReflectionType::createFromNode(new Identifier('AClass')),
+                new Identifier('string'),
+                new Identifier('AClass'),
                 false,
             ],
             'scalar type (string) to different scalar type (int) is not contravariant' => [
-                ReflectionType::createFromNode(new Identifier('string')),
-                ReflectionType::createFromNode(new Identifier('int')),
+                new Identifier('string'),
+                new Identifier('int'),
                 false,
             ],
             'scalar type (int) to different scalar type (float) is not contravariant'  => [
-                ReflectionType::createFromNode(new Identifier('int')),
-                ReflectionType::createFromNode(new Identifier('float')),
+                new Identifier('int'),
+                new Identifier('float'),
                 false,
             ],
             'object type to scalar type is not contravariant'                          => [
-                ReflectionType::createFromNode(new Identifier('object')),
-                ReflectionType::createFromNode(new Identifier('string')),
+                new Identifier('object'),
+                new Identifier('string'),
                 false,
             ],
             'scalar type to object type is not contravariant'                          => [
-                ReflectionType::createFromNode(new Identifier('string')),
-                ReflectionType::createFromNode(new Identifier('object')),
+                new Identifier('string'),
+                new Identifier('object'),
                 false,
             ],
             'class to superclass is contravariant'                                     => [
-                ReflectionType::createFromNode(new Identifier('BClass')),
-                ReflectionType::createFromNode(new Identifier('AClass')),
+                new Identifier('BClass'),
+                new Identifier('AClass'),
                 true,
             ],
             'class to subclass is not contravariant'                                   => [
-                ReflectionType::createFromNode(new Identifier('BClass')),
-                ReflectionType::createFromNode(new Identifier('CClass')),
+                new Identifier('BClass'),
+                new Identifier('CClass'),
                 false,
             ],
             'class to implemented interface is contravariant'                          => [
-                ReflectionType::createFromNode(new Identifier('AnotherClassWithMultipleInterfaces')),
-                ReflectionType::createFromNode(new Identifier('AnInterface')),
+                new Identifier('AnotherClassWithMultipleInterfaces'),
+                new Identifier('AnInterface'),
                 true,
             ],
             'class to not implemented interface is not contravariant'                  => [
-                ReflectionType::createFromNode(new Identifier('AnotherClassWithMultipleInterfaces')),
-                ReflectionType::createFromNode(new Identifier('Traversable')),
+                new Identifier('AnotherClassWithMultipleInterfaces'),
+                new Identifier('Traversable'),
                 false,
             ],
             'interface to parent interface is contravariant'                           => [
-                ReflectionType::createFromNode(new Identifier('Iterator')),
-                ReflectionType::createFromNode(new Identifier('Traversable')),
+                new Identifier('Iterator'),
+                new Identifier('Traversable'),
                 true,
             ],
             'interface to child interface is contravariant'                            => [
-                ReflectionType::createFromNode(new Identifier('Traversable')),
-                ReflectionType::createFromNode(new Identifier('Iterator')),
+                new Identifier('Traversable'),
+                new Identifier('Iterator'),
                 false,
             ],
         ];
 
         return array_map(
             static fn (array $types): array => [
-                new TypeWithReflectorScope($types[0], $reflector),
-                new TypeWithReflectorScope($types[1], $reflector),
+                $types[0] === null
+                    ? null
+                    : self::identifierType($reflector, $owner, $types[0]),
+                $types[1] === null
+                    ? null
+                    : self::identifierType($reflector, $owner, $types[1]),
                 $types[2],
             ],
             $types
@@ -218,14 +235,14 @@ PHP
     /**
      * @dataProvider existingTypes
      */
-    public function testContravarianceConsidersSameTypeAlwaysContravariant(TypeWithReflectorScope $type): void
+    public function testContravarianceConsidersSameTypeAlwaysContravariant(?ReflectionType $type): void
     {
         self::assertTrue(
             (new TypeIsContravariant())($type, $type)
         );
     }
 
-    /** @return TypeWithReflectorScope[][] */
+    /** @return list<array{ReflectionType|null}> */
     public function existingTypes(): array
     {
         $reflector = new DefaultReflector(new StringSourceLocator(
@@ -234,20 +251,25 @@ PHP
 
 interface Traversable {}
 class AClass {}
+final class OwnerPropertyContainer { private $owner; }
 PHP
             ,
             (new BetterReflection())->astLocator()
         ));
 
+        $owner = Type\object(ReflectionProperty::class)
+            ->coerce(
+                $reflector->reflectClass('OwnerPropertyContainer')
+                    ->getProperty('owner')
+            );
+
         return array_merge(
-            [[new TypeWithReflectorScope(null, $reflector)]],
+            [[null]],
             array_merge(...array_map(
-                static function (string $type) use ($reflector): array {
-                    return [
-                        [new TypeWithReflectorScope(ReflectionType::createFromNode(new Identifier($type)), $reflector)],
-                        [new TypeWithReflectorScope(ReflectionType::createFromNode(new NullableType(new Identifier($type))), $reflector)],
-                    ];
-                },
+                static fn (string $type): array => [
+                    [self::identifierType($reflector, $owner, new Identifier($type))],
+                    [self::identifierType($reflector, $owner, new NullableType(new Identifier($type)))],
+                ],
                 [
                     'int',
                     'string',
@@ -274,12 +296,20 @@ PHP
 
 interface Traversable {}
 class AClass {}
+final class OwnerPropertyContainer { private $owner; }
 PHP
             ,
             (new BetterReflection())->astLocator()
         ));
-        $nullable    = new TypeWithReflectorScope(ReflectionType::createFromNode(new NullableType(new Identifier($type))), $reflector);
-        $notNullable = new TypeWithReflectorScope(ReflectionType::createFromNode(new Identifier($type)), $reflector);
+
+        $owner = Type\object(ReflectionProperty::class)
+            ->coerce(
+                $reflector->reflectClass('OwnerPropertyContainer')
+                    ->getProperty('owner')
+            );
+
+        $nullable    = self::identifierType($reflector, $owner, new NullableType(new Identifier($type)));
+        $notNullable = self::identifierType($reflector, $owner, new Identifier($type));
 
         $isContravariant = new TypeIsContravariant();
 
@@ -301,5 +331,13 @@ PHP
             ['Traversable'],
             ['AClass'],
         ];
+    }
+
+    private static function identifierType(
+        Reflector $reflector,
+        ReflectionProperty $owner,
+        Identifier|NullableType $identifier
+    ): ReflectionType {
+        return ReflectionType::createFromNode($reflector, $owner, $identifier);
     }
 }

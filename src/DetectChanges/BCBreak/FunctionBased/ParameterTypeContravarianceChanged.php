@@ -6,17 +6,14 @@ namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased;
 
 use Psl\Dict;
 use Psl\Str;
-use Psl\Type;
-use ReflectionProperty;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\DetectChanges\Variance\TypeIsContravariant;
-use Roave\BackwardCompatibility\DetectChanges\Variance\TypeWithReflectorScope;
-use Roave\BackwardCompatibility\Formatter\ReflectionFunctionAbstractName;
-use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
+use Roave\BackwardCompatibility\Formatter\FunctionName;
+use Roave\BetterReflection\Reflection\ReflectionFunction;
+use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflection\ReflectionParameter;
 use Roave\BetterReflection\Reflection\ReflectionType;
-use Roave\BetterReflection\Reflector\Reflector;
 
 /**
  * When a parameter type changes, the new type should be wider than the previous type, or else
@@ -26,16 +23,18 @@ final class ParameterTypeContravarianceChanged implements FunctionBased
 {
     private TypeIsContravariant $typeIsContravariant;
 
-    private ReflectionFunctionAbstractName $formatFunction;
+    private FunctionName $formatFunction;
 
     public function __construct(TypeIsContravariant $typeIsContravariant)
     {
         $this->typeIsContravariant = $typeIsContravariant;
-        $this->formatFunction      = new ReflectionFunctionAbstractName();
+        $this->formatFunction      = new FunctionName();
     }
 
-    public function __invoke(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction): Changes
-    {
+    public function __invoke(
+        ReflectionMethod|ReflectionFunction $fromFunction,
+        ReflectionMethod|ReflectionFunction $toFunction
+    ): Changes {
         $fromParameters = $fromFunction->getParameters();
         $toParameters   = $toFunction->getParameters();
         $changes        = Changes::empty();
@@ -52,13 +51,7 @@ final class ParameterTypeContravarianceChanged implements FunctionBased
         $fromType = $fromParameter->getType();
         $toType   = $toParameter->getType();
 
-
-        if (
-            ($this->typeIsContravariant)(
-                new TypeWithReflectorScope($fromType, $this->extractReflector($fromParameter)),
-                new TypeWithReflectorScope($toType, $this->extractReflector($toParameter)),
-            )
-        ) {
+        if (($this->typeIsContravariant)($fromType, $toType)) {
             return Changes::empty();
         }
 
@@ -81,16 +74,5 @@ final class ParameterTypeContravarianceChanged implements FunctionBased
         }
 
         return $type->__toString();
-    }
-
-    /** @TODO may the gods of BC compliance be merciful on me */
-    private function extractReflector(ReflectionParameter $parameter): Reflector
-    {
-        $reflectionReflector = new ReflectionProperty(ReflectionFunctionAbstract::class, 'reflector');
-
-        $reflectionReflector->setAccessible(true);
-
-        return Type\object(Reflector::class)
-            ->coerce($reflectionReflector->getValue($parameter->getDeclaringFunction()));
     }
 }
