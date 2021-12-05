@@ -66,18 +66,10 @@ final class TypeIsCovariant
 
     private function compareNamedTypes(ReflectionNamedType $type, ReflectionNamedType $comparedType): bool
     {
-        if (self::allowsNull($comparedType) && ! self::allowsNull($type)) {
-            return false;
-        }
-
         $typeAsString         = $type->getName();
         $comparedTypeAsString = $comparedType->getName();
 
         if (Str\lowercase($typeAsString) === Str\lowercase($comparedTypeAsString)) {
-            return true;
-        }
-
-        if ($comparedTypeAsString === 'null' && self::allowsNull($type)) {
             return true;
         }
 
@@ -131,11 +123,5 @@ final class TypeIsCovariant
             $comparedTypeReflectionClass->getParentClassNames(),
             $originalTypeReflectionClass->getName()
         );
-    }
-
-    private static function allowsNull(ReflectionNamedType $type): bool
-    {
-        return $type->allowsNull()
-            || $type->__toString() === 'null';
     }
 }

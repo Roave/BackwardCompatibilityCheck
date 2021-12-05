@@ -71,10 +71,6 @@ final class TypeIsContravariant
 
     private function compareNamedTypes(ReflectionNamedType $type, ReflectionNamedType $comparedType): bool
     {
-        if ($type->allowsNull() && ! $comparedType->allowsNull()) {
-            return false;
-        }
-
         $typeAsString         = $type->getName();
         $comparedTypeAsString = $comparedType->getName();
 
