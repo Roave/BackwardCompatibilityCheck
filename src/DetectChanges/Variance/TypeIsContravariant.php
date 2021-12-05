@@ -23,7 +23,14 @@ final class TypeIsContravariant
         ?ReflectionType $type,
         ?ReflectionType $comparedType
     ): bool {
-        if ($comparedType === null) {
+        if (
+            ($type && $type->__toString() === 'never')
+            || ($comparedType && $comparedType->__toString() === 'never')
+        ) {
+            return false;
+        }
+
+        if ($comparedType === null || $comparedType->__toString() === 'mixed') {
             return true;
         }
 

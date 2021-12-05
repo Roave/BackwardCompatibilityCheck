@@ -50,6 +50,11 @@ final class TypeIsCovariant
             return true;
         }
 
+        if ($typeAsString === 'mixed' || $comparedTypeAsString === 'never') {
+            // everything is covariant to `mixed` or `never`
+            return true;
+        }
+
         if ($typeAsString === 'void') {
             // nothing is covariant to `void`
             return false;

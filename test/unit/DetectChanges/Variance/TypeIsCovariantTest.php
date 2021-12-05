@@ -19,6 +19,7 @@ use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 use function array_map;
 use function array_merge;
 
+/** @covers \Roave\BackwardCompatibility\DetectChanges\Variance\TypeIsCovariant */
 final class TypeIsCovariantTest extends TestCase
 {
     /**
@@ -75,6 +76,11 @@ PHP
                 new Identifier('void'),
                 true,
             ],
+            'scalar type to void type is not covariant'                    => [
+                new Identifier('string'),
+                new Identifier('void'),
+                false,
+            ],
             'void type to no type is not covariant'                => [
                 new Identifier('void'),
                 null,
@@ -89,6 +95,32 @@ PHP
                 new Identifier('void'),
                 new Identifier('AClass'),
                 false,
+            ],
+            'mixed to no type is not covariant'                => [
+                new Identifier('mixed'),
+                null,
+                false,
+            ],
+            'no type to mixed is covariant'                => [
+                null,
+                new Identifier('mixed'),
+                true,
+            ],
+
+            'never to no type is not covariant'                => [
+                new Identifier('never'),
+                null,
+                false,
+            ],
+            'no type to never is covariant'                => [
+                null,
+                new Identifier('never'),
+                true,
+            ],
+            'scalar type to never is covariant'                => [
+                new Identifier('int'),
+                new Identifier('never'),
+                true,
             ],
             'scalar type to no type is not covariant'              => [
                 new Identifier('string'),
@@ -158,6 +190,16 @@ PHP
             'class type to object is not covariant'                => [
                 new Identifier('AClass'),
                 new Identifier('object'),
+                false,
+            ],
+            'mixed to object is covariant'                => [
+                new Identifier('mixed'),
+                new Identifier('object'),
+                true,
+            ],
+            'object to mixed is not covariant'                => [
+                new Identifier('object'),
+                new Identifier('mixed'),
                 false,
             ],
 
@@ -283,6 +325,9 @@ PHP
                     [self::identifierType($reflector, $owner, new NullableType(new Identifier($type)))],
                 ],
                 [
+                    'mixed',
+                    'never',
+                    'void',
                     'int',
                     'string',
                     'float',
@@ -290,6 +335,7 @@ PHP
                     'array',
                     'iterable',
                     'callable',
+                    'object',
                     'Traversable',
                     'AClass',
                 ]
@@ -340,6 +386,7 @@ PHP
             ['array'],
             ['iterable'],
             ['callable'],
+            ['object'],
             ['Traversable'],
             ['AClass'],
         ];

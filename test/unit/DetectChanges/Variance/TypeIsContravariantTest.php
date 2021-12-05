@@ -19,6 +19,7 @@ use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 use function array_map;
 use function array_merge;
 
+/** @covers \Roave\BackwardCompatibility\DetectChanges\Variance\TypeIsContravariant */
 final class TypeIsContravariantTest extends TestCase
 {
     /**
@@ -80,6 +81,11 @@ PHP
                 new Identifier('void'),
                 false,
             ],
+            'scalar type to void type is not covariant - note that void is enforced, and has no substitutes in PHP'                    => [
+                new Identifier('string'),
+                new Identifier('void'),
+                false,
+            ],
             'void type to no type is contravariant'                                    => [
                 new Identifier('void'),
                 null,
@@ -94,6 +100,32 @@ PHP
                 new Identifier('void'),
                 new Identifier('AClass'),
                 true,
+            ],
+            'mixed to no type is contravariant'                => [
+                new Identifier('mixed'),
+                null,
+                true,
+            ],
+            'no type to mixed is contravariant'                => [
+                null,
+                new Identifier('mixed'),
+                true,
+            ],
+
+            'never to no type is not contravariant - note that never is enforced, and has no substitutes in PHP'                => [
+                new Identifier('never'),
+                null,
+                false,
+            ],
+            'no type to never is not contravariant - note that never is enforced, and has no substitutes in PHP'                => [
+                null,
+                new Identifier('never'),
+                false,
+            ],
+            'scalar type to never is not contravariant - note that never is enforced, and has no substitutes in PHP'                => [
+                new Identifier('int'),
+                new Identifier('never'),
+                false,
             ],
             'scalar type to no type is contravariant'                                  => [
                 new Identifier('string'),
@@ -153,6 +185,16 @@ PHP
             'class type to object is contravariant'                                    => [
                 new Identifier('AClass'),
                 new Identifier('object'),
+                true,
+            ],
+            'mixed to object is not contravariant'                => [
+                new Identifier('mixed'),
+                new Identifier('object'),
+                false,
+            ],
+            'object to mixed is contravariant'                => [
+                new Identifier('object'),
+                new Identifier('mixed'),
                 true,
             ],
             'class type to scalar type is not contravariant'                           => [
