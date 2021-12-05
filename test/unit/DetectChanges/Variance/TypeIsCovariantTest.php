@@ -80,53 +80,63 @@ PHP
             );
 
         $types = [
-            'no type to void type is covariant'                    => [
+            'no type to void type is covariant'                                                                                  => [
                 null,
                 new Identifier('void'),
                 true,
             ],
-            'scalar type to void type is not covariant'                    => [
+            'nullable type to null is covariant - this does not occur in the real world, but is an important base invariant'     => [
+                new NullableType(new Identifier('AnInterface')),
+                new Identifier('null'),
+                true,
+            ],
+            'null to nullable type is not covariant - this does not occur in the real world, but is an important base invariant' => [
+                new Identifier('null'),
+                new NullableType(new Identifier('AnInterface')),
+                false,
+            ],
+            'scalar type to void type is not covariant'                                                                          => [
                 new Identifier('string'),
                 new Identifier('void'),
                 false,
             ],
-            'void type to no type is not covariant'                => [
+            'void type to no type is not covariant'                                                                              => [
                 new Identifier('void'),
                 null,
                 false,
             ],
-            'void type to scalar type is not covariant'            => [
+            'void type to scalar type is not covariant'                                                                          => [
                 new Identifier('void'),
                 new Identifier('string'),
                 false,
             ],
-            'void type to class type is covariant'                 => [
+            'void type to class type is covariant'                                                                               => [
                 new Identifier('void'),
                 new Identifier('AClass'),
                 false,
             ],
-            'mixed to no type is not covariant'                => [
+            'mixed to no type is not covariant'                                                                                  => [
                 new Identifier('mixed'),
                 null,
                 false,
             ],
-            'no type to mixed is covariant'                => [
+            'no type to mixed is covariant'                                                                                      => [
                 null,
                 new Identifier('mixed'),
                 true,
             ],
 
-            'never to no type is not covariant'                => [
+            'never to no type is not covariant'                    => [
                 new Identifier('never'),
                 null,
                 false,
             ],
-            'no type to never is covariant'                => [
+            'no type to never is covariant'                        => [
                 null,
                 new Identifier('never'),
                 true,
             ],
-            'scalar type to never is covariant'                => [
+            'scalar type to never is covariant'                    => [
                 new Identifier('int'),
                 new Identifier('never'),
                 true,
@@ -151,22 +161,22 @@ PHP
                 null,
                 false,
             ],
-            'iterable to array is covariant' => [
+            'iterable to array is covariant'                       => [
                 new Identifier('iterable'),
                 new Identifier('array'),
                 true,
             ],
-            'iterable to scalar is not covariant' => [
+            'iterable to scalar is not covariant'                  => [
                 new Identifier('iterable'),
                 new Identifier('int'),
                 false,
             ],
-            'scalar to iterable is not covariant' => [
+            'scalar to iterable is not covariant'                  => [
                 new Identifier('iterable'),
                 new Identifier('int'),
                 false,
             ],
-            'array to iterable is not covariant'         => [
+            'array to iterable is not covariant'                   => [
                 new Identifier('array'),
                 new Identifier('iterable'),
                 false,
@@ -201,12 +211,12 @@ PHP
                 new Identifier('object'),
                 false,
             ],
-            'mixed to object is covariant'                => [
+            'mixed to object is covariant'                         => [
                 new Identifier('mixed'),
                 new Identifier('object'),
                 true,
             ],
-            'object to mixed is not covariant'                => [
+            'object to mixed is not covariant'                     => [
                 new Identifier('object'),
                 new Identifier('mixed'),
                 false,
@@ -278,73 +288,93 @@ PHP
                 true,
             ],
 
-            'scalar type to union type is not covariant'                            => [
+            'scalar type to union type is not covariant'                                       => [
                 new Identifier('int'),
                 new UnionType([new Identifier('int'), new Identifier('string')]),
                 false,
             ],
-            'union type to scalar is covariant'                            => [
+            'union type to scalar is covariant'                                                => [
                 new UnionType([new Identifier('int'), new Identifier('string')]),
                 new Identifier('int'),
                 true,
             ],
-            'same union type is covariant'                            => [
+            'same union type is covariant'                                                     => [
                 new UnionType([new Identifier('int'), new Identifier('string')]),
                 new UnionType([new Identifier('int'), new Identifier('string')]),
                 true,
             ],
-            'same union type (in reverse order) is covariant'                            => [
+            'same union type (in reverse order) is covariant'                                  => [
                 new UnionType([new Identifier('int'), new Identifier('string')]),
                 new UnionType([new Identifier('string'), new Identifier('int')]),
                 true,
             ],
-            'incompatible union types are not covariant'                            => [
+            'incompatible union types are not covariant'                                       => [
                 new UnionType([new Identifier('int'), new Identifier('string')]),
                 new UnionType([new Identifier('float'), new Identifier('bool')]),
                 false,
             ],
-            'union type to wider union type is not covariant - https://3v4l.org/Tudl8#v8.1rc3'                            => [
+            'union type to wider union type is not covariant - https://3v4l.org/Tudl8#v8.1rc3' => [
                 new UnionType([new Identifier('int'), new Identifier('string')]),
                 new UnionType([new Identifier('int'), new Identifier('string'), new Identifier('float')]),
                 false,
             ],
-            'union type to narrower union type is covariant - https://3v4l.org/RB2fC#v8.1rc3'                            => [
+            'union type to narrower union type is covariant - https://3v4l.org/RB2fC#v8.1rc3'  => [
                 new UnionType([new Identifier('int'), new Identifier('string'), new Identifier('float')]),
                 new UnionType([new Identifier('int'), new Identifier('string')]),
+                true,
+            ],
+            'nullable union type is equivalent to shorthand null definition'                   => [
+                new UnionType([new Identifier('A'), new Identifier('null')]),
+                new NullableType(new Identifier('A')),
+                true,
+            ],
+            'shorthand nullable definition is equivalent to nullable union type'               => [
+                new NullableType(new Identifier('A')),
+                new UnionType([new Identifier('A'), new Identifier('null')]),
+                true,
+            ],
+            'shorthand nullable definition to union type with added type is not covariant'     => [
+                new NullableType(new Identifier('A')),
+                new UnionType([new Identifier('A'), new Identifier('B'), new Identifier('null')]),
+                false,
+            ],
+            'nullable union type to shorthand nullable definition is covariant'                => [
+                new UnionType([new Identifier('A'), new Identifier('B'), new Identifier('null')]),
+                new NullableType(new Identifier('A')),
                 true,
             ],
 
-            'object type to intersection type is covariant'                            => [
+            'object type to intersection type is covariant'                                                          => [
                 new Identifier('A'),
                 new IntersectionType([new Identifier('A'), new Identifier('B')]),
                 true,
             ],
-            'intersection type to object type is not covariant'                            => [
+            'intersection type to object type is not covariant'                                                      => [
                 new IntersectionType([new Identifier('A'), new Identifier('B')]),
                 new Identifier('A'),
                 false,
             ],
-            'same intersection type is covariant'                            => [
+            'same intersection type is covariant'                                                                    => [
                 new IntersectionType([new Identifier('A'), new Identifier('B')]),
                 new IntersectionType([new Identifier('A'), new Identifier('B')]),
                 true,
             ],
-            'same intersection type (in reverse order) is covariant'                            => [
+            'same intersection type (in reverse order) is covariant'                                                 => [
                 new IntersectionType([new Identifier('A'), new Identifier('B')]),
                 new IntersectionType([new Identifier('B'), new Identifier('A')]),
                 true,
             ],
-            'incompatible intersection types are not covariant'                            => [
+            'incompatible intersection types are not covariant'                                                      => [
                 new IntersectionType([new Identifier('A'), new Identifier('B')]),
                 new IntersectionType([new Identifier('C'), new Identifier('D')]),
                 false,
             ],
-            'intersection type to stricter intersection type is covariant - https://3v4l.org/NoV52#v8.1rc3'                            => [
+            'intersection type to stricter intersection type is covariant - https://3v4l.org/NoV52#v8.1rc3'          => [
                 new IntersectionType([new Identifier('A'), new Identifier('B')]),
                 new IntersectionType([new Identifier('A'), new Identifier('B'), new Identifier('C')]),
                 true,
             ],
-            'intersection type to less specific intersection type is not covariant - https://3v4l.org/8FSuK#v8.1rc3'                            => [
+            'intersection type to less specific intersection type is not covariant - https://3v4l.org/8FSuK#v8.1rc3' => [
                 new IntersectionType([new Identifier('A'), new Identifier('B'), new Identifier('C')]),
                 new IntersectionType([new Identifier('A'), new Identifier('B')]),
                 false,
@@ -414,6 +444,7 @@ PHP
                     'string',
                     'float',
                     'bool',
+                    'false',
                     'array',
                     'iterable',
                     'callable',
@@ -465,6 +496,7 @@ PHP
             ['string'],
             ['float'],
             ['bool'],
+            ['false'],
             ['array'],
             ['iterable'],
             ['callable'],

@@ -147,8 +147,8 @@ PHP
             ],
             'N2\untouched' => [],
             'N3\changed'   => [
-                '[BC] CHANGED: The parameter $a of N3\changed() changed from ?int to a non-contravariant int',
-                '[BC] CHANGED: The parameter $b of N3\changed() changed from ?int to a non-contravariant int',
+                '[BC] CHANGED: The parameter $a of N3\changed() changed from int|null to a non-contravariant int',
+                '[BC] CHANGED: The parameter $b of N3\changed() changed from int|null to a non-contravariant int',
             ],
             'N3\untouched' => [],
         ];

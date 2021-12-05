@@ -85,6 +85,16 @@ PHP
                 null,
                 true,
             ],
+            'nullable type to null is not contravariant - this does not occur in the real world, but is an important base invariant'     => [
+                new NullableType(new Identifier('AnInterface')),
+                new Identifier('null'),
+                false,
+            ],
+            'null to nullable type is covariant - this does not occur in the real world, but is an important base invariant' => [
+                new Identifier('null'),
+                new NullableType(new Identifier('AnInterface')),
+                true,
+            ],
             'no type to void type is not contravariant'                                => [
                 null,
                 new Identifier('void'),
@@ -300,6 +310,26 @@ PHP
             'union type to narrower union type is not contravariant - https://3v4l.org/SOUBk#v8.1rc3'                            => [
                 new UnionType([new Identifier('int'), new Identifier('string'), new Identifier('float')]),
                 new UnionType([new Identifier('int'), new Identifier('string')]),
+                false,
+            ],
+            'nullable union type is equivalent to shorthand null definition'                   => [
+                new UnionType([new Identifier('A'), new Identifier('null')]),
+                new NullableType(new Identifier('A')),
+                true,
+            ],
+            'shorthand nullable definition is equivalent to nullable union type'               => [
+                new NullableType(new Identifier('A')),
+                new UnionType([new Identifier('A'), new Identifier('null')]),
+                true,
+            ],
+            'shorthand nullable definition to union type with added type is contravariant'     => [
+                new NullableType(new Identifier('A')),
+                new UnionType([new Identifier('A'), new Identifier('B'), new Identifier('null')]),
+                true,
+            ],
+            'nullable union type to shorthand nullable definition is not contravariant'                => [
+                new UnionType([new Identifier('A'), new Identifier('B'), new Identifier('null')]),
+                new NullableType(new Identifier('A')),
                 false,
             ],
 

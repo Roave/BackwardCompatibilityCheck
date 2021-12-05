@@ -146,8 +146,8 @@ PHP
             ],
             'N2\untouched' => [],
             'N3\changed'   => [
-                '[BC] CHANGED: The parameter $a of N3\changed() changed from ?int to int',
-                '[BC] CHANGED: The parameter $b of N3\changed() changed from ?int to int',
+                '[BC] CHANGED: The parameter $a of N3\changed() changed from int|null to int',
+                '[BC] CHANGED: The parameter $b of N3\changed() changed from int|null to int',
             ],
             'N3\untouched' => [],
         ];

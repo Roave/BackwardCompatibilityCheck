@@ -139,7 +139,7 @@ PHP
             ],
             'N1\untouched' => [],
             'N2\changed'   => [
-                '[BC] CHANGED: The return type of N2\changed() changed from int to ?int',
+                '[BC] CHANGED: The return type of N2\changed() changed from int to int|null',
             ],
             'N2\untouched' => [],
             'N3\changed'   => [
