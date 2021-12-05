@@ -6,8 +6,8 @@ namespace Roave\BackwardCompatibility\DetectChanges\Variance;
 
 use Psl\Iter;
 use Psl\Str;
+use Roave\BetterReflection\Reflection\ReflectionIntersectionType;
 use Roave\BetterReflection\Reflection\ReflectionNamedType;
-use Roave\BetterReflection\Reflection\ReflectionType;
 use Roave\BetterReflection\Reflection\ReflectionUnionType;
 use Traversable;
 
@@ -16,14 +16,12 @@ use Traversable;
  * have a `$type->includes($otherType)` check with actual types represented as value objects,
  * but that is a massive piece of work that should be done by importing an external library
  * instead, if this class no longer suffices.
- *
- * @TODO introduce union/intersection type support here
  */
 final class TypeIsCovariant
 {
     public function __invoke(
-        ?ReflectionType $type,
-        ?ReflectionType $comparedType
+        ReflectionIntersectionType|ReflectionUnionType|ReflectionNamedType|null $type,
+        ReflectionIntersectionType|ReflectionUnionType|ReflectionNamedType|null $comparedType
     ): bool {
         if ($type === null) {
             // everything can be covariant to `mixed`
@@ -33,6 +31,20 @@ final class TypeIsCovariant
         if ($comparedType === null) {
             // widening a type is not covariant
             return false;
+        }
+
+        if ($type instanceof ReflectionIntersectionType) {
+            return Iter\all(
+                $type->getTypes(),
+                fn (ReflectionNamedType $type): bool => $this($type, $comparedType)
+            );
+        }
+
+        if ($comparedType instanceof ReflectionIntersectionType) {
+            return Iter\any(
+                $comparedType->getTypes(),
+                fn (ReflectionNamedType $comparedType): bool => $this($type, $comparedType)
+            );
         }
 
         if ($comparedType instanceof ReflectionUnionType) {
@@ -47,11 +59,6 @@ final class TypeIsCovariant
                 $type->getTypes(),
                 fn (ReflectionNamedType $type): bool => $this($type, $comparedType)
             );
-        }
-
-        if (! $type instanceof ReflectionNamedType || ! $comparedType instanceof ReflectionNamedType) {
-            // @TODO we'll assume everyting is fine, for now - union and intersection types still need test additions
-            return true;
         }
 
         return $this->compareNamedTypes($type, $comparedType);

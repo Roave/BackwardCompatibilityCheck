@@ -5,14 +5,18 @@ declare(strict_types=1);
 namespace RoaveTest\BackwardCompatibility\DetectChanges\Variance;
 
 use PhpParser\Node\Identifier;
+use PhpParser\Node\IntersectionType;
 use PhpParser\Node\NullableType;
 use PhpParser\Node\UnionType;
 use PHPUnit\Framework\TestCase;
 use Psl\Type;
 use Roave\BackwardCompatibility\DetectChanges\Variance\TypeIsCovariant;
 use Roave\BetterReflection\BetterReflection;
+use Roave\BetterReflection\Reflection\ReflectionIntersectionType;
+use Roave\BetterReflection\Reflection\ReflectionNamedType;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
 use Roave\BetterReflection\Reflection\ReflectionType;
+use Roave\BetterReflection\Reflection\ReflectionUnionType;
 use Roave\BetterReflection\Reflector\DefaultReflector;
 use Roave\BetterReflection\Reflector\Reflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
@@ -27,8 +31,8 @@ final class TypeIsCovariantTest extends TestCase
      * @dataProvider checkedTypes
      */
     public function testCovariance(
-        ?ReflectionType $type,
-        ?ReflectionType $newType,
+        ReflectionIntersectionType|ReflectionUnionType|ReflectionNamedType|null $type,
+        ReflectionIntersectionType|ReflectionUnionType|ReflectionNamedType|null $newType,
         bool $expectedToBeContravariant
     ): void {
         self::assertSame(
@@ -39,8 +43,8 @@ final class TypeIsCovariantTest extends TestCase
 
     /**
      * @return array<string, array{
-     *     0: ReflectionType|null,
-     *     1: ReflectionType|null,
+     *     0: ReflectionIntersectionType|ReflectionUnionType|ReflectionNamedType|null,
+     *     1: ReflectionIntersectionType|ReflectionUnionType|ReflectionNamedType|null,
      *     2: bool
      * }>
      */
@@ -54,6 +58,10 @@ interface Traversable {}
 interface Iterator extends Traversable {}
 interface AnInterface {}
 interface AnotherInterface {}
+interface A {}
+interface B {}
+interface C {}
+interface D {}
 class AnotherClass implements AnInterface {}
 class AnotherClassWithMultipleInterfaces implements AnInterface, AnotherInterface {}
 class AClass {}
@@ -305,6 +313,42 @@ PHP
                 new UnionType([new Identifier('int'), new Identifier('string')]),
                 true,
             ],
+
+            'object type to intersection type is covariant'                            => [
+                new Identifier('A'),
+                new IntersectionType([new Identifier('A'), new Identifier('B')]),
+                true,
+            ],
+            'intersection type to object type is not covariant'                            => [
+                new IntersectionType([new Identifier('A'), new Identifier('B')]),
+                new Identifier('A'),
+                false,
+            ],
+            'same intersection type is covariant'                            => [
+                new IntersectionType([new Identifier('A'), new Identifier('B')]),
+                new IntersectionType([new Identifier('A'), new Identifier('B')]),
+                true,
+            ],
+            'same intersection type (in reverse order) is covariant'                            => [
+                new IntersectionType([new Identifier('A'), new Identifier('B')]),
+                new IntersectionType([new Identifier('B'), new Identifier('A')]),
+                true,
+            ],
+            'incompatible intersection types are not covariant'                            => [
+                new IntersectionType([new Identifier('A'), new Identifier('B')]),
+                new IntersectionType([new Identifier('C'), new Identifier('D')]),
+                false,
+            ],
+            'intersection type to stricter intersection type is covariant - https://3v4l.org/NoV52#v8.1rc3'                            => [
+                new IntersectionType([new Identifier('A'), new Identifier('B')]),
+                new IntersectionType([new Identifier('A'), new Identifier('B'), new Identifier('C')]),
+                true,
+            ],
+            'intersection type to less specific intersection type is not covariant - https://3v4l.org/8FSuK#v8.1rc3'                            => [
+                new IntersectionType([new Identifier('A'), new Identifier('B'), new Identifier('C')]),
+                new IntersectionType([new Identifier('A'), new Identifier('B')]),
+                false,
+            ],
         ];
 
         return array_map(
@@ -324,15 +368,16 @@ PHP
     /**
      * @dataProvider existingTypes
      */
-    public function testCovarianceConsidersSameTypeAlwaysCovariant(?ReflectionType $type): void
-    {
+    public function testCovarianceConsidersSameTypeAlwaysCovariant(
+        ReflectionIntersectionType|ReflectionUnionType|ReflectionNamedType|null $type
+    ): void {
         self::assertTrue(
             (new TypeIsCovariant())($type, $type)
         );
     }
 
     /**
-     * @return list<array{ReflectionType|null}>
+     * @return list<array{ReflectionIntersectionType|ReflectionUnionType|ReflectionNamedType|null}>
      */
     public function existingTypes(): array
     {
@@ -432,8 +477,8 @@ PHP
     private static function identifierType(
         Reflector $reflector,
         ReflectionProperty $owner,
-        Identifier|NullableType|UnionType $identifier
-    ): ReflectionType {
+        Identifier|NullableType|UnionType|IntersectionType $identifier
+    ): ReflectionIntersectionType|ReflectionUnionType|ReflectionNamedType {
         return ReflectionType::createFromNode($reflector, $owner, $identifier);
     }
 }

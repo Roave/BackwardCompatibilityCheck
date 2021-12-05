@@ -6,8 +6,8 @@ namespace Roave\BackwardCompatibility\DetectChanges\Variance;
 
 use Psl\Iter;
 use Psl\Str;
+use Roave\BetterReflection\Reflection\ReflectionIntersectionType;
 use Roave\BetterReflection\Reflection\ReflectionNamedType;
-use Roave\BetterReflection\Reflection\ReflectionType;
 use Roave\BetterReflection\Reflection\ReflectionUnionType;
 
 /**
@@ -15,14 +15,12 @@ use Roave\BetterReflection\Reflection\ReflectionUnionType;
  * have a `$type->includes($otherType)` check with actual types represented as value objects,
  * but that is a massive piece of work that should be done by importing an external library
  * instead, if this class no longer suffices.
- *
- * @TODO introduce union/intersection type support here
  */
 final class TypeIsContravariant
 {
     public function __invoke(
-        ?ReflectionType $type,
-        ?ReflectionType $comparedType
+        ReflectionIntersectionType|ReflectionUnionType|ReflectionNamedType|null $type,
+        ReflectionIntersectionType|ReflectionUnionType|ReflectionNamedType|null $comparedType
     ): bool {
         if (
             ($type && $type->__toString() === 'never')
@@ -54,9 +52,18 @@ final class TypeIsContravariant
             );
         }
 
-        if (! $type instanceof ReflectionNamedType || ! $comparedType instanceof ReflectionNamedType) {
-            // @TODO we'll assume everyting is fine, for now - union and intersection types still need test additions
-            return true;
+        if ($comparedType instanceof ReflectionIntersectionType) {
+            return Iter\all(
+                $comparedType->getTypes(),
+                fn (ReflectionNamedType $comparedType): bool => $this($type, $comparedType)
+            );
+        }
+
+        if ($type instanceof ReflectionIntersectionType) {
+            return Iter\any(
+                $type->getTypes(),
+                fn (ReflectionNamedType $type): bool => $this($type, $comparedType)
+            );
         }
 
         return $this->compareNamedTypes($type, $comparedType);
