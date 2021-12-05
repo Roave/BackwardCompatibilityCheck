@@ -98,14 +98,11 @@ PHP
         return array_combine(
             array_keys($interfaces),
             array_map(
-                /** @psalm-param list<string> $errors https://github.com/vimeo/psalm/issues/2772 */
-                static function (string $interfaceName, array $errors) use ($fromReflector, $toReflector): array {
-                    return [
-                        $fromReflector->reflectClass($interfaceName),
-                        $toReflector->reflectClass($interfaceName),
-                        $errors,
-                    ];
-                },
+                static fn (string $interfaceName, array $errors): array => [
+                    $fromReflector->reflectClass($interfaceName),
+                    $toReflector->reflectClass($interfaceName),
+                    $errors,
+                ],
                 array_keys($interfaces),
                 $interfaces
             )

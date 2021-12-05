@@ -126,14 +126,11 @@ PHP
         return array_combine(
             array_keys($properties),
             array_map(
-                /** @psalm-param list<string> $errorMessages https://github.com/vimeo/psalm/issues/2772 */
-                static function (string $property, array $errorMessages) use ($fromClass, $toClass): array {
-                    return [
-                        TypeRestriction::object($fromClass->getProperty($property)),
-                        TypeRestriction::object($toClass->getProperty($property)),
-                        $errorMessages,
-                    ];
-                },
+                static fn (string $property, array $errorMessages): array => [
+                    TypeRestriction::object($fromClass->getProperty($property)),
+                    TypeRestriction::object($toClass->getProperty($property)),
+                    $errorMessages,
+                ],
                 array_keys($properties),
                 $properties
             )

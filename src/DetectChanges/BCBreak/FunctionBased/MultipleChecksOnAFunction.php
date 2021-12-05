@@ -27,12 +27,12 @@ final class MultipleChecksOnAFunction implements FunctionBased
     }
 
     /**
-     * @template T of ReflectionMethod|ReflectionFunction
-     *
      * @param T $fromFunction
      * @param T $toFunction
      *
      * @return iterable<int, Change>
+     *
+     * @template T of ReflectionMethod|ReflectionFunction
      */
     private function multipleChecks(
         ReflectionMethod|ReflectionFunction $fromFunction,

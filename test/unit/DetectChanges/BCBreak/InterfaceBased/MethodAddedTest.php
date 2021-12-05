@@ -119,15 +119,11 @@ PHP
         return array_combine(
             array_keys($properties),
             array_map(
-                /** @psalm-param list<string> $errorMessages https://github.com/vimeo/psalm/issues/2772 */
-                static function (string $className, array $errorMessages) use ($fromClassReflector, $toClassReflector
-                ): array {
-                    return [
-                        $fromClassReflector->reflectClass($className),
-                        $toClassReflector->reflectClass($className),
-                        $errorMessages,
-                    ];
-                },
+                static fn (string $className, array $errors): array => [
+                    $fromClassReflector->reflectClass($className),
+                    $toClassReflector->reflectClass($className),
+                    $errors,
+                ],
                 array_keys($properties),
                 $properties
             )

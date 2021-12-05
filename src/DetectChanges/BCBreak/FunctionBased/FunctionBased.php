@@ -11,10 +11,10 @@ use Roave\BetterReflection\Reflection\ReflectionMethod;
 interface FunctionBased
 {
     /**
-     * @template T of ReflectionMethod|ReflectionFunction
-     *
      * @param T $fromFunction
      * @param T $toFunction
+     *
+     * @template T of ReflectionMethod|ReflectionFunction
      */
     public function __invoke(
         ReflectionMethod|ReflectionFunction $fromFunction,

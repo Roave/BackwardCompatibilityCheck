@@ -302,7 +302,7 @@ PHP
      */
     public function testCovarianceConsidersNullability(string $type): void
     {
-        $reflector   = new DefaultReflector(new StringSourceLocator(
+        $reflector = new DefaultReflector(new StringSourceLocator(
             <<<'PHP'
 <?php
 

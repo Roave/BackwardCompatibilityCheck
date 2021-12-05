@@ -9,7 +9,6 @@ use PhpParser\Node\NullableType;
 use PHPUnit\Framework\TestCase;
 use Psl\Type;
 use Roave\BackwardCompatibility\DetectChanges\Variance\TypeIsContravariant;
-use Roave\BackwardCompatibility\DetectChanges\Variance\TypeWithReflectorScope;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
 use Roave\BetterReflection\Reflection\ReflectionType;
@@ -290,7 +289,7 @@ PHP
      */
     public function testContravarianceConsidersNullability(string $type): void
     {
-        $reflector   = new DefaultReflector(new StringSourceLocator(
+        $reflector = new DefaultReflector(new StringSourceLocator(
             <<<'PHP'
 <?php
 

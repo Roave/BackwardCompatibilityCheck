@@ -105,14 +105,11 @@ PHP
         return array_combine(
             array_keys($classes),
             array_map(
-                /** @psalm-param list<string> $errors https://github.com/vimeo/psalm/issues/2772 */
-                static function (string $className, array $errors) use ($fromReflector, $toReflector): array {
-                    return [
-                        $fromReflector->reflectClass($className),
-                        $toReflector->reflectClass($className),
-                        $errors,
-                    ];
-                },
+                static fn (string $interfaceName, array $errors): array => [
+                    $fromReflector->reflectClass($interfaceName),
+                    $toReflector->reflectClass($interfaceName),
+                    $errors,
+                ],
                 array_keys($classes),
                 $classes
             )

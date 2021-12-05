@@ -11,15 +11,31 @@
         <directory name="src"/>
         <directory name="test/e2e"/>
         <directory name="test/unit"/>
+        <ignoreFiles>
+            <directory name="vendor"/>
+        </ignoreFiles>
     </projectFiles>
 
     <issueHandlers>
-        <PropertyNotSetInConstructor errorLevel="suppress"/>
-        <InternalClass errorLevel="suppress"/>
-        <InternalMethod errorLevel="suppress"/>
+        <PropertyNotSetInConstructor>
+            <errorLevel type="suppress">
+                <directory name="test"/>
+            </errorLevel>
+        </PropertyNotSetInConstructor>
+        <InternalClass errorLevel="suppress">
+            <errorLevel type="suppress">
+                <directory name="test"/>
+            </errorLevel>
+        </InternalClass>
+        <InternalMethod>
+            <errorLevel type="suppress">
+                <directory name="test"/>
+            </errorLevel>
+        </InternalMethod>
     </issueHandlers>
 
     <plugins>
-        <pluginClass class="Psl\Psalm\Plugin" />
+        <pluginClass class="Psl\Psalm\Plugin"/>
+        <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
     </plugins>
 </psalm>

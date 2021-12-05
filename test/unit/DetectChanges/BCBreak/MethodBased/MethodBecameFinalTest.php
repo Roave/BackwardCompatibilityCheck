@@ -125,14 +125,11 @@ PHP
         return array_combine(
             array_keys($properties),
             array_map(
-                /** @psalm-param list<string> $errorMessages https://github.com/vimeo/psalm/issues/2772 */
-                static function (string $methodName, array $errorMessages) use ($fromClass, $toClass): array {
-                    return [
-                        $fromClass->getMethod($methodName),
-                        $toClass->getMethod($methodName),
-                        $errorMessages,
-                    ];
-                },
+                static fn (string $methodName, array $errors): array => [
+                    $fromClass->getMethod($methodName),
+                    $toClass->getMethod($methodName),
+                    $errors,
+                ],
                 array_keys($properties),
                 $properties
             )

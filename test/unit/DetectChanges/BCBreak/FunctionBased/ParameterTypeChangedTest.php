@@ -156,14 +156,11 @@ PHP
             array_combine(
                 array_keys($functions),
                 array_map(
-                    /** @psalm-param list<string> $errorMessages https://github.com/vimeo/psalm/issues/2772 */
-                    static function (string $function, array $errorMessages) use ($fromReflector, $toReflector) : array {
-                        return [
-                            $fromReflector->reflectFunction($function),
-                            $toReflector->reflectFunction($function),
-                            $errorMessages,
-                        ];
-                    },
+                    static fn (string $function, array $errors): array => [
+                        $fromReflector->reflectFunction($function),
+                        $toReflector->reflectFunction($function),
+                        $errors,
+                    ],
                     array_keys($functions),
                     $functions
                 )
