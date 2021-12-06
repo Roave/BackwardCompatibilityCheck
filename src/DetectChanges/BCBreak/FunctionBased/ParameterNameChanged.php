@@ -15,8 +15,6 @@ use function Safe\sprintf;
 use function strpos;
 
 /**
- * @todo only apply this to PHP 8+ code
- *
  * Detects a change in a parameter name, which must now be considered a BC break as of PHP 8 (specifically, since the
  * named parameters feature was introduced). This check can be prevented with the @no-named-arguments annotation.
  *
