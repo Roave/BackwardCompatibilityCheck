@@ -67,6 +67,8 @@ namespace {
    /** @no-named-arguments */
    function removingAnnotation(int $a, int $b) {}
    function addingAnnotation(int $a, int $b) {}
+   function addedArgumentsShouldNotBeDetected($a, $b) {}
+   function removedArgumentsShouldNotBeDetected($a, $b, $c) {}
 }
 PHP
             ,
@@ -85,6 +87,8 @@ namespace {
    function removingAnnotation(int $a, int $b) {}
    /** @no-named-arguments */
    function addingAnnotation(int $a, int $b) {}
+   function addedArgumentsShouldNotBeDetected($a, $b, $c) {}
+   function removedArgumentsShouldNotBeDetected($a, $b) {}
 }
 PHP
             ,
@@ -95,27 +99,26 @@ PHP
         $toReflector   = new DefaultReflector($toLocator);
 
         $functions = [
-            'changed'      => [
+            'changed'                             => [
                 '[BC] CHANGED: Parameter 0 of changed() changed name from a to c',
                 '[BC] CHANGED: Parameter 1 of changed() changed name from b to d',
             ],
-            'untouched' => [],
-            'changedButAnnotated' => [],
-            'removingAnnotation'      => ['[BC] REMOVED: The @no-named-arguments annotation was removed from removingAnnotation()'],
-            'addingAnnotation'      => ['[BC] ADDED: The @no-named-arguments annotation was added from addingAnnotation()'],
+            'untouched'                           => [],
+            'changedButAnnotated'                 => [],
+            'removingAnnotation'                  => ['[BC] REMOVED: The @no-named-arguments annotation was removed from removingAnnotation()'],
+            'addingAnnotation'                    => ['[BC] ADDED: The @no-named-arguments annotation was added from addingAnnotation()'],
+            'addedArgumentsShouldNotBeDetected'   => [],
+            'removedArgumentsShouldNotBeDetected' => [],
         ];
 
         return array_combine(
             array_keys($functions),
             array_map(
-                /** @psalm-param list<string> $errorMessages https://github.com/vimeo/psalm/issues/2772 */
-                static function (string $function, array $errorMessages) use ($fromReflector, $toReflector): array {
-                    return [
-                        $fromReflector->reflectFunction($function),
-                        $toReflector->reflectFunction($function),
-                        $errorMessages,
-                    ];
-                },
+                static fn (string $function, array $errorMessages): array => [
+                    $fromReflector->reflectFunction($function),
+                    $toReflector->reflectFunction($function),
+                    $errorMessages,
+                ],
                 array_keys($functions),
                 $functions
             )
