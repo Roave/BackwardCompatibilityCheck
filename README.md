@@ -64,10 +64,9 @@ jobs:
         - name: "Install PHP"
           uses: shivammathur/setup-php@v2
           with:
-            coverage: "none"
-            php-version: "7.4" # https://github.com/Roave/BackwardCompatibilityCheck/issues/283
+            php-version: "8.0"
         - name: "Install dependencies"
-          run: "composer install --no-interaction"
+          run: "composer install"
         - name: "Check for BC breaks"
           run: "vendor/bin/roave-backward-compatibility-check"
 ```
