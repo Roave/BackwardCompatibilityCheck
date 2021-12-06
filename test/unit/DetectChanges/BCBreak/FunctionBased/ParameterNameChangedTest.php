@@ -59,17 +59,15 @@ final class ParameterNameChangedTest extends TestCase
             <<<'PHP'
 <?php
 
-namespace {
-   function changed(int $a, int $b) {}
-   function untouched(int $a, int $b) {}
-   /** @no-named-arguments */
-   function changedButAnnotated(int $a, int $b) {}
-   /** @no-named-arguments */
-   function removingAnnotation(int $a, int $b) {}
-   function addingAnnotation(int $a, int $b) {}
-   function addedArgumentsShouldNotBeDetected($a, $b) {}
-   function removedArgumentsShouldNotBeDetected($a, $b, $c) {}
-}
+function changed(int $a, int $b) {}
+function untouched(int $a, int $b) {}
+/** @no-named-arguments */
+function changedButAnnotated(int $a, int $b) {}
+/** @no-named-arguments */
+function removingAnnotation(int $a, int $b) {}
+function addingAnnotation(int $a, int $b) {}
+function addedArgumentsShouldNotBeDetected($a, $b) {}
+function removedArgumentsShouldNotBeDetected($a, $b, $c) {}
 PHP
             ,
             $astLocator
@@ -79,17 +77,15 @@ PHP
             <<<'PHP'
 <?php
 
-namespace {
-   function changed(int $c, int $d) {}
-   function untouched(int $a, int $b) {}
-   /** @no-named-arguments */
-   function changedButAnnotated(int $c, int $d) {}
-   function removingAnnotation(int $a, int $b) {}
-   /** @no-named-arguments */
-   function addingAnnotation(int $a, int $b) {}
-   function addedArgumentsShouldNotBeDetected($a, $b, $c) {}
-   function removedArgumentsShouldNotBeDetected($a, $b) {}
-}
+function changed(int $c, int $d) {}
+function untouched(int $a, int $b) {}
+/** @no-named-arguments */
+function changedButAnnotated(int $c, int $d) {}
+function removingAnnotation(int $a, int $b) {}
+/** @no-named-arguments */
+function addingAnnotation(int $a, int $b) {}
+function addedArgumentsShouldNotBeDetected($a, $b, $c) {}
+function removedArgumentsShouldNotBeDetected($a, $b) {}
 PHP
             ,
             $astLocator
