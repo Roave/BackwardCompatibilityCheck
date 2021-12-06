@@ -9,7 +9,7 @@ use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\ConstantRemoved;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionClass;
-use Roave\BetterReflection\Reflector\ClassReflector;
+use Roave\BetterReflection\Reflector\DefaultReflector;
 use Roave\BetterReflection\SourceLocator\Type\SingleFileSourceLocator;
 
 use function array_map;
@@ -47,14 +47,14 @@ final class ConstantRemovedTest extends TestCase
 
         return [
             'RoaveTestAsset\\ClassWithConstantsBeingRemoved' => [
-                (new ClassReflector(new SingleFileSourceLocator(
+                (new DefaultReflector(new SingleFileSourceLocator(
                     __DIR__ . '/../../../../asset/api/old/ClassWithConstantsBeingRemoved.php',
                     $locator
-                )))->reflect('RoaveTestAsset\\ClassWithConstantsBeingRemoved'),
-                (new ClassReflector(new SingleFileSourceLocator(
+                )))->reflectClass('RoaveTestAsset\\ClassWithConstantsBeingRemoved'),
+                (new DefaultReflector(new SingleFileSourceLocator(
                     __DIR__ . '/../../../../asset/api/new/ClassWithConstantsBeingRemoved.php',
                     $locator
-                )))->reflect('RoaveTestAsset\\ClassWithConstantsBeingRemoved'),
+                )))->reflectClass('RoaveTestAsset\\ClassWithConstantsBeingRemoved'),
                 [
                     '[BC] REMOVED: Constant RoaveTestAsset\ClassWithConstantsBeingRemoved::removedPublicConstant was removed',
                     '[BC] REMOVED: Constant RoaveTestAsset\ClassWithConstantsBeingRemoved::nameCaseChangePublicConstant was removed',

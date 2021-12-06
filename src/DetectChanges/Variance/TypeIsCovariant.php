@@ -6,7 +6,9 @@ namespace Roave\BackwardCompatibility\DetectChanges\Variance;
 
 use Psl\Iter;
 use Psl\Str;
-use Roave\BetterReflection\Reflection\ReflectionType;
+use Roave\BetterReflection\Reflection\ReflectionIntersectionType;
+use Roave\BetterReflection\Reflection\ReflectionNamedType;
+use Roave\BetterReflection\Reflection\ReflectionUnionType;
 use Traversable;
 
 /**
@@ -18,8 +20,8 @@ use Traversable;
 final class TypeIsCovariant
 {
     public function __invoke(
-        ?ReflectionType $type,
-        ?ReflectionType $comparedType
+        ReflectionIntersectionType|ReflectionUnionType|ReflectionNamedType|null $type,
+        ReflectionIntersectionType|ReflectionUnionType|ReflectionNamedType|null $comparedType
     ): bool {
         if ($type === null) {
             // everything can be covariant to `mixed`
@@ -31,14 +33,48 @@ final class TypeIsCovariant
             return false;
         }
 
-        if ($comparedType->allowsNull() && ! $type->allowsNull()) {
-            return false;
+        if ($type instanceof ReflectionIntersectionType) {
+            return Iter\all(
+                $type->getTypes(),
+                fn (ReflectionNamedType $type): bool => $this($type, $comparedType)
+            );
         }
 
-        $typeAsString         = $type->__toString();
-        $comparedTypeAsString = $comparedType->__toString();
+        if ($comparedType instanceof ReflectionIntersectionType) {
+            return Iter\any(
+                $comparedType->getTypes(),
+                fn (ReflectionNamedType $comparedType): bool => $this($type, $comparedType)
+            );
+        }
+
+        if ($comparedType instanceof ReflectionUnionType) {
+            return Iter\all(
+                $comparedType->getTypes(),
+                fn (ReflectionNamedType $comparedType): bool => $this($type, $comparedType)
+            );
+        }
+
+        if ($type instanceof ReflectionUnionType) {
+            return Iter\any(
+                $type->getTypes(),
+                fn (ReflectionNamedType $type): bool => $this($type, $comparedType)
+            );
+        }
+
+        return $this->compareNamedTypes($type, $comparedType);
+    }
+
+    private function compareNamedTypes(ReflectionNamedType $type, ReflectionNamedType $comparedType): bool
+    {
+        $typeAsString         = $type->getName();
+        $comparedTypeAsString = $comparedType->getName();
 
         if (Str\lowercase($typeAsString) === Str\lowercase($comparedTypeAsString)) {
+            return true;
+        }
+
+        if ($typeAsString === 'mixed' || $comparedTypeAsString === 'never') {
+            // everything is covariant to `mixed` or `never`
             return true;
         }
 
@@ -58,7 +94,9 @@ final class TypeIsCovariant
         }
 
         if ($typeAsString === 'iterable' && ! $comparedType->isBuiltin()) {
-            if ($comparedType->targetReflectionClass()->implementsInterface(Traversable::class)) {
+            $comparedTypeReflectionClass = $comparedType->getClass();
+
+            if ($comparedTypeReflectionClass->implementsInterface(Traversable::class)) {
                 // `iterable` can be restricted via any `Iterator` implementation
                 return true;
             }
@@ -74,12 +112,16 @@ final class TypeIsCovariant
             return false;
         }
 
-        $comparedTypeReflectionClass = $comparedType->targetReflectionClass();
+        $originalTypeReflectionClass = $type->getClass();
+        $comparedTypeReflectionClass = $comparedType->getClass();
 
-        if ($type->targetReflectionClass()->isInterface()) {
-            return $comparedTypeReflectionClass->implementsInterface($typeAsString);
+        if ($originalTypeReflectionClass->isInterface()) {
+            return $comparedTypeReflectionClass->implementsInterface($originalTypeReflectionClass->getName());
         }
 
-        return Iter\contains($comparedTypeReflectionClass->getParentClassNames(), $typeAsString);
+        return Iter\contains(
+            $comparedTypeReflectionClass->getParentClassNames(),
+            $originalTypeReflectionClass->getName()
+        );
     }
 }

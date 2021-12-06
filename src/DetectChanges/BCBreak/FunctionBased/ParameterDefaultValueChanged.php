@@ -8,8 +8,9 @@ use Psl\Dict;
 use Psl\Str;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
-use Roave\BackwardCompatibility\Formatter\ReflectionFunctionAbstractName;
-use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
+use Roave\BackwardCompatibility\Formatter\FunctionName;
+use Roave\BetterReflection\Reflection\ReflectionFunction;
+use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflection\ReflectionParameter;
 
 use function var_export;
@@ -20,15 +21,17 @@ use function var_export;
  */
 final class ParameterDefaultValueChanged implements FunctionBased
 {
-    private ReflectionFunctionAbstractName $formatFunction;
+    private FunctionName $formatFunction;
 
     public function __construct()
     {
-        $this->formatFunction = new ReflectionFunctionAbstractName();
+        $this->formatFunction = new FunctionName();
     }
 
-    public function __invoke(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction): Changes
-    {
+    public function __invoke(
+        ReflectionMethod|ReflectionFunction $fromFunction,
+        ReflectionMethod|ReflectionFunction $toFunction
+    ): Changes {
         $fromParametersWithDefaults = $this->defaultParameterValues($fromFunction);
         $toParametersWithDefaults   = $this->defaultParameterValues($toFunction);
 
@@ -58,7 +61,7 @@ final class ParameterDefaultValueChanged implements FunctionBased
     }
 
     /** @return ReflectionParameter[] indexed by parameter index */
-    private function defaultParameterValues(ReflectionFunctionAbstract $function): array
+    private function defaultParameterValues(ReflectionMethod|ReflectionFunction $function): array
     {
         return Dict\filter(
             $function->getParameters(),

@@ -9,9 +9,7 @@ use Psl\Filesystem;
 
 final class CheckedOutRepository
 {
-    private string $path;
-
-    private function __construct()
+    private function __construct(private string $path)
     {
     }
 
@@ -19,10 +17,7 @@ final class CheckedOutRepository
     {
         Psl\invariant(Filesystem\is_directory($path . '/.git'), 'Directory "%s" is not a GIT repository.', $path);
 
-        $instance       = new self();
-        $instance->path = $path;
-
-        return $instance;
+        return new self($path);
     }
 
     public function __toString(): string

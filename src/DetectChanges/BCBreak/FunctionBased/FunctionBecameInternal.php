@@ -8,23 +8,26 @@ use Psl\Regex;
 use Psl\Str;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
-use Roave\BackwardCompatibility\Formatter\ReflectionFunctionAbstractName;
-use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
+use Roave\BackwardCompatibility\Formatter\FunctionName;
+use Roave\BetterReflection\Reflection\ReflectionFunction;
+use Roave\BetterReflection\Reflection\ReflectionMethod;
 
 /**
  * A function that is marked internal is no available to downstream consumers.
  */
 final class FunctionBecameInternal implements FunctionBased
 {
-    private ReflectionFunctionAbstractName $formatFunction;
+    private FunctionName $formatFunction;
 
     public function __construct()
     {
-        $this->formatFunction = new ReflectionFunctionAbstractName();
+        $this->formatFunction = new FunctionName();
     }
 
-    public function __invoke(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction): Changes
-    {
+    public function __invoke(
+        ReflectionMethod|ReflectionFunction $fromFunction,
+        ReflectionMethod|ReflectionFunction $toFunction
+    ): Changes {
         if (
             $this->isInternalDocComment($toFunction->getDocComment())
             && ! $this->isInternalDocComment($fromFunction->getDocComment())

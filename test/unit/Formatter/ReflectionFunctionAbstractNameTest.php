@@ -5,30 +5,31 @@ declare(strict_types=1);
 namespace RoaveTest\BackwardCompatibility\Formatter;
 
 use PHPUnit\Framework\TestCase;
-use Roave\BackwardCompatibility\Formatter\ReflectionFunctionAbstractName;
+use Roave\BackwardCompatibility\Formatter\FunctionName;
 use Roave\BetterReflection\BetterReflection;
-use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
-use Roave\BetterReflection\Reflector\ClassReflector;
-use Roave\BetterReflection\Reflector\FunctionReflector;
+use Roave\BetterReflection\Reflection\ReflectionFunction;
+use Roave\BetterReflection\Reflection\ReflectionMethod;
+use Roave\BetterReflection\Reflector\DefaultReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 
 /**
- * @covers \Roave\BackwardCompatibility\Formatter\ReflectionFunctionAbstractName
+ * @covers \Roave\BackwardCompatibility\Formatter\FunctionName
  */
 final class ReflectionFunctionAbstractNameTest extends TestCase
 {
     /**
      * @dataProvider functionsToBeTested
      */
-    public function testName(ReflectionFunctionAbstract $function, string $expectedName) : void
+    public function testName(ReflectionFunction|ReflectionMethod $function, string $expectedName) : void
     {
-        self::assertSame($expectedName, (new ReflectionFunctionAbstractName())($function));
+        self::assertSame($expectedName, (new FunctionName())($function));
     }
 
     /**
-     * @return array<string, array<int, string|ReflectionFunctionAbstract>>
-     *
-     * @psalm-return array<string, array{0: ReflectionFunctionAbstract, 1: string}>
+     * @return array<string, array{
+     *     0: ReflectionFunction|ReflectionMethod,
+     *     1: string
+     * }>
      */
     public function functionsToBeTested() : array
     {
@@ -55,24 +56,23 @@ PHP
             (new BetterReflection())->astLocator()
         );
 
-        $classReflector    = new ClassReflector($locator);
-        $functionReflector = new FunctionReflector($locator, $classReflector);
+        $reflector    = new DefaultReflector($locator);
 
         return [
             'a'       => [
-                $functionReflector->reflect('a'),
+                $reflector->reflectFunction('a'),
                 'a()',
             ],
             'N1\b'    => [
-                $functionReflector->reflect('N1\b'),
+                $reflector->reflectFunction('N1\b'),
                 'N1\b()',
             ],
             'N2\C::d' => [
-                $classReflector->reflect('N2\C')->getMethod('d'),
+                $reflector->reflectClass('N2\C')->getMethod('d'),
                 'N2\C::d()',
             ],
             'N2\C#e'  => [
-                $classReflector->reflect('N2\C')->getMethod('e'),
+                $reflector->reflectClass('N2\C')->getMethod('e'),
                 'N2\C#e()',
             ],
         ];

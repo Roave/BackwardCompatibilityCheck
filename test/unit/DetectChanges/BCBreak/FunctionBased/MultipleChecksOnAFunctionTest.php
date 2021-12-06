@@ -9,7 +9,7 @@ use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\FunctionBased;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\MultipleChecksOnAFunction;
-use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
+use Roave\BetterReflection\Reflection\ReflectionFunction;
 use RoaveTest\BackwardCompatibility\Assertion;
 
 /**
@@ -25,8 +25,8 @@ final class MultipleChecksOnAFunctionTest extends TestCase
 
         $multiCheck = new MultipleChecksOnAFunction($checker1, $checker2, $checker3);
 
-        $from = $this->createMock(ReflectionFunctionAbstract::class);
-        $to   = $this->createMock(ReflectionFunctionAbstract::class);
+        $from = $this->createMock(ReflectionFunction::class);
+        $to   = $this->createMock(ReflectionFunction::class);
 
         $checker1
             ->expects(self::once())

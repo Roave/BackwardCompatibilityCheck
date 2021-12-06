@@ -78,7 +78,7 @@ final class Changes implements IteratorAggregate, Countable
      *
      * @return Traversable<int, Change>
      */
-    public function getIterator(): iterable
+    public function getIterator(): Traversable
     {
         foreach ($this->bufferedChanges as $change) {
             yield $change;

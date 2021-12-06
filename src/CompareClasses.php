@@ -11,8 +11,8 @@ use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\ClassBased;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased\InterfaceBased;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\TraitBased\TraitBased;
 use Roave\BetterReflection\Reflection\ReflectionClass;
-use Roave\BetterReflection\Reflector\ClassReflector;
 use Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use Roave\BetterReflection\Reflector\Reflector;
 
 final class CompareClasses implements CompareApi
 {
@@ -33,13 +33,13 @@ final class CompareClasses implements CompareApi
     }
 
     public function __invoke(
-        ClassReflector $definedSymbols,
-        ClassReflector $pastSourcesWithDependencies,
-        ClassReflector $newSourcesWithDependencies
+        Reflector $definedSymbols,
+        Reflector $pastSourcesWithDependencies,
+        Reflector $newSourcesWithDependencies
     ): Changes {
         $definedApiClassNames = Dict\map(
             Dict\filter(
-                $definedSymbols->getAllClasses(),
+                $definedSymbols->reflectAllClasses(),
                 function (ReflectionClass $class): bool {
                     return ! ($class->isAnonymous() || $this->isInternalDocComment($class->getDocComment()));
                 }
@@ -63,11 +63,11 @@ final class CompareClasses implements CompareApi
      */
     private function makeSymbolsIterator(
         array $definedApiClassNames,
-        ClassReflector $pastSourcesWithDependencies,
-        ClassReflector $newSourcesWithDependencies
+        Reflector $pastSourcesWithDependencies,
+        Reflector $newSourcesWithDependencies
     ): iterable {
         foreach ($definedApiClassNames as $apiClassName) {
-            $oldSymbol = $pastSourcesWithDependencies->reflect($apiClassName);
+            $oldSymbol = $pastSourcesWithDependencies->reflectClass($apiClassName);
 
             yield from $this->examineSymbol($oldSymbol, $newSourcesWithDependencies);
         }
@@ -76,10 +76,10 @@ final class CompareClasses implements CompareApi
     /** @return iterable<int, Change> */
     private function examineSymbol(
         ReflectionClass $oldSymbol,
-        ClassReflector $newSourcesWithDependencies
+        Reflector $newSourcesWithDependencies
     ): iterable {
         try {
-            $newClass = $newSourcesWithDependencies->reflect($oldSymbol->getName());
+            $newClass = $newSourcesWithDependencies->reflectClass($oldSymbol->getName());
         } catch (IdentifierNotFound $exception) {
             yield Change::removed(Str\format('Class %s has been deleted', $oldSymbol->getName()), true);
 

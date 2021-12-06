@@ -9,7 +9,7 @@ use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased\InterfaceBecameTrait;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionClass;
-use Roave\BetterReflection\Reflector\ClassReflector;
+use Roave\BetterReflection\Reflector\DefaultReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 
 use function array_combine;
@@ -46,7 +46,7 @@ final class InterfaceBecameTraitTest extends TestCase
     public function classesToBeTested(): array
     {
         $locator       = (new BetterReflection())->astLocator();
-        $fromReflector = new ClassReflector(new StringSourceLocator(
+        $fromReflector = new DefaultReflector(new StringSourceLocator(
             <<<'PHP'
 <?php
 
@@ -66,7 +66,7 @@ PHP
             ,
             $locator
         ));
-        $toReflector   = new ClassReflector(new StringSourceLocator(
+        $toReflector   = new DefaultReflector(new StringSourceLocator(
             <<<'PHP'
 <?php
 
@@ -105,14 +105,11 @@ PHP
         return array_combine(
             array_keys($classes),
             array_map(
-                /** @psalm-param list<string> $errors https://github.com/vimeo/psalm/issues/2772 */
-                static function (string $className, array $errors) use ($fromReflector, $toReflector): array {
-                    return [
-                        $fromReflector->reflect($className),
-                        $toReflector->reflect($className),
-                        $errors,
-                    ];
-                },
+                static fn (string $interfaceName, array $errors): array => [
+                    $fromReflector->reflectClass($interfaceName),
+                    $toReflector->reflectClass($interfaceName),
+                    $errors,
+                ],
                 array_keys($classes),
                 $classes
             )

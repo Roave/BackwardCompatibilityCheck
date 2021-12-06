@@ -4,20 +4,20 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility;
 
-use Roave\BetterReflection\Reflector\ClassReflector;
+use Roave\BetterReflection\Reflector\Reflector;
 
 interface CompareApi
 {
     /**
-     * @param ClassReflector $definedSymbols              containing only defined symbols we want to check
-     * @param ClassReflector $pastSourcesWithDependencies capable of giving us symbols with their dependencies from the
+     * @param Reflector $definedSymbols              containing only defined symbols we want to check
+     * @param Reflector $pastSourcesWithDependencies capable of giving us symbols with their dependencies from the
      *                                                    old version of the sources
-     * @param ClassReflector $newSourcesWithDependencies  capable of giving us symbols with their dependencies from the
+     * @param Reflector $newSourcesWithDependencies  capable of giving us symbols with their dependencies from the
      *                                                    new version of the sources
      */
     public function __invoke(
-        ClassReflector $definedSymbols,
-        ClassReflector $pastSourcesWithDependencies,
-        ClassReflector $newSourcesWithDependencies
+        Reflector $definedSymbols,
+        Reflector $pastSourcesWithDependencies,
+        Reflector $newSourcesWithDependencies
     ): Changes;
 }

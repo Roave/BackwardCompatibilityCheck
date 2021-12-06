@@ -7,8 +7,9 @@ namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased;
 use Psl\Str;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
-use Roave\BackwardCompatibility\Formatter\ReflectionFunctionAbstractName;
-use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
+use Roave\BackwardCompatibility\Formatter\FunctionName;
+use Roave\BetterReflection\Reflection\ReflectionFunction;
+use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflection\ReflectionType;
 
 /**
@@ -18,15 +19,17 @@ use Roave\BetterReflection\Reflection\ReflectionType;
  */
 final class ReturnTypeChanged implements FunctionBased
 {
-    private ReflectionFunctionAbstractName $formatFunction;
+    private FunctionName $formatFunction;
 
     public function __construct()
     {
-        $this->formatFunction = new ReflectionFunctionAbstractName();
+        $this->formatFunction = new FunctionName();
     }
 
-    public function __invoke(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction): Changes
-    {
+    public function __invoke(
+        ReflectionMethod|ReflectionFunction $fromFunction,
+        ReflectionMethod|ReflectionFunction $toFunction
+    ): Changes {
         $fromReturnType = $this->typeToString($fromFunction->getReturnType());
         $toReturnType   = $this->typeToString($toFunction->getReturnType());
 
@@ -51,7 +54,6 @@ final class ReturnTypeChanged implements FunctionBased
             return 'no type';
         }
 
-        return ($type->allowsNull() ? '?' : '')
-            . $type->__toString();
+        return $type->__toString();
     }
 }

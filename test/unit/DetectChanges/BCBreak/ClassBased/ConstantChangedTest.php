@@ -11,7 +11,7 @@ use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\ConstantChanged
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassConstantBased\ClassConstantBased;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionClassConstant;
-use Roave\BetterReflection\Reflector\ClassReflector;
+use Roave\BetterReflection\Reflector\DefaultReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 use RoaveTest\BackwardCompatibility\Assertion;
 
@@ -75,8 +75,8 @@ PHP
                 Change::added('d', true)
             ),
             (new ConstantChanged($comparator))(
-                (new ClassReflector($fromLocator))->reflect('TheClass'),
-                (new ClassReflector($toLocator))->reflect('TheClass')
+                (new DefaultReflector($fromLocator))->reflectClass('TheClass'),
+                (new DefaultReflector($toLocator))->reflectClass('TheClass')
             )
         );
     }

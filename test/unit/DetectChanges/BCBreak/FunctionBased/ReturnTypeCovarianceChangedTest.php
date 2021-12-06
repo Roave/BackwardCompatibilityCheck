@@ -9,9 +9,9 @@ use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\ReturnTypeCovarianceChanged;
 use Roave\BackwardCompatibility\DetectChanges\Variance\TypeIsCovariant;
 use Roave\BetterReflection\BetterReflection;
-use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
-use Roave\BetterReflection\Reflector\ClassReflector;
-use Roave\BetterReflection\Reflector\FunctionReflector;
+use Roave\BetterReflection\Reflection\ReflectionFunction;
+use Roave\BetterReflection\Reflection\ReflectionMethod;
+use Roave\BetterReflection\Reflector\DefaultReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 use function array_combine;
 use function array_map;
@@ -28,8 +28,8 @@ final class ReturnTypeCovarianceChangedTest extends TestCase
      * @param string[] $expectedMessages
      */
     public function testDiffs(
-        ReflectionFunctionAbstract $fromFunction,
-        ReflectionFunctionAbstract $toFunction,
+        ReflectionMethod|ReflectionFunction $fromFunction,
+        ReflectionMethod|ReflectionFunction $toFunction,
         array $expectedMessages
     ) : void {
         $changes = (new ReturnTypeCovarianceChanged(new TypeIsCovariant()))($fromFunction, $toFunction);
@@ -43,9 +43,11 @@ final class ReturnTypeCovarianceChangedTest extends TestCase
     }
 
     /**
-     * @return array<string, array<int, ReflectionFunctionAbstract|array<int, string>>>
-     *
-     * @psalm-return array<string, array{0: ReflectionFunctionAbstract, 1: ReflectionFunctionAbstract, 2: list<string>}>
+     * @return array<string, array{
+     *     0: ReflectionMethod|ReflectionFunction,
+     *     1: ReflectionMethod|ReflectionFunction,
+     *     2: list<string>
+     * }>
      */
     public function functionsToBeTested() : array
     {
@@ -125,10 +127,8 @@ PHP
             $astLocator
         );
 
-        $fromClassReflector = new ClassReflector($fromLocator);
-        $toClassReflector   = new ClassReflector($toLocator);
-        $fromReflector      = new FunctionReflector($fromLocator, $fromClassReflector);
-        $toReflector        = new FunctionReflector($toLocator, $toClassReflector);
+        $fromReflector      = new DefaultReflector($fromLocator);
+        $toReflector        = new DefaultReflector($toLocator);
 
         $functions = [
             'changed'      => [
@@ -140,7 +140,7 @@ PHP
             ],
             'N1\untouched' => [],
             'N2\changed'   => [
-                '[BC] CHANGED: The return type of N2\changed() changed from int to the non-covariant ?int',
+                '[BC] CHANGED: The return type of N2\changed() changed from int to the non-covariant int|null',
             ],
             'N2\untouched' => [],
             'N3\changed'   => [
@@ -153,27 +153,24 @@ PHP
             array_combine(
                 array_keys($functions),
                 array_map(
-                    /** @psalm-param list<string> $errorMessages https://github.com/vimeo/psalm/issues/2772 */
-                    function (string $function, array $errorMessages) use ($fromReflector, $toReflector) : array {
-                        return [
-                            $fromReflector->reflect($function),
-                            $toReflector->reflect($function),
-                            $errorMessages,
-                        ];
-                    },
+                    static fn (string $function, array $errors): array => [
+                        $fromReflector->reflectFunction($function),
+                        $toReflector->reflectFunction($function),
+                        $errors,
+                    ],
                     array_keys($functions),
                     $functions
                 )
             ),
             [
                 'N4\C::changed1' => [
-                    $fromClassReflector->reflect('N4\C')->getMethod('changed1'),
-                    $toClassReflector->reflect('N4\C')->getMethod('changed1'),
+                    $fromReflector->reflectClass('N4\C')->getMethod('changed1'),
+                    $toReflector->reflectClass('N4\C')->getMethod('changed1'),
                     ['[BC] CHANGED: The return type of N4\C::changed1() changed from int to the non-covariant no type'],
                 ],
                 'N4\C#changed2'  => [
-                    $fromClassReflector->reflect('N4\C')->getMethod('changed2'),
-                    $toClassReflector->reflect('N4\C')->getMethod('changed2'),
+                    $fromReflector->reflectClass('N4\C')->getMethod('changed2'),
+                    $toReflector->reflectClass('N4\C')->getMethod('changed2'),
                     ['[BC] CHANGED: The return type of N4\C#changed2() changed from int to the non-covariant no type'],
                 ],
             ]

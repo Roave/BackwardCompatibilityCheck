@@ -10,7 +10,7 @@ use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\ClassBased;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\ExcludeInternalClass;
 use Roave\BetterReflection\BetterReflection;
-use Roave\BetterReflection\Reflector\ClassReflector;
+use Roave\BetterReflection\Reflector\DefaultReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 
 /** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\ExcludeInternalClass */
@@ -19,7 +19,7 @@ final class ExcludeInternalClassTest extends TestCase
     public function testNormalClassesAreNotExcluded(): void
     {
         $locator        = (new BetterReflection())->astLocator();
-        $reflector      = new ClassReflector(new StringSourceLocator(
+        $reflector      = new DefaultReflector(new StringSourceLocator(
             <<<'PHP'
 <?php
 
@@ -28,8 +28,8 @@ PHP
             ,
             $locator
         ));
-        $fromReflection = $reflector->reflect('ANormalClass');
-        $toReflection   = $reflector->reflect('ANormalClass');
+        $fromReflection = $reflector->reflectClass('ANormalClass');
+        $toReflection   = $reflector->reflectClass('ANormalClass');
 
         $check = $this->createMock(ClassBased::class);
         $check->expects(self::once())
@@ -46,7 +46,7 @@ PHP
     public function testInternalClassesAreExcluded(): void
     {
         $locator    = (new BetterReflection())->astLocator();
-        $reflector  = new ClassReflector(new StringSourceLocator(
+        $reflector  = new DefaultReflector(new StringSourceLocator(
             <<<'PHP'
 <?php
 
@@ -56,7 +56,7 @@ PHP
             ,
             $locator
         ));
-        $reflection = $reflector->reflect('AnInternalClass');
+        $reflection = $reflector->reflectClass('AnInternalClass');
 
         $check = $this->createMock(ClassBased::class);
         $check->expects(self::never())->method('__invoke');

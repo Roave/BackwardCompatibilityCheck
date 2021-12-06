@@ -6,7 +6,8 @@ namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased;
 
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
-use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
+use Roave\BetterReflection\Reflection\ReflectionFunction;
+use Roave\BetterReflection\Reflection\ReflectionMethod;
 
 final class MultipleChecksOnAFunction implements FunctionBased
 {
@@ -18,14 +19,25 @@ final class MultipleChecksOnAFunction implements FunctionBased
         $this->checks = $checks;
     }
 
-    public function __invoke(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction): Changes
-    {
+    public function __invoke(
+        ReflectionMethod|ReflectionFunction $fromFunction,
+        ReflectionMethod|ReflectionFunction $toFunction
+    ): Changes {
         return Changes::fromIterator($this->multipleChecks($fromFunction, $toFunction));
     }
 
-    /** @return iterable<int, Change> */
-    private function multipleChecks(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction): iterable
-    {
+    /**
+     * @param T $fromFunction
+     * @param T $toFunction
+     *
+     * @return iterable<int, Change>
+     *
+     * @template T of ReflectionMethod|ReflectionFunction
+     */
+    private function multipleChecks(
+        ReflectionMethod|ReflectionFunction $fromFunction,
+        ReflectionMethod|ReflectionFunction $toFunction
+    ): iterable {
         foreach ($this->checks as $check) {
             yield from $check($fromFunction, $toFunction);
         }

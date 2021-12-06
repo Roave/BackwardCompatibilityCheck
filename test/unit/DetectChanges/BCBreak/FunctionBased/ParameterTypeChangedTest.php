@@ -8,9 +8,9 @@ use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\ParameterTypeChanged;
 use Roave\BetterReflection\BetterReflection;
-use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
-use Roave\BetterReflection\Reflector\ClassReflector;
-use Roave\BetterReflection\Reflector\FunctionReflector;
+use Roave\BetterReflection\Reflection\ReflectionFunction;
+use Roave\BetterReflection\Reflection\ReflectionMethod;
+use Roave\BetterReflection\Reflector\DefaultReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 use function array_combine;
 use function array_map;
@@ -27,8 +27,8 @@ final class ParameterTypeChangedTest extends TestCase
      * @param string[] $expectedMessages
      */
     public function testDiffs(
-        ReflectionFunctionAbstract $fromFunction,
-        ReflectionFunctionAbstract $toFunction,
+        ReflectionMethod|ReflectionFunction $fromFunction,
+        ReflectionMethod|ReflectionFunction $toFunction,
         array $expectedMessages
     ) : void {
         $changes = (new ParameterTypeChanged())($fromFunction, $toFunction);
@@ -42,9 +42,11 @@ final class ParameterTypeChangedTest extends TestCase
     }
 
     /**
-     * @return array<string, array<int, ReflectionFunctionAbstract|array<int, string>>>
-     *
-     * @psalm-return array<string, array{0: ReflectionFunctionAbstract, 1: ReflectionFunctionAbstract, 2: list<string>}>
+     * @return array<string, array{
+     *     0: ReflectionMethod|ReflectionFunction,
+     *     1: ReflectionMethod|ReflectionFunction,
+     *     2: list<string>
+     * }>
      */
     public function functionsToBeTested() : array
     {
@@ -125,10 +127,8 @@ PHP
             $astLocator
         );
 
-        $fromClassReflector = new ClassReflector($fromLocator);
-        $toClassReflector   = new ClassReflector($toLocator);
-        $fromReflector      = new FunctionReflector($fromLocator, $fromClassReflector);
-        $toReflector        = new FunctionReflector($toLocator, $toClassReflector);
+        $fromReflector      = new DefaultReflector($fromLocator);
+        $toReflector        = new DefaultReflector($toLocator);
 
         $functions = [
             'changed'      => [
@@ -146,8 +146,8 @@ PHP
             ],
             'N2\untouched' => [],
             'N3\changed'   => [
-                '[BC] CHANGED: The parameter $a of N3\changed() changed from ?int to int',
-                '[BC] CHANGED: The parameter $b of N3\changed() changed from ?int to int',
+                '[BC] CHANGED: The parameter $a of N3\changed() changed from int|null to int',
+                '[BC] CHANGED: The parameter $b of N3\changed() changed from int|null to int',
             ],
             'N3\untouched' => [],
         ];
@@ -156,22 +156,19 @@ PHP
             array_combine(
                 array_keys($functions),
                 array_map(
-                    /** @psalm-param list<string> $errorMessages https://github.com/vimeo/psalm/issues/2772 */
-                    static function (string $function, array $errorMessages) use ($fromReflector, $toReflector) : array {
-                        return [
-                            $fromReflector->reflect($function),
-                            $toReflector->reflect($function),
-                            $errorMessages,
-                        ];
-                    },
+                    static fn (string $function, array $errors): array => [
+                        $fromReflector->reflectFunction($function),
+                        $toReflector->reflectFunction($function),
+                        $errors,
+                    ],
                     array_keys($functions),
                     $functions
                 )
             ),
             [
                 'N4\C::changed1' => [
-                    $fromClassReflector->reflect('N4\C')->getMethod('changed1'),
-                    $toClassReflector->reflect('N4\C')->getMethod('changed1'),
+                    $fromReflector->reflectClass('N4\C')->getMethod('changed1'),
+                    $toReflector->reflectClass('N4\C')->getMethod('changed1'),
                     [
                         '[BC] CHANGED: The parameter $a of N4\C::changed1() changed from no type to int',
                         '[BC] CHANGED: The parameter $b of N4\C::changed1() changed from no type to int',
@@ -179,8 +176,8 @@ PHP
                     ],
                 ],
                 'N4\C#changed2'  => [
-                    $fromClassReflector->reflect('N4\C')->getMethod('changed2'),
-                    $toClassReflector->reflect('N4\C')->getMethod('changed2'),
+                    $fromReflector->reflectClass('N4\C')->getMethod('changed2'),
+                    $toReflector->reflectClass('N4\C')->getMethod('changed2'),
                     [
                         '[BC] CHANGED: The parameter $a of N4\C#changed2() changed from no type to int',
                         '[BC] CHANGED: The parameter $b of N4\C#changed2() changed from no type to int',

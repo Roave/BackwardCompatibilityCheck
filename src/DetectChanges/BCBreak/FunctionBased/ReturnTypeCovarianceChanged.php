@@ -8,8 +8,9 @@ use Psl\Str;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\DetectChanges\Variance\TypeIsCovariant;
-use Roave\BackwardCompatibility\Formatter\ReflectionFunctionAbstractName;
-use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
+use Roave\BackwardCompatibility\Formatter\FunctionName;
+use Roave\BetterReflection\Reflection\ReflectionFunction;
+use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflection\ReflectionType;
 
 /**
@@ -21,16 +22,18 @@ final class ReturnTypeCovarianceChanged implements FunctionBased
 {
     private TypeIsCovariant $typeIsCovariant;
 
-    private ReflectionFunctionAbstractName $formatFunction;
+    private FunctionName $formatFunction;
 
     public function __construct(TypeIsCovariant $typeIsCovariant)
     {
         $this->typeIsCovariant = $typeIsCovariant;
-        $this->formatFunction  = new ReflectionFunctionAbstractName();
+        $this->formatFunction  = new FunctionName();
     }
 
-    public function __invoke(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction): Changes
-    {
+    public function __invoke(
+        ReflectionMethod|ReflectionFunction $fromFunction,
+        ReflectionMethod|ReflectionFunction $toFunction
+    ): Changes {
         $fromReturnType = $fromFunction->getReturnType();
         $toReturnType   = $toFunction->getReturnType();
 
@@ -55,7 +58,6 @@ final class ReturnTypeCovarianceChanged implements FunctionBased
             return 'no type';
         }
 
-        return ($type->allowsNull() ? '?' : '')
-            . $type->__toString();
+        return $type->__toString();
     }
 }

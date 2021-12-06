@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace RoaveTest\BackwardCompatibility\DetectChanges\BCBreak\ClassConstantBased;
 
 use PHPUnit\Framework\TestCase;
+use Psl\Type;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassConstantBased\ClassConstantValueChanged;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionClassConstant;
-use Roave\BetterReflection\Reflector\ClassReflector;
+use Roave\BetterReflection\Reflector\DefaultReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 
 use function array_combine;
@@ -25,7 +26,7 @@ final class ClassConstantValueChangedTest extends TestCase
     /**
      * @param string[] $expectedMessages
      *
-     * @dataProvider propertiesToBeTested
+     * @dataProvider constantsToBeTested
      */
     public function testDiffs(
         ReflectionClassConstant $fromConstant,
@@ -43,10 +44,13 @@ final class ClassConstantValueChangedTest extends TestCase
     }
 
     /**
-     * @return array<string, array<int, ReflectionClassConstant|array<int, string>>>
-     * @psalm-return array<string, array{0: ReflectionClassConstant|null, 1: ReflectionClassConstant|null, 2: list<string>}>
+     * @return array<string, array{
+     *     0: ReflectionClassConstant,
+     *     1: ReflectionClassConstant,
+     *     2: list<string>
+     * }>
      */
-    public function propertiesToBeTested(): array
+    public function constantsToBeTested(): array
     {
         $astLocator = (new BetterReflection())->astLocator();
 
@@ -100,10 +104,10 @@ PHP
             $astLocator
         );
 
-        $fromClassReflector = new ClassReflector($fromLocator);
-        $toClassReflector   = new ClassReflector($toLocator);
-        $fromClass          = $fromClassReflector->reflect('TheClass');
-        $toClass            = $toClassReflector->reflect('TheClass');
+        $fromClassReflector = new DefaultReflector($fromLocator);
+        $toClassReflector   = new DefaultReflector($toLocator);
+        $fromClass          = $fromClassReflector->reflectClass('TheClass');
+        $toClass            = $toClassReflector->reflectClass('TheClass');
 
         $properties = [
             'publicNullToNull'                  => [],
@@ -123,14 +127,13 @@ PHP
         return array_combine(
             array_keys($properties),
             array_map(
-                /** @psalm-param list<string> $errorMessages https://github.com/vimeo/psalm/issues/2772 */
-                static function (string $constant, array $errorMessages) use ($fromClass, $toClass): array {
-                    return [
-                        $fromClass->getReflectionConstant($constant),
-                        $toClass->getReflectionConstant($constant),
-                        $errorMessages,
-                    ];
-                },
+                static fn (string $constant, array $errorMessages): array => [
+                    Type\object(ReflectionClassConstant::class)
+                        ->coerce($fromClass->getReflectionConstant($constant)),
+                    Type\object(ReflectionClassConstant::class)
+                        ->coerce($toClass->getReflectionConstant($constant)),
+                    $errorMessages,
+                ],
                 array_keys($properties),
                 $properties
             )

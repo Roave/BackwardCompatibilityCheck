@@ -32,7 +32,7 @@ final class StaticClassMapSourceLocator extends AbstractSourceLocator
         $realPaths = Dict\map($classMap, static function (string $file): string {
             return Type\string()->assert(Filesystem\canonicalize($file));
         });
-        
+
         Psl\invariant(Iter\all($realPaths, static function (string $file): bool {
             return Filesystem\is_file($file);
         }), 'Invalid class-map.');
@@ -52,6 +52,6 @@ final class StaticClassMapSourceLocator extends AbstractSourceLocator
             return null;
         }
 
-        return new LocatedSource(Filesystem\read_file($classFile), $classFile);
+        return new LocatedSource(Filesystem\read_file($classFile), $identifier->getName(), $classFile);
     }
 }

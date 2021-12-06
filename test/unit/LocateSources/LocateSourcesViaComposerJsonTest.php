@@ -7,7 +7,7 @@ namespace RoaveTest\BackwardCompatibility\LocateSources;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\LocateSources\LocateSourcesViaComposerJson;
 use Roave\BetterReflection\BetterReflection;
-use Roave\BetterReflection\Reflector\ClassReflector;
+use Roave\BetterReflection\Reflector\DefaultReflector;
 
 /**
  * @covers \Roave\BackwardCompatibility\LocateSources\LocateSourcesViaComposerJson
@@ -25,14 +25,14 @@ final class LocateSourcesViaComposerJsonTest extends TestCase
 
     public function testCanLocateClassInMappendAutoloadDefinitions(): void
     {
-        $reflector = new ClassReflector(
+        $reflector = new DefaultReflector(
             ($this->locateSources)(__DIR__ . '/../../asset/located-sources/composer-definition-with-everything')
         );
 
         self::assertSame(
             'baz\\LocatedClass',
             $reflector
-                ->reflect('baz\\LocatedClass')
+                ->reflectClass('baz\\LocatedClass')
                 ->getName()
         );
     }

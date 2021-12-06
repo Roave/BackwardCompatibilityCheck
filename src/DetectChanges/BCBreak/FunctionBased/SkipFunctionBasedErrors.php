@@ -6,7 +6,8 @@ namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased;
 
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
-use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
+use Roave\BetterReflection\Reflection\ReflectionFunction;
+use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Throwable;
 
 final class SkipFunctionBasedErrors implements FunctionBased
@@ -18,8 +19,10 @@ final class SkipFunctionBasedErrors implements FunctionBased
         $this->next = $next;
     }
 
-    public function __invoke(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction): Changes
-    {
+    public function __invoke(
+        ReflectionMethod|ReflectionFunction $fromFunction,
+        ReflectionMethod|ReflectionFunction $toFunction
+    ): Changes {
         try {
             return ($this->next)($fromFunction, $toFunction);
         } catch (Throwable $failure) {

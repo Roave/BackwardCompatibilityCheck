@@ -9,7 +9,7 @@ use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\PropertyDefaultValueChanged;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
-use Roave\BetterReflection\Reflector\ClassReflector;
+use Roave\BetterReflection\Reflector\DefaultReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 use RoaveTest\BackwardCompatibility\TypeRestriction;
 
@@ -113,10 +113,10 @@ PHP
             $astLocator
         );
 
-        $fromClassReflector = new ClassReflector($fromLocator);
-        $toClassReflector   = new ClassReflector($toLocator);
-        $fromClass          = $fromClassReflector->reflect('TheClass');
-        $toClass            = $toClassReflector->reflect('TheClass');
+        $fromClassReflector = new DefaultReflector($fromLocator);
+        $toClassReflector   = new DefaultReflector($toLocator);
+        $fromClass          = $fromClassReflector->reflectClass('TheClass');
+        $toClass            = $toClassReflector->reflectClass('TheClass');
 
         $properties = [
             'publicNothingToNothing'               => [],
@@ -142,14 +142,11 @@ PHP
         return array_combine(
             array_keys($properties),
             array_map(
-                /** @psalm-param list<string> $errorMessages https://github.com/vimeo/psalm/issues/2772 */
-                static function (string $property, array $errorMessages) use ($fromClass, $toClass): array {
-                    return [
-                        TypeRestriction::object($fromClass->getProperty($property)),
-                        TypeRestriction::object($toClass->getProperty($property)),
-                        $errorMessages,
-                    ];
-                },
+                static fn (string $property, array $errorMessages): array => [
+                    TypeRestriction::object($fromClass->getProperty($property)),
+                    TypeRestriction::object($toClass->getProperty($property)),
+                    $errorMessages,
+                ],
                 array_keys($properties),
                 $properties
             )

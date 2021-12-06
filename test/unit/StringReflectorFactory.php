@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace RoaveTest\BackwardCompatibility;
 
 use Roave\BetterReflection\BetterReflection;
-use Roave\BetterReflection\Reflector\ClassReflector;
+use Roave\BetterReflection\Reflector\DefaultReflector;
+use Roave\BetterReflection\Reflector\Reflector;
 use Roave\BetterReflection\SourceLocator\Exception\EmptyPhpSourceCode;
 use Roave\BetterReflection\SourceLocator\SourceStubber\ReflectionSourceStubber;
 use Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
@@ -18,12 +19,12 @@ final class StringReflectorFactory
     /**
      * @throws EmptyPhpSourceCode
      */
-    public function __invoke(string $sourceCode): ClassReflector
+    public function __invoke(string $sourceCode): Reflector
     {
         $astLocator = (new BetterReflection())->astLocator();
         $stubber    = new ReflectionSourceStubber();
 
-        return new ClassReflector(
+        return new DefaultReflector(
             new AggregateSourceLocator([
                 new PhpInternalSourceLocator($astLocator, $stubber),
                 new EvaledCodeSourceLocator($astLocator, $stubber),

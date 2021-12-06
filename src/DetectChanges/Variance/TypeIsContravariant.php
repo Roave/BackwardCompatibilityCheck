@@ -6,7 +6,9 @@ namespace Roave\BackwardCompatibility\DetectChanges\Variance;
 
 use Psl\Iter;
 use Psl\Str;
-use Roave\BetterReflection\Reflection\ReflectionType;
+use Roave\BetterReflection\Reflection\ReflectionIntersectionType;
+use Roave\BetterReflection\Reflection\ReflectionNamedType;
+use Roave\BetterReflection\Reflection\ReflectionUnionType;
 
 /**
  * This is a simplistic contravariant type check. A more appropriate approach would be to
@@ -17,10 +19,17 @@ use Roave\BetterReflection\Reflection\ReflectionType;
 final class TypeIsContravariant
 {
     public function __invoke(
-        ?ReflectionType $type,
-        ?ReflectionType $comparedType
+        ReflectionIntersectionType|ReflectionUnionType|ReflectionNamedType|null $type,
+        ReflectionIntersectionType|ReflectionUnionType|ReflectionNamedType|null $comparedType
     ): bool {
-        if ($comparedType === null) {
+        if (
+            ($type && $type->__toString() === 'never')
+            || ($comparedType && $comparedType->__toString() === 'never')
+        ) {
+            return false;
+        }
+
+        if ($comparedType === null || $comparedType->__toString() === 'mixed') {
             return true;
         }
 
@@ -29,12 +38,41 @@ final class TypeIsContravariant
             return false;
         }
 
-        if ($type->allowsNull() && ! $comparedType->allowsNull()) {
-            return false;
+        if ($type instanceof ReflectionUnionType) {
+            return Iter\all(
+                $type->getTypes(),
+                fn (ReflectionNamedType $type): bool => $this($type, $comparedType)
+            );
         }
 
-        $typeAsString         = $type->__toString();
-        $comparedTypeAsString = $comparedType->__toString();
+        if ($comparedType instanceof ReflectionUnionType) {
+            return Iter\any(
+                $comparedType->getTypes(),
+                fn (ReflectionNamedType $comparedType): bool => $this($type, $comparedType)
+            );
+        }
+
+        if ($comparedType instanceof ReflectionIntersectionType) {
+            return Iter\all(
+                $comparedType->getTypes(),
+                fn (ReflectionNamedType $comparedType): bool => $this($type, $comparedType)
+            );
+        }
+
+        if ($type instanceof ReflectionIntersectionType) {
+            return Iter\any(
+                $type->getTypes(),
+                fn (ReflectionNamedType $type): bool => $this($type, $comparedType)
+            );
+        }
+
+        return $this->compareNamedTypes($type, $comparedType);
+    }
+
+    private function compareNamedTypes(ReflectionNamedType $type, ReflectionNamedType $comparedType): bool
+    {
+        $typeAsString         = $type->getName();
+        $comparedTypeAsString = $comparedType->getName();
 
         if (Str\lowercase($typeAsString) === Str\lowercase($comparedTypeAsString)) {
             return true;
@@ -63,12 +101,13 @@ final class TypeIsContravariant
             return false;
         }
 
-        $typeReflectionClass = $type->targetReflectionClass();
+        $typeReflectionClass = $type->getClass();
+        $comparedTypeClass   = $comparedType->getClass();
 
-        if ($comparedType->targetReflectionClass()->isInterface()) {
-            return $typeReflectionClass->implementsInterface($comparedTypeAsString);
+        if ($comparedTypeClass->isInterface()) {
+            return $typeReflectionClass->implementsInterface($comparedTypeClass->getName());
         }
 
-        return Iter\contains($typeReflectionClass->getParentClassNames(), $comparedTypeAsString);
+        return Iter\contains($typeReflectionClass->getParentClassNames(), $comparedTypeClass->getName());
     }
 }

@@ -10,8 +10,7 @@ use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\ExcludeInternalFunction;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\FunctionBased;
 use Roave\BetterReflection\BetterReflection;
-use Roave\BetterReflection\Reflector\ClassReflector;
-use Roave\BetterReflection\Reflector\FunctionReflector;
+use Roave\BetterReflection\Reflector\DefaultReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 
 /** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\ExcludeInternalFunction */
@@ -28,8 +27,8 @@ PHP
             ,
             (new BetterReflection())->astLocator()
         );
-        $function = (new FunctionReflector($source, new ClassReflector($source)))
-            ->reflect('a');
+        $function = (new DefaultReflector($source))
+            ->reflectFunction('a');
 
         $check = $this->createMock(FunctionBased::class);
         $check->expects(self::once())
@@ -55,8 +54,8 @@ PHP
             ,
             (new BetterReflection())->astLocator()
         );
-        $function = (new FunctionReflector($source, new ClassReflector($source)))
-            ->reflect('a');
+        $function = (new DefaultReflector($source))
+            ->reflectFunction('a');
 
         $check = $this->createMock(FunctionBased::class);
         $check->expects(self::never())

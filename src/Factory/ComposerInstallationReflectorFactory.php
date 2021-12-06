@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace Roave\BackwardCompatibility\Factory;
 
 use Roave\BackwardCompatibility\LocateSources\LocateSources;
-use Roave\BetterReflection\Reflector\ClassReflector;
+use Roave\BetterReflection\Reflector\DefaultReflector;
+use Roave\BetterReflection\Reflector\Reflector;
 use Roave\BetterReflection\SourceLocator\Exception\InvalidDirectory;
 use Roave\BetterReflection\SourceLocator\Exception\InvalidFileInfo;
 use Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
@@ -28,8 +29,8 @@ final class ComposerInstallationReflectorFactory
     public function __invoke(
         string $installationDirectory,
         SourceLocator $dependencies
-    ): ClassReflector {
-        return new ClassReflector(
+    ): Reflector {
+        return new DefaultReflector(
             new MemoizingSourceLocator(new AggregateSourceLocator([
                 ($this->locateSources)($installationDirectory),
                 $dependencies,

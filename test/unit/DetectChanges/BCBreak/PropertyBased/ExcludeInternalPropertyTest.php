@@ -10,7 +10,7 @@ use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\ExcludeInternalProperty;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\PropertyBased;
 use Roave\BetterReflection\BetterReflection;
-use Roave\BetterReflection\Reflector\ClassReflector;
+use Roave\BetterReflection\Reflector\DefaultReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 
 /** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\ExcludeInternalProperty */
@@ -18,7 +18,7 @@ final class ExcludeInternalPropertyTest extends TestCase
 {
     public function testNormalPropertiesAreNotExcluded(): void
     {
-        $property = (new ClassReflector(new StringSourceLocator(
+        $property = (new DefaultReflector(new StringSourceLocator(
             <<<'PHP'
 <?php
 
@@ -29,7 +29,7 @@ PHP
             ,
             (new BetterReflection())->astLocator()
         )))
-            ->reflect('A')
+            ->reflectClass('A')
             ->getProperty('property');
 
         self::assertNotNull($property);
@@ -48,7 +48,7 @@ PHP
 
     public function testInternalPropertiesAreExcluded(): void
     {
-        $property = (new ClassReflector(new StringSourceLocator(
+        $property = (new DefaultReflector(new StringSourceLocator(
             <<<'PHP'
 <?php
 
@@ -60,7 +60,7 @@ PHP
             ,
             (new BetterReflection())->astLocator()
         )))
-            ->reflect('A')
+            ->reflectClass('A')
             ->getProperty('property');
 
         self::assertNotNull($property);

@@ -11,7 +11,7 @@ use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\MethodChanged;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased\MethodBased;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
-use Roave\BetterReflection\Reflector\ClassReflector;
+use Roave\BetterReflection\Reflector\DefaultReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 use RoaveTest\BackwardCompatibility\Assertion;
 
@@ -78,8 +78,8 @@ PHP
                 Change::added('G', true)
             ),
             (new MethodChanged($comparator))(
-                (new ClassReflector($fromLocator))->reflect('TheClass'),
-                (new ClassReflector($toLocator))->reflect('TheClass')
+                (new DefaultReflector($fromLocator))->reflectClass('TheClass'),
+                (new DefaultReflector($toLocator))->reflectClass('TheClass')
             )
         );
     }
