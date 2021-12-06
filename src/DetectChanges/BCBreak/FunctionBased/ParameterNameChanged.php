@@ -6,13 +6,14 @@ namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased;
 
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
-use Roave\BackwardCompatibility\Formatter\ReflectionFunctionAbstractName;
-use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
+use Roave\BackwardCompatibility\Formatter\FunctionName;
+use Roave\BetterReflection\Reflection\ReflectionFunction;
+use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflection\ReflectionParameter;
 
 use function array_intersect_key;
 use function Safe\sprintf;
-use function strpos;
+use function str_contains;
 
 /**
  * Detects a change in a parameter name, which must now be considered a BC break as of PHP 8 (specifically, since the
@@ -25,15 +26,17 @@ final class ParameterNameChanged implements FunctionBased
 {
     private const NO_NAMED_ARGUMENTS_ANNOTATION = '@no-named-arguments';
 
-    private ReflectionFunctionAbstractName $formatFunction;
+    private FunctionName $formatFunction;
 
     public function __construct()
     {
-        $this->formatFunction = new ReflectionFunctionAbstractName();
+        $this->formatFunction = new FunctionName();
     }
 
-    public function __invoke(ReflectionFunctionAbstract $fromFunction, ReflectionFunctionAbstract $toFunction): Changes
-    {
+    public function __invoke(
+        ReflectionMethod|ReflectionFunction $fromFunction,
+        ReflectionMethod|ReflectionFunction $toFunction
+    ): Changes {
         $fromHadNoNamedArgumentsAnnotation = $this->methodHasNoNamedArgumentsAnnotation($fromFunction);
         $toHasNoNamedArgumentsAnnotation   = $this->methodHasNoNamedArgumentsAnnotation($toFunction);
 
@@ -74,10 +77,10 @@ final class ParameterNameChanged implements FunctionBased
     }
 
     /**
-     * @param ReflectionParameter[] $from
-     * @param ReflectionParameter[] $to
+     * @param list<ReflectionParameter> $from
+     * @param list<ReflectionParameter> $to
      *
-     * @return iterable|Change[]
+     * @return iterable<int, Change>
      */
     private function checkSymbols(array $from, array $to): iterable
     {
@@ -86,9 +89,7 @@ final class ParameterNameChanged implements FunctionBased
         }
     }
 
-    /**
-     * @return iterable|Change[]
-     */
+    /** @return iterable<int, Change> */
     private function compareParameter(ReflectionParameter $fromParameter, ReflectionParameter $toParameter): iterable
     {
         $fromName = $fromParameter->getName();
@@ -110,8 +111,8 @@ final class ParameterNameChanged implements FunctionBased
         );
     }
 
-    private function methodHasNoNamedArgumentsAnnotation(ReflectionFunctionAbstract $function): bool
+    private function methodHasNoNamedArgumentsAnnotation(ReflectionMethod|ReflectionFunction $function): bool
     {
-        return strpos($function->getDocComment(), self::NO_NAMED_ARGUMENTS_ANNOTATION) !== false;
+        return str_contains($function->getDocComment(), self::NO_NAMED_ARGUMENTS_ANNOTATION);
     }
 }

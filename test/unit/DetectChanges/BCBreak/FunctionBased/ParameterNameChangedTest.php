@@ -8,9 +8,9 @@ use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\ParameterNameChanged;
 use Roave\BetterReflection\BetterReflection;
-use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
-use Roave\BetterReflection\Reflector\ClassReflector;
-use Roave\BetterReflection\Reflector\FunctionReflector;
+use Roave\BetterReflection\Reflection\ReflectionFunction;
+use Roave\BetterReflection\Reflection\ReflectionMethod;
+use Roave\BetterReflection\Reflector\DefaultReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 
 use function array_combine;
@@ -29,8 +29,8 @@ final class ParameterNameChangedTest extends TestCase
      * @dataProvider functionsToBeTested
      */
     public function testDiffs(
-        ReflectionFunctionAbstract $fromFunction,
-        ReflectionFunctionAbstract $toFunction,
+        ReflectionMethod|ReflectionFunction $fromFunction,
+        ReflectionMethod|ReflectionFunction $toFunction,
         array $expectedMessages
     ): void {
         $changes = (new ParameterNameChanged())
@@ -45,9 +45,11 @@ final class ParameterNameChangedTest extends TestCase
     }
 
     /**
-     * @return array<string, array<int, ReflectionFunctionAbstract|array<int, string>>>
-     *
-     * @psalm-return array<string, array{0: ReflectionFunctionAbstract, 1: ReflectionFunctionAbstract, 2: list<string>}>
+     * @return array<string, array{
+     *     0: ReflectionMethod|ReflectionFunction,
+     *     1: ReflectionMethod|ReflectionFunction,
+     *     2: list<string>
+     * }>
      */
     public function functionsToBeTested(): array
     {
@@ -89,10 +91,8 @@ PHP
             $astLocator
         );
 
-        $fromClassReflector = new ClassReflector($fromLocator);
-        $toClassReflector   = new ClassReflector($toLocator);
-        $fromReflector      = new FunctionReflector($fromLocator, $fromClassReflector);
-        $toReflector        = new FunctionReflector($toLocator, $toClassReflector);
+        $fromReflector = new DefaultReflector($fromLocator);
+        $toReflector   = new DefaultReflector($toLocator);
 
         $functions = [
             'changed'      => [
@@ -111,8 +111,8 @@ PHP
                 /** @psalm-param list<string> $errorMessages https://github.com/vimeo/psalm/issues/2772 */
                 static function (string $function, array $errorMessages) use ($fromReflector, $toReflector): array {
                     return [
-                        $fromReflector->reflect($function),
-                        $toReflector->reflect($function),
+                        $fromReflector->reflectFunction($function),
+                        $toReflector->reflectFunction($function),
                         $errorMessages,
                     ];
                 },
