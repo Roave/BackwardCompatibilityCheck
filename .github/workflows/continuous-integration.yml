@@ -138,4 +138,4 @@ jobs:
         run: "wget https://github.com/maglnet/ComposerRequireChecker/releases/latest/download/composer-require-checker.phar"
 
       - name: "Run ComposerRequireChecker"
-        run: "php composer-require-checker.phar check --config-file `pwd`/composer-require-checker-config.json composer.json"
+        run: "php composer-require-checker.phar check composer.json"
