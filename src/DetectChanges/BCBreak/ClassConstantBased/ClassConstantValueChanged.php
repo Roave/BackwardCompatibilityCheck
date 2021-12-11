@@ -19,8 +19,10 @@ final class ClassConstantValueChanged implements ClassConstantBased
             return Changes::empty();
         }
 
+        /** @psalm-suppress MixedAssignment */
         $fromValue = $fromConstant->getValue();
-        $toValue   = $toConstant->getValue();
+        /** @psalm-suppress MixedAssignment */
+        $toValue = $toConstant->getValue();
 
         if ($fromValue === $toValue) {
             return Changes::empty();
