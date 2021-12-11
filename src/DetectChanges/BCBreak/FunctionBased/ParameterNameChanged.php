@@ -12,7 +12,7 @@ use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflection\ReflectionParameter;
 
 use function array_intersect_key;
-use function Safe\sprintf;
+use function sprintf;
 use function str_contains;
 
 /**
