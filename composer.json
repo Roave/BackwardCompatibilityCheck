@@ -5,7 +5,7 @@
         "php": "~8.0.0 || ~8.1.0",
         "ext-json": "*",
         "azjezz/psl": "^1.9.3",
-        "composer/composer": "^2.1.14",
+        "composer/composer": "^2.2.1",
         "nikolaposa/version": "^4.1.0",
         "ocramius/package-versions": "^2.4.0",
         "roave/better-reflection": "5.0.x-dev@DEV",
