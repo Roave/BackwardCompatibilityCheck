@@ -71,6 +71,21 @@ final class Change
         return $this->modificationType === self::SKIPPED;
     }
 
+    /** @internal */
+    public function withFilePositionsIfNotAlreadySet(
+        ?string $file,
+        int $line,
+        ?int $column
+    ): self {
+        $instance = clone $this;
+
+        $instance->file   ??= $file;
+        $instance->line   ??= $line;
+        $instance->column ??= $column;
+
+        return $instance;
+    }
+
     public function onFile(?string $file): self
     {
         $instance = clone $this;

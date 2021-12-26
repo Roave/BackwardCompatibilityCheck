@@ -35,10 +35,7 @@ final class MultipleChecksOnAMethod implements MethodBased
             foreach ($check($fromMethod, $toMethod) as $change) {
                 // Note: this approach allows us to quickly add file/line/column to each change, but in future,
                 //       we will need to push this concern into each checker instead.
-                yield $change
-                    ->onFile($toFile)
-                    ->onLine($toLine)
-                    ->onColumn($toColumn);
+                yield $change->withFilePositionsIfNotAlreadySet($toFile, $toLine, $toColumn);
             }
         }
     }
