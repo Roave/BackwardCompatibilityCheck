@@ -28,6 +28,13 @@ final class MultipleChecksOnAMethodTest extends TestCase
         $from = $this->createMock(ReflectionMethod::class);
         $to   = $this->createMock(ReflectionMethod::class);
 
+        $to->method('getFileName')
+            ->willReturn('foo.php');
+        $to->method('getStartLine')
+            ->willReturn(10);
+        $to->method('getStartColumn')
+            ->willReturn(5);
+
         $checker1
             ->expects(self::once())
             ->method('__invoke')
@@ -48,9 +55,18 @@ final class MultipleChecksOnAMethodTest extends TestCase
 
         Assertion::assertChangesEqual(
             Changes::fromList(
-                Change::added('1', true),
-                Change::added('2', true),
+                Change::added('1', true)
+                    ->onFile('foo.php')
+                    ->onLine(10)
+                    ->onColumn(5),
+                Change::added('2', true)
+                    ->onFile('foo.php')
+                    ->onLine(10)
+                    ->onColumn(5),
                 Change::added('3', true)
+                    ->onFile('foo.php')
+                    ->onLine(10)
+                    ->onColumn(5),
             ),
             $multiCheck($from, $to)
         );

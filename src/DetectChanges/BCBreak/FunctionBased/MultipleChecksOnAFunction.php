@@ -6,6 +6,7 @@ namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased;
 
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
+use Roave\BackwardCompatibility\Formatter\SymbolStartColumn;
 use Roave\BetterReflection\Reflection\ReflectionFunction;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
 
@@ -38,8 +39,19 @@ final class MultipleChecksOnAFunction implements FunctionBased
         ReflectionMethod|ReflectionFunction $fromFunction,
         ReflectionMethod|ReflectionFunction $toFunction
     ): iterable {
+        $toFile   = $toFunction->getFileName();
+        $toLine   = $toFunction->getStartLine();
+        $toColumn = SymbolStartColumn::get($toFunction);
+
         foreach ($this->checks as $check) {
-            yield from $check($fromFunction, $toFunction);
+            foreach ($check($fromFunction, $toFunction) as $change) {
+                // Note: this approach allows us to quickly add file/line/column to each change, but in future,
+                //       we will need to push this concern into each checker instead.
+                yield $change
+                    ->onFile($toFile)
+                    ->onLine($toLine)
+                    ->onColumn($toColumn);
+            }
         }
     }
 }

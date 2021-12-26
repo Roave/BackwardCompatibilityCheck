@@ -6,6 +6,7 @@ namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\TraitBased;
 
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
+use Roave\BackwardCompatibility\Formatter\SymbolStartColumn;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 
 final class MultipleChecksOnATrait implements TraitBased
@@ -26,8 +27,19 @@ final class MultipleChecksOnATrait implements TraitBased
     /** @return iterable<int, Change> */
     private function multipleChecks(ReflectionClass $fromTrait, ReflectionClass $toTrait): iterable
     {
+        $toFile   = $toTrait->getFileName();
+        $toLine   = $toTrait->getStartLine();
+        $toColumn = SymbolStartColumn::get($toTrait);
+
         foreach ($this->checks as $check) {
-            yield from $check($fromTrait, $toTrait);
+            foreach ($check($fromTrait, $toTrait) as $change) {
+                // Note: this approach allows us to quickly add file/line/column to each change, but in future,
+                //       we will need to push this concern into each checker instead.
+                yield $change
+                    ->onFile($toFile)
+                    ->onLine($toLine)
+                    ->onColumn($toColumn);
+            }
         }
     }
 }

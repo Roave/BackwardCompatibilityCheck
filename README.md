@@ -101,6 +101,14 @@ To generate additional documentation for changelogs:
 vendor/bin/roave-backward-compatibility-check --format=markdown > results.md
 ```
 
+### GitHub Actions
+
+When running in GitHub Actions, it is endorsed to use the `--format=github-actions` output format:
+
+```bash
+vendor/bin/roave-backward-compatibility-check --format=github-actions
+```
+
 ### Documentation
 
 If you need further guidance:

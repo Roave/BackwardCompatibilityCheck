@@ -15,19 +15,15 @@ final class Change
     private const REMOVED = 'removed';
     private const SKIPPED = 'skipped';
 
-    /** @psalm-var self::* */
-    private string $modificationType;
-
-    private string $description;
-
-    private bool $isBcBreak;
-
     /** @psalm-param self::* $modificationType */
-    private function __construct(string $modificationType, string $description, bool $isBcBreak)
-    {
-        $this->modificationType = $modificationType;
-        $this->description      = $description;
-        $this->isBcBreak        = $isBcBreak;
+    private function __construct(
+        private string $modificationType,
+        public string $description,
+        private bool $isBcBreak,
+        public ?string $file = null,
+        public ?int $line = null,
+        public ?int $column = null
+    ) {
     }
 
     /** @psalm-pure */
@@ -73,6 +69,33 @@ final class Change
     public function isSkipped(): bool
     {
         return $this->modificationType === self::SKIPPED;
+    }
+
+    public function onFile(?string $file): self
+    {
+        $instance = clone $this;
+
+        $instance->file = $file;
+
+        return $instance;
+    }
+
+    public function onLine(int $line): self
+    {
+        $instance = clone $this;
+
+        $instance->line = $line;
+
+        return $instance;
+    }
+
+    public function onColumn(?int $column): self
+    {
+        $instance = clone $this;
+
+        $instance->column = $column;
+
+        return $instance;
     }
 
     public function __toString(): string
