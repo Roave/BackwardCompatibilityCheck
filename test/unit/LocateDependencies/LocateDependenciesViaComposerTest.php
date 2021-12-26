@@ -92,8 +92,7 @@ final class LocateDependenciesViaComposerTest extends TestCase
         $this
             ->composerInstaller
             ->expects(self::atLeastOnce())
-            ->method('setIgnorePlatformRequirements')
-            ->with(true);
+            ->method('setPlatformRequirementFilter');
 
         $this
             ->composerInstaller
@@ -143,8 +142,7 @@ final class LocateDependenciesViaComposerTest extends TestCase
         $this
             ->composerInstaller
             ->expects(self::atLeastOnce())
-            ->method('setIgnorePlatformRequirements')
-            ->with(true);
+            ->method('setPlatformRequirementFilter');
 
         $this
             ->composerInstaller

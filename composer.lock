@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "574b916addd8e72cdb6f36a6db6f80fd",
+    "content-hash": "d7ebbc6adc7d211d78ffdb8c0b75ce93",
     "packages": [
         {
             "name": "azjezz/psl",
@@ -218,21 +218,22 @@
         },
         {
             "name": "composer/composer",
-            "version": "2.1.14",
+            "version": "2.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-                "reference": "cd28fc05b0c9d3beaf58b57018725c4dc15a6446"
+                "reference": "bbc265e16561ab8e0f5e7cac395ea72640251f0c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/composer/zipball/cd28fc05b0c9d3beaf58b57018725c4dc15a6446",
-                "reference": "cd28fc05b0c9d3beaf58b57018725c4dc15a6446",
+                "url": "https://api.github.com/repos/composer/composer/zipball/bbc265e16561ab8e0f5e7cac395ea72640251f0c",
+                "reference": "bbc265e16561ab8e0f5e7cac395ea72640251f0c",
                 "shasum": ""
             },
             "require": {
                 "composer/ca-bundle": "^1.0",
                 "composer/metadata-minifier": "^1.0",
+                "composer/pcre": "^1.0",
                 "composer/semver": "^3.0",
                 "composer/spdx-licenses": "^1.2",
                 "composer/xdebug-handler": "^2.0",
@@ -262,7 +263,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "2.1-dev"
+                    "dev-main": "2.2-dev"
                 }
             },
             "autoload": {
@@ -296,7 +297,7 @@
             "support": {
                 "irc": "ircs://irc.libera.chat:6697/composer",
                 "issues": "https://github.com/composer/composer/issues",
-                "source": "https://github.com/composer/composer/tree/2.1.14"
+                "source": "https://github.com/composer/composer/tree/2.2.1"
             },
             "funding": [
                 {
@@ -312,7 +313,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-11-30T09:51:43+00:00"
+            "time": "2021-12-22T21:21:31+00:00"
         },
         {
             "name": "composer/metadata-minifier",
@@ -1133,16 +1134,16 @@
         },
         {
             "name": "roave/better-reflection",
-            "version": "5.0.x-dev",
+            "version": "5.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/BetterReflection.git",
-                "reference": "62832d3c1b046e48f31c49ec50c953ee85584861"
+                "reference": "24a030165953af5e4193502de1b860e3e99633d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/BetterReflection/zipball/62832d3c1b046e48f31c49ec50c953ee85584861",
-                "reference": "62832d3c1b046e48f31c49ec50c953ee85584861",
+                "url": "https://api.github.com/repos/Roave/BetterReflection/zipball/24a030165953af5e4193502de1b860e3e99633d3",
+                "reference": "24a030165953af5e4193502de1b860e3e99633d3",
                 "shasum": ""
             },
             "require": {
@@ -1159,13 +1160,12 @@
                 "doctrine/coding-standard": "^9.0.0",
                 "phpstan/phpstan": "^1.2.0",
                 "phpunit/phpunit": "^9.5.9",
-                "roave/infection-static-analysis-plugin": "^1.12.0",
+                "roave/infection-static-analysis-plugin": "^1.13.0",
                 "vimeo/psalm": "^4.15.0"
             },
             "suggest": {
                 "composer/composer": "Required to use the ComposerSourceLocator"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -1201,9 +1201,9 @@
             "description": "Better Reflection - an improved code reflection API",
             "support": {
                 "issues": "https://github.com/Roave/BetterReflection/issues",
-                "source": "https://github.com/Roave/BetterReflection/tree/5.0.x"
+                "source": "https://github.com/Roave/BetterReflection/tree/5.0.0"
             },
-            "time": "2021-12-09T16:30:21+00:00"
+            "time": "2021-12-25T17:47:19+00:00"
         },
         {
             "name": "roave/signature",
@@ -6396,7 +6396,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "roave/better-reflection": 20,
         "roave/security-advisories": 20
     },
     "prefer-stable": false,
