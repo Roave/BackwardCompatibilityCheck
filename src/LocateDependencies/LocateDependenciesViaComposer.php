@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\LocateDependencies;
 
+use Composer\Filter\PlatformRequirementFilter\IgnoreAllPlatformRequirementFilter;
 use Composer\Installer;
 use Psl;
 use Psl\Env;
@@ -49,7 +50,7 @@ final class LocateDependenciesViaComposer implements LocateDependencies
              *                 of composer, as we otherwise need to re-design how an {@see Installer} is constructed.
              */
             $installer->setRunScripts(false);
-            $installer->setIgnorePlatformRequirements(true);
+            $installer->setPlatformRequirementFilter(new IgnoreAllPlatformRequirementFilter());
 
             $installer->run();
         }, $installationPath);
