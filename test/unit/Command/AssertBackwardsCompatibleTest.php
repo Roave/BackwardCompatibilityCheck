@@ -238,6 +238,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
             ['from', $fromSha],
             ['to', $toSha],
             ['install-development-dependencies', false],
+            ['format', ['console']],
         ]);
         $this->input->method('getArgument')->willReturnMap([
             ['sources-path', 'src'],

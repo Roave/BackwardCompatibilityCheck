@@ -6,6 +6,7 @@ namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased;
 
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
+use Roave\BackwardCompatibility\Formatter\SymbolStartColumn;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 
 final class MultipleChecksOnAnInterface implements InterfaceBased
@@ -26,8 +27,16 @@ final class MultipleChecksOnAnInterface implements InterfaceBased
     /** @return iterable<int, Change> */
     private function multipleChecks(ReflectionClass $fromInterface, ReflectionClass $toInterface): iterable
     {
+        $toFile   = $toInterface->getFileName();
+        $toLine   = $toInterface->getStartLine();
+        $toColumn = SymbolStartColumn::get($toInterface);
+
         foreach ($this->checks as $check) {
-            yield from $check($fromInterface, $toInterface);
+            foreach ($check($fromInterface, $toInterface) as $change) {
+                // Note: this approach allows us to quickly add file/line/column to each change, but in future,
+                //       we will need to push this concern into each checker instead.
+                yield $change->withFilePositionsIfNotAlreadySet($toFile, $toLine, $toColumn);
+            }
         }
     }
 }

@@ -6,6 +6,7 @@ namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased;
 
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
+use Roave\BackwardCompatibility\Formatter\SymbolStartColumn;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 
 final class MultipleChecksOnAClass implements ClassBased
@@ -26,8 +27,16 @@ final class MultipleChecksOnAClass implements ClassBased
     /** @return iterable<int, Change> */
     private function multipleChecks(ReflectionClass $fromClass, ReflectionClass $toClass): iterable
     {
+        $toFile   = $toClass->getFileName();
+        $toLine   = $toClass->getStartLine();
+        $toColumn = SymbolStartColumn::get($toClass);
+
         foreach ($this->checks as $check) {
-            yield from $check($fromClass, $toClass);
+            foreach ($check($fromClass, $toClass) as $change) {
+                // Note: this approach allows us to quickly add file/line/column to each change, but in future,
+                //       we will need to push this concern into each checker instead.
+                yield $change->withFilePositionsIfNotAlreadySet($toFile, $toLine, $toColumn);
+            }
         }
     }
 }

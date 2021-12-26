@@ -15,12 +15,12 @@ use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 /**
  * @covers \Roave\BackwardCompatibility\Formatter\FunctionName
  */
-final class ReflectionFunctionAbstractNameTest extends TestCase
+final class FunctionNameTest extends TestCase
 {
     /**
      * @dataProvider functionsToBeTested
      */
-    public function testName(ReflectionFunction|ReflectionMethod $function, string $expectedName) : void
+    public function testName(ReflectionFunction|ReflectionMethod $function, string $expectedName): void
     {
         self::assertSame($expectedName, (new FunctionName())($function));
     }
@@ -31,7 +31,7 @@ final class ReflectionFunctionAbstractNameTest extends TestCase
      *     1: string
      * }>
      */
-    public function functionsToBeTested() : array
+    public function functionsToBeTested(): array
     {
         $locator = new StringSourceLocator(
             <<<'PHP'
@@ -56,7 +56,7 @@ PHP
             (new BetterReflection())->astLocator()
         );
 
-        $reflector    = new DefaultReflector($locator);
+        $reflector = new DefaultReflector($locator);
 
         return [
             'a'       => [

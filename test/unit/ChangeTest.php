@@ -47,6 +47,30 @@ final class ChangeTest extends TestCase
         self::assertFalse($change->isRemoved());
     }
 
+    public function testCanRecordFileLineAndColumnPosition(): void
+    {
+        $change = Change::changed('foo', false)
+            ->onFile('a-file')
+            ->onLine(123)
+            ->onColumn(456);
+
+        self::assertSame('a-file', $change->file);
+        self::assertSame(123, $change->line);
+        self::assertSame(456, $change->column);
+    }
+
+    public function testWillNotOverrideFilePositionsIfAlreadySet(): void
+    {
+        $change = Change::changed('foo', false)
+            ->withFilePositionsIfNotAlreadySet('foo.php', 10, 20)
+            ->withFilePositionsIfNotAlreadySet('bar.php', 30, 40)
+            ->withFilePositionsIfNotAlreadySet('baz.php', 50, 60);
+
+        self::assertSame('foo.php', $change->file);
+        self::assertSame(10, $change->line);
+        self::assertSame(20, $change->column);
+    }
+
     public function testBcChanged(): void
     {
         $changeText = uniqid('changeText', true);

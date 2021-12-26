@@ -12,6 +12,7 @@ use Psl\Type;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\CompareApi;
 use Roave\BackwardCompatibility\Factory\ComposerInstallationReflectorFactory;
+use Roave\BackwardCompatibility\Formatter\GithubActionsFormatter;
 use Roave\BackwardCompatibility\Formatter\MarkdownPipedToSymfonyConsoleFormatter;
 use Roave\BackwardCompatibility\Formatter\SymfonyConsoleTextFormatter;
 use Roave\BackwardCompatibility\Git\CheckedOutRepository;
@@ -94,7 +95,8 @@ final class AssertBackwardsCompatible extends Command
                 'format',
                 null,
                 InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
-                'Currently only supports "markdown"'
+                'Currently supports "console", "markdown" or "github-actions"',
+                ['console']
             )
             ->addOption(
                 'install-development-dependencies',
@@ -174,12 +176,20 @@ USAGE
                 )
             );
 
-            (new SymfonyConsoleTextFormatter($stdErr))->write($changes);
+            $formatters = [
+                'console'        => new SymfonyConsoleTextFormatter($stdErr),
+                'markdown'       => new MarkdownPipedToSymfonyConsoleFormatter($output),
+                'github-actions' => new GithubActionsFormatter($output, $toPath),
+            ];
 
-            $outputFormats = Type\vec(Type\string())->coerce($input->getOption('format') ?: []);
-
-            if (Iter\contains($outputFormats, 'markdown')) {
-                (new MarkdownPipedToSymfonyConsoleFormatter($output))->write($changes);
+            foreach (
+                Type\vec(Type\union(
+                    Type\literal_scalar('console'),
+                    Type\literal_scalar('markdown'),
+                    Type\literal_scalar('github-actions'),
+                ))->coerce((array) $input->getOption('format')) as $format
+            ) {
+                $formatters[$format]->write($changes);
             }
         } finally {
             $this->git->remove($fromPath);

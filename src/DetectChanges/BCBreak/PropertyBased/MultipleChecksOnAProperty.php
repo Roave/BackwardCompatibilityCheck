@@ -6,6 +6,7 @@ namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased;
 
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
+use Roave\BackwardCompatibility\Formatter\SymbolStartColumn;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
 
 final class MultipleChecksOnAProperty implements PropertyBased
@@ -26,8 +27,17 @@ final class MultipleChecksOnAProperty implements PropertyBased
     /** @return iterable<int, Change> */
     private function multipleChecks(ReflectionProperty $fromProperty, ReflectionProperty $toProperty): iterable
     {
+        $toLine   = $toProperty->getStartLine();
+        $toColumn = SymbolStartColumn::get($toProperty);
+        $toFile   = $toProperty->getImplementingClass()
+            ->getFileName();
+
         foreach ($this->checks as $check) {
-            yield from $check($fromProperty, $toProperty);
+            foreach ($check($fromProperty, $toProperty) as $change) {
+                // Note: this approach allows us to quickly add file/line/column to each change, but in future,
+                //       we will need to push this concern into each checker instead.
+                yield $change->withFilePositionsIfNotAlreadySet($toFile, $toLine, $toColumn);
+            }
         }
     }
 }
