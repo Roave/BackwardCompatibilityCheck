@@ -45,6 +45,13 @@ final class MarkdownPipedToSymfonyConsoleFormatter implements OutputFormatter
                 },
                 ...$arrayOfChanges
             ), '')
+            . "\n# Skipped\n"
+            . Str\join($this->convertFilteredChangesToMarkdownBulletList(
+                static function (Change $change): bool {
+                    return $change->isSkipped();
+                },
+                ...$arrayOfChanges
+            ), '')
         );
     }
 
@@ -58,7 +65,7 @@ final class MarkdownPipedToSymfonyConsoleFormatter implements OutputFormatter
         return Vec\map(
             Vec\filter($changes, $filterFunction),
             static function (Change $change): string {
-                return ' - ' . Str\replace_every(Str\trim($change->__toString()), ['ADDED: ' => '', 'CHANGED: ' => '', 'REMOVED: ' => '']) . "\n";
+                return ' - ' . Str\replace_every(Str\trim($change->__toString()), ['ADDED: ' => '', 'CHANGED: ' => '', 'REMOVED: ' => '', 'SKIPPED: ' => '']) . "\n";
             }
         );
     }
