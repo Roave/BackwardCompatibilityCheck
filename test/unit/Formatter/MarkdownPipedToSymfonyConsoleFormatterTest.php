@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\Formatter;
 
+use Exception;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
@@ -32,6 +33,9 @@ final class MarkdownPipedToSymfonyConsoleFormatterTest extends TestCase
  - [BC] Something removed
  - Something removed
 
+# Skipped
+ - [BC] A failure happened
+
 EOF;
 
         $output->expects(self::once())
@@ -46,7 +50,8 @@ EOF;
             Change::changed('Something changed', true),
             Change::changed('Something changed', false),
             Change::removed('Something removed', true),
-            Change::removed('Something removed', false)
+            Change::removed('Something removed', false),
+            Change::skippedDueToFailure(new Exception('A failure happened')),
         ));
     }
 }
