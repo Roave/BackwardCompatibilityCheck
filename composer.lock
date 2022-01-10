@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3745b866b6e2fe5d1803b281a70fa776",
+    "content-hash": "c17f7f609fedc193d0844c979ab1f3f9",
     "packages": [
         {
             "name": "azjezz/psl",
@@ -1134,16 +1134,16 @@
         },
         {
             "name": "roave/better-reflection",
-            "version": "5.0.3",
+            "version": "5.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/BetterReflection.git",
-                "reference": "234275bac43335491c09c57da064562d5e0ef98b"
+                "reference": "0802bfbd3fc8ed2e0eb79e9ea3012086b2ea55bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/BetterReflection/zipball/234275bac43335491c09c57da064562d5e0ef98b",
-                "reference": "234275bac43335491c09c57da064562d5e0ef98b",
+                "url": "https://api.github.com/repos/Roave/BetterReflection/zipball/0802bfbd3fc8ed2e0eb79e9ea3012086b2ea55bb",
+                "reference": "0802bfbd3fc8ed2e0eb79e9ea3012086b2ea55bb",
                 "shasum": ""
             },
             "require": {
@@ -1201,9 +1201,9 @@
             "description": "Better Reflection - an improved code reflection API",
             "support": {
                 "issues": "https://github.com/Roave/BetterReflection/issues",
-                "source": "https://github.com/Roave/BetterReflection/tree/5.0.3"
+                "source": "https://github.com/Roave/BetterReflection/tree/5.0.5"
             },
-            "time": "2022-01-04T19:47:54+00:00"
+            "time": "2022-01-09T17:37:40+00:00"
         },
         {
             "name": "roave/signature",
