@@ -1,6 +1,6 @@
 # Roave Backward Compatibility Check
 
-[![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2FRoave%2FBackwardCompatibilityCheck%2Fmaster)](https://dashboard.stryker-mutator.io/reports/github.com/Roave/BackwardCompatibilityCheck/master)
+[![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2FRoave%2FBackwardCompatibilityCheck%2F6.1.x)](https://dashboard.stryker-mutator.io/reports/github.com/Roave/BackwardCompatibilityCheck/6.1.x)
 [![Type Coverage](https://shepherd.dev/github/Roave/BackwardCompatibilityCheck/coverage.svg)](https://shepherd.dev/github/Roave/BackwardCompatibilityCheck)
 [![Latest Stable Version](https://poser.pugx.org/roave/backward-compatibility-check/v/stable)](https://packagist.org/packages/roave/backward-compatibility-check)
 [![License](https://poser.pugx.org/roave/backward-compatibility-check/license)](https://packagist.org/packages/roave/backward-compatibility-check)
