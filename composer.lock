@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c3cf03305dc1e0d19d4af9074d00b878",
+    "content-hash": "c94f71d9313970795870c3bfe4904391",
     "packages": [
         {
             "name": "azjezz/psl",
@@ -919,27 +919,27 @@
         },
         {
             "name": "ocramius/package-versions",
-            "version": "2.4.0",
+            "version": "2.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Ocramius/PackageVersions.git",
-                "reference": "8e96fb9f4671eff86e8e487ff45c49bdc2d2d677"
+                "reference": "deded4228eed848fc5eae2fa0149ceb43afd012a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Ocramius/PackageVersions/zipball/8e96fb9f4671eff86e8e487ff45c49bdc2d2d677",
-                "reference": "8e96fb9f4671eff86e8e487ff45c49bdc2d2d677",
+                "url": "https://api.github.com/repos/Ocramius/PackageVersions/zipball/deded4228eed848fc5eae2fa0149ceb43afd012a",
+                "reference": "deded4228eed848fc5eae2fa0149ceb43afd012a",
                 "shasum": ""
             },
             "require": {
-                "composer-runtime-api": "^2.1.0",
+                "composer-runtime-api": "^2.2.0",
                 "php": "~8.0.0 || ~8.1.0"
             },
             "replace": {
                 "composer/package-versions-deprecated": "*"
             },
             "require-dev": {
-                "composer/composer": "^2.1.8",
+                "composer/composer": "^2.2.0",
                 "doctrine/coding-standard": "^9.0.0",
                 "ext-zip": "^1.15.0",
                 "phpunit/phpunit": "^9.5.9",
@@ -965,7 +965,7 @@
             "description": "Provides efficient querying for installed package versions (no runtime IO)",
             "support": {
                 "issues": "https://github.com/Ocramius/PackageVersions/issues",
-                "source": "https://github.com/Ocramius/PackageVersions/tree/2.4.0"
+                "source": "https://github.com/Ocramius/PackageVersions/tree/2.5.0"
             },
             "funding": [
                 {
@@ -977,7 +977,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-09-19T02:32:19+00:00"
+            "time": "2021-12-22T12:00:55+00:00"
         },
         {
             "name": "psr/container",
@@ -3035,16 +3035,16 @@
         },
         {
             "name": "infection/infection",
-            "version": "0.26.0",
+            "version": "0.26.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/infection/infection.git",
-                "reference": "e346a2ff4ebe277f3f4e8cc295c033dcab13e7f0"
+                "reference": "1e584ea134a1bd3065c1305e14fe3382b30eb2a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/infection/infection/zipball/e346a2ff4ebe277f3f4e8cc295c033dcab13e7f0",
-                "reference": "e346a2ff4ebe277f3f4e8cc295c033dcab13e7f0",
+                "url": "https://api.github.com/repos/infection/infection/zipball/1e584ea134a1bd3065c1305e14fe3382b30eb2a9",
+                "reference": "1e584ea134a1bd3065c1305e14fe3382b30eb2a9",
                 "shasum": ""
             },
             "require": {
@@ -3145,7 +3145,7 @@
             ],
             "support": {
                 "issues": "https://github.com/infection/infection/issues",
-                "source": "https://github.com/infection/infection/tree/0.26.0"
+                "source": "https://github.com/infection/infection/tree/0.26.1"
             },
             "funding": [
                 {
@@ -3157,7 +3157,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2022-01-10T10:25:48+00:00"
+            "time": "2022-01-11T20:49:25+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -4314,20 +4314,20 @@
         },
         {
             "name": "roave/infection-static-analysis-plugin",
-            "version": "1.14.0",
+            "version": "1.15.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/infection-static-analysis-plugin.git",
-                "reference": "286dc18198869343d484ca1b8b82c4fc8f3238ce"
+                "reference": "d75c3bdf5d593343e9aed532eef61de0ef840951"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/infection-static-analysis-plugin/zipball/286dc18198869343d484ca1b8b82c4fc8f3238ce",
-                "reference": "286dc18198869343d484ca1b8b82c4fc8f3238ce",
+                "url": "https://api.github.com/repos/Roave/infection-static-analysis-plugin/zipball/d75c3bdf5d593343e9aed532eef61de0ef840951",
+                "reference": "d75c3bdf5d593343e9aed532eef61de0ef840951",
                 "shasum": ""
             },
             "require": {
-                "infection/infection": "0.26.0",
+                "infection/infection": "0.26.1",
                 "ocramius/package-versions": "^1.9.0 || ^2.0.0",
                 "php": "~7.4.7|~8.0.0|~8.1.0",
                 "sanmai/later": "^0.1.2",
@@ -4359,9 +4359,9 @@
             "description": "Static analysis on top of mutation testing - prevents escaped mutants from being invalid according to static analysis",
             "support": {
                 "issues": "https://github.com/Roave/infection-static-analysis-plugin/issues",
-                "source": "https://github.com/Roave/infection-static-analysis-plugin/tree/1.14.0"
+                "source": "https://github.com/Roave/infection-static-analysis-plugin/tree/1.15.0"
             },
-            "time": "2022-01-10T12:40:52+00:00"
+            "time": "2022-01-12T08:28:01+00:00"
         },
         {
             "name": "roave/security-advisories",
@@ -6414,5 +6414,5 @@
     "platform-overrides": {
         "php": "8.0.99"
     },
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.2.0"
 }
