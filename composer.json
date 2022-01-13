@@ -7,7 +7,7 @@
         "azjezz/psl": "^1.9.3",
         "composer/composer": "^2.2.4",
         "nikolaposa/version": "^4.1.0",
-        "ocramius/package-versions": "^2.4.0",
+        "ocramius/package-versions": "^2.5.0",
         "roave/better-reflection": "^5.0.6",
         "symfony/console": "^5.4.2"
     },
