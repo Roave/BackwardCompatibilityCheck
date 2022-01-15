@@ -113,6 +113,10 @@ final class ParameterNameChanged implements FunctionBased
 
     private function methodHasNoNamedArgumentsAnnotation(ReflectionMethod|ReflectionFunction $function): bool
     {
+        if ($function instanceof ReflectionMethod && str_contains($function->getDeclaringClass()->getDocComment(), self::NO_NAMED_ARGUMENTS_ANNOTATION)) {
+            return true;
+        }
+
         return str_contains($function->getDocComment(), self::NO_NAMED_ARGUMENTS_ANNOTATION);
     }
 }
