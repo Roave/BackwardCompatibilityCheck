@@ -120,4 +120,43 @@ PHP
             )
         );
     }
+
+    public function testMethodWhereClassIsAnnotatedNoNamedParameterDoesNotCauseBreak(): void
+    {
+        $astLocator = (new BetterReflection())->astLocator();
+
+        $fromLocator = new StringSourceLocator(
+            <<<'PHP'
+<?php
+
+/** @no-named-arguments */
+class TheClass {
+    public function theMethod(int $a) {}
+}
+PHP
+            ,
+            $astLocator
+        );
+
+        $toLocator = new StringSourceLocator(
+            <<<'PHP'
+<?php
+
+/** @no-named-arguments */
+class TheClass {
+    public function theMethod(int $b) {}
+}
+PHP
+            ,
+            $astLocator
+        );
+
+        $fromClassReflector = new DefaultReflector($fromLocator);
+        $toClassReflector   = new DefaultReflector($toLocator);
+        $fromMethod         = $fromClassReflector->reflectClass('TheClass')->getMethod('theMethod');
+        $toMethod           = $toClassReflector->reflectClass('TheClass')->getMethod('theMethod');
+
+        $changes = (new ParameterNameChanged())($fromMethod, $toMethod);
+        self::assertCount(0, $changes);
+    }
 }
