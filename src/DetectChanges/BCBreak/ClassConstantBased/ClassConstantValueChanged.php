@@ -17,7 +17,7 @@ use function var_export;
 
 final class ClassConstantValueChanged implements ClassConstantBased
 {
-    private const MAGIC_DIR_OR_FILE_VALUE = '__DIR_OR_FILE__';
+    private const MAGIC_DIR_OR_FILE_VALUE = '__DIR_HAS_BEEN_REPLACED__';
 
     public function __invoke(ReflectionClassConstant $fromConstant, ReflectionClassConstant $toConstant): Changes
     {
