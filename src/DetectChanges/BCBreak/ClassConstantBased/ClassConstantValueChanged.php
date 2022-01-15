@@ -9,10 +9,16 @@ use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClassConstant;
 
+use function dirname;
+use function is_string;
+use function realpath;
+use function str_replace;
 use function var_export;
 
 final class ClassConstantValueChanged implements ClassConstantBased
 {
+    private const MAGIC_DIR_OR_FILE_VALUE = '__DIR_OR_FILE__';
+
     public function __invoke(ReflectionClassConstant $fromConstant, ReflectionClassConstant $toConstant): Changes
     {
         if ($fromConstant->isPrivate()) {
@@ -20,9 +26,9 @@ final class ClassConstantValueChanged implements ClassConstantBased
         }
 
         /** @psalm-suppress MixedAssignment */
-        $fromValue = $fromConstant->getValue();
+        $fromValue = $this->getValueWithDirectoryRemoved($fromConstant);
         /** @psalm-suppress MixedAssignment */
-        $toValue = $toConstant->getValue();
+        $toValue = $this->getValueWithDirectoryRemoved($toConstant);
 
         if ($fromValue === $toValue) {
             return Changes::empty();
@@ -38,5 +44,21 @@ final class ClassConstantValueChanged implements ClassConstantBased
             ),
             true
         ));
+    }
+
+    private function getValueWithDirectoryRemoved(ReflectionClassConstant $constant): mixed
+    {
+        $value = $constant->getValue();
+
+        if (! is_string($value)) {
+            return $value;
+        }
+
+        $filePath = $constant->getDeclaringClass()->getFileName();
+        if (! $filePath) {
+            return $value;
+        }
+
+        return str_replace(dirname(realpath($filePath)), self::MAGIC_DIR_OR_FILE_VALUE, $value);
     }
 }

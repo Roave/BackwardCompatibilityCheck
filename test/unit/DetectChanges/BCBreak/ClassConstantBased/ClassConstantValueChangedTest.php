@@ -11,11 +11,13 @@ use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassConstantBased\ClassCo
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionClassConstant;
 use Roave\BetterReflection\Reflector\DefaultReflector;
+use Roave\BetterReflection\SourceLocator\Type\SingleFileSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 
 use function array_combine;
 use function array_keys;
 use function array_map;
+use function array_merge;
 use function iterator_to_array;
 
 /**
@@ -137,6 +139,42 @@ PHP
                 array_keys($properties),
                 $properties
             )
+        );
+    }
+
+    public function testConstantsWithDir(): void
+    {
+        $astLocator = (new BetterReflection())->astLocator();
+
+        // Must be a real file in this test, otherwise __DIR__ cannot be compiled by Better Reflection
+        $fromLocator = new SingleFileSourceLocator(__DIR__ . '/../../../../asset/api/old/ClassWithDirConstants.php', $astLocator);
+        $toLocator   = new SingleFileSourceLocator(__DIR__ . '/../../../../asset/api/new/ClassWithDirConstants.php', $astLocator);
+
+        $fromClassReflector = new DefaultReflector($fromLocator);
+        $toClassReflector   = new DefaultReflector($toLocator);
+        $fromClass          = $fromClassReflector->reflectClass('ClassWithDirConstants');
+        $toClass            = $toClassReflector->reflectClass('ClassWithDirConstants');
+
+        $fromConstantThatDoesNotChange  = Type\object(ReflectionClassConstant::class)
+            ->coerce($fromClass->getReflectionConstant('valueDoesNotChange'));
+        $toConstantThatDoesNotChange    = Type\object(ReflectionClassConstant::class)
+            ->coerce($toClass->getReflectionConstant('valueDoesNotChange'));
+        $changesWhereValueDoesNotChange = (new ClassConstantValueChanged())($fromConstantThatDoesNotChange, $toConstantThatDoesNotChange);
+
+        $fromConstantThatDoesChange  = Type\object(ReflectionClassConstant::class)
+            ->coerce($fromClass->getReflectionConstant('valueDoesChange'));
+        $toConstantThatDoesChange    = Type\object(ReflectionClassConstant::class)
+            ->coerce($toClass->getReflectionConstant('valueDoesChange'));
+        $changesWhereValueDoesChange = (new ClassConstantValueChanged())($fromConstantThatDoesChange, $toConstantThatDoesChange);
+
+        self::assertSame(
+            ['[BC] CHANGED: Value of constant ClassWithDirConstants::valueDoesChange changed from \'__DIR_OR_FILE__/foo\' to \'__DIR_OR_FILE__/bar\''],
+            array_map(static function (Change $change): string {
+                return $change->__toString();
+            }, array_merge(
+                iterator_to_array($changesWhereValueDoesChange),
+                iterator_to_array($changesWhereValueDoesNotChange)
+            ))
         );
     }
 }
