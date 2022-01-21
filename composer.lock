@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f8d7c84290782040c7e56927ff4171e2",
+    "content-hash": "c878cc6753b27b3fb487dd3a0fe3b820",
     "packages": [
         {
             "name": "azjezz/psl",
@@ -3045,16 +3045,16 @@
         },
         {
             "name": "infection/infection",
-            "version": "0.26.1",
+            "version": "0.26.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/infection/infection.git",
-                "reference": "1e584ea134a1bd3065c1305e14fe3382b30eb2a9"
+                "reference": "c4c73907ac289b6562f7c553d60d05dfc345a577"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/infection/infection/zipball/1e584ea134a1bd3065c1305e14fe3382b30eb2a9",
-                "reference": "1e584ea134a1bd3065c1305e14fe3382b30eb2a9",
+                "url": "https://api.github.com/repos/infection/infection/zipball/c4c73907ac289b6562f7c553d60d05dfc345a577",
+                "reference": "c4c73907ac289b6562f7c553d60d05dfc345a577",
                 "shasum": ""
             },
             "require": {
@@ -3155,7 +3155,7 @@
             ],
             "support": {
                 "issues": "https://github.com/infection/infection/issues",
-                "source": "https://github.com/infection/infection/tree/0.26.1"
+                "source": "https://github.com/infection/infection/tree/0.26.2"
             },
             "funding": [
                 {
@@ -3167,7 +3167,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2022-01-11T20:49:25+00:00"
+            "time": "2022-01-20T04:43:30+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -4324,20 +4324,20 @@
         },
         {
             "name": "roave/infection-static-analysis-plugin",
-            "version": "1.15.0",
+            "version": "1.16.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/infection-static-analysis-plugin.git",
-                "reference": "d75c3bdf5d593343e9aed532eef61de0ef840951"
+                "reference": "d0eb9d2667d9f38a36cf86efc73712c9d65c7ef1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/infection-static-analysis-plugin/zipball/d75c3bdf5d593343e9aed532eef61de0ef840951",
-                "reference": "d75c3bdf5d593343e9aed532eef61de0ef840951",
+                "url": "https://api.github.com/repos/Roave/infection-static-analysis-plugin/zipball/d0eb9d2667d9f38a36cf86efc73712c9d65c7ef1",
+                "reference": "d0eb9d2667d9f38a36cf86efc73712c9d65c7ef1",
                 "shasum": ""
             },
             "require": {
-                "infection/infection": "0.26.1",
+                "infection/infection": "0.26.2",
                 "ocramius/package-versions": "^1.9.0 || ^2.0.0",
                 "php": "~7.4.7|~8.0.0|~8.1.0",
                 "sanmai/later": "^0.1.2",
@@ -4369,9 +4369,9 @@
             "description": "Static analysis on top of mutation testing - prevents escaped mutants from being invalid according to static analysis",
             "support": {
                 "issues": "https://github.com/Roave/infection-static-analysis-plugin/issues",
-                "source": "https://github.com/Roave/infection-static-analysis-plugin/tree/1.15.0"
+                "source": "https://github.com/Roave/infection-static-analysis-plugin/tree/1.16.0"
             },
-            "time": "2022-01-12T08:28:01+00:00"
+            "time": "2022-01-20T08:30:20+00:00"
         },
         {
             "name": "roave/security-advisories",
