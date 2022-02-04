@@ -117,7 +117,7 @@ final class LocateDependenciesViaComposerTest extends TestCase
         ])->coerce($reflectionLocators->getValue($locator));
 
         self::assertCount(2, $locators);
-        self::assertInstanceOf(PhpInternalSourceLocator::class, $locators[1]);
+        self::assertInstanceOf(PhpInternalSourceLocator::class, $locators[0]);
     }
 
     public function testInternalReflectionStubsTakePriorityOverInstalledPolyfills(): void
@@ -180,6 +180,6 @@ final class LocateDependenciesViaComposerTest extends TestCase
         ])->coerce($reflectionLocators->getValue($locator));
 
         self::assertCount(2, $locators);
-        self::assertInstanceOf(PhpInternalSourceLocator::class, $locators[1]);
+        self::assertInstanceOf(PhpInternalSourceLocator::class, $locators[0]);
     }
 }
