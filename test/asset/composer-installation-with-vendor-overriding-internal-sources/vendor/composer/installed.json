@@ -1,0 +1,10 @@
+[
+  {
+    "name": "a/b",
+    "autoload": {
+      "files": [
+        "stringable-polyfill.php"
+      ]
+    }
+  }
+]
