@@ -14,6 +14,7 @@ use Psl\Type;
 use ReflectionProperty;
 use Roave\BackwardCompatibility\LocateDependencies\LocateDependenciesViaComposer;
 use Roave\BetterReflection\BetterReflection;
+use Roave\BetterReflection\Reflector\DefaultReflector;
 use Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\SourceLocator;
@@ -116,7 +117,20 @@ final class LocateDependenciesViaComposerTest extends TestCase
         ])->coerce($reflectionLocators->getValue($locator));
 
         self::assertCount(2, $locators);
-        self::assertInstanceOf(PhpInternalSourceLocator::class, $locators[1]);
+        self::assertInstanceOf(PhpInternalSourceLocator::class, $locators[0]);
+    }
+
+    public function testInternalReflectionStubsTakePriorityOverInstalledPolyfills(): void
+    {
+        $this->expectedInstallationPath = Type\string()
+            ->assert(Filesystem\canonicalize(__DIR__ . '/../../asset/composer-installation-with-vendor-overriding-internal-sources'));
+
+        $reflector = new DefaultReflector(($this->locateDependencies)($this->expectedInstallationPath, false));
+
+        self::assertTrue(
+            $reflector->reflectClass('Stringable')
+                ->isInternal()
+        );
     }
 
     public function testDevelopmentDependenciesCanBeOptionallyInstalled(): void
@@ -166,6 +180,6 @@ final class LocateDependenciesViaComposerTest extends TestCase
         ])->coerce($reflectionLocators->getValue($locator));
 
         self::assertCount(2, $locators);
-        self::assertInstanceOf(PhpInternalSourceLocator::class, $locators[1]);
+        self::assertInstanceOf(PhpInternalSourceLocator::class, $locators[0]);
     }
 }
