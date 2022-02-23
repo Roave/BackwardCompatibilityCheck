@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "791e79c9d634da9a1bce0e0876d56cdb",
+    "content-hash": "cfd8ecbe2d9bcac582be6ff20f7bae7e",
     "packages": [
         {
             "name": "azjezz/psl",
@@ -1160,16 +1160,16 @@
         },
         {
             "name": "roave/better-reflection",
-            "version": "5.0.7",
+            "version": "5.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/BetterReflection.git",
-                "reference": "d5c9a1afe2ed031c1c86aae58d22f70edb586c67"
+                "reference": "7c081020c7db51256bea2f266ad36e61cc454cca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/BetterReflection/zipball/d5c9a1afe2ed031c1c86aae58d22f70edb586c67",
-                "reference": "d5c9a1afe2ed031c1c86aae58d22f70edb586c67",
+                "url": "https://api.github.com/repos/Roave/BetterReflection/zipball/7c081020c7db51256bea2f266ad36e61cc454cca",
+                "reference": "7c081020c7db51256bea2f266ad36e61cc454cca",
                 "shasum": ""
             },
             "require": {
@@ -1184,10 +1184,10 @@
             },
             "require-dev": {
                 "doctrine/coding-standard": "^9.0.0",
-                "phpstan/phpstan": "^1.2.0",
-                "phpunit/phpunit": "^9.5.9",
-                "roave/infection-static-analysis-plugin": "^1.13.0",
-                "vimeo/psalm": "^4.15.0"
+                "phpstan/phpstan": "^1.4.6",
+                "phpunit/phpunit": "^9.5.13",
+                "roave/infection-static-analysis-plugin": "^1.17.0",
+                "vimeo/psalm": "^4.21"
             },
             "suggest": {
                 "composer/composer": "Required to use the ComposerSourceLocator"
@@ -1227,9 +1227,9 @@
             "description": "Better Reflection - an improved code reflection API",
             "support": {
                 "issues": "https://github.com/Roave/BetterReflection/issues",
-                "source": "https://github.com/Roave/BetterReflection/tree/5.0.7"
+                "source": "https://github.com/Roave/BetterReflection/tree/5.1.0"
             },
-            "time": "2022-01-18T15:05:01+00:00"
+            "time": "2022-02-22T14:54:47+00:00"
         },
         {
             "name": "roave/signature",
