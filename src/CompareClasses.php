@@ -80,8 +80,8 @@ final class CompareClasses implements CompareApi
     ): iterable {
         try {
             $newClass = $newSourcesWithDependencies->reflectClass($oldSymbol->getName());
-        } catch (IdentifierNotFound $exception) {
-            yield Change::removed(Str\format('Class %s has been deleted', $oldSymbol->getName()), true);
+        } catch (IdentifierNotFound) {
+            yield Change::removed(Str\format('Class %s has been deleted', $oldSymbol->getName()));
 
             return;
         }
