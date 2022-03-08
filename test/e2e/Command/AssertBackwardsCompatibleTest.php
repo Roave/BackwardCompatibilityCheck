@@ -43,6 +43,8 @@ interface C {}
 
 final class TheClass
 {
+    public const UNCHANGED_CONSTANT = __DIR__;
+
     public function method(A $a)
     {
     }
@@ -61,6 +63,8 @@ interface C {}
 
 final class TheClass
 {
+    public const UNCHANGED_CONSTANT = __DIR__;
+
     public function method(B $a)
     {
     }
@@ -79,6 +83,8 @@ interface C {}
 
 final class TheClass
 {
+    public const UNCHANGED_CONSTANT = __DIR__;
+
     public function method(C $a)
     {
     }
@@ -98,6 +104,8 @@ interface C {}
 
 final class TheClass
 {
+    public const UNCHANGED_CONSTANT = __DIR__;
+
     public function method(A $a)
     {
     }

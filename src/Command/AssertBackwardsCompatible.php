@@ -33,41 +33,19 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class AssertBackwardsCompatible extends Command
 {
-    private PerformCheckoutOfRevision $git;
-
-    private ComposerInstallationReflectorFactory $makeComposerInstallationReflector;
-
-    private ParseRevision $parseRevision;
-
-    private GetVersionCollection $getVersions;
-
-    private PickVersionFromVersionCollection $pickFromVersion;
-
-    private LocateDependencies $locateDependencies;
-
-    private CompareApi $compareApi;
-
     /**
      * @throws LogicException
      */
     public function __construct(
-        PerformCheckoutOfRevision $git,
-        ComposerInstallationReflectorFactory $makeComposerInstallationReflector,
-        ParseRevision $parseRevision,
-        GetVersionCollection $getVersions,
-        PickVersionFromVersionCollection $pickFromVersion,
-        LocateDependencies $locateDependencies,
-        CompareApi $compareApi
+        private PerformCheckoutOfRevision $git,
+        private ComposerInstallationReflectorFactory $makeComposerInstallationReflector,
+        private ParseRevision $parseRevision,
+        private GetVersionCollection $getVersions,
+        private PickVersionFromVersionCollection $pickFromVersion,
+        private LocateDependencies $locateDependencies,
+        private CompareApi $compareApi
     ) {
         parent::__construct();
-
-        $this->git                               = $git;
-        $this->makeComposerInstallationReflector = $makeComposerInstallationReflector;
-        $this->parseRevision                     = $parseRevision;
-        $this->getVersions                       = $getVersions;
-        $this->pickFromVersion                   = $pickFromVersion;
-        $this->locateDependencies                = $locateDependencies;
-        $this->compareApi                        = $compareApi;
     }
 
     /**
