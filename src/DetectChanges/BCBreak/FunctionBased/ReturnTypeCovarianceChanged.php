@@ -47,8 +47,7 @@ final class ReturnTypeCovarianceChanged implements FunctionBased
                 ($this->formatFunction)($fromFunction),
                 $this->typeToString($fromReturnType),
                 $this->typeToString($toReturnType)
-            ),
-            true
+            )
         ));
     }
 

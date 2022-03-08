@@ -27,19 +27,19 @@ final class Change
     }
 
     /** @psalm-pure */
-    public static function added(string $description, bool $isBcBreak): self
+    public static function added(string $description, bool $isBcBreak = true): self
     {
         return new self(self::ADDED, $description, $isBcBreak);
     }
 
     /** @psalm-pure */
-    public static function changed(string $description, bool $isBcBreak): self
+    public static function changed(string $description, bool $isBcBreak = true): self
     {
         return new self(self::CHANGED, $description, $isBcBreak);
     }
 
     /** @psalm-pure */
-    public static function removed(string $description, bool $isBcBreak): self
+    public static function removed(string $description, bool $isBcBreak = true): self
     {
         return new self(self::REMOVED, $description, $isBcBreak);
     }

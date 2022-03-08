@@ -41,8 +41,7 @@ final class RequiredParameterAmountIncreased implements FunctionBased
                 ($this->formatFunction)($fromFunction),
                 $fromRequiredParameters,
                 $toRequiredParameters
-            ),
-            true
+            )
         ));
     }
 }

@@ -23,8 +23,7 @@ final class ClassBecameTrait implements ClassBased
         }
 
         return Changes::fromList(Change::changed(
-            Str\format('Class %s became a trait', $fromClass->getName()),
-            true
+            Str\format('Class %s became a trait', $fromClass->getName())
         ));
     }
 }

@@ -34,8 +34,7 @@ final class MethodVisibilityReduced implements MethodBased
                 $fromMethod->getDeclaringClass()->getName(),
                 $visibilityFrom,
                 $visibilityTo
-            ),
-            true
+            )
         ));
     }
 

@@ -62,8 +62,7 @@ final class ParameterTypeContravarianceChanged implements FunctionBased
                 ($this->formatFunction)($fromParameter->getDeclaringFunction()),
                 $this->typeToString($fromType),
                 $this->typeToString($toType)
-            ),
-            true
+            )
         ));
     }
 

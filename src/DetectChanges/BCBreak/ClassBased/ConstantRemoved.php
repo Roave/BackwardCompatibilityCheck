@@ -23,8 +23,7 @@ final class ConstantRemoved implements ClassBased
 
         return Changes::fromList(...Vec\map($removedConstants, static function (ReflectionClassConstant $constant) use ($fromClass): Change {
             return Change::removed(
-                Str\format('Constant %s::%s was removed', $fromClass->getName(), $constant->getName()),
-                true
+                Str\format('Constant %s::%s was removed', $fromClass->getName(), $constant->getName())
             );
         }));
     }

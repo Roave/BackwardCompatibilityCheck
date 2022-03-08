@@ -26,7 +26,7 @@ final class GetVersionCollectionFromGitRepository implements GetVersionCollectio
             try {
                 return Type\object(Version::class)
                     ->coerce(Version::fromString($maybeVersion));
-            } catch (InvalidVersionString $e) {
+            } catch (InvalidVersionString) {
                 return null;
             }
         })));

@@ -71,8 +71,7 @@ final class ParameterTypeChanged implements FunctionBased
                 ($this->formatFunction)($fromParameter->getDeclaringFunction()),
                 $fromType,
                 $toType
-            ),
-            true
+            )
         );
     }
 

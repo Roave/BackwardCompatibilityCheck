@@ -22,8 +22,7 @@ final class ClassBecameFinal implements ClassBased
         }
 
         return Changes::fromList(Change::changed(
-            Str\format('Class %s became final', $fromClass->getName()),
-            true
+            Str\format('Class %s became final', $fromClass->getName())
         ));
     }
 }

@@ -25,8 +25,7 @@ final class ClassBecameInternal implements ClassBased
                 Str\format(
                     '%s was marked "@internal"',
                     $fromClass->getName()
-                ),
-                true
+                )
             ));
         }
 

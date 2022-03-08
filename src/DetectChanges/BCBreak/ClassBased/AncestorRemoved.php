@@ -34,8 +34,7 @@ final class AncestorRemoved implements ClassBased
                 'These ancestors of %s have been removed: %s',
                 $fromClass->getName(),
                 Json\encode($removedAncestors)
-            ),
-            true
+            )
         ));
     }
 }

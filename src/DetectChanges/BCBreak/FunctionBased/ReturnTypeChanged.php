@@ -43,8 +43,7 @@ final class ReturnTypeChanged implements FunctionBased
                 ($this->formatFunction)($fromFunction),
                 $fromReturnType,
                 $toReturnType
-            ),
-            true
+            )
         ));
     }
 

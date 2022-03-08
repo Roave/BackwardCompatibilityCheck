@@ -47,8 +47,7 @@ final class ParameterNameChanged implements FunctionBased
                         'The %s annotation was removed from %s',
                         self::NO_NAMED_ARGUMENTS_ANNOTATION,
                         $this->formatFunction->__invoke($fromFunction),
-                    ),
-                    true
+                    )
                 )
             );
         }
@@ -60,8 +59,7 @@ final class ParameterNameChanged implements FunctionBased
                         'The %s annotation was added from %s',
                         self::NO_NAMED_ARGUMENTS_ANNOTATION,
                         $this->formatFunction->__invoke($fromFunction),
-                    ),
-                    true
+                    )
                 )
             );
         }
@@ -106,8 +104,7 @@ final class ParameterNameChanged implements FunctionBased
                 $this->formatFunction->__invoke($fromParameter->getDeclaringFunction()),
                 $fromName,
                 $toName
-            ),
-            true
+            )
         );
     }
 
