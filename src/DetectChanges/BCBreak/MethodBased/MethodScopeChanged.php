@@ -31,8 +31,7 @@ final class MethodScopeChanged implements MethodBased
                 $fromMethod->getDeclaringClass()->getName(),
                 $scopeFrom,
                 $scopeTo
-            ),
-            true
+            )
         ));
     }
 

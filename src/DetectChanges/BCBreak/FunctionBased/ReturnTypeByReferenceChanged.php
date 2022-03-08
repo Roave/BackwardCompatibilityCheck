@@ -41,8 +41,7 @@ final class ReturnTypeByReferenceChanged implements FunctionBased
                 ($this->formatFunction)($fromFunction),
                 $this->referenceToString($fromReturnsReference),
                 $this->referenceToString($toReturnsReference)
-            ),
-            true
+            )
         ));
     }
 

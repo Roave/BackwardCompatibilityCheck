@@ -52,8 +52,7 @@ final class ParameterDefaultValueChanged implements FunctionBased
                     ($this->formatFunction)($fromFunction),
                     var_export($defaultValueFrom, true),
                     var_export($defaultValueTo, true)
-                ),
-                true
+                )
             )));
         }
 

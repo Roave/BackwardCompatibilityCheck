@@ -32,8 +32,7 @@ final class MethodAdded implements InterfaceBased
                     'Method %s() was added to interface %s',
                     $method->getName(),
                     $fromInterface->getName()
-                ),
-                true
+                )
             );
         }));
     }

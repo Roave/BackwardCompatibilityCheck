@@ -26,8 +26,7 @@ final class MethodBecameFinal implements MethodBased
                 'Method %s() of class %s became final',
                 $fromMethod->getName(),
                 $fromMethod->getDeclaringClass()->getName()
-            ),
-            true
+            )
         ));
     }
 }

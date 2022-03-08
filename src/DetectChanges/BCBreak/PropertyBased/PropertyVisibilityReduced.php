@@ -41,8 +41,7 @@ final class PropertyVisibilityReduced implements PropertyBased
                 ($this->formatProperty)($fromProperty),
                 $visibilityFrom,
                 $visibilityTo
-            ),
-            true
+            )
         ));
     }
 

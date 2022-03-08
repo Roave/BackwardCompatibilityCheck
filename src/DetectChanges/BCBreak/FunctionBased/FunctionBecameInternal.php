@@ -36,8 +36,7 @@ final class FunctionBecameInternal implements FunctionBased
                 Str\format(
                     '%s was marked "@internal"',
                     ($this->formatFunction)($fromFunction),
-                ),
-                true
+                )
             ));
         }
 

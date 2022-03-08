@@ -49,8 +49,7 @@ final class PropertyTypeChanged implements PropertyBased
                 ($this->formatProperty)($fromProperty),
                 $fromType?->__toString() ?? 'having no type',
                 $toType?->__toString() ?? 'having no type'
-            ),
-            true
+            )
         ));
     }
 }

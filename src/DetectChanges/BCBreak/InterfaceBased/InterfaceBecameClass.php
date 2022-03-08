@@ -23,8 +23,7 @@ final class InterfaceBecameClass implements InterfaceBased
         }
 
         return Changes::fromList(Change::changed(
-            Str\format('Interface %s became a class', $fromInterface->getName()),
-            true
+            Str\format('Interface %s became a class', $fromInterface->getName())
         ));
     }
 

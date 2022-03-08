@@ -58,8 +58,7 @@ final class ParameterByReferenceChanged implements FunctionBased
                 ($this->formatFunction)($fromParameter->getDeclaringFunction()),
                 $this->referenceToString($fromByReference),
                 $this->referenceToString($toByReference)
-            ),
-            true
+            )
         ));
     }
 

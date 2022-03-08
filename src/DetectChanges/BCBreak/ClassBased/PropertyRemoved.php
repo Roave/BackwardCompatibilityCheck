@@ -33,8 +33,7 @@ final class PropertyRemoved implements ClassBased
 
         return Changes::fromList(...Vec\map($removedProperties, function (string $property) use ($fromProperties): Change {
             return Change::removed(
-                Str\format('Property %s was removed', ($this->formatProperty)($fromProperties[$property])),
-                true
+                Str\format('Property %s was removed', ($this->formatProperty)($fromProperties[$property]))
             );
         }));
     }

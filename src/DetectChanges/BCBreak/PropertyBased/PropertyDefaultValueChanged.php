@@ -36,8 +36,7 @@ final class PropertyDefaultValueChanged implements PropertyBased
                 ($this->formatProperty)($fromProperty),
                 var_export($fromPropertyDefaultValue, true),
                 var_export($toPropertyDefaultValue, true)
-            ),
-            true
+            )
         ));
     }
 }

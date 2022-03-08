@@ -32,8 +32,7 @@ final class AncestorRemoved implements InterfaceBased
                 'These ancestors of %s have been removed: %s',
                 $fromInterface->getName(),
                 Json\encode($removedAncestors)
-            ),
-            true
+            )
         ));
     }
 }

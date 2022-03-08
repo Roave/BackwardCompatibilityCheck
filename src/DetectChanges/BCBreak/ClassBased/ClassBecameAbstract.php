@@ -28,8 +28,7 @@ final class ClassBecameAbstract implements ClassBased
         }
 
         return Changes::fromList(Change::changed(
-            Str\format('Class %s became abstract', $fromClass->getName()),
-            true
+            Str\format('Class %s became abstract', $fromClass->getName())
         ));
     }
 }
