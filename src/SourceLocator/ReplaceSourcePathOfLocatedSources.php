@@ -20,7 +20,6 @@ final class ReplaceSourcePathOfLocatedSources extends Locator
     ) {
     }
 
-    // @TODO test that all methods are covered (use reflection)
     /** {@inheritDoc} */
     public function findReflection(
         Reflector $reflector,

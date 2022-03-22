@@ -6,6 +6,10 @@ namespace Roave\BackwardCompatibility\SourceLocator;
 
 use Roave\BetterReflection\SourceLocator\Located\LocatedSource;
 
+use function str_starts_with;
+use function strlen;
+use function substr_replace;
+
 /** @internal */
 final class LocatedSourceWithStrippedSourcesDirectory extends LocatedSource
 {
@@ -15,7 +19,6 @@ final class LocatedSourceWithStrippedSourcesDirectory extends LocatedSource
     ) {
     }
 
-    // @TODO test that all methods are covered (use reflection)
     public function getSource(): string
     {
         return $this->next->getSource();
@@ -30,7 +33,7 @@ final class LocatedSourceWithStrippedSourcesDirectory extends LocatedSource
     {
         $fileName = $this->next->getFileName();
 
-        if (null === $fileName || ! str_starts_with($fileName, $this->sourcesDirectory)) {
+        if ($fileName === null || ! str_starts_with($fileName, $this->sourcesDirectory)) {
             return $fileName;
         }
 
