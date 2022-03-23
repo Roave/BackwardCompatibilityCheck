@@ -9,6 +9,7 @@ use Composer\Installer;
 use Psl;
 use Psl\Env;
 use Psl\Filesystem;
+use Roave\BackwardCompatibility\SourceLocator\ReplaceSourcePathOfLocatedSources;
 use Roave\BetterReflection\SourceLocator\Ast\Locator;
 use Roave\BetterReflection\SourceLocator\SourceStubber\ReflectionSourceStubber;
 use Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
@@ -55,9 +56,11 @@ final class LocateDependenciesViaComposer implements LocateDependencies
             $installer->run();
         }, $installationPath);
 
+        $astLocator = new ReplaceSourcePathOfLocatedSources($this->astLocator, $installationPath);
+
         return new AggregateSourceLocator([
-            new PhpInternalSourceLocator($this->astLocator, new ReflectionSourceStubber()),
-            (new MakeLocatorForInstalledJson())($installationPath, $this->astLocator),
+            new PhpInternalSourceLocator($astLocator, new ReflectionSourceStubber()),
+            (new MakeLocatorForInstalledJson())($installationPath, $astLocator),
         ]);
     }
 
