@@ -99,8 +99,10 @@ final class LocateDependenciesViaComposerTest extends TestCase
             ->composerInstaller
             ->expects(self::once())
             ->method('run')
-            ->willReturnCallback(function (): void {
+            ->willReturnCallback(function (): int {
                 self::assertSame($this->expectedInstallationPath, Env\current_dir());
+                
+                return 0;
             });
 
         $locator = ($this->locateDependencies)($this->expectedInstallationPath, false);
@@ -162,8 +164,10 @@ final class LocateDependenciesViaComposerTest extends TestCase
             ->composerInstaller
             ->expects(self::once())
             ->method('run')
-            ->willReturnCallback(function (): void {
+            ->willReturnCallback(function (): int {
                 self::assertSame($this->expectedInstallationPath, Env\current_dir());
+                
+                return 0;
             });
 
         $locator = ($this->locateDependencies)($this->expectedInstallationPath, true);
