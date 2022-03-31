@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Roave\ApiCompareCli;
 
+use Composer\Composer;
 use Composer\Factory;
 use Composer\Installer;
 use Composer\IO\ConsoleIO;
 use PackageVersions\Versions;
+use Psl\Type;
 use Roave\BackwardCompatibility\Command;
 use Roave\BackwardCompatibility\CompareClasses;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased;
@@ -69,12 +71,15 @@ use function file_exists;
             static function (string $installationPath) use ($composerIo): Installer {
                 return Installer::create(
                     $composerIo,
-                    (new Factory())->createComposer(
-                        $composerIo,
-                        null,
-                        true,
-                        $installationPath
-                    )
+                    Type\object(Composer::class)
+                        ->assert(
+                            (new Factory())->createComposer(
+                                $composerIo,
+                                null,
+                                true,
+                                $installationPath
+                            )
+                        )
                 );
             },
             $astLocator
