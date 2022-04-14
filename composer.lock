@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6ff1a745438017ce06dc09c75746195e",
+    "content-hash": "c82cd660c23c22c5eb1c5bdfb3bdec3f",
     "packages": [
         {
             "name": "azjezz/psl",
@@ -218,16 +218,16 @@
         },
         {
             "name": "composer/composer",
-            "version": "2.3.4",
+            "version": "2.3.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-                "reference": "b7a041319947872c4352aa8139f4b4d6dea7130f"
+                "reference": "50c47b1f907cfcdb8f072b88164d22b527557ae1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/composer/zipball/b7a041319947872c4352aa8139f4b4d6dea7130f",
-                "reference": "b7a041319947872c4352aa8139f4b4d6dea7130f",
+                "url": "https://api.github.com/repos/composer/composer/zipball/50c47b1f907cfcdb8f072b88164d22b527557ae1",
+                "reference": "50c47b1f907cfcdb8f072b88164d22b527557ae1",
                 "shasum": ""
             },
             "require": {
@@ -303,7 +303,7 @@
             "support": {
                 "irc": "ircs://irc.libera.chat:6697/composer",
                 "issues": "https://github.com/composer/composer/issues",
-                "source": "https://github.com/composer/composer/tree/2.3.4"
+                "source": "https://github.com/composer/composer/tree/2.3.5"
             },
             "funding": [
                 {
@@ -319,7 +319,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-04-07T19:16:35+00:00"
+            "time": "2022-04-13T14:43:00+00:00"
         },
         {
             "name": "composer/metadata-minifier",
