@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c82cd660c23c22c5eb1c5bdfb3bdec3f",
+    "content-hash": "0bcbd817f6e39b1950778607138979a7",
     "packages": [
         {
             "name": "azjezz/psl",
@@ -690,20 +690,20 @@
         },
         {
             "name": "jetbrains/phpstorm-stubs",
-            "version": "v2021.3",
+            "version": "v2022.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JetBrains/phpstorm-stubs.git",
-                "reference": "c790a8fa467ff5d3f11b0e7c1f3698abbe37b182"
+                "reference": "066fa5b3cd989b9c4fb1793d5ad20af5ab0e2b3c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JetBrains/phpstorm-stubs/zipball/c790a8fa467ff5d3f11b0e7c1f3698abbe37b182",
-                "reference": "c790a8fa467ff5d3f11b0e7c1f3698abbe37b182",
+                "url": "https://api.github.com/repos/JetBrains/phpstorm-stubs/zipball/066fa5b3cd989b9c4fb1793d5ad20af5ab0e2b3c",
+                "reference": "066fa5b3cd989b9c4fb1793d5ad20af5ab0e2b3c",
                 "shasum": ""
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "dev-master",
+                "friendsofphp/php-cs-fixer": "@stable",
                 "nikic/php-parser": "@stable",
                 "php": "^8.0",
                 "phpdocumentor/reflection-docblock": "@stable",
@@ -732,9 +732,9 @@
                 "type"
             ],
             "support": {
-                "source": "https://github.com/JetBrains/phpstorm-stubs/tree/v2021.3"
+                "source": "https://github.com/JetBrains/phpstorm-stubs/tree/v2022.1"
             },
-            "time": "2021-10-19T20:06:47+00:00"
+            "time": "2022-03-08T07:40:50+00:00"
         },
         {
             "name": "justinrainbow/json-schema",
@@ -1166,21 +1166,21 @@
         },
         {
             "name": "roave/better-reflection",
-            "version": "5.3.1",
+            "version": "5.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/BetterReflection.git",
-                "reference": "3e09db693322cd7712ed251244ade62d41747c71"
+                "reference": "2845ee759d8e916b3cee1b77bc1186eaf942d640"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/BetterReflection/zipball/3e09db693322cd7712ed251244ade62d41747c71",
-                "reference": "3e09db693322cd7712ed251244ade62d41747c71",
+                "url": "https://api.github.com/repos/Roave/BetterReflection/zipball/2845ee759d8e916b3cee1b77bc1186eaf942d640",
+                "reference": "2845ee759d8e916b3cee1b77bc1186eaf942d640",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "jetbrains/phpstorm-stubs": "2021.3",
+                "jetbrains/phpstorm-stubs": "2022.1",
                 "nikic/php-parser": "^4.13.2",
                 "php": "~8.0.12 || ~8.1.0",
                 "roave/signature": "^1.5"
@@ -1190,8 +1190,8 @@
             },
             "require-dev": {
                 "doctrine/coding-standard": "^9.0.0",
-                "phpstan/phpstan": "^1.4.10",
-                "phpunit/phpunit": "^9.5.13",
+                "phpstan/phpstan": "^1.5.5",
+                "phpunit/phpunit": "^9.5.20",
                 "roave/infection-static-analysis-plugin": "^1.18.0",
                 "vimeo/psalm": "^4.22"
             },
@@ -1233,9 +1233,9 @@
             "description": "Better Reflection - an improved code reflection API",
             "support": {
                 "issues": "https://github.com/Roave/BetterReflection/issues",
-                "source": "https://github.com/Roave/BetterReflection/tree/5.3.1"
+                "source": "https://github.com/Roave/BetterReflection/tree/5.4.0"
             },
-            "time": "2022-04-11T09:44:21+00:00"
+            "time": "2022-04-14T19:25:48+00:00"
         },
         {
             "name": "roave/signature",
