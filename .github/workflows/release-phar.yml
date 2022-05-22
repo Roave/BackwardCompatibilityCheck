@@ -4,61 +4,47 @@ name: "Release PHAR"
 
 on:
   release:
-    types:
-      - published
+    types: [published]
 
 jobs:
-  release-phar:
-    name: "Release PHAR"
+  build:
+    name: "Building and upload PHAR artifact"
 
-    runs-on: ${{ matrix.operating-system }}
-
-    strategy:
-      matrix:
-        dependencies:
-          - "locked"
-        php-version:
-          - "7.4"
-        operating-system:
-          - "ubuntu-latest"
+    runs-on: "ubuntu-latest"
 
     steps:
       - name: "Checkout"
-        uses: "actions/checkout@v3"
+        uses: "actions/checkout@v2"
 
       - name: "Install PHP"
         uses: "shivammathur/setup-php@v2"
         with:
-          coverage: "pcov"
-          php-version: "${{ matrix.php-version }}"
-          ini-values: memory_limit=-1
+          coverage: "none"
+          php-version: "8.0"
+          ini-values: memory_limit=-1, phar.readonly=0
 
-      - name: "Cache dependencies"
-        uses: "actions/cache@v3"
-        with:
-          path: |
-            ~/.composer/cache
-            vendor
-          key: "php-${{ matrix.php-version }}-${{ matrix.dependencies }}"
-          restore-keys: "php-${{ matrix.php-version }}-${{ matrix.dependencies }}"
+      - name: "Import GPG Key"
+        run: echo "$PRIVATE_KEY" | gpg --import
+        env:
+          PRIVATE_KEY: ${{ secrets.SIGNING_SECRET_KEY }}
 
-      - name: "Install lowest dependencies"
-        if: ${{ matrix.dependencies == 'lowest' }}
-        run: "composer update --prefer-lowest --no-interaction --no-progress --no-suggest"
-
-      - name: "Install highest dependencies"
-        if: ${{ matrix.dependencies == 'highest' }}
-        run: "composer update --no-interaction --no-progress --no-suggest"
-
-      - name: "Install locked dependencies"
-        if: ${{ matrix.dependencies == 'locked' }}
+      - name: "Install dependencies for build environment"
         run: "composer install --no-interaction --no-progress --no-suggest"
 
-      - name: "build-phar.sh"
-        run: "build-phar.sh"
+      - name: "Build and sign phar file via phing"
+        run: "vendor/bin/phing phar-build phar-sign"
 
-      - name: "Upload PHAR"
-        uses: fnkr/github-action-ghr@v1
-        env:
-          GHR_PATH: dist/
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: "Upload phar file artifact"
+        uses: actions/upload-artifact@v2
+        with:
+          name: composer-require-checker.phar
+          path: |
+            build/composer-require-checker.phar
+            build/composer-require-checker.phar.asc
+      - name: Upload PHAR to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: build/composer-require-checker.phar*
+          file_glob: true
+          tag: ${{ github.ref }}

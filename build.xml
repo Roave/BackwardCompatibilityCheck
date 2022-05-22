@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ============================================================== -->
+<!-- Phing Build instructions                                       -->
+<!-- http://www.phing.info/                                         -->
+<!-- http://www.phing.info/get/phing-latest.phar                    -->
+<!-- php -d phar.readonly=Off phing-latest.phar phar-build-release  -->
+<!-- ============================================================== -->
+<project name="roave-backward-compatibility-check" default="phar-build">
+    <property name="build-dir" value="build"/>
+    <property name="phar-dir" value="build/phar"/>
+
+    <!-- ============================================  -->
+    <!-- Target: phar-prepare-dependencies             -->
+    <!-- ============================================  -->
+    <target name="phar-prepare-dependencies">
+        <!--install dependencies without development requirements-->
+        <exec command="composer install --no-dev -o" passthru="true" checkreturn="true"/>
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: phar-build                            -->
+    <!-- ============================================  -->
+    <target name="phar-build" depends="phar-prepare-dependencies">
+        <!--create the package-->
+        <mkdir dir="${build-dir}" />
+        <php expression="file_put_contents('bin/clistub.php', '#!/usr/bin/env php' . chr(10) . Phar::createDefaultStub('bin/roave-backward-compatibility-check.php'))"/>
+        <pharpackage basedir="./"
+                     destfile="${build-dir}/${phing.project.name}.phar"
+                     stub="bin/clistub.php"
+                     compression="gzip">
+            <fileset dir="./">
+                <include name="src/**/*.php"/>
+                <include name="bin/*"/>
+                <include name="vendor/**"/>
+                <include name="LICENSE"/>
+                <include name="composer.json"/>
+                <include name="composer.lock"/>
+            </fileset>
+
+        </pharpackage>
+    </target>
+
+    <target name="phar-sign">
+        <delete file="${build-dir}/${phing.project.name}.phar.asc"/>
+        <exec executable="gpg" checkreturn="true" passthru="true">
+            <arg value="--batch" />
+            <arg value="--local-user" />
+            <arg value="ocramius@gmail.com" />
+            <arg value="--detach-sign" />
+            <arg value="--output" />
+            <arg path="${build-dir}/${phing.project.name}.phar.asc" />
+            <arg path="${build-dir}/${phing.project.name}.phar" />
+        </exec>
+
+        <exec executable="gpg" checkreturn="true" passthru="true">
+            <arg value="--verify" />
+            <arg path="${build-dir}/${phing.project.name}.phar.asc" />
+            <arg path="${build-dir}/${phing.project.name}.phar" />
+        </exec>
+    </target>
+</project>
