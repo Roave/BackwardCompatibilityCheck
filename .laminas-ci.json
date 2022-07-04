@@ -1,5 +1,8 @@
 {
     "extensions": [
         "bcmath"
+    ],
+    "ini": [
+        "memory_limit=-1"
     ]
 }
