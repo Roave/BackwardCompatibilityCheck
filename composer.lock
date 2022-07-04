@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "09fbe6657343e0b2da647d3ca276c633",
+    "content-hash": "58bf2eea8900dc67b9ba73215881ab16",
     "packages": [
         {
             "name": "azjezz/psl",
@@ -1171,22 +1171,22 @@
         },
         {
             "name": "roave/better-reflection",
-            "version": "5.4.0",
+            "version": "5.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/BetterReflection.git",
-                "reference": "2845ee759d8e916b3cee1b77bc1186eaf942d640"
+                "reference": "9a98679a295c84cdb27c24299044db6ecd5d598d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/BetterReflection/zipball/2845ee759d8e916b3cee1b77bc1186eaf942d640",
-                "reference": "2845ee759d8e916b3cee1b77bc1186eaf942d640",
+                "url": "https://api.github.com/repos/Roave/BetterReflection/zipball/9a98679a295c84cdb27c24299044db6ecd5d598d",
+                "reference": "9a98679a295c84cdb27c24299044db6ecd5d598d",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
                 "jetbrains/phpstorm-stubs": "2022.1",
-                "nikic/php-parser": "^4.13.2",
+                "nikic/php-parser": "^4.14.0",
                 "php": "~8.0.12 || ~8.1.0",
                 "roave/signature": "^1.5"
             },
@@ -1195,10 +1195,11 @@
             },
             "require-dev": {
                 "doctrine/coding-standard": "^9.0.0",
-                "phpstan/phpstan": "^1.5.5",
+                "phpstan/phpstan": "^1.7.13",
+                "phpstan/phpstan-phpunit": "^1.1.1",
                 "phpunit/phpunit": "^9.5.20",
-                "roave/infection-static-analysis-plugin": "^1.18.0",
-                "vimeo/psalm": "^4.22"
+                "roave/infection-static-analysis-plugin": "^1.20.0",
+                "vimeo/psalm": "^4.23"
             },
             "suggest": {
                 "composer/composer": "Required to use the ComposerSourceLocator"
@@ -1238,9 +1239,9 @@
             "description": "Better Reflection - an improved code reflection API",
             "support": {
                 "issues": "https://github.com/Roave/BetterReflection/issues",
-                "source": "https://github.com/Roave/BetterReflection/tree/5.4.0"
+                "source": "https://github.com/Roave/BetterReflection/tree/5.6.0"
             },
-            "time": "2022-04-14T19:25:48+00:00"
+            "time": "2022-06-13T18:19:21+00:00"
         },
         {
             "name": "roave/signature",
