@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c58aa537d159f4088f432c92aca57c57",
+    "content-hash": "48c6ffbb74d47237dfd4b3e4b7a4eeb9",
     "packages": [
         {
             "name": "azjezz/psl",
@@ -3018,16 +3018,16 @@
         },
         {
             "name": "infection/infection",
-            "version": "0.26.10",
+            "version": "0.26.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/infection/infection.git",
-                "reference": "134853ce500c4669db7d6f9fe03ea5c8771a4540"
+                "reference": "11df4ea052367bb2e2168611b69a0f5f8953ef70"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/infection/infection/zipball/134853ce500c4669db7d6f9fe03ea5c8771a4540",
-                "reference": "134853ce500c4669db7d6f9fe03ea5c8771a4540",
+                "url": "https://api.github.com/repos/infection/infection/zipball/11df4ea052367bb2e2168611b69a0f5f8953ef70",
+                "reference": "11df4ea052367bb2e2168611b69a0f5f8953ef70",
                 "shasum": ""
             },
             "require": {
@@ -3048,12 +3048,11 @@
                 "sebastian/diff": "^3.0.2 || ^4.0",
                 "seld/jsonlint": "^1.7",
                 "symfony/console": "^3.4.29 || ^4.1.19 || ^5.0 || ^6.0",
-                "symfony/filesystem": "^3.4.29 || ^4.1.19 || ^5.0 || ^6.0",
+                "symfony/filesystem": "^5.4 || ^6.0",
                 "symfony/finder": "^3.4.29 || ^4.1.19 || ^5.0 || ^6.0",
                 "symfony/process": "^3.4.29 || ^4.1.19 || ^5.0 || ^6.0",
                 "thecodingmachine/safe": "^2.1.2",
-                "webmozart/assert": "^1.3",
-                "webmozart/path-util": "^2.3"
+                "webmozart/assert": "^1.3"
             },
             "conflict": {
                 "dg/bypass-finals": "*",
@@ -3128,7 +3127,7 @@
             ],
             "support": {
                 "issues": "https://github.com/infection/infection/issues",
-                "source": "https://github.com/infection/infection/tree/0.26.10"
+                "source": "https://github.com/infection/infection/tree/0.26.11"
             },
             "funding": [
                 {
@@ -3140,7 +3139,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2022-05-11T20:58:00+00:00"
+            "time": "2022-06-09T08:41:21+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -4298,20 +4297,20 @@
         },
         {
             "name": "roave/infection-static-analysis-plugin",
-            "version": "1.19.0",
+            "version": "1.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/infection-static-analysis-plugin.git",
-                "reference": "ad79ff4f7996438c23fbae99aea60aa7d06a7f56"
+                "reference": "813f0446571b7112f61430edc764692e757ec12c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/infection-static-analysis-plugin/zipball/ad79ff4f7996438c23fbae99aea60aa7d06a7f56",
-                "reference": "ad79ff4f7996438c23fbae99aea60aa7d06a7f56",
+                "url": "https://api.github.com/repos/Roave/infection-static-analysis-plugin/zipball/813f0446571b7112f61430edc764692e757ec12c",
+                "reference": "813f0446571b7112f61430edc764692e757ec12c",
                 "shasum": ""
             },
             "require": {
-                "infection/infection": "0.26.10",
+                "infection/infection": "0.26.11",
                 "ocramius/package-versions": "^1.9.0 || ^2.0.0",
                 "php": "~8.0.0|~8.1.0",
                 "sanmai/later": "^0.1.2",
@@ -4343,9 +4342,9 @@
             "description": "Static analysis on top of mutation testing - prevents escaped mutants from being invalid according to static analysis",
             "support": {
                 "issues": "https://github.com/Roave/infection-static-analysis-plugin/issues",
-                "source": "https://github.com/Roave/infection-static-analysis-plugin/tree/1.19.0"
+                "source": "https://github.com/Roave/infection-static-analysis-plugin/tree/1.20.0"
             },
-            "time": "2022-05-20T10:55:18+00:00"
+            "time": "2022-06-13T08:32:57+00:00"
         },
         {
             "name": "roave/security-advisories",
@@ -6168,16 +6167,16 @@
         },
         {
             "name": "vimeo/psalm",
-            "version": "4.23.0",
+            "version": "4.24.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vimeo/psalm.git",
-                "reference": "f1fe6ff483bf325c803df9f510d09a03fd796f88"
+                "reference": "06dd975cb55d36af80f242561738f16c5f58264f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vimeo/psalm/zipball/f1fe6ff483bf325c803df9f510d09a03fd796f88",
-                "reference": "f1fe6ff483bf325c803df9f510d09a03fd796f88",
+                "url": "https://api.github.com/repos/vimeo/psalm/zipball/06dd975cb55d36af80f242561738f16c5f58264f",
+                "reference": "06dd975cb55d36af80f242561738f16c5f58264f",
                 "shasum": ""
             },
             "require": {
@@ -6269,9 +6268,9 @@
             ],
             "support": {
                 "issues": "https://github.com/vimeo/psalm/issues",
-                "source": "https://github.com/vimeo/psalm/tree/4.23.0"
+                "source": "https://github.com/vimeo/psalm/tree/4.24.0"
             },
-            "time": "2022-04-28T17:35:49+00:00"
+            "time": "2022-06-26T11:47:54+00:00"
         },
         {
             "name": "webmozart/assert",
