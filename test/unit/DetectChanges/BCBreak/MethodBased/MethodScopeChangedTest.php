@@ -17,9 +17,7 @@ use function array_keys;
 use function array_map;
 use function iterator_to_array;
 
-/**
- * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased\MethodScopeChanged
- */
+/** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased\MethodScopeChanged */
 final class MethodScopeChangedTest extends TestCase
 {
     /**
@@ -30,7 +28,7 @@ final class MethodScopeChangedTest extends TestCase
     public function testDiffs(
         ReflectionMethod $fromMethod,
         ReflectionMethod $toMethod,
-        array $expectedMessages
+        array $expectedMessages,
     ): void {
         $changes = (new MethodScopeChanged())($fromMethod, $toMethod);
 
@@ -38,7 +36,7 @@ final class MethodScopeChangedTest extends TestCase
             $expectedMessages,
             array_map(static function (Change $change): string {
                 return $change->__toString();
-            }, iterator_to_array($changes))
+            }, iterator_to_array($changes)),
         );
     }
 
@@ -72,7 +70,7 @@ class TheClass {
 }
 PHP
             ,
-            $astLocator
+            $astLocator,
         );
 
         $toLocator = new StringSourceLocator(
@@ -97,7 +95,7 @@ class TheClass {
 }
 PHP
             ,
-            $astLocator
+            $astLocator,
         );
 
         $fromClassReflector = new DefaultReflector($fromLocator);
@@ -131,8 +129,8 @@ PHP
                     $errors,
                 ],
                 array_keys($properties),
-                $properties
-            )
+                $properties,
+            ),
         );
     }
 }

@@ -17,9 +17,7 @@ use Roave\BetterReflection\Reflector\Reflector;
 use Roave\BetterReflection\SourceLocator\Ast\Locator;
 use Roave\BetterReflection\SourceLocator\Located\LocatedSource;
 
-/**
- * @covers \Roave\BackwardCompatibility\SourceLocator\StaticClassMapSourceLocator
- */
+/** @covers \Roave\BackwardCompatibility\SourceLocator\StaticClassMapSourceLocator */
 final class StaticClassMapSourceLocatorTest extends TestCase
 {
     /** @var Locator&MockObject */
@@ -43,7 +41,7 @@ final class StaticClassMapSourceLocatorTest extends TestCase
 
         new StaticClassMapSourceLocator(
             ['' => __FILE__],
-            $this->astLocator
+            $this->astLocator,
         );
     }
 
@@ -53,7 +51,7 @@ final class StaticClassMapSourceLocatorTest extends TestCase
 
         new StaticClassMapSourceLocator(
             ['foo' => ''],
-            $this->astLocator
+            $this->astLocator,
         );
     }
 
@@ -63,13 +61,11 @@ final class StaticClassMapSourceLocatorTest extends TestCase
 
         self::assertNull($locator->locateIdentifier(
             $this->reflector,
-            new Identifier(self::class, new IdentifierType(IdentifierType::IDENTIFIER_CLASS))
+            new Identifier(self::class, new IdentifierType(IdentifierType::IDENTIFIER_CLASS)),
         ));
     }
 
-    /**
-     * @dataProvider thisClassPossiblePaths
-     */
+    /** @dataProvider thisClassPossiblePaths */
     public function testWillLocateThisClass(string $thisClassFilePath): void
     {
         $locator    = new StaticClassMapSourceLocator([self::class => $thisClassFilePath], $this->astLocator);
@@ -91,7 +87,7 @@ final class StaticClassMapSourceLocatorTest extends TestCase
 
         self::assertSame($reflection, $locator->locateIdentifier(
             $this->reflector,
-            new Identifier(self::class, new IdentifierType(IdentifierType::IDENTIFIER_CLASS))
+            new Identifier(self::class, new IdentifierType(IdentifierType::IDENTIFIER_CLASS)),
         ));
     }
 
@@ -118,7 +114,7 @@ final class StaticClassMapSourceLocatorTest extends TestCase
 
         self::assertNull($locator->locateIdentifier(
             $this->reflector,
-            new Identifier('Unknown\\ClassName', new IdentifierType(IdentifierType::IDENTIFIER_CLASS))
+            new Identifier('Unknown\\ClassName', new IdentifierType(IdentifierType::IDENTIFIER_CLASS)),
         ));
     }
 
@@ -133,7 +129,7 @@ final class StaticClassMapSourceLocatorTest extends TestCase
 
         self::assertNull($locator->locateIdentifier(
             $this->reflector,
-            new Identifier(self::class, new IdentifierType(IdentifierType::IDENTIFIER_FUNCTION))
+            new Identifier(self::class, new IdentifierType(IdentifierType::IDENTIFIER_FUNCTION)),
         ));
     }
 }

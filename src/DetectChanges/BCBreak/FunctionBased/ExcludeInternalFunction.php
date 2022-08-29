@@ -14,16 +14,13 @@ use Roave\BetterReflection\Reflection\ReflectionMethod;
  */
 final class ExcludeInternalFunction implements FunctionBased
 {
-    private FunctionBased $check;
-
-    public function __construct(FunctionBased $check)
+    public function __construct(private FunctionBased $check)
     {
-        $this->check = $check;
     }
 
     public function __invoke(
         ReflectionMethod|ReflectionFunction $fromFunction,
-        ReflectionMethod|ReflectionFunction $toFunction
+        ReflectionMethod|ReflectionFunction $toFunction,
     ): Changes {
         if ($this->isInternalDocComment($fromFunction->getDocComment())) {
             return Changes::empty();

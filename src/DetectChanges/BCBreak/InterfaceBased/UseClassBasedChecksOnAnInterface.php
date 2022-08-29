@@ -10,11 +10,8 @@ use Roave\BetterReflection\Reflection\ReflectionClass;
 
 final class UseClassBasedChecksOnAnInterface implements InterfaceBased
 {
-    private ClassBased $check;
-
-    public function __construct(ClassBased $check)
+    public function __construct(private ClassBased $check)
     {
-        $this->check = $check;
     }
 
     public function __invoke(ReflectionClass $fromInterface, ReflectionClass $toInterface): Changes

@@ -25,7 +25,7 @@ final class MethodRemovedTest extends TestCase
     public function testDiffs(
         ReflectionClass $fromClass,
         ReflectionClass $toClass,
-        array $expectedMessages
+        array $expectedMessages,
     ): void {
         $changes = (new MethodRemoved())($fromClass, $toClass);
 
@@ -33,7 +33,7 @@ final class MethodRemovedTest extends TestCase
             $expectedMessages,
             array_map(static function (Change $change): string {
                 return $change->__toString();
-            }, iterator_to_array($changes))
+            }, iterator_to_array($changes)),
         );
     }
 
@@ -49,11 +49,11 @@ final class MethodRemovedTest extends TestCase
             'RoaveTestAsset\\ClassWithMethodsBeingRemoved' => [
                 (new DefaultReflector(new SingleFileSourceLocator(
                     __DIR__ . '/../../../../asset/api/old/ClassWithMethodsBeingRemoved.php',
-                    $locator
+                    $locator,
                 )))->reflectClass('RoaveTestAsset\\ClassWithMethodsBeingRemoved'),
                 (new DefaultReflector(new SingleFileSourceLocator(
                     __DIR__ . '/../../../../asset/api/new/ClassWithMethodsBeingRemoved.php',
-                    $locator
+                    $locator,
                 )))->reflectClass('RoaveTestAsset\\ClassWithMethodsBeingRemoved'),
                 [
                     '[BC] REMOVED: Method RoaveTestAsset\ClassWithMethodsBeingRemoved#removedPublicMethod() was removed',

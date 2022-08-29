@@ -15,11 +15,8 @@ use Roave\BetterReflection\Reflection\ReflectionMethod;
 
 final class MethodChanged implements ClassBased
 {
-    private MethodBased $checkMethod;
-
-    public function __construct(MethodBased $checkMethod)
+    public function __construct(private MethodBased $checkMethod)
     {
-        $this->checkMethod = $checkMethod;
     }
 
     public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass): Changes
@@ -49,7 +46,7 @@ final class MethodChanged implements ClassBased
             Vec\map($methods, static function (ReflectionMethod $method): string {
                 return Str\lowercase($method->getName());
             }),
-            $methods
+            $methods,
         );
     }
 }

@@ -9,11 +9,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class SymfonyConsoleTextFormatter implements OutputFormatter
 {
-    private OutputInterface $output;
-
-    public function __construct(OutputInterface $output)
+    public function __construct(private OutputInterface $output)
     {
-        $this->output = $output;
     }
 
     public function write(Changes $changes): void

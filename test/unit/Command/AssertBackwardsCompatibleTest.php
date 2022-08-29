@@ -36,9 +36,7 @@ use Version\VersionCollection;
 use function assert;
 use function is_string;
 
-/**
- * @covers \Roave\BackwardCompatibility\Command\AssertBackwardsCompatible
- */
+/** @covers \Roave\BackwardCompatibility\Command\AssertBackwardsCompatible */
 final class AssertBackwardsCompatibleTest extends TestCase
 {
     private CheckedOutRepository $sourceRepository;
@@ -89,7 +87,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
             $this->getVersions,
             $this->pickVersion,
             $this->locateDependencies,
-            $this->compareApi
+            $this->compareApi,
         );
 
         $this
@@ -102,7 +100,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
     {
         self::assertSame(
             'roave-backwards-compatibility-check:assert-backwards-compatible',
-            $this->compare->getName()
+            $this->compare->getName(),
         );
 
         $usages = Type\shape([
@@ -112,7 +110,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
         self::assertCount(1, $usages);
         self::assertStringStartsWith(
             'roave-backwards-compatibility-check:assert-backwards-compatible',
-            $usages[0]
+            $usages[0],
         );
         self::assertStringContainsString('Without arguments, this command will attempt to detect', $usages[0]);
         self::assertStringStartsWith('Verifies that the revision being', $this->compare->getDescription());
@@ -121,7 +119,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
             '[--from [FROM]] [--to TO] [--format [FORMAT]] [--install-development-dependencies]',
             $this->compare
                 ->getDefinition()
-                ->getSynopsis()
+                ->getSynopsis(),
         );
     }
 
@@ -143,27 +141,27 @@ final class AssertBackwardsCompatibleTest extends TestCase
             ->method('checkout')
             ->withConsecutive(
                 [$this->sourceRepository, $fromSha],
-                [$this->sourceRepository, $toSha]
+                [$this->sourceRepository, $toSha],
             )->willReturnOnConsecutiveCalls(
                 $this->sourceRepository,
-                $this->sourceRepository
+                $this->sourceRepository,
             );
 
         $this->performCheckout->expects(self::exactly(2))
             ->method('remove')
             ->withConsecutive(
                 [$this->sourceRepository],
-                [$this->sourceRepository]
+                [$this->sourceRepository],
             );
 
         $this->parseRevision->expects(self::exactly(2))
             ->method('fromStringForRepository')
             ->withConsecutive(
                 [$fromSha],
-                [$toSha]
+                [$toSha],
             )->willReturnOnConsecutiveCalls(
                 Revision::fromSha1($fromSha),
-                Revision::fromSha1($toSha)
+                Revision::fromSha1($toSha),
             );
 
         $this
@@ -195,27 +193,27 @@ final class AssertBackwardsCompatibleTest extends TestCase
             ->method('checkout')
             ->withConsecutive(
                 [$this->sourceRepository, $fromSha],
-                [$this->sourceRepository, $toSha]
+                [$this->sourceRepository, $toSha],
             )->willReturnOnConsecutiveCalls(
                 $this->sourceRepository,
-                $this->sourceRepository
+                $this->sourceRepository,
             );
 
         $this->performCheckout->expects(self::exactly(2))
             ->method('remove')
             ->withConsecutive(
                 [$this->sourceRepository],
-                [$this->sourceRepository]
+                [$this->sourceRepository],
             );
 
         $this->parseRevision->expects(self::exactly(2))
             ->method('fromStringForRepository')
             ->withConsecutive(
                 [$fromSha],
-                [$toSha]
+                [$toSha],
             )->willReturnOnConsecutiveCalls(
                 Revision::fromSha1($fromSha),
-                Revision::fromSha1($toSha)
+                Revision::fromSha1($toSha),
             );
 
         $this
@@ -248,27 +246,27 @@ final class AssertBackwardsCompatibleTest extends TestCase
             ->method('checkout')
             ->withConsecutive(
                 [$this->sourceRepository, $fromSha],
-                [$this->sourceRepository, $toSha]
+                [$this->sourceRepository, $toSha],
             )->willReturnOnConsecutiveCalls(
                 $this->sourceRepository,
-                $this->sourceRepository
+                $this->sourceRepository,
             );
 
         $this->performCheckout->expects(self::exactly(2))
             ->method('remove')
             ->withConsecutive(
                 [$this->sourceRepository],
-                [$this->sourceRepository]
+                [$this->sourceRepository],
             );
 
         $this->parseRevision->expects(self::exactly(2))
             ->method('fromStringForRepository')
             ->withConsecutive(
                 [$fromSha],
-                [$toSha]
+                [$toSha],
             )->willReturnOnConsecutiveCalls(
                 Revision::fromSha1($fromSha),
-                Revision::fromSha1($toSha)
+                Revision::fromSha1($toSha),
             );
 
         $this
@@ -278,7 +276,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
             ->willReturn($this->dependencies);
 
         $this->compareApi->expects(self::once())->method('__invoke')->willReturn(Changes::fromList(
-            Change::added('added' . SecureRandom\string(8), true)
+            Change::added('added' . SecureRandom\string(8), true),
         ));
 
         $this
@@ -288,7 +286,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
             ->with(self::logicalOr(
                 self::matches('Comparing from %a to %a...'),
                 self::matches('[BC] ADDED: added%a'),
-                self::matches('<error>1 backwards-incompatible changes detected</error>')
+                self::matches('<error>1 backwards-incompatible changes detected</error>'),
             ));
 
         self::assertSame(3, $this->compare->execute($this->input, $this->output));
@@ -316,24 +314,24 @@ final class AssertBackwardsCompatibleTest extends TestCase
                 [$this->sourceRepository, $toSha],
             )->willReturnOnConsecutiveCalls(
                 $this->sourceRepository,
-                $this->sourceRepository
+                $this->sourceRepository,
             );
 
         $this->performCheckout->expects(self::exactly(2))
             ->method('remove')
             ->withConsecutive(
                 [$this->sourceRepository],
-                [$this->sourceRepository]
+                [$this->sourceRepository],
             );
 
         $this->parseRevision->expects(self::exactly(2))
             ->method('fromStringForRepository')
             ->withConsecutive(
                 [$fromSha],
-                [$toSha]
+                [$toSha],
             )->willReturnOnConsecutiveCalls(
                 Revision::fromSha1($fromSha),
-                Revision::fromSha1($toSha)
+                Revision::fromSha1($toSha),
             );
 
         $this
@@ -344,7 +342,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
 
         $changeToExpect = SecureRandom\string(8);
         $this->compareApi->expects(self::once())->method('__invoke')->willReturn(Changes::fromList(
-            Change::removed($changeToExpect, true)
+            Change::removed($changeToExpect, true),
         ));
 
         $this->output
@@ -395,9 +393,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
         $this->compare->execute($this->input, $this->output);
     }
 
-    /**
-     * @dataProvider validVersionCollections
-     */
+    /** @dataProvider validVersionCollections */
     public function testExecuteWithDefaultRevisionsNotProvided(VersionCollection $versions): void
     {
         $fromSha       = Hash\Context::forAlgorithm('sha1')->update('fromRevision')->finalize();
@@ -417,27 +413,27 @@ final class AssertBackwardsCompatibleTest extends TestCase
             ->method('checkout')
             ->withConsecutive(
                 [$this->sourceRepository, $fromSha],
-                [$this->sourceRepository, $toSha]
+                [$this->sourceRepository, $toSha],
             )->willReturnOnConsecutiveCalls(
                 $this->sourceRepository,
-                $this->sourceRepository
+                $this->sourceRepository,
             );
 
         $this->performCheckout->expects(self::exactly(2))
             ->method('remove')
             ->withConsecutive(
                 [$this->sourceRepository],
-                [$this->sourceRepository]
+                [$this->sourceRepository],
             );
 
         $this->parseRevision->expects(self::exactly(2))
             ->method('fromStringForRepository')
             ->withConsecutive(
                 [(string) $pickedVersion],
-                ['HEAD']
+                ['HEAD'],
             )->willReturnOnConsecutiveCalls(
                 Revision::fromSha1($fromSha),
-                Revision::fromSha1($toSha)
+                Revision::fromSha1($toSha),
             );
 
         $this->getVersions->expects(self::once())
@@ -460,7 +456,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
             ->with(self::logicalOr(
                 'Detected last minor version: 1.0.0',
                 self::matches('Comparing from %a to %a...'),
-                self::matches('<info>No backwards-incompatible changes detected</info>')
+                self::matches('<info>No backwards-incompatible changes detected</info>'),
             ));
 
         $this->compareApi->expects(self::once())->method('__invoke')->willReturn(Changes::empty());

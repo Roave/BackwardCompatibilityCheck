@@ -77,12 +77,12 @@ use function file_exists;
                                 $composerIo,
                                 null,
                                 true,
-                                $installationPath
-                            )
-                        )
+                                $installationPath,
+                            ),
+                        ),
                 );
             },
-            $astLocator
+            $astLocator,
         ),
         new CompareClasses(
             new ClassBased\SkipClassBasedErrors(new ClassBased\ExcludeAnonymousClasses(new ClassBased\ExcludeInternalClass(
@@ -103,16 +103,16 @@ use function file_exists;
                                     new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\OnlyPublicClassConstantChanged(
                                         new ClassConstantBased\MultipleChecksOnAClassConstant(
                                             new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\ClassConstantVisibilityReduced()),
-                                            new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\ClassConstantValueChanged())
-                                        )
+                                            new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\ClassConstantValueChanged()),
+                                        ),
                                     )),
                                     new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\OnlyProtectedClassConstantChanged(
                                         new ClassConstantBased\MultipleChecksOnAClassConstant(
                                             new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\ClassConstantVisibilityReduced()),
-                                            new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\ClassConstantValueChanged())
-                                        )
-                                    ))
-                                )
+                                            new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\ClassConstantValueChanged()),
+                                        ),
+                                    )),
+                                ),
                             )),
                             new ClassBased\SkipClassBasedErrors(new ClassBased\PropertyChanged(
                                 new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\ExcludeInternalProperty(new PropertyBased\MultipleChecksOnAProperty(
@@ -122,8 +122,8 @@ use function file_exists;
                                             new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyTypeChanged(new TypeIsContravariant(), new TypeIsCovariant())),
                                             new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyDefaultValueChanged()),
                                             new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyVisibilityReduced()),
-                                            new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyScopeChanged())
-                                        )
+                                            new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyScopeChanged()),
+                                        ),
                                     )),
                                     new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\OnlyProtectedPropertyChanged(
                                         new PropertyBased\MultipleChecksOnAProperty(
@@ -131,10 +131,10 @@ use function file_exists;
                                             new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyTypeChanged(new TypeIsContravariant(), new TypeIsCovariant())),
                                             new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyDefaultValueChanged()),
                                             new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyVisibilityReduced()),
-                                            new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyScopeChanged())
-                                        )
-                                    ))
-                                )))
+                                            new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyScopeChanged()),
+                                        ),
+                                    )),
+                                ))),
                             )),
                             new ClassBased\SkipClassBasedErrors(new ClassBased\MethodChanged(
                                 new MethodBased\SkipMethodBasedErrors(new MethodBased\ExcludeInternalMethod(new MethodBased\MultipleChecksOnAMethod(
@@ -155,10 +155,10 @@ use function file_exists;
                                                     new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeChanged()),
                                                     new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterTypeContravarianceChanged(new TypeIsContravariant())),
                                                     new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterTypeChanged()),
-                                                    new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterNameChanged())
-                                                )
-                                            ))
-                                        )
+                                                    new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterNameChanged()),
+                                                ),
+                                            )),
+                                        ),
                                     )),
                                     new MethodBased\SkipMethodBasedErrors(new MethodBased\OnlyProtectedMethodChanged(
                                         new MethodBased\MultipleChecksOnAMethod(
@@ -177,14 +177,14 @@ use function file_exists;
                                                     new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeChanged()),
                                                     new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterTypeContravarianceChanged(new TypeIsContravariant())),
                                                     new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterTypeChanged()),
-                                                    new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterNameChanged())
-                                                )
-                                            ))
-                                        )
-                                    ))
-                                )))
-                            ))
-                        )
+                                                    new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterNameChanged()),
+                                                ),
+                                            )),
+                                        ),
+                                    )),
+                                ))),
+                            )),
+                        ),
                     )),
                     new ClassBased\SkipClassBasedErrors(new ClassBased\FinalClassChanged(
                         new ClassBased\MultipleChecksOnAClass(
@@ -192,9 +192,9 @@ use function file_exists;
                                 new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\OnlyPublicClassConstantChanged(
                                     new ClassConstantBased\MultipleChecksOnAClassConstant(
                                         new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\ClassConstantVisibilityReduced()),
-                                        new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\ClassConstantValueChanged())
-                                    )
-                                ))
+                                        new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\ClassConstantValueChanged()),
+                                    ),
+                                )),
                             )),
                             new ClassBased\SkipClassBasedErrors(new ClassBased\PropertyChanged(
                                 new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\OnlyPublicPropertyChanged(
@@ -203,9 +203,9 @@ use function file_exists;
                                         new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyTypeChanged(new TypeIsContravariant(), new TypeIsCovariant())),
                                         new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyDefaultValueChanged()),
                                         new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyVisibilityReduced()),
-                                        new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyScopeChanged())
-                                    )
-                                ))
+                                        new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyScopeChanged()),
+                                    ),
+                                )),
                             )),
                             new ClassBased\SkipClassBasedErrors(new ClassBased\MethodChanged(
                                 new MethodBased\SkipMethodBasedErrors(new MethodBased\OnlyPublicMethodChanged(
@@ -222,15 +222,15 @@ use function file_exists;
                                                 new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\RequiredParameterAmountIncreased()),
                                                 new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterDefaultValueChanged()),
                                                 new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeCovarianceChanged(new TypeIsCovariant())),
-                                                new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterTypeContravarianceChanged(new TypeIsContravariant()))
-                                            )
-                                        ))
-                                    )
-                                ))
-                            ))
-                        )
-                    ))
-                )
+                                                new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterTypeContravarianceChanged(new TypeIsContravariant())),
+                                            ),
+                                        )),
+                                    ),
+                                )),
+                            )),
+                        ),
+                    )),
+                ),
             ))),
             new InterfaceBased\SkipInterfaceBasedErrors(new InterfaceBased\ExcludeInternalInterface(new InterfaceBased\MultipleChecksOnAnInterface(
                 new InterfaceBased\SkipInterfaceBasedErrors(new InterfaceBased\InterfaceBecameClass()),
@@ -243,7 +243,7 @@ use function file_exists;
                         new ClassBased\SkipClassBasedErrors(new ClassBased\ConstantRemoved()),
                         new ClassBased\SkipClassBasedErrors(new ClassBased\MethodRemoved()),
                         new ClassBased\SkipClassBasedErrors(new ClassBased\ConstantChanged(
-                            new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\ClassConstantValueChanged())
+                            new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\ClassConstantValueChanged()),
                         )),
                         new ClassBased\SkipClassBasedErrors(new ClassBased\MethodChanged(
                             new MethodBased\MultipleChecksOnAMethod(
@@ -259,13 +259,13 @@ use function file_exists;
                                         new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeChanged()),
                                         new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterTypeContravarianceChanged(new TypeIsContravariant())),
                                         new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterTypeChanged()),
-                                        new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterNameChanged())
-                                    )
-                                ))
-                            )
-                        ))
-                    )
-                ))
+                                        new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterNameChanged()),
+                                    ),
+                                )),
+                            ),
+                        )),
+                    ),
+                )),
             ))),
             new TraitBased\SkipTraitBasedErrors(new TraitBased\ExcludeInternalTrait(new TraitBased\MultipleChecksOnATrait(
                 new TraitBased\SkipTraitBasedErrors(new TraitBased\TraitBecameInterface()),
@@ -282,8 +282,8 @@ use function file_exists;
                                 new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyTypeChanged(new TypeIsContravariant(), new TypeIsCovariant())),
                                 new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyDefaultValueChanged()),
                                 new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyVisibilityReduced()),
-                                new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyScopeChanged())
-                            )
+                                new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyScopeChanged()),
+                            ),
                         )),
                         new ClassBased\SkipClassBasedErrors(new ClassBased\MethodChanged(
                             new MethodBased\MultipleChecksOnAMethod(
@@ -303,16 +303,16 @@ use function file_exists;
                                             new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeChanged()),
                                             new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterTypeContravarianceChanged(new TypeIsContravariant())),
                                             new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterTypeChanged()),
-                                            new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterNameChanged())
-                                        )
-                                    ))
-                                )
-                            )
-                        ))
-                    )
-                ))
-            )))
-        )
+                                            new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterNameChanged()),
+                                        ),
+                                    )),
+                                ),
+                            ),
+                        )),
+                    ),
+                )),
+            ))),
+        ),
     );
 
     $application->add($apiCompareCommand);

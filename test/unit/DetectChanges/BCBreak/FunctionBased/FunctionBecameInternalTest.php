@@ -29,7 +29,7 @@ final class FunctionBecameInternalTest extends TestCase
     public function testDiffs(
         ReflectionMethod|ReflectionFunction $fromFunction,
         ReflectionMethod|ReflectionFunction $toFunction,
-        array $expectedMessages
+        array $expectedMessages,
     ): void {
         $changes = (new FunctionBecameInternal())($fromFunction, $toFunction);
 
@@ -37,7 +37,7 @@ final class FunctionBecameInternalTest extends TestCase
             $expectedMessages,
             array_map(static function (Change $change): string {
                 return $change->__toString();
-            }, iterator_to_array($changes))
+            }, iterator_to_array($changes)),
         );
     }
 
@@ -64,7 +64,7 @@ function c() {}
 function d() {}
 PHP
             ,
-            $astLocator
+            $astLocator,
         );
 
         $toLocator = new StringSourceLocator(
@@ -79,7 +79,7 @@ function c() {}
 function d() {}
 PHP
             ,
-            $astLocator
+            $astLocator,
         );
 
         $fromReflector = new DefaultReflector($fromLocator);
@@ -101,8 +101,8 @@ PHP
                     $errors,
                 ],
                 array_keys($functions),
-                $functions
-            )
+                $functions,
+            ),
         );
     }
 }

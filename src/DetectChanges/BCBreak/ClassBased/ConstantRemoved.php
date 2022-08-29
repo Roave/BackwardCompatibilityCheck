@@ -18,12 +18,12 @@ final class ConstantRemoved implements ClassBased
     {
         $removedConstants = Dict\diff_by_key(
             $this->accessibleConstants($fromClass),
-            $this->accessibleConstants($toClass)
+            $this->accessibleConstants($toClass),
         );
 
         return Changes::fromList(...Vec\map($removedConstants, static function (ReflectionClassConstant $constant) use ($fromClass): Change {
             return Change::removed(
-                Str\format('Constant %s::%s was removed', $fromClass->getName(), $constant->getName())
+                Str\format('Constant %s::%s was removed', $fromClass->getName(), $constant->getName()),
             );
         }));
     }

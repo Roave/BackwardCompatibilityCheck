@@ -13,11 +13,8 @@ use Roave\BetterReflection\Reflection\ReflectionClass;
  */
 final class ExcludeInternalInterface implements InterfaceBased
 {
-    private InterfaceBased $check;
-
-    public function __construct(InterfaceBased $check)
+    public function __construct(private InterfaceBased $check)
     {
-        $this->check = $check;
     }
 
     public function __invoke(ReflectionClass $fromInterface, ReflectionClass $toInterface): Changes

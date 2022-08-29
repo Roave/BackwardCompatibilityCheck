@@ -20,7 +20,7 @@ final class TypeIsContravariant
 {
     public function __invoke(
         ReflectionIntersectionType|ReflectionUnionType|ReflectionNamedType|null $type,
-        ReflectionIntersectionType|ReflectionUnionType|ReflectionNamedType|null $comparedType
+        ReflectionIntersectionType|ReflectionUnionType|ReflectionNamedType|null $comparedType,
     ): bool {
         if (
             ($type && $type->__toString() === 'never')

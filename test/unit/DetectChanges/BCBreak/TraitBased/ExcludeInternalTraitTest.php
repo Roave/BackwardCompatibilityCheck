@@ -26,7 +26,7 @@ final class ExcludeInternalTraitTest extends TestCase
 trait ANormalTrait {}
 PHP
             ,
-            $locator
+            $locator,
         ));
         $reflection = $reflector->reflectClass('ANormalTrait');
 
@@ -38,7 +38,7 @@ PHP
 
         self::assertEquals(
             Changes::fromList(Change::removed('foo', true)),
-            (new ExcludeInternalTrait($check))($reflection, $reflection)
+            (new ExcludeInternalTrait($check))($reflection, $reflection),
         );
     }
 
@@ -53,7 +53,7 @@ PHP
 trait AnInternalTrait {}
 PHP
             ,
-            $locator
+            $locator,
         ));
         $reflection = $reflector->reflectClass('AnInternalTrait');
 
@@ -62,7 +62,7 @@ PHP
 
         self::assertEquals(
             Changes::empty(),
-            (new ExcludeInternalTrait($check))($reflection, $reflection)
+            (new ExcludeInternalTrait($check))($reflection, $reflection),
         );
     }
 }

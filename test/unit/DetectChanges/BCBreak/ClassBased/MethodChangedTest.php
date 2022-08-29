@@ -17,9 +17,7 @@ use RoaveTest\BackwardCompatibility\Assertion;
 
 use function strtolower;
 
-/**
- * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\MethodChanged
- */
+/** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\MethodChanged */
 final class MethodChangedTest extends TestCase
 {
     public function testWillDetectChangesInMethods(): void
@@ -39,7 +37,7 @@ class TheClass {
 }
 PHP
             ,
-            $astLocator
+            $astLocator,
         );
 
         $toLocator = new StringSourceLocator(
@@ -55,7 +53,7 @@ class TheClass {
 }
 PHP
             ,
-            $astLocator
+            $astLocator,
         );
 
         $comparator = $this->createMock(MethodBased::class);
@@ -75,12 +73,12 @@ PHP
             Changes::fromList(
                 Change::added('b', true),
                 Change::added('d', true),
-                Change::added('G', true)
+                Change::added('G', true),
             ),
             (new MethodChanged($comparator))(
                 (new DefaultReflector($fromLocator))->reflectClass('TheClass'),
-                (new DefaultReflector($toLocator))->reflectClass('TheClass')
-            )
+                (new DefaultReflector($toLocator))->reflectClass('TheClass'),
+            ),
         );
     }
 }

@@ -26,7 +26,7 @@ final class ReturnTypeByReferenceChanged implements FunctionBased
 
     public function __invoke(
         ReflectionMethod|ReflectionFunction $fromFunction,
-        ReflectionMethod|ReflectionFunction $toFunction
+        ReflectionMethod|ReflectionFunction $toFunction,
     ): Changes {
         $fromReturnsReference = $fromFunction->returnsReference();
         $toReturnsReference   = $toFunction->returnsReference();
@@ -40,8 +40,8 @@ final class ReturnTypeByReferenceChanged implements FunctionBased
                 'The return value of %s changed from %s to %s',
                 ($this->formatFunction)($fromFunction),
                 $this->referenceToString($fromReturnsReference),
-                $this->referenceToString($toReturnsReference)
-            )
+                $this->referenceToString($toReturnsReference),
+            ),
         ));
     }
 

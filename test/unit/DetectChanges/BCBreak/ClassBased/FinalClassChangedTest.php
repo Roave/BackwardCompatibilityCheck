@@ -14,9 +14,7 @@ use Roave\BetterReflection\Reflection\ReflectionClass;
 
 use function uniqid;
 
-/**
- * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\FinalClassChanged
- */
+/** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\FinalClassChanged */
 final class FinalClassChangedTest extends TestCase
 {
     /** @var ClassBased&MockObject */

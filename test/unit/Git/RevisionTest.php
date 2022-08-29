@@ -11,9 +11,7 @@ use Psl\SecureRandom;
 use Psl\Str;
 use Roave\BackwardCompatibility\Git\Revision;
 
-/**
- * @covers \Roave\BackwardCompatibility\Git\Revision
- */
+/** @covers \Roave\BackwardCompatibility\Git\Revision */
 final class RevisionTest extends TestCase
 {
     public function testFromSha1WithValidSha1(): void
@@ -30,9 +28,7 @@ final class RevisionTest extends TestCase
         self::assertSame($sha1, (string) Revision::fromSha1($sha1 . "\n"));
     }
 
-    /**
-     * @return string[][]
-     */
+    /** @return string[][] */
     public function invalidRevisionProvider(): array
     {
         return [
@@ -45,9 +41,7 @@ final class RevisionTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider invalidRevisionProvider
-     */
+    /** @dataProvider invalidRevisionProvider */
     public function testInvalidSha1Rejected(string $invalidRevision): void
     {
         $this->expectException(InvariantViolationException::class);

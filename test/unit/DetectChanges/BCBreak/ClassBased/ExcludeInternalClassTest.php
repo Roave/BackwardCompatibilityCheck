@@ -26,7 +26,7 @@ final class ExcludeInternalClassTest extends TestCase
 class ANormalClass {}
 PHP
             ,
-            $locator
+            $locator,
         ));
         $fromReflection = $reflector->reflectClass('ANormalClass');
         $toReflection   = $reflector->reflectClass('ANormalClass');
@@ -39,7 +39,7 @@ PHP
 
         self::assertEquals(
             Changes::fromList(Change::removed('foo', true)),
-            (new ExcludeInternalClass($check))($fromReflection, $toReflection)
+            (new ExcludeInternalClass($check))($fromReflection, $toReflection),
         );
     }
 
@@ -54,7 +54,7 @@ PHP
 class AnInternalClass {}
 PHP
             ,
-            $locator
+            $locator,
         ));
         $reflection = $reflector->reflectClass('AnInternalClass');
 
@@ -63,7 +63,7 @@ PHP
 
         self::assertEquals(
             Changes::empty(),
-            (new ExcludeInternalClass($check))($reflection, $reflection)
+            (new ExcludeInternalClass($check))($reflection, $reflection),
         );
     }
 }

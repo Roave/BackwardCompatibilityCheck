@@ -13,9 +13,7 @@ use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
 use RoaveTest\BackwardCompatibility\Assertion;
 
-/**
- * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\MultipleChecksOnAProperty
- */
+/** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\MultipleChecksOnAProperty */
 final class MultipleChecksOnAPropertyTest extends TestCase
 {
     public function testChecksAllGivenCheckers(): void
@@ -72,7 +70,7 @@ final class MultipleChecksOnAPropertyTest extends TestCase
                     ->onLine(10)
                     ->onColumn(5),
             ),
-            $multiCheck($from, $to)
+            $multiCheck($from, $to),
         );
     }
 }

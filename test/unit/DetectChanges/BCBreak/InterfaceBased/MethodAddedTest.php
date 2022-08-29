@@ -27,7 +27,7 @@ final class MethodAddedTest extends TestCase
     public function testDiffs(
         ReflectionClass $fromInterface,
         ReflectionClass $toInterface,
-        array $expectedMessages
+        array $expectedMessages,
     ): void {
         $changes = (new MethodAdded())($fromInterface, $toInterface);
 
@@ -35,7 +35,7 @@ final class MethodAddedTest extends TestCase
             $expectedMessages,
             array_map(static function (Change $change): string {
                 return $change->__toString();
-            }, iterator_to_array($changes))
+            }, iterator_to_array($changes)),
         );
     }
 
@@ -68,7 +68,7 @@ interface F {
 }
 PHP
             ,
-            $astLocator
+            $astLocator,
         );
 
         $toLocator = new StringSourceLocator(
@@ -97,7 +97,7 @@ interface F {
 }
 PHP
             ,
-            $astLocator
+            $astLocator,
         );
 
         $fromClassReflector = new DefaultReflector($fromLocator);
@@ -125,8 +125,8 @@ PHP
                     $errors,
                 ],
                 array_keys($properties),
-                $properties
-            )
+                $properties,
+            ),
         );
     }
 }

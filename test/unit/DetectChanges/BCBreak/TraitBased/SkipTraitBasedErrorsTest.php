@@ -15,9 +15,7 @@ use Roave\BetterReflection\Reflection\ReflectionClass;
 
 use function uniqid;
 
-/**
- * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\TraitBased\SkipTraitBasedErrors
- */
+/** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\TraitBased\SkipTraitBasedErrors */
 final class SkipTraitBasedErrorsTest extends TestCase
 {
     /** @var TraitBased&MockObject */
@@ -37,7 +35,7 @@ final class SkipTraitBasedErrorsTest extends TestCase
         $toTrait         = $this->createMock(ReflectionClass::class);
         $expectedChanges = Changes::fromList(Change::added(
             uniqid('foo', true),
-            true
+            true,
         ));
 
         $this
@@ -65,7 +63,7 @@ final class SkipTraitBasedErrorsTest extends TestCase
 
         self::assertEquals(
             Changes::fromList(Change::skippedDueToFailure($exception)),
-            ($this->check)($fromTrait, $toTrait)
+            ($this->check)($fromTrait, $toTrait),
         );
     }
 }

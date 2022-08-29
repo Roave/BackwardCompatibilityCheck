@@ -31,11 +31,11 @@ final class ParameterTypeChanged implements FunctionBased
 
     public function __invoke(
         ReflectionMethod|ReflectionFunction $fromFunction,
-        ReflectionMethod|ReflectionFunction $toFunction
+        ReflectionMethod|ReflectionFunction $toFunction,
     ): Changes {
         return Changes::fromIterator($this->checkSymbols(
             $fromFunction->getParameters(),
-            $toFunction->getParameters()
+            $toFunction->getParameters(),
         ));
     }
 
@@ -52,9 +52,7 @@ final class ParameterTypeChanged implements FunctionBased
         }
     }
 
-    /**
-     * @return iterable<int, Change>
-     */
+    /** @return iterable<int, Change> */
     private function compareParameter(ReflectionParameter $fromParameter, ReflectionParameter $toParameter): iterable
     {
         $fromType = $this->typeToString($fromParameter->getType());
@@ -70,12 +68,12 @@ final class ParameterTypeChanged implements FunctionBased
                 $fromParameter->getName(),
                 ($this->formatFunction)($fromParameter->getDeclaringFunction()),
                 $fromType,
-                $toType
-            )
+                $toType,
+            ),
         );
     }
 
-    private function typeToString(?ReflectionType $type): string
+    private function typeToString(ReflectionType|null $type): string
     {
         if (! $type) {
             return 'no type';

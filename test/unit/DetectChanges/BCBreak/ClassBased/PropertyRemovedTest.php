@@ -26,7 +26,7 @@ final class PropertyRemovedTest extends TestCase
     public function testDiffs(
         ReflectionClass $fromClass,
         ReflectionClass $toClass,
-        array $expectedMessages
+        array $expectedMessages,
     ): void {
         $changes = (new PropertyRemoved())($fromClass, $toClass);
 
@@ -34,7 +34,7 @@ final class PropertyRemovedTest extends TestCase
             $expectedMessages,
             array_map(static function (Change $change): string {
                 return $change->__toString();
-            }, iterator_to_array($changes))
+            }, iterator_to_array($changes)),
         );
     }
 
@@ -50,11 +50,11 @@ final class PropertyRemovedTest extends TestCase
             'RoaveTestAsset\\ClassWithPropertiesBeingRemoved' => [
                 (new DefaultReflector(new SingleFileSourceLocator(
                     __DIR__ . '/../../../../asset/api/old/ClassWithPropertiesBeingRemoved.php',
-                    $locator
+                    $locator,
                 )))->reflectClass('RoaveTestAsset\\ClassWithPropertiesBeingRemoved'),
                 (new DefaultReflector(new SingleFileSourceLocator(
                     __DIR__ . '/../../../../asset/api/new/ClassWithPropertiesBeingRemoved.php',
-                    $locator
+                    $locator,
                 )))->reflectClass('RoaveTestAsset\\ClassWithPropertiesBeingRemoved'),
                 [
                     '[BC] REMOVED: Property RoaveTestAsset\ClassWithPropertiesBeingRemoved#$removedPublicProperty was removed',
@@ -78,7 +78,7 @@ final class FinalClass
 }
 PHP
                     ,
-                    $locator
+                    $locator,
                 )))->reflectClass('FinalClass'),
                 (new DefaultReflector(new StringSourceLocator(
                     <<<'PHP'
@@ -91,7 +91,7 @@ final class FinalClass
 }
 PHP
                     ,
-                    $locator
+                    $locator,
                 )))->reflectClass('FinalClass'),
                 [
                     '[BC] REMOVED: Property FinalClass#$decreasedVisibilityPublicProperty was removed',
@@ -113,7 +113,7 @@ class TestClass
 }
 PHP
                     ,
-                    $locator
+                    $locator,
                 )))->reflectClass('TestClass'),
                 (new DefaultReflector(new StringSourceLocator(
                     <<<'PHP'
@@ -124,7 +124,7 @@ class TestClass
 }
 PHP
                     ,
-                    $locator
+                    $locator,
                 )))->reflectClass('TestClass'),
                 ['[BC] REMOVED: Property TestClass#$testProperty was removed'],
             ],
@@ -143,7 +143,7 @@ class TestClass
 }
 PHP
                     ,
-                    $locator
+                    $locator,
                 )))->reflectClass('TestClass'),
                 (new DefaultReflector(new StringSourceLocator(
                     <<<'PHP'
@@ -159,7 +159,7 @@ class TestClass
 }
 PHP
                     ,
-                    $locator
+                    $locator,
                 )))->reflectClass('TestClass'),
                 ['[BC] REMOVED: Property TestClass#$testProperty was removed'],
             ],

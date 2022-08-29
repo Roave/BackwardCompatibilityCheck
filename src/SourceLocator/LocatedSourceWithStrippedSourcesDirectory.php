@@ -15,7 +15,7 @@ final class LocatedSourceWithStrippedSourcesDirectory extends LocatedSource
 {
     public function __construct(
         private LocatedSource $next,
-        private string $sourcesDirectory
+        private string $sourcesDirectory,
     ) {
     }
 
@@ -24,12 +24,12 @@ final class LocatedSourceWithStrippedSourcesDirectory extends LocatedSource
         return $this->next->getSource();
     }
 
-    public function getName(): ?string
+    public function getName(): string|null
     {
         return $this->next->getName();
     }
 
-    public function getFileName(): ?string
+    public function getFileName(): string|null
     {
         $fileName = $this->next->getFileName();
 
@@ -45,7 +45,7 @@ final class LocatedSourceWithStrippedSourcesDirectory extends LocatedSource
         return $this->next->isInternal();
     }
 
-    public function getExtensionName(): ?string
+    public function getExtensionName(): string|null
     {
         return $this->next->getExtensionName();
     }
@@ -55,7 +55,7 @@ final class LocatedSourceWithStrippedSourcesDirectory extends LocatedSource
         return $this->next->isEvaled();
     }
 
-    public function getAliasName(): ?string
+    public function getAliasName(): string|null
     {
         return $this->next->getAliasName();
     }

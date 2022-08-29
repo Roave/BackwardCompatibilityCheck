@@ -20,9 +20,7 @@ use function array_combine;
 use function array_filter;
 use function array_map;
 
-/**
- * @covers \Roave\BackwardCompatibility\SourceLocator\ReplaceSourcePathOfLocatedSources
- */
+/** @covers \Roave\BackwardCompatibility\SourceLocator\ReplaceSourcePathOfLocatedSources */
 final class ReplaceSourcePathOfLocatedSourcesTest extends TestCase
 {
     public function testWillWrapFoundReflection(): void
@@ -38,14 +36,14 @@ final class ReplaceSourcePathOfLocatedSourcesTest extends TestCase
             ->with(
                 $reflector,
                 self::equalTo(new LocatedSourceWithStrippedSourcesDirectory($source, '/foo')),
-                $identifier
+                $identifier,
             )
             ->willReturn($reflection);
         
         self::assertSame(
             $reflection,
             (new ReplaceSourcePathOfLocatedSources($next, '/foo'))
-                ->findReflection($reflector, $source, $identifier)
+                ->findReflection($reflector, $source, $identifier),
         );
     }
 
@@ -62,14 +60,14 @@ final class ReplaceSourcePathOfLocatedSourcesTest extends TestCase
             ->with(
                 $reflector,
                 self::equalTo(new LocatedSourceWithStrippedSourcesDirectory($source, '/foo')),
-                $identifierType
+                $identifierType,
             )
             ->willReturn([$reflection]);
 
         self::assertSame(
             [$reflection],
             (new ReplaceSourcePathOfLocatedSources($next, '/foo'))
-                ->findReflectionsOfType($reflector, $source, $identifierType)
+                ->findReflectionsOfType($reflector, $source, $identifierType),
         );
     }
 
@@ -85,7 +83,7 @@ final class ReplaceSourcePathOfLocatedSourcesTest extends TestCase
             $method
                 ->getDeclaringClass()
                 ->getName(),
-            'Method is re-declared in the subclass'
+            'Method is re-declared in the subclass',
         );
     }
 

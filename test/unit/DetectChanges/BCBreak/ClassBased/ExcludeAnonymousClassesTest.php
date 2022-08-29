@@ -27,7 +27,7 @@ final class ExcludeAnonymousClassesTest extends TestCase
 class ANormalClass {}
 PHP
             ,
-            $locator
+            $locator,
         ));
         $fromReflection = $reflector->reflectClass('ANormalClass');
         $toReflection   = $reflector->reflectClass('ANormalClass');
@@ -51,7 +51,7 @@ PHP
 $anonClass = new class {};
 PHP
             ,
-            $locator
+            $locator,
         ));
         $allClasses               = $reflector->reflectAllClasses();
         $anonymousClassReflection = reset($allClasses);

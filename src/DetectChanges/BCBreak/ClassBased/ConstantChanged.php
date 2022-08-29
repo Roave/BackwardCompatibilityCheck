@@ -14,18 +14,15 @@ use Roave\BetterReflection\Reflection\ReflectionClassConstant;
 
 final class ConstantChanged implements ClassBased
 {
-    private ClassConstantBased $checkConstant;
-
-    public function __construct(ClassConstantBased $checkConstant)
+    public function __construct(private ClassConstantBased $checkConstant)
     {
-        $this->checkConstant = $checkConstant;
     }
 
     public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass): Changes
     {
         return Changes::fromIterator($this->checkSymbols(
             $fromClass->getReflectionConstants(),
-            $toClass->getReflectionConstants()
+            $toClass->getReflectionConstants(),
         ));
     }
 

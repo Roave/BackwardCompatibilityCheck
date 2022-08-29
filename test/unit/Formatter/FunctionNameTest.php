@@ -12,14 +12,10 @@ use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflector\DefaultReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 
-/**
- * @covers \Roave\BackwardCompatibility\Formatter\FunctionName
- */
+/** @covers \Roave\BackwardCompatibility\Formatter\FunctionName */
 final class FunctionNameTest extends TestCase
 {
-    /**
-     * @dataProvider functionsToBeTested
-     */
+    /** @dataProvider functionsToBeTested */
     public function testName(ReflectionFunction|ReflectionMethod $function, string $expectedName): void
     {
         self::assertSame($expectedName, (new FunctionName())($function));
@@ -53,7 +49,7 @@ namespace N2 {
 }
 PHP
             ,
-            (new BetterReflection())->astLocator()
+            (new BetterReflection())->astLocator(),
         );
 
         $reflector = new DefaultReflector($locator);

@@ -27,17 +27,15 @@ use function array_merge;
 /** @covers \Roave\BackwardCompatibility\DetectChanges\Variance\TypeIsContravariant */
 final class TypeIsContravariantTest extends TestCase
 {
-    /**
-     * @dataProvider checkedTypes
-     */
+    /** @dataProvider checkedTypes */
     public function testContravariance(
         ReflectionIntersectionType|ReflectionUnionType|ReflectionNamedType|null $type,
         ReflectionIntersectionType|ReflectionUnionType|ReflectionNamedType|null $newType,
-        bool $expectedToBeContravariant
+        bool $expectedToBeContravariant,
     ): void {
         self::assertSame(
             $expectedToBeContravariant,
-            (new TypeIsContravariant())($type, $newType)
+            (new TypeIsContravariant())($type, $newType),
         );
     }
 
@@ -70,13 +68,13 @@ class CClass extends BClass {}
 final class OwnerPropertyContainer { private $owner; }
 PHP
             ,
-            (new BetterReflection())->astLocator()
+            (new BetterReflection())->astLocator(),
         ));
 
         $owner = Type\object(ReflectionProperty::class)
             ->coerce(
                 $reflector->reflectClass('OwnerPropertyContainer')
-                    ->getProperty('owner')
+                    ->getProperty('owner'),
             );
 
         $types = [
@@ -380,18 +378,16 @@ PHP
                     : self::identifierType($reflector, $owner, $types[1]),
                 $types[2],
             ],
-            $types
+            $types,
         );
     }
 
-    /**
-     * @dataProvider existingTypes
-     */
+    /** @dataProvider existingTypes */
     public function testContravarianceConsidersSameTypeAlwaysContravariant(
-        ReflectionIntersectionType|ReflectionUnionType|ReflectionNamedType|null $type
+        ReflectionIntersectionType|ReflectionUnionType|ReflectionNamedType|null $type,
     ): void {
         self::assertTrue(
-            (new TypeIsContravariant())($type, $type)
+            (new TypeIsContravariant())($type, $type),
         );
     }
 
@@ -407,13 +403,13 @@ class AClass {}
 final class OwnerPropertyContainer { private $owner; }
 PHP
             ,
-            (new BetterReflection())->astLocator()
+            (new BetterReflection())->astLocator(),
         ));
 
         $owner = Type\object(ReflectionProperty::class)
             ->coerce(
                 $reflector->reflectClass('OwnerPropertyContainer')
-                    ->getProperty('owner')
+                    ->getProperty('owner'),
             );
 
         return array_merge(
@@ -433,14 +429,12 @@ PHP
                     'callable',
                     'Traversable',
                     'AClass',
-                ]
-            ))
+                ],
+            )),
         );
     }
 
-    /**
-     * @dataProvider existingNullableTypeStrings
-     */
+    /** @dataProvider existingNullableTypeStrings */
     public function testContravarianceConsidersNullability(string $type): void
     {
         $reflector = new DefaultReflector(new StringSourceLocator(
@@ -452,13 +446,13 @@ class AClass {}
 final class OwnerPropertyContainer { private $owner; }
 PHP
             ,
-            (new BetterReflection())->astLocator()
+            (new BetterReflection())->astLocator(),
         ));
 
         $owner = Type\object(ReflectionProperty::class)
             ->coerce(
                 $reflector->reflectClass('OwnerPropertyContainer')
-                    ->getProperty('owner')
+                    ->getProperty('owner'),
             );
 
         $nullable    = self::identifierType($reflector, $owner, new NullableType(new Identifier($type)));
@@ -489,7 +483,7 @@ PHP
     private static function identifierType(
         Reflector $reflector,
         ReflectionProperty $owner,
-        Identifier|NullableType|UnionType|IntersectionType $identifier
+        Identifier|NullableType|UnionType|IntersectionType $identifier,
     ): ReflectionIntersectionType|ReflectionUnionType|ReflectionNamedType {
         return ReflectionType::createFromNode($reflector, $owner, $identifier);
     }

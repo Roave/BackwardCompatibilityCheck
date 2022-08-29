@@ -23,7 +23,7 @@ final class InterfaceBecameTrait implements InterfaceBased
         }
 
         return Changes::fromList(Change::changed(
-            Str\format('Interface %s became a trait', $fromInterface->getName())
+            Str\format('Interface %s became a trait', $fromInterface->getName()),
         ));
     }
 }

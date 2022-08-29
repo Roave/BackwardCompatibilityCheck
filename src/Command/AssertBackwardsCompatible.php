@@ -33,9 +33,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class AssertBackwardsCompatible extends Command
 {
-    /**
-     * @throws LogicException
-     */
+    /** @throws LogicException */
     public function __construct(
         private PerformCheckoutOfRevision $git,
         private ComposerInstallationReflectorFactory $makeComposerInstallationReflector,
@@ -43,14 +41,12 @@ final class AssertBackwardsCompatible extends Command
         private GetVersionCollection $getVersions,
         private PickVersionFromVersionCollection $pickFromVersion,
         private LocateDependencies $locateDependencies,
-        private CompareApi $compareApi
+        private CompareApi $compareApi,
     ) {
         parent::__construct();
     }
 
-    /**
-     * @throws InvalidArgumentException
-     */
+    /** @throws InvalidArgumentException */
     protected function configure(): void
     {
         $this
@@ -60,27 +56,27 @@ final class AssertBackwardsCompatible extends Command
                 'from',
                 null,
                 InputOption::VALUE_OPTIONAL,
-                'Git reference for the base version of the library, which is considered "stable"'
+                'Git reference for the base version of the library, which is considered "stable"',
             )
             ->addOption(
                 'to',
                 null,
                 InputOption::VALUE_REQUIRED,
                 'Git reference for the new version of the library, which is verified against "from" for BC breaks',
-                'HEAD'
+                'HEAD',
             )
             ->addOption(
                 'format',
                 null,
                 InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
                 'Currently supports "console", "markdown" or "github-actions"',
-                ['console']
+                ['console'],
             )
             ->addOption(
                 'install-development-dependencies',
                 null,
                 InputOption::VALUE_NONE,
-                'Whether to also install "require-dev" dependencies too'
+                'Whether to also install "require-dev" dependencies too',
             )
             ->addUsage(
                 <<<'USAGE'
@@ -104,13 +100,11 @@ and terminate with `3` if breaking changes were detected.
 
 If you want to produce `STDOUT` output, then please use the
 `--format` flag.
-USAGE
+USAGE,
             );
     }
 
-    /**
-     * @throws InvalidArgumentException
-     */
+    /** @throws InvalidArgumentException */
     public function execute(InputInterface $input, OutputInterface $output): int
     {
         $output = Type\object(ConsoleOutputInterface::class)->assert($output);
@@ -132,7 +126,7 @@ USAGE
         $stdErr->writeln(Str\format(
             'Comparing from %s to %s...',
             Type\string()->coerce($fromRevision),
-            Type\string()->coerce($toRevision)
+            Type\string()->coerce($toRevision),
         ));
 
         $fromPath = $this->git->checkout($sourceRepo, $fromRevision);
@@ -142,16 +136,16 @@ USAGE
             $changes = ($this->compareApi)(
                 ($this->makeComposerInstallationReflector)(
                     $fromPath->__toString(),
-                    new AggregateSourceLocator() // no dependencies
+                    new AggregateSourceLocator(), // no dependencies
                 ),
                 ($this->makeComposerInstallationReflector)(
                     $fromPath->__toString(),
-                    ($this->locateDependencies)($fromPath->__toString(), $includeDevelopmentDependencies)
+                    ($this->locateDependencies)($fromPath->__toString(), $includeDevelopmentDependencies),
                 ),
                 ($this->makeComposerInstallationReflector)(
                     $toPath->__toString(),
-                    ($this->locateDependencies)($toPath->__toString(), $includeDevelopmentDependencies)
-                )
+                    ($this->locateDependencies)($toPath->__toString(), $includeDevelopmentDependencies),
+                ),
             );
 
             $formatters = [
@@ -190,9 +184,7 @@ USAGE
         return $hasBcBreaks ? 3 : 0;
     }
 
-    /**
-     * @throws InvalidArgumentException
-     */
+    /** @throws InvalidArgumentException */
     private function parseRevisionFromInput(InputInterface $input, CheckedOutRepository $repository): Revision
     {
         $from = Type\string()->coerce($input->getOption('from'));
@@ -202,7 +194,7 @@ USAGE
 
     private function determineFromRevisionFromRepository(
         CheckedOutRepository $repository,
-        OutputInterface $output
+        OutputInterface $output,
     ): Revision {
         $versions = $this->getVersions->fromRepository($repository);
 
@@ -214,7 +206,7 @@ USAGE
 
         return $this->parseRevision->fromStringForRepository(
             $versionString,
-            $repository
+            $repository,
         );
     }
 }

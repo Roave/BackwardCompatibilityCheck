@@ -15,9 +15,7 @@ use Roave\BetterReflection\Reflection\ReflectionFunction;
 
 use function uniqid;
 
-/**
- * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\SkipFunctionBasedErrors
- */
+/** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\SkipFunctionBasedErrors */
 final class SkipFunctionBasedErrorsTest extends TestCase
 {
     /** @var FunctionBased&MockObject */
@@ -37,7 +35,7 @@ final class SkipFunctionBasedErrorsTest extends TestCase
         $toFunction      = $this->createMock(ReflectionFunction::class);
         $expectedChanges = Changes::fromList(Change::added(
             uniqid('foo', true),
-            true
+            true,
         ));
 
         $this
@@ -65,7 +63,7 @@ final class SkipFunctionBasedErrorsTest extends TestCase
 
         self::assertEquals(
             Changes::fromList(Change::skippedDueToFailure($exception)),
-            ($this->check)($fromFunction, $toFunction)
+            ($this->check)($fromFunction, $toFunction),
         );
     }
 }

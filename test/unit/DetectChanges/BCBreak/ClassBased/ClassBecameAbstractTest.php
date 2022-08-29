@@ -17,9 +17,7 @@ use function array_keys;
 use function array_map;
 use function iterator_to_array;
 
-/**
- * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\ClassBecameAbstract
- */
+/** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\ClassBecameAbstract */
 final class ClassBecameAbstractTest extends TestCase
 {
     /**
@@ -30,7 +28,7 @@ final class ClassBecameAbstractTest extends TestCase
     public function testDiffs(
         ReflectionClass $fromClass,
         ReflectionClass $toClass,
-        array $expectedMessages
+        array $expectedMessages,
     ): void {
         $changes = (new ClassBecameAbstract())($fromClass, $toClass);
 
@@ -38,7 +36,7 @@ final class ClassBecameAbstractTest extends TestCase
             $expectedMessages,
             array_map(static function (Change $change): string {
                 return $change->__toString();
-            }, iterator_to_array($changes))
+            }, iterator_to_array($changes)),
         );
     }
 
@@ -64,7 +62,7 @@ interface InterfaceToAbstract {}
 abstract class AbstractToInterface {}
 PHP
             ,
-            $locator
+            $locator,
         ));
         $toReflector   = new DefaultReflector(new StringSourceLocator(
             <<<'PHP'
@@ -81,7 +79,7 @@ abstract class InterfaceToAbstract {}
 interface AbstractToInterface {}
 PHP
             ,
-            $locator
+            $locator,
         ));
 
         $classes = [
@@ -105,8 +103,8 @@ PHP
                     $errors,
                 ],
                 array_keys($classes),
-                $classes
-            )
+                $classes,
+            ),
         );
     }
 }

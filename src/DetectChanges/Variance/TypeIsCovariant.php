@@ -21,7 +21,7 @@ final class TypeIsCovariant
 {
     public function __invoke(
         ReflectionIntersectionType|ReflectionUnionType|ReflectionNamedType|null $type,
-        ReflectionIntersectionType|ReflectionUnionType|ReflectionNamedType|null $comparedType
+        ReflectionIntersectionType|ReflectionUnionType|ReflectionNamedType|null $comparedType,
     ): bool {
         if ($type === null) {
             // everything can be covariant to `mixed`
@@ -121,7 +121,7 @@ final class TypeIsCovariant
 
         return Iter\contains(
             $comparedTypeReflectionClass->getParentClassNames(),
-            $originalTypeReflectionClass->getName()
+            $originalTypeReflectionClass->getName(),
         );
     }
 }

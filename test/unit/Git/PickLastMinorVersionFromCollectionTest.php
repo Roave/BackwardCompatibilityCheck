@@ -13,9 +13,7 @@ use Version\VersionCollection;
 
 use function array_map;
 
-/**
- * @covers \Roave\BackwardCompatibility\Git\PickLastMinorVersionFromCollection
- */
+/** @covers \Roave\BackwardCompatibility\Git\PickLastMinorVersionFromCollection */
 final class PickLastMinorVersionFromCollectionTest extends TestCase
 {
     /**
@@ -52,8 +50,8 @@ final class PickLastMinorVersionFromCollectionTest extends TestCase
                 new VersionCollection(...array_map(static function (string $version): Version {
                     return Type\object(Version::class)
                         ->coerce(Version::fromString($version));
-                }, $collectionOfVersions))
-            )->toString()
+                }, $collectionOfVersions)),
+            )->toString(),
         );
     }
 

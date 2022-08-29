@@ -20,9 +20,9 @@ final class Change
         private string $modificationType,
         public string $description,
         private bool $isBcBreak,
-        public ?string $file = null,
-        public ?int $line = null,
-        public ?int $column = null
+        public string|null $file = null,
+        public int|null $line = null,
+        public int|null $column = null,
     ) {
     }
 
@@ -73,9 +73,9 @@ final class Change
 
     /** @internal */
     public function withFilePositionsIfNotAlreadySet(
-        ?string $file,
+        string|null $file,
         int $line,
-        ?int $column
+        int|null $column,
     ): self {
         $instance = clone $this;
 
@@ -86,7 +86,7 @@ final class Change
         return $instance;
     }
 
-    public function onFile(?string $file): self
+    public function onFile(string|null $file): self
     {
         $instance = clone $this;
 
@@ -104,7 +104,7 @@ final class Change
         return $instance;
     }
 
-    public function onColumn(?int $column): self
+    public function onColumn(int|null $column): self
     {
         $instance = clone $this;
 
@@ -119,7 +119,7 @@ final class Change
             '%s%s: %s',
             $this->isBcBreak ? '[BC] ' : '     ',
             Str\uppercase($this->modificationType),
-            $this->description
+            $this->description,
         );
     }
 }

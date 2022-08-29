@@ -18,9 +18,7 @@ use function array_keys;
 use function array_map;
 use function iterator_to_array;
 
-/**
- * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\ParameterNameChanged
- */
+/** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\ParameterNameChanged */
 final class ParameterNameChangedTest extends TestCase
 {
     /**
@@ -31,7 +29,7 @@ final class ParameterNameChangedTest extends TestCase
     public function testDiffs(
         ReflectionMethod|ReflectionFunction $fromFunction,
         ReflectionMethod|ReflectionFunction $toFunction,
-        array $expectedMessages
+        array $expectedMessages,
     ): void {
         $changes = (new ParameterNameChanged())
             ->__invoke($fromFunction, $toFunction);
@@ -40,7 +38,7 @@ final class ParameterNameChangedTest extends TestCase
             $expectedMessages,
             array_map(static function (Change $change): string {
                 return $change->__toString();
-            }, iterator_to_array($changes))
+            }, iterator_to_array($changes)),
         );
     }
 
@@ -70,7 +68,7 @@ function addedArgumentsShouldNotBeDetected($a, $b) {}
 function removedArgumentsShouldNotBeDetected($a, $b, $c) {}
 PHP
             ,
-            $astLocator
+            $astLocator,
         );
 
         $toLocator = new StringSourceLocator(
@@ -88,7 +86,7 @@ function addedArgumentsShouldNotBeDetected($a, $b, $c) {}
 function removedArgumentsShouldNotBeDetected($a, $b) {}
 PHP
             ,
-            $astLocator
+            $astLocator,
         );
 
         $fromReflector = new DefaultReflector($fromLocator);
@@ -116,8 +114,8 @@ PHP
                     $errorMessages,
                 ],
                 array_keys($functions),
-                $functions
-            )
+                $functions,
+            ),
         );
     }
 
@@ -135,7 +133,7 @@ class TheClass {
 }
 PHP
             ,
-            $astLocator
+            $astLocator,
         );
 
         $toLocator = new StringSourceLocator(
@@ -148,7 +146,7 @@ class TheClass {
 }
 PHP
             ,
-            $astLocator
+            $astLocator,
         );
 
         $fromClassReflector = new DefaultReflector($fromLocator);

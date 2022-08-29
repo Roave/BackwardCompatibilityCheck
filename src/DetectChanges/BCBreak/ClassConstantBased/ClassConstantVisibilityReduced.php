@@ -33,8 +33,8 @@ final class ClassConstantVisibilityReduced implements ClassConstantBased
                 $fromConstant->getDeclaringClass()->getName(),
                 $fromConstant->getName(),
                 $visibilityFrom,
-                $visibilityTo
-            )
+                $visibilityTo,
+            ),
         ));
     }
 

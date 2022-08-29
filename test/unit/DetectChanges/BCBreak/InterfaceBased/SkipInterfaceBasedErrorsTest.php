@@ -15,9 +15,7 @@ use Roave\BetterReflection\Reflection\ReflectionClass;
 
 use function uniqid;
 
-/**
- * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased\SkipInterfaceBasedErrors
- */
+/** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased\SkipInterfaceBasedErrors */
 final class SkipInterfaceBasedErrorsTest extends TestCase
 {
     /** @var InterfaceBased&MockObject */
@@ -37,7 +35,7 @@ final class SkipInterfaceBasedErrorsTest extends TestCase
         $toInterface     = $this->createMock(ReflectionClass::class);
         $expectedChanges = Changes::fromList(Change::added(
             uniqid('foo', true),
-            true
+            true,
         ));
 
         $this
@@ -65,7 +63,7 @@ final class SkipInterfaceBasedErrorsTest extends TestCase
 
         self::assertEquals(
             Changes::fromList(Change::skippedDueToFailure($exception)),
-            ($this->check)($fromInterface, $toInterface)
+            ($this->check)($fromInterface, $toInterface),
         );
     }
 }

@@ -18,6 +18,6 @@ interface CompareApi
     public function __invoke(
         Reflector $definedSymbols,
         Reflector $pastSourcesWithDependencies,
-        Reflector $newSourcesWithDependencies
+        Reflector $newSourcesWithDependencies,
     ): Changes;
 }

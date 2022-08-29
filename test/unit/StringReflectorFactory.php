@@ -16,9 +16,7 @@ use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 
 final class StringReflectorFactory
 {
-    /**
-     * @throws EmptyPhpSourceCode
-     */
+    /** @throws EmptyPhpSourceCode */
     public function __invoke(string $sourceCode): Reflector
     {
         $astLocator = (new BetterReflection())->astLocator();
@@ -29,7 +27,7 @@ final class StringReflectorFactory
                 new PhpInternalSourceLocator($astLocator, $stubber),
                 new EvaledCodeSourceLocator($astLocator, $stubber),
                 new StringSourceLocator($sourceCode, $astLocator),
-            ])
+            ]),
         );
     }
 }

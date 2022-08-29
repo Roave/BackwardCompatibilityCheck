@@ -12,21 +12,15 @@ use Traversable;
 
 use function array_values;
 
-/**
- * @implements IteratorAggregate<int, Change>
- */
+/** @implements IteratorAggregate<int, Change> */
 final class Changes implements IteratorAggregate, Countable
 {
-    /** @var list<Change> */
-    private array $bufferedChanges;
-
     /** @var iterable<int, Change>|null */
-    private ?iterable $unBufferedChanges = null;
+    private iterable|null $unBufferedChanges = null;
 
     /** @param list<Change> $bufferedChanges */
-    private function __construct(array $bufferedChanges)
+    private function __construct(private array $bufferedChanges)
     {
-        $this->bufferedChanges = $bufferedChanges;
     }
 
     public static function empty(): self

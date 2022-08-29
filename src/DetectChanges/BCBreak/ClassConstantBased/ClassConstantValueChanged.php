@@ -34,8 +34,8 @@ final class ClassConstantValueChanged implements ClassConstantBased
                 $fromConstant->getDeclaringClass()->getName(),
                 $fromConstant->getName(),
                 var_export($fromValue, true),
-                var_export($toValue, true)
-            )
+                var_export($toValue, true),
+            ),
         ));
     }
 }

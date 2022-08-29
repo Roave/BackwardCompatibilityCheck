@@ -13,9 +13,7 @@ use Roave\BetterReflection\Reflection\ReflectionClass;
 
 use function uniqid;
 
-/**
- * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\TraitBased\UseClassBasedChecksOnATrait
- */
+/** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\TraitBased\UseClassBasedChecksOnATrait */
 final class UseClassBasedChecksOnATraitTest extends TestCase
 {
     public function testCompare(): void

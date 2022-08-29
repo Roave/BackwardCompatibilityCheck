@@ -14,9 +14,7 @@ use Roave\BetterReflection\Reflection\ReflectionMethod;
 
 use function uniqid;
 
-/**
- * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased\AccessibleMethodChange
- */
+/** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased\AccessibleMethodChange */
 final class AccessibleMethodChangeTest extends TestCase
 {
     /** @var MethodBased&MockObject */

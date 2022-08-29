@@ -26,7 +26,7 @@ final class ExcludeInternalInterfaceTest extends TestCase
 interface ANormalInterface {}
 PHP
             ,
-            $locator
+            $locator,
         ));
         $reflection = $reflector->reflectClass('ANormalInterface');
 
@@ -38,7 +38,7 @@ PHP
 
         self::assertEquals(
             Changes::fromList(Change::removed('foo', true)),
-            (new ExcludeInternalInterface($check))($reflection, $reflection)
+            (new ExcludeInternalInterface($check))($reflection, $reflection),
         );
     }
 
@@ -53,7 +53,7 @@ PHP
 interface AnInternalInterface {}
 PHP
             ,
-            $locator
+            $locator,
         ));
         $reflection = $reflector->reflectClass('AnInternalInterface');
 
@@ -62,7 +62,7 @@ PHP
 
         self::assertEquals(
             Changes::empty(),
-            (new ExcludeInternalInterface($check))($reflection, $reflection)
+            (new ExcludeInternalInterface($check))($reflection, $reflection),
         );
     }
 }

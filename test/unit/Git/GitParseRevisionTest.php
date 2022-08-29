@@ -8,14 +8,10 @@ use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Git\CheckedOutRepository;
 use Roave\BackwardCompatibility\Git\GitParseRevision;
 
-/**
- * @covers \Roave\BackwardCompatibility\Git\GitParseRevision
- */
+/** @covers \Roave\BackwardCompatibility\Git\GitParseRevision */
 final class GitParseRevisionTest extends TestCase
 {
-    /**
-     * @return string[][]
-     */
+    /** @return string[][] */
     public function revisionProvider(): array
     {
         return [
@@ -23,17 +19,15 @@ final class GitParseRevisionTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider revisionProvider
-     */
+    /** @dataProvider revisionProvider */
     public function testFromStringForRepository(string $revisionToBeParsed, string $expectedRevision): void
     {
         self::assertSame(
             $expectedRevision,
             (new GitParseRevision())->fromStringForRepository(
                 $revisionToBeParsed,
-                CheckedOutRepository::fromPath(__DIR__ . '/../../../')
-            )->__toString()
+                CheckedOutRepository::fromPath(__DIR__ . '/../../../'),
+            )->__toString(),
         );
     }
 }

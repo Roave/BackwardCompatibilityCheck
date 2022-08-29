@@ -26,7 +26,7 @@ final class SymbolStartColumn
      * in {@see \Stringable::__toString()}).
      */
     public static function get(
-        ReflectionFunction|ReflectionMethod|ReflectionProperty|ReflectionClass|ReflectionClassConstant|ReflectionConstant $symbol
+        ReflectionFunction|ReflectionMethod|ReflectionProperty|ReflectionClass|ReflectionClassConstant|ReflectionConstant $symbol,
     ): int|null {
         try {
             return $symbol->getStartColumn();

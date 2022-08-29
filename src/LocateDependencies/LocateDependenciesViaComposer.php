@@ -19,21 +19,16 @@ use Roave\BetterReflection\SourceLocator\Type\SourceLocator;
 
 final class LocateDependenciesViaComposer implements LocateDependencies
 {
-    private Locator $astLocator;
-
     /** @psalm-var callable(string): Installer $makeComposerInstaller */
     private $makeComposerInstaller;
 
-    /**
-     * @psalm-param callable(string): Installer $makeComposerInstaller
-     */
+    /** @psalm-param callable(string): Installer $makeComposerInstaller */
     public function __construct(
         callable $makeComposerInstaller,
-        Locator $astLocator
+        private Locator $astLocator,
     ) {
         // This is needed because the CWD of composer cannot be changed at runtime, but only at startup
         $this->makeComposerInstaller = $makeComposerInstaller;
-        $this->astLocator            = $astLocator;
     }
 
     public function __invoke(string $installationPath, bool $includeDevelopmentDependencies): SourceLocator

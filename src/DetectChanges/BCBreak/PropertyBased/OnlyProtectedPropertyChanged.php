@@ -9,11 +9,8 @@ use Roave\BetterReflection\Reflection\ReflectionProperty;
 
 final class OnlyProtectedPropertyChanged implements PropertyBased
 {
-    private PropertyBased $propertyBased;
-
-    public function __construct(PropertyBased $propertyBased)
+    public function __construct(private PropertyBased $propertyBased)
     {
-        $this->propertyBased = $propertyBased;
     }
 
     public function __invoke(ReflectionProperty $fromProperty, ReflectionProperty $toProperty): Changes

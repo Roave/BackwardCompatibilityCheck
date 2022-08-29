@@ -26,7 +26,7 @@ final class RequiredParameterAmountIncreased implements FunctionBased
 
     public function __invoke(
         ReflectionMethod|ReflectionFunction $fromFunction,
-        ReflectionMethod|ReflectionFunction $toFunction
+        ReflectionMethod|ReflectionFunction $toFunction,
     ): Changes {
         $fromRequiredParameters = $fromFunction->getNumberOfRequiredParameters();
         $toRequiredParameters   = $toFunction->getNumberOfRequiredParameters();
@@ -40,8 +40,8 @@ final class RequiredParameterAmountIncreased implements FunctionBased
                 'The number of required arguments for %s increased from %d to %d',
                 ($this->formatFunction)($fromFunction),
                 $fromRequiredParameters,
-                $toRequiredParameters
-            )
+                $toRequiredParameters,
+            ),
         ));
     }
 }

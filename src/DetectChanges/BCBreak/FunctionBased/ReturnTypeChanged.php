@@ -28,7 +28,7 @@ final class ReturnTypeChanged implements FunctionBased
 
     public function __invoke(
         ReflectionMethod|ReflectionFunction $fromFunction,
-        ReflectionMethod|ReflectionFunction $toFunction
+        ReflectionMethod|ReflectionFunction $toFunction,
     ): Changes {
         $fromReturnType = $this->typeToString($fromFunction->getReturnType());
         $toReturnType   = $this->typeToString($toFunction->getReturnType());
@@ -42,12 +42,12 @@ final class ReturnTypeChanged implements FunctionBased
                 'The return type of %s changed from %s to %s',
                 ($this->formatFunction)($fromFunction),
                 $fromReturnType,
-                $toReturnType
-            )
+                $toReturnType,
+            ),
         ));
     }
 
-    private function typeToString(?ReflectionType $type): string
+    private function typeToString(ReflectionType|null $type): string
     {
         if (! $type) {
             return 'no type';

@@ -12,9 +12,7 @@ use Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\MultipleChec
 use Roave\BetterReflection\Reflection\ReflectionFunction;
 use RoaveTest\BackwardCompatibility\Assertion;
 
-/**
- * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\MultipleChecksOnAFunction
- */
+/** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\MultipleChecksOnAFunction */
 final class MultipleChecksOnAFunctionTest extends TestCase
 {
     public function testChecksAllGivenCheckers(): void
@@ -68,7 +66,7 @@ final class MultipleChecksOnAFunctionTest extends TestCase
                     ->onLine(10)
                     ->onColumn(5),
             ),
-            $multiCheck($from, $to)
+            $multiCheck($from, $to),
         );
     }
 }

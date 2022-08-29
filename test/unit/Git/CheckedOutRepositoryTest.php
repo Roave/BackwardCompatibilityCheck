@@ -11,9 +11,7 @@ use Psl\Filesystem;
 use Psl\SecureRandom;
 use Roave\BackwardCompatibility\Git\CheckedOutRepository;
 
-/**
- * @covers \Roave\BackwardCompatibility\Git\CheckedOutRepository
- */
+/** @covers \Roave\BackwardCompatibility\Git\CheckedOutRepository */
 final class CheckedOutRepositoryTest extends TestCase
 {
     public function testFromPath(): void

@@ -29,7 +29,7 @@ final class PropertyTypeChanged implements PropertyBased
 
     public function __construct(
         private TypeIsContravariant $typeIsContravariant,
-        private TypeIsCovariant $typeIsCovariant
+        private TypeIsCovariant $typeIsCovariant,
     ) {
         $this->formatProperty = new ReflectionPropertyName();
     }
@@ -48,8 +48,8 @@ final class PropertyTypeChanged implements PropertyBased
                 'Type type of property %s changed from %s to %s',
                 ($this->formatProperty)($fromProperty),
                 $fromType?->__toString() ?? 'having no type',
-                $toType?->__toString() ?? 'having no type'
-            )
+                $toType?->__toString() ?? 'having no type',
+            ),
         ));
     }
 }

@@ -12,16 +12,13 @@ use Throwable;
 
 final class SkipFunctionBasedErrors implements FunctionBased
 {
-    private FunctionBased $next;
-
-    public function __construct(FunctionBased $next)
+    public function __construct(private FunctionBased $next)
     {
-        $this->next = $next;
     }
 
     public function __invoke(
         ReflectionMethod|ReflectionFunction $fromFunction,
-        ReflectionMethod|ReflectionFunction $toFunction
+        ReflectionMethod|ReflectionFunction $toFunction,
     ): Changes {
         try {
             return ($this->next)($fromFunction, $toFunction);

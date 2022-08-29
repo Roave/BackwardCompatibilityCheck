@@ -20,19 +20,16 @@ use Roave\BetterReflection\Reflection\ReflectionType;
  */
 final class ReturnTypeCovarianceChanged implements FunctionBased
 {
-    private TypeIsCovariant $typeIsCovariant;
-
     private FunctionName $formatFunction;
 
-    public function __construct(TypeIsCovariant $typeIsCovariant)
+    public function __construct(private TypeIsCovariant $typeIsCovariant)
     {
-        $this->typeIsCovariant = $typeIsCovariant;
-        $this->formatFunction  = new FunctionName();
+        $this->formatFunction = new FunctionName();
     }
 
     public function __invoke(
         ReflectionMethod|ReflectionFunction $fromFunction,
-        ReflectionMethod|ReflectionFunction $toFunction
+        ReflectionMethod|ReflectionFunction $toFunction,
     ): Changes {
         $fromReturnType = $fromFunction->getReturnType();
         $toReturnType   = $toFunction->getReturnType();
@@ -46,12 +43,12 @@ final class ReturnTypeCovarianceChanged implements FunctionBased
                 'The return type of %s changed from %s to the non-covariant %s',
                 ($this->formatFunction)($fromFunction),
                 $this->typeToString($fromReturnType),
-                $this->typeToString($toReturnType)
-            )
+                $this->typeToString($toReturnType),
+            ),
         ));
     }
 
-    private function typeToString(?ReflectionType $type): string
+    private function typeToString(ReflectionType|null $type): string
     {
         if (! $type) {
             return 'no type';

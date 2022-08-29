@@ -13,9 +13,7 @@ use Roave\BetterReflection\Reflection\ReflectionClass;
 
 use function uniqid;
 
-/**
- * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased\UseClassBasedChecksOnAnInterface
- */
+/** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased\UseClassBasedChecksOnAnInterface */
 final class UseClassBasedChecksOnAnInterfaceTest extends TestCase
 {
     public function testCompare(): void
@@ -34,7 +32,7 @@ final class UseClassBasedChecksOnAnInterfaceTest extends TestCase
 
         self::assertSame(
             $changes,
-            (new UseClassBasedChecksOnAnInterface($classBased))($fromInterface, $toInterface)
+            (new UseClassBasedChecksOnAnInterface($classBased))($fromInterface, $toInterface),
         );
     }
 }

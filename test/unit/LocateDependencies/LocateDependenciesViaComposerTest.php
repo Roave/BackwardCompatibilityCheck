@@ -19,9 +19,7 @@ use Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\SourceLocator;
 
-/**
- * @covers \Roave\BackwardCompatibility\LocateDependencies\LocateDependenciesViaComposer
- */
+/** @covers \Roave\BackwardCompatibility\LocateDependencies\LocateDependenciesViaComposer */
 final class LocateDependenciesViaComposerTest extends TestCase
 {
     private string $originalCwd;
@@ -131,7 +129,7 @@ final class LocateDependenciesViaComposerTest extends TestCase
 
         self::assertTrue(
             $reflector->reflectClass('Stringable')
-                ->isInternal()
+                ->isInternal(),
         );
     }
 
