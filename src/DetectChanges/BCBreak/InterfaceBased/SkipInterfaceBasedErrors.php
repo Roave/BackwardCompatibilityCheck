@@ -11,11 +11,8 @@ use Throwable;
 
 final class SkipInterfaceBasedErrors implements InterfaceBased
 {
-    private InterfaceBased $next;
-
-    public function __construct(InterfaceBased $next)
+    public function __construct(private InterfaceBased $next)
     {
-        $this->next = $next;
     }
 
     public function __invoke(ReflectionClass $fromInterface, ReflectionClass $toInterface): Changes

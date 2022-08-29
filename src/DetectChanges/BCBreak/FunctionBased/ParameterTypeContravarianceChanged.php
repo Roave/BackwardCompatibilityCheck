@@ -21,19 +21,16 @@ use Roave\BetterReflection\Reflection\ReflectionType;
  */
 final class ParameterTypeContravarianceChanged implements FunctionBased
 {
-    private TypeIsContravariant $typeIsContravariant;
-
     private FunctionName $formatFunction;
 
-    public function __construct(TypeIsContravariant $typeIsContravariant)
+    public function __construct(private TypeIsContravariant $typeIsContravariant)
     {
-        $this->typeIsContravariant = $typeIsContravariant;
-        $this->formatFunction      = new FunctionName();
+        $this->formatFunction = new FunctionName();
     }
 
     public function __invoke(
         ReflectionMethod|ReflectionFunction $fromFunction,
-        ReflectionMethod|ReflectionFunction $toFunction
+        ReflectionMethod|ReflectionFunction $toFunction,
     ): Changes {
         $fromParameters = $fromFunction->getParameters();
         $toParameters   = $toFunction->getParameters();
@@ -61,12 +58,12 @@ final class ParameterTypeContravarianceChanged implements FunctionBased
                 $fromParameter->getName(),
                 ($this->formatFunction)($fromParameter->getDeclaringFunction()),
                 $this->typeToString($fromType),
-                $this->typeToString($toType)
-            )
+                $this->typeToString($toType),
+            ),
         ));
     }
 
-    private function typeToString(?ReflectionType $type): string
+    private function typeToString(ReflectionType|null $type): string
     {
         if (! $type) {
             return 'no type';

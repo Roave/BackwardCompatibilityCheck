@@ -16,43 +16,34 @@ use Roave\BetterReflection\Reflector\Reflector;
 
 final class CompareClasses implements CompareApi
 {
-    private ClassBased $classBasedComparisons;
-
-    private InterfaceBased $interfaceBasedComparisons;
-
-    private TraitBased $traitBasedComparisons;
-
     public function __construct(
-        ClassBased $classBasedComparisons,
-        InterfaceBased $interfaceBasedComparisons,
-        TraitBased $traitBasedComparisons
+        private ClassBased $classBasedComparisons,
+        private InterfaceBased $interfaceBasedComparisons,
+        private TraitBased $traitBasedComparisons,
     ) {
-        $this->classBasedComparisons     = $classBasedComparisons;
-        $this->interfaceBasedComparisons = $interfaceBasedComparisons;
-        $this->traitBasedComparisons     = $traitBasedComparisons;
     }
 
     public function __invoke(
         Reflector $definedSymbols,
         Reflector $pastSourcesWithDependencies,
-        Reflector $newSourcesWithDependencies
+        Reflector $newSourcesWithDependencies,
     ): Changes {
         $definedApiClassNames = Dict\map(
             Dict\filter(
                 $definedSymbols->reflectAllClasses(),
                 function (ReflectionClass $class): bool {
                     return ! ($class->isAnonymous() || $this->isInternalDocComment($class->getDocComment()));
-                }
+                },
             ),
             static function (ReflectionClass $class): string {
                 return $class->getName();
-            }
+            },
         );
 
         return Changes::fromIterator($this->makeSymbolsIterator(
             $definedApiClassNames,
             $pastSourcesWithDependencies,
-            $newSourcesWithDependencies
+            $newSourcesWithDependencies,
         ));
     }
 
@@ -64,7 +55,7 @@ final class CompareClasses implements CompareApi
     private function makeSymbolsIterator(
         array $definedApiClassNames,
         Reflector $pastSourcesWithDependencies,
-        Reflector $newSourcesWithDependencies
+        Reflector $newSourcesWithDependencies,
     ): iterable {
         foreach ($definedApiClassNames as $apiClassName) {
             $oldSymbol = $pastSourcesWithDependencies->reflectClass($apiClassName);
@@ -76,7 +67,7 @@ final class CompareClasses implements CompareApi
     /** @return iterable<int, Change> */
     private function examineSymbol(
         ReflectionClass $oldSymbol,
-        Reflector $newSourcesWithDependencies
+        Reflector $newSourcesWithDependencies,
     ): iterable {
         try {
             $newClass = $newSourcesWithDependencies->reflectClass($oldSymbol->getName());

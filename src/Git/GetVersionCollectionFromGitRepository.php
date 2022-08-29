@@ -22,7 +22,7 @@ final class GetVersionCollectionFromGitRepository implements GetVersionCollectio
     {
         $output = Shell\execute('git', ['tag', '-l'], $repository->__toString());
 
-        return new VersionCollection(...Vec\filter_nulls(Vec\map(Str\split($output, "\n"), static function (string $maybeVersion): ?Version {
+        return new VersionCollection(...Vec\filter_nulls(Vec\map(Str\split($output, "\n"), static function (string $maybeVersion): Version|null {
             try {
                 return Type\object(Version::class)
                     ->coerce(Version::fromString($maybeVersion));

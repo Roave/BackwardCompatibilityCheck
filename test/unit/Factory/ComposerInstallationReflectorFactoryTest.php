@@ -13,9 +13,7 @@ use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 
 use function uniqid;
 
-/**
- * @covers \Roave\BackwardCompatibility\Factory\ComposerInstallationReflectorFactory
- */
+/** @covers \Roave\BackwardCompatibility\Factory\ComposerInstallationReflectorFactory */
 final class ComposerInstallationReflectorFactoryTest extends TestCase
 {
     /**
@@ -34,7 +32,7 @@ final class ComposerInstallationReflectorFactoryTest extends TestCase
 class Dummy {}
 PHP
             ,
-            (new BetterReflection())->astLocator()
+            (new BetterReflection())->astLocator(),
         );
 
         $locateSources
@@ -47,10 +45,10 @@ PHP
             '/** an example */',
             (new ComposerInstallationReflectorFactory($locateSources))(
                 $path,
-                $this->createMock(SourceLocator::class)
+                $this->createMock(SourceLocator::class),
             )
                 ->reflectClass('Dummy')
-                ->getDocComment()
+                ->getDocComment(),
         );
     }
 }

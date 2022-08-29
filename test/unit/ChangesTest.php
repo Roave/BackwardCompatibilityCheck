@@ -16,9 +16,7 @@ use function random_int;
 use function serialize;
 use function unserialize;
 
-/**
- * @covers \Roave\BackwardCompatibility\Changes
- */
+/** @covers \Roave\BackwardCompatibility\Changes */
 final class ChangesTest extends TestCase
 {
     public function testMergeWith(): void
@@ -34,16 +32,16 @@ final class ChangesTest extends TestCase
         Assertion::assertChangesEqual(
             Changes::fromList(
                 Change::changed('a', true),
-                Change::removed('b', false)
+                Change::removed('b', false),
             ),
-            $changes1->mergeWith($changes2)
+            $changes1->mergeWith($changes2),
         );
         Assertion::assertChangesEqual(
             Changes::fromList(
                 Change::removed('b', false),
-                Change::changed('a', true)
+                Change::changed('a', true),
             ),
-            $changes2->mergeWith($changes1)
+            $changes2->mergeWith($changes1),
         );
 
         self::assertEquals($frozen1, $changes1, 'Original Changes instance not mutated');
@@ -84,7 +82,7 @@ final class ChangesTest extends TestCase
         self::assertEquals(
             $expectedChanges,
             iterator_to_array($changes),
-            'Changes can be iterated upon more than once (they are buffered)'
+            'Changes can be iterated upon more than once (they are buffered)',
         );
         self::assertCount(2, $changes);
     }
@@ -107,7 +105,7 @@ final class ChangesTest extends TestCase
 
         self::assertSame(
             [$change],
-            iterator_to_array(Changes::fromList($change))
+            iterator_to_array(Changes::fromList($change)),
         );
     }
 
@@ -117,7 +115,7 @@ final class ChangesTest extends TestCase
 
         self::assertCount(
             $count,
-            Changes::fromList(...array_fill(0, $count, Change::added('foo', true)))
+            Changes::fromList(...array_fill(0, $count, Change::added('foo', true))),
         );
     }
 }

@@ -14,9 +14,7 @@ use Roave\BetterReflection\Reflection\ReflectionClassConstant;
 
 use function uniqid;
 
-/**
- * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassConstantBased\OnlyProtectedClassConstantChanged
- */
+/** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassConstantBased\OnlyProtectedClassConstantChanged */
 final class OnlyProtectedClassConstantChangedTest extends TestCase
 {
     /** @var ClassConstantBased&MockObject */
@@ -54,7 +52,7 @@ final class OnlyProtectedClassConstantChangedTest extends TestCase
 
         self::assertEquals(
             Changes::empty(),
-            ($this->changed)($this->fromConstant, $this->toConstant)
+            ($this->changed)($this->fromConstant, $this->toConstant),
         );
     }
 
@@ -76,7 +74,7 @@ final class OnlyProtectedClassConstantChangedTest extends TestCase
 
         self::assertEquals(
             $changes,
-            ($this->changed)($this->fromConstant, $this->toConstant)
+            ($this->changed)($this->fromConstant, $this->toConstant),
         );
     }
 }

@@ -30,8 +30,8 @@ final class PropertyScopeChanged implements PropertyBased
                 $fromProperty->getName(),
                 $fromProperty->getDeclaringClass()->getName(),
                 $fromScope,
-                $toScope
-            )
+                $toScope,
+            ),
         ));
     }
 

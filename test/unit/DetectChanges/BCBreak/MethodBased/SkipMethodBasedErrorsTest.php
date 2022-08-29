@@ -15,9 +15,7 @@ use Roave\BetterReflection\Reflection\ReflectionMethod;
 
 use function uniqid;
 
-/**
- * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased\SkipMethodBasedErrors
- */
+/** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased\SkipMethodBasedErrors */
 final class SkipMethodBasedErrorsTest extends TestCase
 {
     /** @var MethodBased&MockObject */
@@ -37,7 +35,7 @@ final class SkipMethodBasedErrorsTest extends TestCase
         $toMethod        = $this->createMock(ReflectionMethod::class);
         $expectedChanges = Changes::fromList(Change::added(
             uniqid('foo', true),
-            true
+            true,
         ));
 
         $this
@@ -65,7 +63,7 @@ final class SkipMethodBasedErrorsTest extends TestCase
 
         self::assertEquals(
             Changes::fromList(Change::skippedDueToFailure($exception)),
-            ($this->check)($fromMethod, $toMethod)
+            ($this->check)($fromMethod, $toMethod),
         );
     }
 }

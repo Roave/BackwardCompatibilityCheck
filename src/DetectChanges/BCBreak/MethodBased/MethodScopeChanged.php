@@ -30,8 +30,8 @@ final class MethodScopeChanged implements MethodBased
                 $fromMethod->getName(),
                 $fromMethod->getDeclaringClass()->getName(),
                 $scopeFrom,
-                $scopeTo
-            )
+                $scopeTo,
+            ),
         ));
     }
 

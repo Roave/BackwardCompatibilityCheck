@@ -14,9 +14,7 @@ use Roave\BetterReflection\Reflection\ReflectionMethod;
 
 use function uniqid;
 
-/**
- * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased\OnlyProtectedMethodChanged
- */
+/** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased\OnlyProtectedMethodChanged */
 final class OnlyProtectedMethodChangedTest extends TestCase
 {
     /** @var MethodBased&MockObject */

@@ -29,7 +29,7 @@ final class ParameterByReferenceChanged implements FunctionBased
 
     public function __invoke(
         ReflectionMethod|ReflectionFunction $fromFunction,
-        ReflectionMethod|ReflectionFunction $toFunction
+        ReflectionMethod|ReflectionFunction $toFunction,
     ): Changes {
         $fromParameters = $fromFunction->getParameters();
         $toParameters   = $toFunction->getParameters();
@@ -57,8 +57,8 @@ final class ParameterByReferenceChanged implements FunctionBased
                 $fromParameter->getName(),
                 ($this->formatFunction)($fromParameter->getDeclaringFunction()),
                 $this->referenceToString($fromByReference),
-                $this->referenceToString($toByReference)
-            )
+                $this->referenceToString($toByReference),
+            ),
         ));
     }
 

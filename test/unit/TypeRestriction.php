@@ -20,7 +20,7 @@ final class TypeRestriction
      *
      * @psalm-template ObjectishParameterType of object
      */
-    public static function object(?object $value): object
+    public static function object(object|null $value): object
     {
         assert($value !== null);
 

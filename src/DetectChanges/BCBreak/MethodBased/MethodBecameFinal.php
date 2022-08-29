@@ -25,8 +25,8 @@ final class MethodBecameFinal implements MethodBased
             Str\format(
                 'Method %s() of class %s became final',
                 $fromMethod->getName(),
-                $fromMethod->getDeclaringClass()->getName()
-            )
+                $fromMethod->getDeclaringClass()->getName(),
+            ),
         ));
     }
 }

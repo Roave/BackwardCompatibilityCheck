@@ -27,7 +27,7 @@ class A {
 }
 PHP
             ,
-            (new BetterReflection())->astLocator()
+            (new BetterReflection())->astLocator(),
         )))
             ->reflectClass('A')
             ->getMethod('method');
@@ -40,7 +40,7 @@ PHP
 
         self::assertEquals(
             Changes::fromList(Change::removed('foo', true)),
-            (new ExcludeInternalMethod($check))($method, $method)
+            (new ExcludeInternalMethod($check))($method, $method),
         );
     }
 
@@ -56,7 +56,7 @@ class A {
 }
 PHP
             ,
-            (new BetterReflection())->astLocator()
+            (new BetterReflection())->astLocator(),
         )))
             ->reflectClass('A')
             ->getMethod('method');
@@ -67,7 +67,7 @@ PHP
 
         self::assertEquals(
             Changes::empty(),
-            (new ExcludeInternalMethod($check))($method, $method)
+            (new ExcludeInternalMethod($check))($method, $method),
         );
     }
 }

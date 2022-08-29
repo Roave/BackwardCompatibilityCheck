@@ -25,14 +25,14 @@ final class MethodAdded implements InterfaceBased
         }
 
         return Changes::fromList(...Vec\map($newMethods, static function (ReflectionMethod $method) use (
-            $fromInterface
+            $fromInterface,
         ): Change {
             return Change::added(
                 Str\format(
                     'Method %s() was added to interface %s',
                     $method->getName(),
-                    $fromInterface->getName()
-                )
+                    $fromInterface->getName(),
+                ),
             );
         }));
     }
@@ -46,7 +46,7 @@ final class MethodAdded implements InterfaceBased
             Vec\map($methods, static function (ReflectionMethod $method): string {
                 return Str\lowercase($method->getName());
             }),
-            $methods
+            $methods,
         );
     }
 }

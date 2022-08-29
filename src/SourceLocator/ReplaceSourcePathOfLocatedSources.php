@@ -16,7 +16,7 @@ final class ReplaceSourcePathOfLocatedSources extends Locator
 {
     public function __construct(
         private Locator $next,
-        private string $sourcesDirectory
+        private string $sourcesDirectory,
     ) {
     }
 
@@ -29,7 +29,7 @@ final class ReplaceSourcePathOfLocatedSources extends Locator
         return $this->next->findReflection(
             $reflector,
             new LocatedSourceWithStrippedSourcesDirectory($locatedSource, $this->sourcesDirectory),
-            $identifier
+            $identifier,
         );
     }
 
@@ -42,7 +42,7 @@ final class ReplaceSourcePathOfLocatedSources extends Locator
         return $this->next->findReflectionsOfType(
             $reflector,
             new LocatedSourceWithStrippedSourcesDirectory($locatedSource, $this->sourcesDirectory),
-            $identifierType
+            $identifierType,
         );
     }
 }

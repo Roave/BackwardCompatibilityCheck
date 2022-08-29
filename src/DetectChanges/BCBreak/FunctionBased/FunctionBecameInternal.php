@@ -26,7 +26,7 @@ final class FunctionBecameInternal implements FunctionBased
 
     public function __invoke(
         ReflectionMethod|ReflectionFunction $fromFunction,
-        ReflectionMethod|ReflectionFunction $toFunction
+        ReflectionMethod|ReflectionFunction $toFunction,
     ): Changes {
         if (
             $this->isInternalDocComment($toFunction->getDocComment())
@@ -36,7 +36,7 @@ final class FunctionBecameInternal implements FunctionBased
                 Str\format(
                     '%s was marked "@internal"',
                     ($this->formatFunction)($fromFunction),
-                )
+                ),
             ));
         }
 

@@ -15,9 +15,7 @@ use Roave\BackwardCompatibility\Git\CheckedOutRepository;
 use Roave\BackwardCompatibility\Git\GetVersionCollectionFromGitRepository;
 use Version\Version;
 
-/**
- * @covers \Roave\BackwardCompatibility\Git\GetVersionCollectionFromGitRepository
- */
+/** @covers \Roave\BackwardCompatibility\Git\GetVersionCollectionFromGitRepository */
 final class GetVersionCollectionFromGitRepositoryTest extends TestCase
 {
     private CheckedOutRepository $repoPath;
@@ -53,7 +51,7 @@ final class GetVersionCollectionFromGitRepositoryTest extends TestCase
             Type\vec(Type\object(Version::class))
                 ->coerce(
                     (new GetVersionCollectionFromGitRepository())
-                        ->fromRepository($this->repoPath)
+                        ->fromRepository($this->repoPath),
                 ),
             static function (Version $version): string {
                 return $version->toString();

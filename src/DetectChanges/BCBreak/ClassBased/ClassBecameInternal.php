@@ -24,8 +24,8 @@ final class ClassBecameInternal implements ClassBased
             return Changes::fromList(Change::changed(
                 Str\format(
                     '%s was marked "@internal"',
-                    $fromClass->getName()
-                )
+                    $fromClass->getName(),
+                ),
             ));
         }
 

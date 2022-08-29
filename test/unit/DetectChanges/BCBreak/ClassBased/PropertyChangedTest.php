@@ -15,9 +15,7 @@ use Roave\BetterReflection\Reflector\DefaultReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 use RoaveTest\BackwardCompatibility\Assertion;
 
-/**
- * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\PropertyChanged
- */
+/** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\PropertyChanged */
 final class PropertyChangedTest extends TestCase
 {
     public function testWillDetectChangesInProperties(): void
@@ -37,7 +35,7 @@ class TheClass {
 }
 PHP
             ,
-            $astLocator
+            $astLocator,
         );
 
         $toLocator = new StringSourceLocator(
@@ -53,7 +51,7 @@ class TheClass {
 }
 PHP
             ,
-            $astLocator
+            $astLocator,
         );
 
         $comparator = $this->createMock(PropertyBased::class);
@@ -72,12 +70,12 @@ PHP
         Assertion::assertChangesEqual(
             Changes::fromList(
                 Change::added('b', true),
-                Change::added('d', true)
+                Change::added('d', true),
             ),
             (new PropertyChanged($comparator))(
                 (new DefaultReflector($fromLocator))->reflectClass('TheClass'),
-                (new DefaultReflector($toLocator))->reflectClass('TheClass')
-            )
+                (new DefaultReflector($toLocator))->reflectClass('TheClass'),
+            ),
         );
     }
 }

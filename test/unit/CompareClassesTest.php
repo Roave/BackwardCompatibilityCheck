@@ -13,9 +13,7 @@ use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\ClassBased;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased\InterfaceBased;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\TraitBased\TraitBased;
 
-/**
- * @covers \Roave\BackwardCompatibility\CompareClasses
- */
+/** @covers \Roave\BackwardCompatibility\CompareClasses */
 final class CompareClassesTest extends TestCase
 {
     private static StringReflectorFactory $stringReflectorFactory;
@@ -46,7 +44,7 @@ final class CompareClassesTest extends TestCase
         $this->compareClasses           = new CompareClasses(
             $this->classBasedComparison,
             $this->interfaceBasedComparison,
-            $this->traitBasedComparison
+            $this->traitBasedComparison,
         );
     }
 
@@ -69,7 +67,7 @@ class A {
     public $aProperty;
     public function aMethod() {}
 }
-PHP
+PHP,
                 ),
                 (self::$stringReflectorFactory)(
                     <<<'PHP'
@@ -80,9 +78,9 @@ class A {
     public $aProperty;
     public function aMethod() {}
 }
-PHP
-                )
-            )
+PHP,
+                ),
+            ),
         );
     }
 
@@ -105,16 +103,16 @@ class A {
     public $aProperty;
     public function aMethod() {}
 }
-PHP
+PHP,
                 ),
                 (self::$stringReflectorFactory)(
                     <<<'PHP'
 <?php
 
 class A {}
-PHP
-                )
-            )
+PHP,
+                ),
+            ),
         );
     }
 
@@ -129,8 +127,8 @@ PHP
             ($this->compareClasses)(
                 (self::$stringReflectorFactory)('<?php interface A {}'),
                 (self::$stringReflectorFactory)('<?php interface A {}'),
-                (self::$stringReflectorFactory)('<?php interface A {}')
-            )
+                (self::$stringReflectorFactory)('<?php interface A {}'),
+            ),
         );
     }
 
@@ -145,8 +143,8 @@ PHP
             ($this->compareClasses)(
                 (self::$stringReflectorFactory)('<?php trait A {}'),
                 (self::$stringReflectorFactory)('<?php trait A {}'),
-                (self::$stringReflectorFactory)('<?php trait A {}')
-            )
+                (self::$stringReflectorFactory)('<?php trait A {}'),
+            ),
         );
     }
 
@@ -161,8 +159,8 @@ PHP
             ($this->compareClasses)(
                 (self::$stringReflectorFactory)('<?php $x = new class () {};'),
                 (self::$stringReflectorFactory)('<?php $x = new class () {};'),
-                (self::$stringReflectorFactory)('<?php $x = new class () {};')
-            )
+                (self::$stringReflectorFactory)('<?php $x = new class () {};'),
+            ),
         );
     }
 
@@ -175,8 +173,8 @@ PHP
             ($this->compareClasses)(
                 (self::$stringReflectorFactory)('<?php '),
                 (self::$stringReflectorFactory)('<?php class A { private function foo() {} }'),
-                (self::$stringReflectorFactory)('<?php ')
-            )
+                (self::$stringReflectorFactory)('<?php '),
+            ),
         );
     }
 
@@ -198,11 +196,10 @@ class A {}
 interface B {}
 /** @internal */
 trait C {}
-PHP
-                ),
+PHP),
                 (self::$stringReflectorFactory)('<?php '),
-                (self::$stringReflectorFactory)('<?php ')
-            )
+                (self::$stringReflectorFactory)('<?php '),
+            ),
         );
     }
 
@@ -217,8 +214,8 @@ PHP
             ($this->compareClasses)(
                 (self::$stringReflectorFactory)('<?php class A { private function foo() {} }'),
                 (self::$stringReflectorFactory)('<?php class A { private function foo() {} }'),
-                (self::$stringReflectorFactory)('<?php ')
-            )
+                (self::$stringReflectorFactory)('<?php '),
+            ),
         );
     }
 

@@ -14,9 +14,7 @@ use Roave\BetterReflection\Reflection\ReflectionProperty;
 
 use function uniqid;
 
-/**
- * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\AccessiblePropertyChanged
- */
+/** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\AccessiblePropertyChanged */
 final class AccessiblePropertyChangedTest extends TestCase
 {
     /** @var PropertyBased&MockObject */
@@ -54,7 +52,7 @@ final class AccessiblePropertyChangedTest extends TestCase
 
         self::assertEquals(
             Changes::empty(),
-            ($this->accessiblePropertyChanged)($this->fromProperty, $this->toProperty)
+            ($this->accessiblePropertyChanged)($this->fromProperty, $this->toProperty),
         );
     }
 
@@ -76,7 +74,7 @@ final class AccessiblePropertyChangedTest extends TestCase
 
         self::assertEquals(
             $changes,
-            ($this->accessiblePropertyChanged)($this->fromProperty, $this->toProperty)
+            ($this->accessiblePropertyChanged)($this->fromProperty, $this->toProperty),
         );
     }
 }

@@ -36,8 +36,8 @@ final class PickLastMinorVersionFromCollection implements PickVersionFromVersion
                 Type\object(OperationConstraint::class)
                     ->coerce(OperationConstraint::greaterOrEqualTo(
                         Type\object(Version::class)
-                            ->coerce(Version::fromString($lastVersion->getMajor() . '.' . $lastVersion->getMinor() . '.0'))
-                    ))
+                            ->coerce(Version::fromString($lastVersion->getMajor() . '.' . $lastVersion->getMinor() . '.0')),
+                    )),
             ))
             ->sortedAscending();
 

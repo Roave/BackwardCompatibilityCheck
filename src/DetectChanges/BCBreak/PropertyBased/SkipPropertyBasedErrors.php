@@ -11,11 +11,8 @@ use Throwable;
 
 final class SkipPropertyBasedErrors implements PropertyBased
 {
-    private PropertyBased $next;
-
-    public function __construct(PropertyBased $next)
+    public function __construct(private PropertyBased $next)
     {
-        $this->next = $next;
     }
 
     public function __invoke(ReflectionProperty $fromProperty, ReflectionProperty $toProperty): Changes

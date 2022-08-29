@@ -25,8 +25,8 @@ final class MethodConcretenessChanged implements MethodBased
             Str\format(
                 'Method %s() of class %s changed from concrete to abstract',
                 $fromMethod->getName(),
-                $fromMethod->getDeclaringClass()->getName()
-            )
+                $fromMethod->getDeclaringClass()->getName(),
+            ),
         ));
     }
 }

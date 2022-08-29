@@ -15,14 +15,10 @@ use function array_combine;
 use function array_keys;
 use function array_map;
 
-/**
- * @covers \Roave\BackwardCompatibility\Formatter\ReflectionPropertyName
- */
+/** @covers \Roave\BackwardCompatibility\Formatter\ReflectionPropertyName */
 final class ReflectionPropertyNameTest extends TestCase
 {
-    /**
-     * @dataProvider propertiesToBeTested
-     */
+    /** @dataProvider propertiesToBeTested */
     public function testName(ReflectionProperty $property, string $expectedName): void
     {
         self::assertSame($expectedName, (new ReflectionPropertyName())($property));
@@ -72,7 +68,7 @@ namespace N1 {
 }
 PHP
             ,
-            (new BetterReflection())->astLocator()
+            (new BetterReflection())->astLocator(),
         );
 
         $classReflector = new DefaultReflector($locator);
@@ -100,8 +96,8 @@ PHP
                     return [$property, $expectedMessage];
                 },
                 array_keys($properties),
-                $properties
-            )
+                $properties,
+            ),
         );
     }
 }

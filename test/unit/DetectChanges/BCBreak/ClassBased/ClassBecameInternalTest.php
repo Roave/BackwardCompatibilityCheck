@@ -26,7 +26,7 @@ final class ClassBecameInternalTest extends TestCase
     public function testDiffs(
         ReflectionClass $fromClass,
         ReflectionClass $toClass,
-        array $expectedMessages
+        array $expectedMessages,
     ): void {
         $changes = (new ClassBecameInternal())($fromClass, $toClass);
 
@@ -34,7 +34,7 @@ final class ClassBecameInternalTest extends TestCase
             $expectedMessages,
             array_map(static function (Change $change): string {
                 return $change->__toString();
-            }, iterator_to_array($changes))
+            }, iterator_to_array($changes)),
         );
     }
 
@@ -57,7 +57,7 @@ class C {}
 class D {}
 PHP
             ,
-            $locator
+            $locator,
         ));
         $toReflector   = new DefaultReflector(new StringSourceLocator(
             <<<'PHP'
@@ -71,7 +71,7 @@ class C {}
 class D {}
 PHP
             ,
-            $locator
+            $locator,
         ));
 
         return [

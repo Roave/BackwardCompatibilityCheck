@@ -13,11 +13,8 @@ use Roave\BetterReflection\Reflection\ReflectionMethod;
  */
 final class ExcludeInternalMethod implements MethodBased
 {
-    private MethodBased $check;
-
-    public function __construct(MethodBased $check)
+    public function __construct(private MethodBased $check)
     {
-        $this->check = $check;
     }
 
     public function __invoke(ReflectionMethod $fromMethod, ReflectionMethod $toMethod): Changes

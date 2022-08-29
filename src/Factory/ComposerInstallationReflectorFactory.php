@@ -15,11 +15,8 @@ use Roave\BetterReflection\SourceLocator\Type\SourceLocator;
 
 final class ComposerInstallationReflectorFactory
 {
-    private LocateSources $locateSources;
-
-    public function __construct(LocateSources $locateSources)
+    public function __construct(private LocateSources $locateSources)
     {
-        $this->locateSources = $locateSources;
     }
 
     /**
@@ -28,13 +25,13 @@ final class ComposerInstallationReflectorFactory
      */
     public function __invoke(
         string $installationDirectory,
-        SourceLocator $dependencies
+        SourceLocator $dependencies,
     ): Reflector {
         return new DefaultReflector(
             new MemoizingSourceLocator(new AggregateSourceLocator([
                 ($this->locateSources)($installationDirectory),
                 $dependencies,
-            ]))
+            ])),
         );
     }
 }

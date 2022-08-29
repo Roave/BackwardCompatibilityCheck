@@ -28,19 +28,17 @@ final class PropertyRemoved implements ClassBased
         $fromProperties    = $this->accessibleProperties($fromClass);
         $removedProperties = Dict\diff(
             Vec\keys($fromProperties),
-            Vec\keys($this->accessibleProperties($toClass))
+            Vec\keys($this->accessibleProperties($toClass)),
         );
 
         return Changes::fromList(...Vec\map($removedProperties, function (string $property) use ($fromProperties): Change {
             return Change::removed(
-                Str\format('Property %s was removed', ($this->formatProperty)($fromProperties[$property]))
+                Str\format('Property %s was removed', ($this->formatProperty)($fromProperties[$property])),
             );
         }));
     }
 
-    /**
-     * @return array<string, ReflectionProperty>
-     */
+    /** @return array<string, ReflectionProperty> */
     private function accessibleProperties(ReflectionClass $class): array
     {
         $classIsOpen = ! $class->isFinal();

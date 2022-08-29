@@ -12,9 +12,7 @@ use Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased\MultipleChe
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use RoaveTest\BackwardCompatibility\Assertion;
 
-/**
- * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased\MultipleChecksOnAnInterface
- */
+/** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased\MultipleChecksOnAnInterface */
 final class MultipleChecksOnAnInterfaceTest extends TestCase
 {
     public function testChecksAllGivenCheckers(): void
@@ -68,7 +66,7 @@ final class MultipleChecksOnAnInterfaceTest extends TestCase
                     ->onLine(10)
                     ->onColumn(5),
             ),
-            $multiCheck($from, $to)
+            $multiCheck($from, $to),
         );
     }
 }

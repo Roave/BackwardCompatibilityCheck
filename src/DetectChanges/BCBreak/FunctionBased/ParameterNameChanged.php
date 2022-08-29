@@ -35,7 +35,7 @@ final class ParameterNameChanged implements FunctionBased
 
     public function __invoke(
         ReflectionMethod|ReflectionFunction $fromFunction,
-        ReflectionMethod|ReflectionFunction $toFunction
+        ReflectionMethod|ReflectionFunction $toFunction,
     ): Changes {
         $fromHadNoNamedArgumentsAnnotation = $this->methodHasNoNamedArgumentsAnnotation($fromFunction);
         $toHasNoNamedArgumentsAnnotation   = $this->methodHasNoNamedArgumentsAnnotation($toFunction);
@@ -47,8 +47,8 @@ final class ParameterNameChanged implements FunctionBased
                         'The %s annotation was removed from %s',
                         self::NO_NAMED_ARGUMENTS_ANNOTATION,
                         $this->formatFunction->__invoke($fromFunction),
-                    )
-                )
+                    ),
+                ),
             );
         }
 
@@ -59,8 +59,8 @@ final class ParameterNameChanged implements FunctionBased
                         'The %s annotation was added from %s',
                         self::NO_NAMED_ARGUMENTS_ANNOTATION,
                         $this->formatFunction->__invoke($fromFunction),
-                    )
-                )
+                    ),
+                ),
             );
         }
 
@@ -70,7 +70,7 @@ final class ParameterNameChanged implements FunctionBased
 
         return Changes::fromIterator($this->checkSymbols(
             $fromFunction->getParameters(),
-            $toFunction->getParameters()
+            $toFunction->getParameters(),
         ));
     }
 
@@ -103,8 +103,8 @@ final class ParameterNameChanged implements FunctionBased
                 $fromParameter->getPosition(),
                 $this->formatFunction->__invoke($fromParameter->getDeclaringFunction()),
                 $fromName,
-                $toName
-            )
+                $toName,
+            ),
         );
     }
 

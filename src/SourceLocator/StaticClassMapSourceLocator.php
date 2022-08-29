@@ -25,7 +25,7 @@ final class StaticClassMapSourceLocator extends AbstractSourceLocator
       */
     public function __construct(
         array $classMap,
-        Locator $astLocator
+        Locator $astLocator,
     ) {
         parent::__construct($astLocator);
 
@@ -40,7 +40,7 @@ final class StaticClassMapSourceLocator extends AbstractSourceLocator
         $this->classMap = Type\dict(Type\non_empty_string(), Type\string())->coerce($realPaths);
     }
 
-    protected function createLocatedSource(Identifier $identifier): ?LocatedSource
+    protected function createLocatedSource(Identifier $identifier): LocatedSource|null
     {
         if (! $identifier->isClass()) {
             return null;

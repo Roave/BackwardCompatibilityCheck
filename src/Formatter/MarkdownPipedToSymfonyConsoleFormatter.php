@@ -12,11 +12,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class MarkdownPipedToSymfonyConsoleFormatter implements OutputFormatter
 {
-    private OutputInterface $output;
-
-    public function __construct(OutputInterface $output)
+    public function __construct(private OutputInterface $output)
     {
-        $this->output = $output;
     }
 
     public function write(Changes $changes): void
@@ -29,29 +26,29 @@ final class MarkdownPipedToSymfonyConsoleFormatter implements OutputFormatter
                 static function (Change $change): bool {
                     return $change->isAdded();
                 },
-                ...$arrayOfChanges
+                ...$arrayOfChanges,
             ), '')
             . "\n# Changed\n"
             . Str\join($this->convertFilteredChangesToMarkdownBulletList(
                 static function (Change $change): bool {
                     return $change->isChanged();
                 },
-                ...$arrayOfChanges
+                ...$arrayOfChanges,
             ), '')
             . "\n# Removed\n"
             . Str\join($this->convertFilteredChangesToMarkdownBulletList(
                 static function (Change $change): bool {
                     return $change->isRemoved();
                 },
-                ...$arrayOfChanges
+                ...$arrayOfChanges,
             ), '')
             . "\n# Skipped\n"
             . Str\join($this->convertFilteredChangesToMarkdownBulletList(
                 static function (Change $change): bool {
                     return $change->isSkipped();
                 },
-                ...$arrayOfChanges
-            ), '')
+                ...$arrayOfChanges,
+            ), ''),
         );
     }
 
@@ -66,7 +63,7 @@ final class MarkdownPipedToSymfonyConsoleFormatter implements OutputFormatter
             Vec\filter($changes, $filterFunction),
             static function (Change $change): string {
                 return ' - ' . Str\replace_every(Str\trim($change->__toString()), ['ADDED: ' => '', 'CHANGED: ' => '', 'REMOVED: ' => '', 'SKIPPED: ' => '']) . "\n";
-            }
+            },
         );
     }
 }

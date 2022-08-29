@@ -17,9 +17,7 @@ use function array_keys;
 use function array_map;
 use function iterator_to_array;
 
-/**
- * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\TraitBased\TraitBecameInterface
- */
+/** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\TraitBased\TraitBecameInterface */
 final class TraitBecameInterfaceTest extends TestCase
 {
     /**
@@ -30,7 +28,7 @@ final class TraitBecameInterfaceTest extends TestCase
     public function testDiffs(
         ReflectionClass $fromClass,
         ReflectionClass $toClass,
-        array $expectedMessages
+        array $expectedMessages,
     ): void {
         $changes = (new TraitBecameInterface())($fromClass, $toClass);
 
@@ -38,7 +36,7 @@ final class TraitBecameInterfaceTest extends TestCase
             $expectedMessages,
             array_map(static function (Change $change): string {
                 return $change->__toString();
-            }, iterator_to_array($changes))
+            }, iterator_to_array($changes)),
         );
     }
 
@@ -62,7 +60,7 @@ interface InterfaceToTrait {}
 interface InterfaceToInterface {}
 PHP
             ,
-            $locator
+            $locator,
         ));
         $toReflector   = new DefaultReflector(new StringSourceLocator(
             <<<'PHP'
@@ -77,7 +75,7 @@ trait InterfaceToTrait {}
 interface InterfaceToInterface {}
 PHP
             ,
-            $locator
+            $locator,
         ));
 
         $classes = [
@@ -99,8 +97,8 @@ PHP
                     $errors,
                 ],
                 array_keys($classes),
-                $classes
-            )
+                $classes,
+            ),
         );
     }
 }

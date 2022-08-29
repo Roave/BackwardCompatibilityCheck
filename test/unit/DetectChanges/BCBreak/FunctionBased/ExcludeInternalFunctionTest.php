@@ -25,7 +25,7 @@ final class ExcludeInternalFunctionTest extends TestCase
 function a() {}
 PHP
             ,
-            (new BetterReflection())->astLocator()
+            (new BetterReflection())->astLocator(),
         );
         $function = (new DefaultReflector($source))
             ->reflectFunction('a');
@@ -38,7 +38,7 @@ PHP
 
         self::assertEquals(
             Changes::fromList(Change::removed('foo', true)),
-            (new ExcludeInternalFunction($check))($function, $function)
+            (new ExcludeInternalFunction($check))($function, $function),
         );
     }
 
@@ -52,7 +52,7 @@ PHP
 function a() {}
 PHP
             ,
-            (new BetterReflection())->astLocator()
+            (new BetterReflection())->astLocator(),
         );
         $function = (new DefaultReflector($source))
             ->reflectFunction('a');
@@ -63,7 +63,7 @@ PHP
 
         self::assertEquals(
             Changes::empty(),
-            (new ExcludeInternalFunction($check))($function, $function)
+            (new ExcludeInternalFunction($check))($function, $function),
         );
     }
 }

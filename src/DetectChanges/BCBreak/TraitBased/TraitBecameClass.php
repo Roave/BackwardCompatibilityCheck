@@ -22,7 +22,7 @@ final class TraitBecameClass implements TraitBased
         }
 
         return Changes::fromList(Change::changed(
-            Str\format('Trait %s became a class', $fromTrait->getName())
+            Str\format('Trait %s became a class', $fromTrait->getName()),
         ));
     }
 

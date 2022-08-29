@@ -14,16 +14,14 @@ use function array_combine;
 use function array_filter;
 use function array_map;
 
-/**
- * @covers \Roave\BackwardCompatibility\SourceLocator\LocatedSourceWithStrippedSourcesDirectory
- */
+/** @covers \Roave\BackwardCompatibility\SourceLocator\LocatedSourceWithStrippedSourcesDirectory */
 final class LocatedSourceWithStrippedSourcesDirectoryTest extends TestCase
 {
     /** @dataProvider verifiedPaths */
     public function testWillStripPrefixFilePathWhenLocatedSourceInConfiguredPath(
         string $sourcePath,
         string $strippedSourcesPath,
-        string $expectedPath
+        string $expectedPath,
     ): void {
         $source = $this->createMock(LocatedSource::class);
 
@@ -34,7 +32,7 @@ final class LocatedSourceWithStrippedSourcesDirectoryTest extends TestCase
         self::assertSame(
             $expectedPath,
             (new LocatedSourceWithStrippedSourcesDirectory($source, $strippedSourcesPath))
-                ->getFileName()
+                ->getFileName(),
         );
     }
     
@@ -55,8 +53,8 @@ final class LocatedSourceWithStrippedSourcesDirectoryTest extends TestCase
             'SOURCES!!!',
             (new LocatedSourceWithStrippedSourcesDirectory(
                 new LocatedSource('SOURCES!!!', null, null),
-                '/some/source/directory'
-            ))->getSource()
+                '/some/source/directory',
+            ))->getSource(),
         );
     }
 
@@ -66,8 +64,8 @@ final class LocatedSourceWithStrippedSourcesDirectoryTest extends TestCase
             'NAME!!!',
             (new LocatedSourceWithStrippedSourcesDirectory(
                 new LocatedSource('', 'NAME!!!', null),
-                '/some/source/directory'
-            ))->getName()
+                '/some/source/directory',
+            ))->getName(),
         );
     }
 
@@ -87,14 +85,14 @@ final class LocatedSourceWithStrippedSourcesDirectoryTest extends TestCase
         self::assertFalse(
             (new LocatedSourceWithStrippedSourcesDirectory(
                 $nonInternalSource,
-                '/some/source/directory'
-            ))->isInternal()
+                '/some/source/directory',
+            ))->isInternal(),
         );
         self::assertTrue(
             (new LocatedSourceWithStrippedSourcesDirectory(
                 $internalSource,
-                '/some/source/directory'
-            ))->isInternal()
+                '/some/source/directory',
+            ))->isInternal(),
         );
     }
 
@@ -109,7 +107,7 @@ final class LocatedSourceWithStrippedSourcesDirectoryTest extends TestCase
         self::assertSame(
             'the-extension',
             (new LocatedSourceWithStrippedSourcesDirectory($extensionSource, '/some/source/directory'))
-                ->getExtensionName()
+                ->getExtensionName(),
         );
     }
 
@@ -129,14 +127,14 @@ final class LocatedSourceWithStrippedSourcesDirectoryTest extends TestCase
         self::assertFalse(
             (new LocatedSourceWithStrippedSourcesDirectory(
                 $nonEvaledSource,
-                '/some/source/directory'
-            ))->isEvaled()
+                '/some/source/directory',
+            ))->isEvaled(),
         );
         self::assertTrue(
             (new LocatedSourceWithStrippedSourcesDirectory(
                 $evaledSource,
-                '/some/source/directory'
-            ))->isEvaled()
+                '/some/source/directory',
+            ))->isEvaled(),
         );
     }
 
@@ -151,7 +149,7 @@ final class LocatedSourceWithStrippedSourcesDirectoryTest extends TestCase
         self::assertSame(
             'the-alias',
             (new LocatedSourceWithStrippedSourcesDirectory($aliasedSource, '/some/source/directory'))
-                ->getAliasName()
+                ->getAliasName(),
         );
     }
 
@@ -167,7 +165,7 @@ final class LocatedSourceWithStrippedSourcesDirectoryTest extends TestCase
             $method
                 ->getDeclaringClass()
                 ->getName(),
-            'Method is re-declared in the subclass'
+            'Method is re-declared in the subclass',
         );
     }
     

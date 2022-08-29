@@ -11,11 +11,8 @@ use Roave\BetterReflection\SourceLocator\Type\SourceLocator;
 
 final class LocateSourcesViaComposerJson implements LocateSources
 {
-    private Locator $astLocator;
-
-    public function __construct(Locator $astLocator)
+    public function __construct(private Locator $astLocator)
     {
-        $this->astLocator = $astLocator;
     }
 
     public function __invoke(string $installationPath): SourceLocator
@@ -24,8 +21,8 @@ final class LocateSourcesViaComposerJson implements LocateSources
             $installationPath,
             new ReplaceSourcePathOfLocatedSources(
                 $this->astLocator,
-                $installationPath
-            )
+                $installationPath,
+            ),
         );
     }
 }

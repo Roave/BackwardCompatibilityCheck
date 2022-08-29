@@ -14,18 +14,15 @@ use Roave\BetterReflection\Reflection\ReflectionProperty;
 
 final class PropertyChanged implements ClassBased
 {
-    private PropertyBased $checkProperty;
-
-    public function __construct(PropertyBased $checkProperty)
+    public function __construct(private PropertyBased $checkProperty)
     {
-        $this->checkProperty = $checkProperty;
     }
 
     public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass): Changes
     {
         return Changes::fromIterator($this->checkSymbols(
             $fromClass->getProperties(),
-            $toClass->getProperties()
+            $toClass->getProperties(),
         ));
     }
 

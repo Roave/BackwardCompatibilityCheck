@@ -27,7 +27,7 @@ class A {
 }
 PHP
             ,
-            (new BetterReflection())->astLocator()
+            (new BetterReflection())->astLocator(),
         )))
             ->reflectClass('A')
             ->getProperty('property');
@@ -42,7 +42,7 @@ PHP
 
         self::assertEquals(
             Changes::fromList(Change::removed('foo', true)),
-            (new ExcludeInternalProperty($check))($property, $property)
+            (new ExcludeInternalProperty($check))($property, $property),
         );
     }
 
@@ -58,7 +58,7 @@ class A {
 }
 PHP
             ,
-            (new BetterReflection())->astLocator()
+            (new BetterReflection())->astLocator(),
         )))
             ->reflectClass('A')
             ->getProperty('property');
@@ -71,7 +71,7 @@ PHP
 
         self::assertEquals(
             Changes::empty(),
-            (new ExcludeInternalProperty($check))($property, $property)
+            (new ExcludeInternalProperty($check))($property, $property),
         );
     }
 }

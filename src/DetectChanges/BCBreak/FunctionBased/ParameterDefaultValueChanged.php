@@ -30,7 +30,7 @@ final class ParameterDefaultValueChanged implements FunctionBased
 
     public function __invoke(
         ReflectionMethod|ReflectionFunction $fromFunction,
-        ReflectionMethod|ReflectionFunction $toFunction
+        ReflectionMethod|ReflectionFunction $toFunction,
     ): Changes {
         $fromParametersWithDefaults = $this->defaultParameterValues($fromFunction);
         $toParametersWithDefaults   = $this->defaultParameterValues($toFunction);
@@ -51,8 +51,8 @@ final class ParameterDefaultValueChanged implements FunctionBased
                     $parameter->getName(),
                     ($this->formatFunction)($fromFunction),
                     var_export($defaultValueFrom, true),
-                    var_export($defaultValueTo, true)
-                )
+                    var_export($defaultValueTo, true),
+                ),
             )));
         }
 
@@ -66,7 +66,7 @@ final class ParameterDefaultValueChanged implements FunctionBased
             $function->getParameters(),
             static function (ReflectionParameter $parameter): bool {
                 return $parameter->isDefaultValueAvailable();
-            }
+            },
         );
     }
 }

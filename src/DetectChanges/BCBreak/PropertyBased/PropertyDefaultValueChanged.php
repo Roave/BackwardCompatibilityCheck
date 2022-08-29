@@ -35,8 +35,8 @@ final class PropertyDefaultValueChanged implements PropertyBased
                 'Property %s changed default value from %s to %s',
                 ($this->formatProperty)($fromProperty),
                 var_export($fromPropertyDefaultValue, true),
-                var_export($toPropertyDefaultValue, true)
-            )
+                var_export($toPropertyDefaultValue, true),
+            ),
         ));
     }
 }

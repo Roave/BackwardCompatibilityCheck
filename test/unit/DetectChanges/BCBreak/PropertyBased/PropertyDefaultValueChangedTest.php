@@ -18,9 +18,7 @@ use function array_keys;
 use function array_map;
 use function iterator_to_array;
 
-/**
- * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\PropertyDefaultValueChanged
- */
+/** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\PropertyDefaultValueChanged */
 final class PropertyDefaultValueChangedTest extends TestCase
 {
     /**
@@ -31,7 +29,7 @@ final class PropertyDefaultValueChangedTest extends TestCase
     public function testDiffs(
         ReflectionProperty $fromFunction,
         ReflectionProperty $toFunction,
-        array $expectedMessages
+        array $expectedMessages,
     ): void {
         $changes = (new PropertyDefaultValueChanged())($fromFunction, $toFunction);
 
@@ -39,7 +37,7 @@ final class PropertyDefaultValueChangedTest extends TestCase
             $expectedMessages,
             array_map(static function (Change $change): string {
                 return $change->__toString();
-            }, iterator_to_array($changes))
+            }, iterator_to_array($changes)),
         );
     }
 
@@ -79,7 +77,7 @@ class TheClass {
 }
 PHP
             ,
-            $astLocator
+            $astLocator,
         );
 
         $toLocator = new StringSourceLocator(
@@ -110,7 +108,7 @@ class TheClass {
 }
 PHP
             ,
-            $astLocator
+            $astLocator,
         );
 
         $fromClassReflector = new DefaultReflector($fromLocator);
@@ -148,8 +146,8 @@ PHP
                     $errorMessages,
                 ],
                 array_keys($properties),
-                $properties
-            )
+                $properties,
+            ),
         );
     }
 }

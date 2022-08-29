@@ -11,7 +11,7 @@ use Roave\BackwardCompatibility\Changes;
 
 abstract class Assertion
 {
-    private static ?ReflectionProperty $unBufferedChangesReflection = null;
+    private static ReflectionProperty|null $unBufferedChangesReflection = null;
 
     final private function __construct()
     {
@@ -20,11 +20,11 @@ abstract class Assertion
     public static function assertChangesEqual(
         Changes $expected,
         Changes $actual,
-        string $message = ''
+        string $message = '',
     ): void {
         Assert::assertNotNull(
             self::reflectionUnBufferedChanges()->getValue($actual),
-            'Buffer must NOT be exhausted'
+            'Buffer must NOT be exhausted',
         );
         // Forces eager initialisation of the `Changes` instances, allowing us to compare them by value
         Assert::assertCount(Iter\count($expected), $actual);

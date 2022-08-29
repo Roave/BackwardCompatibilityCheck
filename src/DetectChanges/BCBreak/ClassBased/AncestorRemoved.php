@@ -22,7 +22,7 @@ final class AncestorRemoved implements ClassBased
     {
         $removedAncestors = Vec\concat(
             Vec\values(Dict\diff($fromClass->getParentClassNames(), $toClass->getParentClassNames())),
-            Vec\values(Dict\diff($fromClass->getInterfaceNames(), $toClass->getInterfaceNames()))
+            Vec\values(Dict\diff($fromClass->getInterfaceNames(), $toClass->getInterfaceNames())),
         );
 
         if (! $removedAncestors) {
@@ -33,8 +33,8 @@ final class AncestorRemoved implements ClassBased
             Str\format(
                 'These ancestors of %s have been removed: %s',
                 $fromClass->getName(),
-                Json\encode($removedAncestors)
-            )
+                Json\encode($removedAncestors),
+            ),
         ));
     }
 }

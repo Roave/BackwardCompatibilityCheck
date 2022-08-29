@@ -22,7 +22,7 @@ final class Revision
 
         return new self(
             Type\non_empty_string()
-                ->assert(Str\trim_right($sha1))
+                ->assert(Str\trim_right($sha1)),
         );
     }
 

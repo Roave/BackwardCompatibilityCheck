@@ -25,7 +25,7 @@ final class ClassBecameFinalTest extends TestCase
     public function testDiffs(
         ReflectionClass $fromClass,
         ReflectionClass $toClass,
-        array $expectedMessages
+        array $expectedMessages,
     ): void {
         $changes = (new ClassBecameFinal())($fromClass, $toClass);
 
@@ -33,7 +33,7 @@ final class ClassBecameFinalTest extends TestCase
             $expectedMessages,
             array_map(static function (Change $change): string {
                 return $change->__toString();
-            }, iterator_to_array($changes))
+            }, iterator_to_array($changes)),
         );
     }
 
@@ -54,7 +54,7 @@ class C {}
 final class D {}
 PHP
             ,
-            $locator
+            $locator,
         ));
         $toReflector   = new DefaultReflector(new StringSourceLocator(
             <<<'PHP'
@@ -66,7 +66,7 @@ class C {}
 final class D {}
 PHP
             ,
-            $locator
+            $locator,
         ));
 
         return [

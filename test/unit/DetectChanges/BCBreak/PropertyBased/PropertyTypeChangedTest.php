@@ -20,9 +20,7 @@ use function array_keys;
 use function array_map;
 use function iterator_to_array;
 
-/**
- * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\PropertyTypeChanged
- */
+/** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\PropertyTypeChanged */
 final class PropertyTypeChangedTest extends TestCase
 {
     /**
@@ -33,18 +31,18 @@ final class PropertyTypeChangedTest extends TestCase
     public function testDiffs(
         ReflectionProperty $fromProperty,
         ReflectionProperty $toProperty,
-        array $expectedMessages
+        array $expectedMessages,
     ): void {
         $changes = (new PropertyTypeChanged(
             new TypeIsContravariant(),
-            new TypeIsCovariant()
+            new TypeIsCovariant(),
         ))($fromProperty, $toProperty);
 
         self::assertSame(
             $expectedMessages,
             array_map(static function (Change $change): string {
                 return $change->__toString();
-            }, iterator_to_array($changes))
+            }, iterator_to_array($changes)),
         );
     }
 
@@ -133,7 +131,7 @@ class TheClass {
 }
 PHP
             ,
-            $astLocator
+            $astLocator,
         );
 
         $toLocator = new StringSourceLocator(
@@ -208,7 +206,7 @@ class TheClass {
 }
 PHP
             ,
-            $astLocator
+            $astLocator,
         );
 
         $fromClassReflector = new DefaultReflector($fromLocator);
@@ -248,8 +246,8 @@ PHP
                     $errorMessages,
                 ],
                 array_keys($properties),
-                $properties
-            )
+                $properties,
+            ),
         );
     }
 }

@@ -33,7 +33,7 @@ final class PropertyBecameInternal implements PropertyBased
                 Str\format(
                     'Property %s was marked "@internal"',
                     ($this->formatProperty)($fromProperty),
-                )
+                ),
             ));
         }
 

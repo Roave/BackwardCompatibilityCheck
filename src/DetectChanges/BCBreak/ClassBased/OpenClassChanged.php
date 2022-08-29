@@ -9,11 +9,8 @@ use Roave\BetterReflection\Reflection\ReflectionClass;
 
 final class OpenClassChanged implements ClassBased
 {
-    private ClassBased $checkClass;
-
-    public function __construct(ClassBased $checkClass)
+    public function __construct(private ClassBased $checkClass)
     {
-        $this->checkClass = $checkClass;
     }
 
     public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass): Changes

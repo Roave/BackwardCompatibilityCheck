@@ -15,9 +15,7 @@ use Roave\BetterReflection\Reflection\ReflectionClassConstant;
 
 use function uniqid;
 
-/**
- * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassConstantBased\SkipClassConstantBasedErrors
- */
+/** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassConstantBased\SkipClassConstantBasedErrors */
 final class SkipClassConstantBasedErrorsTest extends TestCase
 {
     /** @var ClassConstantBased&MockObject */
@@ -37,7 +35,7 @@ final class SkipClassConstantBasedErrorsTest extends TestCase
         $toConstant      = $this->createMock(ReflectionClassConstant::class);
         $expectedChanges = Changes::fromList(Change::added(
             uniqid('foo', true),
-            true
+            true,
         ));
 
         $this
@@ -65,7 +63,7 @@ final class SkipClassConstantBasedErrorsTest extends TestCase
 
         self::assertEquals(
             Changes::fromList(Change::skippedDueToFailure($exception)),
-            ($this->check)($fromConstant, $toConstant)
+            ($this->check)($fromConstant, $toConstant),
         );
     }
 }

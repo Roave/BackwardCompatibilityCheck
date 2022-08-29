@@ -25,7 +25,7 @@ final class ConstantRemovedTest extends TestCase
     public function testDiffs(
         ReflectionClass $fromClass,
         ReflectionClass $toClass,
-        array $expectedMessages
+        array $expectedMessages,
     ): void {
         $changes = (new ConstantRemoved())($fromClass, $toClass);
 
@@ -33,7 +33,7 @@ final class ConstantRemovedTest extends TestCase
             $expectedMessages,
             array_map(static function (Change $change): string {
                 return $change->__toString();
-            }, iterator_to_array($changes))
+            }, iterator_to_array($changes)),
         );
     }
 
@@ -49,11 +49,11 @@ final class ConstantRemovedTest extends TestCase
             'RoaveTestAsset\\ClassWithConstantsBeingRemoved' => [
                 (new DefaultReflector(new SingleFileSourceLocator(
                     __DIR__ . '/../../../../asset/api/old/ClassWithConstantsBeingRemoved.php',
-                    $locator
+                    $locator,
                 )))->reflectClass('RoaveTestAsset\\ClassWithConstantsBeingRemoved'),
                 (new DefaultReflector(new SingleFileSourceLocator(
                     __DIR__ . '/../../../../asset/api/new/ClassWithConstantsBeingRemoved.php',
-                    $locator
+                    $locator,
                 )))->reflectClass('RoaveTestAsset\\ClassWithConstantsBeingRemoved'),
                 [
                     '[BC] REMOVED: Constant RoaveTestAsset\ClassWithConstantsBeingRemoved::removedPublicConstant was removed',

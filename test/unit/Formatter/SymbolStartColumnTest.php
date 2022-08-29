@@ -20,16 +20,14 @@ use Roave\BetterReflection\SourceLocator\Located\LocatedSource;
 use Roave\BetterReflection\SourceLocator\Type\SourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 
-/**
- * @covers \Roave\BackwardCompatibility\Formatter\SymbolStartColumn
- */
+/** @covers \Roave\BackwardCompatibility\Formatter\SymbolStartColumn */
 final class SymbolStartColumnTest extends TestCase
 {
     public function testCanGetStartColumnForSimpleSymbol(): void
     {
         $reflector = new DefaultReflector(new StringSourceLocator(
             '<?php /* spacing on purpose */ class A {}',
-            (new BetterReflection())->astLocator()
+            (new BetterReflection())->astLocator(),
         ));
 
         self::assertSame(32, SymbolStartColumn::get($reflector->reflectClass('A')));
@@ -39,7 +37,7 @@ final class SymbolStartColumnTest extends TestCase
     {
         $reflector = new DefaultReflector(new class implements SourceLocator {
             /** Retrieves function `foo`, but without sources (invalid position) */
-            public function locateIdentifier(Reflector $reflector, Identifier $identifier): ?Reflection
+            public function locateIdentifier(Reflector $reflector, Identifier $identifier): Reflection|null
             {
                 $locatedSource    = new LocatedSource('', null);
                 $betterReflection = new BetterReflection();
@@ -48,13 +46,13 @@ final class SymbolStartColumnTest extends TestCase
                     0 => Type\object(Function_::class),
                 ])->coerce(
                     $betterReflection->phpParser()
-                        ->parse('<?php function foo() {}')
+                        ->parse('<?php function foo() {}'),
                 )[0];
 
                 return ReflectionFunction::createFromNode(
                     $betterReflection->reflector(),
                     $function,
-                    $locatedSource
+                    $locatedSource,
                 );
             }
 

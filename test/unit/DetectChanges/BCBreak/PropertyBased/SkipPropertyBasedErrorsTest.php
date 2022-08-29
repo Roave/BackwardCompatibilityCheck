@@ -15,9 +15,7 @@ use Roave\BetterReflection\Reflection\ReflectionProperty;
 
 use function uniqid;
 
-/**
- * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\SkipPropertyBasedErrors
- */
+/** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\SkipPropertyBasedErrors */
 final class SkipPropertyBasedErrorsTest extends TestCase
 {
     /** @var PropertyBased&MockObject */
@@ -37,7 +35,7 @@ final class SkipPropertyBasedErrorsTest extends TestCase
         $toProperty      = $this->createMock(ReflectionProperty::class);
         $expectedChanges = Changes::fromList(Change::added(
             uniqid('foo', true),
-            true
+            true,
         ));
 
         $this
@@ -65,7 +63,7 @@ final class SkipPropertyBasedErrorsTest extends TestCase
 
         self::assertEquals(
             Changes::fromList(Change::skippedDueToFailure($exception)),
-            ($this->check)($fromProperty, $toProperty)
+            ($this->check)($fromProperty, $toProperty),
         );
     }
 }

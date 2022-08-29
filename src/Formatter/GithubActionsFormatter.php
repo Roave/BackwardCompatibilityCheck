@@ -15,7 +15,7 @@ final class GithubActionsFormatter implements OutputFormatter
 {
     public function __construct(
         private OutputInterface $output,
-        private CheckedOutRepository $basePath
+        private CheckedOutRepository $basePath,
     ) {
     }
 
@@ -31,7 +31,7 @@ final class GithubActionsFormatter implements OutputFormatter
                     ? null
                     : Str\replace($change->file, $basePath, ''),
                 $change->line,
-                $change->column
+                $change->column,
             );
         }
     }

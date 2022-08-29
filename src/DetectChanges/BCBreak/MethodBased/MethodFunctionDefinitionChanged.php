@@ -13,11 +13,8 @@ use Roave\BetterReflection\Reflection\ReflectionMethod;
  */
 final class MethodFunctionDefinitionChanged implements MethodBased
 {
-    private FunctionBased $functionCheck;
-
-    public function __construct(FunctionBased $functionCheck)
+    public function __construct(private FunctionBased $functionCheck)
     {
-        $this->functionCheck = $functionCheck;
     }
 
     public function __invoke(ReflectionMethod $fromMethod, ReflectionMethod $toMethod): Changes

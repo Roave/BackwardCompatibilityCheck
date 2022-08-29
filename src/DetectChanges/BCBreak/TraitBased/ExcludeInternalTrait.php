@@ -13,11 +13,8 @@ use Roave\BetterReflection\Reflection\ReflectionClass;
  */
 final class ExcludeInternalTrait implements TraitBased
 {
-    private TraitBased $check;
-
-    public function __construct(TraitBased $check)
+    public function __construct(private TraitBased $check)
     {
-        $this->check = $check;
     }
 
     public function __invoke(ReflectionClass $fromTrait, ReflectionClass $toTrait): Changes

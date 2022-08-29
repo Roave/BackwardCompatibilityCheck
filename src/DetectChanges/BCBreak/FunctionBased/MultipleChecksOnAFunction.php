@@ -22,7 +22,7 @@ final class MultipleChecksOnAFunction implements FunctionBased
 
     public function __invoke(
         ReflectionMethod|ReflectionFunction $fromFunction,
-        ReflectionMethod|ReflectionFunction $toFunction
+        ReflectionMethod|ReflectionFunction $toFunction,
     ): Changes {
         return Changes::fromIterator($this->multipleChecks($fromFunction, $toFunction));
     }
@@ -37,7 +37,7 @@ final class MultipleChecksOnAFunction implements FunctionBased
      */
     private function multipleChecks(
         ReflectionMethod|ReflectionFunction $fromFunction,
-        ReflectionMethod|ReflectionFunction $toFunction
+        ReflectionMethod|ReflectionFunction $toFunction,
     ): iterable {
         $toFile   = $toFunction->getFileName();
         $toLine   = $toFunction->getStartLine();

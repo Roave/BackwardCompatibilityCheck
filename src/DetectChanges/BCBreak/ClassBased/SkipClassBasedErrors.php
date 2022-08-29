@@ -11,11 +11,8 @@ use Throwable;
 
 final class SkipClassBasedErrors implements ClassBased
 {
-    private ClassBased $next;
-
-    public function __construct(ClassBased $next)
+    public function __construct(private ClassBased $next)
     {
-        $this->next = $next;
     }
 
     public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass): Changes

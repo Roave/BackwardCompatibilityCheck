@@ -16,14 +16,12 @@ final class GitCheckoutRevisionToTemporaryPath implements PerformCheckoutOfRevis
     private $uniquenessFunction;
 
     /** @param (callable(string): string)|null $uniquenessFunction*/
-    public function __construct(?callable $uniquenessFunction = null)
+    public function __construct(callable|null $uniquenessFunction = null)
     {
         $this->uniquenessFunction = $uniquenessFunction ?? 'uniqid';
     }
 
-    /**
-     * @throws Shell\Exception\RuntimeException
-     */
+    /** @throws Shell\Exception\RuntimeException */
     public function checkout(CheckedOutRepository $sourceRepository, Revision $revision): CheckedOutRepository
     {
         $checkoutDirectory = $this->generateTemporaryPathFor($revision);
@@ -34,17 +32,13 @@ final class GitCheckoutRevisionToTemporaryPath implements PerformCheckoutOfRevis
         return CheckedOutRepository::fromPath($checkoutDirectory);
     }
 
-    /**
-     * @throws Shell\Exception\RuntimeException
-     */
+    /** @throws Shell\Exception\RuntimeException */
     public function remove(CheckedOutRepository $checkedOutRepository): void
     {
         Shell\execute('rm', ['-rf', $checkedOutRepository->__toString()]);
     }
 
-    /**
-     * @throws RuntimeException
-     */
+    /** @throws RuntimeException */
     private function generateTemporaryPathFor(Revision $revision): string
     {
         $uniquePathGenerator = $this->uniquenessFunction;
@@ -54,7 +48,7 @@ final class GitCheckoutRevisionToTemporaryPath implements PerformCheckoutOfRevis
             throw new RuntimeException(Str\format(
                 'Tried to check out revision "%s" to directory "%s" which already exists',
                 $revision->__toString(),
-                $checkoutDirectory
+                $checkoutDirectory,
             ));
         }
 

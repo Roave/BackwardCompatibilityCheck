@@ -19,9 +19,7 @@ use function tempnam;
 /** @covers \Roave\BackwardCompatibility\Formatter\GithubActionsFormatter */
 final class GithubActionsFormatterTest extends TestCase
 {
-    /**
-     * @throws ReflectionException
-     */
+    /** @throws ReflectionException */
     public function testWrite(): void
     {
         $output            = new BufferedOutput();
@@ -32,7 +30,7 @@ final class GithubActionsFormatterTest extends TestCase
 
         (new GithubActionsFormatter(
             $output,
-            CheckedOutRepository::fromPath($temporaryLocation . '/foo/bar')
+            CheckedOutRepository::fromPath($temporaryLocation . '/foo/bar'),
         ))->write(Changes::fromList(
             Change::removed('foo', true),
             Change::added('bar', false),
@@ -67,7 +65,7 @@ final class GithubActionsFormatterTest extends TestCase
 
 OUTPUT
             ,
-            $output->fetch()
+            $output->fetch(),
         );
 
         Filesystem\delete_directory($temporaryLocation, true);

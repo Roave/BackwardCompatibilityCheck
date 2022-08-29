@@ -27,7 +27,7 @@ final class ClassBecameInterfaceTest extends TestCase
     public function testDiffs(
         ReflectionClass $fromClass,
         ReflectionClass $toClass,
-        array $expectedMessages
+        array $expectedMessages,
     ): void {
         $changes = (new ClassBecameInterface())($fromClass, $toClass);
 
@@ -35,7 +35,7 @@ final class ClassBecameInterfaceTest extends TestCase
             $expectedMessages,
             array_map(static function (Change $change): string {
                 return $change->__toString();
-            }, iterator_to_array($changes))
+            }, iterator_to_array($changes)),
         );
     }
 
@@ -64,7 +64,7 @@ trait TraitToClass {}
 trait TraitToTrait {}
 PHP
             ,
-            $locator
+            $locator,
         ));
         $toReflector   = new DefaultReflector(new StringSourceLocator(
             <<<'PHP'
@@ -84,7 +84,7 @@ class TraitToClass {}
 trait TraitToTrait {}
 PHP
             ,
-            $locator
+            $locator,
         ));
 
         $classes = [
@@ -111,8 +111,8 @@ PHP
                     $errors,
                 ],
                 array_keys($classes),
-                $classes
-            )
+                $classes,
+            ),
         );
     }
 }

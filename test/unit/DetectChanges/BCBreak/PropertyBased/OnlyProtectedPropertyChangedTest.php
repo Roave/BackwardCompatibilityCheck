@@ -14,9 +14,7 @@ use Roave\BetterReflection\Reflection\ReflectionProperty;
 
 use function uniqid;
 
-/**
- * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\OnlyProtectedPropertyChanged
- */
+/** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\OnlyProtectedPropertyChanged */
 final class OnlyProtectedPropertyChangedTest extends TestCase
 {
     /** @var PropertyBased&MockObject */
@@ -54,7 +52,7 @@ final class OnlyProtectedPropertyChangedTest extends TestCase
 
         self::assertEquals(
             Changes::empty(),
-            ($this->changed)($this->fromProperty, $this->toProperty)
+            ($this->changed)($this->fromProperty, $this->toProperty),
         );
     }
 
@@ -76,7 +74,7 @@ final class OnlyProtectedPropertyChangedTest extends TestCase
 
         self::assertEquals(
             $changes,
-            ($this->changed)($this->fromProperty, $this->toProperty)
+            ($this->changed)($this->fromProperty, $this->toProperty),
         );
     }
 }

@@ -17,9 +17,7 @@ use function array_keys;
 use function array_map;
 use function iterator_to_array;
 
-/**
- * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased\AncestorRemoved
- */
+/** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased\AncestorRemoved */
 final class AncestorRemovedTest extends TestCase
 {
     /**
@@ -30,7 +28,7 @@ final class AncestorRemovedTest extends TestCase
     public function testDiffs(
         ReflectionClass $fromInterface,
         ReflectionClass $toInterace,
-        array $expectedMessages
+        array $expectedMessages,
     ): void {
         $changes = (new AncestorRemoved())($fromInterface, $toInterace);
 
@@ -38,7 +36,7 @@ final class AncestorRemovedTest extends TestCase
             $expectedMessages,
             array_map(static function (Change $change): string {
                 return $change->__toString();
-            }, iterator_to_array($changes))
+            }, iterator_to_array($changes)),
         );
     }
 
@@ -64,7 +62,7 @@ interface ParentInterfaceVeryIndirectlyRemoved extends IC {}
 interface ParentInterfaceOrderSwapped extends IA, ID {}
 PHP
             ,
-            $locator
+            $locator,
         ));
         $toReflector   = new DefaultReflector(new StringSourceLocator(
             <<<'PHP'
@@ -81,7 +79,7 @@ interface ParentInterfaceVeryIndirectlyRemoved extends IC {}
 interface ParentInterfaceOrderSwapped extends ID, IA {}
 PHP
             ,
-            $locator
+            $locator,
         ));
 
         $interfaces = [
@@ -104,8 +102,8 @@ PHP
                     $errors,
                 ],
                 array_keys($interfaces),
-                $interfaces
-            )
+                $interfaces,
+            ),
         );
     }
 }

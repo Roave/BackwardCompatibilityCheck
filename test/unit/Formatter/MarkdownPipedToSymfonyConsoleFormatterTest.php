@@ -11,16 +11,14 @@ use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Formatter\MarkdownPipedToSymfonyConsoleFormatter;
 use Symfony\Component\Console\Output\OutputInterface;
 
-/**
- * @covers \Roave\BackwardCompatibility\Formatter\MarkdownPipedToSymfonyConsoleFormatter
- */
+/** @covers \Roave\BackwardCompatibility\Formatter\MarkdownPipedToSymfonyConsoleFormatter */
 final class MarkdownPipedToSymfonyConsoleFormatterTest extends TestCase
 {
     public function testWrite(): void
     {
         $output = $this->createMock(OutputInterface::class);
 
-        $changeToExpect = <<<EOF
+        $changeToExpect = <<<'EOF'
 # Added
  - [BC] Something added
  - Something added

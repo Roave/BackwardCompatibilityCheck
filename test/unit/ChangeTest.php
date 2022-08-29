@@ -10,9 +10,7 @@ use Roave\BackwardCompatibility\Change;
 
 use function uniqid;
 
-/**
- * @covers \Roave\BackwardCompatibility\Change
- */
+/** @covers \Roave\BackwardCompatibility\Change */
 final class ChangeTest extends TestCase
 {
     public function testAdded(): void

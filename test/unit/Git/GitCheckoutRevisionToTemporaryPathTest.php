@@ -13,9 +13,7 @@ use Roave\BackwardCompatibility\Git\GitCheckoutRevisionToTemporaryPath;
 use Roave\BackwardCompatibility\Git\Revision;
 use RuntimeException;
 
-/**
- * @covers \Roave\BackwardCompatibility\Git\GitCheckoutRevisionToTemporaryPath
- */
+/** @covers \Roave\BackwardCompatibility\Git\GitCheckoutRevisionToTemporaryPath */
 final class GitCheckoutRevisionToTemporaryPathTest extends TestCase
 {
     private const TEST_REVISION_TO_CHECKOUT = '428327492a803b6e0c612b157a67a50a47275461';
@@ -66,7 +64,7 @@ final class GitCheckoutRevisionToTemporaryPathTest extends TestCase
         Shell\execute('git', ['commit', '-m', 'initial commit', '--allow-empty'], $repoPath);
 
         $firstCommit = Revision::fromSha1(
-            Shell\execute('git', ['rev-parse', 'HEAD'], $repoPath)
+            Shell\execute('git', ['rev-parse', 'HEAD'], $repoPath),
         );
 
         Filesystem\write_file($repoPath . '/a-file.txt', 'file contents');
@@ -75,7 +73,7 @@ final class GitCheckoutRevisionToTemporaryPathTest extends TestCase
         Shell\execute('git', ['commit', '-m', 'second commit', '--allow-empty'], $repoPath);
 
         $secondCommit = Revision::fromSha1(
-            Shell\execute('git', ['rev-parse', 'HEAD'], $repoPath)
+            Shell\execute('git', ['rev-parse', 'HEAD'], $repoPath),
         );
 
         $git = new GitCheckoutRevisionToTemporaryPath();
@@ -112,7 +110,7 @@ final class GitCheckoutRevisionToTemporaryPathTest extends TestCase
         } catch (RuntimeException $runtimeException) {
             self::assertStringMatchesFormat(
                 'Tried to check out revision "%s" to directory "%s" which already exists',
-                $runtimeException->getMessage()
+                $runtimeException->getMessage(),
             );
         } finally {
             $git->remove($first);

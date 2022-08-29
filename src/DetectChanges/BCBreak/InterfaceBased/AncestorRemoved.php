@@ -20,7 +20,7 @@ final class AncestorRemoved implements InterfaceBased
     public function __invoke(ReflectionClass $fromInterface, ReflectionClass $toInterface): Changes
     {
         $removedAncestors = Vec\values(
-            Dict\diff($fromInterface->getInterfaceNames(), $toInterface->getInterfaceNames())
+            Dict\diff($fromInterface->getInterfaceNames(), $toInterface->getInterfaceNames()),
         );
 
         if (! $removedAncestors) {
@@ -31,8 +31,8 @@ final class AncestorRemoved implements InterfaceBased
             Str\format(
                 'These ancestors of %s have been removed: %s',
                 $fromInterface->getName(),
-                Json\encode($removedAncestors)
-            )
+                Json\encode($removedAncestors),
+            ),
         ));
     }
 }
