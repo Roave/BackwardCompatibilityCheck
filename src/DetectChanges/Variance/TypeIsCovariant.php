@@ -33,6 +33,20 @@ final class TypeIsCovariant
             return false;
         }
 
+        if ($comparedType instanceof ReflectionUnionType) {
+            return Iter\all(
+                $comparedType->getTypes(),
+                fn (ReflectionNamedType|ReflectionIntersectionType $comparedType): bool => $this($type, $comparedType)
+            );
+        }
+
+        if ($type instanceof ReflectionUnionType) {
+            return Iter\any(
+                $type->getTypes(),
+                fn (ReflectionNamedType|ReflectionIntersectionType $type): bool => $this($type, $comparedType)
+            );
+        }
+
         if ($type instanceof ReflectionIntersectionType) {
             return Iter\all(
                 $type->getTypes(),
@@ -44,20 +58,6 @@ final class TypeIsCovariant
             return Iter\any(
                 $comparedType->getTypes(),
                 fn (ReflectionNamedType $comparedType): bool => $this($type, $comparedType)
-            );
-        }
-
-        if ($comparedType instanceof ReflectionUnionType) {
-            return Iter\all(
-                $comparedType->getTypes(),
-                fn (ReflectionNamedType $comparedType): bool => $this($type, $comparedType)
-            );
-        }
-
-        if ($type instanceof ReflectionUnionType) {
-            return Iter\any(
-                $type->getTypes(),
-                fn (ReflectionNamedType $type): bool => $this($type, $comparedType)
             );
         }
 

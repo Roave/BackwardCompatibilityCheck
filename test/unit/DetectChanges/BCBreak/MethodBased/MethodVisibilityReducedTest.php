@@ -8,6 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased\MethodVisibilityReduced;
 use Roave\BetterReflection\BetterReflection;
+use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflector\DefaultReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
@@ -15,6 +16,7 @@ use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 use function array_combine;
 use function array_keys;
 use function array_map;
+use function assert;
 use function iterator_to_array;
 
 /** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased\MethodVisibilityReduced */
@@ -110,13 +112,23 @@ PHP
             array_keys($properties),
             array_map(
                 static fn (string $methodName, array $errors): array => [
-                    $fromClass->getMethod($methodName),
-                    $toClass->getMethod($methodName),
+                    self::getMethod($fromClass, $methodName),
+                    self::getMethod($toClass, $methodName),
                     $errors,
                 ],
                 array_keys($properties),
                 $properties,
             ),
         );
+    }
+
+    /** @param non-empty-string $name */
+    private static function getMethod(ReflectionClass $class, string $name): ReflectionMethod
+    {
+        $method = $class->getMethod($name);
+
+        assert($method !== null);
+
+        return $method;
     }
 }

@@ -366,6 +366,82 @@ PHP
                 new IntersectionType([new Identifier('A'), new Identifier('B')]),
                 true,
             ],
+
+            '(A&B)|(C&D) is contravariant to (A&B)|C - https://3v4l.org/9nsfZ#v8.2rc3'                            => [
+                new UnionType([
+                    new IntersectionType([new Identifier('A'), new Identifier('B')]),
+                    new IntersectionType([new Identifier('C'), new Identifier('D')]),
+                ]),
+                new UnionType([
+                    new IntersectionType([new Identifier('A'), new Identifier('B')]),
+                    new Identifier('D'),
+                ]),
+                true,
+            ],
+            '(A&B)|(C&D) is contravariant to A|(C&D) - https://3v4l.org/BXb29#v8.2rc3'                            => [
+                new UnionType([
+                    new IntersectionType([new Identifier('A'), new Identifier('B')]),
+                    new IntersectionType([new Identifier('C'), new Identifier('D')]),
+                ]),
+                new UnionType([
+                    new Identifier('A'),
+                    new IntersectionType([new Identifier('C'), new Identifier('D')]),
+                ]),
+                true,
+            ],
+            '(A&B)|(C&D) is contravariant to B|(C&D) - https://3v4l.org/MO0mv#v8.2rc3'                            => [
+                new UnionType([
+                    new IntersectionType([new Identifier('A'), new Identifier('B')]),
+                    new IntersectionType([new Identifier('C'), new Identifier('D')]),
+                ]),
+                new UnionType([
+                    new Identifier('B'),
+                    new IntersectionType([new Identifier('C'), new Identifier('D')]),
+                ]),
+                true,
+            ],
+            '(A&B)|(C&D) is contravariant to A|D - https://3v4l.org/VQtE9#v8.2rc3'                            => [
+                new UnionType([
+                    new IntersectionType([new Identifier('A'), new Identifier('B')]),
+                    new IntersectionType([new Identifier('C'), new Identifier('D')]),
+                ]),
+                new UnionType([
+                    new Identifier('A'),
+                    new Identifier('D'),
+                ]),
+                true,
+            ],
+
+            '(A&B)|(C&D) is not contravariant to A - https://3v4l.org/pqRUf#v8.2rc3'                            => [
+                new UnionType([
+                    new IntersectionType([new Identifier('A'), new Identifier('B')]),
+                    new IntersectionType([new Identifier('C'), new Identifier('D')]),
+                ]),
+                new Identifier('A'),
+                false,
+            ],
+            '(A&B)|(C&D) is not contravariant to A|B - https://3v4l.org/kiHPi#v8.2rc3'                            => [
+                new UnionType([
+                    new IntersectionType([new Identifier('A'), new Identifier('B')]),
+                    new IntersectionType([new Identifier('C'), new Identifier('D')]),
+                ]),
+                new UnionType([
+                    new Identifier('A'),
+                    new Identifier('B'),
+                ]),
+                false,
+            ],
+            '(A&B)|(C&D) is not contravariant to (A&C)|(B&D) - https://3v4l.org/rQo1t#v8.2rc3'                            => [
+                new UnionType([
+                    new IntersectionType([new Identifier('A'), new Identifier('B')]),
+                    new IntersectionType([new Identifier('C'), new Identifier('D')]),
+                ]),
+                new UnionType([
+                    new IntersectionType([new Identifier('A'), new Identifier('C')]),
+                    new IntersectionType([new Identifier('B'), new Identifier('D')]),
+                ]),
+                false,
+            ],
         ];
 
         return array_map(
@@ -420,13 +496,19 @@ PHP
                     [self::identifierType($reflector, $owner, new NullableType(new Identifier($type)))],
                 ],
                 [
+                    'null',
+                    'mixed',
+                    'void',
                     'int',
                     'string',
                     'float',
                     'bool',
+                    'true',
+                    'false',
                     'array',
                     'iterable',
                     'callable',
+                    'object',
                     'Traversable',
                     'AClass',
                 ],

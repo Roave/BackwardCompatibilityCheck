@@ -29,8 +29,9 @@ final class ExcludeInternalFunction implements FunctionBased
         return ($this->check)($fromFunction, $toFunction);
     }
 
-    private function isInternalDocComment(string $comment): bool
+    private function isInternalDocComment(string|null $comment): bool
     {
-        return Regex\matches($comment, '/\s+@internal\s+/');
+        return $comment !== null
+            && Regex\matches($comment, '/\s+@internal\s+/');
     }
 }

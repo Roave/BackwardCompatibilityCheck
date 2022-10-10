@@ -10,8 +10,7 @@ use Roave\BetterReflection\Reflection\ReflectionConstant;
 use Roave\BetterReflection\Reflection\ReflectionFunction;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
-use Roave\BetterReflection\Util\Exception\InvalidNodePosition;
-use Roave\BetterReflection\Util\Exception\NoNodePosition;
+use RuntimeException;
 
 /** @internal */
 final class SymbolStartColumn
@@ -30,7 +29,7 @@ final class SymbolStartColumn
     ): int|null {
         try {
             return $symbol->getStartColumn();
-        } catch (NoNodePosition | InvalidNodePosition) {
+        } catch (RuntimeException) {
             return null;
         }
     }

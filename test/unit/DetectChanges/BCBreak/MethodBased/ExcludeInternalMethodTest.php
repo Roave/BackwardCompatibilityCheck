@@ -13,6 +13,8 @@ use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflector\DefaultReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 
+use function assert;
+
 /** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased\ExcludeInternalMethod */
 final class ExcludeInternalMethodTest extends TestCase
 {
@@ -31,6 +33,8 @@ PHP
         )))
             ->reflectClass('A')
             ->getMethod('method');
+
+        assert($method !== null);
 
         $check = $this->createMock(MethodBased::class);
         $check->expects(self::once())
@@ -60,6 +64,8 @@ PHP
         )))
             ->reflectClass('A')
             ->getMethod('method');
+        
+        assert($method !== null);
 
         $check = $this->createMock(MethodBased::class);
         $check->expects(self::never())

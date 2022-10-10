@@ -12,32 +12,32 @@ use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionClassConstant;
 use Roave\BetterReflection\Reflector\DefaultReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
+
+use function array_combine;
+use function array_keys;
 use function array_map;
 use function iterator_to_array;
-use function array_combine;
 
-/**
- * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassConstantBased\ClassConstantVisibilityReduced
- */
+/** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassConstantBased\ClassConstantVisibilityReduced */
 final class ClassConstantVisibilityReducedTest extends TestCase
 {
     /**
-     * @dataProvider constantsToBeTested
-     *
      * @param string[] $expectedMessages
+     *
+     * @dataProvider constantsToBeTested
      */
     public function testDiffs(
         ReflectionClassConstant $fromConstant,
         ReflectionClassConstant $toConstant,
-        array $expectedMessages
-    ) : void {
+        array $expectedMessages,
+    ): void {
         $changes = (new ClassConstantVisibilityReduced())($fromConstant, $toConstant);
 
         self::assertSame(
             $expectedMessages,
-            array_map(function (Change $change) : string {
+            array_map(static function (Change $change): string {
                 return $change->__toString();
-            }, iterator_to_array($changes))
+            }, iterator_to_array($changes)),
         );
     }
 
@@ -48,7 +48,7 @@ final class ClassConstantVisibilityReducedTest extends TestCase
      *     2: list<string>
      * }>
      */
-    public function constantsToBeTested() : array
+    public function constantsToBeTested(): array
     {
         $astLocator = (new BetterReflection())->astLocator();
 
@@ -69,7 +69,7 @@ class TheClass {
 }
 PHP
             ,
-            $astLocator
+            $astLocator,
         );
 
         $toLocator = new StringSourceLocator(
@@ -89,7 +89,7 @@ class TheClass {
 }
 PHP
             ,
-            $astLocator
+            $astLocator,
         );
 
         $fromClassReflector = new DefaultReflector($fromLocator);
@@ -100,16 +100,10 @@ PHP
         $properties = [
 
             'publicMaintainedPublic' => [],
-            'publicReducedToProtected' => [
-                '[BC] CHANGED: Constant TheClass::publicReducedToProtected visibility reduced from public to protected',
-            ],
-            'publicReducedToPrivate' => [
-                '[BC] CHANGED: Constant TheClass::publicReducedToPrivate visibility reduced from public to private',
-            ],
+            'publicReducedToProtected' => ['[BC] CHANGED: Constant TheClass::publicReducedToProtected visibility reduced from public to protected'],
+            'publicReducedToPrivate' => ['[BC] CHANGED: Constant TheClass::publicReducedToPrivate visibility reduced from public to private'],
             'protectedMaintainedProtected' => [],
-            'protectedReducedToPrivate' => [
-                '[BC] CHANGED: Constant TheClass::protectedReducedToPrivate visibility reduced from protected to private',
-            ],
+            'protectedReducedToPrivate' => ['[BC] CHANGED: Constant TheClass::protectedReducedToPrivate visibility reduced from protected to private'],
             'protectedIncreasedToPublic' => [],
             'privateMaintainedPrivate' => [],
             'privateIncreasedToProtected' => [],
@@ -121,14 +115,14 @@ PHP
             array_map(
                 static fn (string $constant, array $errorMessages): array => [
                     Type\object(ReflectionClassConstant::class)
-                        ->coerce($fromClass->getReflectionConstant($constant)),
+                        ->coerce($fromClass->getConstant($constant)),
                     Type\object(ReflectionClassConstant::class)
-                        ->coerce($toClass->getReflectionConstant($constant)),
+                        ->coerce($toClass->getConstant($constant)),
                     $errorMessages,
                 ],
                 array_keys($properties),
-                $properties
-            )
+                $properties,
+            ),
         );
     }
 }

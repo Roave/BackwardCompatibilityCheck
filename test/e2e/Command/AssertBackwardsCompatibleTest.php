@@ -5,14 +5,12 @@ declare(strict_types=1);
 namespace RoaveE2ETest\BackwardCompatibility\Command;
 
 use PHPUnit\Framework\TestCase;
-use Psl\Shell;
-use Psl\Filesystem;
 use Psl\Env;
+use Psl\Filesystem;
+use Psl\Shell;
 use Psl\Str;
 
-/**
- * @coversNothing
- */
+/** @coversNothing */
 final class AssertBackwardsCompatibleTest extends TestCase
 {
     private const COMPOSER_MANIFEST = <<<'JSON'
@@ -51,7 +49,7 @@ final class TheClass
 }
 
 PHP
-        ,
+,
         <<<'PHP'
 <?php
 
@@ -71,7 +69,7 @@ final class TheClass
 }
 
 PHP
-        ,
+,
         <<<'PHP'
 <?php
 
@@ -91,7 +89,7 @@ final class TheClass
 }
 
 PHP
-        ,
+,
         // The last version resets the class to its initial state
         <<<'PHP'
 <?php
@@ -111,7 +109,7 @@ final class TheClass
     }
 }
 
-PHP
+PHP,
     ];
 
     /** @var string path to the sources that should be checked */
@@ -120,7 +118,7 @@ PHP
     /** @var string[] sha1 of the source versions */
     private array $versions = [];
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -154,7 +152,7 @@ PHP
         }
     }
 
-    protected function tearDown() : void
+    protected function tearDown(): void
     {
         self::assertNotEmpty($this->sourcesRepository);
         self::assertDirectoryExists($this->sourcesRepository);
@@ -165,7 +163,7 @@ PHP
         parent::tearDown();
     }
 
-    public function testWillAllowSpecifyingGitRevision() : void
+    public function testWillAllowSpecifyingGitRevision(): void
     {
         try {
             Shell\execute(__DIR__ . '/../../../bin/roave-backward-compatibility-check', [
@@ -180,13 +178,13 @@ PHP
 
 EXPECTED
                 ,
-                $exception->getErrorOutput() // @TODO https://github.com/Roave/BackwardCompatibilityCheck/issues/79 this looks like a symfony bug - we shouldn't check STDERR, but STDOUT
+                $exception->getErrorOutput(), // @TODO https://github.com/Roave/BackwardCompatibilityCheck/issues/79 this looks like a symfony bug - we shouldn't check STDERR, but STDOUT
             );
             self::assertSame(3, $exception->getCode());
         }
     }
 
-    public function testWillNotRunWithoutTagsNorSpecifiedVersions() : void
+    public function testWillNotRunWithoutTagsNorSpecifiedVersions(): void
     {
         try {
             Shell\execute(__DIR__ . '/../../../bin/roave-backward-compatibility-check', [], $this->sourcesRepository);
@@ -194,12 +192,12 @@ EXPECTED
             self::assertSame(1, $exception->getCode());
             self::assertStringContainsString(
                 'Could not detect any released versions for the given repository',
-                $exception->getErrorOutput()
+                $exception->getErrorOutput(),
             );
         }
     }
 
-    public function testWillRunSuccessfullyOnNoBcBreaks() : void
+    public function testWillRunSuccessfullyOnNoBcBreaks(): void
     {
         $output = Shell\execute(__DIR__ . '/../../../bin/roave-backward-compatibility-check', [
             '--from=' . $this->versions[0],
@@ -210,7 +208,7 @@ EXPECTED
         self::assertEmpty($output);
     }
 
-    public function testWillPickTaggedVersionOnNoGivenFrom() : void
+    public function testWillPickTaggedVersionOnNoGivenFrom(): void
     {
         $this->tagOnVersion('1.2.3', 1);
 
@@ -231,12 +229,12 @@ EXPECTED
 
 EXPECTED
                 ,
-                $errorOutput // @TODO https://github.com/Roave/BackwardCompatibilityCheck/issues/79 this looks like a symfony bug - we shouldn't check STDERR, but STDOUT
+                $errorOutput, // @TODO https://github.com/Roave/BackwardCompatibilityCheck/issues/79 this looks like a symfony bug - we shouldn't check STDERR, but STDOUT
             );
         }
     }
 
-    public function testWillPickLatestTaggedVersionOnNoGivenFrom() : void
+    public function testWillPickLatestTaggedVersionOnNoGivenFrom(): void
     {
         $this->tagOnVersion('2.2.3', 1);
         $this->tagOnVersion('1.2.3', 3);
@@ -258,14 +256,14 @@ EXPECTED
 
 EXPECTED
                 ,
-                $errorOutput // @TODO https://github.com/Roave/BackwardCompatibilityCheck/issues/79 this looks like a symfony bug - we shouldn't check STDERR, but STDOUT
+                $errorOutput, // @TODO https://github.com/Roave/BackwardCompatibilityCheck/issues/79 this looks like a symfony bug - we shouldn't check STDERR, but STDOUT
             );
         }
     }
 
-    private function tagOnVersion(string $tagName, int $version) : void
+    private function tagOnVersion(string $tagName, int $version): void
     {
         Shell\execute('git', ['checkout', $this->versions[$version]], $this->sourcesRepository);
-        Shell\execute('git', ['tag', $tagName, '-m', 'A tag for version ' . $version,], $this->sourcesRepository);
+        Shell\execute('git', ['tag', $tagName, '-m', 'A tag for version ' . $version], $this->sourcesRepository);
     }
 }

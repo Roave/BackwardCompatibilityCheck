@@ -16,6 +16,7 @@ use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 use function array_combine;
 use function array_keys;
 use function array_map;
+use function assert;
 use function iterator_to_array;
 
 /** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\ParameterNameChanged */
@@ -153,6 +154,9 @@ PHP
         $toClassReflector   = new DefaultReflector($toLocator);
         $fromMethod         = $fromClassReflector->reflectClass('TheClass')->getMethod('theMethod');
         $toMethod           = $toClassReflector->reflectClass('TheClass')->getMethod('theMethod');
+        
+        assert($fromMethod !== null);
+        assert($toMethod !== null);
 
         $changes = (new ParameterNameChanged())($fromMethod, $toMethod);
         self::assertCount(0, $changes);

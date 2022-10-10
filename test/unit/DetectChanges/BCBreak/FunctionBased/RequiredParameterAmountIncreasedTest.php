@@ -8,36 +8,39 @@ use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\RequiredParameterAmountIncreased;
 use Roave\BetterReflection\BetterReflection;
+use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionFunction;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflector\DefaultReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
+
 use function array_combine;
+use function array_keys;
 use function array_map;
+use function array_merge;
+use function assert;
 use function iterator_to_array;
 
-/**
- * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\RequiredParameterAmountIncreased
- */
+/** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\RequiredParameterAmountIncreased */
 final class RequiredParameterAmountIncreasedTest extends TestCase
 {
     /**
-     * @dataProvider functionsToBeTested
-     *
      * @param string[] $expectedMessages
+     *
+     * @dataProvider functionsToBeTested
      */
     public function testDiffs(
         ReflectionMethod|ReflectionFunction $fromFunction,
         ReflectionMethod|ReflectionFunction $toFunction,
-        array $expectedMessages
-    ) : void {
+        array $expectedMessages,
+    ): void {
         $changes = (new RequiredParameterAmountIncreased())($fromFunction, $toFunction);
 
         self::assertSame(
             $expectedMessages,
-            array_map(function (Change $change) : string {
+            array_map(static function (Change $change): string {
                 return $change->__toString();
-            }, iterator_to_array($changes))
+            }, iterator_to_array($changes)),
         );
     }
 
@@ -48,7 +51,7 @@ final class RequiredParameterAmountIncreasedTest extends TestCase
      *     2: list<string>
      * }>
      */
-    public function functionsToBeTested() : array
+    public function functionsToBeTested(): array
     {
         $astLocator = (new BetterReflection())->astLocator();
 
@@ -77,7 +80,7 @@ namespace N1 {
 }
 PHP
             ,
-            $astLocator
+            $astLocator,
         );
 
         $toLocator = new StringSourceLocator(
@@ -91,7 +94,7 @@ namespace {
    function optionalParameterAdded($a, $b, $c, $d = null) {}
    function noParametersToOneParameter($a) {}
    function variadicParameterAdded($a, $b, ...$c) {}
-   function variadicParameterMoved($a, $b, ...$b) {}
+   function variadicParameterMoved($a, $b, ...$c) {}
    function optionalParameterAddedInBetween($a, $b = null, $c, $d) {}
    function parameterMadeOptionalMidSignature($a, $b = null, $c) {}
    function untouched($a, $b, $c) {}
@@ -105,11 +108,11 @@ namespace N1 {
 }
 PHP
             ,
-            $astLocator
+            $astLocator,
         );
 
-        $fromReflector      = new DefaultReflector($fromLocator);
-        $toReflector        = new DefaultReflector($toLocator);
+        $fromReflector = new DefaultReflector($fromLocator);
+        $toReflector   = new DefaultReflector($toLocator);
 
         $functions = [
             'parametersIncreased'               => ['[BC] CHANGED: The number of required arguments for parametersIncreased() increased from 3 to 4'],
@@ -134,25 +137,31 @@ PHP
                         $errors,
                     ],
                     array_keys($functions),
-                    $functions
-                )
+                    $functions,
+                ),
             ),
             [
                 'N1\C::changed1' => [
-                    $fromReflector->reflectClass('N1\C')->getMethod('changed1'),
-                    $toReflector->reflectClass('N1\C')->getMethod('changed1'),
-                    [
-                        '[BC] CHANGED: The number of required arguments for N1\C::changed1() increased from 3 to 4',
-                    ],
+                    self::getMethod($fromReflector->reflectClass('N1\C'), 'changed1'),
+                    self::getMethod($toReflector->reflectClass('N1\C'), 'changed1'),
+                    ['[BC] CHANGED: The number of required arguments for N1\C::changed1() increased from 3 to 4'],
                 ],
                 'N1\C#changed2'  => [
-                    $fromReflector->reflectClass('N1\C')->getMethod('changed2'),
-                    $toReflector->reflectClass('N1\C')->getMethod('changed2'),
-                    [
-                        '[BC] CHANGED: The number of required arguments for N1\C#changed2() increased from 3 to 4',
-                    ],
+                    self::getMethod($fromReflector->reflectClass('N1\C'), 'changed2'),
+                    self::getMethod($toReflector->reflectClass('N1\C'), 'changed2'),
+                    ['[BC] CHANGED: The number of required arguments for N1\C#changed2() increased from 3 to 4'],
                 ],
-            ]
+            ],
         );
+    }
+
+    /** @param non-empty-string $name */
+    private static function getMethod(ReflectionClass $class, string $name): ReflectionMethod
+    {
+        $method = $class->getMethod($name);
+
+        assert($method !== null);
+
+        return $method;
     }
 }

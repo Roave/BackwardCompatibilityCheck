@@ -8,36 +8,39 @@ use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\ParameterTypeChanged;
 use Roave\BetterReflection\BetterReflection;
+use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionFunction;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflector\DefaultReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
+
 use function array_combine;
+use function array_keys;
 use function array_map;
+use function array_merge;
+use function assert;
 use function iterator_to_array;
 
-/**
- * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\ParameterTypeChanged
- */
+/** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\ParameterTypeChanged */
 final class ParameterTypeChangedTest extends TestCase
 {
     /**
-     * @dataProvider functionsToBeTested
-     *
      * @param string[] $expectedMessages
+     *
+     * @dataProvider functionsToBeTested
      */
     public function testDiffs(
         ReflectionMethod|ReflectionFunction $fromFunction,
         ReflectionMethod|ReflectionFunction $toFunction,
-        array $expectedMessages
-    ) : void {
+        array $expectedMessages,
+    ): void {
         $changes = (new ParameterTypeChanged())($fromFunction, $toFunction);
 
         self::assertSame(
             $expectedMessages,
-            array_map(function (Change $change) : string {
+            array_map(static function (Change $change): string {
                 return $change->__toString();
-            }, iterator_to_array($changes))
+            }, iterator_to_array($changes)),
         );
     }
 
@@ -48,7 +51,7 @@ final class ParameterTypeChangedTest extends TestCase
      *     2: list<string>
      * }>
      */
-    public function functionsToBeTested() : array
+    public function functionsToBeTested(): array
     {
         $astLocator = (new BetterReflection())->astLocator();
 
@@ -86,7 +89,7 @@ namespace N4 {
 }
 PHP
             ,
-            $astLocator
+            $astLocator,
         );
 
         $toLocator = new StringSourceLocator(
@@ -124,11 +127,11 @@ namespace N4 {
 }
 PHP
             ,
-            $astLocator
+            $astLocator,
         );
 
-        $fromReflector      = new DefaultReflector($fromLocator);
-        $toReflector        = new DefaultReflector($toLocator);
+        $fromReflector = new DefaultReflector($fromLocator);
+        $toReflector   = new DefaultReflector($toLocator);
 
         $functions = [
             'changed'      => [
@@ -141,9 +144,7 @@ PHP
                 '[BC] CHANGED: The parameter $b of N1\changed() changed from N1\A to N2\A',
             ],
             'N1\untouched' => [],
-            'N2\changed'   => [
-                '[BC] CHANGED: The parameter $a of N2\changed() changed from N2\A to N3\A',
-            ],
+            'N2\changed'   => ['[BC] CHANGED: The parameter $a of N2\changed() changed from N2\A to N3\A'],
             'N2\untouched' => [],
             'N3\changed'   => [
                 '[BC] CHANGED: The parameter $a of N3\changed() changed from int|null to int',
@@ -162,13 +163,13 @@ PHP
                         $errors,
                     ],
                     array_keys($functions),
-                    $functions
-                )
+                    $functions,
+                ),
             ),
             [
                 'N4\C::changed1' => [
-                    $fromReflector->reflectClass('N4\C')->getMethod('changed1'),
-                    $toReflector->reflectClass('N4\C')->getMethod('changed1'),
+                    self::getMethod($fromReflector->reflectClass('N4\C'), 'changed1'),
+                    self::getMethod($toReflector->reflectClass('N4\C'), 'changed1'),
                     [
                         '[BC] CHANGED: The parameter $a of N4\C::changed1() changed from no type to int',
                         '[BC] CHANGED: The parameter $b of N4\C::changed1() changed from no type to int',
@@ -176,14 +177,24 @@ PHP
                     ],
                 ],
                 'N4\C#changed2'  => [
-                    $fromReflector->reflectClass('N4\C')->getMethod('changed2'),
-                    $toReflector->reflectClass('N4\C')->getMethod('changed2'),
+                    self::getMethod($fromReflector->reflectClass('N4\C'), 'changed2'),
+                    self::getMethod($toReflector->reflectClass('N4\C'), 'changed2'),
                     [
                         '[BC] CHANGED: The parameter $a of N4\C#changed2() changed from no type to int',
                         '[BC] CHANGED: The parameter $b of N4\C#changed2() changed from no type to int',
-                    ]
+                    ],
                 ],
-            ]
+            ],
         );
+    }
+
+    /** @param non-empty-string $name */
+    private static function getMethod(ReflectionClass $class, string $name): ReflectionMethod
+    {
+        $method = $class->getMethod($name);
+
+        assert($method !== null);
+
+        return $method;
     }
 }
