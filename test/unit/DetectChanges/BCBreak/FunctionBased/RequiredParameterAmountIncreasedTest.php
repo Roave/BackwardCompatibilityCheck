@@ -94,7 +94,7 @@ namespace {
    function optionalParameterAdded($a, $b, $c, $d = null) {}
    function noParametersToOneParameter($a) {}
    function variadicParameterAdded($a, $b, ...$c) {}
-   function variadicParameterMoved($a, $b, ...$b) {}
+   function variadicParameterMoved($a, $b, ...$c) {}
    function optionalParameterAddedInBetween($a, $b = null, $c, $d) {}
    function parameterMadeOptionalMidSignature($a, $b = null, $c) {}
    function untouched($a, $b, $c) {}
