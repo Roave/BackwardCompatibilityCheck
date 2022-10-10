@@ -121,9 +121,9 @@ PHP
             array_map(
                 static fn (string $constant, array $errorMessages): array => [
                     Type\object(ReflectionClassConstant::class)
-                        ->coerce($fromClass->getReflectionConstant($constant)),
+                        ->coerce($fromClass->getConstant($constant)),
                     Type\object(ReflectionClassConstant::class)
-                        ->coerce($toClass->getReflectionConstant($constant)),
+                        ->coerce($toClass->getConstant($constant)),
                     $errorMessages,
                 ],
                 array_keys($properties),

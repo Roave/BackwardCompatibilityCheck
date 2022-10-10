@@ -7,10 +7,13 @@ namespace RoaveTest\BackwardCompatibility\Formatter;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Formatter\FunctionName;
 use Roave\BetterReflection\BetterReflection;
+use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionFunction;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflector\DefaultReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
+
+use function assert;
 
 /** @covers \Roave\BackwardCompatibility\Formatter\FunctionName */
 final class FunctionNameTest extends TestCase
@@ -64,13 +67,23 @@ PHP
                 'N1\b()',
             ],
             'N2\C::d' => [
-                $reflector->reflectClass('N2\C')->getMethod('d'),
+                $this->getMethod($reflector->reflectClass('N2\C'), 'd'),
                 'N2\C::d()',
             ],
             'N2\C#e'  => [
-                $reflector->reflectClass('N2\C')->getMethod('e'),
+                $this->getMethod($reflector->reflectClass('N2\C'), 'e'),
                 'N2\C#e()',
             ],
         ];
+    }
+
+    /** @param non-empty-string $name */
+    private function getMethod(ReflectionClass $class, string $name): ReflectionMethod
+    {
+        $method = $class->getMethod($name);
+
+        assert($method !== null);
+
+        return $method;
     }
 }

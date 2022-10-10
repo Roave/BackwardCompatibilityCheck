@@ -8,6 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased\MethodScopeChanged;
 use Roave\BetterReflection\BetterReflection;
+use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflector\DefaultReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
@@ -15,6 +16,7 @@ use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 use function array_combine;
 use function array_keys;
 use function array_map;
+use function assert;
 use function iterator_to_array;
 
 /** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased\MethodScopeChanged */
@@ -40,10 +42,7 @@ final class MethodScopeChangedTest extends TestCase
         );
     }
 
-    /**
-     * @return array<string, array<int, ReflectionMethod|array<int, string>>>
-     * @psalm-return array<string, array{0: ReflectionMethod, 1: ReflectionMethod, 2: list<string>}>
-     */
+    /** @return array<string, array{0: ReflectionMethod, 1: ReflectionMethod, 2: list<string>}> */
     public function propertiesToBeTested(): array
     {
         $astLocator = (new BetterReflection())->astLocator();
@@ -124,13 +123,23 @@ PHP
             array_keys($properties),
             array_map(
                 static fn (string $methodName, array $errors): array => [
-                    $fromClass->getMethod($methodName),
-                    $toClass->getMethod($methodName),
+                    self::getMethod($fromClass, $methodName),
+                    self::getMethod($toClass, $methodName),
                     $errors,
                 ],
                 array_keys($properties),
                 $properties,
             ),
         );
+    }
+
+    /** @param non-empty-string $name */
+    private static function getMethod(ReflectionClass $class, string $name): ReflectionMethod
+    {
+        $method = $class->getMethod($name);
+
+        assert($method !== null);
+
+        return $method;
     }
 }
