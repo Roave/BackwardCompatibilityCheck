@@ -21,8 +21,8 @@ final class ConstantChanged implements ClassBased
     public function __invoke(ReflectionClass $fromClass, ReflectionClass $toClass): Changes
     {
         return Changes::fromIterator($this->checkSymbols(
-            $fromClass->getReflectionConstants(),
-            $toClass->getReflectionConstants(),
+            $fromClass->getConstants(),
+            $toClass->getConstants(),
         ));
     }
 
