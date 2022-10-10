@@ -12,32 +12,33 @@ use Roave\BetterReflection\Reflection\ReflectionFunction;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflector\DefaultReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
+
 use function array_combine;
+use function array_keys;
 use function array_map;
+use function array_merge;
 use function iterator_to_array;
 
-/**
- * @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\ReturnTypeChanged
- */
+/** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\ReturnTypeChanged */
 final class ReturnTypeChangedTest extends TestCase
 {
     /**
-     * @dataProvider functionsToBeTested
-     *
      * @param string[] $expectedMessages
+     *
+     * @dataProvider functionsToBeTested
      */
     public function testDiffs(
         ReflectionMethod|ReflectionFunction $fromFunction,
         ReflectionMethod|ReflectionFunction $toFunction,
-        array $expectedMessages
-    ) : void {
+        array $expectedMessages,
+    ): void {
         $changes = (new ReturnTypeChanged())($fromFunction, $toFunction);
 
         self::assertSame(
             $expectedMessages,
-            array_map(function (Change $change) : string {
+            array_map(static function (Change $change): string {
                 return $change->__toString();
-            }, iterator_to_array($changes))
+            }, iterator_to_array($changes)),
         );
     }
 
@@ -48,7 +49,7 @@ final class ReturnTypeChangedTest extends TestCase
      *     2: list<string>
      * }>
      */
-    public function functionsToBeTested() : array
+    public function functionsToBeTested(): array
     {
         $astLocator = (new BetterReflection())->astLocator();
 
@@ -86,7 +87,7 @@ namespace N4 {
 }
 PHP
             ,
-            $astLocator
+            $astLocator,
         );
 
         $toLocator = new StringSourceLocator(
@@ -123,28 +124,20 @@ namespace N4 {
 }
 PHP
             ,
-            $astLocator
+            $astLocator,
         );
 
-        $fromReflector      = new DefaultReflector($fromLocator);
-        $toReflector        = new DefaultReflector($toLocator);
+        $fromReflector = new DefaultReflector($fromLocator);
+        $toReflector   = new DefaultReflector($toLocator);
 
         $functions = [
-            'changed'      => [
-                '[BC] CHANGED: The return type of changed() changed from A to N1\B',
-            ],
+            'changed'      => ['[BC] CHANGED: The return type of changed() changed from A to N1\B'],
             'untouched'    => [],
-            'N1\changed'   => [
-                '[BC] CHANGED: The return type of N1\changed() changed from int to float',
-            ],
+            'N1\changed'   => ['[BC] CHANGED: The return type of N1\changed() changed from int to float'],
             'N1\untouched' => [],
-            'N2\changed'   => [
-                '[BC] CHANGED: The return type of N2\changed() changed from int to int|null',
-            ],
+            'N2\changed'   => ['[BC] CHANGED: The return type of N2\changed() changed from int to int|null'],
             'N2\untouched' => [],
-            'N3\changed'   => [
-                '[BC] CHANGED: The return type of N3\changed() changed from int to no type',
-            ],
+            'N3\changed'   => ['[BC] CHANGED: The return type of N3\changed() changed from int to no type'],
             'N3\untouched' => [],
         ];
 
@@ -158,8 +151,8 @@ PHP
                         $errors,
                     ],
                     array_keys($functions),
-                    $functions
-                )
+                    $functions,
+                ),
             ),
             [
                 'N4\C::changed1' => [
@@ -172,7 +165,7 @@ PHP
                     $toReflector->reflectClass('N4\C')->getMethod('changed2'),
                     ['[BC] CHANGED: The return type of N4\C#changed2() changed from int to no type'],
                 ],
-            ]
+            ],
         );
     }
 }
