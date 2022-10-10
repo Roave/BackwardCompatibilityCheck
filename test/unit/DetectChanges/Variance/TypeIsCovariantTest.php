@@ -431,6 +431,7 @@ PHP
                     [self::identifierType($reflector, $owner, new NullableType(new Identifier($type)))],
                 ],
                 [
+                    'null',
                     'mixed',
                     'never',
                     'void',
@@ -438,6 +439,7 @@ PHP
                     'string',
                     'float',
                     'bool',
+                    'true',
                     'false',
                     'array',
                     'iterable',
