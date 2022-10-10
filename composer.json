@@ -33,6 +33,7 @@
         "vimeo/psalm": "^4.28.0"
     },
     "conflict": {
+        "revolt/event-loop": "<0.2.5",
         "symfony/process": "<5.3.7"
     },
     "autoload": {
