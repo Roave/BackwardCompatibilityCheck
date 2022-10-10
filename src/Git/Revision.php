@@ -9,10 +9,11 @@ use Psl\Regex;
 use Psl\Str;
 use Psl\Type;
 
+/** @psalm-immutable */
 final class Revision
 {
     /** @param non-empty-string $sha1 */
-    private function __construct(private string $sha1)
+    private function __construct(private readonly string $sha1)
     {
     }
 
@@ -26,6 +27,7 @@ final class Revision
         );
     }
 
+    /** @return non-empty-string */
     public function __toString(): string
     {
         return $this->sha1;

@@ -7,6 +7,7 @@ namespace RoaveTest\BackwardCompatibility\Git;
 use PHPUnit\Framework\TestCase;
 use Psl\Dict;
 use Psl\Env;
+use Psl\File;
 use Psl\Filesystem;
 use Psl\SecureRandom;
 use Psl\Shell;
@@ -27,7 +28,7 @@ final class GetVersionCollectionFromGitRepositoryTest extends TestCase
         Shell\execute('git', ['init'], $tmpGitRepo);
         Shell\execute('git', ['config', 'user.email', 'me@example.com'], $tmpGitRepo);
         Shell\execute('git', ['config', 'user.name', 'Me Again'], $tmpGitRepo);
-        Filesystem\write_file($tmpGitRepo . '/test', SecureRandom\string(8));
+        File\write($tmpGitRepo . '/test', SecureRandom\string(8));
         Shell\execute('git', ['add', '.'], $tmpGitRepo);
         Shell\execute('git', ['commit', '-m', '"whatever"'], $tmpGitRepo);
 
@@ -48,7 +49,7 @@ final class GetVersionCollectionFromGitRepositoryTest extends TestCase
     private function getTags(): array
     {
         return Dict\map(
-            Type\vec(Type\object(Version::class))
+            Type\vec(Type\instance_of(Version::class))
                 ->coerce(
                     (new GetVersionCollectionFromGitRepository())
                         ->fromRepository($this->repoPath),

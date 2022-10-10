@@ -107,7 +107,7 @@ USAGE,
     /** @throws InvalidArgumentException */
     public function execute(InputInterface $input, OutputInterface $output): int
     {
-        $output = Type\object(ConsoleOutputInterface::class)->assert($output);
+        $output = Type\instance_of(ConsoleOutputInterface::class)->assert($output);
         $stdErr = $output->getErrorOutput();
 
         // @todo fix flaky assumption about the path of the source repo...

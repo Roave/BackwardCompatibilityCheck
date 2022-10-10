@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\Formatter;
 
+use Closure;
 use Psl\Str;
 use Psl\Vec;
 use Roave\BackwardCompatibility\Change;
@@ -53,11 +54,11 @@ final class MarkdownPipedToSymfonyConsoleFormatter implements OutputFormatter
     }
 
     /**
-     * @param callable(Change): bool $filterFunction
+     * @param Closure(Change): bool $filterFunction
      *
      * @return list<string>
      */
-    private function convertFilteredChangesToMarkdownBulletList(callable $filterFunction, Change ...$changes): array
+    private function convertFilteredChangesToMarkdownBulletList(Closure $filterFunction, Change ...$changes): array
     {
         return Vec\map(
             Vec\filter($changes, $filterFunction),

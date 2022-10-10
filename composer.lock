@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "02d62c3360fcb8ac2e42e49825170a8e",
+    "content-hash": "31c2e092de3361c9fd3cc274f38c3e43",
     "packages": [
         {
             "name": "azjezz/psl",
-            "version": "1.9.3",
+            "version": "2.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/azjezz/psl.git",
-                "reference": "5c20649db277565d6a40a66edfc2bbf8dc7f19e0"
+                "reference": "1caf06f2006113dceffef3f47a5d53989e1e59c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/azjezz/psl/zipball/5c20649db277565d6a40a66edfc2bbf8dc7f19e0",
-                "reference": "5c20649db277565d6a40a66edfc2bbf8dc7f19e0",
+                "url": "https://api.github.com/repos/azjezz/psl/zipball/1caf06f2006113dceffef3f47a5d53989e1e59c7",
+                "reference": "1caf06f2006113dceffef3f47a5d53989e1e59c7",
                 "shasum": ""
             },
             "require": {
@@ -26,16 +26,24 @@
                 "ext-json": "*",
                 "ext-mbstring": "*",
                 "ext-sodium": "*",
-                "php": "~8.0.0 || ~8.1.0"
+                "php": "~8.1.0",
+                "revolt/event-loop": "^0.2.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.4.0",
+                "php-coveralls/php-coveralls": "^2.5.2",
+                "php-standard-library/psalm-plugin": "^2.0.2",
+                "phpbench/phpbench": "^1.2.3",
+                "phpunit/phpunit": "^9.5.16",
+                "roave/infection-static-analysis-plugin": "1.13.x-dev",
+                "squizlabs/php_codesniffer": "^3.6.2",
+                "vimeo/psalm": "^4.21.0"
             },
             "suggest": {
                 "php-standard-library/psalm-plugin": "Psalm integration"
             },
             "type": "library",
             "extra": {
-                "psalm": {
-                    "pluginClass": "Psl\\Integration\\Psalm\\Plugin"
-                },
                 "thanks": {
                     "name": "hhvm/hsl",
                     "url": "https://github.com/hhvm/hsl"
@@ -46,8 +54,7 @@
                     "src/bootstrap.php"
                 ],
                 "psr-4": {
-                    "Psl\\": "src/Psl",
-                    "Psl\\Integration\\": "integration"
+                    "Psl\\": "src/Psl"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -63,7 +70,7 @@
             "description": "PHP Standard Library",
             "support": {
                 "issues": "https://github.com/azjezz/psl/issues",
-                "source": "https://github.com/azjezz/psl/tree/1.9.3"
+                "source": "https://github.com/azjezz/psl/tree/2.0.3"
             },
             "funding": [
                 {
@@ -71,7 +78,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2021-12-10T10:34:36+00:00"
+            "time": "2022-06-07T22:08:07+00:00"
         },
         {
             "name": "beberlei/assert",
@@ -1243,6 +1250,78 @@
                 }
             ],
             "time": "2022-02-11T10:27:51+00:00"
+        },
+        {
+            "name": "revolt/event-loop",
+            "version": "v0.2.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/revoltphp/event-loop.git",
+                "reference": "4e7455506d9ff61f3705b76a20a8f12ad4dc1552"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/revoltphp/event-loop/zipball/4e7455506d9ff61f3705b76a20a8f12ad4dc1552",
+                "reference": "4e7455506d9ff61f3705b76a20a8f12ad4dc1552",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1"
+            },
+            "require-dev": {
+                "ext-json": "*",
+                "jetbrains/phpstorm-stubs": "^2019.3",
+                "phpunit/phpunit": "^9",
+                "psalm/phar": "^4.7"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Revolt\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aaron Piotrowski",
+                    "email": "aaron@trowski.com"
+                },
+                {
+                    "name": "Cees-Jan Kiewiet",
+                    "email": "ceesjank@gmail.com"
+                },
+                {
+                    "name": "Christian Lück",
+                    "email": "christian@clue.engineering"
+                },
+                {
+                    "name": "Niklas Keller",
+                    "email": "me@kelunik.com"
+                }
+            ],
+            "description": "Rock-solid event loop for concurrent PHP applications.",
+            "keywords": [
+                "async",
+                "asynchronous",
+                "concurrency",
+                "event",
+                "event-loop",
+                "non-blocking",
+                "scheduler"
+            ],
+            "support": {
+                "issues": "https://github.com/revoltphp/event-loop/issues",
+                "source": "https://github.com/revoltphp/event-loop/tree/v0.2.5"
+            },
+            "time": "2022-08-01T03:01:07+00:00"
         },
         {
             "name": "roave/better-reflection",
@@ -3633,21 +3712,24 @@
         },
         {
             "name": "php-standard-library/psalm-plugin",
-            "version": "1.1.5",
+            "version": "2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-standard-library/psalm-plugin.git",
-                "reference": "134176c5e36f0aed80bc791095d9c8e1bde9c1b6"
+                "reference": "acec87621b2a08b907d40b46c5551215eb4b2154"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-standard-library/psalm-plugin/zipball/134176c5e36f0aed80bc791095d9c8e1bde9c1b6",
-                "reference": "134176c5e36f0aed80bc791095d9c8e1bde9c1b6",
+                "url": "https://api.github.com/repos/php-standard-library/psalm-plugin/zipball/acec87621b2a08b907d40b46c5551215eb4b2154",
+                "reference": "acec87621b2a08b907d40b46c5551215eb4b2154",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.4 || ^8.0",
+                "php": "^8.1",
                 "vimeo/psalm": "^4.20 || ^5.0"
+            },
+            "conflict": {
+                "azjezz/psl": "<2.0"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^2.18",
@@ -3678,9 +3760,9 @@
             "description": "Psalm plugin for the PHP Standard Library",
             "support": {
                 "issues": "https://github.com/php-standard-library/psalm-plugin/issues",
-                "source": "https://github.com/php-standard-library/psalm-plugin/tree/1.1.5"
+                "source": "https://github.com/php-standard-library/psalm-plugin/tree/2.0.2"
             },
-            "time": "2022-02-27T20:14:21+00:00"
+            "time": "2022-02-27T20:08:05+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -6561,12 +6643,12 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "~8.0.0 || ~8.1.0 || ~8.2.0",
+        "php": "~8.1.0 || ~8.2.0",
         "ext-json": "*"
     },
     "platform-dev": [],
     "platform-overrides": {
-        "php": "8.0.99"
+        "php": "8.1.99"
     },
     "plugin-api-version": "2.3.0"
 }

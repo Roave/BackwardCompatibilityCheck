@@ -6,8 +6,10 @@ namespace RoaveTest\BackwardCompatibility\Git;
 
 use PHPUnit\Framework\TestCase;
 use Psl\Env;
+use Psl\File;
 use Psl\Filesystem;
 use Psl\Shell;
+use Psl\Type;
 use Roave\BackwardCompatibility\Git\CheckedOutRepository;
 use Roave\BackwardCompatibility\Git\GitCheckoutRevisionToTemporaryPath;
 use Roave\BackwardCompatibility\Git\Revision;
@@ -67,7 +69,7 @@ final class GitCheckoutRevisionToTemporaryPathTest extends TestCase
             Shell\execute('git', ['rev-parse', 'HEAD'], $repoPath),
         );
 
-        Filesystem\write_file($repoPath . '/a-file.txt', 'file contents');
+        File\write($repoPath . '/a-file.txt', 'file contents');
 
         Shell\execute('git', ['add', 'a-file.txt'], $repoPath);
         Shell\execute('git', ['commit', '-m', 'second commit', '--allow-empty'], $repoPath);
@@ -121,6 +123,9 @@ final class GitCheckoutRevisionToTemporaryPathTest extends TestCase
 
     private function sourceRepository(): CheckedOutRepository
     {
-        return CheckedOutRepository::fromPath((string) Filesystem\canonicalize(__DIR__ . '/../../..'));
+        return CheckedOutRepository::fromPath(
+            Type\non_empty_string()
+                ->assert(Filesystem\canonicalize(__DIR__ . '/../../..')),
+        );
     }
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace RoaveTest\BackwardCompatibility\Formatter;
 
 use PHPUnit\Framework\TestCase;
+use Psl\Env;
 use Psl\Filesystem;
 use ReflectionException;
 use Roave\BackwardCompatibility\Change;
@@ -13,9 +14,6 @@ use Roave\BackwardCompatibility\Formatter\GithubActionsFormatter;
 use Roave\BackwardCompatibility\Git\CheckedOutRepository;
 use Symfony\Component\Console\Output\BufferedOutput;
 
-use function sys_get_temp_dir;
-use function tempnam;
-
 /** @covers \Roave\BackwardCompatibility\Formatter\GithubActionsFormatter */
 final class GithubActionsFormatterTest extends TestCase
 {
@@ -23,7 +21,7 @@ final class GithubActionsFormatterTest extends TestCase
     public function testWrite(): void
     {
         $output            = new BufferedOutput();
-        $temporaryLocation = tempnam(sys_get_temp_dir(), 'githubActionsFormatter');
+        $temporaryLocation = Filesystem\create_temporary_file(Env\temp_dir(), 'githubActionsFormatter');
 
         Filesystem\delete_file($temporaryLocation);
         Filesystem\create_directory($temporaryLocation . '/foo/bar/.git');

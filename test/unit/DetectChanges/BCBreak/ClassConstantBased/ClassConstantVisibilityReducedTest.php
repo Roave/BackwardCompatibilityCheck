@@ -114,9 +114,9 @@ PHP
             array_keys($properties),
             array_map(
                 static fn (string $constant, array $errorMessages): array => [
-                    Type\object(ReflectionClassConstant::class)
+                    Type\instance_of(ReflectionClassConstant::class)
                         ->coerce($fromClass->getConstant($constant)),
-                    Type\object(ReflectionClassConstant::class)
+                    Type\instance_of(ReflectionClassConstant::class)
                         ->coerce($toClass->getConstant($constant)),
                     $errorMessages,
                 ],

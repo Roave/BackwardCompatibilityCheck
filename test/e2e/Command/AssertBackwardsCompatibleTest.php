@@ -6,6 +6,7 @@ namespace RoaveE2ETest\BackwardCompatibility\Command;
 
 use PHPUnit\Framework\TestCase;
 use Psl\Env;
+use Psl\File;
 use Psl\Filesystem;
 use Psl\Shell;
 use Psl\Str;
@@ -112,7 +113,7 @@ final class TheClass
 PHP,
     ];
 
-    /** @var string path to the sources that should be checked */
+    /** @var non-empty-string path to the sources that should be checked */
     private string $sourcesRepository;
 
     /** @var string[] sha1 of the source versions */
@@ -138,13 +139,13 @@ PHP,
         Shell\execute('git', ['config', 'user.email', 'me@example.com'], $this->sourcesRepository);
         Shell\execute('git', ['config', 'user.name', 'Just Me'], $this->sourcesRepository);
 
-        Filesystem\write_file($this->sourcesRepository . '/composer.json', self::COMPOSER_MANIFEST);
+        File\write($this->sourcesRepository . '/composer.json', self::COMPOSER_MANIFEST);
 
         Shell\execute('git', ['add', '-A'], $this->sourcesRepository);
         Shell\execute('git', ['commit', '-am', 'Initial commit with composer manifest'], $this->sourcesRepository);
 
         foreach (self::CLASS_VERSIONS as $key => $classCode) {
-            Filesystem\write_file($this->sourcesRepository . '/src/TheClass.php', $classCode);
+            File\write($this->sourcesRepository . '/src/TheClass.php', $classCode);
 
             Shell\execute('git', ['add', '-A'], $this->sourcesRepository);
             Shell\execute('git', ['commit', '-am', Str\format('Class sources v%d', $key + 1)], $this->sourcesRepository);

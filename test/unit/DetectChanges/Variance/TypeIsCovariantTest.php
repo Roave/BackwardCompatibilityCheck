@@ -71,7 +71,7 @@ PHP
             (new BetterReflection())->astLocator(),
         ));
 
-        $owner = Type\object(ReflectionProperty::class)
+        $owner = Type\instance_of(ReflectionProperty::class)
             ->coerce(
                 $reflector->reflectClass('OwnerPropertyContainer')
                     ->getProperty('owner'),
@@ -522,7 +522,7 @@ PHP
             (new BetterReflection())->astLocator(),
         ));
 
-        $owner = Type\object(ReflectionProperty::class)
+        $owner = Type\instance_of(ReflectionProperty::class)
             ->coerce(
                 $reflector->reflectClass('OwnerPropertyContainer')
                     ->getProperty('owner'),
@@ -572,7 +572,7 @@ PHP
             (new BetterReflection())->astLocator(),
         ));
 
-        $owner = Type\object(ReflectionProperty::class)
+        $owner = Type\instance_of(ReflectionProperty::class)
             ->coerce(
                 $reflector->reflectClass('OwnerPropertyContainer')
                     ->getProperty('owner'),
