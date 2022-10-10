@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "31c2e092de3361c9fd3cc274f38c3e43",
+    "content-hash": "cd7690d3cacfd80374f8d446fe37c69b",
     "packages": [
         {
             "name": "azjezz/psl",
-            "version": "2.0.3",
+            "version": "2.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/azjezz/psl.git",
-                "reference": "1caf06f2006113dceffef3f47a5d53989e1e59c7"
+                "reference": "c34e6c2c5560007eafb158bf9f6040c4054c09ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/azjezz/psl/zipball/1caf06f2006113dceffef3f47a5d53989e1e59c7",
-                "reference": "1caf06f2006113dceffef3f47a5d53989e1e59c7",
+                "url": "https://api.github.com/repos/azjezz/psl/zipball/c34e6c2c5560007eafb158bf9f6040c4054c09ab",
+                "reference": "c34e6c2c5560007eafb158bf9f6040c4054c09ab",
                 "shasum": ""
             },
             "require": {
@@ -26,7 +26,7 @@
                 "ext-json": "*",
                 "ext-mbstring": "*",
                 "ext-sodium": "*",
-                "php": "~8.1.0",
+                "php": "~8.1.0 || ~8.2.0",
                 "revolt/event-loop": "^0.2.0"
             },
             "require-dev": {
@@ -35,7 +35,7 @@
                 "php-standard-library/psalm-plugin": "^2.0.2",
                 "phpbench/phpbench": "^1.2.3",
                 "phpunit/phpunit": "^9.5.16",
-                "roave/infection-static-analysis-plugin": "1.13.x-dev",
+                "roave/infection-static-analysis-plugin": "^1.23.0",
                 "squizlabs/php_codesniffer": "^3.6.2",
                 "vimeo/psalm": "^4.21.0"
             },
@@ -70,7 +70,7 @@
             "description": "PHP Standard Library",
             "support": {
                 "issues": "https://github.com/azjezz/psl/issues",
-                "source": "https://github.com/azjezz/psl/tree/2.0.3"
+                "source": "https://github.com/azjezz/psl/tree/2.0.4"
             },
             "funding": [
                 {
@@ -78,7 +78,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2022-06-07T22:08:07+00:00"
+            "time": "2022-10-10T18:40:50+00:00"
         },
         {
             "name": "beberlei/assert",
