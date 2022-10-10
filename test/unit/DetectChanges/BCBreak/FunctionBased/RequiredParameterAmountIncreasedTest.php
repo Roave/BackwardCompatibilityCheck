@@ -8,6 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\RequiredParameterAmountIncreased;
 use Roave\BetterReflection\BetterReflection;
+use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionFunction;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflector\DefaultReflector;
@@ -17,6 +18,7 @@ use function array_combine;
 use function array_keys;
 use function array_map;
 use function array_merge;
+use function assert;
 use function iterator_to_array;
 
 /** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\RequiredParameterAmountIncreased */
@@ -140,16 +142,26 @@ PHP
             ),
             [
                 'N1\C::changed1' => [
-                    $fromReflector->reflectClass('N1\C')->getMethod('changed1'),
-                    $toReflector->reflectClass('N1\C')->getMethod('changed1'),
+                    self::getMethod($fromReflector->reflectClass('N1\C'), 'changed1'),
+                    self::getMethod($toReflector->reflectClass('N1\C'), 'changed1'),
                     ['[BC] CHANGED: The number of required arguments for N1\C::changed1() increased from 3 to 4'],
                 ],
                 'N1\C#changed2'  => [
-                    $fromReflector->reflectClass('N1\C')->getMethod('changed2'),
-                    $toReflector->reflectClass('N1\C')->getMethod('changed2'),
+                    self::getMethod($fromReflector->reflectClass('N1\C'), 'changed2'),
+                    self::getMethod($toReflector->reflectClass('N1\C'), 'changed2'),
                     ['[BC] CHANGED: The number of required arguments for N1\C#changed2() increased from 3 to 4'],
                 ],
             ],
         );
+    }
+
+    /** @param non-empty-string $name */
+    private static function getMethod(ReflectionClass $class, string $name): ReflectionMethod
+    {
+        $method = $class->getMethod($name);
+
+        assert($method !== null);
+
+        return $method;
     }
 }
