@@ -31,11 +31,11 @@ final class PickLastMinorVersionFromCollection implements PickVersionFromVersion
 
         $matchingMinorVersions = $stableVersions
             ->matching(CompositeConstraint::and(
-                Type\object(OperationConstraint::class)
+                Type\instance_of(OperationConstraint::class)
                     ->coerce(OperationConstraint::lessOrEqualTo($lastVersion)),
-                Type\object(OperationConstraint::class)
+                Type\instance_of(OperationConstraint::class)
                     ->coerce(OperationConstraint::greaterOrEqualTo(
-                        Type\object(Version::class)
+                        Type\instance_of(Version::class)
                             ->coerce(Version::fromString($lastVersion->getMajor() . '.' . $lastVersion->getMinor() . '.0')),
                     )),
             ))

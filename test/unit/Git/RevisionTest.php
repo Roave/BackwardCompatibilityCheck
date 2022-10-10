@@ -16,14 +16,18 @@ final class RevisionTest extends TestCase
 {
     public function testFromSha1WithValidSha1(): void
     {
-        $sha1 = Hash\Context::forAlgorithm('sha1')->update(SecureRandom\string(8))->finalize();
+        $sha1 = Hash\Context::forAlgorithm(Hash\Algorithm::SHA1)
+            ->update(SecureRandom\string(8))
+            ->finalize();
 
         self::assertSame($sha1, (string) Revision::fromSha1($sha1));
     }
 
     public function testFromSha1WithNewlinesStillProvidesValidSha1(): void
     {
-        $sha1 = Hash\Context::forAlgorithm('sha1')->update(SecureRandom\string(8))->finalize();
+        $sha1 = Hash\Context::forAlgorithm(Hash\Algorithm::SHA1)
+            ->update(SecureRandom\string(8))
+            ->finalize();
 
         self::assertSame($sha1, (string) Revision::fromSha1($sha1 . "\n"));
     }

@@ -112,8 +112,8 @@ final class LocateDependenciesViaComposerTest extends TestCase
         $reflectionLocators->setAccessible(true);
 
         $locators = Type\shape([
-            0 => Type\object(SourceLocator::class),
-            1 => Type\object(SourceLocator::class),
+            0 => Type\instance_of(SourceLocator::class),
+            1 => Type\instance_of(SourceLocator::class),
         ])->coerce($reflectionLocators->getValue($locator));
 
         self::assertCount(2, $locators);
@@ -177,8 +177,8 @@ final class LocateDependenciesViaComposerTest extends TestCase
         $reflectionLocators->setAccessible(true);
 
         $locators = Type\shape([
-            0 => Type\object(SourceLocator::class),
-            1 => Type\object(SourceLocator::class),
+            0 => Type\instance_of(SourceLocator::class),
+            1 => Type\instance_of(SourceLocator::class),
         ])->coerce($reflectionLocators->getValue($locator));
 
         self::assertCount(2, $locators);

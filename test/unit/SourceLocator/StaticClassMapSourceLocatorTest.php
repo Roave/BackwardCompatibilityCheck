@@ -7,7 +7,7 @@ namespace RoaveTest\BackwardCompatibility\SourceLocator;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psl\Exception\InvariantViolationException;
-use Psl\Filesystem;
+use Psl\File;
 use Psl\Type\Exception\CoercionException;
 use Roave\BackwardCompatibility\SourceLocator\StaticClassMapSourceLocator;
 use Roave\BetterReflection\Identifier\Identifier;
@@ -45,12 +45,12 @@ final class StaticClassMapSourceLocatorTest extends TestCase
         );
     }
 
-    public function testRejectsEmptyStringFiles(): void
+    public function testRejectsNonFileInputs(): void
     {
         $this->expectException(InvariantViolationException::class);
 
         new StaticClassMapSourceLocator(
-            ['foo' => ''],
+            ['foo' => __DIR__],
             $this->astLocator,
         );
     }
@@ -65,7 +65,11 @@ final class StaticClassMapSourceLocatorTest extends TestCase
         ));
     }
 
-    /** @dataProvider thisClassPossiblePaths */
+    /**
+     * @param non-empty-string $thisClassFilePath
+     *
+     * @dataProvider thisClassPossiblePaths
+     */
     public function testWillLocateThisClass(string $thisClassFilePath): void
     {
         $locator    = new StaticClassMapSourceLocator([self::class => $thisClassFilePath], $this->astLocator);
@@ -76,7 +80,7 @@ final class StaticClassMapSourceLocatorTest extends TestCase
             ->expects(self::once())
             ->method('findReflection')
             ->with($this->reflector, self::callback(static function (LocatedSource $source): bool {
-                self::assertSame(Filesystem\read_file(__FILE__), $source->getSource());
+                self::assertSame(File\read(__FILE__), $source->getSource());
                 self::assertSame(__FILE__, $source->getFileName());
                 self::assertSame(self::class, $source->getName());
                 self::assertNull($source->getExtensionName());
@@ -91,10 +95,7 @@ final class StaticClassMapSourceLocatorTest extends TestCase
         ));
     }
 
-    /**
-     * @return array<int, array<int, string>>
-     * @psalm-return list<list<string>>
-     */
+    /** @return list<list<non-empty-string>> */
     public static function thisClassPossiblePaths(): array
     {
         return [

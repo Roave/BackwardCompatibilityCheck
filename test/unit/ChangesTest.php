@@ -24,9 +24,9 @@ final class ChangesTest extends TestCase
         $changes1 = Changes::fromList(Change::changed('a', true));
         $changes2 = Changes::fromList(Change::removed('b', false));
 
-        $frozen1 = Type\object(Changes::class)
+        $frozen1 = Type\instance_of(Changes::class)
             ->coerce(unserialize(serialize($changes1)));
-        $frozen2 = Type\object(Changes::class)
+        $frozen2 = Type\instance_of(Changes::class)
             ->coerce(unserialize(serialize($changes2)));
 
         Assertion::assertChangesEqual(

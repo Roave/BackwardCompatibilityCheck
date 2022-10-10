@@ -38,7 +38,11 @@ final class GitCheckoutRevisionToTemporaryPath implements PerformCheckoutOfRevis
         Shell\execute('rm', ['-rf', $checkedOutRepository->__toString()]);
     }
 
-    /** @throws RuntimeException */
+    /**
+     * @return non-empty-string
+     *
+     * @throws RuntimeException
+     */
     private function generateTemporaryPathFor(Revision $revision): string
     {
         $uniquePathGenerator = $this->uniquenessFunction;

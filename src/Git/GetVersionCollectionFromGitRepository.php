@@ -24,7 +24,7 @@ final class GetVersionCollectionFromGitRepository implements GetVersionCollectio
 
         return new VersionCollection(...Vec\filter_nulls(Vec\map(Str\split($output, "\n"), static function (string $maybeVersion): Version|null {
             try {
-                return Type\object(Version::class)
+                return Type\instance_of(Version::class)
                     ->coerce(Version::fromString($maybeVersion));
             } catch (InvalidVersionString) {
                 return null;

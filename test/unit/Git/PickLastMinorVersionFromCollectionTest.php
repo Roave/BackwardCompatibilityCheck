@@ -48,7 +48,7 @@ final class PickLastMinorVersionFromCollectionTest extends TestCase
             $expectedVersion,
             (new PickLastMinorVersionFromCollection())->forVersions(
                 new VersionCollection(...array_map(static function (string $version): Version {
-                    return Type\object(Version::class)
+                    return Type\instance_of(Version::class)
                         ->coerce(Version::fromString($version));
                 }, $collectionOfVersions)),
             )->toString(),

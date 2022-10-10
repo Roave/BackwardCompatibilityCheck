@@ -71,7 +71,7 @@ use function file_exists;
             static function (string $installationPath) use ($composerIo): Installer {
                 return Installer::create(
                     $composerIo,
-                    Type\object(Composer::class)
+                    Type\instance_of(Composer::class)
                         ->assert(
                             (new Factory())->createComposer(
                                 $composerIo,

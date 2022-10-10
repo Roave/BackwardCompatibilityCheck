@@ -6,6 +6,7 @@ namespace Roave\BackwardCompatibility\SourceLocator;
 
 use Psl;
 use Psl\Dict;
+use Psl\File;
 use Psl\Filesystem;
 use Psl\Iter;
 use Psl\Type;
@@ -16,11 +17,11 @@ use Roave\BetterReflection\SourceLocator\Type\AbstractSourceLocator;
 
 final class StaticClassMapSourceLocator extends AbstractSourceLocator
 {
-    /** @var array<string, string> */
+    /** @var array<string, non-empty-string> */
     private array $classMap;
 
      /**
-      * @param array<string, string> $classMap map of class => file. Every file must exist,
+      * @param array<string, non-empty-string> $classMap map of class => file. Every file must exist,
       *                                        every key must be non-empty
       */
     public function __construct(
@@ -30,14 +31,14 @@ final class StaticClassMapSourceLocator extends AbstractSourceLocator
         parent::__construct($astLocator);
 
         $realPaths = Dict\map($classMap, static function (string $file): string {
-            return Type\string()->assert(Filesystem\canonicalize($file));
+            return Type\non_empty_string()->assert(Filesystem\canonicalize($file));
         });
 
         Psl\invariant(Iter\all($realPaths, static function (string $file): bool {
             return Filesystem\is_file($file);
         }), 'Invalid class-map.');
 
-        $this->classMap = Type\dict(Type\non_empty_string(), Type\string())->coerce($realPaths);
+        $this->classMap = Type\dict(Type\non_empty_string(), Type\non_empty_string())->coerce($realPaths);
     }
 
     protected function createLocatedSource(Identifier $identifier): LocatedSource|null
@@ -52,6 +53,6 @@ final class StaticClassMapSourceLocator extends AbstractSourceLocator
             return null;
         }
 
-        return new LocatedSource(Filesystem\read_file($classFile), $identifier->getName(), $classFile);
+        return new LocatedSource(File\read($classFile), $identifier->getName(), $classFile);
     }
 }
