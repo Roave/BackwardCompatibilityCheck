@@ -26,8 +26,9 @@ final class ExcludeInternalMethod implements MethodBased
         return ($this->check)($fromMethod, $toMethod);
     }
 
-    private function isInternalDocComment(string $comment): bool
+    private function isInternalDocComment(string|null $comment): bool
     {
-        return Regex\matches($comment, '/\s+@internal\s+/');
+        return $comment !== null
+            && Regex\matches($comment, '/\s+@internal\s+/');
     }
 }

@@ -26,8 +26,9 @@ final class ExcludeInternalTrait implements TraitBased
         return ($this->check)($fromTrait, $toTrait);
     }
 
-    private function isInternalDocComment(string $comment): bool
+    private function isInternalDocComment(string|null $comment): bool
     {
-        return Regex\matches($comment, '/\s+@internal\s+/');
+        return $comment !== null
+            && Regex\matches($comment, '/\s+@internal\s+/');
     }
 }

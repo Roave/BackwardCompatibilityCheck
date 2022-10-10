@@ -26,8 +26,9 @@ final class ExcludeInternalInterface implements InterfaceBased
         return ($this->check)($fromInterface, $toInterface);
     }
 
-    private function isInternalDocComment(string $comment): bool
+    private function isInternalDocComment(string|null $comment): bool
     {
-        return Regex\matches($comment, '/\s+@internal\s+/');
+        return $comment !== null
+            && Regex\matches($comment, '/\s+@internal\s+/');
     }
 }
