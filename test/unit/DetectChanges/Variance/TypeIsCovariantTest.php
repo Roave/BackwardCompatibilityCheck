@@ -83,12 +83,12 @@ PHP
                 new Identifier('void'),
                 true,
             ],
-            'nullable type to null is covariant - this does not occur in the real world, but is an important base invariant'     => [
+            'nullable type to null is covariant - https://3v4l.org/PCgpY#v8.2rc3'     => [
                 new NullableType(new Identifier('AnInterface')),
                 new Identifier('null'),
                 true,
             ],
-            'null to nullable type is not covariant - this does not occur in the real world, but is an important base invariant' => [
+            'null to nullable type is not covariant - https://3v4l.org/MoLr9#v8.2rc3' => [
                 new Identifier('null'),
                 new NullableType(new Identifier('AnInterface')),
                 false,
@@ -375,6 +375,111 @@ PHP
             'intersection type to less specific intersection type is not covariant - https://3v4l.org/8FSuK#v8.1rc3' => [
                 new IntersectionType([new Identifier('A'), new Identifier('B'), new Identifier('C')]),
                 new IntersectionType([new Identifier('A'), new Identifier('B')]),
+                false,
+            ],
+
+            '(A&B)|(C&D) is covariant to A&B - https://3v4l.org/Op2nf#v8.2rc3'                            => [
+                new UnionType([
+                    new IntersectionType([new Identifier('A'), new Identifier('B')]),
+                    new IntersectionType([new Identifier('C'), new Identifier('D')]),
+                ]),
+                new IntersectionType([new Identifier('A'), new Identifier('B')]),
+                true,
+            ],
+            '(A&B)|(C&D) is covariant to C&D - https://3v4l.org/k7X8L#v8.2rc3'                            => [
+                new UnionType([
+                    new IntersectionType([new Identifier('A'), new Identifier('B')]),
+                    new IntersectionType([new Identifier('C'), new Identifier('D')]),
+                ]),
+                new IntersectionType([new Identifier('C'), new Identifier('D')]),
+                true,
+            ],
+            '(A&B)|(C&D) is covariant to A&B&C&D - https://3v4l.org/1Y7E5#v8.2rc3'                            => [
+                new UnionType([
+                    new IntersectionType([new Identifier('A'), new Identifier('B')]),
+                    new IntersectionType([new Identifier('C'), new Identifier('D')]),
+                ]),
+                new IntersectionType([
+                    new Identifier('A'),
+                    new Identifier('B'),
+                    new Identifier('C'),
+                    new Identifier('D'),
+                ]),
+                true,
+            ],
+
+            '(A&B)|(C&D) is not covariant to (A&B)|C - https://3v4l.org/hAFW1#v8.2rc3'                            => [
+                new UnionType([
+                    new IntersectionType([new Identifier('A'), new Identifier('B')]),
+                    new IntersectionType([new Identifier('C'), new Identifier('D')]),
+                ]),
+                new UnionType([
+                    new IntersectionType([new Identifier('A'), new Identifier('B')]),
+                    new Identifier('D'),
+                ]),
+                false,
+            ],
+            '(A&B)|(C&D) is not covariant to A|(C&D) - https://3v4l.org/hXEsD#v8.2rc3'                            => [
+                new UnionType([
+                    new IntersectionType([new Identifier('A'), new Identifier('B')]),
+                    new IntersectionType([new Identifier('C'), new Identifier('D')]),
+                ]),
+                new UnionType([
+                    new Identifier('A'),
+                    new IntersectionType([new Identifier('C'), new Identifier('D')]),
+                ]),
+                false,
+            ],
+            '(A&B)|(C&D) is not covariant to B|(C&D) - https://3v4l.org/60umA#v8.2rc3'                            => [
+                new UnionType([
+                    new IntersectionType([new Identifier('A'), new Identifier('B')]),
+                    new IntersectionType([new Identifier('C'), new Identifier('D')]),
+                ]),
+                new UnionType([
+                    new Identifier('B'),
+                    new IntersectionType([new Identifier('C'), new Identifier('D')]),
+                ]),
+                false,
+            ],
+            '(A&B)|(C&D) is not covariant to A|D - https://3v4l.org/36FJ1#v8.2rc3'                            => [
+                new UnionType([
+                    new IntersectionType([new Identifier('A'), new Identifier('B')]),
+                    new IntersectionType([new Identifier('C'), new Identifier('D')]),
+                ]),
+                new UnionType([
+                    new Identifier('A'),
+                    new Identifier('D'),
+                ]),
+                false,
+            ],
+            '(A&B)|(C&D) is not covariant to A - https://3v4l.org/DDls7#v8.2rc3'                            => [
+                new UnionType([
+                    new IntersectionType([new Identifier('A'), new Identifier('B')]),
+                    new IntersectionType([new Identifier('C'), new Identifier('D')]),
+                ]),
+                new Identifier('A'),
+                false,
+            ],
+            '(A&B)|(C&D) is not covariant to A|B - https://3v4l.org/1Wmk9#v8.2rc3'                            => [
+                new UnionType([
+                    new IntersectionType([new Identifier('A'), new Identifier('B')]),
+                    new IntersectionType([new Identifier('C'), new Identifier('D')]),
+                ]),
+                new UnionType([
+                    new Identifier('A'),
+                    new Identifier('B'),
+                ]),
+                false,
+            ],
+            '(A&B)|(C&D) is not covariant to (A&C)|(B&D) - https://3v4l.org/9KblO#v8.2rc3'                            => [
+                new UnionType([
+                    new IntersectionType([new Identifier('A'), new Identifier('B')]),
+                    new IntersectionType([new Identifier('C'), new Identifier('D')]),
+                ]),
+                new UnionType([
+                    new IntersectionType([new Identifier('A'), new Identifier('C')]),
+                    new IntersectionType([new Identifier('B'), new Identifier('D')]),
+                ]),
                 false,
             ],
         ];
