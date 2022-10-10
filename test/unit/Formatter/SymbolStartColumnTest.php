@@ -7,7 +7,6 @@ namespace RoaveTest\BackwardCompatibility\Formatter;
 use BadMethodCallException;
 use PhpParser\Node\Stmt\Function_;
 use PHPUnit\Framework\TestCase;
-use Psl\Type;
 use Roave\BackwardCompatibility\Formatter\SymbolStartColumn;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Identifier\Identifier;
@@ -39,20 +38,10 @@ final class SymbolStartColumnTest extends TestCase
             /** Retrieves function `foo`, but without sources (invalid position) */
             public function locateIdentifier(Reflector $reflector, Identifier $identifier): Reflection|null
             {
-                $locatedSource    = new LocatedSource('', null);
-                $betterReflection = new BetterReflection();
-
-                $function = Type\shape([
-                    0 => Type\object(Function_::class),
-                ])->coerce(
-                    $betterReflection->phpParser()
-                        ->parse('<?php function foo() {}'),
-                )[0];
-
                 return ReflectionFunction::createFromNode(
-                    $betterReflection->reflector(),
-                    $function,
-                    $locatedSource,
+                    (new BetterReflection())->reflector(),
+                    new Function_('foo'),
+                    new LocatedSource('', null),
                 );
             }
 
