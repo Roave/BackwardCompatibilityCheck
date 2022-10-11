@@ -30,7 +30,7 @@ final class GetVersionCollectionFromGitRepositoryTest extends TestCase
         Shell\execute('git', ['config', 'user.name', 'Me Again'], $tmpGitRepo);
         File\write($tmpGitRepo . '/test', SecureRandom\string(8));
         Shell\execute('git', ['add', '.'], $tmpGitRepo);
-        Shell\execute('git', ['commit', '-m', '"whatever"'], $tmpGitRepo);
+        Shell\execute('git', ['commit', '--no-gpg-sign', '-m', '"whatever"'], $tmpGitRepo);
 
         $this->repoPath = CheckedOutRepository::fromPath($tmpGitRepo);
     }

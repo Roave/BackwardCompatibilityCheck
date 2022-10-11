@@ -142,13 +142,13 @@ PHP,
         File\write($this->sourcesRepository . '/composer.json', self::COMPOSER_MANIFEST);
 
         Shell\execute('git', ['add', '-A'], $this->sourcesRepository);
-        Shell\execute('git', ['commit', '-am', 'Initial commit with composer manifest'], $this->sourcesRepository);
+        Shell\execute('git', ['commit', '--no-gpg-sign', '-am', 'Initial commit with composer manifest'], $this->sourcesRepository);
 
         foreach (self::CLASS_VERSIONS as $key => $classCode) {
             File\write($this->sourcesRepository . '/src/TheClass.php', $classCode);
 
             Shell\execute('git', ['add', '-A'], $this->sourcesRepository);
-            Shell\execute('git', ['commit', '-am', Str\format('Class sources v%d', $key + 1)], $this->sourcesRepository);
+            Shell\execute('git', ['commit', '--no-gpg-sign', '-am', Str\format('Class sources v%d', $key + 1)], $this->sourcesRepository);
             $this->versions[$key] = Str\trim(Shell\execute('git', ['rev-parse', 'HEAD'], $this->sourcesRepository));
         }
     }

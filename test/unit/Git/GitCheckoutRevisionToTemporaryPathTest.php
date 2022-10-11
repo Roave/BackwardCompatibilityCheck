@@ -63,7 +63,7 @@ final class GitCheckoutRevisionToTemporaryPathTest extends TestCase
         Shell\execute('git', ['init'], $repoPath);
         Shell\execute('git', ['config', 'user.email', 'me@example.com'], $repoPath);
         Shell\execute('git', ['config', 'user.name', 'Mr Magoo'], $repoPath);
-        Shell\execute('git', ['commit', '-m', 'initial commit', '--allow-empty'], $repoPath);
+        Shell\execute('git', ['commit', '-m', 'initial commit', '--allow-empty', '--no-gpg-sign'], $repoPath);
 
         $firstCommit = Revision::fromSha1(
             Shell\execute('git', ['rev-parse', 'HEAD'], $repoPath),
@@ -72,7 +72,7 @@ final class GitCheckoutRevisionToTemporaryPathTest extends TestCase
         File\write($repoPath . '/a-file.txt', 'file contents');
 
         Shell\execute('git', ['add', 'a-file.txt'], $repoPath);
-        Shell\execute('git', ['commit', '-m', 'second commit', '--allow-empty'], $repoPath);
+        Shell\execute('git', ['commit', '-m', 'second commit', '--allow-empty', '--no-gpg-sign'], $repoPath);
 
         $secondCommit = Revision::fromSha1(
             Shell\execute('git', ['rev-parse', 'HEAD'], $repoPath),
