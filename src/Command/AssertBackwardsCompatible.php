@@ -13,6 +13,7 @@ use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\CompareApi;
 use Roave\BackwardCompatibility\Factory\ComposerInstallationReflectorFactory;
 use Roave\BackwardCompatibility\Formatter\GithubActionsFormatter;
+use Roave\BackwardCompatibility\Formatter\JunitFormatter;
 use Roave\BackwardCompatibility\Formatter\MarkdownPipedToSymfonyConsoleFormatter;
 use Roave\BackwardCompatibility\Formatter\SymfonyConsoleTextFormatter;
 use Roave\BackwardCompatibility\Git\CheckedOutRepository;
@@ -69,7 +70,7 @@ final class AssertBackwardsCompatible extends Command
                 'format',
                 null,
                 InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
-                'Currently supports "console", "markdown" or "github-actions"',
+                'Currently supports "console", "markdown", "github-actions" or "junit"',
                 ['console'],
             )
             ->addOption(
@@ -82,7 +83,7 @@ final class AssertBackwardsCompatible extends Command
                 <<<'USAGE'
 
 
-Without arguments, this command will attempt to detect the 
+Without arguments, this command will attempt to detect the
 latest stable git tag ("release", according to this tool)
 of the repository in your CWD (current working directory),
 and will use it as baseline for the defined API.
@@ -152,6 +153,7 @@ USAGE,
                 'console'        => new SymfonyConsoleTextFormatter($stdErr),
                 'markdown'       => new MarkdownPipedToSymfonyConsoleFormatter($output),
                 'github-actions' => new GithubActionsFormatter($output, $toPath),
+                'junit'          => new JunitFormatter($output, $toPath),
             ];
 
             foreach (
@@ -159,6 +161,7 @@ USAGE,
                     Type\literal_scalar('console'),
                     Type\literal_scalar('markdown'),
                     Type\literal_scalar('github-actions'),
+                    Type\literal_scalar('junit'),
                 ))->coerce((array) $input->getOption('format')) as $format
             ) {
                 $formatters[$format]->write($changes);
