@@ -72,6 +72,7 @@ final class AssertBackwardsCompatible extends Command
                 InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
                 'Currently supports "console", "markdown", "github-actions" or "junit"',
                 ['console'],
+                ['console', 'markdown', 'github-actions', 'junit'],
             )
             ->addOption(
                 'install-development-dependencies',

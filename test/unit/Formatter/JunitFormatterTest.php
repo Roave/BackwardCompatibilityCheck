@@ -61,7 +61,7 @@ final class JunitFormatterTest extends TestCase
         self::assertSame(
             <<<'OUTPUT'
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="roave/backward-compatibility-check" tests="7" failures="7" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/junit-team/junit5/r5.9.1/platform-tests/src/test/resources/jenkins-junit.xsd">
+<testsuite name="roave/backward-compatibility-check" tests="7" failures="7" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/junit-team/junit5/732a5400f80c8f446daa8b43eaa4b41b3da929be/platform-tests/src/test/resources/jenkins-junit.xsd">
   <testcase name="::"><failure type="error" message="[BC] REMOVED: foo"/></testcase>
   <testcase name="::"><failure type="error" message="ADDED: bar"/></testcase>
   <testcase name="baz-file.php::"><failure type="error" message="CHANGED: baz"/></testcase>
