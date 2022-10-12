@@ -51,6 +51,8 @@ final class GithubActionsFormatterTest extends TestCase
                 ->onColumn(20),
         ));
 
+        Filesystem\delete_directory($temporaryLocation, true);
+
         self::assertEquals(
             <<<'OUTPUT'
 ::error::foo
@@ -65,7 +67,5 @@ OUTPUT
             ,
             $output->fetch(),
         );
-
-        Filesystem\delete_directory($temporaryLocation, true);
     }
 }
