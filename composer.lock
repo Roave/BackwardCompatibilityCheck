@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "684586b4cd1ded9b05de01d95a009315",
+    "content-hash": "a2bb0ed053559cad26b55023dca77eff",
     "packages": [
         {
             "name": "azjezz/psl",
@@ -1012,21 +1012,21 @@
         },
         {
             "name": "ocramius/package-versions",
-            "version": "2.5.1",
+            "version": "2.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Ocramius/PackageVersions.git",
-                "reference": "6707caff2e84a2368f29fdf2cb28a6b5a9e3ab53"
+                "reference": "9f4dc8c2af37c373b4cbbdce0427ed6c081872f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Ocramius/PackageVersions/zipball/6707caff2e84a2368f29fdf2cb28a6b5a9e3ab53",
-                "reference": "6707caff2e84a2368f29fdf2cb28a6b5a9e3ab53",
+                "url": "https://api.github.com/repos/Ocramius/PackageVersions/zipball/9f4dc8c2af37c373b4cbbdce0427ed6c081872f1",
+                "reference": "9f4dc8c2af37c373b4cbbdce0427ed6c081872f1",
                 "shasum": ""
             },
             "require": {
                 "composer-runtime-api": "^2.2.0",
-                "php": "~8.0.0 || ~8.1.0"
+                "php": "~8.0.0 || ~8.1.0 || ~8.2.0"
             },
             "replace": {
                 "composer/package-versions-deprecated": "*"
@@ -1035,9 +1035,9 @@
                 "composer/composer": "^2.2.0",
                 "doctrine/coding-standard": "^9.0.0",
                 "ext-zip": "^1.15.0",
-                "phpunit/phpunit": "^9.5.9",
-                "roave/infection-static-analysis-plugin": "^1.10.0",
-                "vimeo/psalm": "^4.10.0"
+                "phpunit/phpunit": "^9.5.10",
+                "roave/infection-static-analysis-plugin": "^1.13.0",
+                "vimeo/psalm": "^4.15.0"
             },
             "type": "library",
             "autoload": {
@@ -1058,7 +1058,7 @@
             "description": "Provides efficient querying for installed package versions (no runtime IO)",
             "support": {
                 "issues": "https://github.com/Ocramius/PackageVersions/issues",
-                "source": "https://github.com/Ocramius/PackageVersions/tree/2.5.1"
+                "source": "https://github.com/Ocramius/PackageVersions/tree/2.6.0"
             },
             "funding": [
                 {
@@ -1070,7 +1070,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-03-05T18:04:57+00:00"
+            "time": "2022-10-10T14:46:02+00:00"
         },
         {
             "name": "psr/container",
@@ -6493,16 +6493,16 @@
         },
         {
             "name": "vimeo/psalm",
-            "version": "4.28.0",
+            "version": "4.29.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vimeo/psalm.git",
-                "reference": "52e96bea381e6cb07a672aefec791a5817694a26"
+                "reference": "7ec5ffbd5f68ae03782d7fd33fff0c45a69f95b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vimeo/psalm/zipball/52e96bea381e6cb07a672aefec791a5817694a26",
-                "reference": "52e96bea381e6cb07a672aefec791a5817694a26",
+                "url": "https://api.github.com/repos/vimeo/psalm/zipball/7ec5ffbd5f68ae03782d7fd33fff0c45a69f95b3",
+                "reference": "7ec5ffbd5f68ae03782d7fd33fff0c45a69f95b3",
                 "shasum": ""
             },
             "require": {
@@ -6595,9 +6595,9 @@
             ],
             "support": {
                 "issues": "https://github.com/vimeo/psalm/issues",
-                "source": "https://github.com/vimeo/psalm/tree/4.28.0"
+                "source": "https://github.com/vimeo/psalm/tree/4.29.0"
             },
-            "time": "2022-10-07T16:13:24+00:00"
+            "time": "2022-10-11T17:09:17+00:00"
         },
         {
             "name": "webmozart/assert",
