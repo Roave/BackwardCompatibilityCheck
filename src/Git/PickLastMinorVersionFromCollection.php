@@ -24,6 +24,10 @@ final class PickLastMinorVersionFromCollection implements PickVersionFromVersion
                 return ! $version->isPreRelease();
             }
         });
+        
+        if ($stableVersions->isEmpty()) {
+            throw new \Exception('Your library does not have any minor version');
+        }
 
         $versionsSortedDescending = $stableVersions->sortedDescending();
 
