@@ -21,8 +21,8 @@ use Roave\BackwardCompatibility\Git\GetVersionCollection;
 use Roave\BackwardCompatibility\Git\ParseRevision;
 use Roave\BackwardCompatibility\Git\PerformCheckoutOfRevision;
 use Roave\BackwardCompatibility\Git\PickVersionFromVersionCollection;
-use Roave\BackwardCompatibility\Git\Revision;
 use Roave\BackwardCompatibility\LocateDependencies\LocateDependencies;
+use Roave\BackwardCompatibility\VersionConstraint\StableVersionConstraint;
 use Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
@@ -115,9 +115,27 @@ USAGE,
         // @todo fix flaky assumption about the path of the source repo...
         $sourceRepo = CheckedOutRepository::fromPath(Env\current_dir());
 
-        $fromRevision = $input->getOption('from') !== null
-            ? $this->parseRevisionFromInput($input, $sourceRepo)
-            : $this->determineFromRevisionFromRepository($sourceRepo, $stdErr);
+        if ($input->getOption('from') !== null) {
+            $maybeRevision = Type\string()->coerce($input->getOption('from'));
+        } else {
+            $versions = $this->getVersions->fromRepository($sourceRepo);
+
+            Psl\invariant(Iter\count($versions) >= 1, 'Could not detect any released versions for the given repository');
+
+            $stableVersions = $versions->matching(new StableVersionConstraint());
+
+            if ($stableVersions->isEmpty()) {
+                $stdErr->writeln(Str\format('Your library does not have any stable versions. Therefore cannot have BC breaks.'));
+
+                return Command::SUCCESS;
+            }
+
+            $maybeRevision = $this->pickFromVersion->forVersions($versions)->toString();
+
+            $stdErr->writeln(Str\format('Detected last minor version: %s', $maybeRevision));
+        }
+
+        $fromRevision = $this->parseRevision->fromStringForRepository($maybeRevision, $sourceRepo);
 
         $to = Type\string()->coerce($input->getOption('to'));
 
@@ -186,31 +204,5 @@ USAGE,
         }
 
         return $hasBcBreaks ? 3 : 0;
-    }
-
-    /** @throws InvalidArgumentException */
-    private function parseRevisionFromInput(InputInterface $input, CheckedOutRepository $repository): Revision
-    {
-        $from = Type\string()->coerce($input->getOption('from'));
-
-        return $this->parseRevision->fromStringForRepository($from, $repository);
-    }
-
-    private function determineFromRevisionFromRepository(
-        CheckedOutRepository $repository,
-        OutputInterface $output,
-    ): Revision {
-        $versions = $this->getVersions->fromRepository($repository);
-
-        Psl\invariant(Iter\count($versions) >= 1, 'Could not detect any released versions for the given repository');
-
-        $versionString = $this->pickFromVersion->forVersions($versions)->toString();
-
-        $output->writeln(Str\format('Detected last minor version: %s', $versionString));
-
-        return $this->parseRevision->fromStringForRepository(
-            $versionString,
-            $repository,
-        );
     }
 }

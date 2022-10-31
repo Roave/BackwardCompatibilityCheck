@@ -58,19 +58,19 @@ as part of your CI pipeline. For example in a GitHub action, note the use of
 jobs:
   roave-backwards-compatibility-check:
     name: Roave Backwards Compatibility Check
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v2
-          with:
-            fetch-depth: 0
-        - name: "Install PHP"
-          uses: shivammathur/setup-php@v2
-          with:
-            php-version: "8.0"
-        - name: "Install dependencies"
-          run: "composer install"
-        - name: "Check for BC breaks"
-          run: "vendor/bin/roave-backward-compatibility-check"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: "Install PHP"
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.0"
+      - name: "Install dependencies"
+        run: "composer install"
+      - name: "Check for BC breaks"
+        run: "vendor/bin/roave-backward-compatibility-check"
 ```
 
 #### Nyholm Github Action

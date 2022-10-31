@@ -6,8 +6,8 @@ namespace Roave\BackwardCompatibility\Git;
 
 use Psl;
 use Psl\Type;
+use Roave\BackwardCompatibility\VersionConstraint\StableVersionConstraint;
 use Version\Comparison\Constraint\CompositeConstraint;
-use Version\Comparison\Constraint\Constraint;
 use Version\Comparison\Constraint\OperationConstraint;
 use Version\Version;
 use Version\VersionCollection;
@@ -18,12 +18,7 @@ final class PickLastMinorVersionFromCollection implements PickVersionFromVersion
     {
         Psl\invariant(! $versionsCollection->isEmpty(), 'Cannot determine latest minor version from an empty collection');
 
-        $stableVersions = $versionsCollection->matching(new class implements Constraint {
-            public function assert(Version $version): bool
-            {
-                return ! $version->isPreRelease();
-            }
-        });
+        $stableVersions = $versionsCollection->matching(new StableVersionConstraint());
 
         $versionsSortedDescending = $stableVersions->sortedDescending();
 
