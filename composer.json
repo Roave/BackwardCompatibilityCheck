@@ -8,7 +8,7 @@
         "composer/composer": "^2.4.4",
         "nikolaposa/version": "^4.1.0",
         "ocramius/package-versions": "^2.7.0",
-        "roave/better-reflection": "^6.3.0",
+        "roave/better-reflection": "^6.4.0",
         "symfony/console": "^6.1.7"
     },
     "license": "MIT",

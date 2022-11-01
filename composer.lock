@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bd3f3c22b6128e227ec0010ccc1a0ae9",
+    "content-hash": "b24fd43a259224f655f415eeb9ff67a5",
     "packages": [
         {
             "name": "azjezz/psl",
@@ -1325,16 +1325,16 @@
         },
         {
             "name": "roave/better-reflection",
-            "version": "6.3.0",
+            "version": "6.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/BetterReflection.git",
-                "reference": "54bd4ad78eb76d98e0544fc9860937f865467ef8"
+                "reference": "6afe50d6465a41ff8f386b1660f88a86ae3bc9ae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/BetterReflection/zipball/54bd4ad78eb76d98e0544fc9860937f865467ef8",
-                "reference": "54bd4ad78eb76d98e0544fc9860937f865467ef8",
+                "url": "https://api.github.com/repos/Roave/BetterReflection/zipball/6afe50d6465a41ff8f386b1660f88a86ae3bc9ae",
+                "reference": "6afe50d6465a41ff8f386b1660f88a86ae3bc9ae",
                 "shasum": ""
             },
             "require": {
@@ -1349,10 +1349,10 @@
             },
             "require-dev": {
                 "doctrine/coding-standard": "^10.0.0",
-                "phpstan/phpstan": "^1.8.9",
-                "phpstan/phpstan-phpunit": "^1.1.1",
+                "phpstan/phpstan": "^1.8.10",
+                "phpstan/phpstan-phpunit": "^1.2.2",
                 "phpunit/phpunit": "^9.5.25",
-                "roave/infection-static-analysis-plugin": "^1.23.0",
+                "roave/infection-static-analysis-plugin": "^1.25.0",
                 "vimeo/psalm": "^4.29"
             },
             "suggest": {
@@ -1393,9 +1393,9 @@
             "description": "Better Reflection - an improved code reflection API",
             "support": {
                 "issues": "https://github.com/Roave/BetterReflection/issues",
-                "source": "https://github.com/Roave/BetterReflection/tree/6.3.0"
+                "source": "https://github.com/Roave/BetterReflection/tree/6.4.0"
             },
-            "time": "2022-10-14T23:59:07+00:00"
+            "time": "2022-10-31T22:45:03+00:00"
         },
         {
             "name": "roave/signature",
