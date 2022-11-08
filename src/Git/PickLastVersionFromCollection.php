@@ -22,8 +22,6 @@ final class PickLastVersionFromCollection implements PickVersionFromVersionColle
             }
         });
 
-        $versionsSortedDescending = $stableVersions->sortedDescending();
-
-        return $versionsSortedDescending->first();
+        return $stableVersions->sortedDescending()->first();
     }
 }
