@@ -5,10 +5,7 @@ declare(strict_types=1);
 namespace Roave\BackwardCompatibility\Git;
 
 use Psl;
-use Psl\Type;
-use Version\Comparison\Constraint\CompositeConstraint;
 use Version\Comparison\Constraint\Constraint;
-use Version\Comparison\Constraint\OperationConstraint;
 use Version\Version;
 use Version\VersionCollection;
 
