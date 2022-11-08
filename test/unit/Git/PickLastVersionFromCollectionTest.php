@@ -7,20 +7,20 @@ namespace RoaveTest\BackwardCompatibility\Git;
 use PHPUnit\Framework\TestCase;
 use Psl\Exception\InvariantViolationException;
 use Psl\Type;
-use Roave\BackwardCompatibility\Git\PickLastMinorVersionFromCollection;
+use Roave\BackwardCompatibility\Git\PickLastVersionFromCollection;
 use Version\Version;
 use Version\VersionCollection;
 
 use function array_map;
 
-/** @covers \Roave\BackwardCompatibility\Git\PickLastMinorVersionFromCollection */
-final class PickLastMinorVersionFromCollectionTest extends TestCase
+/** @covers \Roave\BackwardCompatibility\Git\PickLastVersionFromCollection */
+final class PickLastVersionFromCollectionTest extends TestCase
 {
     /**
      * @return array<int, array<int, string|array<int, string>>>
      * @psalm-return array<int, array{0: string, 1: list<string>}>
      */
-    public function lastStableMinorVersionForCollectionProvider(): array
+    public function lastStableVersionForCollectionProvider(): array
     {
         return [
             ['2.2.0', ['1.1.0', '2.1.1', '2.2.0', '1.2.1']],
@@ -42,13 +42,13 @@ final class PickLastMinorVersionFromCollectionTest extends TestCase
     /**
      * @param string[] $collectionOfVersions
      *
-     * @dataProvider lastStableMinorVersionForCollectionProvider
+     * @dataProvider lastStableVersionForCollectionProvider
      */
     public function testForRepository(string $expectedVersion, array $collectionOfVersions): void
     {
         self::assertSame(
             $expectedVersion,
-            (new PickLastMinorVersionFromCollection())->forVersions(
+            (new PickLastVersionFromCollection())->forVersions(
                 new VersionCollection(...array_map(static function (string $version): Version {
                     return Type\instance_of(Version::class)
                         ->coerce(Version::fromString($version));
@@ -59,7 +59,7 @@ final class PickLastMinorVersionFromCollectionTest extends TestCase
 
     public function testWillRejectEmptyCollection(): void
     {
-        $pick = new PickLastMinorVersionFromCollection();
+        $pick = new PickLastVersionFromCollection();
 
         $this->expectException(InvariantViolationException::class);
 
