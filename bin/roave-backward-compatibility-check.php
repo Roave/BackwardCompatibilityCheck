@@ -25,7 +25,7 @@ use Roave\BackwardCompatibility\Factory\ComposerInstallationReflectorFactory;
 use Roave\BackwardCompatibility\Git\GetVersionCollectionFromGitRepository;
 use Roave\BackwardCompatibility\Git\GitCheckoutRevisionToTemporaryPath;
 use Roave\BackwardCompatibility\Git\GitParseRevision;
-use Roave\BackwardCompatibility\Git\PickLastMinorVersionFromCollection;
+use Roave\BackwardCompatibility\Git\PickLastVersionFromCollection;
 use Roave\BackwardCompatibility\LocateDependencies\LocateDependenciesViaComposer;
 use Roave\BackwardCompatibility\LocateSources\LocateSourcesViaComposerJson;
 use Roave\BetterReflection\BetterReflection;
@@ -66,7 +66,7 @@ use function file_exists;
         new ComposerInstallationReflectorFactory(new LocateSourcesViaComposerJson($astLocator)),
         new GitParseRevision(),
         new GetVersionCollectionFromGitRepository(),
-        new PickLastMinorVersionFromCollection(),
+        new PickLastVersionFromCollection(),
         new LocateDependenciesViaComposer(
             static function (string $installationPath) use ($composerIo): Installer {
                 return Installer::create(

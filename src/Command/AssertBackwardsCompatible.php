@@ -206,7 +206,7 @@ USAGE,
 
         $versionString = $this->pickFromVersion->forVersions($versions)->toString();
 
-        $output->writeln(Str\format('Detected last minor version: %s', $versionString));
+        $output->writeln(Str\format('Detected last version: %s', $versionString));
 
         return $this->parseRevision->fromStringForRepository(
             $versionString,

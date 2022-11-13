@@ -454,7 +454,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
             ->expects(self::exactly(3))
             ->method('writeln')
             ->with(self::logicalOr(
-                'Detected last minor version: 1.0.0',
+                'Detected last version: 1.0.0',
                 self::matches('Comparing from %a to %a...'),
                 self::matches('<info>No backwards-incompatible changes detected</info>'),
             ));

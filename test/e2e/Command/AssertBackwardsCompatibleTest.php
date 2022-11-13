@@ -222,7 +222,7 @@ EXPECTED
 
             $errorOutput = $exception->getErrorOutput();
 
-            self::assertStringContainsString('Detected last minor version: 1.2.3', $errorOutput);
+            self::assertStringContainsString('Detected last version: 1.2.3', $errorOutput);
             self::assertStringEndsWith(
                 <<<'EXPECTED'
 [BC] CHANGED: The parameter $a of TestArtifact\TheClass#method() changed from TestArtifact\B to a non-contravariant TestArtifact\C
@@ -249,7 +249,7 @@ EXPECTED
 
             $errorOutput = $exception->getErrorOutput();
 
-            self::assertStringContainsString('Detected last minor version: 2.2.3', $errorOutput);
+            self::assertStringContainsString('Detected last version: 2.2.3', $errorOutput);
             self::assertStringEndsWith(
                 <<<'EXPECTED'
 [BC] CHANGED: The parameter $a of TestArtifact\TheClass#method() changed from TestArtifact\B to a non-contravariant TestArtifact\C
