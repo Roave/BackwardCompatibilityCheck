@@ -6,7 +6,7 @@ namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased;
 
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
-use Roave\BackwardCompatibility\Formatter\SymbolStartColumn;
+use Roave\BackwardCompatibility\Formatter\SymbolStart;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
 
 final class MultipleChecksOnAProperty implements PropertyBased
@@ -27,8 +27,8 @@ final class MultipleChecksOnAProperty implements PropertyBased
     /** @return iterable<int, Change> */
     private function multipleChecks(ReflectionProperty $fromProperty, ReflectionProperty $toProperty): iterable
     {
-        $toLine   = $toProperty->getStartLine();
-        $toColumn = SymbolStartColumn::get($toProperty);
+        $toLine   = SymbolStart::getLine($toProperty);
+        $toColumn = SymbolStart::getColumn($toProperty);
         $toFile   = $toProperty->getImplementingClass()
             ->getFileName();
 

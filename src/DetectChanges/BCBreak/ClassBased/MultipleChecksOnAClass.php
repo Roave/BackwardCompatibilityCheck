@@ -6,7 +6,7 @@ namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased;
 
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
-use Roave\BackwardCompatibility\Formatter\SymbolStartColumn;
+use Roave\BackwardCompatibility\Formatter\SymbolStart;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 
 final class MultipleChecksOnAClass implements ClassBased
@@ -29,7 +29,7 @@ final class MultipleChecksOnAClass implements ClassBased
     {
         $toFile   = $toClass->getFileName();
         $toLine   = $toClass->getStartLine();
-        $toColumn = SymbolStartColumn::get($toClass);
+        $toColumn = SymbolStart::getColumn($toClass);
 
         foreach ($this->checks as $check) {
             foreach ($check($fromClass, $toClass) as $change) {

@@ -74,7 +74,7 @@ final class Change
     /** @internal */
     public function withFilePositionsIfNotAlreadySet(
         string|null $file,
-        int $line,
+        int|null $line,
         int|null $column,
     ): self {
         $instance = clone $this;

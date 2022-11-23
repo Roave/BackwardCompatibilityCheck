@@ -6,7 +6,7 @@ namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased;
 
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
-use Roave\BackwardCompatibility\Formatter\SymbolStartColumn;
+use Roave\BackwardCompatibility\Formatter\SymbolStart;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 
 final class MultipleChecksOnAnInterface implements InterfaceBased
@@ -29,7 +29,7 @@ final class MultipleChecksOnAnInterface implements InterfaceBased
     {
         $toFile   = $toInterface->getFileName();
         $toLine   = $toInterface->getStartLine();
-        $toColumn = SymbolStartColumn::get($toInterface);
+        $toColumn = SymbolStart::getColumn($toInterface);
 
         foreach ($this->checks as $check) {
             foreach ($check($fromInterface, $toInterface) as $change) {
