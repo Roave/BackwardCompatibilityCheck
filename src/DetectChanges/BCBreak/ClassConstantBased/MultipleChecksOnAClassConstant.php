@@ -6,7 +6,7 @@ namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassConstantBased;
 
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
-use Roave\BackwardCompatibility\Formatter\SymbolStartColumn;
+use Roave\BackwardCompatibility\Formatter\SymbolStart;
 use Roave\BetterReflection\Reflection\ReflectionClassConstant;
 
 final class MultipleChecksOnAClassConstant implements ClassConstantBased
@@ -28,7 +28,7 @@ final class MultipleChecksOnAClassConstant implements ClassConstantBased
     private function multipleChecks(ReflectionClassConstant $fromConstant, ReflectionClassConstant $toConstant): iterable
     {
         $toLine   = $toConstant->getStartLine();
-        $toColumn = SymbolStartColumn::get($toConstant);
+        $toColumn = SymbolStart::getColumn($toConstant);
         $toFile   = $toConstant->getDeclaringClass()
             ->getFileName();
 
