@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased;
 
+use PhpParser\Node\Expr;
 use Psl\Dict;
 use Psl\Str;
 use Roave\BackwardCompatibility\Change;
@@ -12,6 +13,7 @@ use Roave\BackwardCompatibility\Formatter\FunctionName;
 use Roave\BetterReflection\Reflection\ReflectionFunction;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflection\ReflectionParameter;
+use Throwable;
 
 use function var_export;
 
@@ -38,8 +40,23 @@ final class ParameterDefaultValueChanged implements FunctionBased
         $changes = Changes::empty();
 
         foreach (Dict\intersect_by_key($fromParametersWithDefaults, $toParametersWithDefaults) as $parameterIndex => $parameter) {
-            $defaultValueFrom = $parameter->getDefaultValue();
-            $defaultValueTo   = $toParametersWithDefaults[$parameterIndex]->getDefaultValue();
+            try {
+                $defaultValueFrom = $parameter->getDefaultValue();
+                $defaultValueTo   = $toParametersWithDefaults[$parameterIndex]->getDefaultValue();
+            } catch (Throwable $throwable) {
+                $parameterDefaultExpression   = $parameter->getDefaultValueExpression();
+                $toParameterDefaultExpression = $toParametersWithDefaults[$parameterIndex]->getDefaultValueExpression();
+
+                if (
+                    $toParameterDefaultExpression instanceof Expr &&
+                    $parameterDefaultExpression instanceof  Expr &&
+                    $toParameterDefaultExpression->getType() === $parameterDefaultExpression->getType()
+                ) {
+                    continue;
+                }
+
+                throw $throwable;
+            }
 
             if ($defaultValueFrom === $defaultValueTo) {
                 continue;
