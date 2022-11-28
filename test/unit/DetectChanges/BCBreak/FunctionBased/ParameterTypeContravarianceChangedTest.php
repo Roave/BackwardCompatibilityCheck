@@ -87,6 +87,13 @@ namespace N4 {
        function changed2($a, $b) {}
    }
 }
+
+namespace N5 {
+    interface A {}
+    class C {
+        public function changed(A $a) {}
+    }
+}
 PHP
             ,
             $astLocator,
@@ -124,6 +131,14 @@ namespace N4 {
        static function changed1(int $a, int $b) {}
        function changed2(int $a, int $b) {}
    }
+}
+
+namespace N5 {
+    interface A extends B {}
+    interface B {}
+    class C {
+        public function changed(B $a) {}
+    }
 }
 PHP
             ,
@@ -183,6 +198,11 @@ PHP
                         '[BC] CHANGED: The parameter $a of N4\C#changed2() changed from no type to a non-contravariant int',
                         '[BC] CHANGED: The parameter $b of N4\C#changed2() changed from no type to a non-contravariant int',
                     ],
+                ],
+                'N5\C#changed'  => [
+                    self::getMethod($fromReflector->reflectClass('N5\C'), 'changed'),
+                    self::getMethod($toReflector->reflectClass('N5\C'), 'changed'),
+                    [],
                 ],
             ],
         );
