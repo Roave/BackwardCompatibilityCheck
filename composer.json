@@ -6,6 +6,7 @@
         "ext-json": "*",
         "azjezz/psl": "^2.3.1",
         "composer/composer": "^2.5.1",
+        "nikic/php-parser": "^4.15.3",
         "nikolaposa/version": "^4.1.0",
         "ocramius/package-versions": "^2.7.0",
         "roave/better-reflection": "^6.5.0",
