@@ -76,6 +76,8 @@ namespace {
        function changed2($a = 1) {}
        function notChangedNewInitializer($a = new stdClass()) {}
        function notChangedNewEnum($a = D::A) {}
+       function changedNewEnumAndNewInitializer() {}
+       function changedRemovedNewEnumAndNewInitializer($a = D::A, $b = new stdClass()) {}
    }
     enum D: string {
         case A = 'A';
@@ -104,6 +106,8 @@ namespace {
        function changed2($a = 2) {}
        function notChangedNewInitializer($a = new stdClass()) {}
        function notChangedNewEnum($a = D::A) {}
+       function changedNewEnumAndNewInitializer($a = D::A, $b = new stdClass()) {}
+       function changedRemovedNewEnumAndNewInitializer() {}
   }
    enum D: string {
         case A = 'A';
@@ -169,6 +173,16 @@ PHP
                 'C#notChangedNewEnum'  => [
                     self::getMethod($fromReflector->reflectClass('C'), 'notChangedNewEnum'),
                     self::getMethod($toReflector->reflectClass('C'), 'notChangedNewEnum'),
+                    [],
+                ],
+                'C#changedNewEnumAndNewInitializer'  => [
+                    self::getMethod($fromReflector->reflectClass('C'), 'changedNewEnumAndNewInitializer'),
+                    self::getMethod($toReflector->reflectClass('C'), 'changedNewEnumAndNewInitializer'),
+                    [],
+                ],
+                'C#changedRemovedNewEnumAndNewInitializer'  => [
+                    self::getMethod($fromReflector->reflectClass('C'), 'changedRemovedNewEnumAndNewInitializer'),
+                    self::getMethod($toReflector->reflectClass('C'), 'changedRemovedNewEnumAndNewInitializer'),
                     [],
                 ],
             ],
