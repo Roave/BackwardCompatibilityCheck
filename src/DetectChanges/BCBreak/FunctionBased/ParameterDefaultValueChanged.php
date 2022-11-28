@@ -10,6 +10,7 @@ use Psl\Str;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Formatter\FunctionName;
+use Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode;
 use Roave\BetterReflection\Reflection\ReflectionFunction;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflection\ReflectionParameter;
@@ -43,7 +44,7 @@ final class ParameterDefaultValueChanged implements FunctionBased
             try {
                 $defaultValueFrom = $parameter->getDefaultValue();
                 $defaultValueTo   = $toParametersWithDefaults[$parameterIndex]->getDefaultValue();
-            } catch (Throwable $throwable) {
+            } catch (UnableToCompileNode $unableToCompileNode) {
                 $parameterDefaultExpression   = $parameter->getDefaultValueExpression();
                 $toParameterDefaultExpression = $toParametersWithDefaults[$parameterIndex]->getDefaultValueExpression();
 
@@ -55,7 +56,7 @@ final class ParameterDefaultValueChanged implements FunctionBased
                     continue;
                 }
 
-                throw $throwable;
+                throw $unableToCompileNode;
             }
 
             if ($defaultValueFrom === $defaultValueTo) {
