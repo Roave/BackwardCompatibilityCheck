@@ -562,6 +562,46 @@ PHP
         ];
     }
 
+    public function testContravarianceWhereClassWasMissingBefore(): void
+    {
+        $astLocator = (new BetterReflection())->astLocator();
+
+        $fromLocator = new StringSourceLocator(
+            <<<'PHP'
+<?php
+namespace {
+    interface ChildInterface {}
+    class Service {
+        public function __invoke(ChildInterface $a) {}
+    }
+}
+PHP
+            ,
+            $astLocator,
+        );
+
+        $toLocator = new StringSourceLocator(
+            <<<'PHP'
+<?php
+namespace {
+    interface ChildInterface extends ParentInterface {}
+    interface ParentInterface {}
+    class Service {
+        public function __invoke(ParentInterface $a) {}
+    }
+}
+PHP
+            ,
+            $astLocator,
+        );
+
+        $isContravariant = new TypeIsContravariant();
+        self::assertTrue($isContravariant(
+            (new DefaultReflector($fromLocator))->reflectClass('Service')->getMethod('__invoke')->getParameter('a')->getType(),
+            (new DefaultReflector($toLocator))->reflectClass('Service')->getMethod('__invoke')->getParameter('a')->getType()
+        ));
+    }
+
     private static function identifierType(
         Reflector $reflector,
         ReflectionProperty $owner,
