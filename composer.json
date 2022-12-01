@@ -4,7 +4,7 @@
     "require": {
         "php": "~8.1.0 || ~8.2.0",
         "ext-json": "*",
-        "azjezz/psl": "^2.2.0",
+        "azjezz/psl": "^2.3.0",
         "composer/composer": "^2.4.4",
         "nikolaposa/version": "^4.1.0",
         "ocramius/package-versions": "^2.7.0",
