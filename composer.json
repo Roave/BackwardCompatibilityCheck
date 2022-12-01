@@ -9,7 +9,7 @@
         "nikolaposa/version": "^4.1.0",
         "ocramius/package-versions": "^2.7.0",
         "roave/better-reflection": "^6.4.1",
-        "symfony/console": "^6.1.8"
+        "symfony/console": "^6.2.0"
     },
     "license": "MIT",
     "authors": [
@@ -24,10 +24,10 @@
     ],
     "require-dev": {
         "doctrine/coding-standard": "^10.0.0",
-        "php-standard-library/psalm-plugin": "^2.0.2",
+        "php-standard-library/psalm-plugin": "^2.1.0",
         "phpunit/phpunit": "^9.5.26",
         "psalm/plugin-phpunit": "^0.18.3",
-        "roave/infection-static-analysis-plugin": "^1.25",
+        "roave/infection-static-analysis-plugin": "^1.26.0",
         "roave/security-advisories": "dev-master",
         "squizlabs/php_codesniffer": "^3.7.1",
         "vimeo/psalm": "^5.0.0"
