@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "13dce3dd64172f8fc0e4810169971949",
+    "content-hash": "f188f0319a6175a59f5ec65e8cf8ba76",
     "packages": [
         {
             "name": "azjezz/psl",
@@ -4143,17 +4143,11 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "9.2.18",
+            "version": "dev-line_cc_grouped_by_branch",
             "source": {
                 "type": "git",
-                "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "12fddc491826940cf9b7e88ad9664cf51f0f6d0a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/12fddc491826940cf9b7e88ad9664cf51f0f6d0a",
-                "reference": "12fddc491826940cf9b7e88ad9664cf51f0f6d0a",
-                "shasum": ""
+                "url": "https://github.com/Slamdunk/php-code-coverage.git",
+                "reference": "d909a64baee204bad06be8301b33ee21b7da6ab3"
             },
             "require": {
                 "ext-dom": "*",
@@ -4188,7 +4182,12 @@
                     "src/"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "files": [
+                    "tests/TestCase.php",
+                    "tests/_files/BankAccountTest.php"
+                ]
+            },
             "license": [
                 "BSD-3-Clause"
             ],
@@ -4207,16 +4206,9 @@
                 "xunit"
             ],
             "support": {
-                "issues": "https://github.com/sebastianbergmann/php-code-coverage/issues",
-                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/9.2.18"
+                "issues": "https://github.com/sebastianbergmann/php-code-coverage/issues"
             },
-            "funding": [
-                {
-                    "url": "https://github.com/sebastianbergmann",
-                    "type": "github"
-                }
-            ],
-            "time": "2022-10-27T13:35:33+00:00"
+            "time": "2022-12-02T11:10:58+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -6774,10 +6766,18 @@
             "time": "2022-06-03T18:03:27+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "package": "phpunit/php-code-coverage",
+            "version": "dev-line_cc_grouped_by_branch",
+            "alias": "9.2.99",
+            "alias_normalized": "9.2.99.0"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "roave/security-advisories": 20
+        "roave/security-advisories": 20,
+        "phpunit/php-code-coverage": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

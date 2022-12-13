@@ -30,7 +30,8 @@
         "roave/infection-static-analysis-plugin": "^1.26.0",
         "roave/security-advisories": "dev-master",
         "squizlabs/php_codesniffer": "^3.7.1",
-        "vimeo/psalm": "^5.1.0"
+        "vimeo/psalm": "^5.1.0",
+        "phpunit/php-code-coverage": "dev-line_cc_grouped_by_branch as 9.2.99"
     },
     "conflict": {
         "revolt/event-loop": "<0.2.5",
@@ -58,5 +59,11 @@
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "infection/extension-installer": true
         }
-    }
+    },
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/Slamdunk/php-code-coverage.git"
+        }
+    ]
 }
