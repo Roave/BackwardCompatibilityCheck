@@ -45,7 +45,7 @@ final class PropertyTypeChanged implements PropertyBased
 
         return Changes::fromList(Change::changed(
             Str\format(
-                'Type type of property %s changed from %s to %s',
+                'Type of property %s changed from %s to %s',
                 ($this->formatProperty)($fromProperty),
                 $fromType?->__toString() ?? 'having no type',
                 $toType?->__toString() ?? 'having no type',

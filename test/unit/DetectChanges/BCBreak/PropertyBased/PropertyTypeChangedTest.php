@@ -232,9 +232,9 @@ PHP
             'duplicatePropertyTypesBeingDeduplicatedAreNotBcBreaks'             => [],
             'propertyTypeBeingDuplicatedAreNotBcBreaks'                         => [],
             'propertyWithComplexDocblockThatCannotBeParsed'                     => [],
-            'propertyWithDocblockTypeHintChangeToNativeTypeHint'                => ['[BC] CHANGED: Type type of property TheClass#$propertyWithDocblockTypeHintChangeToNativeTypeHint changed from having no type to int'],
-            'propertyWithDocblockTypeHintChangeToNativeTypeHintAndTypeChange'   => ['[BC] CHANGED: Type type of property TheClass#$propertyWithDocblockTypeHintChangeToNativeTypeHintAndTypeChange changed from having no type to float'],
-            'propertyWithDeclaredTypeRemoved'                                   => ['[BC] CHANGED: Type type of property TheClass#$propertyWithDeclaredTypeRemoved changed from int to having no type'],
+            'propertyWithDocblockTypeHintChangeToNativeTypeHint'                => ['[BC] CHANGED: Type of property TheClass#$propertyWithDocblockTypeHintChangeToNativeTypeHint changed from having no type to int'],
+            'propertyWithDocblockTypeHintChangeToNativeTypeHintAndTypeChange'   => ['[BC] CHANGED: Type of property TheClass#$propertyWithDocblockTypeHintChangeToNativeTypeHintAndTypeChange changed from having no type to float'],
+            'propertyWithDeclaredTypeRemoved'                                   => ['[BC] CHANGED: Type of property TheClass#$propertyWithDeclaredTypeRemoved changed from int to having no type'],
         ];
 
         return array_combine(
