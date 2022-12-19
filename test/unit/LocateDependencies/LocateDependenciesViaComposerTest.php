@@ -109,8 +109,6 @@ final class LocateDependenciesViaComposerTest extends TestCase
 
         $reflectionLocators = new ReflectionProperty(AggregateSourceLocator::class, 'sourceLocators');
 
-        $reflectionLocators->setAccessible(true);
-
         $locators = Type\shape([
             0 => Type\instance_of(SourceLocator::class),
             1 => Type\instance_of(SourceLocator::class),
@@ -173,8 +171,6 @@ final class LocateDependenciesViaComposerTest extends TestCase
         self::assertInstanceOf(AggregateSourceLocator::class, $locator);
 
         $reflectionLocators = new ReflectionProperty(AggregateSourceLocator::class, 'sourceLocators');
-
-        $reflectionLocators->setAccessible(true);
 
         $locators = Type\shape([
             0 => Type\instance_of(SourceLocator::class),
