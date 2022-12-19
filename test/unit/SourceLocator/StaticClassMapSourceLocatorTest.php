@@ -95,7 +95,7 @@ final class StaticClassMapSourceLocatorTest extends TestCase
         ));
     }
 
-    /** @return list<list<non-empty-string>> */
+    /** @return list<array{non-empty-string}> */
     public static function thisClassPossiblePaths(): array
     {
         return [

@@ -39,8 +39,6 @@ abstract class Assertion
 
         self::$unBufferedChangesReflection = new ReflectionProperty(Changes::class, 'unBufferedChanges');
 
-        self::$unBufferedChangesReflection->setAccessible(true);
-
         return self::$unBufferedChangesReflection;
     }
 }
