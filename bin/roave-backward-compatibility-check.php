@@ -208,7 +208,7 @@ use function file_exists;
                                 )),
                             )),
                             new ClassBased\SkipClassBasedErrors(new ClassBased\MethodChanged(
-                                new MethodBased\SkipMethodBasedErrors(new MethodBased\OnlyPublicMethodChanged(
+                                new MethodBased\SkipMethodBasedErrors(new MethodBased\OnlyPublicMethodChanged(new MethodBased\ExcludeInternalMethod(
                                     new MethodBased\MultipleChecksOnAMethod(
                                         new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodBecameFinal()),
                                         new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodConcretenessChanged()),
@@ -226,7 +226,7 @@ use function file_exists;
                                             ),
                                         )),
                                     ),
-                                )),
+                                ))),
                             )),
                         ),
                     )),
