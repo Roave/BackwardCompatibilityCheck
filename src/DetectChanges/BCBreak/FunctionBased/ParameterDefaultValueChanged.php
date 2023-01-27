@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased;
 
 use PhpParser\Node\Expr;
+use PhpParser\PrettyPrinter\Standard;
+use PhpParser\PrettyPrinterAbstract;
 use Psl\Dict;
 use Psl\Str;
 use Roave\BackwardCompatibility\Change;
@@ -25,10 +27,12 @@ use function var_export;
 final class ParameterDefaultValueChanged implements FunctionBased
 {
     private FunctionName $formatFunction;
+    private PrettyPrinterAbstract $prettyPrinter;
 
     public function __construct()
     {
         $this->formatFunction = new FunctionName();
+        $this->prettyPrinter = new Standard();
     }
 
     public function __invoke(
@@ -51,7 +55,7 @@ final class ParameterDefaultValueChanged implements FunctionBased
                 if (
                     $toParameterDefaultExpression instanceof Expr &&
                     $parameterDefaultExpression instanceof  Expr &&
-                    $toParameterDefaultExpression->getType() === $parameterDefaultExpression->getType()
+                    $this->prettyPrinter->prettyPrintExpr($toParameterDefaultExpression) === $this->prettyPrinter->prettyPrintExpr($parameterDefaultExpression)
                 ) {
                     continue;
                 }
