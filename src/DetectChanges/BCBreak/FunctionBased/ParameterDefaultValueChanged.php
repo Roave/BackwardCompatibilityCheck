@@ -16,7 +16,6 @@ use Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode;
 use Roave\BetterReflection\Reflection\ReflectionFunction;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflection\ReflectionParameter;
-use Throwable;
 
 use function var_export;
 
@@ -32,7 +31,7 @@ final class ParameterDefaultValueChanged implements FunctionBased
     public function __construct()
     {
         $this->formatFunction = new FunctionName();
-        $this->prettyPrinter = new Standard();
+        $this->prettyPrinter  = new Standard();
     }
 
     public function __invoke(
@@ -45,6 +44,10 @@ final class ParameterDefaultValueChanged implements FunctionBased
         $changes = Changes::empty();
 
         foreach (Dict\intersect_by_key($fromParametersWithDefaults, $toParametersWithDefaults) as $parameterIndex => $parameter) {
+            // add default value to null to help psalm
+            $defaultValueFrom = null;
+            $defaultValueTo   = null;
+
             try {
                 $defaultValueFrom = $parameter->getDefaultValue();
                 $defaultValueTo   = $toParametersWithDefaults[$parameterIndex]->getDefaultValue();
