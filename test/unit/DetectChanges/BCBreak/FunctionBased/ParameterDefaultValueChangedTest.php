@@ -12,6 +12,8 @@ use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionFunction;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflector\DefaultReflector;
+use Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
+use Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 
 use function array_combine;
@@ -53,7 +55,8 @@ final class ParameterDefaultValueChangedTest extends TestCase
      */
     public function functionsToBeTested(): array
     {
-        $astLocator = (new BetterReflection())->astLocator();
+        $astLocator    = (new BetterReflection())->astLocator();
+        $sourceStubber = (new BetterReflection())->sourceStubber();
 
         $fromLocator = new StringSourceLocator(
             <<<'PHP'
@@ -71,7 +74,14 @@ namespace {
    class C {
        static function changed1($a = 1) {}
        function changed2($a = 1) {}
+       function notChangedNewInitializer($a = new stdClass()) {}
+       function notChangedNewEnum($a = D::A) {}
+       function changedNewEnumAndNewInitializer() {}
+       function changedRemovedNewEnumAndNewInitializer($a = D::A, $b = new stdClass()) {}
    }
+    enum D: string {
+        case A = 'A';
+    }
 }
 PHP
             ,
@@ -94,6 +104,13 @@ namespace {
    class C {
        static function changed1($a = 2) {}
        function changed2($a = 2) {}
+       function notChangedNewInitializer($a = new stdClass()) {}
+       function notChangedNewEnum($a = D::A) {}
+       function changedNewEnumAndNewInitializer($a = D::A, $b = new stdClass()) {}
+       function changedRemovedNewEnumAndNewInitializer() {}
+  }
+   enum D: string {
+        case A = 'A';
    }
 }
 PHP
@@ -101,8 +118,14 @@ PHP
             $astLocator,
         );
 
-        $fromReflector = new DefaultReflector($fromLocator);
-        $toReflector   = new DefaultReflector($toLocator);
+        $fromReflector = new DefaultReflector(new AggregateSourceLocator([
+            $fromLocator,
+            new PhpInternalSourceLocator($astLocator, $sourceStubber),
+        ]));
+        $toReflector   = new DefaultReflector(new AggregateSourceLocator([
+            $toLocator,
+            new PhpInternalSourceLocator($astLocator, $sourceStubber),
+        ]));
 
         $functions = [
             'changed'            => ['[BC] CHANGED: Default parameter value for parameter $a of changed() changed from 1 to 2'],
@@ -141,6 +164,26 @@ PHP
                     self::getMethod($fromReflector->reflectClass('C'), 'changed2'),
                     self::getMethod($toReflector->reflectClass('C'), 'changed2'),
                     ['[BC] CHANGED: Default parameter value for parameter $a of C#changed2() changed from 1 to 2'],
+                ],
+                'C#notChangedNewInitializer'  => [
+                    self::getMethod($fromReflector->reflectClass('C'), 'notChangedNewInitializer'),
+                    self::getMethod($toReflector->reflectClass('C'), 'notChangedNewInitializer'),
+                    [],
+                ],
+                'C#notChangedNewEnum'  => [
+                    self::getMethod($fromReflector->reflectClass('C'), 'notChangedNewEnum'),
+                    self::getMethod($toReflector->reflectClass('C'), 'notChangedNewEnum'),
+                    [],
+                ],
+                'C#changedNewEnumAndNewInitializer'  => [
+                    self::getMethod($fromReflector->reflectClass('C'), 'changedNewEnumAndNewInitializer'),
+                    self::getMethod($toReflector->reflectClass('C'), 'changedNewEnumAndNewInitializer'),
+                    [],
+                ],
+                'C#changedRemovedNewEnumAndNewInitializer'  => [
+                    self::getMethod($fromReflector->reflectClass('C'), 'changedRemovedNewEnumAndNewInitializer'),
+                    self::getMethod($toReflector->reflectClass('C'), 'changedRemovedNewEnumAndNewInitializer'),
+                    [],
                 ],
             ],
         );

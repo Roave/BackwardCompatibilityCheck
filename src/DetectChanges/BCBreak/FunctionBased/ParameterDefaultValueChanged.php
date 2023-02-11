@@ -4,11 +4,15 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased;
 
+use PhpParser\Node\Expr;
+use PhpParser\PrettyPrinter\Standard;
+use PhpParser\PrettyPrinterAbstract;
 use Psl\Dict;
 use Psl\Str;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Formatter\FunctionName;
+use Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode;
 use Roave\BetterReflection\Reflection\ReflectionFunction;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflection\ReflectionParameter;
@@ -22,10 +26,12 @@ use function var_export;
 final class ParameterDefaultValueChanged implements FunctionBased
 {
     private FunctionName $formatFunction;
+    private PrettyPrinterAbstract $prettyPrinter;
 
     public function __construct()
     {
         $this->formatFunction = new FunctionName();
+        $this->prettyPrinter  = new Standard();
     }
 
     public function __invoke(
@@ -38,8 +44,27 @@ final class ParameterDefaultValueChanged implements FunctionBased
         $changes = Changes::empty();
 
         foreach (Dict\intersect_by_key($fromParametersWithDefaults, $toParametersWithDefaults) as $parameterIndex => $parameter) {
-            $defaultValueFrom = $parameter->getDefaultValue();
-            $defaultValueTo   = $toParametersWithDefaults[$parameterIndex]->getDefaultValue();
+            // add default value to null to help psalm
+            $defaultValueFrom = null;
+            $defaultValueTo   = null;
+
+            try {
+                $defaultValueFrom = $parameter->getDefaultValue();
+                $defaultValueTo   = $toParametersWithDefaults[$parameterIndex]->getDefaultValue();
+            } catch (UnableToCompileNode $unableToCompileNode) {
+                $parameterDefaultExpression   = $parameter->getDefaultValueExpression();
+                $toParameterDefaultExpression = $toParametersWithDefaults[$parameterIndex]->getDefaultValueExpression();
+
+                if (
+                    $toParameterDefaultExpression instanceof Expr &&
+                    $parameterDefaultExpression instanceof  Expr &&
+                    $this->prettyPrinter->prettyPrintExpr($toParameterDefaultExpression) === $this->prettyPrinter->prettyPrintExpr($parameterDefaultExpression)
+                ) {
+                    continue;
+                }
+
+                throw $unableToCompileNode;
+            }
 
             if ($defaultValueFrom === $defaultValueTo) {
                 continue;
