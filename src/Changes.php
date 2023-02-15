@@ -67,6 +67,23 @@ final class Changes implements IteratorAggregate, Countable
         return $instance;
     }
 
+    public function applyBaseline(Baseline $baseline): self
+    {
+        $instance = new self([]);
+
+        $instance->unBufferedChanges = (function () use ($baseline): Generator {
+            foreach ($this as $change) {
+                if ($baseline->ignores($change)) {
+                    continue;
+                }
+
+                yield $change;
+            }
+        })();
+
+        return $instance;
+    }
+
     /**
      * {@inheritDoc}
      *
