@@ -30,6 +30,13 @@ final class AssertBackwardsCompatibleTest extends TestCase
 
 JSON;
 
+    private const BASELINE_CONFIGURATION = <<<'JSON'
+{
+    "baseline": ["#\\[BC\\] CHANGED: The parameter \\$a of TestArtifact\\\\TheClass\\#method()#"]
+}
+
+JSON;
+
     private const CLASS_VERSIONS = [
         <<<'PHP'
 <?php
@@ -262,6 +269,21 @@ EXPECTED
                 $errorOutput, // @TODO https://github.com/Roave/BackwardCompatibilityCheck/issues/79 this looks like a symfony bug - we shouldn't check STDERR, but STDOUT
             );
         }
+    }
+
+    public function testWillAllowSpecifyingBaselineConfiguration(): void
+    {
+        File\write($this->sourcesRepository . '/.roave-backward-compatibility-check.json', self::BASELINE_CONFIGURATION);
+
+        $output = Shell\execute(__DIR__ . '/../../../bin/roave-backward-compatibility-check', [
+            '--from=' . $this->versions[0],
+            '--to=' . $this->versions[1],
+        ], $this->sourcesRepository, [], Shell\ErrorOutputBehavior::Append);
+
+        self::assertStringContainsString(
+            '.roave-backward-compatibility-check.json" as configuration file',
+            $output,
+        );
     }
 
     private function tagOnVersion(string $tagName, int $version): void

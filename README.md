@@ -121,4 +121,19 @@ vendor/bin/roave-backward-compatibility-check --help
 
 ## Configuration
 
-There are currently no configuration options available.
+The file `.roave-backward-compatibility-check.json` is read from the current working directory (when it exists) and sets configuration for the command.
+
+It's expected to be a JSON encoded file that, optionally, contains the following properties:
+
+* `baseline`: list of regexes used to filter detected changes; useful to avoid detection of known BC-breaks
+
+**Example:**
+
+```json
+{
+  "baseline": [
+    "#\\[BC\\] CHANGED: The parameter \\$a of TestArtifact\\\\TheClass\\#method()#",
+    "#\\[BC\\] CHANGED: The parameter \\$b of TestArtifact\\\\TheClass\\#method2()#"
+  ]
+}
+```

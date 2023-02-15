@@ -6,6 +6,7 @@ namespace Roave\BackwardCompatibility\Command;
 
 use Psl;
 use Psl\Env;
+use Psl\File;
 use Psl\Iter;
 use Psl\Str;
 use Psl\Type;
@@ -34,6 +35,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class AssertBackwardsCompatible extends Command
 {
+    private const CONFIGURATION_FILENAME = '.roave-backward-compatibility-check.json';
+
     /** @throws LogicException */
     public function __construct(
         private PerformCheckoutOfRevision $git,
@@ -113,7 +116,9 @@ USAGE,
         $stdErr = $output->getErrorOutput();
 
         // @todo fix flaky assumption about the path of the source repo...
-        $sourceRepo = CheckedOutRepository::fromPath(Env\current_dir());
+        $currentDirectory = Env\current_dir();
+
+        $sourceRepo = CheckedOutRepository::fromPath($currentDirectory);
 
         $fromRevision = $input->getOption('from') !== null
             ? $this->parseRevisionFromInput($input, $sourceRepo)
@@ -124,6 +129,8 @@ USAGE,
         $includeDevelopmentDependencies = Type\bool()->coerce($input->getOption('install-development-dependencies'));
 
         $toRevision = $this->parseRevision->fromStringForRepository($to, $sourceRepo);
+
+        $configuration = $this->determineConfiguration($currentDirectory, $stdErr);
 
         $stdErr->writeln(Str\format(
             'Comparing from %s to %s...',
@@ -148,7 +155,7 @@ USAGE,
                     $toPath->__toString(),
                     ($this->locateDependencies)($toPath->__toString(), $includeDevelopmentDependencies),
                 ),
-            );
+            )->applyBaseline($configuration->baseline);
 
             $formatters = [
                 'console'        => new SymfonyConsoleTextFormatter($stdErr),
@@ -212,5 +219,25 @@ USAGE,
             $versionString,
             $repository,
         );
+    }
+
+    private function determineConfiguration(
+        string $currentDirectory,
+        OutputInterface $stdErr,
+    ): Configuration {
+        $fileName = $currentDirectory . '/' . self::CONFIGURATION_FILENAME;
+
+        try {
+            $configContents = File\read($fileName);
+        } catch (File\Exception\InvalidArgumentException) {
+            return Configuration::default();
+        }
+
+        $stdErr->writeln(Str\format(
+            'Using "%s" as configuration file',
+            Type\string()->coerce($fileName),
+        ));
+
+        return Configuration::fromJson($configContents);
     }
 }
