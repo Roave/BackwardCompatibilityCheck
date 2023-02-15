@@ -138,6 +138,8 @@ PHP,
         Shell\execute('git', ['init'], $this->sourcesRepository);
         Shell\execute('git', ['config', 'user.email', 'me@example.com'], $this->sourcesRepository);
         Shell\execute('git', ['config', 'user.name', 'Just Me'], $this->sourcesRepository);
+        Shell\execute('git', ['config', 'commit.gpgSign', 'false'], $this->sourcesRepository);
+        Shell\execute('git', ['config', 'tag.forceSignAnnotated', 'false'], $this->sourcesRepository);
 
         File\write($this->sourcesRepository . '/composer.json', self::COMPOSER_MANIFEST);
 
