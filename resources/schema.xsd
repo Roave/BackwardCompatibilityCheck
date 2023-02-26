@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:annotation>
+        <xs:appinfo source="https://github.com/Roave/BackwardCompatibilityCheck"/>
+
+        <xs:documentation source="https://github.com/Roave/BackwardCompatibilityCheck">
+            This schema file defines the structure for the XML configuration file of roave/backward-compatibility-check.
+        </xs:documentation>
+    </xs:annotation>
+
+    <xs:element name="roave-bc-check" type="bcCheckType" />
+
+    <xs:complexType name="bcCheckType">
+        <xs:sequence>
+            <xs:element name="baseline" type="baselineType" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="baselineType">
+        <xs:sequence>
+            <xs:element name="ignored-regex" minOccurs="0" maxOccurs="unbounded" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
