@@ -8,14 +8,14 @@ use Psl\Str;
 use Psl\Type;
 use Roave\BackwardCompatibility\Configuration\Configuration;
 use Roave\BackwardCompatibility\Configuration\ParseConfigurationFile;
-use Roave\BackwardCompatibility\Configuration\ParseJsonConfigurationFile;
+use Roave\BackwardCompatibility\Configuration\ParseXmlConfigurationFile;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /** @internal */
 final class DetermineConfigurationFromFilesystem
 {
     public function __construct(
-        private readonly ParseConfigurationFile $parser = new ParseJsonConfigurationFile(),
+        private readonly ParseConfigurationFile $parser = new ParseXmlConfigurationFile(),
     ) {
     }
 

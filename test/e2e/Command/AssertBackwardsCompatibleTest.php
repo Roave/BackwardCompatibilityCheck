@@ -30,12 +30,14 @@ final class AssertBackwardsCompatibleTest extends TestCase
 
 JSON;
 
-    private const BASELINE_CONFIGURATION = <<<'JSON'
-{
-    "baseline": ["#\\[BC\\] CHANGED: The parameter \\$a of TestArtifact\\\\TheClass\\#method()#"]
-}
-
-JSON;
+    private const BASELINE_CONFIGURATION = <<<'XML'
+<?xml version="1.0" encoding="UTF-8" ?>
+<roave-bc-check>
+    <baseline>
+        <ignored-regex>#\[BC\] CHANGED: The parameter \$a of TestArtifact\\TheClass\#method.*#</ignored-regex>
+    </baseline>
+</roave-bc-check>
+XML;
 
     private const CLASS_VERSIONS = [
         <<<'PHP'
@@ -273,7 +275,7 @@ EXPECTED
 
     public function testWillAllowSpecifyingBaselineConfiguration(): void
     {
-        File\write($this->sourcesRepository . '/.roave-backward-compatibility-check.json', self::BASELINE_CONFIGURATION);
+        File\write($this->sourcesRepository . '/.roave-backward-compatibility-check.xml', self::BASELINE_CONFIGURATION);
 
         $output = Shell\execute(__DIR__ . '/../../../bin/roave-backward-compatibility-check', [
             '--from=' . $this->versions[0],
@@ -281,7 +283,7 @@ EXPECTED
         ], $this->sourcesRepository, [], Shell\ErrorOutputBehavior::Append);
 
         self::assertStringContainsString(
-            '.roave-backward-compatibility-check.json" as configuration file',
+            '.roave-backward-compatibility-check.xml" as configuration file',
             $output,
         );
     }

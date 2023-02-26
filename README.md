@@ -121,19 +121,20 @@ vendor/bin/roave-backward-compatibility-check --help
 
 ## Configuration
 
-The file `.roave-backward-compatibility-check.json` is read from the current working directory (when it exists) and sets configuration for the command.
+The file `.roave-backward-compatibility-check.xml` is read from the current working directory (when it exists) and sets configuration for the command.
 
-It's expected to be a JSON encoded file that, optionally, contains the following properties:
-
-* `baseline`: list of regexes used to filter detected changes; useful to avoid detection of known BC-breaks
+It's expected to be an XML file that follows our [schema](resources/schema.xsd):
 
 **Example:**
 
-```json
-{
-  "baseline": [
-    "#\\[BC\\] CHANGED: The parameter \\$a of TestArtifact\\\\TheClass\\#method()#",
-    "#\\[BC\\] CHANGED: The parameter \\$b of TestArtifact\\\\TheClass\\#method2()#"
-  ]
-}
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<roave-bc-check
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="vendor/roave/backward-compatibility-check/resources/schema.xsd">
+    <baseline>
+        <ignored-regex>#\[BC\] CHANGED: The parameter \$a of of TestArtifact\\TheClass\#method\(\)#</ignored-regex>
+        <ignored-regex>#\[BC\] CHANGED: The parameter \$b of of TestArtifact\\TheClass\#method2\(\)#</ignored-regex>
+    </baseline>
+</roave-bc-check>
 ```
