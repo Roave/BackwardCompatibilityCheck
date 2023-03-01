@@ -20,7 +20,7 @@ final class PickLastVersionFromCollectionTest extends TestCase
      * @return array<int, array<int, string|array<int, string>>>
      * @psalm-return array<int, array{0: string, 1: list<string>}>
      */
-    public function lastStableVersionForCollectionProvider(): array
+    public static function lastStableVersionForCollectionProvider(): array
     {
         return [
             ['2.2.0', ['1.1.0', '2.1.1', '2.2.0', '1.2.1']],

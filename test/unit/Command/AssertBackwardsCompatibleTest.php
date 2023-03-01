@@ -398,7 +398,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
     {
         $fromSha       = Hash\Context::forAlgorithm(Hash\Algorithm::SHA1)->update('fromRevision')->finalize();
         $toSha         = Hash\Context::forAlgorithm(Hash\Algorithm::SHA1)->update('toRevision')->finalize();
-        $pickedVersion = $this->makeVersion('1.0.0');
+        $pickedVersion = self::makeVersion('1.0.0');
 
         $this->input->method('getOption')->willReturnMap([
             ['from', null],
@@ -465,28 +465,28 @@ final class AssertBackwardsCompatibleTest extends TestCase
     }
 
     /** @return VersionCollection[][] */
-    public function validVersionCollections(): array
+    public static function validVersionCollections(): array
     {
         return [
             [
                 new VersionCollection(
-                    $this->makeVersion('1.0.0'),
-                    $this->makeVersion('1.0.1'),
-                    $this->makeVersion('1.0.2'),
+                    self::makeVersion('1.0.0'),
+                    self::makeVersion('1.0.1'),
+                    self::makeVersion('1.0.2'),
                 ),
             ],
             [
                 new VersionCollection(
-                    $this->makeVersion('1.0.0'),
-                    $this->makeVersion('1.0.1'),
+                    self::makeVersion('1.0.0'),
+                    self::makeVersion('1.0.1'),
                 ),
             ],
-            [new VersionCollection($this->makeVersion('1.0.0'))],
+            [new VersionCollection(self::makeVersion('1.0.0'))],
         ];
     }
 
     /** @psalm-param non-empty-string $version */
-    private function makeVersion(string $version): Version
+    private static function makeVersion(string $version): Version
     {
         return Type\instance_of(Version::class)
             ->coerce(Version::fromString($version));

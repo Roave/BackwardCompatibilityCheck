@@ -28,7 +28,7 @@ final class ReflectionPropertyNameTest extends TestCase
      * @return array<string, array<int, string|ReflectionProperty>>
      * @psalm-return array<string, array{0: ReflectionProperty, 1: string}>
      */
-    public function propertiesToBeTested(): array
+    public static function propertiesToBeTested(): array
     {
         $locator = new StringSourceLocator(
             <<<'PHP'
