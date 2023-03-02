@@ -35,9 +35,9 @@ final class LocatedSourceWithStrippedSourcesDirectoryTest extends TestCase
                 ->getFileName(),
         );
     }
-    
+
     /** @return non-empty-list<array{string, string, string}> */
-    public function verifiedPaths(): array
+    public static function verifiedPaths(): array
     {
         return [
             ['/foo/bar.php', '/foo', '/bar.php'],
@@ -46,7 +46,7 @@ final class LocatedSourceWithStrippedSourcesDirectoryTest extends TestCase
             ['/foo/bar.php', '', '/foo/bar.php'],
         ];
     }
-    
+
     public function testWillGetSourcesFromGivenLocatedSource(): void
     {
         self::assertSame(
@@ -81,7 +81,7 @@ final class LocatedSourceWithStrippedSourcesDirectoryTest extends TestCase
         $internalSource
             ->method('isInternal')
             ->willReturn(true);
-        
+
         self::assertFalse(
             (new LocatedSourceWithStrippedSourcesDirectory(
                 $nonInternalSource,
@@ -99,11 +99,11 @@ final class LocatedSourceWithStrippedSourcesDirectoryTest extends TestCase
     public function testWillGetExtensionNameFromGivenLocatedSource(): void
     {
         $extensionSource = $this->createMock(LocatedSource::class);
-        
+
         $extensionSource
             ->method('getExtensionName')
             ->willReturn('the-extension');
-        
+
         self::assertSame(
             'the-extension',
             (new LocatedSourceWithStrippedSourcesDirectory($extensionSource, '/some/source/directory'))
@@ -168,16 +168,16 @@ final class LocatedSourceWithStrippedSourcesDirectoryTest extends TestCase
             'Method is re-declared in the subclass',
         );
     }
-    
+
     /** @return array<string, array{ReflectionMethod}> */
-    public function methodsDeclaredByLocatedSource(): array
+    public static function methodsDeclaredByLocatedSource(): array
     {
         $methods = array_filter(
             (new ReflectionClass(LocatedSourceWithStrippedSourcesDirectory::class))
                 ->getMethods(),
             static fn (ReflectionMethod $method): bool => $method->isPublic() && ! $method->isStatic()
         );
-        
+
         return array_combine(
             array_map(static fn (ReflectionMethod $method): string => $method->getName(), $methods),
             array_map(static fn (ReflectionMethod $method): array => [$method], $methods),

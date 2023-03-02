@@ -30,7 +30,7 @@ final class ReplaceSourcePathOfLocatedSourcesTest extends TestCase
         $reflector  = $this->createMock(Reflector::class);
         $source     = $this->createMock(LocatedSource::class);
         $identifier = new Identifier('find-me', new IdentifierType(IdentifierType::IDENTIFIER_CLASS));
-        
+
         $next->expects(self::once())
             ->method('findReflection')
             ->with(
@@ -39,7 +39,7 @@ final class ReplaceSourcePathOfLocatedSourcesTest extends TestCase
                 $identifier,
             )
             ->willReturn($reflection);
-        
+
         self::assertSame(
             $reflection,
             (new ReplaceSourcePathOfLocatedSources($next, '/foo'))
@@ -88,7 +88,7 @@ final class ReplaceSourcePathOfLocatedSourcesTest extends TestCase
     }
 
     /** @return array<string, array{ReflectionMethod}> */
-    public function methodsDeclaredByReplaceSourcePathOfLocatedSources(): array
+    public static function methodsDeclaredByReplaceSourcePathOfLocatedSources(): array
     {
         $methods = array_filter(
             (new ReflectionClass(ReplaceSourcePathOfLocatedSources::class))

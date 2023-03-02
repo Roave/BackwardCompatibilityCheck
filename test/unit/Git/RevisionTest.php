@@ -33,7 +33,7 @@ final class RevisionTest extends TestCase
     }
 
     /** @return string[][] */
-    public function invalidRevisionProvider(): array
+    public static function invalidRevisionProvider(): array
     {
         return [
             [''],

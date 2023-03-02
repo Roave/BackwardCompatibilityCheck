@@ -43,7 +43,7 @@ final class ClassBecameInterfaceTest extends TestCase
      * @return array<string, array<int, ReflectionClass|array<int, string>>>
      * @psalm-return array<string, array{0: ReflectionClass, 1: ReflectionClass, 2: list<string>}>
      */
-    public function classesToBeTested(): array
+    public static function classesToBeTested(): array
     {
         $locator       = (new BetterReflection())->astLocator();
         $fromReflector = new DefaultReflector(new StringSourceLocator(

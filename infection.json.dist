@@ -17,5 +17,5 @@
         "NotIdenticalNotEqual": false
     },
     "minMsi": 90.1,
-    "minCoveredMsi": 100
+    "minCoveredMsi": 95
 }

@@ -48,7 +48,7 @@ final class ClassConstantVisibilityReducedTest extends TestCase
      *     2: list<string>
      * }>
      */
-    public function constantsToBeTested(): array
+    public static function constantsToBeTested(): array
     {
         $astLocator = (new BetterReflection())->astLocator();
 

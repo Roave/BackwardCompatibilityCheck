@@ -46,7 +46,7 @@ final class TypeIsCovariantTest extends TestCase
      *     2: bool
      * }>
      */
-    public function checkedTypes(): array
+    public static function checkedTypes(): array
     {
         $reflector = new DefaultReflector(new StringSourceLocator(
             <<<'PHP'
@@ -508,7 +508,7 @@ PHP
     }
 
     /** @return list<array{ReflectionIntersectionType|ReflectionUnionType|ReflectionNamedType|null}> */
-    public function existingTypes(): array
+    public static function existingTypes(): array
     {
         $reflector = new DefaultReflector(new StringSourceLocator(
             <<<'PHP'
@@ -588,7 +588,7 @@ PHP
     }
 
     /** @return string[][] */
-    public function existingNullableTypeStrings(): array
+    public static function existingNullableTypeStrings(): array
     {
         return [
             ['int'],

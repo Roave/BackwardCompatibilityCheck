@@ -51,7 +51,7 @@ final class RequiredParameterAmountIncreasedTest extends TestCase
      *     2: list<string>
      * }>
      */
-    public function functionsToBeTested(): array
+    public static function functionsToBeTested(): array
     {
         $astLocator = (new BetterReflection())->astLocator();
 
