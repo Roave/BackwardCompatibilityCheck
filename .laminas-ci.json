@@ -1,6 +1,6 @@
 {
     "extensions": [
-        "bcmath"
+        "bcmath", "pcov"
     ],
     "ini": [
         "memory_limit=-1"

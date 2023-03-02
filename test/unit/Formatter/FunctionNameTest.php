@@ -30,7 +30,7 @@ final class FunctionNameTest extends TestCase
      *     1: string
      * }>
      */
-    public function functionsToBeTested(): array
+    public static function functionsToBeTested(): array
     {
         $locator = new StringSourceLocator(
             <<<'PHP'
@@ -67,18 +67,18 @@ PHP
                 'N1\b()',
             ],
             'N2\C::d' => [
-                $this->getMethod($reflector->reflectClass('N2\C'), 'd'),
+                self::getMethod($reflector->reflectClass('N2\C'), 'd'),
                 'N2\C::d()',
             ],
             'N2\C#e'  => [
-                $this->getMethod($reflector->reflectClass('N2\C'), 'e'),
+                self::getMethod($reflector->reflectClass('N2\C'), 'e'),
                 'N2\C#e()',
             ],
         ];
     }
 
     /** @param non-empty-string $name */
-    private function getMethod(ReflectionClass $class, string $name): ReflectionMethod
+    private static function getMethod(ReflectionClass $class, string $name): ReflectionMethod
     {
         $method = $class->getMethod($name);
 

@@ -50,7 +50,7 @@ final class ParameterNameChangedTest extends TestCase
      *     2: list<string>
      * }>
      */
-    public function functionsToBeTested(): array
+    public static function functionsToBeTested(): array
     {
         $astLocator = (new BetterReflection())->astLocator();
 
@@ -154,7 +154,7 @@ PHP
         $toClassReflector   = new DefaultReflector($toLocator);
         $fromMethod         = $fromClassReflector->reflectClass('TheClass')->getMethod('theMethod');
         $toMethod           = $toClassReflector->reflectClass('TheClass')->getMethod('theMethod');
-        
+
         assert($fromMethod !== null);
         assert($toMethod !== null);
 

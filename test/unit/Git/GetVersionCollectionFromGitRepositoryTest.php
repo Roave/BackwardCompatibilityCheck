@@ -28,6 +28,8 @@ final class GetVersionCollectionFromGitRepositoryTest extends TestCase
         Shell\execute('git', ['init'], $tmpGitRepo);
         Shell\execute('git', ['config', 'user.email', 'me@example.com'], $tmpGitRepo);
         Shell\execute('git', ['config', 'user.name', 'Me Again'], $tmpGitRepo);
+        Shell\execute('git', ['config', 'commit.gpgSign', 'false'], $tmpGitRepo);
+        Shell\execute('git', ['config', 'tag.forceSignAnnotated', 'false'], $tmpGitRepo);
         File\write($tmpGitRepo . '/test', SecureRandom\string(8));
         Shell\execute('git', ['add', '.'], $tmpGitRepo);
         Shell\execute('git', ['commit', '-m', '"whatever"'], $tmpGitRepo);

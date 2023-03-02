@@ -63,6 +63,8 @@ final class GitCheckoutRevisionToTemporaryPathTest extends TestCase
         Shell\execute('git', ['init'], $repoPath);
         Shell\execute('git', ['config', 'user.email', 'me@example.com'], $repoPath);
         Shell\execute('git', ['config', 'user.name', 'Mr Magoo'], $repoPath);
+        Shell\execute('git', ['config', 'commit.gpgSign', 'false'], $repoPath);
+        Shell\execute('git', ['config', 'tag.forceSignAnnotated', 'false'], $repoPath);
         Shell\execute('git', ['commit', '-m', 'initial commit', '--allow-empty'], $repoPath);
 
         $firstCommit = Revision::fromSha1(

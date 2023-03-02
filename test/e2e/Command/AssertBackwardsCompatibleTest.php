@@ -30,6 +30,15 @@ final class AssertBackwardsCompatibleTest extends TestCase
 
 JSON;
 
+    private const BASELINE_CONFIGURATION = <<<'XML'
+<?xml version="1.0" encoding="UTF-8" ?>
+<roave-bc-check>
+    <baseline>
+        <ignored-regex>#\[BC\] CHANGED: The parameter \$a of TestArtifact\\TheClass\#method.*#</ignored-regex>
+    </baseline>
+</roave-bc-check>
+XML;
+
     private const CLASS_VERSIONS = [
         <<<'PHP'
 <?php
@@ -138,6 +147,8 @@ PHP,
         Shell\execute('git', ['init'], $this->sourcesRepository);
         Shell\execute('git', ['config', 'user.email', 'me@example.com'], $this->sourcesRepository);
         Shell\execute('git', ['config', 'user.name', 'Just Me'], $this->sourcesRepository);
+        Shell\execute('git', ['config', 'commit.gpgSign', 'false'], $this->sourcesRepository);
+        Shell\execute('git', ['config', 'tag.forceSignAnnotated', 'false'], $this->sourcesRepository);
 
         File\write($this->sourcesRepository . '/composer.json', self::COMPOSER_MANIFEST);
 
@@ -260,6 +271,21 @@ EXPECTED
                 $errorOutput, // @TODO https://github.com/Roave/BackwardCompatibilityCheck/issues/79 this looks like a symfony bug - we shouldn't check STDERR, but STDOUT
             );
         }
+    }
+
+    public function testWillAllowSpecifyingBaselineConfiguration(): void
+    {
+        File\write($this->sourcesRepository . '/.roave-backward-compatibility-check.xml', self::BASELINE_CONFIGURATION);
+
+        $output = Shell\execute(__DIR__ . '/../../../bin/roave-backward-compatibility-check', [
+            '--from=' . $this->versions[0],
+            '--to=' . $this->versions[1],
+        ], $this->sourcesRepository, [], Shell\ErrorOutputBehavior::Append);
+
+        self::assertStringContainsString(
+            '.roave-backward-compatibility-check.xml" as configuration file',
+            $output,
+        );
     }
 
     private function tagOnVersion(string $tagName, int $version): void

@@ -12,7 +12,7 @@ use Roave\BackwardCompatibility\Git\GitParseRevision;
 final class GitParseRevisionTest extends TestCase
 {
     /** @return string[][] */
-    public function revisionProvider(): array
+    public static function revisionProvider(): array
     {
         return [
             ['e72a47b', 'e72a47bb9d777c9e73c1322d58a83450d36d9454'],

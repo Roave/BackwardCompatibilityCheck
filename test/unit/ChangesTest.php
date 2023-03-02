@@ -7,6 +7,7 @@ namespace RoaveTest\BackwardCompatibility;
 use Generator;
 use PHPUnit\Framework\TestCase;
 use Psl\Type;
+use Roave\BackwardCompatibility\Baseline;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 
@@ -117,5 +118,42 @@ final class ChangesTest extends TestCase
             $count,
             Changes::fromList(...array_fill(0, $count, Change::added('foo', true))),
         );
+    }
+
+    /** @psalm-suppress UnusedVariable by-ref assignments are in place to override the behavior of the spy/callback */
+    public function testApplyBaselineWillApplyTheFilterWithoutLoadingChanges(): void
+    {
+        $stopProducingValues = static function (): void {
+            self::fail('No values should have been produced');
+        };
+
+        $changesProvider = static function () use (&$stopProducingValues): Generator {
+            /** @psalm-var callable(): void $stopProducingValues */
+            $stopProducingValues();
+
+            yield Change::changed('a', true);
+
+            $stopProducingValues();
+
+            yield Change::changed('b', false);
+        };
+
+        $changes  = Changes::fromIterator($changesProvider());
+        $filtered = $changes->applyBaseline(Baseline::fromList('#a#'));
+
+        self::assertNotSame($changes, $filtered, 'New instance should be created');
+
+        $stopProducingValues = static function (): void {
+        };
+
+        $expectedChanges = [Change::changed('b', false)];
+
+        self::assertEquals($expectedChanges, iterator_to_array($filtered));
+        self::assertEquals(
+            $expectedChanges,
+            iterator_to_array($filtered),
+            'Changes can be iterated upon more than once (they are buffered)',
+        );
+        self::assertCount(1, $filtered);
     }
 }
