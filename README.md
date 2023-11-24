@@ -66,7 +66,7 @@ jobs:
         - name: "Install PHP"
           uses: shivammathur/setup-php@v2
           with:
-            php-version: "8.3"
+            php-version: "8.0"
         - name: "Install dependencies"
           run: "composer install"
         - name: "Check for BC breaks"
