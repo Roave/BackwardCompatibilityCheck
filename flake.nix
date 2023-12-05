@@ -5,6 +5,8 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nix-shell.url = "github:loophp/nix-shell";
     systems.url = "github:nix-systems/default";
+    # This should stay until Box 4.5.1 is not on `nixos-unstable` branch
+    nixpkgs-master.url = "github:NixOS/nixpkgs/master";
   };
 
   outputs = inputs@{ self, flake-parts, systems, ... }: flake-parts.lib.mkFlake { inherit inputs; } {
@@ -14,7 +16,7 @@
       let
         php = pkgs.api.buildPhpFromComposer {
           src = ./.;
-          php = pkgs.php81; # Change to php56, php70, ..., php81, php82, php83 etc.
+          php = pkgs.box451.php81; # Change to php56, php70, ..., php81, php82, php83 etc.
         };
       in
       {
@@ -22,6 +24,11 @@
           inherit system;
           overlays = [
             inputs.nix-shell.overlays.default
+            (final: prev: {
+              box451 = import inputs.nixpkgs-master {
+                inherit system;
+              };
+            })
           ];
           config.allowUnfree = true;
         };
@@ -47,13 +54,15 @@
             name = "build-phar-script";
 
             runtimeInputs = [
+              php
               php.packages.box
               php.packages.composer
               pkgs.git
             ];
 
             text = ''
-              composer install --no-dev
+              composer install --no-dev --quiet
+
               box compile
             '';
           };

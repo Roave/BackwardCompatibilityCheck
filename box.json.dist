@@ -1,4 +1,10 @@
 {
+    "alias": "roave-backward-compatibility-check",
+    "banner": false,
+    "check-requirements": false,
+    "compactors": [
+        "KevinGH\\Box\\Compactor\\PhpScoper"
+    ],
     "compression": "GZ",
     "main": "bin/roave-backward-compatibility-check.php",
     "output": "dist/roave-backward-compatibility-check.phar",
