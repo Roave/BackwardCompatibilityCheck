@@ -1,8 +1,4 @@
 {
-    "compactors": [
-        "Herrera\\Box\\Compactor\\Php",
-        "Herrera\\Box\\Compactor\\Json"
-    ],
     "compression": "GZ",
     "main": "bin/roave-backward-compatibility-check.php",
     "output": "dist/roave-backward-compatibility-check.phar",
