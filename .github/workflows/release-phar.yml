@@ -26,10 +26,12 @@ jobs:
       - name: "Checkout"
         uses: "actions/checkout@v3"
 
-      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/nix-installer-action@v9
 
-      - name: "build-phar.sh"
-        run: "build-phar.sh"
+      - name: "Build PHAR"
+        run: |
+          "nix build .#phar"
+          "cp result/*.phar dist/*"
 
       - name: "Upload PHAR"
         uses: fnkr/github-action-ghr@v1.3

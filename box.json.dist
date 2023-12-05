@@ -6,6 +6,5 @@
         "LICENSE",
         "vendor/composer/composer/LICENSE"
     ],
-    "chmod": "0755",
-    "git-version": "git-version"
+    "chmod": "0755"
 }
