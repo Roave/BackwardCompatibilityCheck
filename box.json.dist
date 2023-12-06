@@ -3,7 +3,8 @@
     "banner": false,
     "check-requirements": false,
     "compactors": [
-        "KevinGH\\Box\\Compactor\\PhpScoper"
+        "KevinGH\\Box\\Compactor\\Json",
+        "KevinGH\\Box\\Compactor\\Php"
     ],
     "compression": "GZ",
     "main": "bin/roave-backward-compatibility-check.php",
@@ -11,6 +12,5 @@
     "files-bin": [
         "LICENSE",
         "vendor/composer/composer/LICENSE"
-    ],
-    "git-version": "git-version"
+    ]
 }

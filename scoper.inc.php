@@ -1,5 +1,0 @@
-<?php
-
-return [
-	'prefix' => 'BackwardCompatibilityCheckPrefix',
-];

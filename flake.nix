@@ -43,13 +43,64 @@
         };
 
         apps = {
+          default = {
+            type = "app";
+            program = lib.getExe self'.packages.backwardcompatibilitycheck;
+          };
+
           build-phar = {
             type = "app";
             program = lib.getExe self'.packages.build-phar-script;
           };
         };
 
+        checks = {
+          inherit (self'.packages) phar;
+        };
+
         packages = {
+          backwardcompatibilitycheck = php.buildComposerProject {
+            pname = "backwardcompatibilitycheck";
+            version = "8.x.x-dev";
+
+            src = ./.;
+
+            # This only changes when `composer.lock` is updated
+            vendorHash = "sha256-q7vyv+M5xMqcSS1gnFii2FXYYv8BNWdRXLJLn3AyktA=";
+
+            meta.mainProgram = "roave-backward-compatibility-check";
+          };
+
+          phar = pkgs.stdenvNoCC.mkDerivation {
+            pname = "backwardcompatibilitycheck-phar";
+            version = self'.packages.backwardcompatibilitycheck.version;
+
+            src = self'.packages.backwardcompatibilitycheck.src;
+
+            buildInputs = [
+              php.packages.box
+              php.packages.composer
+            ];
+
+            buildPhase = ''
+              runHook preBuild
+
+              cp -ar ${self'.packages.backwardcompatibilitycheck}/share/php/backwardcompatibilitycheck/vendor .
+              box compile --no-interaction --quiet
+
+              runHook postBuild
+            '';
+
+            installPhase = ''
+              runHook preInstall
+
+              mkdir -p $out
+              cp dist/*.phar $out/
+
+              runHook postInstall
+            '';
+          };
+
           build-phar-script = pkgs.writeShellApplication {
             name = "build-phar-script";
 
@@ -57,13 +108,11 @@
               php
               php.packages.box
               php.packages.composer
-              pkgs.git
             ];
 
             text = ''
               composer install --no-dev --quiet
-
-              box compile
+              box compile --no-interaction --quiet
             '';
           };
         };
