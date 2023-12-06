@@ -66,7 +66,7 @@
             src = ./.;
 
             # This only changes when `composer.lock` is updated
-            vendorHash = "sha256-q7vyv+M5xMqcSS1gnFii2FXYYv8BNWdRXLJLn3AyktA=";
+            vendorHash = "sha256-LsrGmver7RyiI0/l2j6dZaqhFQf2OFyUOZb8xzFFEIA=";
 
             meta.mainProgram = "roave-backward-compatibility-check";
           };
