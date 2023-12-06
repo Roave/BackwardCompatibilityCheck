@@ -33,15 +33,6 @@
           config.allowUnfree = true;
         };
 
-        devShells.default = pkgs.mkShellNoCC {
-          name = "php-devshell";
-          buildInputs = [
-            php
-            php.packages.composer
-            php.packages.box
-          ];
-        };
-
         apps = {
           default = {
             type = "app";
@@ -58,6 +49,15 @@
           inherit (self'.packages) phar;
         };
 
+        devShells.default = pkgs.mkShellNoCC {
+          name = "php-devshell";
+          buildInputs = [
+            php
+            php.packages.composer
+            php.packages.box
+          ];
+        };
+
         packages = {
           backwardcompatibilitycheck = php.buildComposerProject {
             pname = "backwardcompatibilitycheck";
@@ -69,6 +69,21 @@
             vendorHash = "sha256-LsrGmver7RyiI0/l2j6dZaqhFQf2OFyUOZb8xzFFEIA=";
 
             meta.mainProgram = "roave-backward-compatibility-check";
+          };
+
+          build-phar-script = pkgs.writeShellApplication {
+            name = "build-phar-script";
+
+            runtimeInputs = [
+              php
+              php.packages.box
+              php.packages.composer
+            ];
+
+            text = ''
+              composer install --no-dev --quiet
+              box compile --no-interaction --quiet
+            '';
           };
 
           phar = pkgs.stdenvNoCC.mkDerivation {
@@ -98,21 +113,6 @@
               cp dist/*.phar $out/
 
               runHook postInstall
-            '';
-          };
-
-          build-phar-script = pkgs.writeShellApplication {
-            name = "build-phar-script";
-
-            runtimeInputs = [
-              php
-              php.packages.box
-              php.packages.composer
-            ];
-
-            text = ''
-              composer install --no-dev --quiet
-              box compile --no-interaction --quiet
             '';
           };
         };
