@@ -5,7 +5,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nix-shell.url = "github:loophp/nix-shell";
     systems.url = "github:nix-systems/default";
-    # This should stay until Box 4.5.1 is not on `nixos-unstable` branch
+    # This should stay until Box 4.6.0 is not on `nixos-unstable` branch
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
   };
 
@@ -16,7 +16,7 @@
       let
         php = pkgs.api.buildPhpFromComposer {
           src = ./.;
-          php = pkgs.box451.php81; # Change to php56, php70, ..., php81, php82, php83 etc.
+          php = pkgs.php82;
         };
       in
       {
@@ -25,7 +25,7 @@
           overlays = [
             inputs.nix-shell.overlays.default
             (final: prev: {
-              box451 = import inputs.nixpkgs-master {
+              box460 = import inputs.nixpkgs-master {
                 inherit system;
               };
             })
@@ -54,7 +54,8 @@
           buildInputs = [
             php
             php.packages.composer
-            php.packages.box
+            pkgs.box460.php82.packages.box
+            self'.packages.build-phar-script
           ];
         };
 
@@ -66,7 +67,7 @@
             src = ./.;
 
             # This only changes when `composer.lock` is updated
-            vendorHash = "sha256-LsrGmver7RyiI0/l2j6dZaqhFQf2OFyUOZb8xzFFEIA=";
+            vendorHash = "sha256-9VGaoPpJg06/n9fmSrNInQHitWxXStG74PxaJvulMwc=";
 
             meta.mainProgram = "roave-backward-compatibility-check";
           };
@@ -76,7 +77,7 @@
 
             runtimeInputs = [
               php
-              php.packages.box
+              pkgs.box460.php82.packages.box
               php.packages.composer
             ];
 
@@ -93,14 +94,14 @@
             src = self'.packages.backwardcompatibilitycheck.src;
 
             buildInputs = [
-              php.packages.box
+              pkgs.box460.php82.packages.box
               php.packages.composer
             ];
 
             buildPhase = ''
               runHook preBuild
 
-              cp -ar ${self'.packages.backwardcompatibilitycheck}/share/php/backwardcompatibilitycheck/vendor .
+              cp -ar ${self'.packages.backwardcompatibilitycheck}/share/php/${self'.packages.backwardcompatibilitycheck.pname}/vendor .
               box compile --no-interaction --quiet
 
               runHook postBuild

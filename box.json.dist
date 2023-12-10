@@ -12,5 +12,6 @@
     "files-bin": [
         "LICENSE",
         "vendor/composer/composer/LICENSE"
-    ]
+    ],
+    "timestamp": "1970-01-01"
 }
