@@ -5,8 +5,6 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nix-shell.url = "github:loophp/nix-shell";
     systems.url = "github:nix-systems/default";
-    # This should stay until Box 4.6.0 is not on `nixos-unstable` branch
-    nixpkgs-master.url = "github:NixOS/nixpkgs/master";
   };
 
   outputs = inputs@{ self, flake-parts, systems, ... }: flake-parts.lib.mkFlake { inherit inputs; } {
@@ -24,13 +22,7 @@
           inherit system;
           overlays = [
             inputs.nix-shell.overlays.default
-            (final: prev: {
-              box460 = import inputs.nixpkgs-master {
-                inherit system;
-              };
-            })
           ];
-          config.allowUnfree = true;
         };
 
         apps = {
@@ -53,8 +45,8 @@
           name = "php-devshell";
           buildInputs = [
             php
+            php.packages.box
             php.packages.composer
-            pkgs.box460.php82.packages.box
             self'.packages.build-phar-script
           ];
         };
@@ -77,11 +69,12 @@
 
             runtimeInputs = [
               php
-              pkgs.box460.php82.packages.box
+              php.packages.box
               php.packages.composer
             ];
 
             text = ''
+              rm -rf vendor
               composer install --no-dev --quiet
               box compile --no-interaction --quiet
             '';
@@ -94,7 +87,7 @@
             src = self'.packages.backwardcompatibilitycheck.src;
 
             buildInputs = [
-              pkgs.box460.php82.packages.box
+              php.packages.box
               php.packages.composer
             ];
 
