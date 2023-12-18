@@ -57,6 +57,7 @@
 
             text = ''
               rm -rf vendor
+              composer validate --strict
               composer install --no-dev
               box compile --no-interaction
             '';
