@@ -15,10 +15,6 @@ jobs:
 
     strategy:
       matrix:
-        dependencies:
-          - "locked"
-        php-version:
-          - "7.4"
         operating-system:
           - "ubuntu-latest"
 
@@ -30,8 +26,7 @@ jobs:
 
       - name: "Build PHAR"
         run: |
-          "nix build .#phar"
-          "cp result/*.phar dist/*"
+          "nix run .#build-phar-script"
 
       - name: "Upload PHAR"
         uses: fnkr/github-action-ghr@v1.3

@@ -12,6 +12,9 @@
 
     perSystem = { config, self', inputs', pkgs, system, lib, ... }:
       let
+        # This function creates a PHP interpreter with the proper required
+        # extensions by reading the composer.json and infering the extensions to
+        # enable.
         php = pkgs.api.buildPhpFromComposer {
           src = ./.;
           php = pkgs.php82;
@@ -26,19 +29,10 @@
         };
 
         apps = {
-          default = {
-            type = "app";
-            program = lib.getExe self'.packages.backwardcompatibilitycheck;
-          };
-
           build-phar = {
             type = "app";
             program = lib.getExe self'.packages.build-phar-script;
           };
-        };
-
-        checks = {
-          inherit (self'.packages) phar;
         };
 
         devShells.default = pkgs.mkShellNoCC {
@@ -52,18 +46,6 @@
         };
 
         packages = {
-          backwardcompatibilitycheck = php.buildComposerProject {
-            pname = "backwardcompatibilitycheck";
-            version = "8.x.x-dev";
-
-            src = ./.;
-
-            # This only changes when `composer.lock` is updated
-            vendorHash = "sha256-9VGaoPpJg06/n9fmSrNInQHitWxXStG74PxaJvulMwc=";
-
-            meta.mainProgram = "roave-backward-compatibility-check";
-          };
-
           build-phar-script = pkgs.writeShellApplication {
             name = "build-phar-script";
 
@@ -75,38 +57,8 @@
 
             text = ''
               rm -rf vendor
-              composer install --no-dev --quiet
-              box compile --no-interaction --quiet
-            '';
-          };
-
-          phar = pkgs.stdenvNoCC.mkDerivation {
-            pname = "backwardcompatibilitycheck-phar";
-            version = self'.packages.backwardcompatibilitycheck.version;
-
-            src = self'.packages.backwardcompatibilitycheck.src;
-
-            buildInputs = [
-              php.packages.box
-              php.packages.composer
-            ];
-
-            buildPhase = ''
-              runHook preBuild
-
-              cp -ar ${self'.packages.backwardcompatibilitycheck}/share/php/${self'.packages.backwardcompatibilitycheck.pname}/vendor .
-              box compile --no-interaction --quiet
-
-              runHook postBuild
-            '';
-
-            installPhase = ''
-              runHook preInstall
-
-              mkdir -p $out
-              cp dist/*.phar $out/
-
-              runHook postInstall
+              composer install --no-dev
+              box compile --no-interaction
             '';
           };
         };
