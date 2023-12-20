@@ -1,7 +1,10 @@
 {
+    "alias": "roave-backward-compatibility-check",
+    "banner": false,
+    "check-requirements": false,
     "compactors": [
-        "Herrera\\Box\\Compactor\\Php",
-        "Herrera\\Box\\Compactor\\Json"
+        "KevinGH\\Box\\Compactor\\Json",
+        "KevinGH\\Box\\Compactor\\Php"
     ],
     "compression": "GZ",
     "main": "bin/roave-backward-compatibility-check.php",
@@ -10,6 +13,5 @@
         "LICENSE",
         "vendor/composer/composer/LICENSE"
     ],
-    "chmod": "0755",
-    "git-version": "git-version"
+    "timestamp": "1970-01-01"
 }
