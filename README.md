@@ -12,10 +12,10 @@ of a PHP library.
 
 ## Pre-requisites/assumptions
 
- * Your project uses `git`
- * Your project uses `composer.json` to define its dependencies
- * All source paths are covered by an `"autoload"` section in `composer.json`
- * Changes need to be committed to `git` to be covered. You can implement your own logic to extract sources and dependencies from a project though.
+* Your project uses `git`
+* Your project uses `composer.json` to define its dependencies
+* All source paths are covered by an `"autoload"` section in `composer.json`
+* Changes need to be committed to `git` to be covered. You can implement your own logic to extract sources and dependencies from a project though.
 
 ## Installation
 
@@ -25,7 +25,7 @@ composer require --dev roave/backward-compatibility-check
 
 ### Install with Docker
 
-You can also use Docker to run `roave-backward-compatibility-check`: 
+You can also use Docker to run `roave-backward-compatibility-check`:
 
 ```bash
 docker run --rm -v `pwd`:/app nyholm/roave-bc-check
@@ -79,7 +79,8 @@ Tobias Nyholm also offers [a simple GitHub action](https://github.com/Nyholm/roa
 that you can use in your Github pipeline. We recommend this for most cases as
 it is simple to set up:
 
-_.github/workflows/main.yml_
+`.github/workflows/main.yml`:
+
 ```yaml
 on: [push]
 name: Test
