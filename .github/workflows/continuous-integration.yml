@@ -65,7 +65,7 @@ jobs:
           tools: composer:v2
 
       - name: "Cache dependencies"
-        uses: "actions/cache@v3"
+        uses: "actions/cache@v4"
         with:
           path: |
             ~/.composer/cache
@@ -116,7 +116,7 @@ jobs:
           tools: composer:v2
 
       - name: "Cache dependencies"
-        uses: "actions/cache@v3"
+        uses: "actions/cache@v4"
         with:
           path: |
             ~/.composer/cache
