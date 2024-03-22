@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\Formatter;
 
+use ArrayIterator;
 use PHPUnit\Framework\TestCase;
 use Psl\SecureRandom;
 use Psl\Str;
@@ -23,12 +24,21 @@ final class SymfonyConsoleTextFormatterTest extends TestCase
         $change2Text = SecureRandom\string(8);
 
         $output = $this->createMock(OutputInterface::class);
+
+        $expectedMessages = new ArrayIterator([
+            Str\format('[BC] REMOVED: %s', $change1Text),
+            Str\format('     ADDED: %s', $change2Text),
+        ]);
+
         $output->expects(self::exactly(2))
             ->method('writeln')
-            ->withConsecutive(
-                [Str\format('[BC] REMOVED: %s', $change1Text)],
-                [Str\format('     ADDED: %s', $change2Text)],
-            );
+            ->willReturnCallback(static function (string $text) use ($expectedMessages): void {
+                self::assertTrue($expectedMessages->valid());
+                $expectedText = $expectedMessages->current();
+                $expectedMessages->next();
+
+                self::assertSame($expectedText, $text);
+            });
 
         (new SymfonyConsoleTextFormatter($output))->write(Changes::fromList(
             Change::removed($change1Text, true),
