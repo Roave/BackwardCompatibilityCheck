@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fcdc8aa3d1541ef9867c4c36522d33be",
+    "content-hash": "dba9c0244930bb8f65955acd2308afc9",
     "packages": [
         {
             "name": "azjezz/psl",
@@ -4732,12 +4732,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "fb67d53feced68d0436884f13a5b7a9687fc03e0"
+                "reference": "d2b53099f06a627006a0eb3c9dde665140390fc7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/fb67d53feced68d0436884f13a5b7a9687fc03e0",
-                "reference": "fb67d53feced68d0436884f13a5b7a9687fc03e0",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/d2b53099f06a627006a0eb3c9dde665140390fc7",
+                "reference": "d2b53099f06a627006a0eb3c9dde665140390fc7",
                 "shasum": ""
             },
             "conflict": {
@@ -5060,7 +5060,7 @@
                 "mojo42/jirafeau": "<4.4",
                 "mongodb/mongodb": ">=1,<1.9.2",
                 "monolog/monolog": ">=1.8,<1.12",
-                "moodle/moodle": "<4.3.3",
+                "moodle/moodle": "<=4.3.3",
                 "mos/cimage": "<0.7.19",
                 "movim/moxl": ">=0.8,<=0.10",
                 "mpdf/mpdf": "<=7.1.7",
@@ -5465,7 +5465,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-03-22T17:03:59+00:00"
+            "time": "2024-03-22T21:04:47+00:00"
         },
         {
             "name": "sanmai/later",
@@ -7136,8 +7136,5 @@
         "php": "~8.1.0 || ~8.2.0 || ~8.3.0"
     },
     "platform-dev": [],
-    "platform-overrides": {
-        "php": "8.2.99"
-    },
     "plugin-api-version": "2.3.0"
 }
