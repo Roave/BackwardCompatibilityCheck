@@ -175,7 +175,7 @@ final class LocatedSourceWithStrippedSourcesDirectoryTest extends TestCase
         $methods = array_filter(
             (new ReflectionClass(LocatedSourceWithStrippedSourcesDirectory::class))
                 ->getMethods(),
-            static fn (ReflectionMethod $method): bool => $method->isPublic() && ! $method->isStatic()
+            static fn (ReflectionMethod $method): bool => $method->isPublic() && ! $method->isStatic(),
         );
         
         return array_combine(
