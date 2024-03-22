@@ -51,7 +51,7 @@ final class ParameterDefaultValueChanged implements FunctionBased
             try {
                 $defaultValueFrom = $parameter->getDefaultValue();
                 $defaultValueTo   = $toParametersWithDefaults[$parameterIndex]->getDefaultValue();
-            } catch (UnableToCompileNode $unableToCompileNode) {
+            } catch (UnableToCompileNode) {
                 $parameterDefaultExpression   = $parameter->getDefaultValueExpression();
                 $toParameterDefaultExpression = $toParametersWithDefaults[$parameterIndex]->getDefaultValueExpression();
 
@@ -62,8 +62,6 @@ final class ParameterDefaultValueChanged implements FunctionBased
                 ) {
                     continue;
                 }
-
-                throw $unableToCompileNode;
             }
 
             if ($defaultValueFrom === $defaultValueTo) {

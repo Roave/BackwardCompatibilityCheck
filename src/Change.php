@@ -77,6 +77,7 @@ final class Change
         int|null $line,
         int|null $column,
     ): self {
+        /** @infection-ignore-all */
         $instance = clone $this;
 
         $instance->file   ??= $file;

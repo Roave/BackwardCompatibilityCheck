@@ -49,8 +49,8 @@ final class JunitFormatter implements OutputFormatter
 
             $name = $this->escapeXmlAttribute(implode(':', [
                 $filename ?? '',
-                (string) ($change->line ?? ''),
-                (string) ($change->column ?? ''),
+                $change->line ?? '',
+                $change->column ?? '',
             ]));
 
             $this->output->writeLn(sprintf(
@@ -63,7 +63,7 @@ final class JunitFormatter implements OutputFormatter
         $this->output->writeLn('</testsuite>');
     }
 
-    private function escapeXmlAttribute(string $value): string
+    public function escapeXmlAttribute(string $value): string
     {
         return htmlspecialchars($value, ENT_XML1 | ENT_COMPAT, 'UTF-8');
     }
