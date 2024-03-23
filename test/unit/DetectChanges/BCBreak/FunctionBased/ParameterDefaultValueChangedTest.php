@@ -8,6 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\ParameterDefaultValueChanged;
 use Roave\BetterReflection\BetterReflection;
+use Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionFunction;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
@@ -15,6 +16,7 @@ use Roave\BetterReflection\Reflector\DefaultReflector;
 use Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
+use Throwable;
 
 use function array_combine;
 use function array_keys;
@@ -44,6 +46,46 @@ final class ParameterDefaultValueChangedTest extends TestCase
                 return $change->__toString();
             }, iterator_to_array($changes)),
         );
+    }
+
+    public function testDefaultValueChangeCausesUnableToCompileNodeException(): void
+    {
+        $originalSource = <<<'PHP'
+        <?php
+
+        class OriginalClass {
+            public function methodWithDefaultValue($param = SOME_CONSTANT) {}
+        }
+    PHP;
+
+        $modifiedSource = <<<'PHP'
+        <?php
+
+        class ModifiedClass {
+            // Introducing a minor change that still relies on an undefined constant
+            public function methodWithDefaultValue($param = SOME_CONSTANT + 1) {}
+        }
+    PHP;
+
+        $astLocator        = (new BetterReflection())->astLocator();
+        $originalReflector = new DefaultReflector(new StringSourceLocator($originalSource, $astLocator));
+        $modifiedReflector = new DefaultReflector(new StringSourceLocator($modifiedSource, $astLocator));
+
+        $default = ReflectionMethod::createFromName(Throwable::class, 'getMessage');
+
+        $fromMethod = $originalReflector
+            ->reflectClass('OriginalClass')
+            ->getMethod('methodWithDefaultValue') ?? $default;
+
+        $toMethod = $modifiedReflector
+            ->reflectClass('ModifiedClass')
+            ->getMethod('methodWithDefaultValue') ?? $default;
+
+        $checker = new ParameterDefaultValueChanged();
+
+        $this->expectException(UnableToCompileNode::class);
+
+        $checker($fromMethod, $toMethod);
     }
 
     /**

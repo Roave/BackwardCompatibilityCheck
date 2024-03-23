@@ -63,7 +63,6 @@ final class ParameterDefaultValueChanged implements FunctionBased
                     continue;
                 }
 
-                /** @infection-ignore-all */
                 throw $unableToCompileNode;
             }
 
