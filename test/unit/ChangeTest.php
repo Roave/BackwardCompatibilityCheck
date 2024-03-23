@@ -59,10 +59,14 @@ final class ChangeTest extends TestCase
 
     public function testWillNotOverrideFilePositionsIfAlreadySet(): void
     {
-        $change = Change::changed('foo', false)
+        $baseChangeInstance = Change::changed('foo', false);
+
+        $change = $baseChangeInstance
             ->withFilePositionsIfNotAlreadySet('foo.php', 10, 20)
             ->withFilePositionsIfNotAlreadySet('bar.php', 30, 40)
             ->withFilePositionsIfNotAlreadySet('baz.php', 50, 60);
+
+        self::assertNotSame($change, $baseChangeInstance);
 
         self::assertSame('foo.php', $change->file);
         self::assertSame(10, $change->line);
