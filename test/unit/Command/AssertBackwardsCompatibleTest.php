@@ -141,8 +141,10 @@ final class AssertBackwardsCompatibleTest extends TestCase
         $this->performCheckout->expects(self::exactly(2))
             ->method('checkout')
             ->willReturnCallback(function (CheckedOutRepository $repository, Revision $sha) use ($fromSha, $toSha) {
+                $stringRevision = (string) $sha;
+
                 self::assertEquals($repository, $this->sourceRepository);
-                self::assertTrue((string) $sha === $fromSha || (string) $sha === $toSha);
+                self::assertTrue($stringRevision === $fromSha || $stringRevision === $toSha);
 
                 return $this->sourceRepository;
             });
@@ -204,8 +206,10 @@ final class AssertBackwardsCompatibleTest extends TestCase
         $this->performCheckout->expects(self::exactly(2))
             ->method('checkout')
             ->willReturnCallback(function (CheckedOutRepository $repository, Revision $sha) use ($fromSha, $toSha) {
+                $stringRevision = (string) $sha;
+
                 self::assertEquals($repository, $this->sourceRepository);
-                self::assertTrue((string) $sha === $fromSha || (string) $sha === $toSha);
+                self::assertTrue($stringRevision === $fromSha || $stringRevision === $toSha);
 
                 return $this->sourceRepository;
             });
@@ -268,8 +272,10 @@ final class AssertBackwardsCompatibleTest extends TestCase
         $this->performCheckout->expects(self::exactly(2))
             ->method('checkout')
             ->willReturnCallback(function (CheckedOutRepository $repository, Revision $sha) use ($fromSha, $toSha) {
+                $stringRevision = (string) $sha;
+
                 self::assertEquals($repository, $this->sourceRepository);
-                self::assertTrue((string) $sha === $fromSha || (string) $sha === $toSha);
+                self::assertTrue($stringRevision === $fromSha || $stringRevision === $toSha);
 
                 return $this->sourceRepository;
             });
@@ -344,8 +350,10 @@ final class AssertBackwardsCompatibleTest extends TestCase
         $this->performCheckout->expects(self::exactly(2))
             ->method('checkout')
             ->willReturnCallback(function (CheckedOutRepository $repository, Revision $sha) use ($fromSha, $toSha) {
+                $stringRevision = (string) $sha;
+
                 self::assertEquals($repository, $this->sourceRepository);
-                self::assertTrue((string) $sha === $fromSha || (string) $sha === $toSha);
+                self::assertTrue($stringRevision === $fromSha || $stringRevision === $toSha);
 
                 return $this->sourceRepository;
             });
@@ -457,8 +465,10 @@ final class AssertBackwardsCompatibleTest extends TestCase
         $this->performCheckout->expects(self::exactly(2))
             ->method('checkout')
             ->willReturnCallback(function (CheckedOutRepository $repository, Revision $sha) use ($fromSha, $toSha) {
+                $stringRevision = (string) $sha;
+
                 self::assertEquals($repository, $this->sourceRepository);
-                self::assertTrue((string) $sha === $fromSha || (string) $sha === $toSha);
+                self::assertTrue($stringRevision === $fromSha || $stringRevision === $toSha);
 
                 return $this->sourceRepository;
             });
