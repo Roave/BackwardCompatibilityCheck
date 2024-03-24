@@ -87,4 +87,27 @@ OUTPUT
             $dom->schemaValidate(__DIR__ . '/junit.xsd'),
         );
     }
+
+    public function testEscapeXmlAttributeWithOrBitwise(): void
+    {
+        $output            = new BufferedOutput();
+        $temporaryLocation = Filesystem\create_temporary_file(Env\temp_dir(), 'JunitFormatter');
+
+        Filesystem\delete_file($temporaryLocation);
+        Filesystem\create_directory($temporaryLocation . '/foo/bar/.git');
+
+        $formatter = (new JunitFormatter(
+            $output,
+            CheckedOutRepository::fromPath($temporaryLocation . '/foo/bar'),
+        ));
+
+        $testString = 'Test & "Entity" <tag> \'Single\' &amp; Double';
+        $expected   = 'Test &amp; &quot;Entity&quot; &lt;tag&gt; \'Single\' &amp;amp; Double';
+
+        $result = $formatter->escapeXmlAttribute($testString);
+
+        $this->assertEquals($expected, $result);
+
+        Filesystem\delete_directory($temporaryLocation, true);
+    }
 }

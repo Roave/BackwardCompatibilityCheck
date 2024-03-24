@@ -63,11 +63,8 @@ final class LocateDependenciesViaComposer implements LocateDependencies
     {
         $originalDirectory = Env\current_dir();
 
-        try {
-            Env\set_current_dir($directoryOfExecution);
-            $callable();
-        } finally {
-            Env\set_current_dir($originalDirectory);
-        }
+        Env\set_current_dir($directoryOfExecution);
+        $callable();
+        Env\set_current_dir($originalDirectory);
     }
 }

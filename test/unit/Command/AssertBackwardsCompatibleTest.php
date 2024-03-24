@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\Command;
 
+use ArrayIterator;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psl\Env;
@@ -139,30 +140,43 @@ final class AssertBackwardsCompatibleTest extends TestCase
 
         $this->performCheckout->expects(self::exactly(2))
             ->method('checkout')
-            ->withConsecutive(
-                [$this->sourceRepository, $fromSha],
-                [$this->sourceRepository, $toSha],
-            )->willReturnOnConsecutiveCalls(
-                $this->sourceRepository,
-                $this->sourceRepository,
-            );
+            ->willReturnCallback(function (CheckedOutRepository $repository, Revision $sha) use ($fromSha, $toSha) {
+                $stringRevision = (string) $sha;
+
+                self::assertEquals($repository, $this->sourceRepository);
+                self::assertTrue($stringRevision === $fromSha || $stringRevision === $toSha);
+
+                return $this->sourceRepository;
+            });
+
+        $expectedCalls = new ArrayIterator([
+            $this->sourceRepository,
+            $this->sourceRepository,
+        ]);
 
         $this->performCheckout->expects(self::exactly(2))
             ->method('remove')
-            ->withConsecutive(
-                [$this->sourceRepository],
-                [$this->sourceRepository],
-            );
+            ->willReturnCallback(static function (CheckedOutRepository $repository) use ($expectedCalls): void {
+                self::assertTrue($expectedCalls->valid());
+
+                $expectedRepository = $expectedCalls->current();
+                $expectedCalls->next();
+
+                self::assertSame($expectedRepository, $repository);
+            });
+
+        $expectedShas = [
+            $fromSha => Revision::fromSha1($fromSha),
+            $toSha => Revision::fromSha1($toSha),
+        ];
 
         $this->parseRevision->expects(self::exactly(2))
             ->method('fromStringForRepository')
-            ->withConsecutive(
-                [$fromSha],
-                [$toSha],
-            )->willReturnOnConsecutiveCalls(
-                Revision::fromSha1($fromSha),
-                Revision::fromSha1($toSha),
-            );
+            ->willReturnCallback(static function (string $sha) use ($expectedShas) {
+                self::assertArrayHasKey($sha, $expectedShas);
+
+                return $expectedShas[$sha];
+            });
 
         $this
             ->locateDependencies
@@ -191,30 +205,43 @@ final class AssertBackwardsCompatibleTest extends TestCase
 
         $this->performCheckout->expects(self::exactly(2))
             ->method('checkout')
-            ->withConsecutive(
-                [$this->sourceRepository, $fromSha],
-                [$this->sourceRepository, $toSha],
-            )->willReturnOnConsecutiveCalls(
-                $this->sourceRepository,
-                $this->sourceRepository,
-            );
+            ->willReturnCallback(function (CheckedOutRepository $repository, Revision $sha) use ($fromSha, $toSha) {
+                $stringRevision = (string) $sha;
+
+                self::assertEquals($repository, $this->sourceRepository);
+                self::assertTrue($stringRevision === $fromSha || $stringRevision === $toSha);
+
+                return $this->sourceRepository;
+            });
+
+        $expectedCalls = new ArrayIterator([
+            $this->sourceRepository,
+            $this->sourceRepository,
+        ]);
 
         $this->performCheckout->expects(self::exactly(2))
             ->method('remove')
-            ->withConsecutive(
-                [$this->sourceRepository],
-                [$this->sourceRepository],
-            );
+            ->willReturnCallback(static function (CheckedOutRepository $repository) use ($expectedCalls): void {
+                self::assertTrue($expectedCalls->valid());
+
+                $expectedRepository = $expectedCalls->current();
+                $expectedCalls->next();
+
+                self::assertSame($expectedRepository, $repository);
+            });
+
+        $expectedShas = [
+            $fromSha => Revision::fromSha1($fromSha),
+            $toSha => Revision::fromSha1($toSha),
+        ];
 
         $this->parseRevision->expects(self::exactly(2))
             ->method('fromStringForRepository')
-            ->withConsecutive(
-                [$fromSha],
-                [$toSha],
-            )->willReturnOnConsecutiveCalls(
-                Revision::fromSha1($fromSha),
-                Revision::fromSha1($toSha),
-            );
+            ->willReturnCallback(static function (string $sha) use ($expectedShas) {
+                self::assertArrayHasKey($sha, $expectedShas);
+
+                return $expectedShas[$sha];
+            });
 
         $this
             ->locateDependencies
@@ -244,30 +271,43 @@ final class AssertBackwardsCompatibleTest extends TestCase
 
         $this->performCheckout->expects(self::exactly(2))
             ->method('checkout')
-            ->withConsecutive(
-                [$this->sourceRepository, $fromSha],
-                [$this->sourceRepository, $toSha],
-            )->willReturnOnConsecutiveCalls(
-                $this->sourceRepository,
-                $this->sourceRepository,
-            );
+            ->willReturnCallback(function (CheckedOutRepository $repository, Revision $sha) use ($fromSha, $toSha) {
+                $stringRevision = (string) $sha;
+
+                self::assertEquals($repository, $this->sourceRepository);
+                self::assertTrue($stringRevision === $fromSha || $stringRevision === $toSha);
+
+                return $this->sourceRepository;
+            });
+
+        $expectedCalls = new ArrayIterator([
+            $this->sourceRepository,
+            $this->sourceRepository,
+        ]);
 
         $this->performCheckout->expects(self::exactly(2))
             ->method('remove')
-            ->withConsecutive(
-                [$this->sourceRepository],
-                [$this->sourceRepository],
-            );
+            ->willReturnCallback(static function (CheckedOutRepository $repository) use ($expectedCalls): void {
+                self::assertTrue($expectedCalls->valid());
+
+                $expectedRepository = $expectedCalls->current();
+                $expectedCalls->next();
+
+                self::assertSame($expectedRepository, $repository);
+            });
+
+        $expectedShas = [
+            $fromSha => Revision::fromSha1($fromSha),
+            $toSha => Revision::fromSha1($toSha),
+        ];
 
         $this->parseRevision->expects(self::exactly(2))
             ->method('fromStringForRepository')
-            ->withConsecutive(
-                [$fromSha],
-                [$toSha],
-            )->willReturnOnConsecutiveCalls(
-                Revision::fromSha1($fromSha),
-                Revision::fromSha1($toSha),
-            );
+            ->willReturnCallback(static function (string $sha) use ($expectedShas) {
+                self::assertArrayHasKey($sha, $expectedShas);
+
+                return $expectedShas[$sha];
+            });
 
         $this
             ->locateDependencies
@@ -309,30 +349,43 @@ final class AssertBackwardsCompatibleTest extends TestCase
 
         $this->performCheckout->expects(self::exactly(2))
             ->method('checkout')
-            ->withConsecutive(
-                [$this->sourceRepository, $fromSha],
-                [$this->sourceRepository, $toSha],
-            )->willReturnOnConsecutiveCalls(
-                $this->sourceRepository,
-                $this->sourceRepository,
-            );
+            ->willReturnCallback(function (CheckedOutRepository $repository, Revision $sha) use ($fromSha, $toSha) {
+                $stringRevision = (string) $sha;
+
+                self::assertEquals($repository, $this->sourceRepository);
+                self::assertTrue($stringRevision === $fromSha || $stringRevision === $toSha);
+
+                return $this->sourceRepository;
+            });
+
+        $expectedCalls = new ArrayIterator([
+            $this->sourceRepository,
+            $this->sourceRepository,
+        ]);
 
         $this->performCheckout->expects(self::exactly(2))
             ->method('remove')
-            ->withConsecutive(
-                [$this->sourceRepository],
-                [$this->sourceRepository],
-            );
+            ->willReturnCallback(static function (CheckedOutRepository $repository) use ($expectedCalls): void {
+                self::assertTrue($expectedCalls->valid());
+
+                $expectedRepository = $expectedCalls->current();
+                $expectedCalls->next();
+
+                self::assertSame($expectedRepository, $repository);
+            });
+
+        $expectedShas = [
+            $fromSha => Revision::fromSha1($fromSha),
+            $toSha => Revision::fromSha1($toSha),
+        ];
 
         $this->parseRevision->expects(self::exactly(2))
             ->method('fromStringForRepository')
-            ->withConsecutive(
-                [$fromSha],
-                [$toSha],
-            )->willReturnOnConsecutiveCalls(
-                Revision::fromSha1($fromSha),
-                Revision::fromSha1($toSha),
-            );
+            ->willReturnCallback(static function (string $sha) use ($expectedShas) {
+                self::assertArrayHasKey($sha, $expectedShas);
+
+                return $expectedShas[$sha];
+            });
 
         $this
             ->locateDependencies
@@ -411,30 +464,43 @@ final class AssertBackwardsCompatibleTest extends TestCase
 
         $this->performCheckout->expects(self::exactly(2))
             ->method('checkout')
-            ->withConsecutive(
-                [$this->sourceRepository, $fromSha],
-                [$this->sourceRepository, $toSha],
-            )->willReturnOnConsecutiveCalls(
-                $this->sourceRepository,
-                $this->sourceRepository,
-            );
+            ->willReturnCallback(function (CheckedOutRepository $repository, Revision $sha) use ($fromSha, $toSha) {
+                $stringRevision = (string) $sha;
+
+                self::assertEquals($repository, $this->sourceRepository);
+                self::assertTrue($stringRevision === $fromSha || $stringRevision === $toSha);
+
+                return $this->sourceRepository;
+            });
+
+        $expectedCalls = new ArrayIterator([
+            $this->sourceRepository,
+            $this->sourceRepository,
+        ]);
 
         $this->performCheckout->expects(self::exactly(2))
             ->method('remove')
-            ->withConsecutive(
-                [$this->sourceRepository],
-                [$this->sourceRepository],
-            );
+            ->willReturnCallback(static function (CheckedOutRepository $repository) use ($expectedCalls): void {
+                self::assertTrue($expectedCalls->valid());
+
+                $expectedRepository = $expectedCalls->current();
+                $expectedCalls->next();
+
+                self::assertSame($expectedRepository, $repository);
+            });
+
+        $argumentToRevisionMap = [
+            (string) $pickedVersion => Revision::fromSha1($fromSha),
+            'HEAD' => Revision::fromSha1($toSha),
+        ];
 
         $this->parseRevision->expects(self::exactly(2))
             ->method('fromStringForRepository')
-            ->withConsecutive(
-                [(string) $pickedVersion],
-                ['HEAD'],
-            )->willReturnOnConsecutiveCalls(
-                Revision::fromSha1($fromSha),
-                Revision::fromSha1($toSha),
-            );
+            ->willReturnCallback(static function (string $argument) use ($argumentToRevisionMap) {
+                self::assertArrayHasKey($argument, $argumentToRevisionMap);
+
+                return $argumentToRevisionMap[$argument];
+            });
 
         $this->getVersions->expects(self::once())
             ->method('fromRepository')

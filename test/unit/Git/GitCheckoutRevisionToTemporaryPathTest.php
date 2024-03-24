@@ -121,6 +121,15 @@ final class GitCheckoutRevisionToTemporaryPathTest extends TestCase
         self::assertFalse($successfullyCheckedOutSecondClone);
     }
 
+    public function testCheckoutDirectoryIsCorrect(): void
+    {
+        $git       = new GitCheckoutRevisionToTemporaryPath();
+        $revision  = Revision::fromSha1(self::TEST_REVISION_TO_CHECKOUT);
+        $directory = $git->generateTemporaryPathFor($revision);
+
+        self::assertStringContainsString('/tmp/api-compare-', $directory);
+    }
+
     private function sourceRepository(): CheckedOutRepository
     {
         return CheckedOutRepository::fromPath(
