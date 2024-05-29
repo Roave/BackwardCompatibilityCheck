@@ -4802,12 +4802,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "70a844b0ba76ca3dafc6ca03ceae8ef7d3b60a13"
+                "reference": "37f84fee3d489aa56385d3a24135e2b58af7871d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/70a844b0ba76ca3dafc6ca03ceae8ef7d3b60a13",
-                "reference": "70a844b0ba76ca3dafc6ca03ceae8ef7d3b60a13",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/37f84fee3d489aa56385d3a24135e2b58af7871d",
+                "reference": "37f84fee3d489aa56385d3a24135e2b58af7871d",
                 "shasum": ""
             },
             "conflict": {
@@ -5016,6 +5016,7 @@
                 "funadmin/funadmin": "<=3.2|>=3.3.2,<=3.3.3",
                 "gaoming13/wechat-php-sdk": "<=1.10.2",
                 "genix/cms": "<=1.1.11",
+                "getformwork/formwork": "<1.13",
                 "getgrav/grav": "<1.7.46",
                 "getkirby/cms": "<4.1.1",
                 "getkirby/kirby": "<=2.5.12",
@@ -5591,7 +5592,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-05-27T19:04:58+00:00"
+            "time": "2024-05-28T15:04:55+00:00"
         },
         {
             "name": "sanmai/later",
