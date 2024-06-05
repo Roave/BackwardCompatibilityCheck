@@ -1603,16 +1603,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v7.1.0",
+            "version": "v7.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "5bcde9e0b2ea9bd9772bca17618365ea921c5707"
+                "reference": "9b008f2d7b21c74ef4d0c3de6077a642bc55ece3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/5bcde9e0b2ea9bd9772bca17618365ea921c5707",
-                "reference": "5bcde9e0b2ea9bd9772bca17618365ea921c5707",
+                "url": "https://api.github.com/repos/symfony/console/zipball/9b008f2d7b21c74ef4d0c3de6077a642bc55ece3",
+                "reference": "9b008f2d7b21c74ef4d0c3de6077a642bc55ece3",
                 "shasum": ""
             },
             "require": {
@@ -1676,7 +1676,7 @@
                 "terminal"
             ],
             "support": {
-                "source": "https://github.com/symfony/console/tree/v7.1.0"
+                "source": "https://github.com/symfony/console/tree/v7.1.1"
             },
             "funding": [
                 {
@@ -1692,7 +1692,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-05-17T10:55:18+00:00"
+            "time": "2024-05-31T14:57:53+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -1763,16 +1763,16 @@
         },
         {
             "name": "symfony/filesystem",
-            "version": "v7.1.0",
+            "version": "v7.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/filesystem.git",
-                "reference": "8ecdde25881598f86cdd7cfe8b25302b66a402e9"
+                "reference": "802e87002f919296c9f606457d9fa327a0b3d6b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/filesystem/zipball/8ecdde25881598f86cdd7cfe8b25302b66a402e9",
-                "reference": "8ecdde25881598f86cdd7cfe8b25302b66a402e9",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/802e87002f919296c9f606457d9fa327a0b3d6b2",
+                "reference": "802e87002f919296c9f606457d9fa327a0b3d6b2",
                 "shasum": ""
             },
             "require": {
@@ -1809,7 +1809,7 @@
             "description": "Provides basic utilities for the filesystem",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/filesystem/tree/v7.1.0"
+                "source": "https://github.com/symfony/filesystem/tree/v7.1.1"
             },
             "funding": [
                 {
@@ -1825,20 +1825,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-05-17T10:55:18+00:00"
+            "time": "2024-05-31T14:57:53+00:00"
         },
         {
             "name": "symfony/finder",
-            "version": "v7.1.0",
+            "version": "v7.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "fb6c2d65c3dbf7ad83201a4168d4510c8dddaac7"
+                "reference": "fbb0ba67688b780efbc886c1a0a0948dcf7205d6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/fb6c2d65c3dbf7ad83201a4168d4510c8dddaac7",
-                "reference": "fb6c2d65c3dbf7ad83201a4168d4510c8dddaac7",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/fbb0ba67688b780efbc886c1a0a0948dcf7205d6",
+                "reference": "fbb0ba67688b780efbc886c1a0a0948dcf7205d6",
                 "shasum": ""
             },
             "require": {
@@ -1873,7 +1873,7 @@
             "description": "Finds files and directories via an intuitive fluent interface",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/finder/tree/v7.1.0"
+                "source": "https://github.com/symfony/finder/tree/v7.1.1"
             },
             "funding": [
                 {
@@ -1889,7 +1889,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-04-28T18:29:00+00:00"
+            "time": "2024-05-31T14:57:53+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -2443,16 +2443,16 @@
         },
         {
             "name": "symfony/process",
-            "version": "v7.1.0",
+            "version": "v7.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "56c8a1ea51eb70003fee94a78c7d6d0f44832ce7"
+                "reference": "febf90124323a093c7ee06fdb30e765ca3c20028"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/56c8a1ea51eb70003fee94a78c7d6d0f44832ce7",
-                "reference": "56c8a1ea51eb70003fee94a78c7d6d0f44832ce7",
+                "url": "https://api.github.com/repos/symfony/process/zipball/febf90124323a093c7ee06fdb30e765ca3c20028",
+                "reference": "febf90124323a093c7ee06fdb30e765ca3c20028",
                 "shasum": ""
             },
             "require": {
@@ -2484,7 +2484,7 @@
             "description": "Executes commands in sub-processes",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/process/tree/v7.1.0"
+                "source": "https://github.com/symfony/process/tree/v7.1.1"
             },
             "funding": [
                 {
@@ -2500,7 +2500,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-05-17T10:55:18+00:00"
+            "time": "2024-05-31T14:57:53+00:00"
         },
         {
             "name": "symfony/service-contracts",
@@ -2587,16 +2587,16 @@
         },
         {
             "name": "symfony/string",
-            "version": "v7.1.0",
+            "version": "v7.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/string.git",
-                "reference": "6f41b185e742737917e6f2e3eca37767fba5f17a"
+                "reference": "60bc311c74e0af215101235aa6f471bcbc032df2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/string/zipball/6f41b185e742737917e6f2e3eca37767fba5f17a",
-                "reference": "6f41b185e742737917e6f2e3eca37767fba5f17a",
+                "url": "https://api.github.com/repos/symfony/string/zipball/60bc311c74e0af215101235aa6f471bcbc032df2",
+                "reference": "60bc311c74e0af215101235aa6f471bcbc032df2",
                 "shasum": ""
             },
             "require": {
@@ -2654,7 +2654,7 @@
                 "utf8"
             ],
             "support": {
-                "source": "https://github.com/symfony/string/tree/v7.1.0"
+                "source": "https://github.com/symfony/string/tree/v7.1.1"
             },
             "funding": [
                 {
@@ -2670,7 +2670,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-05-17T10:55:18+00:00"
+            "time": "2024-06-04T06:40:14+00:00"
         }
     ],
     "packages-dev": [
@@ -4805,12 +4805,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "8583ee6fe6fdd08d3dbf9c273fa41704c3a919c1"
+                "reference": "17004a292b277ea89d742333f7d194877a565ddf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/8583ee6fe6fdd08d3dbf9c273fa41704c3a919c1",
-                "reference": "8583ee6fe6fdd08d3dbf9c273fa41704c3a919c1",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/17004a292b277ea89d742333f7d194877a565ddf",
+                "reference": "17004a292b277ea89d742333f7d194877a565ddf",
                 "shasum": ""
             },
             "conflict": {
@@ -4937,7 +4937,7 @@
                 "doctrine/mongodb-odm": "<1.0.2",
                 "doctrine/mongodb-odm-bundle": "<3.0.1",
                 "doctrine/orm": ">=1,<1.2.4|>=2,<2.4.8|>=2.5,<2.5.1|>=2.8.3,<2.8.4",
-                "dolibarr/dolibarr": "<=19",
+                "dolibarr/dolibarr": "<19.0.2",
                 "dompdf/dompdf": "<2.0.4",
                 "doublethreedigital/guest-entries": "<3.1.2",
                 "drupal/core": ">=6,<6.38|>=7,<7.96|>=8,<10.1.8|>=10.2,<10.2.2",
@@ -5161,7 +5161,7 @@
                 "mojo42/jirafeau": "<4.4",
                 "mongodb/mongodb": ">=1,<1.9.2",
                 "monolog/monolog": ">=1.8,<1.12",
-                "moodle/moodle": "<=4.3.3",
+                "moodle/moodle": "<4.3.4",
                 "mos/cimage": "<0.7.19",
                 "movim/moxl": ">=0.8,<=0.10",
                 "movingbytes/social-network": "<=1.2.1",
@@ -5262,7 +5262,7 @@
                 "pimcore/demo": "<10.3",
                 "pimcore/ecommerce-framework-bundle": "<1.0.10",
                 "pimcore/perspective-editor": "<1.5.1",
-                "pimcore/pimcore": "<11.1.6.5-dev|>=11.2,<11.2.3",
+                "pimcore/pimcore": "<11.2.4",
                 "pixelfed/pixelfed": "<0.11.11",
                 "plotly/plotly.js": "<2.25.2",
                 "pocketmine/bedrock-protocol": "<8.0.2",
@@ -5596,7 +5596,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-06-03T21:04:39+00:00"
+            "time": "2024-06-04T19:04:39+00:00"
         },
         {
             "name": "sanmai/later",
