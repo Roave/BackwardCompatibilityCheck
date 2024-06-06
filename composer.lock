@@ -4805,12 +4805,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "17004a292b277ea89d742333f7d194877a565ddf"
+                "reference": "01c19f1a89daf51e8355cc0b7e3113d5274929b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/17004a292b277ea89d742333f7d194877a565ddf",
-                "reference": "17004a292b277ea89d742333f7d194877a565ddf",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/01c19f1a89daf51e8355cc0b7e3113d5274929b5",
+                "reference": "01c19f1a89daf51e8355cc0b7e3113d5274929b5",
                 "shasum": ""
             },
             "conflict": {
@@ -4818,6 +4818,7 @@
                 "admidio/admidio": "<4.2.13",
                 "adodb/adodb-php": "<=5.20.20|>=5.21,<=5.21.3",
                 "aheinze/cockpit": "<2.2",
+                "aimeos/ai-client-html": ">=2020.04.1,<2020.10.27|>=2021.04.1,<2021.10.21|>=2022.04.1,<2022.10.12|>=2023.04.1,<2023.10.14|>=2024.04.1,<2024.04.4",
                 "aimeos/aimeos-core": ">=2022.04.1,<2022.10.17|>=2023.04.1,<2023.10.17|>=2024.04.1,<2024.04.7",
                 "aimeos/aimeos-typo3": "<19.10.12|>=20,<20.10.5",
                 "airesvsg/acf-to-rest-api": "<=3.1",
@@ -5256,7 +5257,7 @@
                 "phpxmlrpc/extras": "<0.6.1",
                 "phpxmlrpc/phpxmlrpc": "<4.9.2",
                 "pi/pi": "<=2.5",
-                "pimcore/admin-ui-classic-bundle": "<1.3.4",
+                "pimcore/admin-ui-classic-bundle": "<=1.4.2",
                 "pimcore/customer-management-framework-bundle": "<4.0.6",
                 "pimcore/data-hub": "<1.2.4",
                 "pimcore/demo": "<10.3",
@@ -5596,7 +5597,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-06-04T19:04:39+00:00"
+            "time": "2024-06-05T14:05:01+00:00"
         },
         {
             "name": "sanmai/later",
