@@ -4805,12 +4805,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "01c19f1a89daf51e8355cc0b7e3113d5274929b5"
+                "reference": "eaf1054e05e097721d376ba8779f55dd6247fcee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/01c19f1a89daf51e8355cc0b7e3113d5274929b5",
-                "reference": "01c19f1a89daf51e8355cc0b7e3113d5274929b5",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/eaf1054e05e097721d376ba8779f55dd6247fcee",
+                "reference": "eaf1054e05e097721d376ba8779f55dd6247fcee",
                 "shasum": ""
             },
             "conflict": {
@@ -4870,6 +4870,7 @@
                 "bmarshall511/wordpress_zero_spam": "<5.2.13",
                 "bolt/bolt": "<3.7.2",
                 "bolt/core": "<=4.2",
+                "born05/craft-twofactorauthentication": "<3.3.4",
                 "bottelet/flarepoint": "<2.2.1",
                 "bref/bref": "<2.1.17",
                 "brightlocal/phpwhois": "<=4.2.5",
@@ -5370,6 +5371,7 @@
                 "studio-42/elfinder": "<2.1.62",
                 "subhh/libconnect": "<7.0.8|>=8,<8.1",
                 "sukohi/surpass": "<1",
+                "sulu/form-bundle": ">=2,<2.5.3",
                 "sulu/sulu": "<1.6.44|>=2,<2.4.17|>=2.5,<2.5.13",
                 "sumocoders/framework-user-bundle": "<1.4",
                 "superbig/craft-audit": "<3.0.2",
@@ -5597,7 +5599,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-06-05T14:05:01+00:00"
+            "time": "2024-06-06T22:04:19+00:00"
         },
         {
             "name": "sanmai/later",
