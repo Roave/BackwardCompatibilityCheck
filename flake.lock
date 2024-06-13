@@ -112,11 +112,11 @@
         "systems": "systems_3"
       },
       "locked": {
-        "lastModified": 1718117545,
+        "lastModified": 1718179871,
         "narHash": "sha256-aBQfcJws/wEyf6z0vr2DBEWL90HP0obNiUoIR2C115w=",
         "owner": "loophp",
         "repo": "nix-shell",
-        "rev": "89ad52567402dcd9a684b09dee06537c81df2c27",
+        "rev": "47ad2cec2915246c2810cc3c970770703f6d27ac",
         "type": "github"
       },
       "original": {
@@ -211,11 +211,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1717974879,
-        "narHash": "sha256-GTO3C88+5DX171F/gVS3Qga/hOs/eRMxPFpiHq2t+D8=",
+        "lastModified": 1718160348,
+        "narHash": "sha256-9YrUjdztqi4Gz8n3mBuqvCkMo4ojrA6nASwyIKWMpus=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "c7b821ba2e1e635ba5a76d299af62821cbcb09f3",
+        "rev": "57d6973abba7ea108bac64ae7629e7431e0199b6",
         "type": "github"
       },
       "original": {
