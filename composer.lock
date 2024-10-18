@@ -4936,12 +4936,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "6360940d585658ef1c4965a053b6632314d4bd5b"
+                "reference": "062376b6f97b90ec6f8731b04c9e5879d1f70ad7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/6360940d585658ef1c4965a053b6632314d4bd5b",
-                "reference": "6360940d585658ef1c4965a053b6632314d4bd5b",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/062376b6f97b90ec6f8731b04c9e5879d1f70ad7",
+                "reference": "062376b6f97b90ec6f8731b04c9e5879d1f70ad7",
                 "shasum": ""
             },
             "conflict": {
@@ -5455,7 +5455,7 @@
                 "rap2hpoutre/laravel-log-viewer": "<0.13",
                 "react/http": ">=0.7,<1.9",
                 "really-simple-plugins/complianz-gdpr": "<6.4.2",
-                "redaxo/source": "<=5.15.1",
+                "redaxo/source": "<=5.17.1",
                 "remdex/livehelperchat": "<4.29",
                 "reportico-web/reportico": "<=8.1",
                 "rhukster/dom-sanitizer": "<1.0.7",
@@ -5759,7 +5759,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-10-16T20:05:11+00:00"
+            "time": "2024-10-17T23:05:35+00:00"
         },
         {
             "name": "sanmai/later",
