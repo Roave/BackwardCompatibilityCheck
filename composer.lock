@@ -4936,12 +4936,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "062376b6f97b90ec6f8731b04c9e5879d1f70ad7"
+                "reference": "2db4b93f047a03be06ec0a890d252e1c8c635f74"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/062376b6f97b90ec6f8731b04c9e5879d1f70ad7",
-                "reference": "062376b6f97b90ec6f8731b04c9e5879d1f70ad7",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/2db4b93f047a03be06ec0a890d252e1c8c635f74",
+                "reference": "2db4b93f047a03be06ec0a890d252e1c8c635f74",
                 "shasum": ""
             },
             "conflict": {
@@ -5529,7 +5529,7 @@
                 "subhh/libconnect": "<7.0.8|>=8,<8.1",
                 "sukohi/surpass": "<1",
                 "sulu/form-bundle": ">=2,<2.5.3",
-                "sulu/sulu": "<1.6.44|>=2,<2.6.5",
+                "sulu/sulu": "<1.6.44|>=2,<2.5.21|>=2.6,<2.6.5",
                 "sumocoders/framework-user-bundle": "<1.4",
                 "superbig/craft-audit": "<3.0.2",
                 "swag/paypal": "<5.4.4",
@@ -5759,7 +5759,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-10-17T23:05:35+00:00"
+            "time": "2024-10-18T15:05:15+00:00"
         },
         {
             "name": "sanmai/later",
