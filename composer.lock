@@ -4936,12 +4936,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "2db4b93f047a03be06ec0a890d252e1c8c635f74"
+                "reference": "51e3fa290bca57eca7ba6c261b8a1278eb13a98a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/2db4b93f047a03be06ec0a890d252e1c8c635f74",
-                "reference": "2db4b93f047a03be06ec0a890d252e1c8c635f74",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/51e3fa290bca57eca7ba6c261b8a1278eb13a98a",
+                "reference": "51e3fa290bca57eca7ba6c261b8a1278eb13a98a",
                 "shasum": ""
             },
             "conflict": {
@@ -5161,7 +5161,7 @@
                 "froxlor/froxlor": "<=2.2.0.0-RC3",
                 "frozennode/administrator": "<=5.0.12",
                 "fuel/core": "<1.8.1",
-                "funadmin/funadmin": "<=3.2|>=3.3.2,<=3.3.3",
+                "funadmin/funadmin": "<=5.0.2",
                 "gaoming13/wechat-php-sdk": "<=1.10.2",
                 "genix/cms": "<=1.1.11",
                 "getformwork/formwork": "<1.13.1|==2.0.0.0-beta1",
@@ -5759,7 +5759,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-10-18T15:05:15+00:00"
+            "time": "2024-10-21T20:05:20+00:00"
         },
         {
             "name": "sanmai/later",
