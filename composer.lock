@@ -4936,12 +4936,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "b9d92910c727387dcb8f5dac744acab5a0190866"
+                "reference": "e3b44e38648ef5386687032582759f9c616c8d19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/b9d92910c727387dcb8f5dac744acab5a0190866",
-                "reference": "b9d92910c727387dcb8f5dac744acab5a0190866",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/e3b44e38648ef5386687032582759f9c616c8d19",
+                "reference": "e3b44e38648ef5386687032582759f9c616c8d19",
                 "shasum": ""
             },
             "conflict": {
@@ -5261,6 +5261,7 @@
                 "laravel/fortify": "<1.11.1",
                 "laravel/framework": "<6.20.44|>=7,<7.30.6|>=8,<8.75",
                 "laravel/laravel": ">=5.4,<5.4.22",
+                "laravel/reverb": "<1.4",
                 "laravel/socialite": ">=1,<2.0.10",
                 "latte/latte": "<2.10.8",
                 "lavalite/cms": "<=9|==10.1",
@@ -5671,7 +5672,7 @@
                 "xataface/xataface": "<3",
                 "xpressengine/xpressengine": "<3.0.15",
                 "yab/quarx": "<2.4.5",
-                "yeswiki/yeswiki": "<4.1",
+                "yeswiki/yeswiki": "<=4.4.4",
                 "yetiforce/yetiforce-crm": "<=6.4",
                 "yidashi/yii2cmf": "<=2",
                 "yii2mod/yii2-cms": "<1.9.2",
@@ -5761,7 +5762,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-10-30T23:05:00+00:00"
+            "time": "2024-10-31T18:06:19+00:00"
         },
         {
             "name": "sanmai/later",
