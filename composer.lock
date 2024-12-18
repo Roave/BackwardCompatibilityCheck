@@ -4934,12 +4934,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "233f7c395ac3b83e3c85aa304f3350bf8897aca5"
+                "reference": "3076981ea708db9685cd16fa83f919cc0bd2cd65"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/233f7c395ac3b83e3c85aa304f3350bf8897aca5",
-                "reference": "233f7c395ac3b83e3c85aa304f3350bf8897aca5",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/3076981ea708db9685cd16fa83f919cc0bd2cd65",
+                "reference": "3076981ea708db9685cd16fa83f919cc0bd2cd65",
                 "shasum": ""
             },
             "conflict": {
@@ -5344,7 +5344,6 @@
                 "neos/swiftmailer": "<5.4.5",
                 "netgen/tagsbundle": ">=3.4,<3.4.11|>=4,<4.0.15",
                 "nette/application": ">=2,<2.0.19|>=2.1,<2.1.13|>=2.2,<2.2.10|>=2.3,<2.3.14|>=2.4,<2.4.16|>=3,<3.0.6",
-                "nette/database": "<=3.2.4",
                 "nette/nette": ">=2,<2.0.19|>=2.1,<2.1.13",
                 "nilsteampassnet/teampass": "<3.0.10",
                 "nonfiction/nterchange": "<4.1.1",
@@ -5778,7 +5777,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-12-13T21:04:51+00:00"
+            "time": "2024-12-17T12:08:23+00:00"
         },
         {
             "name": "sanmai/later",
