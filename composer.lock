@@ -4934,12 +4934,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "abbccc97f36a9c78f033525c019d310433f22b57"
+                "reference": "5a88337185d08d54ac102bc6eb137fc432ea70fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/abbccc97f36a9c78f033525c019d310433f22b57",
-                "reference": "abbccc97f36a9c78f033525c019d310433f22b57",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/5a88337185d08d54ac102bc6eb137fc432ea70fb",
+                "reference": "5a88337185d08d54ac102bc6eb137fc432ea70fb",
                 "shasum": ""
             },
             "conflict": {
@@ -5489,7 +5489,7 @@
                 "shopware/storefront": "<=6.4.8.1|>=6.5.8,<6.5.8.7-dev",
                 "shopxo/shopxo": "<=6.1",
                 "showdoc/showdoc": "<2.10.4",
-                "shuchkin/simplexlsx": ">=1.0.12,<1.1.12",
+                "shuchkin/simplexlsx": ">=1.0.12,<1.1.13",
                 "silverstripe-australia/advancedreports": ">=1,<=2",
                 "silverstripe/admin": "<1.13.19|>=2,<2.1.8",
                 "silverstripe/assets": ">=1,<1.11.1",
@@ -5778,7 +5778,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-12-20T16:05:39+00:00"
+            "time": "2024-12-23T19:04:22+00:00"
         },
         {
             "name": "sanmai/later",
