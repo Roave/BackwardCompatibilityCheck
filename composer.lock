@@ -4934,12 +4934,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "9dd07280fc4c5f6c3d2a3da5e4058fc7288c2a1d"
+                "reference": "1b5fbfd0ff8484f7cc650978bfce4b8273633341"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/9dd07280fc4c5f6c3d2a3da5e4058fc7288c2a1d",
-                "reference": "9dd07280fc4c5f6c3d2a3da5e4058fc7288c2a1d",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/1b5fbfd0ff8484f7cc650978bfce4b8273633341",
+                "reference": "1b5fbfd0ff8484f7cc650978bfce4b8273633341",
                 "shasum": ""
             },
             "conflict": {
@@ -5061,7 +5061,7 @@
                 "datatables/datatables": "<1.10.10",
                 "david-garcia/phpwhois": "<=4.3.1",
                 "dbrisinajumi/d2files": "<1",
-                "dcat/laravel-admin": "<=2.1.3",
+                "dcat/laravel-admin": "<=2.1.3|==2.2.0.0-beta|==2.2.2.0-beta",
                 "derhansen/fe_change_pwd": "<2.0.5|>=3,<3.0.3",
                 "derhansen/sf_event_mgt": "<4.3.1|>=5,<5.1.1|>=7,<7.4",
                 "desperado/xml-bundle": "<=0.1.7",
@@ -5346,7 +5346,7 @@
                 "netgen/tagsbundle": ">=3.4,<3.4.11|>=4,<4.0.15",
                 "nette/application": ">=2,<2.0.19|>=2.1,<2.1.13|>=2.2,<2.2.10|>=2.3,<2.3.14|>=2.4,<2.4.16|>=3,<3.0.6",
                 "nette/nette": ">=2,<2.0.19|>=2.1,<2.1.13",
-                "nilsteampassnet/teampass": "<3.0.10",
+                "nilsteampassnet/teampass": "<3.1.3.1-dev",
                 "nonfiction/nterchange": "<4.1.1",
                 "notrinos/notrinos-erp": "<=0.7",
                 "noumo/easyii": "<=0.9",
@@ -5780,7 +5780,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-12-27T20:05:23+00:00"
+            "time": "2024-12-30T19:04:40+00:00"
         },
         {
             "name": "sanmai/later",
