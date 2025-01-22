@@ -94,11 +94,11 @@
         "systems": "systems_2"
       },
       "locked": {
-        "lastModified": 1734915058,
-        "narHash": "sha256-0YAdO6GeL7hT5CVjrUg8DuBqXZf9kPLgwXQaISzV7d0=",
+        "lastModified": 1737486315,
+        "narHash": "sha256-1FTEMVEa9GmlE5ovZg3xPYwY6Mr29sLCkyTgQJAB1C0=",
         "owner": "loophp",
         "repo": "nix-shell",
-        "rev": "1b1918bce639cb9aa456529887ae06087a5b7c99",
+        "rev": "5ae0f2fcd5d91feb9aa6250064a826ea2c2f3188",
         "type": "github"
       },
       "original": {
