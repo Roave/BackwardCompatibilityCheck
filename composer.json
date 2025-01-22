@@ -5,7 +5,7 @@
         "php": "~8.2.0 || ~8.3.0",
         "azjezz/psl": "^3.0.2",
         "composer/composer": "^2.7.6",
-        "nikic/php-parser": "^4.19.1",
+        "nikic/php-parser": "^5.4.0",
         "nikolaposa/version": "^4.2.0",
         "ocramius/package-versions": "^2.8.0",
         "roave/better-reflection": "^6.26.0",
