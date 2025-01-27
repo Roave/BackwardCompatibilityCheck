@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\DetectChanges\BCBreak\ClassBased;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
@@ -12,7 +13,7 @@ use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\MultipleChecksO
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use RoaveTest\BackwardCompatibility\Assertion;
 
-/** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\MultipleChecksOnAClass */
+#[CoversClass(MultipleChecksOnAClass::class)]
 final class MultipleChecksOnAClassTest extends TestCase
 {
     public function testChecksAllGivenCheckers(): void

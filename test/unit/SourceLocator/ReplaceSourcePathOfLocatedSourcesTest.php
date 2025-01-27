@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\SourceLocator;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 use ReflectionMethod;
@@ -20,7 +22,7 @@ use function array_combine;
 use function array_filter;
 use function array_map;
 
-/** @covers \Roave\BackwardCompatibility\SourceLocator\ReplaceSourcePathOfLocatedSources */
+#[CoversClass(ReplaceSourcePathOfLocatedSources::class)]
 final class ReplaceSourcePathOfLocatedSourcesTest extends TestCase
 {
     public function testWillWrapFoundReflection(): void
@@ -73,9 +75,8 @@ final class ReplaceSourcePathOfLocatedSourcesTest extends TestCase
 
     /**
      * This test makes sure that we didn't forget to override any public API of {@see ReplaceSourcePathOfLocatedSources}
-     *
-     * @dataProvider methodsDeclaredByReplaceSourcePathOfLocatedSources
      */
+    #[DataProvider('methodsDeclaredByReplaceSourcePathOfLocatedSources')]
     public function testAllMethodsOfBaseClassAreOverridden(ReflectionMethod $method): void
     {
         self::assertSame(
@@ -88,7 +89,7 @@ final class ReplaceSourcePathOfLocatedSourcesTest extends TestCase
     }
 
     /** @return array<string, array{ReflectionMethod}> */
-    public function methodsDeclaredByReplaceSourcePathOfLocatedSources(): array
+    public static function methodsDeclaredByReplaceSourcePathOfLocatedSources(): array
     {
         $methods = array_filter(
             (new ReflectionClass(ReplaceSourcePathOfLocatedSources::class))

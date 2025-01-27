@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace RoaveTest\BackwardCompatibility;
 
 use Generator;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Psl\Type;
 use Roave\BackwardCompatibility\Change;
@@ -16,7 +17,7 @@ use function random_int;
 use function serialize;
 use function unserialize;
 
-/** @covers \Roave\BackwardCompatibility\Changes */
+#[CoversClass(Changes::class)]
 final class ChangesTest extends TestCase
 {
     public function testMergeWith(): void
@@ -111,11 +112,10 @@ final class ChangesTest extends TestCase
 
     public function testCount(): void
     {
-        $count = random_int(2, 10);
+        $count   = random_int(2, 10);
+        $changes = Changes::fromList(...array_fill(0, $count, Change::added('foo', true)));
 
-        self::assertCount(
-            $count,
-            Changes::fromList(...array_fill(0, $count, Change::added('foo', true))),
-        );
+        self::assertSame($count, $changes->count());
+        self::assertCount($count, $changes, 'Changes are countable');
     }
 }

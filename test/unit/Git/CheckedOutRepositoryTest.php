@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\Git;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Psl\Env;
 use Psl\Exception\InvariantViolationException;
@@ -11,7 +12,7 @@ use Psl\Filesystem;
 use Psl\SecureRandom;
 use Roave\BackwardCompatibility\Git\CheckedOutRepository;
 
-/** @covers \Roave\BackwardCompatibility\Git\CheckedOutRepository */
+#[CoversClass(CheckedOutRepository::class)]
 final class CheckedOutRepositoryTest extends TestCase
 {
     public function testFromPath(): void

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
@@ -14,7 +15,7 @@ use Roave\BetterReflection\Reflection\ReflectionProperty;
 
 use function uniqid;
 
-/** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\AccessiblePropertyChanged */
+#[CoversClass(AccessiblePropertyChanged::class)]
 final class AccessiblePropertyChangedTest extends TestCase
 {
     /** @var PropertyBased&MockObject */

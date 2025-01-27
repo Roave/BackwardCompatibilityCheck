@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\DetectChanges\BCBreak\ClassConstantBased;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Psl\Type;
 use Roave\BackwardCompatibility\Change;
@@ -18,14 +20,11 @@ use function array_keys;
 use function array_map;
 use function iterator_to_array;
 
-/** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassConstantBased\ClassConstantValueChanged */
+#[CoversClass(ClassConstantValueChanged::class)]
 final class ClassConstantValueChangedTest extends TestCase
 {
-    /**
-     * @param string[] $expectedMessages
-     *
-     * @dataProvider constantsToBeTested
-     */
+    /** @param string[] $expectedMessages */
+    #[DataProvider('constantsToBeTested')]
     public function testDiffs(
         ReflectionClassConstant $fromConstant,
         ReflectionClassConstant $toConstant,
@@ -48,7 +47,7 @@ final class ClassConstantValueChangedTest extends TestCase
      *     2: list<string>
      * }>
      */
-    public function constantsToBeTested(): array
+    public static function constantsToBeTested(): array
     {
         $astLocator = (new BetterReflection())->astLocator();
 

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\PropertyTypeChanged;
@@ -20,14 +22,11 @@ use function array_keys;
 use function array_map;
 use function iterator_to_array;
 
-/** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\PropertyTypeChanged */
+#[CoversClass(PropertyTypeChanged::class)]
 final class PropertyTypeChangedTest extends TestCase
 {
-    /**
-     * @param string[] $expectedMessages
-     *
-     * @dataProvider propertiesToBeTested
-     */
+    /** @param string[] $expectedMessages */
+    #[DataProvider('propertiesToBeTested')]
     public function testDiffs(
         ReflectionProperty $fromProperty,
         ReflectionProperty $toProperty,
@@ -50,7 +49,7 @@ final class PropertyTypeChangedTest extends TestCase
      * @return array<string, array<int, ReflectionProperty|array<int, string>>>
      * @psalm-return array<string, array{0: ReflectionProperty, 1: ReflectionProperty, 2: list<string>}>
      */
-    public function propertiesToBeTested(): array
+    public static function propertiesToBeTested(): array
     {
         $astLocator = (new BetterReflection())->astLocator();
 

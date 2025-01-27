@@ -8,6 +8,8 @@ use PhpParser\Node\Identifier;
 use PhpParser\Node\IntersectionType;
 use PhpParser\Node\NullableType;
 use PhpParser\Node\UnionType;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Psl\Type;
 use Roave\BackwardCompatibility\DetectChanges\Variance\TypeIsCovariant;
@@ -24,10 +26,10 @@ use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 use function array_map;
 use function array_merge;
 
-/** @covers \Roave\BackwardCompatibility\DetectChanges\Variance\TypeIsCovariant */
+#[CoversClass(TypeIsCovariant::class)]
 final class TypeIsCovariantTest extends TestCase
 {
-    /** @dataProvider checkedTypes */
+    #[DataProvider('checkedTypes')]
     public function testCovariance(
         ReflectionIntersectionType|ReflectionUnionType|ReflectionNamedType|null $type,
         ReflectionIntersectionType|ReflectionUnionType|ReflectionNamedType|null $newType,
@@ -46,7 +48,7 @@ final class TypeIsCovariantTest extends TestCase
      *     2: bool
      * }>
      */
-    public function checkedTypes(): array
+    public static function checkedTypes(): array
     {
         $reflector = new DefaultReflector(new StringSourceLocator(
             <<<'PHP'
@@ -498,7 +500,7 @@ PHP
         );
     }
 
-    /** @dataProvider existingTypes */
+    #[DataProvider('existingTypes')]
     public function testCovarianceConsidersSameTypeAlwaysCovariant(
         ReflectionIntersectionType|ReflectionUnionType|ReflectionNamedType|null $type,
     ): void {
@@ -508,7 +510,7 @@ PHP
     }
 
     /** @return list<array{ReflectionIntersectionType|ReflectionUnionType|ReflectionNamedType|null}> */
-    public function existingTypes(): array
+    public static function existingTypes(): array
     {
         $reflector = new DefaultReflector(new StringSourceLocator(
             <<<'PHP'
@@ -557,7 +559,7 @@ PHP
         );
     }
 
-    /** @dataProvider existingNullableTypeStrings */
+    #[DataProvider('existingNullableTypeStrings')]
     public function testCovarianceConsidersNullability(string $type): void
     {
         $reflector = new DefaultReflector(new StringSourceLocator(
@@ -588,7 +590,7 @@ PHP
     }
 
     /** @return string[][] */
-    public function existingNullableTypeStrings(): array
+    public static function existingNullableTypeStrings(): array
     {
         return [
             ['int'],

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\Git;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Psl\Env;
 use Psl\File;
@@ -15,7 +16,7 @@ use Roave\BackwardCompatibility\Git\GitCheckoutRevisionToTemporaryPath;
 use Roave\BackwardCompatibility\Git\Revision;
 use RuntimeException;
 
-/** @covers \Roave\BackwardCompatibility\Git\GitCheckoutRevisionToTemporaryPath */
+#[CoversClass(GitCheckoutRevisionToTemporaryPath::class)]
 final class GitCheckoutRevisionToTemporaryPathTest extends TestCase
 {
     private const TEST_REVISION_TO_CHECKOUT = '428327492a803b6e0c612b157a67a50a47275461';

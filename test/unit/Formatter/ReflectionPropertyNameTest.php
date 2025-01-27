@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\Formatter;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Formatter\ReflectionPropertyName;
 use Roave\BetterReflection\BetterReflection;
@@ -15,10 +17,10 @@ use function array_combine;
 use function array_keys;
 use function array_map;
 
-/** @covers \Roave\BackwardCompatibility\Formatter\ReflectionPropertyName */
+#[CoversClass(ReflectionPropertyName::class)]
 final class ReflectionPropertyNameTest extends TestCase
 {
-    /** @dataProvider propertiesToBeTested */
+    #[DataProvider('propertiesToBeTested')]
     public function testName(ReflectionProperty $property, string $expectedName): void
     {
         self::assertSame($expectedName, (new ReflectionPropertyName())($property));
@@ -28,7 +30,7 @@ final class ReflectionPropertyNameTest extends TestCase
      * @return array<string, array<int, string|ReflectionProperty>>
      * @psalm-return array<string, array{0: ReflectionProperty, 1: string}>
      */
-    public function propertiesToBeTested(): array
+    public static function propertiesToBeTested(): array
     {
         $locator = new StringSourceLocator(
             <<<'PHP'

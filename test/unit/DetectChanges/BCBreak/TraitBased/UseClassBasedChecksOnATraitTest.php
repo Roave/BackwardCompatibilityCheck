@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\DetectChanges\BCBreak\TraitBased;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
@@ -13,7 +14,7 @@ use Roave\BetterReflection\Reflection\ReflectionClass;
 
 use function uniqid;
 
-/** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\TraitBased\UseClassBasedChecksOnATrait */
+#[CoversClass(UseClassBasedChecksOnATrait::class)]
 final class UseClassBasedChecksOnATraitTest extends TestCase
 {
     public function testCompare(): void

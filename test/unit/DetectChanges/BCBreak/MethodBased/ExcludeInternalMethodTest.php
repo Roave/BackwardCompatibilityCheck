@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\DetectChanges\BCBreak\MethodBased;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
@@ -15,7 +16,7 @@ use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 
 use function assert;
 
-/** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased\ExcludeInternalMethod */
+#[CoversClass(ExcludeInternalMethod::class)]
 final class ExcludeInternalMethodTest extends TestCase
 {
     public function testNormalMethodsAreNotExcluded(): void

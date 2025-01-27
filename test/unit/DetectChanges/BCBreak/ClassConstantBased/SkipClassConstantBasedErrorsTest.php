@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace RoaveTest\BackwardCompatibility\DetectChanges\BCBreak\ClassConstantBased;
 
 use Exception;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
@@ -15,7 +16,7 @@ use Roave\BetterReflection\Reflection\ReflectionClassConstant;
 
 use function uniqid;
 
-/** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassConstantBased\SkipClassConstantBasedErrors */
+#[CoversClass(SkipClassConstantBasedErrors::class)]
 final class SkipClassConstantBasedErrorsTest extends TestCase
 {
     /** @var ClassConstantBased&MockObject */

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\DetectChanges\BCBreak\ClassBased;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
@@ -15,7 +16,7 @@ use Roave\BetterReflection\Reflector\DefaultReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 use RoaveTest\BackwardCompatibility\Assertion;
 
-/** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\ConstantChanged */
+#[CoversClass(ConstantChanged::class)]
 final class ConstantChangedTest extends TestCase
 {
     public function testWillDetectChangesInConstants(): void

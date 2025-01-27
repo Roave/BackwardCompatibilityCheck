@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\SourceLocator;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 use ReflectionMethod;
@@ -14,10 +16,10 @@ use function array_combine;
 use function array_filter;
 use function array_map;
 
-/** @covers \Roave\BackwardCompatibility\SourceLocator\LocatedSourceWithStrippedSourcesDirectory */
+#[CoversClass(LocatedSourceWithStrippedSourcesDirectory::class)]
 final class LocatedSourceWithStrippedSourcesDirectoryTest extends TestCase
 {
-    /** @dataProvider verifiedPaths */
+    #[DataProvider('verifiedPaths')]
     public function testWillStripPrefixFilePathWhenLocatedSourceInConfiguredPath(
         string $sourcePath,
         string $strippedSourcesPath,
@@ -37,7 +39,7 @@ final class LocatedSourceWithStrippedSourcesDirectoryTest extends TestCase
     }
     
     /** @return non-empty-list<array{string, string, string}> */
-    public function verifiedPaths(): array
+    public static function verifiedPaths(): array
     {
         return [
             ['/foo/bar.php', '/foo', '/bar.php'],
@@ -155,9 +157,8 @@ final class LocatedSourceWithStrippedSourcesDirectoryTest extends TestCase
 
     /**
      * This test makes sure that we didn't forget to override any public API of {@see LocatedSource}
-     *
-     * @dataProvider methodsDeclaredByLocatedSource
      */
+    #[DataProvider('methodsDeclaredByLocatedSource')]
     public function testAllMethodsOfOriginalLocatedSourceAreOverridden(ReflectionMethod $method): void
     {
         self::assertSame(
@@ -170,7 +171,7 @@ final class LocatedSourceWithStrippedSourcesDirectoryTest extends TestCase
     }
     
     /** @return array<string, array{ReflectionMethod}> */
-    public function methodsDeclaredByLocatedSource(): array
+    public static function methodsDeclaredByLocatedSource(): array
     {
         $methods = array_filter(
             (new ReflectionClass(LocatedSourceWithStrippedSourcesDirectory::class))

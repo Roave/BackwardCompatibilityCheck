@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\Formatter;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Psl\Env;
 use Psl\Filesystem;
@@ -14,7 +15,7 @@ use Roave\BackwardCompatibility\Formatter\GithubActionsFormatter;
 use Roave\BackwardCompatibility\Git\CheckedOutRepository;
 use Symfony\Component\Console\Output\BufferedOutput;
 
-/** @covers \Roave\BackwardCompatibility\Formatter\GithubActionsFormatter */
+#[CoversClass(GithubActionsFormatter::class)]
 final class GithubActionsFormatterTest extends TestCase
 {
     /** @throws ReflectionException */

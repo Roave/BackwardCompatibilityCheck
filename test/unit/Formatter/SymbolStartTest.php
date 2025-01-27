@@ -6,6 +6,7 @@ namespace RoaveTest\BackwardCompatibility\Formatter;
 
 use BadMethodCallException;
 use PhpParser\Node\Stmt\Function_;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Formatter\SymbolStart;
 use Roave\BetterReflection\BetterReflection;
@@ -19,7 +20,7 @@ use Roave\BetterReflection\SourceLocator\Located\LocatedSource;
 use Roave\BetterReflection\SourceLocator\Type\SourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 
-/** @covers \Roave\BackwardCompatibility\Formatter\SymbolStart */
+#[CoversClass(SymbolStart::class)]
 final class SymbolStartTest extends TestCase
 {
     public function testCanGetStartColumnForSimpleSymbol(): void

@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace RoaveTest\BackwardCompatibility\Command;
 
 use ArrayIterator;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psl\Env;
@@ -37,7 +39,7 @@ use Version\VersionCollection;
 use function assert;
 use function is_string;
 
-/** @covers \Roave\BackwardCompatibility\Command\AssertBackwardsCompatible */
+#[CoversClass(AssertBackwardsCompatible::class)]
 final class AssertBackwardsCompatibleTest extends TestCase
 {
     private CheckedOutRepository $sourceRepository;
@@ -446,12 +448,12 @@ final class AssertBackwardsCompatibleTest extends TestCase
         $this->compare->execute($this->input, $this->output);
     }
 
-    /** @dataProvider validVersionCollections */
+    #[DataProvider('validVersionCollections')]
     public function testExecuteWithDefaultRevisionsNotProvided(VersionCollection $versions): void
     {
         $fromSha       = Hash\Context::forAlgorithm(Hash\Algorithm::Sha1)->update('fromRevision')->finalize();
         $toSha         = Hash\Context::forAlgorithm(Hash\Algorithm::Sha1)->update('toRevision')->finalize();
-        $pickedVersion = $this->makeVersion('1.0.0');
+        $pickedVersion = self::makeVersion('1.0.0');
 
         $this->input->method('getOption')->willReturnMap([
             ['from', null],
@@ -531,28 +533,28 @@ final class AssertBackwardsCompatibleTest extends TestCase
     }
 
     /** @return VersionCollection[][] */
-    public function validVersionCollections(): array
+    public static function validVersionCollections(): array
     {
         return [
             [
                 new VersionCollection(
-                    $this->makeVersion('1.0.0'),
-                    $this->makeVersion('1.0.1'),
-                    $this->makeVersion('1.0.2'),
+                    self::makeVersion('1.0.0'),
+                    self::makeVersion('1.0.1'),
+                    self::makeVersion('1.0.2'),
                 ),
             ],
             [
                 new VersionCollection(
-                    $this->makeVersion('1.0.0'),
-                    $this->makeVersion('1.0.1'),
+                    self::makeVersion('1.0.0'),
+                    self::makeVersion('1.0.1'),
                 ),
             ],
-            [new VersionCollection($this->makeVersion('1.0.0'))],
+            [new VersionCollection(self::makeVersion('1.0.0'))],
         ];
     }
 
     /** @psalm-param non-empty-string $version */
-    private function makeVersion(string $version): Version
+    private static function makeVersion(string $version): Version
     {
         return Type\instance_of(Version::class)
             ->coerce(Version::fromString($version));

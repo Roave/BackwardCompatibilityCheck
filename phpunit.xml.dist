@@ -4,7 +4,7 @@
     xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
     bootstrap="test/bootstrap.php"
     colors="true"
-    convertDeprecationsToExceptions="true"
+    failOnDeprecation="true"
 >
     <testsuites>
         <testsuite name="unit">
@@ -14,12 +14,12 @@
             <directory>./test/e2e</directory>
         </testsuite>
     </testsuites>
-
-    <coverage processUncoveredFiles="true">
+    
+    <source>
         <include>
-            <directory suffix=".php">./src</directory>
+            <directory>src</directory>
         </include>
-    </coverage>
+    </source>
 
     <php>
         <ini name="error_reporting" value="E_ALL"/>

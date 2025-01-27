@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\DetectChanges\BCBreak\ClassBased;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\EnumCasesChanged;
@@ -16,14 +18,11 @@ use stdClass;
 use function array_map;
 use function iterator_to_array;
 
-/** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\EnumCasesChanged */
+#[CoversClass(EnumCasesChanged::class)]
 final class EnumCasesChangedTest extends TestCase
 {
-    /**
-     * @param string[] $expectedMessages
-     *
-     * @dataProvider enumsToBeTested
-     */
+    /** @param string[] $expectedMessages */
+    #[DataProvider('enumsToBeTested')]
     public function testDiffs(
         ReflectionClass $fromEnum,
         ReflectionClass $toEnum,
@@ -69,7 +68,7 @@ final class EnumCasesChangedTest extends TestCase
      * @return array<string, array<int, ReflectionClass|array<int, string>>>
      * @psalm-return array<string, array{0: ReflectionClass, 1: ReflectionClass, 2: list<string>}>
      */
-    public function enumsToBeTested(): array
+    public static function enumsToBeTested(): array
     {
         $locator = (new BetterReflection())->astLocator();
 

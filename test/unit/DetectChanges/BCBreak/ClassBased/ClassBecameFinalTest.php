@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\DetectChanges\BCBreak\ClassBased;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\ClassBecameFinal;
@@ -15,13 +17,11 @@ use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 use function array_map;
 use function iterator_to_array;
 
+#[CoversClass(ClassBecameFinal::class)]
 final class ClassBecameFinalTest extends TestCase
 {
-    /**
-     * @param string[] $expectedMessages
-     *
-     * @dataProvider classesToBeTested
-     */
+    /** @param string[] $expectedMessages */
+    #[DataProvider('classesToBeTested')]
     public function testDiffs(
         ReflectionClass $fromClass,
         ReflectionClass $toClass,
@@ -41,7 +41,7 @@ final class ClassBecameFinalTest extends TestCase
      * @return array<string, array<int, ReflectionClass|array<int, string>>>
      * @psalm-return array<string, array{0: ReflectionClass, 1: ReflectionClass, 2: list<string>}>
      */
-    public function classesToBeTested(): array
+    public static function classesToBeTested(): array
     {
         $locator       = (new BetterReflection())->astLocator();
         $fromReflector = new DefaultReflector(new StringSourceLocator(

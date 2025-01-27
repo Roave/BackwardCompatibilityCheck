@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\Git;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Psl\Exception\InvariantViolationException;
 use Psl\Type;
@@ -13,14 +15,14 @@ use Version\VersionCollection;
 
 use function array_map;
 
-/** @covers \Roave\BackwardCompatibility\Git\PickLastVersionFromCollection */
+#[CoversClass(PickLastVersionFromCollection::class)]
 final class PickLastVersionFromCollectionTest extends TestCase
 {
     /**
      * @return array<int, array<int, string|array<int, string>>>
      * @psalm-return array<int, array{0: string, 1: list<string>}>
      */
-    public function lastStableVersionForCollectionProvider(): array
+    public static function lastStableVersionForCollectionProvider(): array
     {
         return [
             ['2.2.0', ['1.1.0', '2.1.1', '2.2.0', '1.2.1']],
@@ -39,11 +41,8 @@ final class PickLastVersionFromCollectionTest extends TestCase
         ];
     }
 
-    /**
-     * @param string[] $collectionOfVersions
-     *
-     * @dataProvider lastStableVersionForCollectionProvider
-     */
+    /** @param string[] $collectionOfVersions */
+    #[DataProvider('lastStableVersionForCollectionProvider')]
     public function testForRepository(string $expectedVersion, array $collectionOfVersions): void
     {
         self::assertSame(

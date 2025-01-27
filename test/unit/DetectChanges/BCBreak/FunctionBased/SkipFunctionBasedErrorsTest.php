@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace RoaveTest\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased;
 
 use Exception;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
@@ -15,7 +16,7 @@ use Roave\BetterReflection\Reflection\ReflectionFunction;
 
 use function uniqid;
 
-/** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\SkipFunctionBasedErrors */
+#[CoversClass(SkipFunctionBasedErrors::class)]
 final class SkipFunctionBasedErrorsTest extends TestCase
 {
     /** @var FunctionBased&MockObject */

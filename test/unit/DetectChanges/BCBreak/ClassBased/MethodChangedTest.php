@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\DetectChanges\BCBreak\ClassBased;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
@@ -17,7 +18,7 @@ use RoaveTest\BackwardCompatibility\Assertion;
 
 use function strtolower;
 
-/** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased\MethodChanged */
+#[CoversClass(MethodChanged::class)]
 final class MethodChangedTest extends TestCase
 {
     public function testWillDetectChangesInMethods(): void

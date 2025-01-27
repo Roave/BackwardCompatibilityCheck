@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\Factory;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Factory\ComposerInstallationReflectorFactory;
 use Roave\BackwardCompatibility\LocateSources\LocateSources;
@@ -13,7 +14,7 @@ use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 
 use function uniqid;
 
-/** @covers \Roave\BackwardCompatibility\Factory\ComposerInstallationReflectorFactory */
+#[CoversClass(ComposerInstallationReflectorFactory::class)]
 final class ComposerInstallationReflectorFactoryTest extends TestCase
 {
     /**

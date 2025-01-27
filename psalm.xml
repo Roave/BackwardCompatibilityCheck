@@ -32,6 +32,12 @@
                 <directory name="test"/>
             </errorLevel>
         </InternalMethod>
+        <UnusedMethod>
+            <errorLevel type="suppress">
+                <!-- psalm/plugin-phpunit does not yet understand the #[DataProvider] attribute -->
+                <directory name="test"/>
+            </errorLevel>
+        </UnusedMethod>
     </issueHandlers>
 
     <plugins>

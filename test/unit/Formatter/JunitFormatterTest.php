@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace RoaveTest\BackwardCompatibility\Formatter;
 
 use DOMDocument;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Psl\Env;
 use Psl\Filesystem;
@@ -17,7 +18,7 @@ use Symfony\Component\Console\Output\BufferedOutput;
 
 use function extension_loaded;
 
-/** @covers \Roave\BackwardCompatibility\Formatter\JunitFormatter */
+#[CoversClass(JunitFormatter::class)]
 final class JunitFormatterTest extends TestCase
 {
     /** @throws ReflectionException */

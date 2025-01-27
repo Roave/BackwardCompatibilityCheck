@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace RoaveE2ETest\BackwardCompatibility\Command;
 
+use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\TestCase;
 use Psl\Env;
 use Psl\File;
@@ -11,7 +12,7 @@ use Psl\Filesystem;
 use Psl\Shell;
 use Psl\Str;
 
-/** @coversNothing */
+#[CoversNothing]
 final class AssertBackwardsCompatibleTest extends TestCase
 {
     private const COMPOSER_MANIFEST = <<<'JSON'

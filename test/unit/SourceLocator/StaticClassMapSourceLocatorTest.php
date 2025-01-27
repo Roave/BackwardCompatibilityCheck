@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\SourceLocator;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psl\Exception\InvariantViolationException;
@@ -17,7 +19,7 @@ use Roave\BetterReflection\Reflector\Reflector;
 use Roave\BetterReflection\SourceLocator\Ast\Locator;
 use Roave\BetterReflection\SourceLocator\Located\LocatedSource;
 
-/** @covers \Roave\BackwardCompatibility\SourceLocator\StaticClassMapSourceLocator */
+#[CoversClass(StaticClassMapSourceLocator::class)]
 final class StaticClassMapSourceLocatorTest extends TestCase
 {
     /** @var Locator&MockObject */
@@ -65,11 +67,8 @@ final class StaticClassMapSourceLocatorTest extends TestCase
         ));
     }
 
-    /**
-     * @param non-empty-string $thisClassFilePath
-     *
-     * @dataProvider thisClassPossiblePaths
-     */
+    /** @param non-empty-string $thisClassFilePath */
+    #[DataProvider('thisClassPossiblePaths')]
     public function testWillLocateThisClass(string $thisClassFilePath): void
     {
         $locator    = new StaticClassMapSourceLocator([self::class => $thisClassFilePath], $this->astLocator);

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace RoaveTest\BackwardCompatibility\Formatter;
 
 use EnricoStahn\JsonAssert\AssertClass as JsonAssert;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Psl\Env;
 use Psl\Filesystem;
@@ -21,7 +22,7 @@ use function json_decode;
 
 use const JSON_THROW_ON_ERROR;
 
-/** @covers \Roave\BackwardCompatibility\Formatter\JsonFormatter */
+#[CoversClass(JsonFormatter::class)]
 final class JsonFormatterTest extends TestCase
 {
     /** @throws ReflectionException */

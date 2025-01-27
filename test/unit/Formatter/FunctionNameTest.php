@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\Formatter;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Formatter\FunctionName;
 use Roave\BetterReflection\BetterReflection;
@@ -15,10 +17,10 @@ use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 
 use function assert;
 
-/** @covers \Roave\BackwardCompatibility\Formatter\FunctionName */
+#[CoversClass(FunctionName::class)]
 final class FunctionNameTest extends TestCase
 {
-    /** @dataProvider functionsToBeTested */
+    #[DataProvider('functionsToBeTested')]
     public function testName(ReflectionFunction|ReflectionMethod $function, string $expectedName): void
     {
         self::assertSame($expectedName, (new FunctionName())($function));
@@ -30,7 +32,7 @@ final class FunctionNameTest extends TestCase
      *     1: string
      * }>
      */
-    public function functionsToBeTested(): array
+    public static function functionsToBeTested(): array
     {
         $locator = new StringSourceLocator(
             <<<'PHP'
@@ -67,18 +69,18 @@ PHP
                 'N1\b()',
             ],
             'N2\C::d' => [
-                $this->getMethod($reflector->reflectClass('N2\C'), 'd'),
+                self::getMethod($reflector->reflectClass('N2\C'), 'd'),
                 'N2\C::d()',
             ],
             'N2\C#e'  => [
-                $this->getMethod($reflector->reflectClass('N2\C'), 'e'),
+                self::getMethod($reflector->reflectClass('N2\C'), 'e'),
                 'N2\C#e()',
             ],
         ];
     }
 
     /** @param non-empty-string $name */
-    private function getMethod(ReflectionClass $class, string $name): ReflectionMethod
+    private static function getMethod(ReflectionClass $class, string $name): ReflectionMethod
     {
         $method = $class->getMethod($name);
 

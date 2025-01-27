@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace RoaveTest\BackwardCompatibility\LocateDependencies;
 
 use Composer\Installer;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psl\Env;
@@ -19,7 +20,7 @@ use Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\SourceLocator;
 
-/** @covers \Roave\BackwardCompatibility\LocateDependencies\LocateDependenciesViaComposer */
+#[CoversClass(LocateDependenciesViaComposer::class)]
 final class LocateDependenciesViaComposerTest extends TestCase
 {
     private string $originalCwd;

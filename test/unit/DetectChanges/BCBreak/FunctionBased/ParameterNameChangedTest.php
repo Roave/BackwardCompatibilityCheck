@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\ParameterNameChanged;
@@ -19,14 +21,11 @@ use function array_map;
 use function assert;
 use function iterator_to_array;
 
-/** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\ParameterNameChanged */
+#[CoversClass(ParameterNameChanged::class)]
 final class ParameterNameChangedTest extends TestCase
 {
-    /**
-     * @param string[] $expectedMessages
-     *
-     * @dataProvider functionsToBeTested
-     */
+    /** @param string[] $expectedMessages */
+    #[DataProvider('functionsToBeTested')]
     public function testDiffs(
         ReflectionMethod|ReflectionFunction $fromFunction,
         ReflectionMethod|ReflectionFunction $toFunction,
@@ -50,7 +49,7 @@ final class ParameterNameChangedTest extends TestCase
      *     2: list<string>
      * }>
      */
-    public function functionsToBeTested(): array
+    public static function functionsToBeTested(): array
     {
         $astLocator = (new BetterReflection())->astLocator();
 

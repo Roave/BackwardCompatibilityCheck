@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\LocateSources;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\LocateSources\LocateSourcesViaComposerJson;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflector\DefaultReflector;
 
-/** @covers \Roave\BackwardCompatibility\LocateSources\LocateSourcesViaComposerJson */
+#[CoversClass(LocateSourcesViaComposerJson::class)]
 final class LocateSourcesViaComposerJsonTest extends TestCase
 {
     private LocateSourcesViaComposerJson $locateSources;

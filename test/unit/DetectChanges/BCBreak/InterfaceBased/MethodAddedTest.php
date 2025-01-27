@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\InterfaceBased\MethodAdded;
@@ -17,13 +19,11 @@ use function array_keys;
 use function array_map;
 use function iterator_to_array;
 
+#[CoversClass(MethodAdded::class)]
 final class MethodAddedTest extends TestCase
 {
-    /**
-     * @param string[] $expectedMessages
-     *
-     * @dataProvider interfacesToBeTested
-     */
+    /** @param string[] $expectedMessages */
+    #[DataProvider('interfacesToBeTested')]
     public function testDiffs(
         ReflectionClass $fromInterface,
         ReflectionClass $toInterface,
@@ -43,7 +43,7 @@ final class MethodAddedTest extends TestCase
      * @return array<string, array<int, ReflectionClass|array<int, string>>>
      * @psalm-return array<string, array{0: ReflectionClass, 1: ReflectionClass, 2: list<string>}>
      */
-    public function interfacesToBeTested(): array
+    public static function interfacesToBeTested(): array
     {
         $astLocator = (new BetterReflection())->astLocator();
 

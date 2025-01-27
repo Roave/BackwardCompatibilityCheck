@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace RoaveTest\BackwardCompatibility;
 
 use Exception;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
 
 use function uniqid;
 
-/** @covers \Roave\BackwardCompatibility\Change */
+#[CoversClass(Change::class)]
 final class ChangeTest extends TestCase
 {
     public function testAdded(): void

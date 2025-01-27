@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\Git;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Psl\Dict;
 use Psl\Env;
@@ -16,7 +17,7 @@ use Roave\BackwardCompatibility\Git\CheckedOutRepository;
 use Roave\BackwardCompatibility\Git\GetVersionCollectionFromGitRepository;
 use Version\Version;
 
-/** @covers \Roave\BackwardCompatibility\Git\GetVersionCollectionFromGitRepository */
+#[CoversClass(GetVersionCollectionFromGitRepository::class)]
 final class GetVersionCollectionFromGitRepositoryTest extends TestCase
 {
     private CheckedOutRepository $repoPath;

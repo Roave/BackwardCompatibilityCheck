@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\DetectChanges\BCBreak\ClassConstantBased;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
@@ -14,7 +15,7 @@ use Roave\BetterReflection\Reflection\ReflectionClassConstant;
 
 use function uniqid;
 
-/** @covers \Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassConstantBased\OnlyPublicClassConstantChanged */
+#[CoversClass(OnlyPublicClassConstantChanged::class)]
 final class OnlyPublicClassConstantChangedTest extends TestCase
 {
     /** @var ClassConstantBased&MockObject */

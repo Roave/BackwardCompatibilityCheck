@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace RoaveTest\BackwardCompatibility\Formatter;
 
 use Exception;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Formatter\MarkdownPipedToSymfonyConsoleFormatter;
 use Symfony\Component\Console\Output\OutputInterface;
 
-/** @covers \Roave\BackwardCompatibility\Formatter\MarkdownPipedToSymfonyConsoleFormatter */
+#[CoversClass(MarkdownPipedToSymfonyConsoleFormatter::class)]
 final class MarkdownPipedToSymfonyConsoleFormatterTest extends TestCase
 {
     public function testWrite(): void
