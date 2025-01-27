@@ -9,7 +9,7 @@ use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Git\CheckedOutRepository;
 use Symfony\Component\Console\Output\OutputInterface;
 
-use function json_encode;
+use function Psl\Json\encode;
 
 /** @internal */
 final class JsonFormatter implements OutputFormatter
@@ -34,6 +34,6 @@ final class JsonFormatter implements OutputFormatter
             ];
         }
 
-        $this->output->writeln(json_encode(['errors' => $result]));
+        $this->output->writeln(encode(['errors' => $result]));
     }
 }
