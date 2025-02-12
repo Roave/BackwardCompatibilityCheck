@@ -5909,12 +5909,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "24296413a9838930e7c039f5eaf985ccec766103"
+                "reference": "b3b8e9af2f66bf476ec0c4bbaf5ca069488c643e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/24296413a9838930e7c039f5eaf985ccec766103",
-                "reference": "24296413a9838930e7c039f5eaf985ccec766103",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/b3b8e9af2f66bf476ec0c4bbaf5ca069488c643e",
+                "reference": "b3b8e9af2f66bf476ec0c4bbaf5ca069488c643e",
                 "shasum": ""
             },
             "conflict": {
@@ -6270,6 +6270,7 @@
                 "magento/magento1ce": "<1.9.4.3-dev",
                 "magento/magento1ee": ">=1,<1.14.4.3-dev",
                 "magento/product-community-edition": "<2.4.4.0-patch9|>=2.4.5,<2.4.5.0-patch8|>=2.4.6,<2.4.6.0-patch6|>=2.4.7,<2.4.7.0-patch1",
+                "magento/project-community-edition": "<=2.0.2",
                 "magneto/core": "<1.9.4.4-dev",
                 "maikuolan/phpmussel": ">=1,<1.6",
                 "mainwp/mainwp": "<=4.4.3.3",
@@ -6449,7 +6450,7 @@
                 "rap2hpoutre/laravel-log-viewer": "<0.13",
                 "react/http": ">=0.7,<1.9",
                 "really-simple-plugins/complianz-gdpr": "<6.4.2",
-                "redaxo/source": "<5.18",
+                "redaxo/source": "<=5.18.1",
                 "remdex/livehelperchat": "<4.29",
                 "reportico-web/reportico": "<=8.1",
                 "rhukster/dom-sanitizer": "<1.0.7",
@@ -6774,7 +6775,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-02-07T21:04:27+00:00"
+            "time": "2025-02-10T21:04:44+00:00"
         },
         {
             "name": "sanmai/later",
