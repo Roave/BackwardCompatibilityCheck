@@ -27,7 +27,7 @@
         }
     ],
     "require-dev": {
-        "doctrine/coding-standard": "^12.0.0",
+        "doctrine/coding-standard": "^13.0.1",
         "estahn/phpunit-json-assertions": "^4.0",
         "php-standard-library/psalm-plugin": "^2.3.0",
         "phpunit/phpunit": "^11.5.7",
