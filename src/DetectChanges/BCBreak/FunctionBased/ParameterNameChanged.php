@@ -24,7 +24,7 @@ use function str_contains;
  */
 final class ParameterNameChanged implements FunctionBased
 {
-    private const NO_NAMED_ARGUMENTS_ANNOTATION = '@no-named-arguments';
+    private const string NO_NAMED_ARGUMENTS_ANNOTATION = '@no-named-arguments';
 
     private FunctionName $formatFunction;
 

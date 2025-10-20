@@ -10,10 +10,10 @@ use Throwable;
 /** @psalm-immutable */
 final class Change
 {
-    private const ADDED   = 'added';
-    private const CHANGED = 'changed';
-    private const REMOVED = 'removed';
-    private const SKIPPED = 'skipped';
+    private const string ADDED   = 'added';
+    private const string CHANGED = 'changed';
+    private const string REMOVED = 'removed';
+    private const string SKIPPED = 'skipped';
 
     /** @psalm-param self::* $modificationType */
     private function __construct(

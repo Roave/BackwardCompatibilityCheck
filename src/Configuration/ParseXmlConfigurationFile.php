@@ -16,9 +16,9 @@ use function libxml_use_internal_errors;
 /** @internal */
 final class ParseXmlConfigurationFile implements ParseConfigurationFile
 {
-    private const CONFIGURATION_FILENAME = '.roave-backward-compatibility-check.xml';
+    private const string CONFIGURATION_FILENAME = '.roave-backward-compatibility-check.xml';
 
-    private const SCHEMA = __DIR__ . '/../../Resources/schema.xsd';
+    private const string SCHEMA = __DIR__ . '/../../Resources/schema.xsd';
 
     public function parse(string $currentDirectory): Configuration
     {

@@ -324,10 +324,9 @@ use function file_exists;
     $application->add($apiCompareCommand);
     $application->setDefaultCommand('roave-backwards-compatibility-check:assert-backwards-compatible');
 
-    // @codingStandardsIgnoreStart
     $output->getErrorOutput()
         ->writeln(
-<<<'MARKDOWN'
+            <<<'MARKDOWN'
 ## 🇷🇺 Российским гражданам
 
 В Украине сейчас идет война. Силами РФ наносятся удары по гражданской инфраструктуре в [Харькове][1], [Киеве][2], [Чернигове][3], [Сумах][4], [Ирпене][5] и десятках других городов. Гибнут люди - и гражданское население, и военные, в том числе российские призывники, которых бросили воевать. Чтобы лишить собственный народ доступа к информации, правительство РФ запретило называть войну войной, закрыло независимые СМИ и принимает сейчас ряд диктаторских законов. Эти законы призваны заткнуть рот всем, кто против войны. За обычный призыв к миру сейчас можно получить несколько лет тюрьмы.
@@ -353,9 +352,8 @@ Do not be silent! Silence is a sign that you accept the Russian government's pol
 <fg=#0057b7>#StandWith</><fg=#ffd700>Ukraine</>
 
 
-MARKDOWN
+MARKDOWN,
         );
-    // @codingStandardsIgnoreEnd
 
     $application->run($input, $output);
 })();
