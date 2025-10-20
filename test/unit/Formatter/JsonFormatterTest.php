@@ -4,23 +4,19 @@ declare(strict_types=1);
 
 namespace RoaveTest\BackwardCompatibility\Formatter;
 
-use EnricoStahn\JsonAssert\AssertClass as JsonAssert;
+use JsonSchema\Validator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Psl\Env;
+use Psl\File;
 use Psl\Filesystem;
+use Psl\Json;
 use ReflectionException;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Formatter\JsonFormatter;
 use Roave\BackwardCompatibility\Git\CheckedOutRepository;
-use stdClass;
 use Symfony\Component\Console\Output\BufferedOutput;
-
-use function dirname;
-use function json_decode;
-
-use const JSON_THROW_ON_ERROR;
 
 #[CoversClass(JsonFormatter::class)]
 final class JsonFormatterTest extends TestCase
@@ -76,14 +72,21 @@ final class JsonFormatterTest extends TestCase
         $json = $output->fetch();
         self::assertJson($json);
 
-        $data = json_decode($json, true);
+        $data = Json\decode($json);
         self::assertIsArray($data);
         self::assertEquals($expected, $data);
+        
+        /** @var mixed $content */
+        $content = Json\decode($json, false);
+        
+        $validator = new Validator();
+        
+        $validator->validate(
+            $content,
+            Json\decode(File\read(__DIR__ . '/../../../Resources/errors.schema.json')),
+        );
 
-        $content = json_decode($json, flags: JSON_THROW_ON_ERROR);
-        self::assertInstanceOf(stdClass::class, $content);
-        JsonAssert::assertJsonMatchesSchema($content, dirname(__DIR__, 3) . '/Resources/errors.schema.json');
-
+        self::assertEmpty($validator->getErrors());
         self::assertJsonStringEqualsJsonString(
             <<<'OUTPUT'
 {"errors":[{"description":"foo","path":null,"line":null,"column":null,"modificationType":"removed"},{"description":"bar","path":null,"line":null,"column":null,"modificationType":"added"},{"description":"baz","path":"baz-file.php","line":null,"column":null,"modificationType":"changed"},{"description":"tab","path":"tab-file.php","line":5,"column":null,"modificationType":"changed"},{"description":"taz","path":"taz-file.php","line":6,"column":15,"modificationType":"changed"},{"description":"tar","path":"tar-file.php","line":-1,"column":-1,"modificationType":"changed"},{"description":"file-in-checked-out-dir","path":"subpath\/file-in-checked-out-dir.php","line":10,"column":20,"modificationType":"changed"}]}
