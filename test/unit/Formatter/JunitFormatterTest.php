@@ -97,10 +97,10 @@ OUTPUT
         Filesystem\delete_file($temporaryLocation);
         Filesystem\create_directory($temporaryLocation . '/foo/bar/.git');
 
-        $formatter = (new JunitFormatter(
+        $formatter = new JunitFormatter(
             $output,
             CheckedOutRepository::fromPath($temporaryLocation . '/foo/bar'),
-        ));
+        );
 
         $testString = 'Test & "Entity" <tag> \'Single\' &amp; Double';
         $expected   = 'Test &amp; &quot;Entity&quot; &lt;tag&gt; \'Single\' &amp;amp; Double';
