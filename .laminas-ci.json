@@ -2,6 +2,9 @@
     "extensions": [
         "bcmath", "pcov"
     ],
+    "ignore_php_platform_requirements": {
+        "8.5": true
+    },
     "ini": [
         "memory_limit=-1"
     ],
