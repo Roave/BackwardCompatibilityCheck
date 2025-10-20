@@ -39,7 +39,8 @@
     },
     "conflict": {
         "revolt/event-loop": "<0.2.5",
-        "symfony/process": "<5.3.7"
+        "symfony/process": "<5.3.7",
+        "marc-mabe/php-enum": "<4.7.2"
     },
     "autoload": {
         "psr-4": {
