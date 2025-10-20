@@ -2,12 +2,12 @@
     "name": "roave/backward-compatibility-check",
     "description": "Tool to compare two revisions of a public API to check for BC breaks",
     "require": {
-        "php": "~8.2.0 || ~8.3.0 || ~8.4.0",
+        "php": "~8.3.0 || ~8.4.0",
         "ext-dom": "*",
         "ext-json": "*",
         "ext-libxml": "*",
         "ext-simplexml": "*",
-        "azjezz/psl": "^3.3.0",
+        "azjezz/psl": "^4.0.1",
         "composer/composer": "^2.8.12",
         "nikic/php-parser": "^5.6.1",
         "nikolaposa/version": "^4.2.1",
@@ -58,7 +58,7 @@
     "config": {
         "sort-packages": true,
         "platform": {
-            "php": "8.2.99"
+            "php": "8.3.99"
         },
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true,
