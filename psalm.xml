@@ -32,6 +32,8 @@
                 <directory name="test"/>
             </errorLevel>
         </InternalMethod>
+        <!-- #[Override] is mostly noise, and isn't something we need to follow strictly -->
+        <MissingOverrideAttribute errorLevel="suppress"/>
         <UnusedMethod>
             <errorLevel type="suppress">
                 <!-- psalm/plugin-phpunit does not yet understand the #[DataProvider] attribute -->
