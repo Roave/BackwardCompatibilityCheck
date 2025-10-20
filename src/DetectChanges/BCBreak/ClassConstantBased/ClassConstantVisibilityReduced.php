@@ -11,11 +11,11 @@ use Roave\BetterReflection\Reflection\ReflectionClassConstant;
 
 final class ClassConstantVisibilityReduced implements ClassConstantBased
 {
-    private const VISIBILITY_PRIVATE = 'private';
+    private const string VISIBILITY_PRIVATE = 'private';
 
-    private const VISIBILITY_PROTECTED = 'protected';
+    private const string VISIBILITY_PROTECTED = 'protected';
 
-    private const VISIBILITY_PUBLIC = 'public';
+    private const string VISIBILITY_PUBLIC = 'public';
 
     public function __invoke(ReflectionClassConstant $fromConstant, ReflectionClassConstant $toConstant): Changes
     {

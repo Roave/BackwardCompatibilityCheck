@@ -15,7 +15,7 @@ use Psl\Str;
 #[CoversNothing]
 final class AssertBackwardsCompatibleTest extends TestCase
 {
-    private const COMPOSER_MANIFEST = <<<'JSON'
+    private const string COMPOSER_MANIFEST = <<<'JSON'
 {
     "autoload": {
         "classmap": [
@@ -31,7 +31,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
 
 JSON;
 
-    private const BASELINE_CONFIGURATION = <<<'XML'
+    private const string BASELINE_CONFIGURATION = <<<'XML'
 <?xml version="1.0" encoding="UTF-8" ?>
 <roave-bc-check>
     <baseline>
@@ -40,7 +40,7 @@ JSON;
 </roave-bc-check>
 XML;
 
-    private const CLASS_VERSIONS = [
+    private const array CLASS_VERSIONS = [
         <<<'PHP'
 <?php
 

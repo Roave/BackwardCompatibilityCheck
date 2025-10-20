@@ -19,7 +19,7 @@ use RuntimeException;
 #[CoversClass(GitCheckoutRevisionToTemporaryPath::class)]
 final class GitCheckoutRevisionToTemporaryPathTest extends TestCase
 {
-    private const TEST_REVISION_TO_CHECKOUT = '428327492a803b6e0c612b157a67a50a47275461';
+    private const string TEST_REVISION_TO_CHECKOUT = '428327492a803b6e0c612b157a67a50a47275461';
 
     public function testCheckoutAndRemove(): void
     {
