@@ -124,7 +124,7 @@ vendor/bin/roave-backward-compatibility-check --help
 
 The file `.roave-backward-compatibility-check.xml` is read from the current working directory (when it exists) and sets configuration for the command.
 
-It's expected to be an XML file that follows our [schema](resources/schema.xsd):
+It's expected to be an XML file that follows our [schema](Resources/schema.xsd):
 
 **Example:**
 
