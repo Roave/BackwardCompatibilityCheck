@@ -9,7 +9,7 @@
         "ext-simplexml": "*",
         "azjezz/psl": "^4.0.1",
         "composer/composer": "^2.8.12",
-        "nikic/php-parser": "^5.6.1",
+        "nikic/php-parser": "^5.6.2",
         "nikolaposa/version": "^4.2.1",
         "ocramius/package-versions": "^2.10.0",
         "roave/better-reflection": "^6.65.0",
