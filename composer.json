@@ -13,7 +13,7 @@
         "nikolaposa/version": "^4.2.1",
         "ocramius/package-versions": "^2.10.0",
         "roave/better-reflection": "^6.66.0",
-        "symfony/console": "^7.3.5"
+        "symfony/console": "^7.3.6"
     },
     "license": "MIT",
     "authors": [
