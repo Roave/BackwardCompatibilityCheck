@@ -34,7 +34,7 @@
         "psalm/plugin-phpunit": "^0.19.5",
         "roave/infection-static-analysis-plugin": "^1.39.0",
         "roave/security-advisories": "dev-master",
-        "squizlabs/php_codesniffer": "^4.0.0",
+        "squizlabs/php_codesniffer": "^4.0.1",
         "vimeo/psalm": "^6.13.1"
     },
     "conflict": {
