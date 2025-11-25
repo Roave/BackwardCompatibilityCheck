@@ -6033,12 +6033,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "f5a58d09ea64ab1d080876ee3abbd3b90dd022d6"
+                "reference": "21c88ad5fc888c04d095a662e92ed8fed5dfc888"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/f5a58d09ea64ab1d080876ee3abbd3b90dd022d6",
-                "reference": "f5a58d09ea64ab1d080876ee3abbd3b90dd022d6",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/21c88ad5fc888c04d095a662e92ed8fed5dfc888",
+                "reference": "21c88ad5fc888c04d095a662e92ed8fed5dfc888",
                 "shasum": ""
             },
             "conflict": {
@@ -6329,7 +6329,7 @@
                 "genix/cms": "<=1.1.11",
                 "georgringer/news": "<1.3.3",
                 "geshi/geshi": "<=1.0.9.1",
-                "getformwork/formwork": "<1.13.1|>=2.0.0.0-beta1,<2.0.0.0-beta4",
+                "getformwork/formwork": "<2.2",
                 "getgrav/grav": "<1.7.46",
                 "getkirby/cms": "<3.9.8.3-dev|>=3.10,<3.10.1.2-dev|>=4,<4.7.1|>=5,<5.1.4",
                 "getkirby/kirby": "<3.9.8.3-dev|>=3.10,<3.10.1.2-dev|>=4,<4.7.1",
@@ -7020,7 +7020,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-11-20T22:05:30+00:00"
+            "time": "2025-11-24T23:05:38+00:00"
         },
         {
             "name": "sanmai/later",
