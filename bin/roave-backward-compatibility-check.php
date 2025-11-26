@@ -34,9 +34,15 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
+use function error_reporting;
 use function file_exists;
 
+use const E_ALL;
+use const E_DEPRECATED;
+
 (static function (): void {
+    error_reporting(E_ALL & ~E_DEPRECATED);
+
     (static function (): void {
         $autoloaderLocations = [
             __DIR__ . '/../vendor/autoload.php', // Installed by cloning the project and running `composer install`
