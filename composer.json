@@ -30,9 +30,9 @@
         "doctrine/coding-standard": "^14.0.0",
         "justinrainbow/json-schema": "^6.6.1",
         "php-standard-library/psalm-plugin": "^2.3.0",
-        "phpunit/phpunit": "^12.4.3",
+        "phpunit/phpunit": "^12.4.4",
         "psalm/plugin-phpunit": "^0.19.5",
-        "roave/infection-static-analysis-plugin": "^1.39.0",
+        "roave/infection-static-analysis-plugin": "^1.41.0",
         "roave/security-advisories": "dev-master",
         "squizlabs/php_codesniffer": "^4.0.1",
         "vimeo/psalm": "^6.13.1"
