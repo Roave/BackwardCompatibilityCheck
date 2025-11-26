@@ -13,7 +13,6 @@
     },
     "mutators": {
         "@default": true,
-        "IdenticalEqual": false,
         "NotIdenticalNotEqual": false
     },
     "minMsi": 96,
