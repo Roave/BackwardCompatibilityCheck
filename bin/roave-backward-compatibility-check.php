@@ -327,7 +327,7 @@ use const E_DEPRECATED;
         ),
     );
 
-    $application->add($apiCompareCommand);
+    $application->addCommand($apiCompareCommand);
     $application->setDefaultCommand('roave-backwards-compatibility-check:assert-backwards-compatible');
 
     $output->getErrorOutput()
