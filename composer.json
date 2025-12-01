@@ -30,7 +30,7 @@
         "doctrine/coding-standard": "^14.0.0",
         "justinrainbow/json-schema": "^6.6.2",
         "php-standard-library/psalm-plugin": "^2.3.0",
-        "phpunit/phpunit": "^12.4.4",
+        "phpunit/phpunit": "^12.4.5",
         "psalm/plugin-phpunit": "^0.19.5",
         "roave/infection-static-analysis-plugin": "^1.41.0",
         "roave/security-advisories": "dev-master",
