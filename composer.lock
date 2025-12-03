@@ -6092,12 +6092,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "6e9ea9dcd100b6dcc0b1cdfc139df3695ad73e38"
+                "reference": "d4ee198ff9c57b012547e180eb99ffb5c4911be8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/6e9ea9dcd100b6dcc0b1cdfc139df3695ad73e38",
-                "reference": "6e9ea9dcd100b6dcc0b1cdfc139df3695ad73e38",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/d4ee198ff9c57b012547e180eb99ffb5c4911be8",
+                "reference": "d4ee198ff9c57b012547e180eb99ffb5c4911be8",
                 "shasum": ""
             },
             "conflict": {
@@ -6541,8 +6541,9 @@
                 "marshmallow/nova-tiptap": "<5.7",
                 "matomo/matomo": "<1.11",
                 "matyhtf/framework": "<3.0.6",
-                "mautic/core": "<5.2.8|>=6.0.0.0-alpha,<6.0.5",
+                "mautic/core": "<5.2.9|>=6,<6.0.7",
                 "mautic/core-lib": ">=1.0.0.0-beta,<4.4.13|>=5.0.0.0-alpha,<5.1.1",
+                "mautic/grapes-js-builder-bundle": ">=4,<4.4.18|>=5,<5.2.9|>=6,<6.0.7",
                 "maximebf/debugbar": "<1.19",
                 "mdanter/ecc": "<2",
                 "mediawiki/abuse-filter": "<1.39.9|>=1.40,<1.41.3|>=1.42,<1.42.2",
@@ -7079,7 +7080,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-12-02T01:33:57+00:00"
+            "time": "2025-12-02T22:05:39+00:00"
         },
         {
             "name": "sanmai/di-container",
