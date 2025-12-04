@@ -6092,12 +6092,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "d4ee198ff9c57b012547e180eb99ffb5c4911be8"
+                "reference": "fe1c8ca582c84d6e7cef4588af1753d697bcca03"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/d4ee198ff9c57b012547e180eb99ffb5c4911be8",
-                "reference": "d4ee198ff9c57b012547e180eb99ffb5c4911be8",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/fe1c8ca582c84d6e7cef4588af1753d697bcca03",
+                "reference": "fe1c8ca582c84d6e7cef4588af1753d697bcca03",
                 "shasum": ""
             },
             "conflict": {
@@ -6109,6 +6109,7 @@
                 "aimeos/ai-admin-graphql": ">=2022.04.1,<2022.10.10|>=2023.04.1,<2023.10.6|>=2024.04.1,<2024.07.2",
                 "aimeos/ai-admin-jsonadm": "<2020.10.13|>=2021.04.1,<2021.10.6|>=2022.04.1,<2022.10.3|>=2023.04.1,<2023.10.4|==2024.04.1",
                 "aimeos/ai-client-html": ">=2020.04.1,<2020.10.27|>=2021.04.1,<2021.10.22|>=2022.04.1,<2022.10.13|>=2023.04.1,<2023.10.15|>=2024.04.1,<2024.04.7",
+                "aimeos/ai-cms-grapesjs": ">=2021.04.1,<2021.10.8|>=2022.04.1,<2022.10.9|>=2023.04.1,<2023.10.15|>=2024.04.1,<2024.10.8|>=2025.04.1,<2025.10.2",
                 "aimeos/ai-controller-frontend": "<2020.10.15|>=2021.04.1,<2021.10.8|>=2022.04.1,<2022.10.8|>=2023.04.1,<2023.10.9|==2024.04.1",
                 "aimeos/aimeos-core": ">=2022.04.1,<2022.10.17|>=2023.04.1,<2023.10.17|>=2024.04.1,<2024.04.7",
                 "aimeos/aimeos-typo3": "<19.10.12|>=20,<20.10.5",
@@ -7080,7 +7081,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-12-02T22:05:39+00:00"
+            "time": "2025-12-03T14:06:51+00:00"
         },
         {
             "name": "sanmai/di-container",
