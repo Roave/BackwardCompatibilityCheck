@@ -32,10 +32,10 @@
         "php-standard-library/psalm-plugin": "^2.3.0",
         "phpunit/phpunit": "^12.5.2",
         "psalm/plugin-phpunit": "^0.19.5",
-        "roave/infection-static-analysis-plugin": "^1.41.0",
+        "roave/infection-static-analysis-plugin": "^1.42.0",
         "roave/security-advisories": "dev-master",
         "squizlabs/php_codesniffer": "^4.0.1",
-        "vimeo/psalm": "^6.13.1"
+        "vimeo/psalm": "^6.14.1"
     },
     "conflict": {
         "revolt/event-loop": "<0.2.5",
