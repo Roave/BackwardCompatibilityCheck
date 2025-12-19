@@ -10,6 +10,13 @@
 A tool that can be used to verify BC breaks between two versions
 of a PHP library.
 
+> [!TIP]
+> Enjoy checking your API compatibility :) if you need help with this tool,
+> auditing your code, or support on your legacy applications, feel free to
+> [get in touch](https://roave.com/contact-us/).
+>
+> \- The Roave Team
+
 ## Pre-requisites/assumptions
 
 * Your project uses `git`
