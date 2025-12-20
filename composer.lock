@@ -6093,12 +6093,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "f960b7bc5c3bae7e348f7b65736072f74493bc3a"
+                "reference": "a08c38341cd11dc1b1cb4fa87f65913c95908d73"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/f960b7bc5c3bae7e348f7b65736072f74493bc3a",
-                "reference": "f960b7bc5c3bae7e348f7b65736072f74493bc3a",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/a08c38341cd11dc1b1cb4fa87f65913c95908d73",
+                "reference": "a08c38341cd11dc1b1cb4fa87f65913c95908d73",
                 "shasum": ""
             },
             "conflict": {
@@ -7089,7 +7089,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-12-18T19:06:20+00:00"
+            "time": "2025-12-19T16:40:43+00:00"
         },
         {
             "name": "sanmai/di-container",
