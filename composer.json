@@ -32,7 +32,7 @@
         "php-standard-library/psalm-plugin": "^2.3.0",
         "phpunit/phpunit": "^12.5.4",
         "psalm/plugin-phpunit": "^0.19.5",
-        "roave/infection-static-analysis-plugin": "^1.42.0",
+        "roave/infection-static-analysis-plugin": "^1.43.0",
         "roave/security-advisories": "dev-master",
         "squizlabs/php_codesniffer": "^4.0.1",
         "vimeo/psalm": "^6.14.3"
