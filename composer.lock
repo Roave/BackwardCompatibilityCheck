@@ -223,16 +223,16 @@
         },
         {
             "name": "composer/class-map-generator",
-            "version": "1.7.0",
+            "version": "1.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/class-map-generator.git",
-                "reference": "2373419b7709815ed323ebf18c3c72d03ff4a8a6"
+                "reference": "8f5fa3cc214230e71f54924bd0197a3bcc705eb1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/class-map-generator/zipball/2373419b7709815ed323ebf18c3c72d03ff4a8a6",
-                "reference": "2373419b7709815ed323ebf18c3c72d03ff4a8a6",
+                "url": "https://api.github.com/repos/composer/class-map-generator/zipball/8f5fa3cc214230e71f54924bd0197a3bcc705eb1",
+                "reference": "8f5fa3cc214230e71f54924bd0197a3bcc705eb1",
                 "shasum": ""
             },
             "require": {
@@ -276,7 +276,7 @@
             ],
             "support": {
                 "issues": "https://github.com/composer/class-map-generator/issues",
-                "source": "https://github.com/composer/class-map-generator/tree/1.7.0"
+                "source": "https://github.com/composer/class-map-generator/tree/1.7.1"
             },
             "funding": [
                 {
@@ -288,7 +288,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-11-19T10:41:15+00:00"
+            "time": "2025-12-29T13:15:25+00:00"
         },
         {
             "name": "composer/composer",
@@ -6087,12 +6087,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "c04f8230182e06cd6b2ba948c85581a1b93887f2"
+                "reference": "0f8a43cc36fa8ab38f3a305f9390fb7782f93a26"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/c04f8230182e06cd6b2ba948c85581a1b93887f2",
-                "reference": "c04f8230182e06cd6b2ba948c85581a1b93887f2",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/0f8a43cc36fa8ab38f3a305f9390fb7782f93a26",
+                "reference": "0f8a43cc36fa8ab38f3a305f9390fb7782f93a26",
                 "shasum": ""
             },
             "conflict": {
@@ -6891,7 +6891,7 @@
                 "thelia/thelia": ">=2.1,<2.1.3",
                 "theonedemon/phpwhois": "<=4.2.5",
                 "thinkcmf/thinkcmf": "<6.0.8",
-                "thorsten/phpmyfaq": "<=4.0.13",
+                "thorsten/phpmyfaq": "<=4.0.13|>=4.0.14,<4.0.16",
                 "tikiwiki/tiki-manager": "<=17.1",
                 "timber/timber": ">=0.16.6,<1.23.1|>=1.24,<1.24.1|>=2,<2.1",
                 "tinymce/tinymce": "<7.2",
@@ -7084,7 +7084,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-12-27T00:23:33+00:00"
+            "time": "2025-12-29T23:05:42+00:00"
         },
         {
             "name": "sanmai/di-container",
@@ -8906,23 +8906,23 @@
         },
         {
             "name": "webmozart/assert",
-            "version": "1.12.1",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webmozarts/assert.git",
-                "reference": "9be6926d8b485f55b9229203f962b51ed377ba68"
+                "reference": "1b34b004e35a164bc5bb6ebd33c844b2d8069a54"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozarts/assert/zipball/9be6926d8b485f55b9229203f962b51ed377ba68",
-                "reference": "9be6926d8b485f55b9229203f962b51ed377ba68",
+                "url": "https://api.github.com/repos/webmozarts/assert/zipball/1b34b004e35a164bc5bb6ebd33c844b2d8069a54",
+                "reference": "1b34b004e35a164bc5bb6ebd33c844b2d8069a54",
                 "shasum": ""
             },
             "require": {
                 "ext-ctype": "*",
                 "ext-date": "*",
                 "ext-filter": "*",
-                "php": "^7.2 || ^8.0"
+                "php": "^8.2"
             },
             "suggest": {
                 "ext-intl": "",
@@ -8932,7 +8932,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.10-dev"
+                    "dev-feature/2-0": "2.0-dev"
                 }
             },
             "autoload": {
@@ -8948,6 +8948,10 @@
                 {
                     "name": "Bernhard Schussek",
                     "email": "bschussek@gmail.com"
+                },
+                {
+                    "name": "Woody Gilk",
+                    "email": "woody.gilk@gmail.com"
                 }
             ],
             "description": "Assertions to validate method input/output with nice error messages.",
@@ -8958,9 +8962,9 @@
             ],
             "support": {
                 "issues": "https://github.com/webmozarts/assert/issues",
-                "source": "https://github.com/webmozarts/assert/tree/1.12.1"
+                "source": "https://github.com/webmozarts/assert/tree/2.0.0"
             },
-            "time": "2025-10-29T15:56:20+00:00"
+            "time": "2025-12-16T21:36:00+00:00"
         }
     ],
     "aliases": [],
