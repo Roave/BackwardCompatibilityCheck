@@ -141,8 +141,8 @@ It's expected to be an XML file that follows our [schema](Resources/schema.xsd):
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="vendor/roave/backward-compatibility-check/resources/schema.xsd">
     <baseline>
-        <ignored-regex>#\[BC\] CHANGED: The parameter \$a of of TestArtifact\\TheClass\#method\(\)#</ignored-regex>
-        <ignored-regex>#\[BC\] CHANGED: The parameter \$b of of TestArtifact\\TheClass\#method2\(\)#</ignored-regex>
+        <ignored-regex>#\[BC\] CHANGED: The parameter \$a of TestArtifact\\TheClass\#method\(\)#</ignored-regex>
+        <ignored-regex>#\[BC\] CHANGED: The parameter \$b of TestArtifact\\TheClass\#method2\(\)#</ignored-regex>
     </baseline>
 </roave-bc-check>
 ```
