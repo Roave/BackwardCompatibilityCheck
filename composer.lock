@@ -6085,12 +6085,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "c4162b6092bc6170cc6d0758ba6ee7d29d0dfbb8"
+                "reference": "8457f2008fc6396be788162c4e04228028306534"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/c4162b6092bc6170cc6d0758ba6ee7d29d0dfbb8",
-                "reference": "c4162b6092bc6170cc6d0758ba6ee7d29d0dfbb8",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/8457f2008fc6396be788162c4e04228028306534",
+                "reference": "8457f2008fc6396be788162c4e04228028306534",
                 "shasum": ""
             },
             "conflict": {
@@ -6720,6 +6720,7 @@
                 "processwire/processwire": "<=3.0.246",
                 "propel/propel": ">=2.0.0.0-alpha1,<=2.0.0.0-alpha7",
                 "propel/propel1": ">=1,<=1.7.1",
+                "psy/psysh": "<=0.11.22|>=0.12,<=0.12.18",
                 "pterodactyl/panel": "<1.12",
                 "ptheofan/yii2-statemachine": ">=2.0.0.0-RC1-dev,<=2",
                 "ptrofimov/beanstalk_console": "<1.7.14",
@@ -7091,7 +7092,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-01-28T22:08:32+00:00"
+            "time": "2026-01-30T22:06:58+00:00"
         },
         {
             "name": "sanmai/di-container",
