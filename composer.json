@@ -12,7 +12,7 @@
         "nikic/php-parser": "^5.7.0",
         "nikolaposa/version": "^4.2.1",
         "ocramius/package-versions": "^2.11.0",
-        "roave/better-reflection": "^6.68.0",
+        "roave/better-reflection": "^6.69.0",
         "symfony/console": "^7.4.4"
     },
     "license": "MIT",
