@@ -139,7 +139,7 @@ It's expected to be an XML file that follows our [schema](Resources/schema.xsd):
 <?xml version="1.0" encoding="UTF-8" ?>
 <roave-bc-check
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="vendor/roave/backward-compatibility-check/resources/schema.xsd">
+    xsi:noNamespaceSchemaLocation="vendor/roave/backward-compatibility-check/Resources/schema.xsd">
     <baseline>
         <ignored-regex>#\[BC\] CHANGED: The parameter \$a of TestArtifact\\TheClass\#method\(\)#</ignored-regex>
         <ignored-regex>#\[BC\] CHANGED: The parameter \$b of TestArtifact\\TheClass\#method2\(\)#</ignored-regex>
