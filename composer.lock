@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "096ec9479c3221ccff9ad7e297c95adb",
+    "content-hash": "d91f4d932bb1d3be1ac1c8c4ecad7762",
     "packages": [
         {
             "name": "azjezz/psl",
@@ -5718,16 +5718,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "12.5.8",
+            "version": "12.5.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "37ddb96c14bfee10304825edbb7e66d341ec6889"
+                "reference": "83d4c158526c879b4c5cf7149d27958b6d912373"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/37ddb96c14bfee10304825edbb7e66d341ec6889",
-                "reference": "37ddb96c14bfee10304825edbb7e66d341ec6889",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/83d4c158526c879b4c5cf7149d27958b6d912373",
+                "reference": "83d4c158526c879b4c5cf7149d27958b6d912373",
                 "shasum": ""
             },
             "require": {
@@ -5742,7 +5742,7 @@
                 "phar-io/version": "^3.2.1",
                 "php": ">=8.3",
                 "phpunit/php-code-coverage": "^12.5.2",
-                "phpunit/php-file-iterator": "^6.0.0",
+                "phpunit/php-file-iterator": "^6.0.1",
                 "phpunit/php-invoker": "^6.0.0",
                 "phpunit/php-text-template": "^5.0.0",
                 "phpunit/php-timer": "^8.0.0",
@@ -5753,6 +5753,7 @@
                 "sebastian/exporter": "^7.0.2",
                 "sebastian/global-state": "^8.0.2",
                 "sebastian/object-enumerator": "^7.0.0",
+                "sebastian/recursion-context": "^7.0.1",
                 "sebastian/type": "^6.0.3",
                 "sebastian/version": "^6.0.0",
                 "staabm/side-effects-detector": "^1.0.5"
@@ -5795,7 +5796,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/12.5.8"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/12.5.9"
             },
             "funding": [
                 {
@@ -5819,7 +5820,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-01-27T06:12:29+00:00"
+            "time": "2026-02-05T08:01:09+00:00"
         },
         {
             "name": "psalm/plugin-phpunit",
