@@ -13,6 +13,7 @@ use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflector\DefaultReflector;
 use Roave\BetterReflection\SourceLocator\Type\SingleFileSourceLocator;
+use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 
 use function array_map;
 use function iterator_to_array;
@@ -59,6 +60,48 @@ final class MethodRemovedTest extends TestCase
                     '[BC] REMOVED: Method RoaveTestAsset\ClassWithMethodsBeingRemoved#removedPublicMethod() was removed',
                     '[BC] REMOVED: Method RoaveTestAsset\ClassWithMethodsBeingRemoved#removedProtectedMethod() was removed',
                 ],
+            ],
+            'final class with protected changing to private' => [
+                (new DefaultReflector(new StringSourceLocator(
+                    <<<'PHP'
+                    <?php
+                    final class FinalClassWithProtectedMethod {
+                        protected function foo(string $bar): void {}
+                    }
+                    PHP,
+                    $locator,
+                )))->reflectClass('FinalClassWithProtectedMethod'),
+                (new DefaultReflector(new StringSourceLocator(
+                    <<<'PHP'
+                    <?php
+                    final class FinalClassWithProtectedMethod {
+                        private function foo(string $bar): void {}
+                    }
+                    PHP,
+                    $locator,
+                )))->reflectClass('FinalClassWithProtectedMethod'),
+                [],
+            ],
+            'final class with public changing to private' => [
+                (new DefaultReflector(new StringSourceLocator(
+                    <<<'PHP'
+                    <?php
+                    final class FinalClassWithPublicMethod {
+                        public function foo(string $bar): void {}
+                    }
+                    PHP,
+                    $locator,
+                )))->reflectClass('FinalClassWithPublicMethod'),
+                (new DefaultReflector(new StringSourceLocator(
+                    <<<'PHP'
+                    <?php
+                    final class FinalClassWithPublicMethod {
+                        private function foo(string $bar): void {}
+                    }
+                    PHP,
+                    $locator,
+                )))->reflectClass('FinalClassWithPublicMethod'),
+                ['[BC] REMOVED: Method FinalClassWithPublicMethod#foo() was removed'],
             ],
         ];
     }
