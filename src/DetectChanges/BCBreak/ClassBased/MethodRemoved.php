@@ -44,9 +44,8 @@ final class MethodRemoved implements ClassBased
     /** @return array<string, ReflectionMethod> */
     private function accessibleMethods(ReflectionClass $class): array
     {
-        $methods = Vec\filter($class->getMethods(), function (ReflectionMethod $method): bool {
-            return ($method->isPublic()
-                || $method->isProtected())
+        $methods = Vec\filter($class->getMethods(), function (ReflectionMethod $method) use ($class): bool {
+            return $this->isAccessibleMethod($method, $class)
                 && ! $this->isInternalDocComment($method->getDocComment());
         });
 
@@ -56,6 +55,15 @@ final class MethodRemoved implements ClassBased
             }),
             $methods,
         );
+    }
+
+    private function isAccessibleMethod(ReflectionMethod $method, ReflectionClass $class): bool
+    {
+        if ($method->isPublic()) {
+            return true;
+        }
+
+        return $method->isProtected() && ! $class->isFinal();
     }
 
     private function isInternalDocComment(string|null $comment): bool
