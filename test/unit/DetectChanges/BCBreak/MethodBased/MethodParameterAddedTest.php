@@ -109,6 +109,7 @@ class TheClass {
     public function twoParams(int $one, int $two) {}
     private function privateMethod() {}
     public function removedParameter(int $one, array $options = []) {}
+    public function __construct(int $one) {}
 }
 PHP
             ,
@@ -127,6 +128,7 @@ class TheClass {
     public function twoParams(int $one, int $two) {}
     private function privateMethod(array $options = []) {}
     public function removedParameter(int $one) {}
+    public function __construct(int $one, int $two, array $options = []) {}
 }
 PHP
             ,
@@ -149,6 +151,7 @@ PHP
             'privateMethod' => [],
             'removedParameter' => [],
             'twoParams' => [],
+            '__construct' => ['[BC] ADDED: Parameter two was added to Method __construct() of class TheClass'],
         ];
 
         return array_combine(

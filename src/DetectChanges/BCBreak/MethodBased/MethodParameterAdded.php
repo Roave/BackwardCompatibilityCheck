@@ -11,6 +11,7 @@ use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflection\ReflectionParameter;
 
 use function array_diff;
+use function array_filter;
 use function array_map;
 
 /**
@@ -25,8 +26,15 @@ final class MethodParameterAdded implements MethodBased
             return Changes::empty();
         }
 
+        $toParameters = $toMethod->getParameters();
+        if ($fromMethod->isConstructor()) {
+            // new optional parameters of constructors are not BC breaks,
+            // as the method signature of child classes does not need to match the parent
+            $toParameters = array_filter($toParameters, static fn (ReflectionParameter $param) => ! $param->isOptional());
+        }
+
         $added = array_diff(
-            array_map(static fn (ReflectionParameter $param) => $param->getName(), $toMethod->getParameters()),
+            array_map(static fn (ReflectionParameter $param) => $param->getName(), $toParameters),
             array_map(static fn (ReflectionParameter $param) => $param->getName(), $fromMethod->getParameters()),
         );
 
