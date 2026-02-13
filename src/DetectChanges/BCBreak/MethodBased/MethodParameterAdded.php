@@ -33,12 +33,7 @@ final class MethodParameterAdded implements MethodBased
         // new optional parameters of constructors are not BC breaks,
         // as the method signature of child classes does not need to match the parent
         if ($fromMethod->isConstructor()) {
-            foreach ($added as $key => $paramName) {
-                $parameter = $toMethod->getParameter($paramName);
-                if ($parameter->isOptional()) {
-                    unset($added[$key]);
-                }
-            }
+            $added = array_filter($added, static fn (string $paramName) => !($toMethod->getParameter($paramName)?->isOptional()));
         }
 
         return Changes::fromList(
