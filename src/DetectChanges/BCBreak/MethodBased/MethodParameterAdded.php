@@ -11,6 +11,7 @@ use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflection\ReflectionParameter;
 
 use function array_diff;
+use function array_filter;
 use function array_map;
 
 /**
