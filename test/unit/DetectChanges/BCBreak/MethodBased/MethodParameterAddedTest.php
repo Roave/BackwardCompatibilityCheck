@@ -151,7 +151,7 @@ PHP
             'privateMethod' => [],
             'removedParameter' => [],
             'twoParams' => [],
-            '__construct' => ['[BC] ADDED: Parameter two was added to Method __construct() of class TheClass',],
+            '__construct' => ['[BC] ADDED: Parameter two was added to Method __construct() of class TheClass'],
         ];
 
         return array_combine(

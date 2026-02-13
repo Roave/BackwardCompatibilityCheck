@@ -30,7 +30,7 @@ final class MethodParameterAdded implements MethodBased
         if ($fromMethod->isConstructor()) {
             // new optional parameters of constructors are not BC breaks,
             // as the method signature of child classes does not need to match the parent
-            $toParameters = array_filter($toParameters, static fn (ReflectionParameter $param) => !$param->isOptional());
+            $toParameters = array_filter($toParameters, static fn (ReflectionParameter $param) => ! $param->isOptional());
         }
 
         $added = array_diff(
