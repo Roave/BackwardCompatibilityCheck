@@ -6098,12 +6098,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "9ad81949d95f2c5abc5eee283ca8349db6b42be9"
+                "reference": "7f3e95c9ebf1b16e002dd2c913d30d962c2a6a16"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/9ad81949d95f2c5abc5eee283ca8349db6b42be9",
-                "reference": "9ad81949d95f2c5abc5eee283ca8349db6b42be9",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/7f3e95c9ebf1b16e002dd2c913d30d962c2a6a16",
+                "reference": "7f3e95c9ebf1b16e002dd2c913d30d962c2a6a16",
                 "shasum": ""
             },
             "conflict": {
@@ -6453,7 +6453,7 @@
                 "ibexa/solr": ">=4.5,<4.5.4",
                 "ibexa/user": ">=4,<4.4.3|>=5,<5.0.4",
                 "icecoder/icecoder": "<=8.1",
-                "idno/known": "<=1.3.1",
+                "idno/known": "<=1.6.2",
                 "ilicmiljan/secure-props": ">=1.2,<1.2.2",
                 "illuminate/auth": "<5.5.10",
                 "illuminate/cookie": ">=4,<=4.0.11|>=4.1,<6.18.31|>=7,<7.22.4",
@@ -7113,7 +7113,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-02-12T23:09:51+00:00"
+            "time": "2026-02-13T23:11:21+00:00"
         },
         {
             "name": "sanmai/di-container",
@@ -8939,16 +8939,16 @@
         },
         {
             "name": "webmozart/assert",
-            "version": "2.1.2",
+            "version": "2.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webmozarts/assert.git",
-                "reference": "ce6a2f100c404b2d32a1dd1270f9b59ad4f57649"
+                "reference": "6976757ba8dd70bf8cbaea0914ad84d8b51a9f46"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozarts/assert/zipball/ce6a2f100c404b2d32a1dd1270f9b59ad4f57649",
-                "reference": "ce6a2f100c404b2d32a1dd1270f9b59ad4f57649",
+                "url": "https://api.github.com/repos/webmozarts/assert/zipball/6976757ba8dd70bf8cbaea0914ad84d8b51a9f46",
+                "reference": "6976757ba8dd70bf8cbaea0914ad84d8b51a9f46",
                 "shasum": ""
             },
             "require": {
@@ -8995,9 +8995,9 @@
             ],
             "support": {
                 "issues": "https://github.com/webmozarts/assert/issues",
-                "source": "https://github.com/webmozarts/assert/tree/2.1.2"
+                "source": "https://github.com/webmozarts/assert/tree/2.1.3"
             },
-            "time": "2026-01-13T14:02:24+00:00"
+            "time": "2026-02-13T21:01:40+00:00"
         }
     ],
     "aliases": [],
