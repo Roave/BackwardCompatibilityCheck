@@ -28,7 +28,7 @@
     ],
     "require-dev": {
         "doctrine/coding-standard": "^14.0.0",
-        "justinrainbow/json-schema": "^6.7.1",
+        "justinrainbow/json-schema": "^6.7.2",
         "php-standard-library/psalm-plugin": "^2.3.0",
         "phpunit/phpunit": "^12.5.11",
         "psalm/plugin-phpunit": "^0.19.5",
