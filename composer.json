@@ -7,7 +7,7 @@
         "ext-json": "*",
         "ext-libxml": "*",
         "ext-simplexml": "*",
-        "azjezz/psl": "^4.2.1",
+        "azjezz/psl": "^5.5.0",
         "composer/composer": "^2.9.5",
         "nikic/php-parser": "^5.7.0",
         "nikolaposa/version": "^4.2.1",
