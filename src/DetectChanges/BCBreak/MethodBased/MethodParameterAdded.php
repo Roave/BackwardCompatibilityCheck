@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\MethodBased;
 
+use Psl\Dict;
 use Psl\Str;
+use Psl\Vec;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflection\ReflectionParameter;
-
-use function array_diff;
-use function array_filter;
-use function array_map;
 
 /**
  * Adding a parameter to a method on a non-final class is a BC break.
@@ -30,16 +28,17 @@ final class MethodParameterAdded implements MethodBased
         if ($fromMethod->isConstructor()) {
             // new optional parameters of constructors are not BC breaks,
             // as the method signature of child classes does not need to match the parent
-            $toParameters = array_filter($toParameters, static fn (ReflectionParameter $param) => ! $param->isOptional());
+            $toParameters = Vec\filter($toParameters, static fn (ReflectionParameter $param) => ! $param->isOptional());
         }
 
-        $added = array_diff(
-            array_map(static fn (ReflectionParameter $param) => $param->getName(), $toParameters),
-            array_map(static fn (ReflectionParameter $param) => $param->getName(), $fromMethod->getParameters()),
+        $added = Dict\diff(
+            Vec\map($toParameters, static fn (ReflectionParameter $param) => $param->getName()),
+            Vec\map($fromMethod->getParameters(), static fn (ReflectionParameter $param) => $param->getName()),
         );
 
         return Changes::fromList(
-            ...array_map(
+            ...Vec\map(
+                $added,
                 static fn (string $paramName): Change => Change::added(
                     Str\format(
                         'Parameter %s was added to Method %s() of class %s',
@@ -48,7 +47,6 @@ final class MethodParameterAdded implements MethodBased
                         $fromMethod->getDeclaringClass()->getName(),
                     ),
                 ),
-                $added,
             ),
         );
     }

@@ -5,14 +5,12 @@ declare(strict_types=1);
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased;
 
 use Psl\Regex;
+use Psl\Vec;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionEnum;
 use Roave\BetterReflection\Reflection\ReflectionEnumCase;
-
-use function array_filter;
-use function array_map;
 
 final class EnumCasesChanged implements ClassBased
 {
@@ -34,7 +32,7 @@ final class EnumCasesChanged implements ClassBased
             return Changes::fromList(Change::changed('enum ' . $fromEnumName . ' became ' . $toKind));
         }
 
-        $addedCases = array_filter(
+        $addedCases = Vec\filter(
             $toClass->getCases(),
             static function (ReflectionEnumCase $case) use ($fromClass): bool {
                 if (self::isInternalDocComment($case->getDocComment())) {
@@ -45,7 +43,7 @@ final class EnumCasesChanged implements ClassBased
             },
         );
 
-        $removedCases = array_filter(
+        $removedCases = Vec\filter(
             $fromClass->getCases(),
             static function (ReflectionEnumCase $case) use ($toClass): bool {
                 if (self::isInternalDocComment($case->getDocComment())) {
@@ -56,7 +54,7 @@ final class EnumCasesChanged implements ClassBased
             },
         );
 
-        $internalisedCases = array_filter(
+        $internalisedCases = Vec\filter(
             $toClass->getCases(),
             static function (ReflectionEnumCase $case) use ($fromClass) {
                 if (! self::isInternalDocComment($case->getDocComment())) {
@@ -72,7 +70,7 @@ final class EnumCasesChanged implements ClassBased
             },
         );
 
-        $nowNotInternalCases = array_filter(
+        $nowNotInternalCases = Vec\filter(
             $toClass->getCases(),
             static function (ReflectionEnumCase $case) use ($fromClass) {
                 if (self::isInternalDocComment($case->getDocComment())) {
@@ -88,40 +86,40 @@ final class EnumCasesChanged implements ClassBased
             },
         );
 
-        $caseRemovedChanges = array_map(
+        $caseRemovedChanges = Vec\map(
+            $removedCases,
             static function (ReflectionEnumCase $case) use ($fromEnumName): Change {
                 $caseName = $case->getName();
 
                 return Change::removed('Case ' . $fromEnumName . '::' . $caseName . ' was removed');
             },
-            $removedCases,
         );
 
-        $caseAddedChanges = array_map(
+        $caseAddedChanges = Vec\map(
+            $addedCases,
             static function (ReflectionEnumCase $case) use ($fromEnumName): Change {
                 $caseName = $case->getName();
 
                 return Change::added('Case ' . $fromEnumName . '::' . $caseName . ' was added');
             },
-            $addedCases,
         );
 
-        $caseBecameInternalChanges = array_map(
+        $caseBecameInternalChanges = Vec\map(
+            $internalisedCases,
             static function (ReflectionEnumCase $case) use ($fromEnumName): Change {
                 $caseName = $case->getName();
 
                 return Change::changed('Case ' . $fromEnumName . '::' . $caseName . ' was marked "@internal"');
             },
-            $internalisedCases,
         );
 
-        $caseBecameNotInternalChanges = array_map(
+        $caseBecameNotInternalChanges = Vec\map(
+            $nowNotInternalCases,
             static function (ReflectionEnumCase $case) use ($fromEnumName): Change {
                 $caseName = $case->getName();
 
                 return Change::changed('Case ' . $fromEnumName . '::' . $caseName . ' had "@internal" removed');
             },
-            $nowNotInternalCases,
         );
 
         return Changes::fromList(

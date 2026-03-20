@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace Roave\BackwardCompatibility\Configuration;
 
 use LibXMLError;
+use Psl\Str;
 use RuntimeException;
-
-use function sprintf;
-use function trim;
 
 use const PHP_EOL;
 
@@ -21,10 +19,10 @@ final class InvalidConfigurationStructure extends RuntimeException
         $message = 'The provided configuration is invalid, errors:' . PHP_EOL;
 
         foreach ($errors as $error) {
-            $message .= sprintf(
+            $message .= Str\format(
                 ' - [Line %d] %s' . PHP_EOL,
                 $error->line,
-                trim($error->message),
+                Str\trim($error->message),
             );
         }
 

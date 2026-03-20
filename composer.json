@@ -2,12 +2,24 @@
     "name": "roave/backward-compatibility-check",
     "description": "Tool to compare two revisions of a public API to check for BC breaks",
     "require": {
-        "php": "~8.3.0 || ~8.4.0 || ~8.5.0",
+        "php": "~8.4.0 || ~8.5.0",
         "ext-dom": "*",
         "ext-json": "*",
         "ext-libxml": "*",
         "ext-simplexml": "*",
-        "azjezz/psl": "^4.2.1",
+        "php-standard-library/iter": "^6.0",
+        "php-standard-library/async": "^6.0",
+        "php-standard-library/str": "^6.0",
+        "php-standard-library/env": "^6.0",
+        "php-standard-library/filesystem": "^6.0",
+        "php-standard-library/json": "^6.0",
+        "php-standard-library/type": "^6.0",
+        "php-standard-library/regex": "^6.0",
+        "php-standard-library/foundation": "^6.0",
+        "php-standard-library/dict": "^6.0",
+        "php-standard-library/file": "^6.0",
+        "php-standard-library/vec": "^6.0",
+        "php-standard-library/shell": "^6.0",
         "composer/composer": "^2.9.5",
         "nikic/php-parser": "^5.7.0",
         "nikolaposa/version": "^4.2.1",
@@ -29,6 +41,8 @@
     "require-dev": {
         "doctrine/coding-standard": "^14.0.0",
         "justinrainbow/json-schema": "^6.7.2",
+        "php-standard-library/hash": "^6.0",
+        "php-standard-library/secure-random": "^6.0",
         "php-standard-library/psalm-plugin": "^2.3.0",
         "phpunit/phpunit": "^12.5.12",
         "psalm/plugin-phpunit": "^0.19.5",
@@ -58,7 +72,7 @@
     "config": {
         "sort-packages": true,
         "platform": {
-            "php": "8.3.99"
+            "php": "8.4.99"
         },
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true,

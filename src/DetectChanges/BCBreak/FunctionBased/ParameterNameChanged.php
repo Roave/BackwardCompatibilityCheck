@@ -4,16 +4,14 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased;
 
+use Psl\Dict;
+use Psl\Str;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
 use Roave\BackwardCompatibility\Formatter\FunctionName;
 use Roave\BetterReflection\Reflection\ReflectionFunction;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflection\ReflectionParameter;
-
-use function array_intersect_key;
-use function sprintf;
-use function str_contains;
 
 /**
  * Detects a change in a parameter name, which must now be considered a BC break as of PHP 8 (specifically, since the
@@ -43,7 +41,7 @@ final class ParameterNameChanged implements FunctionBased
         if ($fromHadNoNamedArgumentsAnnotation && ! $toHasNoNamedArgumentsAnnotation) {
             return Changes::fromList(
                 Change::removed(
-                    sprintf(
+                    Str\format(
                         'The %s annotation was removed from %s',
                         self::NO_NAMED_ARGUMENTS_ANNOTATION,
                         $this->formatFunction->__invoke($fromFunction),
@@ -55,7 +53,7 @@ final class ParameterNameChanged implements FunctionBased
         if (! $fromHadNoNamedArgumentsAnnotation && $toHasNoNamedArgumentsAnnotation) {
             return Changes::fromList(
                 Change::added(
-                    sprintf(
+                    Str\format(
                         'The %s annotation was added from %s',
                         self::NO_NAMED_ARGUMENTS_ANNOTATION,
                         $this->formatFunction->__invoke($fromFunction),
@@ -82,7 +80,7 @@ final class ParameterNameChanged implements FunctionBased
      */
     private function checkSymbols(array $from, array $to): iterable
     {
-        foreach (array_intersect_key($from, $to) as $index => $commonParameter) {
+        foreach (Dict\intersect_by_key($from, $to) as $index => $commonParameter) {
             yield from $this->compareParameter($commonParameter, $to[$index]);
         }
     }
@@ -98,7 +96,7 @@ final class ParameterNameChanged implements FunctionBased
         }
 
         yield Change::changed(
-            sprintf(
+            Str\format(
                 'Parameter %d of %s changed name from %s to %s',
                 $fromParameter->getPosition(),
                 $this->formatFunction->__invoke($fromParameter->getDeclaringFunction()),
@@ -112,7 +110,7 @@ final class ParameterNameChanged implements FunctionBased
     {
         if (
             $function instanceof ReflectionMethod
-            && str_contains(
+            && Str\contains(
                 (string) $function
                     ->getDeclaringClass()
                     ->getDocComment(),
@@ -125,6 +123,6 @@ final class ParameterNameChanged implements FunctionBased
         $comment = $function->getDocComment();
 
         return $comment !== null
-            && str_contains($comment, self::NO_NAMED_ARGUMENTS_ANNOTATION);
+            && Str\contains($comment, self::NO_NAMED_ARGUMENTS_ANNOTATION);
     }
 }
