@@ -4,11 +4,8 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\SourceLocator;
 
+use Psl\Str;
 use Roave\BetterReflection\SourceLocator\Located\LocatedSource;
-
-use function str_starts_with;
-use function strlen;
-use function substr_replace;
 
 /**
  * @internal
@@ -18,8 +15,8 @@ use function substr_replace;
 final class LocatedSourceWithStrippedSourcesDirectory extends LocatedSource
 {
     public function __construct(
-        private LocatedSource $next,
-        private string $sourcesDirectory,
+        private readonly LocatedSource $next,
+        private readonly string $sourcesDirectory,
     ) {
     }
 
@@ -44,11 +41,7 @@ final class LocatedSourceWithStrippedSourcesDirectory extends LocatedSource
     {
         $fileName = (string) $this->next->getFileName();
 
-        if (! str_starts_with($fileName, $this->sourcesDirectory)) {
-            return $fileName;
-        }
-
-        return substr_replace($fileName, '', 0, strlen($this->sourcesDirectory));
+        return Str\strip_prefix($fileName, $this->sourcesDirectory);
     }
 
     /** @psalm-external-mutation-free */

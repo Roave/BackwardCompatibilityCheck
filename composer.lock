@@ -4,84 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "366b167ff9bc021e9939e0a230b0553e",
+    "content-hash": "5e59cd63cbaf2ad978640859d09ca188",
     "packages": [
-        {
-            "name": "azjezz/psl",
-            "version": "4.2.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/azjezz/psl.git",
-                "reference": "28c6752857597a1bb6fa8be16678c144b9097ab8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/azjezz/psl/zipball/28c6752857597a1bb6fa8be16678c144b9097ab8",
-                "reference": "28c6752857597a1bb6fa8be16678c144b9097ab8",
-                "shasum": ""
-            },
-            "require": {
-                "ext-bcmath": "*",
-                "ext-intl": "*",
-                "ext-json": "*",
-                "ext-mbstring": "*",
-                "ext-sodium": "*",
-                "php": "~8.3.0 || ~8.4.0 || ~8.5.0",
-                "revolt/event-loop": "^1.0.7"
-            },
-            "require-dev": {
-                "carthage-software/mago": "^1.3.0",
-                "infection/infection": "^0.31.2",
-                "php-coveralls/php-coveralls": "^2.7.0",
-                "phpbench/phpbench": "^1.4.0",
-                "phpunit/phpunit": "^9.6.22"
-            },
-            "suggest": {
-                "php-standard-library/phpstan-extension": "PHPStan integration",
-                "php-standard-library/psalm-plugin": "Psalm integration"
-            },
-            "type": "library",
-            "extra": {
-                "thanks": {
-                    "url": "https://github.com/hhvm/hsl",
-                    "name": "hhvm/hsl"
-                }
-            },
-            "autoload": {
-                "files": [
-                    "src/bootstrap.php"
-                ],
-                "psr-4": {
-                    "Psl\\": "src/Psl"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "azjezz",
-                    "email": "azjezz@protonmail.com"
-                }
-            ],
-            "description": "PHP Standard Library",
-            "support": {
-                "issues": "https://github.com/azjezz/psl/issues",
-                "source": "https://github.com/azjezz/psl/tree/4.2.1"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/azjezz",
-                    "type": "github"
-                },
-                {
-                    "url": "https://github.com/veewee",
-                    "type": "github"
-                }
-            ],
-            "time": "2026-01-29T12:38:33+00:00"
-        },
         {
             "name": "beberlei/assert",
             "version": "v3.3.3",
@@ -1149,6 +1073,1747 @@
             "time": "2025-11-27T11:43:11+00:00"
         },
         {
+            "name": "php-standard-library/async",
+            "version": "6.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-standard-library/async.git",
+                "reference": "abd7c05295ff1bdbe498973294b7dc0f0b5bd7bf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-standard-library/async/zipball/abd7c05295ff1bdbe498973294b7dc0f0b5bd7bf",
+                "reference": "abd7c05295ff1bdbe498973294b7dc0f0b5bd7bf",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~8.4.0 || ~8.5.0",
+                "php-standard-library/date-time": "^6.0",
+                "php-standard-library/default": "^6.0",
+                "php-standard-library/foundation": "^6.0",
+                "php-standard-library/promise": "^6.0",
+                "revolt/event-loop": "^1.0.8"
+            },
+            "conflict": {
+                "azjezz/psl": "*"
+            },
+            "require-dev": {
+                "php-standard-library/dict": "^6.0",
+                "php-standard-library/result": "^6.0",
+                "php-standard-library/str": "^6.0",
+                "phpunit/phpunit": "^13.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-next": "6.1.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/Psl/bootstrap.php"
+                ],
+                "psr-4": {
+                    "Psl\\Async\\": "src/Psl/Async/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Seifeddine Gmati",
+                    "email": "azjezz@carthage.software"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/php-standard-library/php-standard-library/graphs/contributors"
+                }
+            ],
+            "description": "Fiber-based structured concurrency using cooperative multitasking",
+            "homepage": "https://php-standard-library.dev",
+            "keywords": [
+                "Fibers",
+                "async",
+                "concurrency",
+                "cooperative-multitasking"
+            ],
+            "support": {
+                "source": "https://github.com/php-standard-library/async/tree/6.1.1"
+            },
+            "time": "2026-03-20T08:02:33+00:00"
+        },
+        {
+            "name": "php-standard-library/channel",
+            "version": "6.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-standard-library/channel.git",
+                "reference": "96654b43182091c1b935f52ce65d16429d7311a9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-standard-library/channel/zipball/96654b43182091c1b935f52ce65d16429d7311a9",
+                "reference": "96654b43182091c1b935f52ce65d16429d7311a9",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~8.4.0 || ~8.5.0",
+                "php-standard-library/async": "^6.0",
+                "php-standard-library/foundation": "^6.0",
+                "revolt/event-loop": "^1.0.8"
+            },
+            "conflict": {
+                "azjezz/psl": "*"
+            },
+            "require-dev": {
+                "php-standard-library/date-time": "^6.0",
+                "php-standard-library/file": "^6.0",
+                "phpunit/phpunit": "^13.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-next": "6.1.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/Psl/bootstrap.php"
+                ],
+                "psr-4": {
+                    "Psl\\Channel\\": "src/Psl/Channel/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Seifeddine Gmati",
+                    "email": "azjezz@carthage.software"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/php-standard-library/php-standard-library/graphs/contributors"
+                }
+            ],
+            "description": "Message-passing channels for async communication, inspired by Go and Rust",
+            "homepage": "https://php-standard-library.dev",
+            "keywords": [
+                "async",
+                "channel",
+                "concurrency",
+                "message-passing"
+            ],
+            "support": {
+                "source": "https://github.com/php-standard-library/channel/tree/6.1.1"
+            },
+            "time": "2026-03-20T08:02:33+00:00"
+        },
+        {
+            "name": "php-standard-library/collection",
+            "version": "6.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-standard-library/collection.git",
+                "reference": "810decf3218650445b41cf03d398f32cbf2c2d85"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-standard-library/collection/zipball/810decf3218650445b41cf03d398f32cbf2c2d85",
+                "reference": "810decf3218650445b41cf03d398f32cbf2c2d85",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~8.4.0 || ~8.5.0",
+                "php-standard-library/default": "^6.0",
+                "php-standard-library/foundation": "^6.0"
+            },
+            "conflict": {
+                "azjezz/psl": "*"
+            },
+            "require-dev": {
+                "php-standard-library/str": "^6.0",
+                "php-standard-library/vec": "^6.0",
+                "phpunit/phpunit": "^13.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-next": "6.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psl\\Collection\\": "src/Psl/Collection/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Seifeddine Gmati",
+                    "email": "azjezz@carthage.software"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/php-standard-library/php-standard-library/graphs/contributors"
+                }
+            ],
+            "description": "Generic, object-oriented Vector, Map, and Set collections with immutable and mutable variants",
+            "homepage": "https://php-standard-library.dev",
+            "keywords": [
+                "collection",
+                "generics",
+                "map",
+                "set",
+                "vector"
+            ],
+            "support": {
+                "source": "https://github.com/php-standard-library/collection/tree/6.1.1"
+            },
+            "time": "2026-03-20T08:02:33+00:00"
+        },
+        {
+            "name": "php-standard-library/comparison",
+            "version": "6.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-standard-library/comparison.git",
+                "reference": "1bfb6d50a4544d29bec9908e7d64f2c07b6e813c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-standard-library/comparison/zipball/1bfb6d50a4544d29bec9908e7d64f2c07b6e813c",
+                "reference": "1bfb6d50a4544d29bec9908e7d64f2c07b6e813c",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~8.4.0 || ~8.5.0",
+                "php-standard-library/default": "^6.0",
+                "php-standard-library/foundation": "^6.0"
+            },
+            "conflict": {
+                "azjezz/psl": "*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^13.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-next": "6.1.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/Psl/bootstrap.php"
+                ],
+                "psr-4": {
+                    "Psl\\Comparison\\": "src/Psl/Comparison/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Seifeddine Gmati",
+                    "email": "azjezz@carthage.software"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/php-standard-library/php-standard-library/graphs/contributors"
+                }
+            ],
+            "description": "Interfaces and functions for type-safe, consistent value comparison",
+            "homepage": "https://php-standard-library.dev",
+            "keywords": [
+                "comparable",
+                "comparison",
+                "ordering"
+            ],
+            "support": {
+                "source": "https://github.com/php-standard-library/comparison/tree/6.1.1"
+            },
+            "time": "2026-03-20T08:02:33+00:00"
+        },
+        {
+            "name": "php-standard-library/date-time",
+            "version": "6.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-standard-library/date-time.git",
+                "reference": "7d97bac5afe71a98c54ca54df0b60fa5c6b270b8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-standard-library/date-time/zipball/7d97bac5afe71a98c54ca54df0b60fa5c6b270b8",
+                "reference": "7d97bac5afe71a98c54ca54df0b60fa5c6b270b8",
+                "shasum": ""
+            },
+            "require": {
+                "ext-intl": "*",
+                "php": "~8.4.0 || ~8.5.0",
+                "php-standard-library/comparison": "^6.0",
+                "php-standard-library/default": "^6.0",
+                "php-standard-library/foundation": "^6.0",
+                "php-standard-library/interoperability": "^6.0",
+                "php-standard-library/locale": "^6.0"
+            },
+            "conflict": {
+                "azjezz/psl": "*"
+            },
+            "require-dev": {
+                "php-standard-library/json": "^6.0",
+                "php-standard-library/math": "^6.0",
+                "phpunit/phpunit": "^13.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-next": "6.1.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/Psl/bootstrap.php"
+                ],
+                "psr-4": {
+                    "Psl\\DateTime\\": "src/Psl/DateTime/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Seifeddine Gmati",
+                    "email": "azjezz@carthage.software"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/php-standard-library/php-standard-library/graphs/contributors"
+                }
+            ],
+            "description": "Immutable, timezone-aware date and time types with Duration, Period, and Interval",
+            "homepage": "https://php-standard-library.dev",
+            "keywords": [
+                "datetime",
+                "duration",
+                "immutable",
+                "timezone"
+            ],
+            "support": {
+                "source": "https://github.com/php-standard-library/date-time/tree/6.1.1"
+            },
+            "time": "2026-03-20T08:02:33+00:00"
+        },
+        {
+            "name": "php-standard-library/default",
+            "version": "6.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-standard-library/default.git",
+                "reference": "9f5fff4b952963c2e1d922c4669994c0d2790cc3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-standard-library/default/zipball/9f5fff4b952963c2e1d922c4669994c0d2790cc3",
+                "reference": "9f5fff4b952963c2e1d922c4669994c0d2790cc3",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~8.4.0 || ~8.5.0"
+            },
+            "conflict": {
+                "azjezz/psl": "*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^13.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-next": "6.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psl\\Default\\": "src/Psl/Default/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Seifeddine Gmati",
+                    "email": "azjezz@carthage.software"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/php-standard-library/php-standard-library/graphs/contributors"
+                }
+            ],
+            "description": "DefaultInterface for classes to provide standardized default instances",
+            "homepage": "https://php-standard-library.dev",
+            "keywords": [
+                "default",
+                "interface"
+            ],
+            "support": {
+                "source": "https://github.com/php-standard-library/default/tree/6.1.1"
+            },
+            "time": "2026-03-19T03:52:36+00:00"
+        },
+        {
+            "name": "php-standard-library/dict",
+            "version": "6.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-standard-library/dict.git",
+                "reference": "d67628e5c963dc8456277cbb5f34e6821c4dcd4a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-standard-library/dict/zipball/d67628e5c963dc8456277cbb5f34e6821c4dcd4a",
+                "reference": "d67628e5c963dc8456277cbb5f34e6821c4dcd4a",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~8.4.0 || ~8.5.0",
+                "php-standard-library/foundation": "^6.0"
+            },
+            "conflict": {
+                "azjezz/psl": "*"
+            },
+            "require-dev": {
+                "php-standard-library/collection": "^6.0",
+                "php-standard-library/iter": "^6.0",
+                "php-standard-library/str": "^6.0",
+                "php-standard-library/vec": "^6.0",
+                "phpunit/phpunit": "^13.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-next": "6.1.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/Psl/bootstrap.php"
+                ],
+                "psr-4": {
+                    "Psl\\Dict\\": "src/Psl/Dict/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Seifeddine Gmati",
+                    "email": "azjezz@carthage.software"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/php-standard-library/php-standard-library/graphs/contributors"
+                }
+            ],
+            "description": "Functions for creating and transforming associative arrays with preserved keys",
+            "homepage": "https://php-standard-library.dev",
+            "keywords": [
+                "Associative",
+                "Dict",
+                "array",
+                "map"
+            ],
+            "support": {
+                "source": "https://github.com/php-standard-library/dict/tree/6.1.1"
+            },
+            "time": "2026-03-20T08:02:33+00:00"
+        },
+        {
+            "name": "php-standard-library/env",
+            "version": "6.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-standard-library/env.git",
+                "reference": "2ffd1744f048a304edf0d07b2ecaabf984abded9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-standard-library/env/zipball/2ffd1744f048a304edf0d07b2ecaabf984abded9",
+                "reference": "2ffd1744f048a304edf0d07b2ecaabf984abded9",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~8.4.0 || ~8.5.0",
+                "php-standard-library/foundation": "^6.0"
+            },
+            "conflict": {
+                "azjezz/psl": "*"
+            },
+            "require-dev": {
+                "php-standard-library/filesystem": "^6.0",
+                "phpunit/phpunit": "^13.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-next": "6.1.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/Psl/bootstrap.php"
+                ],
+                "psr-4": {
+                    "Psl\\Env\\": "src/Psl/Env/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Seifeddine Gmati",
+                    "email": "azjezz@carthage.software"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/php-standard-library/php-standard-library/graphs/contributors"
+                }
+            ],
+            "description": "Functions for inspecting and modifying environment variables, working directory, and paths",
+            "homepage": "https://php-standard-library.dev",
+            "keywords": [
+                "env",
+                "environment"
+            ],
+            "support": {
+                "source": "https://github.com/php-standard-library/env/tree/6.1.1"
+            },
+            "time": "2026-03-20T08:02:33+00:00"
+        },
+        {
+            "name": "php-standard-library/file",
+            "version": "6.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-standard-library/file.git",
+                "reference": "362bb70d25ce8fa9a4f18dc84ae228944ae8396c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-standard-library/file/zipball/362bb70d25ce8fa9a4f18dc84ae228944ae8396c",
+                "reference": "362bb70d25ce8fa9a4f18dc84ae228944ae8396c",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~8.4.0 || ~8.5.0",
+                "php-standard-library/async": "^6.0",
+                "php-standard-library/foundation": "^6.0",
+                "php-standard-library/io": "^6.0"
+            },
+            "conflict": {
+                "azjezz/psl": "*"
+            },
+            "require-dev": {
+                "php-standard-library/env": "^6.0",
+                "php-standard-library/filesystem": "^6.0",
+                "php-standard-library/os": "^6.0",
+                "php-standard-library/str": "^6.0",
+                "phpunit/phpunit": "^13.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-next": "6.1.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/Psl/bootstrap.php"
+                ],
+                "psr-4": {
+                    "Psl\\File\\": "src/Psl/File/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Seifeddine Gmati",
+                    "email": "azjezz@carthage.software"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/php-standard-library/php-standard-library/graphs/contributors"
+                }
+            ],
+            "description": "Typed file handles for reading and writing with write modes and advisory locking",
+            "homepage": "https://php-standard-library.dev",
+            "keywords": [
+                "file",
+                "handle",
+                "io"
+            ],
+            "support": {
+                "source": "https://github.com/php-standard-library/file/tree/6.1.1"
+            },
+            "time": "2026-03-20T08:02:33+00:00"
+        },
+        {
+            "name": "php-standard-library/filesystem",
+            "version": "6.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-standard-library/filesystem.git",
+                "reference": "00b2dc3e5a97d8e5167c6b2d7ea1571c17938dd7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-standard-library/filesystem/zipball/00b2dc3e5a97d8e5167c6b2d7ea1571c17938dd7",
+                "reference": "00b2dc3e5a97d8e5167c6b2d7ea1571c17938dd7",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~8.4.0 || ~8.5.0",
+                "php-standard-library/foundation": "^6.0"
+            },
+            "conflict": {
+                "azjezz/psl": "*"
+            },
+            "require-dev": {
+                "php-standard-library/env": "^6.0",
+                "php-standard-library/file": "^6.0",
+                "php-standard-library/os": "^6.0",
+                "php-standard-library/str": "^6.0",
+                "php-standard-library/type": "^6.0",
+                "php-standard-library/vec": "^6.0",
+                "phpunit/phpunit": "^13.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-next": "6.1.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/Psl/bootstrap.php"
+                ],
+                "psr-4": {
+                    "Psl\\Filesystem\\": "src/Psl/Filesystem/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Seifeddine Gmati",
+                    "email": "azjezz@carthage.software"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/php-standard-library/php-standard-library/graphs/contributors"
+                }
+            ],
+            "description": "Type-safe functions for file system operations with proper exception handling",
+            "homepage": "https://php-standard-library.dev",
+            "keywords": [
+                "file-system",
+                "filesystem"
+            ],
+            "support": {
+                "source": "https://github.com/php-standard-library/filesystem/tree/6.1.1"
+            },
+            "time": "2026-03-20T08:02:33+00:00"
+        },
+        {
+            "name": "php-standard-library/foundation",
+            "version": "6.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-standard-library/foundation.git",
+                "reference": "404e032a4718d19ada14af614458b38c9021242c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-standard-library/foundation/zipball/404e032a4718d19ada14af614458b38c9021242c",
+                "reference": "404e032a4718d19ada14af614458b38c9021242c",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~8.4.0 || ~8.5.0"
+            },
+            "conflict": {
+                "azjezz/psl": "*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^13.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-next": "6.1.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/Psl/bootstrap.php"
+                ],
+                "psr-4": {
+                    "Psl\\": "src/Psl/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Seifeddine Gmati",
+                    "email": "azjezz@carthage.software"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/php-standard-library/php-standard-library/graphs/contributors"
+                }
+            ],
+            "description": "Exceptions, Ref, and invariant functions",
+            "homepage": "https://php-standard-library.dev",
+            "keywords": [
+                "exceptions",
+                "foundation",
+                "invariant"
+            ],
+            "support": {
+                "source": "https://github.com/php-standard-library/foundation/tree/6.1.1"
+            },
+            "time": "2026-03-20T08:02:33+00:00"
+        },
+        {
+            "name": "php-standard-library/interoperability",
+            "version": "6.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-standard-library/interoperability.git",
+                "reference": "e04c5056f3ec9ffc88c972f9d257b9704a11b88e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-standard-library/interoperability/zipball/e04c5056f3ec9ffc88c972f9d257b9704a11b88e",
+                "reference": "e04c5056f3ec9ffc88c972f9d257b9704a11b88e",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~8.4.0 || ~8.5.0"
+            },
+            "conflict": {
+                "azjezz/psl": "*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^13.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-next": "6.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psl\\Interoperability\\": "src/Psl/Interoperability/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Seifeddine Gmati",
+                    "email": "azjezz@carthage.software"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/php-standard-library/php-standard-library/graphs/contributors"
+                }
+            ],
+            "description": "Interfaces for converting between PSL types and PHP stdlib/intl equivalents",
+            "homepage": "https://php-standard-library.dev",
+            "keywords": [
+                "conversion",
+                "interoperability"
+            ],
+            "support": {
+                "source": "https://github.com/php-standard-library/interoperability/tree/6.1.1"
+            },
+            "time": "2026-03-19T03:52:36+00:00"
+        },
+        {
+            "name": "php-standard-library/io",
+            "version": "6.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-standard-library/io.git",
+                "reference": "26d16c851c4f2bcafb49b7a583b1a72fcd05d0dc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-standard-library/io/zipball/26d16c851c4f2bcafb49b7a583b1a72fcd05d0dc",
+                "reference": "26d16c851c4f2bcafb49b7a583b1a72fcd05d0dc",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~8.4.0 || ~8.5.0",
+                "php-standard-library/async": "^6.0",
+                "php-standard-library/channel": "^6.0",
+                "php-standard-library/foundation": "^6.0",
+                "php-standard-library/result": "^6.0",
+                "revolt/event-loop": "^1.0.8"
+            },
+            "conflict": {
+                "azjezz/psl": "*"
+            },
+            "require-dev": {
+                "php-standard-library/date-time": "^6.0",
+                "php-standard-library/os": "^6.0",
+                "php-standard-library/str": "^6.0",
+                "phpunit/phpunit": "^13.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-next": "6.1.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/Psl/bootstrap.php"
+                ],
+                "psr-4": {
+                    "Psl\\IO\\": "src/Psl/IO/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Seifeddine Gmati",
+                    "email": "azjezz@carthage.software"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/php-standard-library/php-standard-library/graphs/contributors"
+                }
+            ],
+            "description": "Handle-based I/O abstractions - composable, testable, and async-ready",
+            "homepage": "https://php-standard-library.dev",
+            "keywords": [
+                "async",
+                "handle",
+                "io",
+                "stream"
+            ],
+            "support": {
+                "source": "https://github.com/php-standard-library/io/tree/6.1.1"
+            },
+            "time": "2026-03-20T08:02:33+00:00"
+        },
+        {
+            "name": "php-standard-library/iter",
+            "version": "6.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-standard-library/iter.git",
+                "reference": "32e89ceaf035a1f2ac1c370ec28bfee476a8b298"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-standard-library/iter/zipball/32e89ceaf035a1f2ac1c370ec28bfee476a8b298",
+                "reference": "32e89ceaf035a1f2ac1c370ec28bfee476a8b298",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~8.4.0 || ~8.5.0",
+                "php-standard-library/foundation": "^6.0",
+                "php-standard-library/option": "^6.0"
+            },
+            "conflict": {
+                "azjezz/psl": "*"
+            },
+            "require-dev": {
+                "php-standard-library/collection": "^6.0",
+                "php-standard-library/dict": "^6.0",
+                "php-standard-library/math": "^6.0",
+                "php-standard-library/vec": "^6.0",
+                "phpunit/phpunit": "^13.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-next": "6.1.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/Psl/bootstrap.php"
+                ],
+                "psr-4": {
+                    "Psl\\Iter\\": "src/Psl/Iter/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Seifeddine Gmati",
+                    "email": "azjezz@carthage.software"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/php-standard-library/php-standard-library/graphs/contributors"
+                }
+            ],
+            "description": "Utility functions for inspecting and reducing iterables - arrays, generators, and iterators",
+            "homepage": "https://php-standard-library.dev",
+            "keywords": [
+                "generator",
+                "iter",
+                "iterable",
+                "iterator"
+            ],
+            "support": {
+                "source": "https://github.com/php-standard-library/iter/tree/6.1.1"
+            },
+            "time": "2026-03-20T08:02:33+00:00"
+        },
+        {
+            "name": "php-standard-library/json",
+            "version": "6.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-standard-library/json.git",
+                "reference": "ad3ff6f9e22ed27b0eccc58bbc7d83242841f775"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-standard-library/json/zipball/ad3ff6f9e22ed27b0eccc58bbc7d83242841f775",
+                "reference": "ad3ff6f9e22ed27b0eccc58bbc7d83242841f775",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": "~8.4.0 || ~8.5.0",
+                "php-standard-library/foundation": "^6.0",
+                "php-standard-library/type": "^6.0"
+            },
+            "conflict": {
+                "azjezz/psl": "*"
+            },
+            "require-dev": {
+                "php-standard-library/collection": "^6.0",
+                "php-standard-library/math": "^6.0",
+                "php-standard-library/str": "^6.0",
+                "phpunit/phpunit": "^13.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-next": "6.1.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/Psl/bootstrap.php"
+                ],
+                "psr-4": {
+                    "Psl\\Json\\": "src/Psl/Json/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Seifeddine Gmati",
+                    "email": "azjezz@carthage.software"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/php-standard-library/php-standard-library/graphs/contributors"
+                }
+            ],
+            "description": "JSON encoding and decoding with typed exceptions and sensible defaults",
+            "homepage": "https://php-standard-library.dev",
+            "keywords": [
+                "decoding",
+                "encoding",
+                "json"
+            ],
+            "support": {
+                "source": "https://github.com/php-standard-library/json/tree/6.1.1"
+            },
+            "time": "2026-03-20T08:02:33+00:00"
+        },
+        {
+            "name": "php-standard-library/locale",
+            "version": "6.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-standard-library/locale.git",
+                "reference": "f07d093011f026696ae331e096268e6a21c4bc05"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-standard-library/locale/zipball/f07d093011f026696ae331e096268e6a21c4bc05",
+                "reference": "f07d093011f026696ae331e096268e6a21c4bc05",
+                "shasum": ""
+            },
+            "require": {
+                "ext-intl": "*",
+                "php": "~8.4.0 || ~8.5.0"
+            },
+            "conflict": {
+                "azjezz/psl": "*"
+            },
+            "require-dev": {
+                "php-standard-library/str": "^6.0",
+                "phpunit/phpunit": "^13.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-next": "6.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psl\\Locale\\": "src/Psl/Locale/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Seifeddine Gmati",
+                    "email": "azjezz@carthage.software"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/php-standard-library/php-standard-library/graphs/contributors"
+                }
+            ],
+            "description": "Backed enum with 700+ locale identifiers for type-safe internationalization",
+            "homepage": "https://php-standard-library.dev",
+            "keywords": [
+                "i18n",
+                "internationalization",
+                "locale"
+            ],
+            "support": {
+                "source": "https://github.com/php-standard-library/locale/tree/6.1.1"
+            },
+            "time": "2026-03-19T16:33:51+00:00"
+        },
+        {
+            "name": "php-standard-library/option",
+            "version": "6.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-standard-library/option.git",
+                "reference": "7b75ae4886380deaa5b1b991953fac208d047061"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-standard-library/option/zipball/7b75ae4886380deaa5b1b991953fac208d047061",
+                "reference": "7b75ae4886380deaa5b1b991953fac208d047061",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~8.4.0 || ~8.5.0",
+                "php-standard-library/comparison": "^6.0",
+                "php-standard-library/foundation": "^6.0"
+            },
+            "conflict": {
+                "azjezz/psl": "*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^13.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-next": "6.1.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/Psl/bootstrap.php"
+                ],
+                "psr-4": {
+                    "Psl\\Option\\": "src/Psl/Option/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Seifeddine Gmati",
+                    "email": "azjezz@carthage.software"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/php-standard-library/php-standard-library/graphs/contributors"
+                }
+            ],
+            "description": "Option type (Some/None) replacing nullable types with explicit presence semantics",
+            "homepage": "https://php-standard-library.dev",
+            "keywords": [
+                "monad",
+                "none",
+                "option",
+                "some"
+            ],
+            "support": {
+                "source": "https://github.com/php-standard-library/option/tree/6.1.1"
+            },
+            "time": "2026-03-20T08:02:33+00:00"
+        },
+        {
+            "name": "php-standard-library/process",
+            "version": "6.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-standard-library/process.git",
+                "reference": "4273b57d9b3b9a19306251eeddcfd6930cabb351"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-standard-library/process/zipball/4273b57d9b3b9a19306251eeddcfd6930cabb351",
+                "reference": "4273b57d9b3b9a19306251eeddcfd6930cabb351",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~8.4.0 || ~8.5.0",
+                "php-standard-library/async": "^6.0",
+                "php-standard-library/date-time": "^6.0",
+                "php-standard-library/foundation": "^6.0",
+                "php-standard-library/io": "^6.0"
+            },
+            "conflict": {
+                "azjezz/psl": "*"
+            },
+            "require-dev": {
+                "php-standard-library/env": "^6.0",
+                "php-standard-library/filesystem": "^6.0",
+                "php-standard-library/os": "^6.0",
+                "phpunit/phpunit": "^13.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-next": "6.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psl\\Process\\": "src/Psl/Process/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Seifeddine Gmati",
+                    "email": "azjezz@carthage.software"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/php-standard-library/php-standard-library/graphs/contributors"
+                }
+            ],
+            "description": "Typed, non-blocking API for spawning and managing child processes",
+            "homepage": "https://php-standard-library.dev",
+            "keywords": [
+                "async",
+                "process",
+                "subprocess"
+            ],
+            "support": {
+                "source": "https://github.com/php-standard-library/process/tree/6.1.1"
+            },
+            "time": "2026-03-20T08:02:33+00:00"
+        },
+        {
+            "name": "php-standard-library/promise",
+            "version": "6.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-standard-library/promise.git",
+                "reference": "02d8479aaa35a28b72aad0ba6b58d389d87c131c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-standard-library/promise/zipball/02d8479aaa35a28b72aad0ba6b58d389d87c131c",
+                "reference": "02d8479aaa35a28b72aad0ba6b58d389d87c131c",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~8.4.0 || ~8.5.0"
+            },
+            "conflict": {
+                "azjezz/psl": "*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^13.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-next": "6.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psl\\Promise\\": "src/Psl/Promise/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Seifeddine Gmati",
+                    "email": "azjezz@carthage.software"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/php-standard-library/php-standard-library/graphs/contributors"
+                }
+            ],
+            "description": "Promise interface for deferred computations - resolved or rejected",
+            "homepage": "https://php-standard-library.dev",
+            "keywords": [
+                "async",
+                "deferred",
+                "promise"
+            ],
+            "support": {
+                "source": "https://github.com/php-standard-library/promise/tree/6.1.1"
+            },
+            "time": "2026-03-19T03:52:36+00:00"
+        },
+        {
+            "name": "php-standard-library/range",
+            "version": "6.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-standard-library/range.git",
+                "reference": "6085700229b7b10e78afd0f490323a19c37511e3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-standard-library/range/zipball/6085700229b7b10e78afd0f490323a19c37511e3",
+                "reference": "6085700229b7b10e78afd0f490323a19c37511e3",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~8.4.0 || ~8.5.0",
+                "php-standard-library/foundation": "^6.0",
+                "php-standard-library/iter": "^6.0"
+            },
+            "conflict": {
+                "azjezz/psl": "*"
+            },
+            "require-dev": {
+                "php-standard-library/math": "^6.0",
+                "phpunit/phpunit": "^13.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-next": "6.1.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/Psl/bootstrap.php"
+                ],
+                "psr-4": {
+                    "Psl\\Range\\": "src/Psl/Range/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Seifeddine Gmati",
+                    "email": "azjezz@carthage.software"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/php-standard-library/php-standard-library/graphs/contributors"
+                }
+            ],
+            "description": "Range types for integer sequences with iteration support",
+            "homepage": "https://php-standard-library.dev",
+            "keywords": [
+                "iterator",
+                "range"
+            ],
+            "support": {
+                "source": "https://github.com/php-standard-library/range/tree/6.1.1"
+            },
+            "time": "2026-03-19T03:52:36+00:00"
+        },
+        {
+            "name": "php-standard-library/regex",
+            "version": "6.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-standard-library/regex.git",
+                "reference": "ba19a34048c9978daf216b886ea77f7aa7b07937"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-standard-library/regex/zipball/ba19a34048c9978daf216b886ea77f7aa7b07937",
+                "reference": "ba19a34048c9978daf216b886ea77f7aa7b07937",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~8.4.0 || ~8.5.0",
+                "php-standard-library/foundation": "^6.0",
+                "php-standard-library/type": "^6.0"
+            },
+            "conflict": {
+                "azjezz/psl": "*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^13.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-next": "6.1.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/Psl/bootstrap.php"
+                ],
+                "psr-4": {
+                    "Psl\\Regex\\": "src/Psl/Regex/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Seifeddine Gmati",
+                    "email": "azjezz@carthage.software"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/php-standard-library/php-standard-library/graphs/contributors"
+                }
+            ],
+            "description": "Type-safe regular expressions with typed capture groups and proper error handling",
+            "homepage": "https://php-standard-library.dev",
+            "keywords": [
+                "preg",
+                "regex",
+                "regular-expression"
+            ],
+            "support": {
+                "source": "https://github.com/php-standard-library/regex/tree/6.1.1"
+            },
+            "time": "2026-03-20T08:02:33+00:00"
+        },
+        {
+            "name": "php-standard-library/result",
+            "version": "6.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-standard-library/result.git",
+                "reference": "60598868e6d451553c97ee82c65f519b5f043490"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-standard-library/result/zipball/60598868e6d451553c97ee82c65f519b5f043490",
+                "reference": "60598868e6d451553c97ee82c65f519b5f043490",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~8.4.0 || ~8.5.0",
+                "php-standard-library/foundation": "^6.0",
+                "php-standard-library/promise": "^6.0"
+            },
+            "conflict": {
+                "azjezz/psl": "*"
+            },
+            "require-dev": {
+                "php-standard-library/fun": "^6.0",
+                "phpunit/phpunit": "^13.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-next": "6.1.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/Psl/bootstrap.php"
+                ],
+                "psr-4": {
+                    "Psl\\Result\\": "src/Psl/Result/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Seifeddine Gmati",
+                    "email": "azjezz@carthage.software"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/php-standard-library/php-standard-library/graphs/contributors"
+                }
+            ],
+            "description": "Result type capturing success or failure as a value for controlled error handling",
+            "homepage": "https://php-standard-library.dev",
+            "keywords": [
+                "error-handling",
+                "monad",
+                "result"
+            ],
+            "support": {
+                "source": "https://github.com/php-standard-library/result/tree/6.1.1"
+            },
+            "time": "2026-03-20T08:02:33+00:00"
+        },
+        {
+            "name": "php-standard-library/shell",
+            "version": "6.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-standard-library/shell.git",
+                "reference": "21e8003fa8ba414417c19069eaef2940837c8f2b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-standard-library/shell/zipball/21e8003fa8ba414417c19069eaef2940837c8f2b",
+                "reference": "21e8003fa8ba414417c19069eaef2940837c8f2b",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~8.4.0 || ~8.5.0",
+                "php-standard-library/async": "^6.0",
+                "php-standard-library/default": "^6.0",
+                "php-standard-library/foundation": "^6.0",
+                "php-standard-library/process": "^6.0"
+            },
+            "conflict": {
+                "azjezz/psl": "*"
+            },
+            "require-dev": {
+                "php-standard-library/date-time": "^6.0",
+                "php-standard-library/env": "^6.0",
+                "php-standard-library/os": "^6.0",
+                "php-standard-library/secure-random": "^6.0",
+                "php-standard-library/str": "^6.0",
+                "phpunit/phpunit": "^13.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-next": "6.1.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/Psl/bootstrap.php"
+                ],
+                "psr-4": {
+                    "Psl\\Shell\\": "src/Psl/Shell/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Seifeddine Gmati",
+                    "email": "azjezz@carthage.software"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/php-standard-library/php-standard-library/graphs/contributors"
+                }
+            ],
+            "description": "Shell command execution with argument escaping and error output management",
+            "homepage": "https://php-standard-library.dev",
+            "keywords": [
+                "command",
+                "execute",
+                "shell"
+            ],
+            "support": {
+                "source": "https://github.com/php-standard-library/shell/tree/6.1.1"
+            },
+            "time": "2026-03-20T08:02:33+00:00"
+        },
+        {
+            "name": "php-standard-library/str",
+            "version": "6.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-standard-library/str.git",
+                "reference": "fb806004b9eaf36f66a5d45b097d70afbcdca873"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-standard-library/str/zipball/fb806004b9eaf36f66a5d45b097d70afbcdca873",
+                "reference": "fb806004b9eaf36f66a5d45b097d70afbcdca873",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": "~8.4.0 || ~8.5.0",
+                "php-standard-library/default": "^6.0",
+                "php-standard-library/foundation": "^6.0",
+                "php-standard-library/range": "^6.0"
+            },
+            "conflict": {
+                "azjezz/psl": "*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^13.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-next": "6.1.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/Psl/bootstrap.php"
+                ],
+                "psr-4": {
+                    "Psl\\Str\\": "src/Psl/Str/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Seifeddine Gmati",
+                    "email": "azjezz@carthage.software"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/php-standard-library/php-standard-library/graphs/contributors"
+                }
+            ],
+            "description": "Unicode-aware string functions replacing PHP mb_* and standard string functions",
+            "homepage": "https://php-standard-library.dev",
+            "keywords": [
+                "mbstring",
+                "string",
+                "unicode",
+                "utf8"
+            ],
+            "support": {
+                "source": "https://github.com/php-standard-library/str/tree/6.1.1"
+            },
+            "time": "2026-03-20T08:02:33+00:00"
+        },
+        {
+            "name": "php-standard-library/type",
+            "version": "6.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-standard-library/type.git",
+                "reference": "642c3d038b5a627d33a2152115a7d57e6eff2d5a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-standard-library/type/zipball/642c3d038b5a627d33a2152115a7d57e6eff2d5a",
+                "reference": "642c3d038b5a627d33a2152115a7d57e6eff2d5a",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": "~8.4.0 || ~8.5.0",
+                "php-standard-library/collection": "^6.0",
+                "php-standard-library/foundation": "^6.0",
+                "php-standard-library/iter": "^6.0"
+            },
+            "conflict": {
+                "azjezz/psl": "*"
+            },
+            "require-dev": {
+                "php-standard-library/dict": "^6.0",
+                "php-standard-library/math": "^6.0",
+                "php-standard-library/result": "^6.0",
+                "php-standard-library/str": "^6.0",
+                "php-standard-library/vec": "^6.0",
+                "phpunit/phpunit": "^13.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-next": "6.1.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/Psl/bootstrap.php"
+                ],
+                "psr-4": {
+                    "Psl\\Type\\": "src/Psl/Type/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Seifeddine Gmati",
+                    "email": "azjezz@carthage.software"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/php-standard-library/php-standard-library/graphs/contributors"
+                }
+            ],
+            "description": "Runtime type validation implementing Parse, Don't Validate - coerce and assert unstructured input into well-typed data",
+            "homepage": "https://php-standard-library.dev",
+            "keywords": [
+                "coercion",
+                "type",
+                "type-safety",
+                "validation"
+            ],
+            "support": {
+                "source": "https://github.com/php-standard-library/type/tree/6.1.1"
+            },
+            "time": "2026-03-20T08:02:33+00:00"
+        },
+        {
+            "name": "php-standard-library/vec",
+            "version": "6.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-standard-library/vec.git",
+                "reference": "e41db9b7140bb75bf5996495eed1b7b36b1057bb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-standard-library/vec/zipball/e41db9b7140bb75bf5996495eed1b7b36b1057bb",
+                "reference": "e41db9b7140bb75bf5996495eed1b7b36b1057bb",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~8.4.0 || ~8.5.0",
+                "php-standard-library/foundation": "^6.0"
+            },
+            "conflict": {
+                "azjezz/psl": "*"
+            },
+            "require-dev": {
+                "php-standard-library/collection": "^6.0",
+                "php-standard-library/fun": "^6.0",
+                "php-standard-library/iter": "^6.0",
+                "php-standard-library/str": "^6.0",
+                "phpunit/phpunit": "^13.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-next": "6.1.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/Psl/bootstrap.php"
+                ],
+                "psr-4": {
+                    "Psl\\Vec\\": "src/Psl/Vec/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Seifeddine Gmati",
+                    "email": "azjezz@carthage.software"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/php-standard-library/php-standard-library/graphs/contributors"
+                }
+            ],
+            "description": "Functions for creating and transforming sequential, 0-indexed arrays (lists)",
+            "homepage": "https://php-standard-library.dev",
+            "keywords": [
+                "array",
+                "list",
+                "vec",
+                "vector"
+            ],
+            "support": {
+                "source": "https://github.com/php-standard-library/vec/tree/6.1.1"
+            },
+            "time": "2026-03-20T08:02:33+00:00"
+        },
+        {
             "name": "psr/container",
             "version": "2.0.2",
             "source": {
@@ -1640,16 +3305,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v7.4.4",
+            "version": "v7.4.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "41e38717ac1dd7a46b6bda7d6a82af2d98a78894"
+                "reference": "e1e6770440fb9c9b0cf725f81d1361ad1835329d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/41e38717ac1dd7a46b6bda7d6a82af2d98a78894",
-                "reference": "41e38717ac1dd7a46b6bda7d6a82af2d98a78894",
+                "url": "https://api.github.com/repos/symfony/console/zipball/e1e6770440fb9c9b0cf725f81d1361ad1835329d",
+                "reference": "e1e6770440fb9c9b0cf725f81d1361ad1835329d",
                 "shasum": ""
             },
             "require": {
@@ -1714,7 +3379,7 @@
                 "terminal"
             ],
             "support": {
-                "source": "https://github.com/symfony/console/tree/v7.4.4"
+                "source": "https://github.com/symfony/console/tree/v7.4.7"
             },
             "funding": [
                 {
@@ -1734,7 +3399,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-01-13T11:36:38+00:00"
+            "time": "2026-03-06T14:06:20+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -1805,25 +3470,25 @@
         },
         {
             "name": "symfony/filesystem",
-            "version": "v7.4.0",
+            "version": "v8.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/filesystem.git",
-                "reference": "d551b38811096d0be9c4691d406991b47c0c630a"
+                "reference": "7bf9162d7a0dff98d079b72948508fa48018a770"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/filesystem/zipball/d551b38811096d0be9c4691d406991b47c0c630a",
-                "reference": "d551b38811096d0be9c4691d406991b47c0c630a",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/7bf9162d7a0dff98d079b72948508fa48018a770",
+                "reference": "7bf9162d7a0dff98d079b72948508fa48018a770",
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.2",
+                "php": ">=8.4",
                 "symfony/polyfill-ctype": "~1.8",
                 "symfony/polyfill-mbstring": "~1.8"
             },
             "require-dev": {
-                "symfony/process": "^6.4|^7.0|^8.0"
+                "symfony/process": "^7.4|^8.0"
             },
             "type": "library",
             "autoload": {
@@ -1851,7 +3516,7 @@
             "description": "Provides basic utilities for the filesystem",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/filesystem/tree/v7.4.0"
+                "source": "https://github.com/symfony/filesystem/tree/v8.0.6"
             },
             "funding": [
                 {
@@ -1871,27 +3536,27 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-11-27T13:27:24+00:00"
+            "time": "2026-02-25T16:59:43+00:00"
         },
         {
             "name": "symfony/finder",
-            "version": "v7.4.5",
+            "version": "v8.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "ad4daa7c38668dcb031e63bc99ea9bd42196a2cb"
+                "reference": "441404f09a54de6d1bd6ad219e088cdf4c91f97c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/ad4daa7c38668dcb031e63bc99ea9bd42196a2cb",
-                "reference": "ad4daa7c38668dcb031e63bc99ea9bd42196a2cb",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/441404f09a54de6d1bd6ad219e088cdf4c91f97c",
+                "reference": "441404f09a54de6d1bd6ad219e088cdf4c91f97c",
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.2"
+                "php": ">=8.4"
             },
             "require-dev": {
-                "symfony/filesystem": "^6.4|^7.0|^8.0"
+                "symfony/filesystem": "^7.4|^8.0"
             },
             "type": "library",
             "autoload": {
@@ -1919,7 +3584,7 @@
             "description": "Finds files and directories via an intuitive fluent interface",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/finder/tree/v7.4.5"
+                "source": "https://github.com/symfony/finder/tree/v8.0.6"
             },
             "funding": [
                 {
@@ -1939,7 +3604,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-01-26T15:07:59+00:00"
+            "time": "2026-01-29T09:41:02+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -2602,20 +4267,20 @@
         },
         {
             "name": "symfony/process",
-            "version": "v7.4.5",
+            "version": "v8.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "608476f4604102976d687c483ac63a79ba18cc97"
+                "reference": "b5f3aa6762e33fd95efbaa2ec4f4bc9fdd16d674"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/608476f4604102976d687c483ac63a79ba18cc97",
-                "reference": "608476f4604102976d687c483ac63a79ba18cc97",
+                "url": "https://api.github.com/repos/symfony/process/zipball/b5f3aa6762e33fd95efbaa2ec4f4bc9fdd16d674",
+                "reference": "b5f3aa6762e33fd95efbaa2ec4f4bc9fdd16d674",
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.2"
+                "php": ">=8.4"
             },
             "type": "library",
             "autoload": {
@@ -2643,7 +4308,7 @@
             "description": "Executes commands in sub-processes",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/process/tree/v7.4.5"
+                "source": "https://github.com/symfony/process/tree/v8.0.5"
             },
             "funding": [
                 {
@@ -2663,7 +4328,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-01-26T15:07:59+00:00"
+            "time": "2026-01-26T15:08:38+00:00"
         },
         {
             "name": "symfony/service-contracts",
@@ -2754,35 +4419,34 @@
         },
         {
             "name": "symfony/string",
-            "version": "v7.4.4",
+            "version": "v8.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/string.git",
-                "reference": "1c4b10461bf2ec27537b5f36105337262f5f5d6f"
+                "reference": "6c9e1108041b5dce21a9a4984b531c4923aa9ec4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/string/zipball/1c4b10461bf2ec27537b5f36105337262f5f5d6f",
-                "reference": "1c4b10461bf2ec27537b5f36105337262f5f5d6f",
+                "url": "https://api.github.com/repos/symfony/string/zipball/6c9e1108041b5dce21a9a4984b531c4923aa9ec4",
+                "reference": "6c9e1108041b5dce21a9a4984b531c4923aa9ec4",
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.2",
-                "symfony/deprecation-contracts": "^2.5|^3.0",
-                "symfony/polyfill-ctype": "~1.8",
-                "symfony/polyfill-intl-grapheme": "~1.33",
-                "symfony/polyfill-intl-normalizer": "~1.0",
-                "symfony/polyfill-mbstring": "~1.0"
+                "php": ">=8.4",
+                "symfony/polyfill-ctype": "^1.8",
+                "symfony/polyfill-intl-grapheme": "^1.33",
+                "symfony/polyfill-intl-normalizer": "^1.0",
+                "symfony/polyfill-mbstring": "^1.0"
             },
             "conflict": {
                 "symfony/translation-contracts": "<2.5"
             },
             "require-dev": {
-                "symfony/emoji": "^7.1|^8.0",
-                "symfony/http-client": "^6.4|^7.0|^8.0",
-                "symfony/intl": "^6.4|^7.0|^8.0",
+                "symfony/emoji": "^7.4|^8.0",
+                "symfony/http-client": "^7.4|^8.0",
+                "symfony/intl": "^7.4|^8.0",
                 "symfony/translation-contracts": "^2.5|^3.0",
-                "symfony/var-exporter": "^6.4|^7.0|^8.0"
+                "symfony/var-exporter": "^7.4|^8.0"
             },
             "type": "library",
             "autoload": {
@@ -2821,7 +4485,7 @@
                 "utf8"
             ],
             "support": {
-                "source": "https://github.com/symfony/string/tree/v7.4.4"
+                "source": "https://github.com/symfony/string/tree/v8.0.6"
             },
             "funding": [
                 {
@@ -2841,7 +4505,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-01-12T10:54:30+00:00"
+            "time": "2026-02-09T10:14:57+00:00"
         }
     ],
     "packages-dev": [
@@ -4606,20 +6270,20 @@
         },
         {
             "name": "league/uri",
-            "version": "7.8.0",
+            "version": "7.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/uri.git",
-                "reference": "4436c6ec8d458e4244448b069cc572d088230b76"
+                "reference": "08cf38e3924d4f56238125547b5720496fac8fd4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/uri/zipball/4436c6ec8d458e4244448b069cc572d088230b76",
-                "reference": "4436c6ec8d458e4244448b069cc572d088230b76",
+                "url": "https://api.github.com/repos/thephpleague/uri/zipball/08cf38e3924d4f56238125547b5720496fac8fd4",
+                "reference": "08cf38e3924d4f56238125547b5720496fac8fd4",
                 "shasum": ""
             },
             "require": {
-                "league/uri-interfaces": "^7.8",
+                "league/uri-interfaces": "^7.8.1",
                 "php": "^8.1",
                 "psr/http-factory": "^1"
             },
@@ -4692,7 +6356,7 @@
                 "docs": "https://uri.thephpleague.com",
                 "forum": "https://thephpleague.slack.com",
                 "issues": "https://github.com/thephpleague/uri-src/issues",
-                "source": "https://github.com/thephpleague/uri/tree/7.8.0"
+                "source": "https://github.com/thephpleague/uri/tree/7.8.1"
             },
             "funding": [
                 {
@@ -4700,20 +6364,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-01-14T17:24:56+00:00"
+            "time": "2026-03-15T20:22:25+00:00"
         },
         {
             "name": "league/uri-interfaces",
-            "version": "7.8.0",
+            "version": "7.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/uri-interfaces.git",
-                "reference": "c5c5cd056110fc8afaba29fa6b72a43ced42acd4"
+                "reference": "85d5c77c5d6d3af6c54db4a78246364908f3c928"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/uri-interfaces/zipball/c5c5cd056110fc8afaba29fa6b72a43ced42acd4",
-                "reference": "c5c5cd056110fc8afaba29fa6b72a43ced42acd4",
+                "url": "https://api.github.com/repos/thephpleague/uri-interfaces/zipball/85d5c77c5d6d3af6c54db4a78246364908f3c928",
+                "reference": "85d5c77c5d6d3af6c54db4a78246364908f3c928",
                 "shasum": ""
             },
             "require": {
@@ -4776,7 +6440,7 @@
                 "docs": "https://uri.thephpleague.com",
                 "forum": "https://thephpleague.slack.com",
                 "issues": "https://github.com/thephpleague/uri-src/issues",
-                "source": "https://github.com/thephpleague/uri-interfaces/tree/7.8.0"
+                "source": "https://github.com/thephpleague/uri-interfaces/tree/7.8.1"
             },
             "funding": [
                 {
@@ -4784,7 +6448,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-01-15T06:54:53+00:00"
+            "time": "2026-03-08T20:05:35+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -4848,16 +6512,16 @@
         },
         {
             "name": "netresearch/jsonmapper",
-            "version": "v5.0.0",
+            "version": "v5.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cweiske/jsonmapper.git",
-                "reference": "8c64d8d444a5d764c641ebe97e0e3bc72b25bf6c"
+                "reference": "980674efdda65913492d29a8fd51c82270dd37bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cweiske/jsonmapper/zipball/8c64d8d444a5d764c641ebe97e0e3bc72b25bf6c",
-                "reference": "8c64d8d444a5d764c641ebe97e0e3bc72b25bf6c",
+                "url": "https://api.github.com/repos/cweiske/jsonmapper/zipball/980674efdda65913492d29a8fd51c82270dd37bb",
+                "reference": "980674efdda65913492d29a8fd51c82270dd37bb",
                 "shasum": ""
             },
             "require": {
@@ -4893,9 +6557,9 @@
             "support": {
                 "email": "cweiske@cweiske.de",
                 "issues": "https://github.com/cweiske/jsonmapper/issues",
-                "source": "https://github.com/cweiske/jsonmapper/tree/v5.0.0"
+                "source": "https://github.com/cweiske/jsonmapper/tree/v5.0.1"
             },
-            "time": "2024-09-08T10:20:00+00:00"
+            "time": "2026-02-22T16:28:03+00:00"
         },
         {
             "name": "ondram/ci-detector",
@@ -5094,17 +6758,81 @@
             "time": "2022-02-21T01:04:05+00:00"
         },
         {
-            "name": "php-standard-library/psalm-plugin",
-            "version": "2.3.0",
+            "name": "php-standard-library/hash",
+            "version": "6.1.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/php-standard-library/psalm-plugin.git",
-                "reference": "bf6d560ae498966150bc66a42e02744b0ee242c5"
+                "url": "https://github.com/php-standard-library/hash.git",
+                "reference": "cd90b89aa44d89719c0fd63deaa9ef3c794174b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-standard-library/psalm-plugin/zipball/bf6d560ae498966150bc66a42e02744b0ee242c5",
-                "reference": "bf6d560ae498966150bc66a42e02744b0ee242c5",
+                "url": "https://api.github.com/repos/php-standard-library/hash/zipball/cd90b89aa44d89719c0fd63deaa9ef3c794174b1",
+                "reference": "cd90b89aa44d89719c0fd63deaa9ef3c794174b1",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~8.4.0 || ~8.5.0",
+                "php-standard-library/foundation": "^6.0"
+            },
+            "conflict": {
+                "azjezz/psl": "*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^13.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-next": "6.1.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/Psl/bootstrap.php"
+                ],
+                "psr-4": {
+                    "Psl\\Hash\\": "src/Psl/Hash/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Seifeddine Gmati",
+                    "email": "azjezz@carthage.software"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/php-standard-library/php-standard-library/graphs/contributors"
+                }
+            ],
+            "description": "Cryptographic and non-cryptographic hashing with Algorithm enum, timing-safe comparison, and HMAC",
+            "homepage": "https://php-standard-library.dev",
+            "keywords": [
+                "cryptography",
+                "hash",
+                "hmac"
+            ],
+            "support": {
+                "source": "https://github.com/php-standard-library/hash/tree/6.1.1"
+            },
+            "time": "2026-03-20T08:02:33+00:00"
+        },
+        {
+            "name": "php-standard-library/psalm-plugin",
+            "version": "2.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-standard-library/psalm-plugin.git",
+                "reference": "7c120dc5224ca25acbd8c8e6be56577cad7f53f0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-standard-library/psalm-plugin/zipball/7c120dc5224ca25acbd8c8e6be56577cad7f53f0",
+                "reference": "7c120dc5224ca25acbd8c8e6be56577cad7f53f0",
                 "shasum": ""
             },
             "require": {
@@ -5143,9 +6871,75 @@
             "description": "Psalm plugin for the PHP Standard Library",
             "support": {
                 "issues": "https://github.com/php-standard-library/psalm-plugin/issues",
-                "source": "https://github.com/php-standard-library/psalm-plugin/tree/2.3.0"
+                "source": "https://github.com/php-standard-library/psalm-plugin/tree/2.4.0"
             },
-            "time": "2023-11-28T12:22:48+00:00"
+            "time": "2026-03-16T18:44:56+00:00"
+        },
+        {
+            "name": "php-standard-library/secure-random",
+            "version": "6.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-standard-library/secure-random.git",
+                "reference": "ddb79da5ad6b86defd29557b0c32241e17ffc518"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-standard-library/secure-random/zipball/ddb79da5ad6b86defd29557b0c32241e17ffc518",
+                "reference": "ddb79da5ad6b86defd29557b0c32241e17ffc518",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~8.4.0 || ~8.5.0",
+                "php-standard-library/foundation": "^6.0"
+            },
+            "conflict": {
+                "azjezz/psl": "*"
+            },
+            "require-dev": {
+                "php-standard-library/math": "^6.0",
+                "php-standard-library/str": "^6.0",
+                "phpunit/phpunit": "^13.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-next": "6.1.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/Psl/bootstrap.php"
+                ],
+                "psr-4": {
+                    "Psl\\SecureRandom\\": "src/Psl/SecureRandom/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Seifeddine Gmati",
+                    "email": "azjezz@carthage.software"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/php-standard-library/php-standard-library/graphs/contributors"
+                }
+            ],
+            "description": "Cryptographically secure random data generation for tokens, passwords, and nonces",
+            "homepage": "https://php-standard-library.dev",
+            "keywords": [
+                "cryptography",
+                "random",
+                "secure-random"
+            ],
+            "support": {
+                "source": "https://github.com/php-standard-library/secure-random/tree/6.1.1"
+            },
+            "time": "2026-03-19T03:52:36+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -5202,16 +6996,16 @@
         },
         {
             "name": "phpdocumentor/reflection-docblock",
-            "version": "6.0.1",
+            "version": "6.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/ReflectionDocBlock.git",
-                "reference": "2f5cbed597cb261d1ea458f3da3a9ad32e670b1e"
+                "reference": "7bae67520aa9f5ecc506d646810bd40d9da54582"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/2f5cbed597cb261d1ea458f3da3a9ad32e670b1e",
-                "reference": "2f5cbed597cb261d1ea458f3da3a9ad32e670b1e",
+                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/7bae67520aa9f5ecc506d646810bd40d9da54582",
+                "reference": "7bae67520aa9f5ecc506d646810bd40d9da54582",
                 "shasum": ""
             },
             "require": {
@@ -5261,9 +7055,9 @@
             "description": "With this component, a library can provide support for annotations via DocBlocks or otherwise retrieve information that is embedded in a DocBlock.",
             "support": {
                 "issues": "https://github.com/phpDocumentor/ReflectionDocBlock/issues",
-                "source": "https://github.com/phpDocumentor/ReflectionDocBlock/tree/6.0.1"
+                "source": "https://github.com/phpDocumentor/ReflectionDocBlock/tree/6.0.3"
             },
-            "time": "2026-01-20T15:30:42+00:00"
+            "time": "2026-03-18T20:49:53+00:00"
         },
         {
             "name": "phpdocumentor/type-resolver",
@@ -5718,16 +7512,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "12.5.12",
+            "version": "12.5.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "418e06b3b46b0d54bad749ff4907fc7dfb530199"
+                "reference": "47283cfd98d553edcb1353591f4e255dc1bb61f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/418e06b3b46b0d54bad749ff4907fc7dfb530199",
-                "reference": "418e06b3b46b0d54bad749ff4907fc7dfb530199",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/47283cfd98d553edcb1353591f4e255dc1bb61f0",
+                "reference": "47283cfd98d553edcb1353591f4e255dc1bb61f0",
                 "shasum": ""
             },
             "require": {
@@ -5796,7 +7590,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/12.5.12"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/12.5.14"
             },
             "funding": [
                 {
@@ -5820,20 +7614,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-02-16T08:34:36+00:00"
+            "time": "2026-02-18T12:38:40+00:00"
         },
         {
             "name": "psalm/plugin-phpunit",
-            "version": "0.19.5",
+            "version": "0.19.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/psalm/psalm-plugin-phpunit.git",
-                "reference": "143f9d5e049fffcdbc0da3fbb99f6149f9d3e2dc"
+                "reference": "ed7b87080910aad237d652674768a64fc1c80b78"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/psalm/psalm-plugin-phpunit/zipball/143f9d5e049fffcdbc0da3fbb99f6149f9d3e2dc",
-                "reference": "143f9d5e049fffcdbc0da3fbb99f6149f9d3e2dc",
+                "url": "https://api.github.com/repos/psalm/psalm-plugin-phpunit/zipball/ed7b87080910aad237d652674768a64fc1c80b78",
+                "reference": "ed7b87080910aad237d652674768a64fc1c80b78",
                 "shasum": ""
             },
             "require": {
@@ -5876,9 +7670,9 @@
             "description": "Psalm plugin for PHPUnit",
             "support": {
                 "issues": "https://github.com/psalm/psalm-plugin-phpunit/issues",
-                "source": "https://github.com/psalm/psalm-plugin-phpunit/tree/0.19.5"
+                "source": "https://github.com/psalm/psalm-plugin-phpunit/tree/0.19.6"
             },
-            "time": "2025-03-31T18:49:55+00:00"
+            "time": "2025-04-01T09:10:55+00:00"
         },
         {
             "name": "psr/clock",
@@ -6098,18 +7892,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "7f3e95c9ebf1b16e002dd2c913d30d962c2a6a16"
+                "reference": "77a1ab6669c846b4a82a962c9b6dbb1f5db74ea3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/7f3e95c9ebf1b16e002dd2c913d30d962c2a6a16",
-                "reference": "7f3e95c9ebf1b16e002dd2c913d30d962c2a6a16",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/77a1ab6669c846b4a82a962c9b6dbb1f5db74ea3",
+                "reference": "77a1ab6669c846b4a82a962c9b6dbb1f5db74ea3",
                 "shasum": ""
             },
             "conflict": {
                 "3f/pygmentize": "<1.2",
                 "adaptcms/adaptcms": "<=1.3",
-                "admidio/admidio": "<=4.3.16",
+                "admidio/admidio": "<=5.0.6",
                 "adodb/adodb-php": "<=5.22.9",
                 "aheinze/cockpit": "<2.2",
                 "aimeos/ai-admin-graphql": ">=2022.04.1,<2022.10.10|>=2023.04.1,<2023.10.6|>=2024.04.1,<2024.07.2",
@@ -6151,6 +7945,7 @@
                 "athlon1600/php-proxy": "<=5.1",
                 "athlon1600/php-proxy-app": "<=3",
                 "athlon1600/youtube-downloader": "<=4",
+                "aureuserp/aureuserp": "<1.3.0.0-beta1",
                 "austintoddj/canvas": "<=3.4.2",
                 "auth0/auth0-php": ">=3.3,<8.18",
                 "auth0/login": "<7.20",
@@ -6160,7 +7955,8 @@
                 "automattic/jetpack": "<9.8",
                 "awesome-support/awesome-support": "<=6.0.7",
                 "aws/aws-sdk-php": "<3.368",
-                "azuracast/azuracast": "<=0.23.1",
+                "ayacoo/redirect-tab": "<2.1.2|>=3,<3.1.7|>=4,<4.0.5",
+                "azuracast/azuracast": "<=0.23.3",
                 "b13/seo_basics": "<0.8.2",
                 "backdrop/backdrop": "<=1.32",
                 "backpack/crud": "<3.4.9",
@@ -6220,7 +8016,7 @@
                 "ckeditor/ckeditor": "<4.25",
                 "clickstorm/cs-seo": ">=6,<6.8|>=7,<7.5|>=8,<8.4|>=9,<9.3",
                 "co-stack/fal_sftp": "<0.2.6",
-                "cockpit-hq/cockpit": "<2.11.4",
+                "cockpit-hq/cockpit": "<2.13.5",
                 "code16/sharp": "<9.11.1",
                 "codeception/codeception": "<3.1.3|>=4,<4.1.22",
                 "codeigniter/framework": "<3.1.10",
@@ -6232,7 +8028,7 @@
                 "commerceteam/commerce": ">=0.9.6,<0.9.9",
                 "components/jquery": ">=1.0.3,<3.5",
                 "composer/composer": "<1.10.27|>=2,<2.2.26|>=2.3,<2.9.3",
-                "concrete5/concrete5": "<9.4.3",
+                "concrete5/concrete5": "<9.4.8",
                 "concrete5/core": "<8.5.8|>=9,<9.1",
                 "contao-components/mediaelement": ">=2.14.2,<2.21.1",
                 "contao/comments-bundle": ">=2,<4.13.40|>=5.0.0.0-RC1-dev,<5.3.4",
@@ -6245,11 +8041,15 @@
                 "corveda/phpsandbox": "<1.3.5",
                 "cosenary/instagram": "<=2.3",
                 "couleurcitron/tarteaucitron-wp": "<0.3",
-                "cpsit/typo3-mailqueue": "<0.4.3|>=0.5,<0.5.1",
-                "craftcms/cms": "<4.17.0.0-beta1|>=5,<5.9.0.0-beta1",
-                "craftcms/commerce": ">=4.0.0.0-RC1-dev,<=4.10|>=5,<=5.5.1",
+                "cpsit/typo3-mailqueue": "<0.4.5|>=0.5,<0.5.2",
+                "craftcms/aws-s3": ">=2.0.2,<=2.2.4",
+                "craftcms/azure-blob": ">=2.0.0.0-beta1,<=2.1",
+                "craftcms/cms": "<=4.17.5|>=5,<=5.9.11",
+                "craftcms/commerce": ">=4,<4.11|>=5,<5.6",
                 "craftcms/composer": ">=4.0.0.0-RC1-dev,<=4.10|>=5.0.0.0-RC1-dev,<=5.5.1",
                 "craftcms/craft": ">=3.5,<=4.16.17|>=5.0.0.0-RC1-dev,<=5.8.21",
+                "craftcms/google-cloud": ">=2.0.0.0-beta1,<=2.2",
+                "craftcms/webhooks": ">=3,<3.2",
                 "croogo/croogo": "<=4.0.7",
                 "cuyz/valinor": "<0.12",
                 "czim/file-handling": "<1.5|>=2,<2.3",
@@ -6271,6 +8071,7 @@
                 "devgroup/dotplant": "<2020.09.14-dev",
                 "digimix/wp-svg-upload": "<=1",
                 "directmailteam/direct-mail": "<6.0.3|>=7,<7.0.3|>=8,<9.5.2",
+                "directorytree/imapengine": "<1.22.3",
                 "dl/yag": "<3.0.1",
                 "dmk/webkitpdf": "<1.1.4",
                 "dnadesign/silverstripe-elemental": "<5.3.12",
@@ -6324,7 +8125,7 @@
                 "drupal/umami_analytics": "<1.0.1",
                 "duncanmcclean/guest-entries": "<3.1.2",
                 "dweeves/magmi": "<=0.7.24",
-                "ec-cube/ec-cube": "<2.4.4|>=2.11,<=2.17.1|>=3,<=3.0.18.0-patch4|>=4,<=4.1.2",
+                "ec-cube/ec-cube": "<2.4.4|>=2.11,<=2.17.1|>=3,<=3.0.18.0-patch4|>=4,<=4.3.1",
                 "ecodev/newsletter": "<=4",
                 "ectouch/ectouch": "<=2.7.2",
                 "egroupware/egroupware": "<23.1.20260113|>=26.0.20251208,<26.0.20260113",
@@ -6369,11 +8170,11 @@
                 "filament/actions": ">=3.2,<3.2.123",
                 "filament/filament": ">=4,<4.3.1",
                 "filament/infolists": ">=3,<3.2.115",
-                "filament/tables": ">=3,<3.2.115",
+                "filament/tables": ">=3,<3.2.115|>=4,<4.8.5|>=5,<5.3.5",
                 "filegator/filegator": "<7.8",
                 "filp/whoops": "<2.1.13",
                 "fineuploader/php-traditional-server": "<=1.2.2",
-                "firebase/php-jwt": "<6",
+                "firebase/php-jwt": "<7",
                 "fisharebest/webtrees": "<=2.1.18",
                 "fixpunkt/fp-masterquiz": "<2.2.1|>=3,<3.5.2",
                 "fixpunkt/fp-newsletter": "<1.1.1|>=1.2,<2.1.2|>=2.2,<3.2.6",
@@ -6381,6 +8182,7 @@
                 "flarum/flarum": "<0.1.0.0-beta8",
                 "flarum/framework": "<1.8.10",
                 "flarum/mentions": "<1.6.3",
+                "flarum/nicknames": "<1.8.3",
                 "flarum/sticky": ">=0.1.0.0-beta14,<=0.1.0.0-beta15",
                 "flarum/tags": "<=0.1.0.0-beta13",
                 "floriangaerber/magnesium": "<0.3.1",
@@ -6403,15 +8205,15 @@
                 "friendsoftypo3/openid": ">=4.5,<4.5.31|>=4.7,<4.7.16|>=6,<6.0.11|>=6.1,<6.1.6",
                 "froala/wysiwyg-editor": "<=4.3",
                 "frosh/adminer-platform": "<2.2.1",
-                "froxlor/froxlor": "<=2.2.5",
+                "froxlor/froxlor": "<=2.3.3",
                 "frozennode/administrator": "<=5.0.12",
                 "fuel/core": "<1.8.1",
-                "funadmin/funadmin": "<=5.0.2",
+                "funadmin/funadmin": "<=7.1.0.0-RC4",
                 "gaoming13/wechat-php-sdk": "<=1.10.2",
                 "genix/cms": "<=1.1.11",
                 "georgringer/news": "<1.3.3",
                 "geshi/geshi": "<=1.0.9.1",
-                "getformwork/formwork": "<2.2",
+                "getformwork/formwork": "<=2.3.3",
                 "getgrav/grav": "<1.11.0.0-beta1",
                 "getkirby/cms": "<3.9.8.3-dev|>=3.10,<3.10.1.2-dev|>=4,<4.7.1|>=5,<=5.2.1",
                 "getkirby/kirby": "<3.9.8.3-dev|>=3.10,<3.10.1.2-dev|>=4,<4.7.1",
@@ -6427,7 +8229,7 @@
                 "gp247/core": "<1.1.24",
                 "gree/jose": "<2.2.1",
                 "gregwar/rst": "<1.0.3",
-                "grumpydictator/firefly-iii": "<6.1.17",
+                "grumpydictator/firefly-iii": "<6.1.17|>=6.4.23,<=6.5",
                 "gugoan/economizzer": "<=0.9.0.0-beta1",
                 "guzzlehttp/guzzle": "<6.5.8|>=7,<7.4.5",
                 "guzzlehttp/oauth-subscriber": "<0.8.1",
@@ -6453,7 +8255,7 @@
                 "ibexa/solr": ">=4.5,<4.5.4",
                 "ibexa/user": ">=4,<4.4.3|>=5,<5.0.4",
                 "icecoder/icecoder": "<=8.1",
-                "idno/known": "<=1.6.2",
+                "idno/known": "<1.6.4",
                 "ilicmiljan/secure-props": ">=1.2,<1.2.2",
                 "illuminate/auth": "<5.5.10",
                 "illuminate/cookie": ">=4,<=4.0.11|>=4.1,<6.18.31|>=7,<7.22.4",
@@ -6482,6 +8284,7 @@
                 "jbartels/wec-map": "<3.0.3",
                 "jcbrand/converse.js": "<3.3.3",
                 "joelbutcher/socialstream": "<5.6|>=6,<6.2",
+                "johnbillion/query-monitor": "<3.20.4",
                 "johnbillion/wp-crontrol": "<1.16.2|>=1.17,<1.19.2",
                 "joomla/application": "<1.0.13",
                 "joomla/archive": "<1.1.12|>=2,<2.0.1",
@@ -6500,10 +8303,11 @@
                 "jweiland/events2": "<8.3.8|>=9,<9.0.6",
                 "jweiland/kk-downloader": "<1.2.2",
                 "kazist/phpwhois": "<=4.2.6",
+                "kelvinmo/simplejwt": "<=1.1",
                 "kelvinmo/simplexrd": "<3.1.1",
                 "kevinpapst/kimai2": "<1.16.7",
                 "khodakhah/nodcms": "<=3",
-                "kimai/kimai": "<2.46",
+                "kimai/kimai": "<=2.50",
                 "kitodo/presentation": "<3.2.3|>=3.3,<3.3.4",
                 "klaviyo/magento2-extension": ">=1,<3",
                 "knplabs/knp-snappy": "<=1.4.2",
@@ -6528,16 +8332,16 @@
                 "lavalite/cms": "<=10.1",
                 "lavitto/typo3-form-to-database": "<2.2.5|>=3,<3.2.2|>=4,<4.2.3|>=5,<5.0.2",
                 "lcobucci/jwt": ">=3.4,<3.4.6|>=4,<4.0.4|>=4.1,<4.1.5",
-                "league/commonmark": "<2.7",
+                "league/commonmark": "<=2.8.1",
                 "league/flysystem": "<1.1.4|>=2,<2.1.1",
                 "league/oauth2-server": ">=8.3.2,<8.4.2|>=8.5,<8.5.3",
                 "leantime/leantime": "<3.3",
                 "lexik/jwt-authentication-bundle": "<2.10.7|>=2.11,<2.11.3",
                 "libreform/libreform": ">=2,<=2.0.8",
-                "librenms/librenms": "<25.12",
+                "librenms/librenms": "<26.2",
                 "liftkit/database": "<2.13.2",
                 "lightsaml/lightsaml": "<1.3.5",
-                "limesurvey/limesurvey": "<6.5.12",
+                "limesurvey/limesurvey": "<6.15.4",
                 "livehelperchat/livehelperchat": "<=3.91",
                 "livewire-filemanager/filemanager": "<=1.0.4",
                 "livewire/livewire": "<2.12.7|>=3.0.0.0-beta1,<3.6.4",
@@ -6565,7 +8369,7 @@
                 "marshmallow/nova-tiptap": "<5.7",
                 "matomo/matomo": "<1.11",
                 "matyhtf/framework": "<3.0.6",
-                "mautic/core": "<5.2.9|>=6,<6.0.7",
+                "mautic/core": "<5.2.10|>=6,<6.0.8|>=7.0.0.0-alpha,<7.0.1",
                 "mautic/core-lib": ">=1.0.0.0-beta,<4.4.13|>=5.0.0.0-alpha,<5.1.1",
                 "mautic/grapes-js-builder-bundle": ">=4,<4.4.18|>=5,<5.2.9|>=6,<6.0.7",
                 "maximebf/debugbar": "<1.19",
@@ -6598,7 +8402,7 @@
                 "mongodb/mongodb": ">=1,<1.9.2",
                 "mongodb/mongodb-extension": "<1.21.2",
                 "monolog/monolog": ">=1.8,<1.12",
-                "moodle/moodle": "<4.4.12|>=4.5.0.0-beta,<4.5.8|>=5.0.0.0-beta,<5.0.4|>=5.1.0.0-beta,<5.1.1",
+                "moodle/moodle": "<4.5.9|>=5.0.0.0-beta,<5.0.5|>=5.1.0.0-beta,<5.1.2",
                 "moonshine/moonshine": "<=3.12.5",
                 "mos/cimage": "<0.7.19",
                 "movim/moxl": ">=0.8,<=0.10",
@@ -6700,7 +8504,7 @@
                 "phpoffice/phpexcel": "<=1.8.2",
                 "phpoffice/phpspreadsheet": "<1.30|>=2,<2.1.12|>=2.2,<2.4|>=3,<3.10|>=4,<5",
                 "phppgadmin/phppgadmin": "<=7.13",
-                "phpseclib/phpseclib": "<2.0.47|>=3,<3.0.36",
+                "phpseclib/phpseclib": "<=2.0.51|>=3,<=3.0.49",
                 "phpservermon/phpservermon": "<3.6",
                 "phpsysinfo/phpsysinfo": "<3.4.3",
                 "phpunit/phpunit": "<8.5.52|>=9,<9.6.33|>=10,<10.5.62|>=11,<11.5.50|>=12,<12.5.8",
@@ -6716,7 +8520,7 @@
                 "pimcore/demo": "<10.3",
                 "pimcore/ecommerce-framework-bundle": "<1.0.10",
                 "pimcore/perspective-editor": "<1.5.1",
-                "pimcore/pimcore": "<=11.5.13|>=12.0.0.0-RC1-dev,<12.3.1",
+                "pimcore/pimcore": "<=11.5.14.1|>=12,<12.3.3",
                 "pimcore/web2print-tools-bundle": "<=5.2.1|>=6.0.0.0-RC1-dev,<=6.1",
                 "piwik/piwik": "<1.11",
                 "pixelfed/pixelfed": "<0.12.5",
@@ -6742,7 +8546,7 @@
                 "propel/propel": ">=2.0.0.0-alpha1,<=2.0.0.0-alpha7",
                 "propel/propel1": ">=1,<=1.7.1",
                 "psy/psysh": "<=0.11.22|>=0.12,<=0.12.18",
-                "pterodactyl/panel": "<1.12",
+                "pterodactyl/panel": "<1.12.1",
                 "ptheofan/yii2-statemachine": ">=2.0.0.0-RC1-dev,<=2",
                 "ptrofimov/beanstalk_console": "<1.7.14",
                 "pubnub/pubnub": "<6.1",
@@ -6756,6 +8560,7 @@
                 "rainlab/blog-plugin": "<1.4.1",
                 "rainlab/debugbar-plugin": "<3.1",
                 "rainlab/user-plugin": "<=1.4.5",
+                "ralffreit/mfa-email": "<=2",
                 "rankmath/seo-by-rank-math": "<=1.0.95",
                 "rap2hpoutre/laravel-log-viewer": "<0.13",
                 "react/http": ">=0.7,<1.9",
@@ -6766,7 +8571,7 @@
                 "reportico-web/reportico": "<=8.1",
                 "rhukster/dom-sanitizer": "<1.0.7",
                 "rmccue/requests": ">=1.6,<1.8",
-                "robrichards/xmlseclibs": "<=3.1.3",
+                "robrichards/xmlseclibs": "<3.1.5",
                 "roots/soil": "<4.1",
                 "roundcube/roundcubemail": "<1.5.10|>=1.6,<1.6.11",
                 "rudloff/alltube": "<3.0.3",
@@ -6782,8 +8587,8 @@
                 "setasign/fpdi": "<2.6.4",
                 "sfroemken/url_redirect": "<=1.2.1",
                 "sheng/yiicms": "<1.2.1",
-                "shopware/core": "<6.6.10.9-dev|>=6.7,<6.7.6.1-dev",
-                "shopware/platform": "<6.6.10.7-dev|>=6.7,<6.7.3.1-dev",
+                "shopware/core": "<6.6.10.15-dev|>=6.7,<6.7.8.1-dev",
+                "shopware/platform": "<6.6.10.15-dev|>=6.7,<6.7.8.1-dev",
                 "shopware/production": "<=6.3.5.2",
                 "shopware/shopware": "<=5.7.17|>=6.4.6,<6.6.10.10-dev|>=6.7,<6.7.6.1-dev",
                 "shopware/storefront": "<6.6.10.10-dev|>=6.7,<6.7.5.1-dev",
@@ -6817,7 +8622,7 @@
                 "simplesamlphp/simplesamlphp-module-openid": "<1",
                 "simplesamlphp/simplesamlphp-module-openidprovider": "<0.9",
                 "simplesamlphp/xml-common": "<1.20",
-                "simplesamlphp/xml-security": "==1.6.11",
+                "simplesamlphp/xml-security": "<1.13.9|>=2,<2.3.1",
                 "simplito/elliptic-php": "<1.0.6",
                 "sitegeist/fluid-components": "<3.5",
                 "sjbr/sr-feuser-register": "<2.6.2|>=5.1,<12.5",
@@ -6827,7 +8632,7 @@
                 "slim/slim": "<2.6",
                 "slub/slub-events": "<3.0.3",
                 "smarty/smarty": "<4.5.3|>=5,<5.1.1",
-                "snipe/snipe-it": "<=8.3.4",
+                "snipe/snipe-it": "<8.3.7",
                 "socalnick/scn-social-auth": "<1.15.2",
                 "socialiteproviders/steam": "<1.1",
                 "solspace/craft-freeform": "<4.1.29|>=5,<=5.14.6",
@@ -6845,7 +8650,7 @@
                 "starcitizentools/short-description": ">=4,<4.0.1",
                 "starcitizentools/tabber-neue": ">=1.9.1,<2.7.2|>=3,<3.1.1",
                 "starcitizenwiki/embedvideo": "<=4",
-                "statamic/cms": "<5.73.6|>=6,<6.2.5",
+                "statamic/cms": "<5.73.14|>=6,<6.7.1",
                 "stormpath/sdk": "<9.9.99",
                 "studio-42/elfinder": "<=2.1.64",
                 "studiomitte/friendlycaptcha": "<0.1.4",
@@ -6864,7 +8669,7 @@
                 "sylius/grid-bundle": "<1.10.1",
                 "sylius/paypal-plugin": "<1.6.2|>=1.7,<1.7.2|>=2,<2.0.2",
                 "sylius/resource-bundle": ">=1,<1.3.14|>=1.4,<1.4.7|>=1.5,<1.5.2|>=1.6,<1.6.4",
-                "sylius/sylius": "<1.12.19|>=1.13.0.0-alpha1,<1.13.4",
+                "sylius/sylius": "<1.9.12|>=1.10,<1.10.16|>=1.11,<1.11.17|>=1.12,<=1.12.22|>=1.13,<=1.13.14|>=1.14,<=1.14.17|>=2,<=2.0.15|>=2.1,<=2.1.11|>=2.2,<=2.2.2",
                 "symbiote/silverstripe-multivaluefield": ">=3,<3.1",
                 "symbiote/silverstripe-queuedjobs": ">=3,<3.0.2|>=3.1,<3.1.4|>=4,<4.0.7|>=4.1,<4.1.2|>=4.2,<4.2.4|>=4.3,<4.3.3|>=4.4,<4.4.3|>=4.5,<4.5.1|>=4.6,<4.6.4",
                 "symbiote/silverstripe-seed": "<6.0.3",
@@ -6919,7 +8724,7 @@
                 "thelia/thelia": ">=2.1,<2.1.3",
                 "theonedemon/phpwhois": "<=4.2.5",
                 "thinkcmf/thinkcmf": "<6.0.8",
-                "thorsten/phpmyfaq": "<=4.0.16|>=4.1.0.0-alpha,<=4.1.0.0-beta2",
+                "thorsten/phpmyfaq": "<4.0.18|>=4.1.0.0-alpha,<=4.1.0.0-beta2",
                 "tikiwiki/tiki-manager": "<=17.1",
                 "timber/timber": ">=0.16.6,<1.23.1|>=1.24,<1.24.1|>=2,<2.1",
                 "tinymce/tinymce": "<7.2",
@@ -6937,6 +8742,7 @@
                 "ttskch/pagination-service-provider": "<1",
                 "twbs/bootstrap": "<3.4.1|>=4,<4.3.1",
                 "twig/twig": "<3.11.2|>=3.12,<3.14.1|>=3.16,<3.19",
+                "typicms/core": "<16.1.7",
                 "typo3/cms": "<9.5.29|>=10,<10.4.35|>=11,<11.5.23|>=12,<12.2",
                 "typo3/cms-backend": "<4.1.14|>=4.2,<4.2.15|>=4.3,<4.3.7|>=4.4,<4.4.4|>=7,<=7.6.50|>=8,<=8.7.39|>=9,<9.5.55|>=10,<=10.4.54|>=11,<=11.5.48|>=12,<=12.4.40|>=13,<=13.4.22|>=14,<=14.0.1",
                 "typo3/cms-belog": ">=10,<=10.4.47|>=11,<=11.5.41|>=12,<=12.4.24|>=13,<=13.4.2",
@@ -6991,8 +8797,9 @@
                 "wallabag/wallabag": "<2.6.11",
                 "wanglelecc/laracms": "<=1.0.3",
                 "wapplersystems/a21glossary": "<=0.4.10",
-                "web-auth/webauthn-framework": ">=3.3,<3.3.4|>=4.5,<4.9",
-                "web-auth/webauthn-lib": ">=4.5,<4.9",
+                "web-auth/webauthn-framework": ">=3.3,<3.3.4|>=4.5,<4.9|>=5.2,<5.2.4",
+                "web-auth/webauthn-lib": ">=4.5,<4.9|>=5.2,<5.2.4",
+                "web-auth/webauthn-symfony-bundle": ">=5.2,<5.2.4",
                 "web-feet/coastercms": "==5.5",
                 "web-tp3/wec_map": "<3.0.3",
                 "webbuilders-group/silverstripe-kapost-bridge": "<0.4",
@@ -7004,7 +8811,7 @@
                 "wikibase/wikibase": "<=1.39.3",
                 "wikimedia/parsoid": "<0.12.2",
                 "willdurand/js-translation-bundle": "<2.1.1",
-                "winter/wn-backend-module": "<1.2.4",
+                "winter/wn-backend-module": "<1.2.12",
                 "winter/wn-cms-module": "<=1.2.9",
                 "winter/wn-dusk-plugin": "<2.1",
                 "winter/wn-system-module": "<1.2.4",
@@ -7017,7 +8824,8 @@
                 "wpanel/wpanel4-cms": "<=4.3.1",
                 "wpcloud/wp-stateless": "<3.2",
                 "wpglobus/wpglobus": "<=1.9.6",
-                "wwbn/avideo": "<14.3",
+                "wpmetabox/meta-box": "<5.11.2",
+                "wwbn/avideo": "<=26",
                 "xataface/xataface": "<3",
                 "xpressengine/xpressengine": "<3.0.15",
                 "yab/quarx": "<2.4.5",
@@ -7036,6 +8844,7 @@
                 "yiisoft/yii2-redis": "<2.0.20",
                 "yikesinc/yikes-inc-easy-mailchimp-extender": "<6.8.6",
                 "yoast-seo-for-typo3/yoast_seo": "<7.2.3",
+                "yoast/duplicate-post": "<=4.5",
                 "yourls/yourls": "<=1.10.2",
                 "yuan1994/tpadmin": "<=1.3.12",
                 "yungifez/skuul": "<=2.6.5",
@@ -7076,7 +8885,8 @@
                 "zf-commons/zfc-user": "<1.2.2",
                 "zfcampus/zf-apigility-doctrine": ">=1,<1.0.3",
                 "zfr/zfr-oauth2-server-module": "<0.1.2",
-                "zoujingli/thinkadmin": "<=6.1.53"
+                "zoujingli/thinkadmin": "<=6.1.53",
+                "zumba/json-serializer": "<3.2.3"
             },
             "type": "metapackage",
             "notification-url": "https://packagist.org/downloads/",
@@ -7113,7 +8923,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-02-13T23:11:21+00:00"
+            "time": "2026-03-19T21:13:45+00:00"
         },
         {
             "name": "sanmai/di-container",
@@ -7677,16 +9487,16 @@
         },
         {
             "name": "sebastian/environment",
-            "version": "8.0.3",
+            "version": "8.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/environment.git",
-                "reference": "24a711b5c916efc6d6e62aa65aa2ec98fef77f68"
+                "reference": "7b8842c2d8e85d0c3a5831236bf5869af6ab2a11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/24a711b5c916efc6d6e62aa65aa2ec98fef77f68",
-                "reference": "24a711b5c916efc6d6e62aa65aa2ec98fef77f68",
+                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/7b8842c2d8e85d0c3a5831236bf5869af6ab2a11",
+                "reference": "7b8842c2d8e85d0c3a5831236bf5869af6ab2a11",
                 "shasum": ""
             },
             "require": {
@@ -7729,7 +9539,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/environment/issues",
                 "security": "https://github.com/sebastianbergmann/environment/security/policy",
-                "source": "https://github.com/sebastianbergmann/environment/tree/8.0.3"
+                "source": "https://github.com/sebastianbergmann/environment/tree/8.0.4"
             },
             "funding": [
                 {
@@ -7749,7 +9559,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-08-12T14:11:56+00:00"
+            "time": "2026-03-15T07:05:40+00:00"
         },
         {
             "name": "sebastian/exporter",
@@ -8288,32 +10098,32 @@
         },
         {
             "name": "slevomat/coding-standard",
-            "version": "8.27.1",
+            "version": "8.28.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/slevomat/coding-standard.git",
-                "reference": "29bdaee8b65e7ed2b8e702b01852edba8bae1769"
+                "reference": "0cd4b30cc1037eca54091c188d260d570e61770c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/slevomat/coding-standard/zipball/29bdaee8b65e7ed2b8e702b01852edba8bae1769",
-                "reference": "29bdaee8b65e7ed2b8e702b01852edba8bae1769",
+                "url": "https://api.github.com/repos/slevomat/coding-standard/zipball/0cd4b30cc1037eca54091c188d260d570e61770c",
+                "reference": "0cd4b30cc1037eca54091c188d260d570e61770c",
                 "shasum": ""
             },
             "require": {
                 "dealerdirect/phpcodesniffer-composer-installer": "^0.7 || ^1.2.0",
                 "php": "^7.4 || ^8.0",
-                "phpstan/phpdoc-parser": "^2.3.1",
+                "phpstan/phpdoc-parser": "^2.3.2",
                 "squizlabs/php_codesniffer": "^4.0.1"
             },
             "require-dev": {
-                "phing/phing": "3.0.1|3.1.1",
+                "phing/phing": "3.0.1|3.1.2",
                 "php-parallel-lint/php-parallel-lint": "1.4.0",
-                "phpstan/phpstan": "2.1.37",
-                "phpstan/phpstan-deprecation-rules": "2.0.3",
-                "phpstan/phpstan-phpunit": "2.0.12",
-                "phpstan/phpstan-strict-rules": "2.0.7",
-                "phpunit/phpunit": "9.6.31|10.5.60|11.4.4|11.5.49|12.5.7"
+                "phpstan/phpstan": "2.1.40",
+                "phpstan/phpstan-deprecation-rules": "2.0.4",
+                "phpstan/phpstan-phpunit": "2.0.16",
+                "phpstan/phpstan-strict-rules": "2.0.10",
+                "phpunit/phpunit": "9.6.34|10.5.63|11.4.4|11.5.50|12.5.14"
             },
             "type": "phpcodesniffer-standard",
             "extra": {
@@ -8337,7 +10147,7 @@
             ],
             "support": {
                 "issues": "https://github.com/slevomat/coding-standard/issues",
-                "source": "https://github.com/slevomat/coding-standard/tree/8.27.1"
+                "source": "https://github.com/slevomat/coding-standard/tree/8.28.0"
             },
             "funding": [
                 {
@@ -8349,7 +10159,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-01-25T15:57:07+00:00"
+            "time": "2026-02-23T21:35:24+00:00"
         },
         {
             "name": "spatie/array-to-xml",
@@ -8825,16 +10635,16 @@
         },
         {
             "name": "vimeo/psalm",
-            "version": "6.15.1",
+            "version": "6.16.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vimeo/psalm.git",
-                "reference": "28dc127af1b5aecd52314f6f645bafc10d0e11f9"
+                "reference": "f1f5de594dc76faf8784e02d3dc4716c91c6f6ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vimeo/psalm/zipball/28dc127af1b5aecd52314f6f645bafc10d0e11f9",
-                "reference": "28dc127af1b5aecd52314f6f645bafc10d0e11f9",
+                "url": "https://api.github.com/repos/vimeo/psalm/zipball/f1f5de594dc76faf8784e02d3dc4716c91c6f6ac",
+                "reference": "f1f5de594dc76faf8784e02d3dc4716c91c6f6ac",
                 "shasum": ""
             },
             "require": {
@@ -8939,20 +10749,20 @@
                 "issues": "https://github.com/vimeo/psalm/issues",
                 "source": "https://github.com/vimeo/psalm"
             },
-            "time": "2026-02-07T19:27:16+00:00"
+            "time": "2026-03-19T10:56:09+00:00"
         },
         {
             "name": "webmozart/assert",
-            "version": "2.1.3",
+            "version": "2.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webmozarts/assert.git",
-                "reference": "6976757ba8dd70bf8cbaea0914ad84d8b51a9f46"
+                "reference": "ff31ad6efc62e66e518fbab1cde3453d389bcdc8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozarts/assert/zipball/6976757ba8dd70bf8cbaea0914ad84d8b51a9f46",
-                "reference": "6976757ba8dd70bf8cbaea0914ad84d8b51a9f46",
+                "url": "https://api.github.com/repos/webmozarts/assert/zipball/ff31ad6efc62e66e518fbab1cde3453d389bcdc8",
+                "reference": "ff31ad6efc62e66e518fbab1cde3453d389bcdc8",
                 "shasum": ""
             },
             "require": {
@@ -8999,9 +10809,9 @@
             ],
             "support": {
                 "issues": "https://github.com/webmozarts/assert/issues",
-                "source": "https://github.com/webmozarts/assert/tree/2.1.3"
+                "source": "https://github.com/webmozarts/assert/tree/2.1.6"
             },
-            "time": "2026-02-13T21:01:40+00:00"
+            "time": "2026-02-27T10:28:38+00:00"
         }
     ],
     "aliases": [],
@@ -9012,7 +10822,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "~8.3.0 || ~8.4.0 || ~8.5.0",
+        "php": "~8.4.0 || ~8.5.0",
         "ext-dom": "*",
         "ext-json": "*",
         "ext-libxml": "*",
@@ -9020,7 +10830,7 @@
     },
     "platform-dev": {},
     "platform-overrides": {
-        "php": "8.3.99"
+        "php": "8.4.99"
     },
     "plugin-api-version": "2.9.0"
 }

@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Roave\BackwardCompatibility\Configuration;
 
 use DOMDocument;
+use Psl;
 use Psl\File;
 use Roave\BackwardCompatibility\Baseline;
 use SimpleXMLElement;
 
-use function assert;
 use function libxml_get_errors;
 use function libxml_use_internal_errors;
 
@@ -66,7 +66,7 @@ final class ParseXmlConfigurationFile implements ParseConfigurationFile
         foreach ($element->xpath('baseline/ignored-regex') ?? [] as $node) {
             $ignoredItem = (string) $node;
 
-            assert($ignoredItem !== '');
+            Psl\invariant($ignoredItem !== '', 'unexpected empty string');
             $ignoredItems[] = $ignoredItem;
         }
 

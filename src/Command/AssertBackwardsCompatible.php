@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Roave\BackwardCompatibility\Command;
 
 use Psl;
+use Psl\Async;
 use Psl\Env;
 use Psl\Iter;
 use Psl\Str;
@@ -107,7 +108,10 @@ USAGE,
             );
     }
 
-    /** @throws InvalidArgumentException */
+    /**
+     * @throws InvalidArgumentException
+     * @throws Async\Exception\CompositeException
+     */
     public function execute(InputInterface $input, OutputInterface $output): int
     {
         $output = Type\instance_of(ConsoleOutputInterface::class)->assert($output);
@@ -128,7 +132,7 @@ USAGE,
 
         $toRevision = $this->parseRevision->fromStringForRepository($to, $sourceRepo);
 
-        $configuration = (new DetermineConfigurationFromFilesystem())($currentDirectory, $stdErr);
+        $configuration = new DetermineConfigurationFromFilesystem()($currentDirectory, $stdErr);
 
         $stdErr->writeln(Str\format(
             'Comparing from %s to %s...',
@@ -136,8 +140,10 @@ USAGE,
             Type\string()->coerce($toRevision),
         ));
 
-        $fromPath = $this->git->checkout($sourceRepo, $fromRevision);
-        $toPath   = $this->git->checkout($sourceRepo, $toRevision);
+        [$fromPath, $toPath] = Async\concurrently([
+            fn () => $this->git->checkout($sourceRepo, $fromRevision),
+            fn () => $this->git->checkout($sourceRepo, $toRevision),
+        ]);
 
         try {
             $changes = ($this->compareApi)(
@@ -175,8 +181,10 @@ USAGE,
                 $formatters[$format]->write($changes);
             }
         } finally {
-            $this->git->remove($fromPath);
-            $this->git->remove($toPath);
+            Async\concurrently([
+                fn () => $this->git->remove($fromPath),
+                fn () => $this->git->remove($toPath),
+            ]);
         }
 
         return $this->printOutcomeAndExit($changes, $stdErr);
