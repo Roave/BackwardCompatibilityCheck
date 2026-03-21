@@ -7892,12 +7892,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "4334c2d07964e529f44a52a66a156b8baa2fc504"
+                "reference": "e19b0f27b204991af95a5fefad00630bc3e376ae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/4334c2d07964e529f44a52a66a156b8baa2fc504",
-                "reference": "4334c2d07964e529f44a52a66a156b8baa2fc504",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/e19b0f27b204991af95a5fefad00630bc3e376ae",
+                "reference": "e19b0f27b204991af95a5fefad00630bc3e376ae",
                 "shasum": ""
             },
             "conflict": {
@@ -8088,6 +8088,7 @@
                 "dolibarr/dolibarr": "<21.0.3",
                 "dompdf/dompdf": "<2.0.4",
                 "doublethreedigital/guest-entries": "<3.1.2",
+                "dreamfactory/df-core": "<1.0.4",
                 "drupal-pattern-lab/unified-twig-extensions": "<=0.1",
                 "drupal/access_code": "<2.0.5",
                 "drupal/acquia_dam": "<1.1.5",
@@ -8924,7 +8925,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-03-20T21:10:08+00:00"
+            "time": "2026-03-20T22:08:23+00:00"
         },
         {
             "name": "sanmai/di-container",
