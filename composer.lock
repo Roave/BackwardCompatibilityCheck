@@ -7892,12 +7892,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "b4cf097607afd6063b103f723d55cf481c04ee07"
+                "reference": "df1aa77e0bcec36cb93c268f62c6d7613e87cb07"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/b4cf097607afd6063b103f723d55cf481c04ee07",
-                "reference": "b4cf097607afd6063b103f723d55cf481c04ee07",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/df1aa77e0bcec36cb93c268f62c6d7613e87cb07",
+                "reference": "df1aa77e0bcec36cb93c268f62c6d7613e87cb07",
                 "shasum": ""
             },
             "conflict": {
@@ -7955,7 +7955,7 @@
                 "automattic/jetpack": "<9.8",
                 "avideo/avideo": "<=26",
                 "awesome-support/awesome-support": "<=6.0.7",
-                "aws/aws-sdk-php": "<3.368",
+                "aws/aws-sdk-php": "<=3.371.3",
                 "ayacoo/redirect-tab": "<2.1.2|>=3,<3.1.7|>=4,<4.0.5",
                 "azuracast/azuracast": "<=0.23.3",
                 "b13/seo_basics": "<0.8.2",
@@ -8085,7 +8085,7 @@
                 "doctrine/mongodb-odm": "<1.0.2",
                 "doctrine/mongodb-odm-bundle": "<3.0.1",
                 "doctrine/orm": ">=1,<1.2.4|>=2,<2.4.8|>=2.5,<2.5.1|>=2.8.3,<2.8.4",
-                "dolibarr/dolibarr": "<21.0.3",
+                "dolibarr/dolibarr": "<=22.0.4",
                 "dompdf/dompdf": "<2.0.4",
                 "doublethreedigital/guest-entries": "<3.1.2",
                 "dreamfactory/df-core": "<1.0.4",
@@ -8217,7 +8217,7 @@
                 "geshi/geshi": "<=1.0.9.1",
                 "getformwork/formwork": "<=2.3.3",
                 "getgrav/grav": "<1.11.0.0-beta1",
-                "getkirby/cms": "<3.9.8.3-dev|>=3.10,<3.10.1.2-dev|>=4,<4.7.1|>=5,<=5.2.1",
+                "getkirby/cms": "<=5.2.1",
                 "getkirby/kirby": "<3.9.8.3-dev|>=3.10,<3.10.1.2-dev|>=4,<4.7.1",
                 "getkirby/panel": "<2.5.14",
                 "getkirby/starterkit": "<=3.7.0.2",
@@ -8246,6 +8246,7 @@
                 "hjue/justwriting": "<=1",
                 "hov/jobfair": "<1.0.13|>=2,<2.0.2",
                 "httpsoft/http-message": "<1.0.12",
+                "hybridauth/hybridauth": "<=3.12.2",
                 "hyn/multi-tenant": ">=5.6,<5.7.2",
                 "ibexa/admin-ui": ">=4.2,<4.2.3|>=4.6,<4.6.25|>=5,<5.0.3",
                 "ibexa/admin-ui-assets": ">=4.6.0.0-alpha1,<4.6.21",
@@ -8398,6 +8399,7 @@
                 "mikehaertl/php-shellcommand": "<1.6.1",
                 "mineadmin/mineadmin": "<=3.0.9",
                 "miniorange/miniorange-saml": "<1.4.3",
+                "miraheze/ts-portal": "<=33",
                 "mittwald/typo3_forum": "<1.2.1",
                 "mobiledetect/mobiledetectlib": "<2.8.32",
                 "modx/revolution": "<=3.1",
@@ -8930,7 +8932,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-03-26T18:25:06+00:00"
+            "time": "2026-03-27T23:11:54+00:00"
         },
         {
             "name": "sanmai/di-container",
