@@ -75,16 +75,16 @@
         },
         {
             "name": "composer/ca-bundle",
-            "version": "1.5.10",
+            "version": "1.5.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/ca-bundle.git",
-                "reference": "961a5e4056dd2e4a2eedcac7576075947c28bf63"
+                "reference": "68ff39175e8e94a4bb1d259407ce51a6a60f09e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/ca-bundle/zipball/961a5e4056dd2e4a2eedcac7576075947c28bf63",
-                "reference": "961a5e4056dd2e4a2eedcac7576075947c28bf63",
+                "url": "https://api.github.com/repos/composer/ca-bundle/zipball/68ff39175e8e94a4bb1d259407ce51a6a60f09e6",
+                "reference": "68ff39175e8e94a4bb1d259407ce51a6a60f09e6",
                 "shasum": ""
             },
             "require": {
@@ -131,7 +131,7 @@
             "support": {
                 "irc": "irc://irc.freenode.org/composer",
                 "issues": "https://github.com/composer/ca-bundle/issues",
-                "source": "https://github.com/composer/ca-bundle/tree/1.5.10"
+                "source": "https://github.com/composer/ca-bundle/tree/1.5.11"
             },
             "funding": [
                 {
@@ -143,20 +143,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-12-08T15:06:51+00:00"
+            "time": "2026-03-30T09:16:10+00:00"
         },
         {
             "name": "composer/class-map-generator",
-            "version": "1.7.1",
+            "version": "1.7.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/class-map-generator.git",
-                "reference": "8f5fa3cc214230e71f54924bd0197a3bcc705eb1"
+                "reference": "6a9c2f0970022ab00dc58c07d0685dd712f2231b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/class-map-generator/zipball/8f5fa3cc214230e71f54924bd0197a3bcc705eb1",
-                "reference": "8f5fa3cc214230e71f54924bd0197a3bcc705eb1",
+                "url": "https://api.github.com/repos/composer/class-map-generator/zipball/6a9c2f0970022ab00dc58c07d0685dd712f2231b",
+                "reference": "6a9c2f0970022ab00dc58c07d0685dd712f2231b",
                 "shasum": ""
             },
             "require": {
@@ -200,7 +200,7 @@
             ],
             "support": {
                 "issues": "https://github.com/composer/class-map-generator/issues",
-                "source": "https://github.com/composer/class-map-generator/tree/1.7.1"
+                "source": "https://github.com/composer/class-map-generator/tree/1.7.2"
             },
             "funding": [
                 {
@@ -212,7 +212,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-12-29T13:15:25+00:00"
+            "time": "2026-03-30T15:36:56+00:00"
         },
         {
             "name": "composer/composer",
@@ -7892,12 +7892,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "df1aa77e0bcec36cb93c268f62c6d7613e87cb07"
+                "reference": "fdacac838472c18285bb944d528690f0fab9986f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/df1aa77e0bcec36cb93c268f62c6d7613e87cb07",
-                "reference": "df1aa77e0bcec36cb93c268f62c6d7613e87cb07",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/fdacac838472c18285bb944d528690f0fab9986f",
+                "reference": "fdacac838472c18285bb944d528690f0fab9986f",
                 "shasum": ""
             },
             "conflict": {
@@ -8012,7 +8012,7 @@
                 "cesnet/simplesamlphp-module-proxystatistics": "<3.1",
                 "chriskacerguis/codeigniter-restserver": "<=2.7.1",
                 "chrome-php/chrome": "<1.14",
-                "ci4-cms-erp/ci4ms": "<0.28.5",
+                "ci4-cms-erp/ci4ms": "<=0.28.6",
                 "civicrm/civicrm-core": ">=4.2,<4.2.9|>=4.3,<4.3.3",
                 "ckeditor/ckeditor": "<4.25",
                 "clickstorm/cs-seo": ">=6,<6.8|>=7,<7.5|>=8,<8.4|>=9,<9.3",
@@ -8665,7 +8665,7 @@
                 "subhh/libconnect": "<7.0.8|>=8,<8.1",
                 "sukohi/surpass": "<1",
                 "sulu/form-bundle": ">=2,<2.5.3",
-                "sulu/sulu": "<1.6.44|>=2,<2.5.25|>=2.6,<2.6.9|>=3.0.0.0-alpha1,<3.0.0.0-alpha3",
+                "sulu/sulu": "<2.6.22|>=3,<3.0.5",
                 "sumocoders/framework-user-bundle": "<1.4",
                 "superbig/craft-audit": "<3.0.2",
                 "svewap/a21glossary": "<=0.4.10",
@@ -8932,7 +8932,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-03-27T23:11:54+00:00"
+            "time": "2026-03-30T18:22:46+00:00"
         },
         {
             "name": "sanmai/di-container",
