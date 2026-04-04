@@ -7512,16 +7512,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "12.5.15",
+            "version": "12.5.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "aeb6899ffdbbf4b4ff5e6b6ebb77b35c51bb6d9a"
+                "reference": "b2429f58ae75cae980b5bb9873abe4de6aac8b58"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/aeb6899ffdbbf4b4ff5e6b6ebb77b35c51bb6d9a",
-                "reference": "aeb6899ffdbbf4b4ff5e6b6ebb77b35c51bb6d9a",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/b2429f58ae75cae980b5bb9873abe4de6aac8b58",
+                "reference": "b2429f58ae75cae980b5bb9873abe4de6aac8b58",
                 "shasum": ""
             },
             "require": {
@@ -7590,7 +7590,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/12.5.15"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/12.5.16"
             },
             "funding": [
                 {
@@ -7598,7 +7598,7 @@
                     "type": "other"
                 }
             ],
-            "time": "2026-03-31T06:41:33+00:00"
+            "time": "2026-04-03T05:26:42+00:00"
         },
         {
             "name": "psalm/plugin-phpunit",
@@ -7876,12 +7876,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "61130731cdf896e60028ed82193a1bc3c50d032a"
+                "reference": "958bc6ccdb194912236265e4f36256e55bb0c9da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/61130731cdf896e60028ed82193a1bc3c50d032a",
-                "reference": "61130731cdf896e60028ed82193a1bc3c50d032a",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/958bc6ccdb194912236265e4f36256e55bb0c9da",
+                "reference": "958bc6ccdb194912236265e4f36256e55bb0c9da",
                 "shasum": ""
             },
             "conflict": {
@@ -7932,9 +7932,9 @@
                 "aureuserp/aureuserp": "<1.3.0.0-beta1",
                 "austintoddj/canvas": "<=3.4.2",
                 "auth0/auth0-php": ">=3.3,<=8.18",
-                "auth0/login": "<7.20",
-                "auth0/symfony": "<=5.5",
-                "auth0/wordpress": "<=5.4",
+                "auth0/login": "<=7.20",
+                "auth0/symfony": "<=5.7",
+                "auth0/wordpress": "<=5.5",
                 "automad/automad": "<2.0.0.0-alpha5",
                 "automattic/jetpack": "<9.8",
                 "avideo/avideo": "<=26",
@@ -8917,7 +8917,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-04-02T00:32:12+00:00"
+            "time": "2026-04-03T04:48:53+00:00"
         },
         {
             "name": "sanmai/di-container",
