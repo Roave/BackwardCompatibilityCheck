@@ -7880,12 +7880,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "f41f65e527608a9a76cfbafd873756ed76c5452d"
+                "reference": "9a1d6c95c513ebdc27e74ab3cd0fed99b7035c2e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/f41f65e527608a9a76cfbafd873756ed76c5452d",
-                "reference": "f41f65e527608a9a76cfbafd873756ed76c5452d",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/9a1d6c95c513ebdc27e74ab3cd0fed99b7035c2e",
+                "reference": "9a1d6c95c513ebdc27e74ab3cd0fed99b7035c2e",
                 "shasum": ""
             },
             "conflict": {
@@ -7999,7 +7999,7 @@
                 "cesnet/simplesamlphp-module-proxystatistics": "<3.1",
                 "chriskacerguis/codeigniter-restserver": "<=2.7.1",
                 "chrome-php/chrome": "<1.14",
-                "ci4-cms-erp/ci4ms": "<=0.31.3",
+                "ci4-cms-erp/ci4ms": "<0.31.5",
                 "civicrm/civicrm-core": ">=4.2,<4.2.9|>=4.3,<4.3.3",
                 "ckeditor/ckeditor": "<4.25",
                 "clickstorm/cs-seo": ">=6,<6.8|>=7,<7.5|>=8,<8.4|>=9,<9.3",
@@ -8167,7 +8167,7 @@
                 "fisharebest/webtrees": "<=2.1.18",
                 "fixpunkt/fp-masterquiz": "<2.2.1|>=3,<3.5.2",
                 "fixpunkt/fp-newsletter": "<1.1.1|>=1.2,<2.1.2|>=2.2,<3.2.6",
-                "flarum/core": "<1.8.10",
+                "flarum/core": "<=1.8.15|>=2.0.0.0-beta1,<=2.0.0.0-beta8",
                 "flarum/flarum": "<0.1.0.0-beta8",
                 "flarum/framework": "<1.8.10",
                 "flarum/mentions": "<1.6.3",
@@ -8927,7 +8927,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-04-21T17:25:01+00:00"
+            "time": "2026-04-22T21:20:32+00:00"
         },
         {
             "name": "sanmai/di-container",
