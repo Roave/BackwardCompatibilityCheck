@@ -7880,18 +7880,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "87a281378fdad8f5926efe259f6ca72e7a395e68"
+                "reference": "2221f6ef09e87784e78e188aadd8f7e3a50e679a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/87a281378fdad8f5926efe259f6ca72e7a395e68",
-                "reference": "87a281378fdad8f5926efe259f6ca72e7a395e68",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/2221f6ef09e87784e78e188aadd8f7e3a50e679a",
+                "reference": "2221f6ef09e87784e78e188aadd8f7e3a50e679a",
                 "shasum": ""
             },
             "conflict": {
                 "3f/pygmentize": "<1.2",
                 "adaptcms/adaptcms": "<=1.3",
-                "admidio/admidio": "<5.0.8",
+                "admidio/admidio": "<=5.0.8",
                 "adodb/adodb-php": "<=5.22.9",
                 "aheinze/cockpit": "<2.2",
                 "aimeos/ai-admin-graphql": ">=2022.04.1,<2022.10.10|>=2023.04.1,<2023.10.6|>=2024.04.1,<2024.07.2",
@@ -8000,7 +8000,7 @@
                 "cesnet/simplesamlphp-module-proxystatistics": "<3.1",
                 "chriskacerguis/codeigniter-restserver": "<=2.7.1",
                 "chrome-php/chrome": "<1.14",
-                "ci4-cms-erp/ci4ms": "<0.31.5",
+                "ci4-cms-erp/ci4ms": "<=0.31.6",
                 "civicrm/civicrm-core": ">=4.2,<4.2.9|>=4.3,<4.3.3",
                 "ckeditor/ckeditor": "<4.25",
                 "clickstorm/cs-seo": ">=6,<6.8|>=7,<7.5|>=8,<8.4|>=9,<9.3",
@@ -8205,7 +8205,7 @@
                 "geshi/geshi": "<=1.0.9.1",
                 "getformwork/formwork": "<=2.3.3",
                 "getgrav/grav": "<1.11.0.0-beta1",
-                "getkirby/cms": "<5.4",
+                "getkirby/cms": "<4.9|>=5,<5.4",
                 "getkirby/kirby": "<3.9.8.3-dev|>=3.10,<3.10.1.2-dev|>=4,<4.7.1",
                 "getkirby/panel": "<2.5.14",
                 "getkirby/starterkit": "<=3.7.0.2",
@@ -8265,7 +8265,7 @@
                 "intelliants/subrion": "<4.2.2",
                 "inter-mediator/inter-mediator": "==5.5",
                 "invoiceninja/invoiceninja": "<5.13.4",
-                "ipl/web": "<0.10.1",
+                "ipl/web": "<=0.13",
                 "islandora/crayfish": "<4.1",
                 "islandora/islandora": ">=2,<2.4.1",
                 "ivankristianto/phpwhois": "<=4.3",
@@ -8535,7 +8535,7 @@
                 "prestashop/gamification": "<2.3.2",
                 "prestashop/prestashop": "<8.2.5|>=9.0.0.0-alpha1,<9.1",
                 "prestashop/productcomments": "<5.0.2",
-                "prestashop/ps_checkout": "<4.4.1|>=5,<5.0.5",
+                "prestashop/ps_checkout": "<5.3",
                 "prestashop/ps_contactinfo": "<=3.3.2",
                 "prestashop/ps_emailsubscription": "<2.6.1",
                 "prestashop/ps_facetedsearch": "<3.4.1",
@@ -8572,6 +8572,7 @@
                 "rhukster/dom-sanitizer": "<1.0.10",
                 "rmccue/requests": ">=1.6,<1.8",
                 "roadiz/documents": "<2.3.42|>=2.4,<2.5.44|>=2.6,<2.6.28|>=2.7,<2.7.9",
+                "roadiz/openid": "<2.3.43|>=2.5,<2.5.45|>=2.6,<2.6.31|>=2.7,<2.7.18",
                 "robrichards/xmlseclibs": "<3.1.5",
                 "roots/soil": "<4.1",
                 "roundcube/roundcubemail": "<1.5.10|>=1.6,<1.6.11|>=1.7.0.0-beta,<1.7.0.0-RC5-dev",
@@ -8928,7 +8929,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-04-28T23:21:55+00:00"
+            "time": "2026-04-30T21:24:12+00:00"
         },
         {
             "name": "sanmai/di-container",
