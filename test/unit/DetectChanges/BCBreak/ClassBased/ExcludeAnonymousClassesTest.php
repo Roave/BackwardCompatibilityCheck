@@ -39,7 +39,8 @@ PHP
         );
 
         $check = $this->createMock(ClassBased::class);
-        $check->expects(self::once())
+        $check
+            ->expects(self::once())
             ->method('__invoke')
             ->with($fromReflection, $toReflection)
             ->willReturn($changes);

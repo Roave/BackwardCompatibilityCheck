@@ -33,8 +33,8 @@ final class AccessibleMethodChangeTest extends TestCase
 
     public function testWillSkipCheckingPrivateMethods(): void
     {
-        $from = $this->createMock(ReflectionMethod::class);
-        $to   = $this->createMock(ReflectionMethod::class);
+        $from = $this->createStub(ReflectionMethod::class);
+        $to   = $this->createStub(ReflectionMethod::class);
 
         $from
             ->method('isPrivate')
@@ -50,8 +50,8 @@ final class AccessibleMethodChangeTest extends TestCase
 
     public function testWillCheckVisibleMethods(): void
     {
-        $from = $this->createMock(ReflectionMethod::class);
-        $to   = $this->createMock(ReflectionMethod::class);
+        $from = $this->createStub(ReflectionMethod::class);
+        $to   = $this->createStub(ReflectionMethod::class);
 
         $from
             ->method('isPrivate')
@@ -61,6 +61,7 @@ final class AccessibleMethodChangeTest extends TestCase
 
         $this
             ->check
+            ->expects(self::atLeastOnce())
             ->method('__invoke')
             ->with($from, $to)
             ->willReturn($result);

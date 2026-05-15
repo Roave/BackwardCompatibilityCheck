@@ -32,8 +32,8 @@ final class SkipPropertyBasedErrorsTest extends TestCase
 
     public function testWillForwardChecks(): void
     {
-        $fromProperty    = $this->createMock(ReflectionProperty::class);
-        $toProperty      = $this->createMock(ReflectionProperty::class);
+        $fromProperty    = $this->createStub(ReflectionProperty::class);
+        $toProperty      = $this->createStub(ReflectionProperty::class);
         $expectedChanges = Changes::fromList(Change::added(
             uniqid('foo', true),
             true,
@@ -51,8 +51,8 @@ final class SkipPropertyBasedErrorsTest extends TestCase
 
     public function testWillCollectFailures(): void
     {
-        $fromProperty = $this->createMock(ReflectionProperty::class);
-        $toProperty   = $this->createMock(ReflectionProperty::class);
+        $fromProperty = $this->createStub(ReflectionProperty::class);
+        $toProperty   = $this->createStub(ReflectionProperty::class);
         $exception    = new Exception();
 
         $this

@@ -33,8 +33,8 @@ final class OnlyProtectedMethodChangedTest extends TestCase
 
     public function testWillSkipCheckingNonProtectedMethods(): void
     {
-        $from = $this->createMock(ReflectionMethod::class);
-        $to   = $this->createMock(ReflectionMethod::class);
+        $from = $this->createStub(ReflectionMethod::class);
+        $to   = $this->createStub(ReflectionMethod::class);
 
         $from
             ->method('isProtected')
@@ -50,8 +50,8 @@ final class OnlyProtectedMethodChangedTest extends TestCase
 
     public function testWillCheckProtectedMethods(): void
     {
-        $from = $this->createMock(ReflectionMethod::class);
-        $to   = $this->createMock(ReflectionMethod::class);
+        $from = $this->createStub(ReflectionMethod::class);
+        $to   = $this->createStub(ReflectionMethod::class);
 
         $from
             ->method('isProtected')
@@ -61,6 +61,7 @@ final class OnlyProtectedMethodChangedTest extends TestCase
 
         $this
             ->check
+            ->expects(self::atLeastOnce())
             ->method('__invoke')
             ->with($from, $to)
             ->willReturn($result);

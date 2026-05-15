@@ -6,6 +6,7 @@ namespace RoaveTest\BackwardCompatibility\DetectChanges\BCBreak\ClassConstantBas
 
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
@@ -21,10 +22,10 @@ final class OnlyProtectedClassConstantChangedTest extends TestCase
     /** @var ClassConstantBased&MockObject */
     private ClassConstantBased $check;
 
-    /** @var ReflectionClassConstant&MockObject */
+    /** @var ReflectionClassConstant&Stub */
     private ReflectionClassConstant $fromConstant;
 
-    /** @var ReflectionClassConstant&MockObject */
+    /** @var ReflectionClassConstant&Stub */
     private ReflectionClassConstant $toConstant;
 
     private OnlyProtectedClassConstantChanged $changed;
@@ -35,8 +36,8 @@ final class OnlyProtectedClassConstantChangedTest extends TestCase
 
         $this->check        = $this->createMock(ClassConstantBased::class);
         $this->changed      = new OnlyProtectedClassConstantChanged($this->check);
-        $this->fromConstant = $this->createMock(ReflectionClassConstant::class);
-        $this->toConstant   = $this->createMock(ReflectionClassConstant::class);
+        $this->fromConstant = $this->createStub(ReflectionClassConstant::class);
+        $this->toConstant   = $this->createStub(ReflectionClassConstant::class);
     }
 
     public function testSkipsNonProtectedConstant(): void

@@ -7,6 +7,7 @@ namespace RoaveTest\BackwardCompatibility\SourceLocator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Psl\Exception\InvariantViolationException;
 use Psl\File;
@@ -25,7 +26,7 @@ final class StaticClassMapSourceLocatorTest extends TestCase
     /** @var Locator&MockObject */
     private Locator $astLocator;
 
-    /** @var Reflector&MockObject */
+    /** @var Reflector&Stub */
     private Reflector $reflector;
 
     protected function setUp(): void
@@ -33,11 +34,16 @@ final class StaticClassMapSourceLocatorTest extends TestCase
         parent::setUp();
 
         $this->astLocator = $this->createMock(Locator::class);
-        $this->reflector  = $this->createMock(Reflector::class);
+        $this->reflector  = $this->createStub(Reflector::class);
     }
 
     public function testRejectsEmptyKeys(): void
     {
+        $this
+            ->astLocator
+            ->expects(self::never())
+            ->method('findReflection');
+
         $this->expectException(CoercionException::class);
         $this->expectExceptionMessage('Could not coerce "string" to type "dict<non-empty-string, non-empty-string>" at path "key()".');
 
@@ -49,6 +55,11 @@ final class StaticClassMapSourceLocatorTest extends TestCase
 
     public function testRejectsNonFileInputs(): void
     {
+        $this
+            ->astLocator
+            ->expects(self::never())
+            ->method('findReflection');
+
         $this->expectException(InvariantViolationException::class);
 
         new StaticClassMapSourceLocator(
@@ -59,6 +70,11 @@ final class StaticClassMapSourceLocatorTest extends TestCase
 
     public function testAcceptsEmptySet(): void
     {
+        $this
+            ->astLocator
+            ->expects(self::never())
+            ->method('findReflection');
+
         $locator = new StaticClassMapSourceLocator([], $this->astLocator);
 
         self::assertNull($locator->locateIdentifier(
@@ -72,7 +88,7 @@ final class StaticClassMapSourceLocatorTest extends TestCase
     public function testWillLocateThisClass(string $thisClassFilePath): void
     {
         $locator    = new StaticClassMapSourceLocator([self::class => $thisClassFilePath], $this->astLocator);
-        $reflection = $this->createMock(Reflection::class);
+        $reflection = $this->createStub(Reflection::class);
 
         $this
             ->astLocator

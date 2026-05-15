@@ -32,8 +32,8 @@ final class SkipClassConstantBasedErrorsTest extends TestCase
 
     public function testWillForwardChecks(): void
     {
-        $fromConstant    = $this->createMock(ReflectionClassConstant::class);
-        $toConstant      = $this->createMock(ReflectionClassConstant::class);
+        $fromConstant    = $this->createStub(ReflectionClassConstant::class);
+        $toConstant      = $this->createStub(ReflectionClassConstant::class);
         $expectedChanges = Changes::fromList(Change::added(
             uniqid('foo', true),
             true,
@@ -51,8 +51,8 @@ final class SkipClassConstantBasedErrorsTest extends TestCase
 
     public function testWillCollectFailures(): void
     {
-        $fromConstant = $this->createMock(ReflectionClassConstant::class);
-        $toConstant   = $this->createMock(ReflectionClassConstant::class);
+        $fromConstant = $this->createStub(ReflectionClassConstant::class);
+        $toConstant   = $this->createStub(ReflectionClassConstant::class);
         $exception    = new Exception();
 
         $this

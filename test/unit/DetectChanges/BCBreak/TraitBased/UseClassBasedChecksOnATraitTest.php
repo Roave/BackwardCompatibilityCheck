@@ -22,8 +22,8 @@ final class UseClassBasedChecksOnATraitTest extends TestCase
         $changes = Changes::fromList(Change::added(uniqid('foo', true), true));
 
         $classBased = $this->createMock(ClassBased::class);
-        $fromTrait  = $this->createMock(ReflectionClass::class);
-        $toTrait    = $this->createMock(ReflectionClass::class);
+        $fromTrait  = $this->createStub(ReflectionClass::class);
+        $toTrait    = $this->createStub(ReflectionClass::class);
 
         $classBased
             ->expects(self::once())

@@ -24,8 +24,8 @@ final class MultipleChecksOnAnInterfaceTest extends TestCase
 
         $multiCheck = new MultipleChecksOnAnInterface($checker1, $checker2, $checker3);
 
-        $from = $this->createMock(ReflectionClass::class);
-        $to   = $this->createMock(ReflectionClass::class);
+        $from = $this->createStub(ReflectionClass::class);
+        $to   = $this->createStub(ReflectionClass::class);
 
         $to->method('getFileName')
             ->willReturn('foo.php');

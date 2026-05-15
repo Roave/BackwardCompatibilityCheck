@@ -32,8 +32,8 @@ final class SkipInterfaceBasedErrorsTest extends TestCase
 
     public function testWillForwardChecks(): void
     {
-        $fromInterface   = $this->createMock(ReflectionClass::class);
-        $toInterface     = $this->createMock(ReflectionClass::class);
+        $fromInterface   = $this->createStub(ReflectionClass::class);
+        $toInterface     = $this->createStub(ReflectionClass::class);
         $expectedChanges = Changes::fromList(Change::added(
             uniqid('foo', true),
             true,
@@ -51,8 +51,8 @@ final class SkipInterfaceBasedErrorsTest extends TestCase
 
     public function testWillCollectFailures(): void
     {
-        $fromInterface = $this->createMock(ReflectionClass::class);
-        $toInterface   = $this->createMock(ReflectionClass::class);
+        $fromInterface = $this->createStub(ReflectionClass::class);
+        $toInterface   = $this->createStub(ReflectionClass::class);
         $exception     = new Exception();
 
         $this

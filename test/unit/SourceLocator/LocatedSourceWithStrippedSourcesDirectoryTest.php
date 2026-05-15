@@ -25,7 +25,7 @@ final class LocatedSourceWithStrippedSourcesDirectoryTest extends TestCase
         string $strippedSourcesPath,
         string $expectedPath,
     ): void {
-        $source = $this->createMock(LocatedSource::class);
+        $source = $this->createStub(LocatedSource::class);
 
         $source
             ->method('getFileName')
@@ -73,8 +73,8 @@ final class LocatedSourceWithStrippedSourcesDirectoryTest extends TestCase
 
     public function testWillReportInternalSourceFromGivenLocatedSource(): void
     {
-        $nonInternalSource = $this->createMock(LocatedSource::class);
-        $internalSource    =  $this->createMock(LocatedSource::class);
+        $nonInternalSource = $this->createStub(LocatedSource::class);
+        $internalSource    = $this->createStub(LocatedSource::class);
 
         $nonInternalSource
             ->method('isInternal')
@@ -100,7 +100,7 @@ final class LocatedSourceWithStrippedSourcesDirectoryTest extends TestCase
 
     public function testWillGetExtensionNameFromGivenLocatedSource(): void
     {
-        $extensionSource = $this->createMock(LocatedSource::class);
+        $extensionSource = $this->createStub(LocatedSource::class);
 
         $extensionSource
             ->method('getExtensionName')
@@ -115,8 +115,8 @@ final class LocatedSourceWithStrippedSourcesDirectoryTest extends TestCase
 
     public function testWillReportEvaledSourceFromGivenLocatedSource(): void
     {
-        $nonEvaledSource = $this->createMock(LocatedSource::class);
-        $evaledSource    =  $this->createMock(LocatedSource::class);
+        $nonEvaledSource = $this->createStub(LocatedSource::class);
+        $evaledSource    = $this->createStub(LocatedSource::class);
 
         $nonEvaledSource
             ->method('isEvaled')
@@ -142,7 +142,7 @@ final class LocatedSourceWithStrippedSourcesDirectoryTest extends TestCase
 
     public function testWillGetAliasNameFromGivenLocatedSource(): void
     {
-        $aliasedSource = $this->createMock(LocatedSource::class);
+        $aliasedSource = $this->createStub(LocatedSource::class);
 
         $aliasedSource
             ->method('getAliasName')

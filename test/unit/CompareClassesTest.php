@@ -167,6 +167,8 @@ PHP,
 
     public function testSkipsReflectingUndefinedApi(): void
     {
+        $this->traitBasedComparatorWillNotBeCalled();
+        $this->interfaceBasedComparatorWillNotBeCalled();
         $this->classBasedComparatorWillNotBeCalled();
 
         Assertion::assertChangesEqual(

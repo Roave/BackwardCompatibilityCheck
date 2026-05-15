@@ -27,10 +27,10 @@ final class ReplaceSourcePathOfLocatedSourcesTest extends TestCase
 {
     public function testWillWrapFoundReflection(): void
     {
-        $reflection = $this->createMock(Reflection::class);
+        $reflection = $this->createStub(Reflection::class);
         $next       = $this->createMock(Locator::class);
-        $reflector  = $this->createMock(Reflector::class);
-        $source     = $this->createMock(LocatedSource::class);
+        $reflector  = $this->createStub(Reflector::class);
+        $source     = $this->createStub(LocatedSource::class);
         $identifier = new Identifier('find-me', new IdentifierType(IdentifierType::IDENTIFIER_CLASS));
 
         $next->expects(self::once())
@@ -51,10 +51,10 @@ final class ReplaceSourcePathOfLocatedSourcesTest extends TestCase
 
     public function testWillWrapFoundReflectionsOfType(): void
     {
-        $reflection     = $this->createMock(Reflection::class);
+        $reflection     = $this->createStub(Reflection::class);
         $next           = $this->createMock(Locator::class);
-        $reflector      = $this->createMock(Reflector::class);
-        $source         = $this->createMock(LocatedSource::class);
+        $reflector      = $this->createStub(Reflector::class);
+        $source         = $this->createStub(LocatedSource::class);
         $identifierType = new IdentifierType(IdentifierType::IDENTIFIER_CLASS);
 
         $next->expects(self::once())
