@@ -44,7 +44,7 @@
         "php-standard-library/hash": "^6.0",
         "php-standard-library/secure-random": "^6.0",
         "php-standard-library/psalm-plugin": "^2.3.0",
-        "phpunit/phpunit": "^12.5.12",
+        "phpunit/phpunit": "^13.1.10",
         "psalm/plugin-phpunit": "^0.19.5",
         "roave/infection-static-analysis-plugin": "^1.43.0",
         "roave/security-advisories": "dev-master",
