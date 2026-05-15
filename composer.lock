@@ -7937,12 +7937,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "16706d82a6f250e56047a9e95791a92a8a29f791"
+                "reference": "db1feb6fea0de0186a2ba77d0bd8f53736963daf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/16706d82a6f250e56047a9e95791a92a8a29f791",
-                "reference": "16706d82a6f250e56047a9e95791a92a8a29f791",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/db1feb6fea0de0186a2ba77d0bd8f53736963daf",
+                "reference": "db1feb6fea0de0186a2ba77d0bd8f53736963daf",
                 "shasum": ""
             },
             "conflict": {
@@ -8687,6 +8687,7 @@
                 "simplesamlphp/saml2": "<=4.16.15|>=5.0.0.0-alpha1,<=5.0.0.0-alpha19",
                 "simplesamlphp/saml2-legacy": "<=4.16.15",
                 "simplesamlphp/simplesamlphp": "<1.18.6",
+                "simplesamlphp/simplesamlphp-module-casserver": "<6.3.1|>=7.0.0.0-RC1-dev,<7.0.0.0-RC3-dev",
                 "simplesamlphp/simplesamlphp-module-infocard": "<1.0.1",
                 "simplesamlphp/simplesamlphp-module-openid": "<1",
                 "simplesamlphp/simplesamlphp-module-openidprovider": "<0.9",
@@ -8994,7 +8995,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-05-14T13:38:25+00:00"
+            "time": "2026-05-15T16:38:32+00:00"
         },
         {
             "name": "sanmai/di-container",
