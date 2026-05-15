@@ -33,10 +33,11 @@ PHP
         $toReflection   = $reflector->reflectClass('ANormalClass');
 
         $check = $this->createMock(ClassBased::class);
-        $check->expects(self::once())
-              ->method('__invoke')
-              ->with($fromReflection, $toReflection)
-              ->willReturn(Changes::fromList(Change::removed('foo', true)));
+        $check
+            ->expects(self::atLeastOnce())
+            ->method('__invoke')
+            ->with($fromReflection, $toReflection)
+            ->willReturn(Changes::fromList(Change::removed('foo', true)));
 
         self::assertEquals(
             Changes::fromList(Change::removed('foo', true)),

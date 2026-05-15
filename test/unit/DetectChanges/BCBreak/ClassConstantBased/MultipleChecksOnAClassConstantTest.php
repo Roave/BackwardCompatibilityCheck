@@ -25,9 +25,9 @@ final class MultipleChecksOnAClassConstantTest extends TestCase
 
         $multiCheck = new MultipleChecksOnAClassConstant($checker1, $checker2, $checker3);
 
-        $from    = $this->createMock(ReflectionClassConstant::class);
-        $to      = $this->createMock(ReflectionClassConstant::class);
-        $toClass = $this->createMock(ReflectionClass::class);
+        $from    = $this->createStub(ReflectionClassConstant::class);
+        $to      = $this->createStub(ReflectionClassConstant::class);
+        $toClass = $this->createStub(ReflectionClass::class);
 
         $to->method('getStartLine')
             ->willReturn(10);

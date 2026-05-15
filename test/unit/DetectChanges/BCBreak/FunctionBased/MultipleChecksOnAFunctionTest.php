@@ -24,8 +24,8 @@ final class MultipleChecksOnAFunctionTest extends TestCase
 
         $multiCheck = new MultipleChecksOnAFunction($checker1, $checker2, $checker3);
 
-        $from = $this->createMock(ReflectionFunction::class);
-        $to   = $this->createMock(ReflectionFunction::class);
+        $from = $this->createStub(ReflectionFunction::class);
+        $to   = $this->createStub(ReflectionFunction::class);
 
         $to->method('getFileName')
             ->willReturn('foo.php');

@@ -22,8 +22,8 @@ final class UseClassBasedChecksOnAnInterfaceTest extends TestCase
         $changes = Changes::fromList(Change::added(uniqid('foo', true), true));
 
         $classBased    = $this->createMock(ClassBased::class);
-        $fromInterface = $this->createMock(ReflectionClass::class);
-        $toInterface   = $this->createMock(ReflectionClass::class);
+        $fromInterface = $this->createStub(ReflectionClass::class);
+        $toInterface   = $this->createStub(ReflectionClass::class);
 
         $classBased
             ->expects(self::once())

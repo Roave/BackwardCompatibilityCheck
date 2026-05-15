@@ -28,7 +28,7 @@ final class ChangeTest extends TestCase
     public function testBcAdded(): void
     {
         $changeText = uniqid('changeText', true);
-        $change     = Change::added($changeText, true);
+        $change     = Change::added($changeText);
         self::assertSame('[BC] ADDED: ' . $changeText, (string) $change);
         self::assertTrue($change->isAdded());
         self::assertFalse($change->isChanged());
@@ -77,7 +77,7 @@ final class ChangeTest extends TestCase
     public function testBcChanged(): void
     {
         $changeText = uniqid('changeText', true);
-        $change     = Change::changed($changeText, true);
+        $change     = Change::changed($changeText);
         self::assertSame('[BC] CHANGED: ' . $changeText, (string) $change);
         self::assertFalse($change->isAdded());
         self::assertTrue($change->isChanged());
@@ -99,7 +99,7 @@ final class ChangeTest extends TestCase
     public function testBcRemoved(): void
     {
         $changeText = uniqid('changeText', true);
-        $change     = Change::removed($changeText, true);
+        $change     = Change::removed($changeText);
         self::assertSame('[BC] REMOVED: ' . $changeText, (string) $change);
         self::assertFalse($change->isAdded());
         self::assertFalse($change->isChanged());

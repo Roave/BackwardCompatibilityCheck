@@ -6,6 +6,7 @@ namespace RoaveTest\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased;
 
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
@@ -21,10 +22,10 @@ final class AccessiblePropertyChangedTest extends TestCase
     /** @var PropertyBased&MockObject */
     private PropertyBased $check;
 
-    /** @var ReflectionProperty&MockObject */
+    /** @var ReflectionProperty&Stub */
     private ReflectionProperty $fromProperty;
 
-    /** @var ReflectionProperty&MockObject */
+    /** @var ReflectionProperty&Stub */
     private ReflectionProperty $toProperty;
 
     private AccessiblePropertyChanged $accessiblePropertyChanged;
@@ -35,8 +36,8 @@ final class AccessiblePropertyChangedTest extends TestCase
 
         $this->check                     = $this->createMock(PropertyBased::class);
         $this->accessiblePropertyChanged = new AccessiblePropertyChanged($this->check);
-        $this->fromProperty              = $this->createMock(ReflectionProperty::class);
-        $this->toProperty                = $this->createMock(ReflectionProperty::class);
+        $this->fromProperty              = $this->createStub(ReflectionProperty::class);
+        $this->toProperty                = $this->createStub(ReflectionProperty::class);
     }
 
     public function testSkipsPrivateProperty(): void

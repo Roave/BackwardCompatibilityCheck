@@ -33,8 +33,8 @@ final class OnlyPublicMethodChangedTest extends TestCase
 
     public function testWillSkipCheckingNonPublicMethods(): void
     {
-        $from = $this->createMock(ReflectionMethod::class);
-        $to   = $this->createMock(ReflectionMethod::class);
+        $from = $this->createStub(ReflectionMethod::class);
+        $to   = $this->createStub(ReflectionMethod::class);
 
         $from
             ->method('isPublic')
@@ -50,8 +50,8 @@ final class OnlyPublicMethodChangedTest extends TestCase
 
     public function testWillCheckPublicMethods(): void
     {
-        $from = $this->createMock(ReflectionMethod::class);
-        $to   = $this->createMock(ReflectionMethod::class);
+        $from = $this->createStub(ReflectionMethod::class);
+        $to   = $this->createStub(ReflectionMethod::class);
 
         $from
             ->method('isPublic')
@@ -61,6 +61,7 @@ final class OnlyPublicMethodChangedTest extends TestCase
 
         $this
             ->check
+            ->expects(self::atLeastOnce())
             ->method('__invoke')
             ->with($from, $to)
             ->willReturn($result);

@@ -8,6 +8,7 @@ use LogicException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Psl\Env;
 use Psl\Exception\InvariantViolationException;
@@ -42,7 +43,7 @@ use function is_string;
 final class AssertBackwardsCompatibleTest extends TestCase
 {
     private CheckedOutRepository $sourceRepository;
-    /** @var InputInterface&MockObject */
+    /** @var InputInterface&Stub */
     private InputInterface $input;
     /** @var ConsoleOutputInterface&MockObject */
     private ConsoleOutputInterface $output;
@@ -71,7 +72,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
 
         Env\set_current_dir($this->sourceRepository->__toString());
 
-        $this->input              = $this->createMock(InputInterface::class);
+        $this->input              = $this->createStub(InputInterface::class);
         $this->output             = $this->createMock(ConsoleOutputInterface::class);
         $this->stdErr             = $this->createMock(OutputInterface::class);
         $this->performCheckout    = new PerformCheckoutOfRevisionForTests();
@@ -99,6 +100,36 @@ final class AssertBackwardsCompatibleTest extends TestCase
 
     public function testDefinition(): void
     {
+        $this->parseRevision
+            ->expects(self::never())
+            ->method('fromStringForRepository');
+
+        $this->locateDependencies
+            ->expects(self::never())
+            ->method('__invoke');
+
+        $this->compareApi
+            ->expects(self::never())
+            ->method('__invoke');
+
+        $this->stdErr
+            ->expects(self::never())
+            ->method('writeln');
+
+        $this->output
+            ->expects(self::never())
+            ->method('writeln');
+
+        $this
+            ->getVersions
+            ->expects(self::never())
+            ->method('fromRepository');
+
+        $this
+            ->pickVersion
+            ->expects(self::never())
+            ->method('forVersions');
+
         self::assertSame(
             'roave-backwards-compatibility-check:assert-backwards-compatible',
             $this->compare->getName(),
@@ -144,11 +175,30 @@ final class AssertBackwardsCompatibleTest extends TestCase
 
         $this
             ->locateDependencies
+            ->expects(self::atLeastOnce())
             ->method('__invoke')
             ->with((string) $this->sourceRepository, false)
             ->willReturn($this->dependencies);
 
         $this->compareApi->expects(self::once())->method('__invoke')->willReturn(Changes::empty());
+
+        $this->stdErr
+            ->expects(self::atLeastOnce())
+            ->method('writeln');
+
+        $this->output
+            ->expects(self::never())
+            ->method('writeln');
+
+        $this
+            ->getVersions
+            ->expects(self::never())
+            ->method('fromRepository');
+
+        $this
+            ->pickVersion
+            ->expects(self::never())
+            ->method('forVersions');
 
         self::assertSame(0, $this->compare->execute($this->input, $this->output));
         self::assertSame(0, $this->performCheckout->nonRemovedRepositoryCount());
@@ -174,11 +224,30 @@ final class AssertBackwardsCompatibleTest extends TestCase
 
         $this
             ->locateDependencies
+            ->expects(self::atLeastOnce())
             ->method('__invoke')
             ->with((string) $this->sourceRepository, true)
             ->willReturn($this->dependencies);
 
         $this->compareApi->expects(self::once())->method('__invoke')->willReturn(Changes::empty());
+
+        $this->stdErr
+            ->expects(self::atLeastOnce())
+            ->method('writeln');
+
+        $this->output
+            ->expects(self::never())
+            ->method('writeln');
+
+        $this
+            ->getVersions
+            ->expects(self::never())
+            ->method('fromRepository');
+
+        $this
+            ->pickVersion
+            ->expects(self::never())
+            ->method('forVersions');
 
         self::assertSame(0, $this->compare->execute($this->input, $this->output));
         self::assertSame(0, $this->performCheckout->nonRemovedRepositoryCount());
@@ -205,6 +274,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
 
         $this
             ->locateDependencies
+            ->expects(self::atLeastOnce())
             ->method('__invoke')
             ->with((string) $this->sourceRepository, false)
             ->willReturn($this->dependencies);
@@ -222,6 +292,20 @@ final class AssertBackwardsCompatibleTest extends TestCase
                 self::matches('[BC] ADDED: added%a'),
                 self::matches('<error>1 backwards-incompatible changes detected</error>'),
             ));
+
+        $this->output
+            ->expects(self::never())
+            ->method('writeln');
+
+        $this
+            ->getVersions
+            ->expects(self::never())
+            ->method('fromRepository');
+
+        $this
+            ->pickVersion
+            ->expects(self::never())
+            ->method('forVersions');
 
         self::assertSame(3, $this->compare->execute($this->input, $this->output));
         self::assertSame(0, $this->performCheckout->nonRemovedRepositoryCount());
@@ -248,6 +332,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
 
         $this
             ->locateDependencies
+            ->expects(self::atLeastOnce())
             ->method('__invoke')
             ->with((string) $this->sourceRepository, false)
             ->willReturn($this->dependencies);
@@ -263,6 +348,20 @@ final class AssertBackwardsCompatibleTest extends TestCase
             ->willReturnCallback(static function (string $output) use ($changeToExpect): void {
                 self::assertStringContainsString(' [BC] ' . $changeToExpect, $output);
             });
+
+        $this->stdErr
+            ->expects(self::atLeastOnce())
+            ->method('writeln');
+
+        $this
+            ->getVersions
+            ->expects(self::never())
+            ->method('fromRepository');
+
+        $this
+            ->pickVersion
+            ->expects(self::never())
+            ->method('forVersions');
 
         $this->compare->execute($this->input, $this->output);
         self::assertSame(0, $this->performCheckout->nonRemovedRepositoryCount());
@@ -288,12 +387,26 @@ final class AssertBackwardsCompatibleTest extends TestCase
             ->expects(self::once())
             ->method('fromRepository')
             ->willReturn(new VersionCollection());
+
         $this
             ->pickVersion
             ->expects(self::never())
             ->method('forVersions');
+
         $this
             ->compareApi
+            ->expects(self::never())
+            ->method('__invoke');
+
+        $this->output
+            ->expects(self::never())
+            ->method('writeln');
+
+        $this->stdErr
+            ->expects(self::never())
+            ->method('writeln');
+
+        $this->locateDependencies
             ->expects(self::never())
             ->method('__invoke');
 
@@ -327,7 +440,8 @@ final class AssertBackwardsCompatibleTest extends TestCase
                 default => throw new LogicException(),
             });
 
-        $this->getVersions->expects(self::once())
+        $this->getVersions
+            ->expects(self::once())
             ->method('fromRepository')
             ->with(self::callback(function (CheckedOutRepository $checkedOutRepository): bool {
                 self::assertEquals($this->sourceRepository, $checkedOutRepository);
@@ -335,10 +449,20 @@ final class AssertBackwardsCompatibleTest extends TestCase
                 return true;
             }))
             ->willReturn($versions);
-        $this->pickVersion->expects(self::once())
+
+        $this->pickVersion
+            ->expects(self::once())
             ->method('forVersions')
             ->with($versions)
             ->willReturn($pickedVersion);
+        
+        $this->output
+            ->expects(self::never())
+            ->method('writeln');
+
+        $this->locateDependencies
+            ->expects(self::atLeastOnce())
+            ->method('__invoke');
 
         $this
             ->stdErr

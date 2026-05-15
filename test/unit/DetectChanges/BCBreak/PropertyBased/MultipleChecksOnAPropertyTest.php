@@ -25,9 +25,9 @@ final class MultipleChecksOnAPropertyTest extends TestCase
 
         $multiCheck = new MultipleChecksOnAProperty($checker1, $checker2, $checker3);
 
-        $from    = $this->createMock(ReflectionProperty::class);
-        $to      = $this->createMock(ReflectionProperty::class);
-        $toClass = $this->createMock(ReflectionClass::class);
+        $from    = $this->createStub(ReflectionProperty::class);
+        $to      = $this->createStub(ReflectionProperty::class);
+        $toClass = $this->createStub(ReflectionClass::class);
 
         $to->method('getStartLine')
             ->willReturn(10);

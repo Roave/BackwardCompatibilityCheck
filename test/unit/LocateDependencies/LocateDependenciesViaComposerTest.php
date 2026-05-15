@@ -121,6 +121,11 @@ final class LocateDependenciesViaComposerTest extends TestCase
 
     public function testInternalReflectionStubsTakePriorityOverInstalledPolyfills(): void
     {
+        $this
+            ->composerInstaller
+            ->expects(self::atLeastOnce())
+            ->method('run');
+
         $this->expectedInstallationPath = Type\string()
             ->assert(Filesystem\canonicalize(__DIR__ . '/../../asset/composer-installation-with-vendor-overriding-internal-sources'));
 

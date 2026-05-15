@@ -6,6 +6,7 @@ namespace RoaveTest\BackwardCompatibility\DetectChanges\BCBreak\ClassBased;
 
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
@@ -23,10 +24,10 @@ final class FinalClassChangedTest extends TestCase
 
     private FinalClassChanged $finalClassChanged;
 
-    /** @var ReflectionClass&MockObject */
+    /** @var ReflectionClass&Stub */
     private ReflectionClass $fromClass;
 
-    /** @var ReflectionClass&MockObject */
+    /** @var ReflectionClass&Stub */
     private ReflectionClass $toClass;
 
     protected function setUp(): void
@@ -35,8 +36,8 @@ final class FinalClassChangedTest extends TestCase
 
         $this->check             = $this->createMock(ClassBased::class);
         $this->finalClassChanged = new FinalClassChanged($this->check);
-        $this->fromClass         = $this->createMock(ReflectionClass::class);
-        $this->toClass           = $this->createMock(ReflectionClass::class);
+        $this->fromClass         = $this->createStub(ReflectionClass::class);
+        $this->toClass           = $this->createStub(ReflectionClass::class);
     }
 
     public function testWillCheckFinalClass(): void

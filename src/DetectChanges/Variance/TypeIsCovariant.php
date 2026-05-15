@@ -78,11 +78,6 @@ final class TypeIsCovariant
             return true;
         }
 
-        if ($typeAsString === 'void') {
-            // nothing is covariant to `void`
-            return false;
-        }
-
         if ($typeAsString === 'object' && ! $comparedType->isBuiltin()) {
             // `object` is not covariant to a defined class type
             return true;

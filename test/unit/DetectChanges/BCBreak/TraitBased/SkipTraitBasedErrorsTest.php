@@ -32,8 +32,8 @@ final class SkipTraitBasedErrorsTest extends TestCase
 
     public function testWillForwardChecks(): void
     {
-        $fromTrait       = $this->createMock(ReflectionClass::class);
-        $toTrait         = $this->createMock(ReflectionClass::class);
+        $fromTrait       = $this->createStub(ReflectionClass::class);
+        $toTrait         = $this->createStub(ReflectionClass::class);
         $expectedChanges = Changes::fromList(Change::added(
             uniqid('foo', true),
             true,
@@ -51,8 +51,8 @@ final class SkipTraitBasedErrorsTest extends TestCase
 
     public function testWillCollectFailures(): void
     {
-        $fromTrait = $this->createMock(ReflectionClass::class);
-        $toTrait   = $this->createMock(ReflectionClass::class);
+        $fromTrait = $this->createStub(ReflectionClass::class);
+        $toTrait   = $this->createStub(ReflectionClass::class);
         $exception = new Exception();
 
         $this

@@ -37,8 +37,8 @@ final class MethodParameterAddedTest extends TestCase
 
     public function testWillSkipCheckingPrivateMethods(): void
     {
-        $from = $this->createMock(ReflectionMethod::class);
-        $to   = $this->createMock(ReflectionMethod::class);
+        $from = $this->createStub(ReflectionMethod::class);
+        $to   = $this->createStub(ReflectionMethod::class);
 
         $from
             ->method('isPrivate')
@@ -49,8 +49,8 @@ final class MethodParameterAddedTest extends TestCase
 
     public function testWillSkipCheckingMethodsOnFinalClasses(): void
     {
-        $from = $this->createMock(ReflectionMethod::class);
-        $to   = $this->createMock(ReflectionMethod::class);
+        $from = $this->createStub(ReflectionMethod::class);
+        $to   = $this->createStub(ReflectionMethod::class);
 
         $from
             ->method('isPrivate')
@@ -61,8 +61,8 @@ final class MethodParameterAddedTest extends TestCase
 
     public function testWillSkipCheckingPrivateMethodsOnFinalClasses(): void
     {
-        $from = $this->createMock(ReflectionMethod::class);
-        $to   = $this->createMock(ReflectionMethod::class);
+        $from = $this->createStub(ReflectionMethod::class);
+        $to   = $this->createStub(ReflectionMethod::class);
 
         $from
             ->method('isPrivate')

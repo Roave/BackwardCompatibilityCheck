@@ -46,7 +46,7 @@ PHP
             '/** an example */',
             (new ComposerInstallationReflectorFactory($locateSources))(
                 $path,
-                $this->createMock(SourceLocator::class),
+                $this->createStub(SourceLocator::class),
             )
                 ->reflectClass('Dummy')
                 ->getDocComment(),
