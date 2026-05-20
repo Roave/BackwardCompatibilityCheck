@@ -57,7 +57,7 @@ jobs:
           fetch-depth: 0
 
       - name: "Install PHP"
-        uses: "shivammathur/setup-php@2.36.0"
+        uses: "shivammathur/setup-php@2.37.1"
         with:
           php-version: "${{ matrix.php-version }}"
           ini-values: memory_limit=-1
@@ -108,7 +108,7 @@ jobs:
           fetch-depth: 0
 
       - name: "Install PHP"
-        uses: "shivammathur/setup-php@2.36.0"
+        uses: "shivammathur/setup-php@2.37.1"
         with:
           php-version: "${{ matrix.php-version }}"
           ini-values: memory_limit=-1
