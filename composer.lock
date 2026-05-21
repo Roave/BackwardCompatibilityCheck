@@ -7937,12 +7937,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "8b146460ff5ee1a279d1d934434ba6ba9dce2437"
+                "reference": "9276a922fc25db48ee71fefd089a086739024270"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/8b146460ff5ee1a279d1d934434ba6ba9dce2437",
-                "reference": "8b146460ff5ee1a279d1d934434ba6ba9dce2437",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/9276a922fc25db48ee71fefd089a086739024270",
+                "reference": "9276a922fc25db48ee71fefd089a086739024270",
                 "shasum": ""
             },
             "conflict": {
@@ -8375,6 +8375,7 @@
                 "kreait/firebase-php": ">=3.2,<3.8.1",
                 "kumbiaphp/kumbiapp": "<=1.1.1",
                 "la-haute-societe/tcpdf": "<6.2.22",
+                "laktak/hjson": "<2.3",
                 "laminas/laminas-diactoros": "<2.18.1|==2.19|==2.20|==2.21|==2.22|==2.23|>=2.24,<2.24.2|>=2.25,<2.25.2",
                 "laminas/laminas-form": "<2.17.1|>=3,<3.0.2|>=3.1,<3.1.1",
                 "laminas/laminas-http": "<2.14.2",
@@ -8562,7 +8563,7 @@
                 "phpmailer/phpmailer": "<6.5",
                 "phpmussel/phpmussel": ">=1,<1.6",
                 "phpmyadmin/phpmyadmin": "<5.2.2",
-                "phpmyfaq/phpmyfaq": "<=4.1.1",
+                "phpmyfaq/phpmyfaq": "<4.1.3",
                 "phpoffice/common": "<0.2.9",
                 "phpoffice/math": "<=0.2",
                 "phpoffice/phpexcel": "<=1.8.2",
@@ -8747,42 +8748,51 @@
                 "symbiote/silverstripe-seed": "<6.0.3",
                 "symbiote/silverstripe-versionedfiles": "<=2.0.3",
                 "symfont/process": ">=0",
-                "symfony/cache": ">=3.1,<3.4.35|>=4,<4.2.12|>=4.3,<4.3.8",
+                "symfony/cache": ">=2,<5.4.52|>=6,<6.4.40|>=7,<7.4.12|>=8,<8.0.12",
                 "symfony/dependency-injection": ">=2,<2.0.17|>=2.7,<2.7.51|>=2.8,<2.8.50|>=3,<3.4.26|>=4,<4.1.12|>=4.2,<4.2.7",
+                "symfony/dom-crawler": ">=2,<5.4.52|>=6,<6.4.40|>=7,<7.4.12|>=8,<8.0.12",
                 "symfony/error-handler": ">=4.4,<4.4.4|>=5,<5.0.4",
                 "symfony/form": ">=2.3,<2.3.35|>=2.4,<2.6.12|>=2.7,<2.7.50|>=2.8,<2.8.49|>=3,<3.4.20|>=4,<4.0.15|>=4.1,<4.1.9|>=4.2,<4.2.1",
                 "symfony/framework-bundle": ">=2,<2.3.18|>=2.4,<2.4.8|>=2.5,<2.5.2|>=2.7,<2.7.51|>=2.8,<2.8.50|>=3,<3.4.26|>=4,<4.1.12|>=4.2,<4.2.7|>=5.3.14,<5.3.15|>=5.4.3,<5.4.4|>=6.0.3,<6.0.4",
+                "symfony/html-sanitizer": ">=6.1,<6.4.40|>=7,<7.4.12|>=8,<8.0.12",
                 "symfony/http-client": ">=4.3,<5.4.47|>=6,<6.4.15|>=7,<7.1.8",
                 "symfony/http-foundation": "<5.4.50|>=6,<6.4.29|>=7,<7.3.7",
-                "symfony/http-kernel": ">=2,<4.4.50|>=5,<5.4.20|>=6,<6.0.20|>=6.1,<6.1.12|>=6.2,<6.2.6",
+                "symfony/http-kernel": ">=2,<4.4.50|>=5,<5.4.20|>=6,<6.0.20|>=6.1,<6.1.12|>=6.2,<6.2.6|>=7.4,<7.4.12|>=8,<8.0.12",
                 "symfony/intl": ">=2.7,<2.7.38|>=2.8,<2.8.31|>=3,<3.2.14|>=3.3,<3.3.13",
+                "symfony/json-path": ">=7.3,<7.4.12|>=8,<8.0.12",
+                "symfony/lox24-notifier": ">=7.1,<7.4.12|>=8,<8.0.12",
+                "symfony/mailer": ">=2,<5.4.52|>=6,<6.4.40|>=7,<7.4.12|>=8,<8.0.12",
+                "symfony/mailjet-mailer": ">=6.4,<6.4.40|>=7,<7.4.12|>=8,<8.0.12",
+                "symfony/mailtrap-mailer": ">=7.2,<7.4.12|>=8,<8.0.12",
                 "symfony/maker-bundle": ">=1.27,<1.29.2|>=1.30,<1.31.1",
-                "symfony/mime": ">=4.3,<4.3.8",
+                "symfony/mime": ">=2,<5.4.52|>=6,<6.4.40|>=7,<7.4.12|>=8,<8.0.12",
+                "symfony/monolog-bridge": ">=2,<5.4.52|>=6,<6.4.40|>=7,<7.4.12|>=8,<8.0.12",
                 "symfony/phpunit-bridge": ">=2.8,<2.8.50|>=3,<3.4.26|>=4,<4.1.12|>=4.2,<4.2.7",
                 "symfony/polyfill": ">=1,<1.10",
                 "symfony/polyfill-php55": ">=1,<1.10",
                 "symfony/process": "<5.4.51|>=6,<6.4.33|>=7,<7.1.7|>=7.3,<7.3.11|>=7.4,<7.4.5|>=8,<8.0.5",
                 "symfony/proxy-manager-bridge": ">=2.7,<2.7.51|>=2.8,<2.8.50|>=3,<3.4.26|>=4,<4.1.12|>=4.2,<4.2.7",
-                "symfony/routing": ">=2,<2.0.19",
-                "symfony/runtime": ">=5.3,<5.4.46|>=6,<6.4.14|>=7,<7.1.7",
+                "symfony/routing": ">=2,<5.4.52|>=6,<6.4.40|>=7,<7.4.12|>=8,<8.0.12",
+                "symfony/runtime": ">=5.3,<5.4.52|>=6,<6.4.40|>=7,<7.4.12|>=8,<8.0.12",
                 "symfony/security": ">=2,<2.7.51|>=2.8,<3.4.49|>=4,<4.4.24|>=5,<5.2.8",
                 "symfony/security-bundle": ">=2,<4.4.50|>=5,<5.4.20|>=6,<6.0.20|>=6.1,<6.1.12|>=6.2,<6.4.10|>=7,<7.0.10|>=7.1,<7.1.3",
                 "symfony/security-core": ">=2.4,<2.6.13|>=2.7,<2.7.9|>=2.7.30,<2.7.32|>=2.8,<3.4.49|>=4,<4.4.24|>=5,<5.2.9",
                 "symfony/security-csrf": ">=2.4,<2.7.48|>=2.8,<2.8.41|>=3,<3.3.17|>=3.4,<3.4.11|>=4,<4.0.11",
                 "symfony/security-guard": ">=2.8,<3.4.48|>=4,<4.4.23|>=5,<5.2.8",
-                "symfony/security-http": ">=2.3,<2.3.41|>=2.4,<2.7.51|>=2.8,<2.8.50|>=3,<3.4.26|>=4,<4.2.12|>=4.3,<4.3.8|>=4.4,<4.4.7|>=5,<5.0.7|>=5.1,<5.2.8|>=5.3,<5.4.47|>=6,<6.4.15|>=7,<7.1.8",
+                "symfony/security-http": ">=2,<5.4.52|>=6,<6.4.40|>=7,<7.4.12|>=8,<8.0.12",
                 "symfony/serializer": ">=2,<2.0.11|>=4.1,<4.4.35|>=5,<5.3.12",
-                "symfony/symfony": "<5.4.51|>=6,<6.4.33|>=7,<7.3.11|>=7.4,<7.4.5|>=8,<8.0.5",
+                "symfony/symfony": "<5.4.52|>=6,<6.4.40|>=7,<7.4.12|>=8,<8.0.12",
                 "symfony/translation": ">=2,<2.0.17",
-                "symfony/twig-bridge": ">=2,<4.4.51|>=5,<5.4.31|>=6,<6.3.8",
+                "symfony/twig-bridge": ">=2,<4.4.51|>=5,<5.4.31|>=6,<6.3.8|>=6.4.24,<6.4.40",
+                "symfony/twilio-notifier": ">=6.4,<6.4.40|>=7,<7.4.12|>=8,<8.0.12",
                 "symfony/ux-autocomplete": "<2.11.2",
                 "symfony/ux-live-component": "<2.25.1",
                 "symfony/ux-twig-component": "<2.25.1",
                 "symfony/validator": "<5.4.43|>=6,<6.4.11|>=7,<7.1.4",
                 "symfony/var-exporter": ">=4.2,<4.2.12|>=4.3,<4.3.8",
-                "symfony/web-profiler-bundle": ">=2,<2.3.19|>=2.4,<2.4.9|>=2.5,<2.5.4",
+                "symfony/web-profiler-bundle": ">=2,<2.3.19|>=2.4,<2.4.9|>=2.5,<2.5.4|>=7.2.9,<7.4.12|>=8,<8.0.12",
                 "symfony/webhook": ">=6.3,<6.3.8",
-                "symfony/yaml": ">=2,<2.0.22|>=2.1,<2.1.7|>=2.2.0.0-beta1,<2.2.0.0-beta2",
+                "symfony/yaml": ">=2,<5.4.52|>=6,<6.4.40|>=7,<7.4.12|>=8,<8.0.12",
                 "symphonycms/symphony-2": "<2.6.4",
                 "t3/dce": "<0.11.5|>=2.2,<2.6.2",
                 "t3g/svg-sanitizer": "<1.0.3",
@@ -8796,7 +8806,7 @@
                 "thelia/thelia": ">=2.1,<2.1.3",
                 "theonedemon/phpwhois": "<=4.2.5",
                 "thinkcmf/thinkcmf": "<6.0.8",
-                "thorsten/phpmyfaq": "<=4.1.1",
+                "thorsten/phpmyfaq": "<4.1.3",
                 "tikiwiki/tiki-manager": "<=17.1",
                 "timber/timber": ">=0.16.6,<1.23.1|>=1.24,<1.24.1|>=2,<2.1",
                 "tinymce/tinymce": "<7.2",
@@ -8813,7 +8823,10 @@
                 "truckersmp/phpwhois": "<=4.3.1",
                 "ttskch/pagination-service-provider": "<1",
                 "twbs/bootstrap": "<3.4.1|>=4,<4.3.1",
-                "twig/twig": "<3.11.2|>=3.12,<3.14.1|>=3.16,<3.19",
+                "twig/cssinliner-extra": ">=2.12,<3.26",
+                "twig/intl-extra": ">=2.12,<3.26",
+                "twig/markdown-extra": ">=2.12,<3.26",
+                "twig/twig": "<3.26",
                 "typicms/core": "<16.1.7",
                 "typo3/cms": "<9.5.29|>=10,<10.4.35|>=11,<11.5.23|>=12,<12.2",
                 "typo3/cms-backend": "<4.1.14|>=4.2,<4.2.15|>=4.3,<4.3.7|>=4.4,<4.4.4|>=7,<=7.6.50|>=8,<=8.7.39|>=9,<9.5.55|>=10,<=10.4.54|>=11,<=11.5.48|>=12,<=12.4.40|>=13,<=13.4.22|>=14,<=14.0.1|==14.2",
@@ -8997,7 +9010,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-05-19T20:37:54+00:00"
+            "time": "2026-05-20T23:30:51+00:00"
         },
         {
             "name": "sanmai/di-container",
@@ -9344,16 +9357,16 @@
         },
         {
             "name": "sebastian/comparator",
-            "version": "8.1.4",
+            "version": "8.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/comparator.git",
-                "reference": "1edd557042bf4ff9978ec125d8131b147d5c8224"
+                "reference": "ddacb462216a4f6d97e84bf08165b9074ddbafeb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/1edd557042bf4ff9978ec125d8131b147d5c8224",
-                "reference": "1edd557042bf4ff9978ec125d8131b147d5c8224",
+                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/ddacb462216a4f6d97e84bf08165b9074ddbafeb",
+                "reference": "ddacb462216a4f6d97e84bf08165b9074ddbafeb",
                 "shasum": ""
             },
             "require": {
@@ -9361,10 +9374,10 @@
                 "ext-mbstring": "*",
                 "php": ">=8.4",
                 "sebastian/diff": "^8.3",
-                "sebastian/exporter": "^8.0"
+                "sebastian/exporter": "^8.0.3"
             },
             "require-dev": {
-                "phpunit/phpunit": "^13.0"
+                "phpunit/phpunit": "^13.1.10"
             },
             "suggest": {
                 "ext-bcmath": "For comparing BcMath\\Number objects"
@@ -9372,7 +9385,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "8.1-dev"
+                    "dev-main": "8.2-dev"
                 }
             },
             "autoload": {
@@ -9412,7 +9425,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/comparator/issues",
                 "security": "https://github.com/sebastianbergmann/comparator/security/policy",
-                "source": "https://github.com/sebastianbergmann/comparator/tree/8.1.4"
+                "source": "https://github.com/sebastianbergmann/comparator/tree/8.2.0"
             },
             "funding": [
                 {
@@ -9432,7 +9445,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-05-15T08:30:51+00:00"
+            "time": "2026-05-20T11:55:37+00:00"
         },
         {
             "name": "sebastian/complexity",
@@ -9661,16 +9674,16 @@
         },
         {
             "name": "sebastian/exporter",
-            "version": "8.0.2",
+            "version": "8.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/exporter.git",
-                "reference": "9cee180ebe62259e3ed48df2212d1fc8cfd971bb"
+                "reference": "9b54f1afabb977a097ef353600d41a372ccde617"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/exporter/zipball/9cee180ebe62259e3ed48df2212d1fc8cfd971bb",
-                "reference": "9cee180ebe62259e3ed48df2212d1fc8cfd971bb",
+                "url": "https://api.github.com/repos/sebastianbergmann/exporter/zipball/9b54f1afabb977a097ef353600d41a372ccde617",
+                "reference": "9b54f1afabb977a097ef353600d41a372ccde617",
                 "shasum": ""
             },
             "require": {
@@ -9679,7 +9692,7 @@
                 "sebastian/recursion-context": "^8.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^13.0"
+                "phpunit/phpunit": "^13.1.10"
             },
             "type": "library",
             "extra": {
@@ -9727,7 +9740,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/exporter/issues",
                 "security": "https://github.com/sebastianbergmann/exporter/security/policy",
-                "source": "https://github.com/sebastianbergmann/exporter/tree/8.0.2"
+                "source": "https://github.com/sebastianbergmann/exporter/tree/8.0.3"
             },
             "funding": [
                 {
@@ -9747,7 +9760,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-04-15T12:38:05+00:00"
+            "time": "2026-05-20T04:38:47+00:00"
         },
         {
             "name": "sebastian/git-state",
@@ -10178,23 +10191,23 @@
         },
         {
             "name": "sebastian/type",
-            "version": "7.0.0",
+            "version": "7.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/type.git",
-                "reference": "42412224607bd3931241bbd17f38e0f972f5a916"
+                "reference": "fee0309275847fefd7636167085e379c1dbf6990"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/type/zipball/42412224607bd3931241bbd17f38e0f972f5a916",
-                "reference": "42412224607bd3931241bbd17f38e0f972f5a916",
+                "url": "https://api.github.com/repos/sebastianbergmann/type/zipball/fee0309275847fefd7636167085e379c1dbf6990",
+                "reference": "fee0309275847fefd7636167085e379c1dbf6990",
                 "shasum": ""
             },
             "require": {
                 "php": ">=8.4"
             },
             "require-dev": {
-                "phpunit/phpunit": "^13.0"
+                "phpunit/phpunit": "^13.1.10"
             },
             "type": "library",
             "extra": {
@@ -10223,7 +10236,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/type/issues",
                 "security": "https://github.com/sebastianbergmann/type/security/policy",
-                "source": "https://github.com/sebastianbergmann/type/tree/7.0.0"
+                "source": "https://github.com/sebastianbergmann/type/tree/7.0.1"
             },
             "funding": [
                 {
@@ -10243,7 +10256,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-02-06T04:52:09+00:00"
+            "time": "2026-05-20T06:49:11+00:00"
         },
         {
             "name": "sebastian/version",
@@ -10968,16 +10981,16 @@
         },
         {
             "name": "webmozart/assert",
-            "version": "2.3.0",
+            "version": "2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webmozarts/assert.git",
-                "reference": "eb0d790f735ba6cff25c683a85a1da0eadeff9e4"
+                "reference": "9007ea6f45ecf352a9422b36644e4bfc039b9155"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozarts/assert/zipball/eb0d790f735ba6cff25c683a85a1da0eadeff9e4",
-                "reference": "eb0d790f735ba6cff25c683a85a1da0eadeff9e4",
+                "url": "https://api.github.com/repos/webmozarts/assert/zipball/9007ea6f45ecf352a9422b36644e4bfc039b9155",
+                "reference": "9007ea6f45ecf352a9422b36644e4bfc039b9155",
                 "shasum": ""
             },
             "require": {
@@ -10993,7 +11006,11 @@
             },
             "type": "library",
             "extra": {
+                "psalm": {
+                    "pluginClass": "Webmozart\\Assert\\PsalmPlugin"
+                },
                 "branch-alias": {
+                    "dev-master": "2.0-dev",
                     "dev-feature/2-0": "2.0-dev"
                 }
             },
@@ -11024,9 +11041,9 @@
             ],
             "support": {
                 "issues": "https://github.com/webmozarts/assert/issues",
-                "source": "https://github.com/webmozarts/assert/tree/2.3.0"
+                "source": "https://github.com/webmozarts/assert/tree/2.4.0"
             },
-            "time": "2026-04-11T10:33:05+00:00"
+            "time": "2026-05-20T13:07:01+00:00"
         }
     ],
     "aliases": [],
