@@ -17,6 +17,26 @@ of a PHP library.
 >
 > \- The Roave Team
 
+## Why use this tool?
+
+Backward compatibility is part of a library's public contract. A change can
+pass the test suite and still break downstream applications when it removes a
+public class or method, changes a method signature, or narrows a return type.
+Those breaks are especially easy to miss when the change is reviewed in
+isolation.
+
+Roave Backward Compatibility Check compares the public API in the current
+revision with a baseline revision and reports changes that can affect
+consumers. It is useful both before publishing a release and in continuous
+integration, where it can turn an accidental BC break into a reviewable build
+failure.
+
+For example, removing `User::getEmail()` is a BC break because existing callers
+may invoke it. Adding an optional parameter is generally compatible, while
+changing an existing parameter from `string` to `int` is not. The checker helps
+surface these differences so you can either preserve compatibility or document
+the intentional break in the release notes.
+
 ## Pre-requisites/assumptions
 
 * Your project uses `git`
