@@ -20,7 +20,7 @@
         "php-standard-library/file": "^6.1.1",
         "php-standard-library/vec": "^6.1.1",
         "php-standard-library/shell": "^6.1.1",
-        "composer/composer": "^2.9.8",
+        "composer/composer": "^2.10.2",
         "nikic/php-parser": "^5.7.0",
         "nikolaposa/version": "^4.2.1",
         "ocramius/package-versions": "^2.11.0",
