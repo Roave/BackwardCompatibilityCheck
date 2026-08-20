@@ -8004,12 +8004,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "fbc6c8ad3beaf46aa02ea4236a16fb00a33fbec3"
+                "reference": "4a8b10995f6b62488cf92b121cfcc644d060cd94"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/fbc6c8ad3beaf46aa02ea4236a16fb00a33fbec3",
-                "reference": "fbc6c8ad3beaf46aa02ea4236a16fb00a33fbec3",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/4a8b10995f6b62488cf92b121cfcc644d060cd94",
+                "reference": "4a8b10995f6b62488cf92b121cfcc644d060cd94",
                 "shasum": ""
             },
             "conflict": {
@@ -8341,7 +8341,7 @@
                 "georgringer/news": "<10.0.4|>=11,<11.4.4|>=12,<12.3.2|>=13,<13.0.2|>=14,<14.0.3",
                 "geshi/geshi": "<=1.0.9.1",
                 "getformwork/formwork": "<=2.3.3",
-                "getgrav/grav": "<=2.0.0.0-RC8",
+                "getgrav/grav": "<2.0.4",
                 "getgrav/grav-plugin-api": "<1.0.0.0-beta15",
                 "getgrav/grav-plugin-form": "<9.1",
                 "getkirby/cms": "<=4.9.3|>=5,<=5.4.3",
@@ -8801,7 +8801,7 @@
                 "slim/slim": "<2.6|>=4.4,<=4.15.1",
                 "slub/slub-events": "<3.0.3",
                 "smarty/smarty": "<4.5.7|>=5,<5.8.4",
-                "snipe/snipe-it": "<=8.6.1",
+                "snipe/snipe-it": "<8.6.3",
                 "socalnick/scn-social-auth": "<1.15.2",
                 "socialiteproviders/steam": "<1.1",
                 "solidinvoice/solidinvoice": "<=2.3.15",
@@ -9124,7 +9124,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-08-18T21:23:23+00:00"
+            "time": "2026-08-19T20:26:39+00:00"
         },
         {
             "name": "sanmai/di-container",
