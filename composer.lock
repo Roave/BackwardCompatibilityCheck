@@ -8004,12 +8004,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "4a8b10995f6b62488cf92b121cfcc644d060cd94"
+                "reference": "bffbcefd4888dc8e04690bfb04bcdf4a62ab26da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/4a8b10995f6b62488cf92b121cfcc644d060cd94",
-                "reference": "4a8b10995f6b62488cf92b121cfcc644d060cd94",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/bffbcefd4888dc8e04690bfb04bcdf4a62ab26da",
+                "reference": "bffbcefd4888dc8e04690bfb04bcdf4a62ab26da",
                 "shasum": ""
             },
             "conflict": {
@@ -8076,7 +8076,7 @@
                 "azuracast/azuracast": "<=0.23.5",
                 "b13/seo_basics": "<0.8.2",
                 "backdrop/backdrop": "<=1.32",
-                "backpack/crud": "<4.0.63|>=4.1,<4.1.69|>=5,<5.0.13",
+                "backpack/crud": "<6.8.15|>=7,<7.0.47",
                 "backpack/filemanager": "<2.0.2|>=3,<3.0.9",
                 "bacula-web/bacula-web": "<9.7.1",
                 "badaso/core": "<=2.9.11",
@@ -9009,10 +9009,10 @@
                 "wikibase/wikibase": "<=1.39.3",
                 "wikimedia/parsoid": "<0.12.2",
                 "willdurand/js-translation-bundle": "<2.1.1",
-                "winter/wn-backend-module": "<1.2.13",
+                "winter/wn-backend-module": "<1.2.14",
                 "winter/wn-cms-module": "<=1.2.12",
                 "winter/wn-dusk-plugin": "<2.1",
-                "winter/wn-system-module": "<1.2.4",
+                "winter/wn-system-module": "<1.2.13",
                 "wintercms/winter": "<=1.2.3",
                 "wireui/wireui": "<1.19.3|>=2,<2.1.3",
                 "wnx/laravel-backup-restore": "<=1.9.3",
@@ -9124,7 +9124,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-08-19T20:26:39+00:00"
+            "time": "2026-08-20T19:30:24+00:00"
         },
         {
             "name": "sanmai/di-container",
