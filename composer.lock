@@ -216,16 +216,16 @@
         },
         {
             "name": "composer/composer",
-            "version": "2.10.2",
+            "version": "2.10.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-                "reference": "8d4439f572a97670a9edc039eb3b093cc976b4bc"
+                "reference": "f0de0bf90226853b841672f086d8b58b02332504"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/composer/zipball/8d4439f572a97670a9edc039eb3b093cc976b4bc",
-                "reference": "8d4439f572a97670a9edc039eb3b093cc976b4bc",
+                "url": "https://api.github.com/repos/composer/composer/zipball/f0de0bf90226853b841672f086d8b58b02332504",
+                "reference": "f0de0bf90226853b841672f086d8b58b02332504",
                 "shasum": ""
             },
             "require": {
@@ -236,6 +236,8 @@
                 "composer/semver": "^3.3",
                 "composer/spdx-licenses": "^1.5.7",
                 "composer/xdebug-handler": "^2.0.2 || ^3.0.3",
+                "ext-filter": "*",
+                "ext-hash": "*",
                 "ext-json": "*",
                 "justinrainbow/json-schema": "^6.5.1",
                 "php": "^7.2.5 || ^8.0",
@@ -313,7 +315,7 @@
                 "irc": "ircs://irc.libera.chat:6697/composer",
                 "issues": "https://github.com/composer/composer/issues",
                 "security": "https://github.com/composer/composer/security/policy",
-                "source": "https://github.com/composer/composer/tree/2.10.2"
+                "source": "https://github.com/composer/composer/tree/2.10.3"
             },
             "funding": [
                 {
@@ -325,7 +327,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-07-01T09:24:45+00:00"
+            "time": "2026-08-27T11:34:23+00:00"
         },
         {
             "name": "composer/metadata-minifier",
@@ -7994,12 +7996,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "d7dcb4d45ec2a3ee1a5b24a0b071868c280807e1"
+                "reference": "8a4e685bbfaa7ba3bc27ec9ccb76c12815854da6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/d7dcb4d45ec2a3ee1a5b24a0b071868c280807e1",
-                "reference": "d7dcb4d45ec2a3ee1a5b24a0b071868c280807e1",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/8a4e685bbfaa7ba3bc27ec9ccb76c12815854da6",
+                "reference": "8a4e685bbfaa7ba3bc27ec9ccb76c12815854da6",
                 "shasum": ""
             },
             "conflict": {
@@ -8108,6 +8110,7 @@
                 "cakephp/cakephp": "<4.5.11|>=4.6,<4.6.4|>=5,<5.1.7|>=5.2,<5.2.13|>=5.3,<5.3.6",
                 "cakephp/database": ">=4.2,<4.2.12|>=4.3,<4.3.11|>=4.4,<4.4.10",
                 "cakephp/debug_kit": "<4.10.3|>=5,<5.2.4",
+                "cakephp/queue": ">=0.1.10,<2.3.1",
                 "cardgate/magento2": "<2.0.33",
                 "cardgate/woocommerce": "<=3.1.15",
                 "cart2quote/module-quotation": ">=4.1.6,<4.4.6|>=5,<5.4.4",
@@ -8448,7 +8451,7 @@
                 "klaviyo/magento2-extension": ">=1,<3",
                 "knplabs/knp-snappy": "<=1.7",
                 "kohana/core": "<3.3.3",
-                "koillection/koillection": "<1.6.12",
+                "koillection/koillection": "<1.8.4",
                 "krayin/laravel-crm": "<=2.2",
                 "kreait/firebase-php": ">=3.2,<3.8.1",
                 "kumbiaphp/kumbiapp": "<=1.1.1",
@@ -8752,6 +8755,7 @@
                 "setasign/fpdi": "<2.6.7",
                 "sfroemken/url_redirect": "<=1.2.1",
                 "sheng/yiicms": "<1.2.1",
+                "shlinkio/shlink": "<=5.0.1",
                 "shopper/cart": "<2.8",
                 "shopper/framework": "<2.8",
                 "shopware/core": "<6.6.10.18-dev|>=6.7,<6.7.10.1-dev",
@@ -9125,7 +9129,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-08-26T16:17:54+00:00"
+            "time": "2026-08-27T23:42:27+00:00"
         },
         {
             "name": "sanmai/di-container",
