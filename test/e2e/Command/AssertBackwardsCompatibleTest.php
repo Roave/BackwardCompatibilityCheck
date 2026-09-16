@@ -54,6 +54,9 @@ final class TheClass
 {
     public const UNCHANGED_CONSTANT = __DIR__;
 
+    /** @internal */
+    public array $internalProperty = [];
+
     public function method(A $a)
     {
     }
@@ -73,6 +76,9 @@ interface C {}
 final class TheClass
 {
     public const UNCHANGED_CONSTANT = __DIR__;
+
+    /** @internal */
+    public array $internalProperty = ['a'];
 
     public function method(B $a)
     {
@@ -94,6 +100,9 @@ final class TheClass
 {
     public const UNCHANGED_CONSTANT = __DIR__;
 
+    /** @internal */
+    public array $internalProperty = ['b'];
+
     public function method(C $a)
     {
     }
@@ -101,7 +110,7 @@ final class TheClass
 
 PHP
 ,
-        // The last version resets the class to its initial state
+        // The last version resets the class to its initial state (except internal property)
         <<<'PHP'
 <?php
 
@@ -114,6 +123,9 @@ interface C {}
 final class TheClass
 {
     public const UNCHANGED_CONSTANT = __DIR__;
+
+    /** @internal */
+    public array $internalProperty = ['c'];
 
     public function method(A $a)
     {
