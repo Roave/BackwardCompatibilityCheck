@@ -206,7 +206,7 @@ use const E_DEPRECATED;
                                 )),
                             )),
                             new ClassBased\SkipClassBasedErrors(new ClassBased\PropertyChanged(
-                                new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\OnlyPublicPropertyChanged(
+                                new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\OnlyPublicPropertyChanged(new PropertyBased\ExcludeInternalProperty(
                                     new PropertyBased\MultipleChecksOnAProperty(
                                         new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyBecameInternal()),
                                         new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyTypeChanged(new TypeIsContravariant(), new TypeIsCovariant())),
@@ -214,7 +214,7 @@ use const E_DEPRECATED;
                                         new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyVisibilityReduced()),
                                         new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyScopeChanged()),
                                     ),
-                                )),
+                                ))),
                             )),
                             new ClassBased\SkipClassBasedErrors(new ClassBased\MethodChanged(
                                 new MethodBased\SkipMethodBasedErrors(new MethodBased\OnlyPublicMethodChanged(new MethodBased\ExcludeInternalMethod(
