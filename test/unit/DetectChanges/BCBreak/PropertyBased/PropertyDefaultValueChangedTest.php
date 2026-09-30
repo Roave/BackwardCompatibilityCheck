@@ -10,6 +10,7 @@ use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\PropertyDefaultValueChanged;
 use Roave\BetterReflection\BetterReflection;
+use Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
 use Roave\BetterReflection\Reflector\DefaultReflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
@@ -37,6 +38,93 @@ final class PropertyDefaultValueChangedTest extends TestCase
             array_map(static function (Change $change): string {
                 return $change->__toString();
             }, iterator_to_array($changes)),
+        );
+    }
+
+    /** @param non-empty-string $property */
+    #[DataProvider('propertiesWithUncompilableDefaultValueNotChanged')]
+    public function testUncompilableDefaultValueNotChanged(string $property): void
+    {
+        $source = <<<'PHP'
+<?php
+
+enum TheEnum: string {
+    case A = 'A';
+}
+
+class TheClass {
+    public TheEnum $enum = TheEnum::A;
+
+    public function __construct(
+        public TheEnum $promotedEnum = TheEnum::A,
+        public stdClass $promotedNewInitializer = new stdClass(),
+    ) {}
+}
+PHP;
+
+        $astLocator = (new BetterReflection())->astLocator();
+        $fromClass  = (new DefaultReflector(new StringSourceLocator($source, $astLocator)))->reflectClass('TheClass');
+        $toClass    = (new DefaultReflector(new StringSourceLocator($source, $astLocator)))->reflectClass('TheClass');
+
+        $changes = (new PropertyDefaultValueChanged())(
+            TypeRestriction::object($fromClass->getProperty($property)),
+            TypeRestriction::object($toClass->getProperty($property)),
+        );
+
+        self::assertCount(0, $changes);
+    }
+
+    /** @return array<string, array{0: non-empty-string}> */
+    public static function propertiesWithUncompilableDefaultValueNotChanged(): array
+    {
+        return [
+            'enum'                   => ['enum'],
+            'promotedEnum'           => ['promotedEnum'],
+            'promotedNewInitializer' => ['promotedNewInitializer'],
+        ];
+    }
+
+    public function testUncompilableDefaultValueChangedCausesUnableToCompileNodeException(): void
+    {
+        $fromSource = <<<'PHP'
+<?php
+
+enum TheEnum: string {
+    case A = 'A';
+    case B = 'B';
+}
+
+class TheClass {
+    public function __construct(
+        public TheEnum $promotedEnum = TheEnum::A,
+    ) {}
+}
+PHP;
+
+        $toSource = <<<'PHP'
+<?php
+
+enum TheEnum: string {
+    case A = 'A';
+    case B = 'B';
+}
+
+class TheClass {
+    public function __construct(
+        public TheEnum $promotedEnum = TheEnum::B,
+    ) {}
+}
+PHP;
+
+        $astLocator = (new BetterReflection())->astLocator();
+        $fromClass  = (new DefaultReflector(new StringSourceLocator($fromSource, $astLocator)))->reflectClass('TheClass');
+        $toClass    = (new DefaultReflector(new StringSourceLocator($toSource, $astLocator)))->reflectClass('TheClass');
+
+        $this->expectException(UnableToCompileNode::class);
+
+        (new PropertyDefaultValueChanged())(
+            TypeRestriction::object($fromClass->getProperty('promotedEnum')),
+            TypeRestriction::object($toClass->getProperty('promotedEnum')),
         );
     }
 
