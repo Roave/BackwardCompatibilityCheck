@@ -8,6 +8,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
+use Roave\BackwardCompatibility\CodeContext;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\FunctionBased\ParameterTypeContravarianceChanged;
 use Roave\BackwardCompatibility\DetectChanges\Variance\TypeIsContravariant;
 use Roave\BetterReflection\BetterReflection;
@@ -33,8 +34,9 @@ final class ParameterTypeContravarianceChangedTest extends TestCase
         ReflectionMethod|ReflectionFunction $fromFunction,
         ReflectionMethod|ReflectionFunction $toFunction,
         array $expectedMessages,
+        CodeContext $codeContext,
     ): void {
-        $changes = (new ParameterTypeContravarianceChanged(new TypeIsContravariant()))($fromFunction, $toFunction);
+        $changes = (new ParameterTypeContravarianceChanged(new TypeIsContravariant($codeContext)))($fromFunction, $toFunction);
 
         self::assertSame(
             $expectedMessages,
@@ -48,7 +50,8 @@ final class ParameterTypeContravarianceChangedTest extends TestCase
      * @return array<string, array{
      *     0: ReflectionMethod|ReflectionFunction,
      *     1: ReflectionMethod|ReflectionFunction,
-     *     2: list<string>
+     *     2: list<string>,
+     *     3: CodeContext
      * }>
      */
     public static function functionsToBeTested(): array
@@ -147,6 +150,7 @@ PHP
 
         $fromReflector = new DefaultReflector($fromLocator);
         $toReflector   = new DefaultReflector($toLocator);
+        $codeContext   = new CodeContext($fromReflector, $toReflector);
 
         $functions = [
             'changed'      => [
@@ -176,6 +180,7 @@ PHP
                         $fromReflector->reflectFunction($function),
                         $toReflector->reflectFunction($function),
                         $errors,
+                        $codeContext,
                     ],
                     array_keys($functions),
                     $functions,
@@ -190,6 +195,7 @@ PHP
                         '[BC] CHANGED: The parameter $b of N4\C::changed1() changed from no type to a non-contravariant int',
 
                     ],
+                    $codeContext,
                 ],
                 'N4\C#changed2'  => [
                     self::getMethod($fromReflector->reflectClass('N4\C'), 'changed2'),
@@ -198,11 +204,13 @@ PHP
                         '[BC] CHANGED: The parameter $a of N4\C#changed2() changed from no type to a non-contravariant int',
                         '[BC] CHANGED: The parameter $b of N4\C#changed2() changed from no type to a non-contravariant int',
                     ],
+                    $codeContext,
                 ],
                 'N5\C#changed'  => [
                     self::getMethod($fromReflector->reflectClass('N5\C'), 'changed'),
                     self::getMethod($toReflector->reflectClass('N5\C'), 'changed'),
                     [],
+                    $codeContext,
                 ],
             ],
         );

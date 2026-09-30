@@ -10,7 +10,9 @@ use Composer\Installer;
 use Composer\IO\ConsoleIO;
 use PackageVersions\Versions;
 use Psl\Type;
+use Roave\BackwardCompatibility\CodeContext;
 use Roave\BackwardCompatibility\Command;
+use Roave\BackwardCompatibility\CompareApi;
 use Roave\BackwardCompatibility\CompareClasses;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassBased;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\ClassConstantBased;
@@ -90,7 +92,7 @@ use const E_DEPRECATED;
             },
             $astLocator,
         ),
-        new CompareClasses(
+        static fn (CodeContext $codeContext): CompareApi => new CompareClasses(
             new ClassBased\SkipClassBasedErrors(new ClassBased\ExcludeAnonymousClasses(new ClassBased\ExcludeInternalClass(
                 new ClassBased\MultipleChecksOnAClass(
                     new ClassBased\SkipClassBasedErrors(new ClassBased\ClassBecameAbstract()),
@@ -128,7 +130,7 @@ use const E_DEPRECATED;
                                     new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\OnlyPublicPropertyChanged(
                                         new PropertyBased\MultipleChecksOnAProperty(
                                             new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyBecameInternal()),
-                                            new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyTypeChanged(new TypeIsContravariant(), new TypeIsCovariant())),
+                                            new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyTypeChanged(new TypeIsContravariant($codeContext), new TypeIsCovariant())),
                                             new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyDefaultValueChanged()),
                                             new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyVisibilityReduced()),
                                             new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyBecameReadonly()),
@@ -138,7 +140,7 @@ use const E_DEPRECATED;
                                     new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\OnlyProtectedPropertyChanged(
                                         new PropertyBased\MultipleChecksOnAProperty(
                                             new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyBecameInternal()),
-                                            new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyTypeChanged(new TypeIsContravariant(), new TypeIsCovariant())),
+                                            new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyTypeChanged(new TypeIsContravariant($codeContext), new TypeIsCovariant())),
                                             new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyDefaultValueChanged()),
                                             new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyVisibilityReduced()),
                                             new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyBecameReadonly()),
@@ -165,7 +167,7 @@ use const E_DEPRECATED;
                                                     new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\RequiredParameterAmountIncreased()),
                                                     new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterDefaultValueChanged()),
                                                     new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeCovarianceChanged(new TypeIsCovariant())),
-                                                    new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterTypeContravarianceChanged(new TypeIsContravariant())),
+                                                    new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterTypeContravarianceChanged(new TypeIsContravariant($codeContext))),
                                                     new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterNameChanged()),
                                                 ),
                                             )),
@@ -193,7 +195,7 @@ use const E_DEPRECATED;
                                                     new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\RequiredParameterAmountIncreased()),
                                                     new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterDefaultValueChanged()),
                                                     new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeCovarianceChanged(new TypeIsCovariant())),
-                                                    new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterTypeContravarianceChanged(new TypeIsContravariant())),
+                                                    new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterTypeContravarianceChanged(new TypeIsContravariant($codeContext))),
                                                     new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterNameChanged()),
                                                 ),
                                             )),
@@ -223,7 +225,7 @@ use const E_DEPRECATED;
                                 new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\OnlyPublicPropertyChanged(new PropertyBased\ExcludeInternalProperty(
                                     new PropertyBased\MultipleChecksOnAProperty(
                                         new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyBecameInternal()),
-                                        new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyTypeChanged(new TypeIsContravariant(), new TypeIsCovariant())),
+                                        new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyTypeChanged(new TypeIsContravariant($codeContext), new TypeIsCovariant())),
                                         new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyDefaultValueChanged()),
                                         new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyVisibilityReduced()),
                                         new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyBecameReadonly()),
@@ -248,7 +250,7 @@ use const E_DEPRECATED;
                                                 new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\RequiredParameterAmountIncreased()),
                                                 new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterDefaultValueChanged()),
                                                 new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeCovarianceChanged(new TypeIsCovariant())),
-                                                new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterTypeContravarianceChanged(new TypeIsContravariant())),
+                                                new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterTypeContravarianceChanged(new TypeIsContravariant($codeContext))),
                                             ),
                                         )),
                                     ),
@@ -288,7 +290,7 @@ use const E_DEPRECATED;
                                         new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterDefaultValueChanged()),
                                         new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeCovarianceChanged(new TypeIsCovariant())),
                                         new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeChanged()),
-                                        new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterTypeContravarianceChanged(new TypeIsContravariant())),
+                                        new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterTypeContravarianceChanged(new TypeIsContravariant($codeContext))),
                                         new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterTypeChanged()),
                                         new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterNameChanged()),
                                     ),
@@ -310,7 +312,7 @@ use const E_DEPRECATED;
                         new ClassBased\SkipClassBasedErrors(new ClassBased\PropertyChanged(
                             new PropertyBased\MultipleChecksOnAProperty(
                                 new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyBecameInternal()),
-                                new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyTypeChanged(new TypeIsContravariant(), new TypeIsCovariant())),
+                                new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyTypeChanged(new TypeIsContravariant($codeContext), new TypeIsCovariant())),
                                 new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyDefaultValueChanged()),
                                 new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyVisibilityReduced()),
                                 new PropertyBased\SkipPropertyBasedErrors(new PropertyBased\PropertyBecameReadonly()),
@@ -335,7 +337,7 @@ use const E_DEPRECATED;
                                             new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterDefaultValueChanged()),
                                             new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeCovarianceChanged(new TypeIsCovariant())),
                                             new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeChanged()),
-                                            new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterTypeContravarianceChanged(new TypeIsContravariant())),
+                                            new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterTypeContravarianceChanged(new TypeIsContravariant($codeContext))),
                                             new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterTypeChanged()),
                                             new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterNameChanged()),
                                         ),

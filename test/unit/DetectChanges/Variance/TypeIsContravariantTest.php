@@ -12,6 +12,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Psl\Type;
+use Roave\BackwardCompatibility\CodeContext;
 use Roave\BackwardCompatibility\DetectChanges\Variance\TypeIsContravariant;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionIntersectionType;
@@ -22,6 +23,7 @@ use Roave\BetterReflection\Reflection\ReflectionUnionType;
 use Roave\BetterReflection\Reflector\DefaultReflector;
 use Roave\BetterReflection\Reflector\Reflector;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
+use RoaveTest\BackwardCompatibility\TypeRestriction;
 
 use function array_map;
 use function array_merge;
@@ -34,10 +36,11 @@ final class TypeIsContravariantTest extends TestCase
         ReflectionIntersectionType|ReflectionUnionType|ReflectionNamedType|null $type,
         ReflectionIntersectionType|ReflectionUnionType|ReflectionNamedType|null $newType,
         bool $expectedToBeContravariant,
+        CodeContext $codeContext,
     ): void {
         self::assertSame(
             $expectedToBeContravariant,
-            (new TypeIsContravariant())($type, $newType),
+            (new TypeIsContravariant($codeContext))($type, $newType),
         );
     }
 
@@ -45,7 +48,8 @@ final class TypeIsContravariantTest extends TestCase
      * @return array<string, array{
      *     0: ReflectionIntersectionType|ReflectionUnionType|ReflectionNamedType|null,
      *     1: ReflectionIntersectionType|ReflectionUnionType|ReflectionNamedType|null,
-     *     2: bool
+     *     2: bool,
+     *     3: CodeContext
      * }>
      */
     public static function checkedTypes(): array
@@ -78,6 +82,8 @@ PHP
                 $reflector->reflectClass('OwnerPropertyContainer')
                     ->getProperty('owner'),
             );
+
+        $codeContext = new CodeContext($reflector, $reflector);
 
         $types = [
             'no type to no type is contravariant with itself'                          => [
@@ -465,6 +471,7 @@ PHP
                     ? null
                     : self::identifierType($reflector, $owner, $types[1]),
                 $types[2],
+                $codeContext,
             ],
             $types,
         );
@@ -473,13 +480,14 @@ PHP
     #[DataProvider('existingTypes')]
     public function testContravarianceConsidersSameTypeAlwaysContravariant(
         ReflectionIntersectionType|ReflectionUnionType|ReflectionNamedType|null $type,
+        CodeContext $codeContext,
     ): void {
         self::assertTrue(
-            (new TypeIsContravariant())($type, $type),
+            (new TypeIsContravariant($codeContext))($type, $type),
         );
     }
 
-    /** @return list<array{ReflectionIntersectionType|ReflectionUnionType|ReflectionNamedType|null}> */
+    /** @return list<array{ReflectionIntersectionType|ReflectionUnionType|ReflectionNamedType|null, CodeContext}> */
     public static function existingTypes(): array
     {
         $reflector = new DefaultReflector(new StringSourceLocator(
@@ -500,12 +508,14 @@ PHP
                     ->getProperty('owner'),
             );
 
+        $codeContext = new CodeContext($reflector, $reflector);
+
         return array_merge(
-            [[null]],
+            [[null, $codeContext]],
             array_merge(...array_map(
                 static fn (string $type): array => [
-                    [self::identifierType($reflector, $owner, new Identifier($type))],
-                    [self::identifierType($reflector, $owner, new NullableType(new Identifier($type)))],
+                    [self::identifierType($reflector, $owner, new Identifier($type)), $codeContext],
+                    [self::identifierType($reflector, $owner, new NullableType(new Identifier($type))), $codeContext],
                 ],
                 [
                     'null',
@@ -552,7 +562,7 @@ PHP
         $nullable    = self::identifierType($reflector, $owner, new NullableType(new Identifier($type)));
         $notNullable = self::identifierType($reflector, $owner, new Identifier($type));
 
-        $isContravariant = new TypeIsContravariant();
+        $isContravariant = new TypeIsContravariant(new CodeContext($reflector, $reflector));
 
         self::assertFalse($isContravariant($nullable, $notNullable));
         self::assertTrue($isContravariant($notNullable, $nullable));
@@ -578,40 +588,94 @@ PHP
     {
         $astLocator = (new BetterReflection())->astLocator();
 
-        $fromLocator = new StringSourceLocator(
+        $fromReflector = new DefaultReflector(new StringSourceLocator(
             <<<'PHP'
 <?php
-namespace {
-    interface ChildInterface {}
-    class Service {
-        public function __invoke(ChildInterface $a) {}
-    }
+
+interface ChildInterface {}
+class Service {
+    public function __invoke(ChildInterface $a) {}
 }
 PHP
             ,
             $astLocator,
-        );
-
-        $toLocator = new StringSourceLocator(
-            <<<'PHP'
-<?php
-namespace {
-    interface ChildInterface extends ParentInterface {}
-    interface ParentInterface {}
-    class Service {
-        public function __invoke(ParentInterface $a) {}
-    }
-}
-PHP
-            ,
-            $astLocator,
-        );
-
-        $isContravariant = new TypeIsContravariant();
-        self::assertTrue($isContravariant(
-            (new DefaultReflector($fromLocator))->reflectClass('Service')->getMethod('__invoke')->getParameter('a')->getType(),
-            (new DefaultReflector($toLocator))->reflectClass('Service')->getMethod('__invoke')->getParameter('a')->getType()
         ));
+
+        $toReflector = new DefaultReflector(new StringSourceLocator(
+            <<<'PHP'
+<?php
+
+interface ChildInterface extends ParentInterface {}
+interface ParentInterface {}
+class Service {
+    public function __invoke(ParentInterface $a) {}
+}
+PHP
+            ,
+            $astLocator,
+        ));
+
+        self::assertTrue(
+            (new TypeIsContravariant(new CodeContext($fromReflector, $toReflector)))(
+                self::parameterType($fromReflector, 'Service', '__invoke', 'a'),
+                self::parameterType($toReflector, 'Service', '__invoke', 'a'),
+            ),
+        );
+    }
+
+    public function testContravarianceWhereClassWasRemoved(): void
+    {
+        $astLocator = (new BetterReflection())->astLocator();
+
+        $fromReflector = new DefaultReflector(new StringSourceLocator(
+            <<<'PHP'
+<?php
+
+interface ChildInterface extends ParentInterface {}
+interface ParentInterface {}
+class Service {
+    public function __invoke(ChildInterface $a) {}
+}
+PHP
+            ,
+            $astLocator,
+        ));
+
+        $toReflector = new DefaultReflector(new StringSourceLocator(
+            <<<'PHP'
+<?php
+
+interface ParentInterface {}
+class Service {
+    public function __invoke(ParentInterface $a) {}
+}
+PHP
+            ,
+            $astLocator,
+        ));
+
+        self::assertFalse(
+            (new TypeIsContravariant(new CodeContext($fromReflector, $toReflector)))(
+                self::parameterType($fromReflector, 'Service', '__invoke', 'a'),
+                self::parameterType($toReflector, 'Service', '__invoke', 'a'),
+            ),
+        );
+    }
+
+    /**
+     * @param non-empty-string $method
+     * @param non-empty-string $parameter
+     */
+    private static function parameterType(
+        Reflector $reflector,
+        string $class,
+        string $method,
+        string $parameter,
+    ): ReflectionIntersectionType|ReflectionUnionType|ReflectionNamedType|null {
+        return TypeRestriction::object(
+            TypeRestriction::object($reflector->reflectClass($class)->getMethod($method))
+                ->getParameter($parameter),
+        )->getType();
     }
 
     private static function identifierType(
