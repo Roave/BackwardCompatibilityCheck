@@ -6,9 +6,14 @@ namespace Roave\BackwardCompatibility\DetectChanges\Variance;
 
 use Psl\Iter;
 use Psl\Str;
+use ReflectionProperty;
 use Roave\BetterReflection\Reflection\ReflectionIntersectionType;
 use Roave\BetterReflection\Reflection\ReflectionNamedType;
 use Roave\BetterReflection\Reflection\ReflectionUnionType;
+use Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use Roave\BetterReflection\Reflector\Reflector;
+
+use function assert;
 
 /**
  * This is a simplistic contravariant type check. A more appropriate approach would be to
@@ -101,13 +106,34 @@ final class TypeIsContravariant
             return false;
         }
 
-        $typeReflectionClass = $type->getClass();
-        $comparedTypeClass   = $comparedType->getClass();
+        $comparedTypeClass = $comparedType->getClass();
+
+        try {
+            // the old type has to be resolved in the new codebase, as its inheritance may have changed
+            $typeReflectionClass = $this->reflectorOf($comparedType)
+                ->reflectClass($type->getClass()->getName());
+        } catch (IdentifierNotFound) {
+            // the old type no longer exists, so it cannot be a subtype of the new one
+            return false;
+        }
 
         if ($comparedTypeClass->isInterface()) {
             return $typeReflectionClass->implementsInterface($comparedTypeClass->getName());
         }
 
         return Iter\contains($typeReflectionClass->getParentClassNames(), $comparedTypeClass->getName());
+    }
+
+    /**
+     * @todo better-reflection does not expose the reflector a type was created with, therefore
+     *       it is read from its private state here
+     */
+    private function reflectorOf(ReflectionNamedType $type): Reflector
+    {
+        $reflector = (new ReflectionProperty($type::class, 'reflector'))->getValue($type);
+
+        assert($reflector instanceof Reflector);
+
+        return $reflector;
     }
 }
