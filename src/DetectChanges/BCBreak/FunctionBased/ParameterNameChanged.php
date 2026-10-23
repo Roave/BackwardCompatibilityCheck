@@ -95,6 +95,11 @@ final class ParameterNameChanged implements FunctionBased
             return;
         }
 
+        if ($fromParameter->isVariadic() && $toParameter->isVariadic()) {
+            // named arguments are never bound to a variadic parameter by name: they are collected into it instead
+            return;
+        }
+
         yield Change::changed(
             Str\format(
                 'Parameter %d of %s changed name from %s to %s',

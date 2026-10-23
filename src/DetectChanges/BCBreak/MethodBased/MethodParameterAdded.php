@@ -24,16 +24,23 @@ final class MethodParameterAdded implements MethodBased
             return Changes::empty();
         }
 
-        $toParameters = $toMethod->getParameters();
+        $fromParameters = $fromMethod->getParameters();
+        $toParameters   = $toMethod->getParameters();
         if ($fromMethod->isConstructor()) {
             // new optional parameters of constructors are not BC breaks,
             // as the method signature of child classes does not need to match the parent
             $toParameters = Vec\filter($toParameters, static fn (ReflectionParameter $param) => ! $param->isOptional());
         }
 
+        if ($fromMethod->isVariadic() && $toMethod->isVariadic()) {
+            // a variadic parameter is never matched by name, therefore renaming it is not adding a new parameter
+            $fromParameters = Vec\filter($fromParameters, static fn (ReflectionParameter $param) => ! $param->isVariadic());
+            $toParameters   = Vec\filter($toParameters, static fn (ReflectionParameter $param) => ! $param->isVariadic());
+        }
+
         $added = Dict\diff(
             Vec\map($toParameters, static fn (ReflectionParameter $param) => $param->getName()),
-            Vec\map($fromMethod->getParameters(), static fn (ReflectionParameter $param) => $param->getName()),
+            Vec\map($fromParameters, static fn (ReflectionParameter $param) => $param->getName()),
         );
 
         return Changes::fromList(

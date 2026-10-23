@@ -109,6 +109,10 @@ class TheClass {
     public function twoParams(int $one, int $two) {}
     private function privateMethod() {}
     public function removedParameter(int $one, array $options = []) {}
+    public function renamedVariadicParameter(int $one, int ...$two) {}
+    public function addedVariadicParameter(int $one) {}
+    public function addedParameterBeforeVariadicParameter(int $one, int ...$two) {}
+    public function variadicParameterBecameRegularParameter(int $one, int ...$two) {}
     public function __construct(int $one) {}
 }
 PHP
@@ -128,6 +132,10 @@ class TheClass {
     public function twoParams(int $one, int $two) {}
     private function privateMethod(array $options = []) {}
     public function removedParameter(int $one) {}
+    public function renamedVariadicParameter(int $one, int ...$three) {}
+    public function addedVariadicParameter(int $one, int ...$two) {}
+    public function addedParameterBeforeVariadicParameter(int $one, int $two, int ...$three) {}
+    public function variadicParameterBecameRegularParameter(int $one, int $three) {}
     public function __construct(int $one, int $two, array $options = []) {}
 }
 PHP
@@ -151,6 +159,10 @@ PHP
             'privateMethod' => [],
             'removedParameter' => [],
             'twoParams' => [],
+            'renamedVariadicParameter' => [],
+            'addedVariadicParameter' => ['[BC] ADDED: Parameter two was added to Method addedVariadicParameter() of class TheClass'],
+            'addedParameterBeforeVariadicParameter' => ['[BC] ADDED: Parameter two was added to Method addedParameterBeforeVariadicParameter() of class TheClass'],
+            'variadicParameterBecameRegularParameter' => ['[BC] ADDED: Parameter three was added to Method variadicParameterBecameRegularParameter() of class TheClass'],
             '__construct' => ['[BC] ADDED: Parameter two was added to Method __construct() of class TheClass'],
         ];
 

@@ -66,6 +66,9 @@ function removingAnnotation(int $a, int $b) {}
 function addingAnnotation(int $a, int $b) {}
 function addedArgumentsShouldNotBeDetected($a, $b) {}
 function removedArgumentsShouldNotBeDetected($a, $b, $c) {}
+function changedVariadic(int $a, int ...$b) {}
+function changedToVariadic(int $a, int $b) {}
+function changedFromVariadic(int $a, int ...$b) {}
 PHP
             ,
             $astLocator,
@@ -84,6 +87,9 @@ function removingAnnotation(int $a, int $b) {}
 function addingAnnotation(int $a, int $b) {}
 function addedArgumentsShouldNotBeDetected($a, $b, $c) {}
 function removedArgumentsShouldNotBeDetected($a, $b) {}
+function changedVariadic(int $a, int ...$c) {}
+function changedToVariadic(int $a, int ...$c) {}
+function changedFromVariadic(int $a, int $c) {}
 PHP
             ,
             $astLocator,
@@ -103,6 +109,9 @@ PHP
             'addingAnnotation'                    => ['[BC] ADDED: The @no-named-arguments annotation was added from addingAnnotation()'],
             'addedArgumentsShouldNotBeDetected'   => [],
             'removedArgumentsShouldNotBeDetected' => [],
+            'changedVariadic'                     => [],
+            'changedToVariadic'                   => ['[BC] CHANGED: Parameter 1 of changedToVariadic() changed name from b to c'],
+            'changedFromVariadic'                 => ['[BC] CHANGED: Parameter 1 of changedFromVariadic() changed name from b to c'],
         ];
 
         return array_combine(
