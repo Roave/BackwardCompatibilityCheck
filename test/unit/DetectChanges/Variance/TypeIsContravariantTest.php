@@ -187,14 +187,19 @@ PHP
                 false,
             ],
             'non-iterable class to iterable type is not contravariant'                 => [
-                new Identifier('iterable'),
                 new Identifier('AnotherClassWithMultipleInterfaces'),
+                new Identifier('iterable'),
                 false,
             ],
-            'iterable class type to iterable is not contravariant'                     => [
+            'iterable class type to iterable is contravariant'                     => [
                 new Identifier('Iterator'),
                 new Identifier('iterable'),
-                false,
+                true,
+            ],
+            'Traversable to iterable is contravariant'                                  => [
+                new Identifier('Traversable'),
+                new Identifier('iterable'),
+                true,
             ],
             'object to class type is not contravariant'                                => [
                 new Identifier('object'),
@@ -331,6 +336,11 @@ PHP
                 new UnionType([new Identifier('A'), new Identifier('B'), new Identifier('null')]),
                 new NullableType(new Identifier('A')),
                 false,
+            ],
+            'union of iterable and iterable class type to iterable is contravariant'                   => [
+                new UnionType([new Identifier('iterable'), new Identifier('Iterator')]),
+                new Identifier('iterable'),
+                true,
             ],
 
             'object type to intersection type is not contravariant'                            => [

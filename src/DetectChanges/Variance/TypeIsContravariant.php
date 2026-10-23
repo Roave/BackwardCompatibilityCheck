@@ -9,6 +9,7 @@ use Psl\Str;
 use Roave\BetterReflection\Reflection\ReflectionIntersectionType;
 use Roave\BetterReflection\Reflection\ReflectionNamedType;
 use Roave\BetterReflection\Reflection\ReflectionUnionType;
+use Traversable;
 
 /**
  * This is a simplistic contravariant type check. A more appropriate approach would be to
@@ -90,6 +91,14 @@ final class TypeIsContravariant
 
         if ($comparedTypeAsString === 'iterable' && $typeAsString === 'array') {
             return true;
+        }
+
+        if ($comparedTypeAsString === 'iterable' && ! $type->isBuiltin()) {
+            // `Traversable`, and any of its implementations, can be widened to `iterable`
+            $typeReflectionClass = $type->getClass();
+
+            return $typeReflectionClass->getName() === Traversable::class
+                || $typeReflectionClass->implementsInterface(Traversable::class);
         }
 
         if ($type->isBuiltin() !== $comparedType->isBuiltin()) {
