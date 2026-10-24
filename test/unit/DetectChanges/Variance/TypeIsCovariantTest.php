@@ -191,6 +191,11 @@ PHP
                 new Identifier('Iterator'),
                 true,
             ],
+            'iterable to Traversable is covariant'                 => [
+                new Identifier('iterable'),
+                new Identifier('Traversable'),
+                true,
+            ],
             'non-iterable class to iterable type is not covariant' => [
                 new Identifier('iterable'),
                 new Identifier('AnotherClassWithMultipleInterfaces'),
