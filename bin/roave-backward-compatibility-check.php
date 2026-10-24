@@ -155,6 +155,7 @@ use const E_DEPRECATED;
                                             new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodFunctionDefinitionChanged(
                                                 new FunctionBased\MultipleChecksOnAFunction(
                                                     new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\FunctionBecameInternal()),
+                                                    new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\FunctionBecameNoDiscard()),
                                                     new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterByReferenceChanged()),
                                                     new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeByReferenceChanged()),
                                                     new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\RequiredParameterAmountIncreased()),
@@ -178,6 +179,7 @@ use const E_DEPRECATED;
                                             new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodFunctionDefinitionChanged(
                                                 new FunctionBased\MultipleChecksOnAFunction(
                                                     new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\FunctionBecameInternal()),
+                                                    new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\FunctionBecameNoDiscard()),
                                                     new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterByReferenceChanged()),
                                                     new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeByReferenceChanged()),
                                                     new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\RequiredParameterAmountIncreased()),
@@ -227,6 +229,7 @@ use const E_DEPRECATED;
                                         new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodFunctionDefinitionChanged(
                                             new FunctionBased\MultipleChecksOnAFunction(
                                                 new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\FunctionBecameInternal()),
+                                                new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\FunctionBecameNoDiscard()),
                                                 new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterByReferenceChanged()),
                                                 new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeByReferenceChanged()),
                                                 new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\RequiredParameterAmountIncreased()),
@@ -262,6 +265,7 @@ use const E_DEPRECATED;
                                 new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodFunctionDefinitionChanged(
                                     new FunctionBased\MultipleChecksOnAFunction(
                                         new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\FunctionBecameInternal()),
+                                        new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\FunctionBecameNoDiscard()),
                                         new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterByReferenceChanged()),
                                         new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeByReferenceChanged()),
                                         new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\RequiredParameterAmountIncreased()),
@@ -307,6 +311,7 @@ use const E_DEPRECATED;
                                     new MethodBased\SkipMethodBasedErrors(new MethodBased\MethodFunctionDefinitionChanged(
                                         new FunctionBased\MultipleChecksOnAFunction(
                                             new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\FunctionBecameInternal()),
+                                            new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\FunctionBecameNoDiscard()),
                                             new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterByReferenceChanged()),
                                             new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeByReferenceChanged()),
                                             new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\RequiredParameterAmountIncreased()),
