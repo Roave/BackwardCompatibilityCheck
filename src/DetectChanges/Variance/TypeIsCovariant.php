@@ -91,8 +91,11 @@ final class TypeIsCovariant
         if ($typeAsString === 'iterable' && ! $comparedType->isBuiltin()) {
             $comparedTypeReflectionClass = $comparedType->getClass();
 
-            if ($comparedTypeReflectionClass->implementsInterface(Traversable::class)) {
-                // `iterable` can be restricted via any `Iterator` implementation
+            if (
+                $comparedTypeReflectionClass->getName() === Traversable::class
+                || $comparedTypeReflectionClass->implementsInterface(Traversable::class)
+            ) {
+                // `iterable` can be restricted via `Traversable`, or any of its implementations
                 return true;
             }
         }
