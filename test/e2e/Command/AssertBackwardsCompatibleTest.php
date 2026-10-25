@@ -62,6 +62,14 @@ final class TheClass
     }
 }
 
+class OpenClass
+{
+    final public function finalMethod(int $a): int|string
+    {
+        return 1;
+    }
+}
+
 PHP
 ,
         <<<'PHP'
@@ -82,6 +90,14 @@ final class TheClass
 
     public function method(B $a)
     {
+    }
+}
+
+class OpenClass
+{
+    final public function finalMethod(int|string $a): int
+    {
+        return 1;
     }
 }
 
@@ -108,9 +124,17 @@ final class TheClass
     }
 }
 
+class OpenClass
+{
+    final public function finalMethod(int|string $a): int
+    {
+        return 1;
+    }
+}
+
 PHP
 ,
-        // The last version resets the class to its initial state (except internal property)
+        // The last version resets the class to its initial state (except internal property and final method types)
         <<<'PHP'
 <?php
 
@@ -129,6 +153,14 @@ final class TheClass
 
     public function method(A $a)
     {
+    }
+}
+
+class OpenClass
+{
+    final public function finalMethod(int|string $a): int
+    {
+        return 1;
     }
 }
 
