@@ -86,6 +86,20 @@ namespace N4 {
        function changed2($a, $b) {}
    }
 }
+
+namespace N5 {
+   class C {
+       function __construct(int $a) {}
+   }
+
+   abstract class D {
+       abstract function __construct(int $a);
+   }
+
+   interface E {
+       function __construct(int $a);
+   }
+}
 PHP
             ,
             $astLocator,
@@ -122,6 +136,20 @@ namespace N4 {
    class C {
        static function changed1(int $a, int $b) {}
        function changed2(int $a, int $b) {}
+   }
+}
+
+namespace N5 {
+   class C {
+       function __construct(int|string $a) {}
+   }
+
+   abstract class D {
+       abstract function __construct(int|string $a);
+   }
+
+   interface E {
+       function __construct(int|string $a);
    }
 }
 PHP
@@ -182,6 +210,21 @@ PHP
                         '[BC] CHANGED: The parameter $a of N4\C#changed2() changed from no type to int',
                         '[BC] CHANGED: The parameter $b of N4\C#changed2() changed from no type to int',
                     ],
+                ],
+                'N5\C#__construct' => [
+                    self::getMethod($fromReflector->reflectClass('N5\C'), '__construct'),
+                    self::getMethod($toReflector->reflectClass('N5\C'), '__construct'),
+                    [],
+                ],
+                'N5\D#__construct' => [
+                    self::getMethod($fromReflector->reflectClass('N5\D'), '__construct'),
+                    self::getMethod($toReflector->reflectClass('N5\D'), '__construct'),
+                    ['[BC] CHANGED: The parameter $a of N5\D#__construct() changed from int to int|string'],
+                ],
+                'N5\E#__construct' => [
+                    self::getMethod($fromReflector->reflectClass('N5\E'), '__construct'),
+                    self::getMethod($toReflector->reflectClass('N5\E'), '__construct'),
+                    ['[BC] CHANGED: The parameter $a of N5\E#__construct() changed from int to int|string'],
                 ],
             ],
         );

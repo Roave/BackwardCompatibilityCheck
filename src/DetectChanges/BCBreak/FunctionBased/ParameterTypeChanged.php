@@ -19,6 +19,9 @@ use Roave\BetterReflection\Reflection\ReflectionType;
  *
  * This is mostly useful for methods, where a change in a parameter type is not allowed in
  * inheritance/interface scenarios.
+ *
+ * Non-abstract constructors are excluded, since PHP does not enforce signature compatibility
+ * when child classes override them.
  */
 final class ParameterTypeChanged implements FunctionBased
 {
@@ -33,6 +36,10 @@ final class ParameterTypeChanged implements FunctionBased
         ReflectionMethod|ReflectionFunction $fromFunction,
         ReflectionMethod|ReflectionFunction $toFunction,
     ): Changes {
+        if ($fromFunction instanceof ReflectionMethod && $fromFunction->isConstructor() && ! $fromFunction->isAbstract()) {
+            return Changes::empty();
+        }
+
         return Changes::fromIterator($this->checkSymbols(
             $fromFunction->getParameters(),
             $toFunction->getParameters(),
