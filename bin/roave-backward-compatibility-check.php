@@ -161,12 +161,16 @@ use const E_DEPRECATED;
                                                     new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\RequiredParameterAmountIncreased()),
                                                     new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterDefaultValueChanged()),
                                                     new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeCovarianceChanged(new TypeIsCovariant())),
-                                                    new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeChanged()),
                                                     new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterTypeContravarianceChanged(new TypeIsContravariant())),
-                                                    new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterTypeChanged()),
                                                     new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterNameChanged()),
                                                 ),
                                             )),
+                                            new MethodBased\SkipMethodBasedErrors(new MethodBased\ExcludeFinalMethod(new MethodBased\MethodFunctionDefinitionChanged(
+                                                new FunctionBased\MultipleChecksOnAFunction(
+                                                    new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeChanged()),
+                                                    new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterTypeChanged()),
+                                                ),
+                                            ))),
                                         ),
                                     )),
                                     new MethodBased\SkipMethodBasedErrors(new MethodBased\OnlyProtectedMethodChanged(
@@ -185,12 +189,16 @@ use const E_DEPRECATED;
                                                     new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\RequiredParameterAmountIncreased()),
                                                     new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterDefaultValueChanged()),
                                                     new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeCovarianceChanged(new TypeIsCovariant())),
-                                                    new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeChanged()),
                                                     new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterTypeContravarianceChanged(new TypeIsContravariant())),
-                                                    new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterTypeChanged()),
                                                     new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterNameChanged()),
                                                 ),
                                             )),
+                                            new MethodBased\SkipMethodBasedErrors(new MethodBased\ExcludeFinalMethod(new MethodBased\MethodFunctionDefinitionChanged(
+                                                new FunctionBased\MultipleChecksOnAFunction(
+                                                    new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ReturnTypeChanged()),
+                                                    new FunctionBased\SkipFunctionBasedErrors(new FunctionBased\ParameterTypeChanged()),
+                                                ),
+                                            ))),
                                         ),
                                     )),
                                 ))),
