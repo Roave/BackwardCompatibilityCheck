@@ -111,12 +111,14 @@ use const E_DEPRECATED;
                                         new ClassConstantBased\MultipleChecksOnAClassConstant(
                                             new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\ClassConstantVisibilityReduced()),
                                             new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\ClassConstantValueChanged()),
+                                            new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\ClassConstantBecameFinal()),
                                         ),
                                     )),
                                     new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\OnlyProtectedClassConstantChanged(
                                         new ClassConstantBased\MultipleChecksOnAClassConstant(
                                             new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\ClassConstantVisibilityReduced()),
                                             new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\ClassConstantValueChanged()),
+                                            new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\ClassConstantBecameFinal()),
                                         ),
                                     )),
                                 ),
@@ -264,7 +266,10 @@ use const E_DEPRECATED;
                         new ClassBased\SkipClassBasedErrors(new ClassBased\ConstantRemoved()),
                         new ClassBased\SkipClassBasedErrors(new ClassBased\MethodRemoved()),
                         new ClassBased\SkipClassBasedErrors(new ClassBased\ConstantChanged(
-                            new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\ClassConstantValueChanged()),
+                            new ClassConstantBased\MultipleChecksOnAClassConstant(
+                                new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\ClassConstantValueChanged()),
+                                new ClassConstantBased\SkipClassConstantBasedErrors(new ClassConstantBased\ClassConstantBecameFinal()),
+                            ),
                         )),
                         new ClassBased\SkipClassBasedErrors(new ClassBased\MethodChanged(
                             new MethodBased\MultipleChecksOnAMethod(
