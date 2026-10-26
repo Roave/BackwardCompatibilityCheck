@@ -103,6 +103,71 @@ final class MethodRemovedTest extends TestCase
                 )))->reflectClass('FinalClassWithPublicMethod'),
                 ['[BC] REMOVED: Method FinalClassWithPublicMethod#foo() was removed'],
             ],
+            'class with methods being removed from its ancestors' => [
+                (new DefaultReflector(new StringSourceLocator(
+                    <<<'PHP'
+                    <?php
+                    trait ParentTrait {
+                        public function traitMethod(): void {}
+                    }
+                    interface GrandParentInterface {
+                        public function interfaceMethod(): void;
+                    }
+                    interface ParentInterface extends GrandParentInterface {}
+                    abstract class ParentClass {
+                        use ParentTrait;
+                        public function publicMethod(): void {}
+                        protected function protectedMethod(): void {}
+                        public static function staticMethod(): void {}
+                        public function keptMethod(): void {}
+                    }
+                    abstract class ChildClass extends ParentClass implements ParentInterface {
+                        public function ownMethod(): void {}
+                    }
+                    PHP,
+                    $locator,
+                )))->reflectClass('ChildClass'),
+                (new DefaultReflector(new StringSourceLocator(
+                    <<<'PHP'
+                    <?php
+                    interface ParentInterface {}
+                    abstract class ParentClass {
+                        public function keptMethod(): void {}
+                    }
+                    abstract class ChildClass extends ParentClass implements ParentInterface {}
+                    PHP,
+                    $locator,
+                )))->reflectClass('ChildClass'),
+                [
+                    '[BC] REMOVED: Method ChildClass#ownMethod() was removed',
+                    '[BC] REMOVED: Method ChildClass#publicMethod() (inherited from ParentClass) was removed',
+                    '[BC] REMOVED: Method ChildClass#protectedMethod() (inherited from ParentClass) was removed',
+                    '[BC] REMOVED: Method ChildClass::staticMethod() (inherited from ParentClass) was removed',
+                    '[BC] REMOVED: Method ChildClass#traitMethod() (inherited from ParentClass) was removed',
+                    '[BC] REMOVED: Method ChildClass#interfaceMethod() (inherited from GrandParentInterface) was removed',
+                ],
+            ],
+            'interface with methods being removed from its parent interface' => [
+                (new DefaultReflector(new StringSourceLocator(
+                    <<<'PHP'
+                    <?php
+                    interface ParentInterface {
+                        public function parentMethod(): void;
+                    }
+                    interface ChildInterface extends ParentInterface {}
+                    PHP,
+                    $locator,
+                )))->reflectClass('ChildInterface'),
+                (new DefaultReflector(new StringSourceLocator(
+                    <<<'PHP'
+                    <?php
+                    interface ParentInterface {}
+                    interface ChildInterface extends ParentInterface {}
+                    PHP,
+                    $locator,
+                )))->reflectClass('ChildInterface'),
+                ['[BC] REMOVED: Method ChildInterface#parentMethod() (inherited from ParentInterface) was removed'],
+            ],
         ];
     }
 }
