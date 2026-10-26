@@ -31,8 +31,11 @@ final class ConstantRemoved implements ClassBased
     /** @return ReflectionClassConstant[] */
     private function accessibleConstants(ReflectionClass $class): array
     {
-        return Dict\filter($class->getConstants(), static function (ReflectionClassConstant $constant): bool {
-            return $constant->isPublic() || $constant->isProtected();
+        $classIsOpen = ! $class->isFinal();
+
+        return Dict\filter($class->getConstants(), static function (ReflectionClassConstant $constant) use ($classIsOpen): bool {
+            return $constant->isPublic()
+                || ($classIsOpen && $constant->isProtected());
         });
     }
 }

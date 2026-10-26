@@ -13,6 +13,8 @@ use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflector\DefaultReflector;
 use Roave\BetterReflection\SourceLocator\Type\SingleFileSourceLocator;
+use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
+use RoaveTest\BackwardCompatibility\StringReflectorFactory;
 
 use function array_map;
 use function iterator_to_array;
@@ -61,6 +63,67 @@ final class ConstantRemovedTest extends TestCase
                     '[BC] REMOVED: Constant RoaveTestAsset\ClassWithConstantsBeingRemoved::removedProtectedConstant was removed',
                     '[BC] REMOVED: Constant RoaveTestAsset\ClassWithConstantsBeingRemoved::nameCaseChangeProtectedConstant was removed',
                 ],
+            ],
+            'final class with protected constants changing to private or being removed' => [
+                (new DefaultReflector(new StringSourceLocator(
+                    <<<'PHP'
+                    <?php
+                    final class FinalClassWithProtectedConstants {
+                        protected const A = 'a';
+                        protected const B = 'b';
+                    }
+                    PHP,
+                    $locator,
+                )))->reflectClass('FinalClassWithProtectedConstants'),
+                (new DefaultReflector(new StringSourceLocator(
+                    <<<'PHP'
+                    <?php
+                    final class FinalClassWithProtectedConstants {
+                        private const A = 'a';
+                    }
+                    PHP,
+                    $locator,
+                )))->reflectClass('FinalClassWithProtectedConstants'),
+                [],
+            ],
+            'final class with public constant changing to private' => [
+                (new DefaultReflector(new StringSourceLocator(
+                    <<<'PHP'
+                    <?php
+                    final class FinalClassWithPublicConstant {
+                        public const A = 'a';
+                    }
+                    PHP,
+                    $locator,
+                )))->reflectClass('FinalClassWithPublicConstant'),
+                (new DefaultReflector(new StringSourceLocator(
+                    <<<'PHP'
+                    <?php
+                    final class FinalClassWithPublicConstant {
+                        private const A = 'a';
+                    }
+                    PHP,
+                    $locator,
+                )))->reflectClass('FinalClassWithPublicConstant'),
+                ['[BC] REMOVED: Constant FinalClassWithPublicConstant::A was removed'],
+            ],
+            'enum with protected constant being removed' => [
+                (new StringReflectorFactory())(
+                    <<<'PHP'
+                    <?php
+                    enum EnumWithProtectedConstant {
+                        protected const A = 'a';
+                    }
+                    PHP,
+                )->reflectClass('EnumWithProtectedConstant'),
+                (new StringReflectorFactory())(
+                    <<<'PHP'
+                    <?php
+                    enum EnumWithProtectedConstant {
+                    }
+                    PHP,
+                )->reflectClass('EnumWithProtectedConstant'),
+                [],
             ],
         ];
     }
