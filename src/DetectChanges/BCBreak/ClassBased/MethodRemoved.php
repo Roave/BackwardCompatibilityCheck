@@ -34,11 +34,26 @@ final class MethodRemoved implements ClassBased
             }),
         );
 
-        return Changes::fromList(...Vec\map($removedMethods, function (ReflectionMethod $method): Change {
-            return Change::removed(
-                Str\format('Method %s was removed', ($this->formatFunction)($method)),
-            );
+        return Changes::fromList(...Vec\map($removedMethods, function (ReflectionMethod $method) use ($fromClass): Change {
+            return Change::removed($this->describeRemovedMethod($method, $fromClass));
         }));
+    }
+
+    private function describeRemovedMethod(ReflectionMethod $method, ReflectionClass $fromClass): string
+    {
+        $implementingClass = $method->getImplementingClass()->getName();
+
+        if ($implementingClass === $fromClass->getName()) {
+            return Str\format('Method %s was removed', ($this->formatFunction)($method));
+        }
+
+        return Str\format(
+            'Method %s%s%s() (inherited from %s) was removed',
+            $fromClass->getName(),
+            $method->isStatic() ? '::' : '#',
+            $method->getName(),
+            $implementingClass,
+        );
     }
 
     /** @return array<string, ReflectionMethod> */
