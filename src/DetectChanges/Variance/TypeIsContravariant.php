@@ -84,7 +84,7 @@ final class TypeIsContravariant
             return true;
         }
 
-        if ($comparedTypeAsString === 'object' && ! $type->isBuiltin()) {
+        if ($comparedTypeAsString === 'object' && self::isClassType($type)) {
             // `object` is always contravariant to any object type
             return true;
         }
@@ -93,7 +93,7 @@ final class TypeIsContravariant
             return true;
         }
 
-        if ($comparedTypeAsString === 'iterable' && ! $type->isBuiltin()) {
+        if ($comparedTypeAsString === 'iterable' && self::isClassType($type)) {
             // `Traversable`, and any of its implementations, can be widened to `iterable`
             $typeReflectionClass = $type->getClass();
 
@@ -101,11 +101,7 @@ final class TypeIsContravariant
                 || $typeReflectionClass->implementsInterface(Traversable::class);
         }
 
-        if ($type->isBuiltin() !== $comparedType->isBuiltin()) {
-            return false;
-        }
-
-        if ($type->isBuiltin()) {
+        if (! self::isClassType($type) || ! self::isClassType($comparedType)) {
             // All other type declarations have no variance/contravariance relationship
             return false;
         }
@@ -113,10 +109,24 @@ final class TypeIsContravariant
         $typeReflectionClass = $type->getClass();
         $comparedTypeClass   = $comparedType->getClass();
 
+        if (Str\lowercase($typeReflectionClass->getName()) === Str\lowercase($comparedTypeClass->getName())) {
+            // `self` and `parent` are resolved to the class they refer to
+            return true;
+        }
+
         if ($comparedTypeClass->isInterface()) {
             return $typeReflectionClass->implementsInterface($comparedTypeClass->getName());
         }
 
         return Iter\contains($typeReflectionClass->getParentClassNames(), $comparedTypeClass->getName());
+    }
+
+    /**
+     * BetterReflection reports `self` and `parent` as built-in types, but they refer to a class
+     */
+    private static function isClassType(ReflectionNamedType $type): bool
+    {
+        return ! $type->isBuiltin()
+            || Iter\contains(['self', 'parent'], Str\lowercase($type->getName()));
     }
 }
