@@ -247,6 +247,51 @@ PHP
                 new Identifier('float'),
                 false,
             ],
+            'bool to false is covariant'                                           => [
+                new Identifier('bool'),
+                new Identifier('false'),
+                true,
+            ],
+            'bool to true is covariant'                                            => [
+                new Identifier('bool'),
+                new Identifier('true'),
+                true,
+            ],
+            'nullable bool to nullable false is covariant'                         => [
+                new NullableType(new Identifier('bool')),
+                new NullableType(new Identifier('false')),
+                true,
+            ],
+            'false to bool is not covariant'                                       => [
+                new Identifier('false'),
+                new Identifier('bool'),
+                false,
+            ],
+            'true to bool is not covariant'                                        => [
+                new Identifier('true'),
+                new Identifier('bool'),
+                false,
+            ],
+            'true to false is not covariant'                                       => [
+                new Identifier('true'),
+                new Identifier('false'),
+                false,
+            ],
+            'scalar type (int) to false is not covariant'                          => [
+                new Identifier('int'),
+                new Identifier('false'),
+                false,
+            ],
+            'scalar type (int) to true is not covariant'                           => [
+                new Identifier('int'),
+                new Identifier('true'),
+                false,
+            ],
+            'bool to scalar type (int) is not covariant'                           => [
+                new Identifier('bool'),
+                new Identifier('int'),
+                false,
+            ],
             'object type to scalar type is not contravariant'                      => [
                 new Identifier('object'),
                 new Identifier('string'),
