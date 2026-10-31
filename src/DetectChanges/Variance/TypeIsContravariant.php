@@ -6,9 +6,11 @@ namespace Roave\BackwardCompatibility\DetectChanges\Variance;
 
 use Psl\Iter;
 use Psl\Str;
+use Roave\BackwardCompatibility\CodeContext;
 use Roave\BetterReflection\Reflection\ReflectionIntersectionType;
 use Roave\BetterReflection\Reflection\ReflectionNamedType;
 use Roave\BetterReflection\Reflection\ReflectionUnionType;
+use Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
 use Traversable;
 
 /**
@@ -19,6 +21,10 @@ use Traversable;
  */
 final class TypeIsContravariant
 {
+    public function __construct(private CodeContext $codeContext)
+    {
+    }
+
     public function __invoke(
         ReflectionIntersectionType|ReflectionUnionType|ReflectionNamedType|null $type,
         ReflectionIntersectionType|ReflectionUnionType|ReflectionNamedType|null $comparedType,
@@ -110,8 +116,15 @@ final class TypeIsContravariant
             return false;
         }
 
-        $typeReflectionClass = $type->getClass();
-        $comparedTypeClass   = $comparedType->getClass();
+        $comparedTypeClass = $comparedType->getClass();
+
+        try {
+            // the old type has to be resolved in the new codebase, as its inheritance may have changed
+            $typeReflectionClass = $this->codeContext->afterCodebase->reflectClass($typeAsString);
+        } catch (IdentifierNotFound) {
+            // the old type no longer exists, so it cannot be a subtype of the new one
+            return false;
+        }
 
         if ($comparedTypeClass->isInterface()) {
             return $typeReflectionClass->implementsInterface($comparedTypeClass->getName());
