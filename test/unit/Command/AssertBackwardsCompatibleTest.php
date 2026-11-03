@@ -18,6 +18,7 @@ use Psl\SecureRandom;
 use Psl\Type;
 use Roave\BackwardCompatibility\Change;
 use Roave\BackwardCompatibility\Changes;
+use Roave\BackwardCompatibility\CodeContext;
 use Roave\BackwardCompatibility\Command\AssertBackwardsCompatible;
 use Roave\BackwardCompatibility\CompareApi;
 use Roave\BackwardCompatibility\Factory\ComposerInstallationReflectorFactory;
@@ -29,6 +30,7 @@ use Roave\BackwardCompatibility\Git\Revision;
 use Roave\BackwardCompatibility\LocateDependencies\LocateDependencies;
 use Roave\BackwardCompatibility\LocateSources\LocateSourcesViaComposerJson;
 use Roave\BetterReflection\BetterReflection;
+use Roave\BetterReflection\Reflector\Reflector;
 use Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\ConsoleOutputInterface;
@@ -60,6 +62,7 @@ final class AssertBackwardsCompatibleTest extends TestCase
     private LocateDependencies $locateDependencies;
     /** @var CompareApi&MockObject */
     private CompareApi $compareApi;
+    private CodeContext|null $codeContext = null;
     private AggregateSourceLocator $dependencies;
     private AssertBackwardsCompatible $compare;
 
@@ -89,7 +92,11 @@ final class AssertBackwardsCompatibleTest extends TestCase
             $this->getVersions,
             $this->pickVersion,
             $this->locateDependencies,
-            $this->compareApi,
+            function (CodeContext $codeContext): CompareApi {
+                $this->codeContext = $codeContext;
+
+                return $this->compareApi;
+            },
         );
 
         $this
@@ -180,7 +187,14 @@ final class AssertBackwardsCompatibleTest extends TestCase
             ->with((string) $this->sourceRepository, false)
             ->willReturn($this->dependencies);
 
-        $this->compareApi->expects(self::once())->method('__invoke')->willReturn(Changes::empty());
+        $this->compareApi->expects(self::once())->method('__invoke')->willReturnCallback(
+            function (Reflector $definedSymbols, Reflector $pastSources, Reflector $newSources): Changes {
+                self::assertSame($this->codeContext?->beforeCodebase, $pastSources);
+                self::assertSame($this->codeContext?->afterCodebase, $newSources);
+
+                return Changes::empty();
+            },
+        );
 
         $this->stdErr
             ->expects(self::atLeastOnce())

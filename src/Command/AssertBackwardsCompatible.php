@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Roave\BackwardCompatibility\Command;
 
+use Closure;
 use Psl;
 use Psl\Async;
 use Psl\Env;
@@ -11,6 +12,7 @@ use Psl\Iter;
 use Psl\Str;
 use Psl\Type;
 use Roave\BackwardCompatibility\Changes;
+use Roave\BackwardCompatibility\CodeContext;
 use Roave\BackwardCompatibility\CompareApi;
 use Roave\BackwardCompatibility\Factory\ComposerInstallationReflectorFactory;
 use Roave\BackwardCompatibility\Formatter\GithubActionsFormatter;
@@ -36,7 +38,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class AssertBackwardsCompatible extends Command
 {
-    /** @throws LogicException */
+    /**
+     * @param Closure(CodeContext): CompareApi $makeCompareApi
+     *
+     * @throws LogicException
+     */
     public function __construct(
         private PerformCheckoutOfRevision $git,
         private ComposerInstallationReflectorFactory $makeComposerInstallationReflector,
@@ -44,7 +50,7 @@ final class AssertBackwardsCompatible extends Command
         private GetVersionCollection $getVersions,
         private PickVersionFromVersionCollection $pickFromVersion,
         private LocateDependencies $locateDependencies,
-        private CompareApi $compareApi,
+        private Closure $makeCompareApi,
     ) {
         parent::__construct();
     }
@@ -146,11 +152,12 @@ USAGE,
         ]);
 
         try {
-            $changes = ($this->compareApi)(
-                ($this->makeComposerInstallationReflector)(
-                    $fromPath->__toString(),
-                    new AggregateSourceLocator(), // no dependencies
-                ),
+            $definedSymbols = ($this->makeComposerInstallationReflector)(
+                $fromPath->__toString(),
+                new AggregateSourceLocator(), // no dependencies
+            );
+
+            $codeContext = new CodeContext(
                 ($this->makeComposerInstallationReflector)(
                     $fromPath->__toString(),
                     ($this->locateDependencies)($fromPath->__toString(), $includeDevelopmentDependencies),
@@ -159,6 +166,12 @@ USAGE,
                     $toPath->__toString(),
                     ($this->locateDependencies)($toPath->__toString(), $includeDevelopmentDependencies),
                 ),
+            );
+
+            $changes = ($this->makeCompareApi)($codeContext)(
+                $definedSymbols,
+                $codeContext->beforeCodebase,
+                $codeContext->afterCodebase,
             )->applyBaseline($configuration->baseline);
 
             $formatters = [
