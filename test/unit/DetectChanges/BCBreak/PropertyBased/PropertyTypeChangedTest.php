@@ -127,6 +127,10 @@ class TheClass {
     public $propertyWithDocblockTypeHintChangeToNativeTypeHintAndTypeChange;
 
     public int $propertyWithDeclaredTypeRemoved;
+
+    public TheClass $propertyWithClassTypeChangedToSelf;
+
+    public self $propertyWithSelfTypeChangedToClassType;
 }
 PHP
             ,
@@ -202,6 +206,10 @@ class TheClass {
     public float $propertyWithDocblockTypeHintChangeToNativeTypeHintAndTypeChange;
 
     public $propertyWithDeclaredTypeRemoved;
+
+    public self $propertyWithClassTypeChangedToSelf;
+
+    public TheClass $propertyWithSelfTypeChangedToClassType;
 }
 PHP
             ,
@@ -234,6 +242,8 @@ PHP
             'propertyWithDocblockTypeHintChangeToNativeTypeHint'                => ['[BC] CHANGED: Type of property TheClass#$propertyWithDocblockTypeHintChangeToNativeTypeHint changed from having no type to int'],
             'propertyWithDocblockTypeHintChangeToNativeTypeHintAndTypeChange'   => ['[BC] CHANGED: Type of property TheClass#$propertyWithDocblockTypeHintChangeToNativeTypeHintAndTypeChange changed from having no type to float'],
             'propertyWithDeclaredTypeRemoved'                                   => ['[BC] CHANGED: Type of property TheClass#$propertyWithDeclaredTypeRemoved changed from int to having no type'],
+            'propertyWithClassTypeChangedToSelf'                                => [],
+            'propertyWithSelfTypeChangedToClassType'                            => [],
         ];
 
         return array_combine(
