@@ -73,6 +73,11 @@ final class TypeIsCovariant
             return true;
         }
 
+        if ($typeAsString === 'bool' && ($comparedTypeAsString === 'true' || $comparedTypeAsString === 'false')) {
+            // `true` and `false` are subsets of `bool`, therefore covariant
+            return true;
+        }
+
         if ($typeAsString === 'mixed' || $comparedTypeAsString === 'never') {
             // everything is covariant to `mixed` or `never`
             return true;
