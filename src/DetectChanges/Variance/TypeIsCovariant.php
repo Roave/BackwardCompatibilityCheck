@@ -78,7 +78,7 @@ final class TypeIsCovariant
             return true;
         }
 
-        if ($typeAsString === 'object' && ! $comparedType->isBuiltin()) {
+        if ($typeAsString === 'object' && self::isClassType($comparedType)) {
             // `object` is not covariant to a defined class type
             return true;
         }
@@ -88,7 +88,7 @@ final class TypeIsCovariant
             return true;
         }
 
-        if ($typeAsString === 'iterable' && ! $comparedType->isBuiltin()) {
+        if ($typeAsString === 'iterable' && self::isClassType($comparedType)) {
             $comparedTypeReflectionClass = $comparedType->getClass();
 
             if (
@@ -100,18 +100,26 @@ final class TypeIsCovariant
             }
         }
 
-        if ($type->isBuiltin() !== $comparedType->isBuiltin()) {
-            // other known built-in types are never covariant with non-built-in types
+        if (! self::isClassType($type) || ! self::isClassType($comparedType)) {
+            // all other built-in type declarations have no variance/contravariance relationship
             return false;
         }
 
-        if ($type->isBuiltin()) {
-            // all other built-in type declarations have no variance/contravariance relationship
+        if (Str\lowercase($typeAsString) === 'static') {
+            // `static` may refer to any child class, so it is only covariant to itself
             return false;
         }
 
         $originalTypeReflectionClass = $type->getClass();
         $comparedTypeReflectionClass = $comparedType->getClass();
+
+        if (
+            Str\lowercase($originalTypeReflectionClass->getName())
+            === Str\lowercase($comparedTypeReflectionClass->getName())
+        ) {
+            // `self`, `parent` and `static` are resolved to the class they refer to
+            return true;
+        }
 
         if ($originalTypeReflectionClass->isInterface()) {
             return $comparedTypeReflectionClass->implementsInterface($originalTypeReflectionClass->getName());
@@ -121,5 +129,14 @@ final class TypeIsCovariant
             $comparedTypeReflectionClass->getParentClassNames(),
             $originalTypeReflectionClass->getName(),
         );
+    }
+
+    /**
+     * BetterReflection reports `self`, `parent` and `static` as built-in types, but they refer to a class
+     */
+    private static function isClassType(ReflectionNamedType $type): bool
+    {
+        return ! $type->isBuiltin()
+            || Iter\contains(['self', 'parent', 'static'], Str\lowercase($type->getName()));
     }
 }
