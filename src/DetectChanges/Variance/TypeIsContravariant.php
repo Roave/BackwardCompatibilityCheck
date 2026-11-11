@@ -79,6 +79,11 @@ final class TypeIsContravariant
             return true;
         }
 
+        if ($comparedTypeAsString === 'bool' && ($typeAsString === 'true' || $typeAsString === 'false')) {
+            // `bool` is a superset of `true` and `false`, therefore contravariant
+            return true;
+        }
+
         if ($typeAsString === 'void') {
             // everything is always contravariant to `void`
             return true;
