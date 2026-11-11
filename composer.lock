@@ -219,16 +219,16 @@
         },
         {
             "name": "composer/composer",
-            "version": "2.11.1",
+            "version": "2.11.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-                "reference": "472b418967419c6124edd91dc6310a3bec091dae"
+                "reference": "12c820dbc3f030954b1d09f5884fcf1e9d29d6cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/composer/zipball/472b418967419c6124edd91dc6310a3bec091dae",
-                "reference": "472b418967419c6124edd91dc6310a3bec091dae",
+                "url": "https://api.github.com/repos/composer/composer/zipball/12c820dbc3f030954b1d09f5884fcf1e9d29d6cb",
+                "reference": "12c820dbc3f030954b1d09f5884fcf1e9d29d6cb",
                 "shasum": ""
             },
             "require": {
@@ -318,7 +318,7 @@
                 "irc": "ircs://irc.libera.chat:6697/composer",
                 "issues": "https://github.com/composer/composer/issues",
                 "security": "https://github.com/composer/composer/security/policy",
-                "source": "https://github.com/composer/composer/tree/2.11.1"
+                "source": "https://github.com/composer/composer/tree/2.11.2"
             },
             "funding": [
                 {
@@ -330,8 +330,8 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-10-30T13:52:10+00:00",
-            "published-time": "2026-10-30T14:03:09+00:00"
+            "time": "2026-11-10T09:09:37+00:00",
+            "published-time": "2026-11-10T09:12:59+00:00"
         },
         {
             "name": "composer/metadata-minifier",
@@ -8119,12 +8119,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "97142706570e7254bd5072e6d8cb9ae9f060cbf2"
+                "reference": "ab5f23bc1b9007cc45a78109bc1f499ca02588b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/97142706570e7254bd5072e6d8cb9ae9f060cbf2",
-                "reference": "97142706570e7254bd5072e6d8cb9ae9f060cbf2",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/ab5f23bc1b9007cc45a78109bc1f499ca02588b3",
+                "reference": "ab5f23bc1b9007cc45a78109bc1f499ca02588b3",
                 "shasum": ""
             },
             "conflict": {
@@ -8206,6 +8206,7 @@
                 "barzahlen/barzahlen-php": "<2.0.1",
                 "baserproject/basercms": "<=5.2.2",
                 "bassjobsen/bootstrap-3-typeahead": ">4.0.2",
+                "bazaarvoice/bazaarvoice-magento2-ext": ">=8,<9.1.11",
                 "bbpress/bbpress": "<2.6.5",
                 "bcit-ci/codeigniter": "<3.1.3",
                 "bcosca/fatfree": "<3.7.2",
@@ -8425,7 +8426,7 @@
                 "filament/forms": ">=3,<=3.3.52",
                 "filament/infolists": ">=3,<3.2.115|>=4,<=4.11.4|>=5,<=5.6.4",
                 "filament/tables": ">=3,<=3.3.50|>=4,<=4.11.4|>=5,<=5.6.4",
-                "filegator/filegator": "<7.8",
+                "filegator/filegator": "<=7.14.4",
                 "filp/whoops": "<2.1.13",
                 "fineuploader/php-traditional-server": "<=1.2.2",
                 "firebase/php-jwt": "<7",
@@ -8659,7 +8660,7 @@
                 "mautic/grapes-js-builder-bundle": ">=4,<4.4.18|>=5,<5.2.9|>=6,<6.0.7",
                 "maximebf/debugbar": "<1.19",
                 "mckenziearts/livewire-markdown-editor": "<1.3",
-                "mcp/sdk": ">=0.5,<0.7.1",
+                "mcp/sdk": ">=0.5,<0.7.1|>=0.8,<0.9",
                 "mdanter/ecc": "<2",
                 "mediaessenz/mail": "<3.12.5|>=4,<4.2",
                 "mediawiki/abuse-filter": "<1.39.9|>=1.40,<1.41.3|>=1.42,<1.42.2",
@@ -9286,8 +9287,8 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-11-09T20:26:53+00:00",
-            "published-time": "2026-11-09T20:26:59+00:00"
+            "time": "2026-11-10T20:14:47+00:00",
+            "published-time": "2026-11-10T20:14:52+00:00"
         },
         {
             "name": "sanmai/di-container",
