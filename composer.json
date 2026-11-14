@@ -45,7 +45,7 @@
         "php-standard-library/secure-random": "^6.1.1",
         "php-standard-library/psalm-plugin": "^2.4.0",
         "phpunit/phpunit": "^13.1.10",
-        "psalm/plugin-phpunit": "^0.19.7",
+        "psalm/plugin-phpunit": "^1.2.0",
         "roave/infection-static-analysis-plugin": "^1.44.0",
         "roave/security-advisories": "dev-master",
         "squizlabs/php_codesniffer": "^4.0.1",
