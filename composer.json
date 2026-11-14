@@ -49,7 +49,7 @@
         "roave/infection-static-analysis-plugin": "^1.44.0",
         "roave/security-advisories": "dev-master",
         "squizlabs/php_codesniffer": "^4.0.1",
-        "vimeo/psalm": "^6.16.1"
+        "vimeo/psalm": "^7.5.0"
     },
     "conflict": {
         "revolt/event-loop": "<0.2.5",
