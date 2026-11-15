@@ -8119,12 +8119,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "a874c13980f04137c4adbcf86ae2cf1e7a74edb1"
+                "reference": "57a2e6c5a84ea71f685b5b586e6ef32ba7bcf5cc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/a874c13980f04137c4adbcf86ae2cf1e7a74edb1",
-                "reference": "a874c13980f04137c4adbcf86ae2cf1e7a74edb1",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/57a2e6c5a84ea71f685b5b586e6ef32ba7bcf5cc",
+                "reference": "57a2e6c5a84ea71f685b5b586e6ef32ba7bcf5cc",
                 "shasum": ""
             },
             "conflict": {
@@ -8604,7 +8604,7 @@
                 "lara-zeus/artemis": ">=1,<=1.0.6",
                 "lara-zeus/dynamic-dashboard": ">=3,<=3.0.1",
                 "laravel/fortify": "<1.11.1",
-                "laravel/framework": "<12.69|>=13,<13.30",
+                "laravel/framework": "<12.71|>=13,<13.40",
                 "laravel/laravel": ">=5.4,<5.4.22",
                 "laravel/passport": ">=13,<13.7.1",
                 "laravel/pulse": "<1.3.1",
@@ -9288,8 +9288,8 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-11-13T18:24:02+00:00",
-            "published-time": "2026-11-13T18:24:07+00:00"
+            "time": "2026-11-14T00:11:20+00:00",
+            "published-time": "2026-11-14T00:11:25+00:00"
         },
         {
             "name": "sanmai/di-container",
