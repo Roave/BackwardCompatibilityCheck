@@ -6,6 +6,7 @@ namespace RoaveTest\BackwardCompatibility\DetectChanges\Variance;
 
 use PhpParser\Node\Identifier;
 use PhpParser\Node\IntersectionType;
+use PhpParser\Node\Name;
 use PhpParser\Node\NullableType;
 use PhpParser\Node\UnionType;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -15,6 +16,7 @@ use Psl\Type;
 use Roave\BackwardCompatibility\DetectChanges\Variance\TypeIsCovariant;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionIntersectionType;
+use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflection\ReflectionNamedType;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
 use Roave\BetterReflection\Reflection\ReflectionType;
@@ -499,6 +501,176 @@ PHP
                 $types[1] === null
                     ? null
                     : self::identifierType($reflector, $owner, $types[1]),
+                $types[2],
+            ],
+            $types,
+        );
+    }
+
+    #[DataProvider('checkedClassReferencingTypes')]
+    public function testCovarianceOfClassReferencingTypes(
+        ReflectionNamedType $type,
+        ReflectionNamedType $newType,
+        bool $expectedToBeCovariant,
+    ): void {
+        self::assertSame(
+            $expectedToBeCovariant,
+            (new TypeIsCovariant())($type, $newType),
+        );
+    }
+
+    /**
+     * `self`, `parent` and `static` are resolved relative to `CClass#method()`
+     *
+     * @return array<string, array{0: ReflectionNamedType, 1: ReflectionNamedType, 2: bool}>
+     */
+    public static function checkedClassReferencingTypes(): array
+    {
+        $reflector = new DefaultReflector(new StringSourceLocator(
+            <<<'PHP'
+<?php
+
+interface AnInterface {}
+class AnotherClass {}
+class AClass {}
+class BClass extends AClass implements AnInterface {}
+class CClass extends BClass { public function method() {} }
+class DClass extends CClass {}
+PHP
+            ,
+            (new BetterReflection())->astLocator(),
+        ));
+
+        $owner = Type\instance_of(ReflectionMethod::class)
+            ->coerce(
+                $reflector->reflectClass('CClass')
+                    ->getMethod('method'),
+            );
+
+        $types = [
+            'class to self is covariant'               => [
+                new Identifier('CClass'),
+                new Name('self'),
+                true,
+            ],
+            'self to class is covariant'               => [
+                new Name('self'),
+                new Identifier('CClass'),
+                true,
+            ],
+            'self to static is covariant'              => [
+                new Name('self'),
+                new Identifier('static'),
+                true,
+            ],
+            'class to static is covariant'             => [
+                new Identifier('CClass'),
+                new Identifier('static'),
+                true,
+            ],
+            'parent to self is covariant'              => [
+                new Name('parent'),
+                new Name('self'),
+                true,
+            ],
+            'parent to static is covariant'            => [
+                new Name('parent'),
+                new Identifier('static'),
+                true,
+            ],
+            'superclass to static is covariant'        => [
+                new Identifier('AClass'),
+                new Identifier('static'),
+                true,
+            ],
+            'interface to self is covariant'           => [
+                new Identifier('AnInterface'),
+                new Name('self'),
+                true,
+            ],
+            'interface to static is covariant'         => [
+                new Identifier('AnInterface'),
+                new Identifier('static'),
+                true,
+            ],
+            'object to self is covariant'              => [
+                new Identifier('object'),
+                new Name('self'),
+                true,
+            ],
+            'object to parent is covariant'            => [
+                new Identifier('object'),
+                new Name('parent'),
+                true,
+            ],
+            'object to static is covariant'            => [
+                new Identifier('object'),
+                new Identifier('static'),
+                true,
+            ],
+            'self to subclass is covariant'            => [
+                new Name('self'),
+                new Identifier('DClass'),
+                true,
+            ],
+            'self to parent is not covariant'          => [
+                new Name('self'),
+                new Name('parent'),
+                false,
+            ],
+            'static to self is not covariant'          => [
+                new Identifier('static'),
+                new Name('self'),
+                false,
+            ],
+            'static to class is not covariant'         => [
+                new Identifier('static'),
+                new Identifier('CClass'),
+                false,
+            ],
+            'static to subclass is not covariant'      => [
+                new Identifier('static'),
+                new Identifier('DClass'),
+                false,
+            ],
+            'subclass to self is not covariant'        => [
+                new Identifier('DClass'),
+                new Name('self'),
+                false,
+            ],
+            'subclass to static is not covariant'      => [
+                new Identifier('DClass'),
+                new Identifier('static'),
+                false,
+            ],
+            'unrelated class to self is not covariant' => [
+                new Identifier('AnotherClass'),
+                new Name('self'),
+                false,
+            ],
+            'self to object is not covariant'          => [
+                new Name('self'),
+                new Identifier('object'),
+                false,
+            ],
+            'scalar type to self is not covariant'     => [
+                new Identifier('int'),
+                new Name('self'),
+                false,
+            ],
+            'self to scalar type is not covariant'     => [
+                new Name('self'),
+                new Identifier('int'),
+                false,
+            ],
+        ];
+
+        return array_map(
+            static fn (array $types): array => [
+                Type\instance_of(ReflectionNamedType::class)
+                    ->coerce(ReflectionType::createFromNode($reflector, $owner, $types[0])),
+                Type\instance_of(ReflectionNamedType::class)
+                    ->coerce(ReflectionType::createFromNode($reflector, $owner, $types[1])),
                 $types[2],
             ],
             $types,

@@ -6,6 +6,7 @@ namespace RoaveTest\BackwardCompatibility\DetectChanges\Variance;
 
 use PhpParser\Node\Identifier;
 use PhpParser\Node\IntersectionType;
+use PhpParser\Node\Name;
 use PhpParser\Node\NullableType;
 use PhpParser\Node\UnionType;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -15,6 +16,7 @@ use Psl\Type;
 use Roave\BackwardCompatibility\DetectChanges\Variance\TypeIsContravariant;
 use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionIntersectionType;
+use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflection\ReflectionNamedType;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
 use Roave\BetterReflection\Reflection\ReflectionType;
@@ -464,6 +466,136 @@ PHP
                 $types[1] === null
                     ? null
                     : self::identifierType($reflector, $owner, $types[1]),
+                $types[2],
+            ],
+            $types,
+        );
+    }
+
+    #[DataProvider('checkedClassReferencingTypes')]
+    public function testContravarianceOfClassReferencingTypes(
+        ReflectionNamedType $type,
+        ReflectionNamedType $newType,
+        bool $expectedToBeContravariant,
+    ): void {
+        self::assertSame(
+            $expectedToBeContravariant,
+            (new TypeIsContravariant())($type, $newType),
+        );
+    }
+
+    /**
+     * `self` and `parent` are resolved relative to `CClass#method()`
+     *
+     * @return array<string, array{0: ReflectionNamedType, 1: ReflectionNamedType, 2: bool}>
+     */
+    public static function checkedClassReferencingTypes(): array
+    {
+        $reflector = new DefaultReflector(new StringSourceLocator(
+            <<<'PHP'
+<?php
+
+interface AnInterface {}
+class AnotherClass {}
+class AClass {}
+class BClass extends AClass implements AnInterface {}
+class CClass extends BClass { public function method() {} }
+class DClass extends CClass {}
+PHP
+            ,
+            (new BetterReflection())->astLocator(),
+        ));
+
+        $owner = Type\instance_of(ReflectionMethod::class)
+            ->coerce(
+                $reflector->reflectClass('CClass')
+                    ->getMethod('method'),
+            );
+
+        $types = [
+            'class to self is contravariant'               => [
+                new Identifier('CClass'),
+                new Name('self'),
+                true,
+            ],
+            'self to class is contravariant'               => [
+                new Name('self'),
+                new Identifier('CClass'),
+                true,
+            ],
+            'self to parent is contravariant'              => [
+                new Name('self'),
+                new Name('parent'),
+                true,
+            ],
+            'self to superclass is contravariant'          => [
+                new Name('self'),
+                new Identifier('AClass'),
+                true,
+            ],
+            'parent to superclass is contravariant'        => [
+                new Name('parent'),
+                new Identifier('AClass'),
+                true,
+            ],
+            'self to interface is contravariant'           => [
+                new Name('self'),
+                new Identifier('AnInterface'),
+                true,
+            ],
+            'subclass to self is contravariant'            => [
+                new Identifier('DClass'),
+                new Name('self'),
+                true,
+            ],
+            'self to object is contravariant'              => [
+                new Name('self'),
+                new Identifier('object'),
+                true,
+            ],
+            'parent to object is contravariant'            => [
+                new Name('parent'),
+                new Identifier('object'),
+                true,
+            ],
+            'parent to self is not contravariant'          => [
+                new Name('parent'),
+                new Name('self'),
+                false,
+            ],
+            'self to subclass is not contravariant'        => [
+                new Name('self'),
+                new Identifier('DClass'),
+                false,
+            ],
+            'self to unrelated class is not contravariant' => [
+                new Name('self'),
+                new Identifier('AnotherClass'),
+                false,
+            ],
+            'object to self is not contravariant'          => [
+                new Identifier('object'),
+                new Name('self'),
+                false,
+            ],
+            'scalar type to self is not contravariant'     => [
+                new Identifier('int'),
+                new Name('self'),
+                false,
+            ],
+            'self to scalar type is not contravariant'     => [
+                new Name('self'),
+                new Identifier('int'),
+                false,
+            ],
+        ];
+
+        return array_map(
+            static fn (array $types): array => [
+                Type\instance_of(ReflectionNamedType::class)
+                    ->coerce(ReflectionType::createFromNode($reflector, $owner, $types[0])),
+                Type\instance_of(ReflectionNamedType::class)
+                    ->coerce(ReflectionType::createFromNode($reflector, $owner, $types[1])),
                 $types[2],
             ],
             $types,
