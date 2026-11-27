@@ -8,6 +8,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Roave\BackwardCompatibility\Change;
+use Roave\BackwardCompatibility\CodeContext;
 use Roave\BackwardCompatibility\DetectChanges\BCBreak\PropertyBased\PropertyTypeChanged;
 use Roave\BackwardCompatibility\DetectChanges\Variance\TypeIsContravariant;
 use Roave\BackwardCompatibility\DetectChanges\Variance\TypeIsCovariant;
@@ -31,9 +32,10 @@ final class PropertyTypeChangedTest extends TestCase
         ReflectionProperty $fromProperty,
         ReflectionProperty $toProperty,
         array $expectedMessages,
+        CodeContext $codeContext,
     ): void {
         $changes = (new PropertyTypeChanged(
-            new TypeIsContravariant(),
+            new TypeIsContravariant($codeContext),
             new TypeIsCovariant(),
         ))($fromProperty, $toProperty);
 
@@ -46,8 +48,8 @@ final class PropertyTypeChangedTest extends TestCase
     }
 
     /**
-     * @return array<string, array<int, ReflectionProperty|array<int, string>>>
-     * @psalm-return array<string, array{0: ReflectionProperty, 1: ReflectionProperty, 2: list<string>}>
+     * @return array<string, array<int, ReflectionProperty|array<int, string>|CodeContext>>
+     * @psalm-return array<string, array{0: ReflectionProperty, 1: ReflectionProperty, 2: list<string>, 3: CodeContext}>
      */
     public static function propertiesToBeTested(): array
     {
@@ -212,6 +214,7 @@ PHP
         $toClassReflector   = new DefaultReflector($toLocator);
         $fromClass          = $fromClassReflector->reflectClass('TheClass');
         $toClass            = $toClassReflector->reflectClass('TheClass');
+        $codeContext        = new CodeContext($fromClassReflector, $toClassReflector);
 
         // Note: lots of docblock-related tests report no BC breaks here. This is because this change checker does
         //       not operate on documented types anymore. Documented types are too advanced for this library to inspect,
@@ -243,6 +246,7 @@ PHP
                     TypeRestriction::object($fromClass->getProperty($property)),
                     TypeRestriction::object($toClass->getProperty($property)),
                     $errorMessages,
+                    $codeContext,
                 ],
                 array_keys($properties),
                 $properties,
